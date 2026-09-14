@@ -10,6 +10,7 @@ node_modules/
 .env.*
 !.env.example
 .local/
+.local-production/
 .data/
 test-results/
 playwright-report/

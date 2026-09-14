@@ -4,6 +4,8 @@ Consumer garment-design software: turn descriptions, references and sketches int
 
 **Status: private manual/CPU prototype.** The editor supports original briefs, references, manual garment authoring, saved revisions, actual 2D shirt/skirt/trouser geometry, and PDF/JSON review exports. Descriptions are preserved, not interpreted by AI. Patterns are printable references, not sewing-ready or fit-validated outputs. Public hosting is not enabled by this repository.
 
+**Try it:** [Private Sew Computer studio](https://sew-computer-hatsunemiku.zo.computer). Requires owner Zo sign-in and the studio access key. See [deployment and first-use instructions](docs/deployment.md). This checkout now backs the live service; use an isolated checkout for future development and test builds.
+
 ## Start here
 
 1. **[Active software-prototype plan](docs/plans/software-prototype.md)** — scope, workstreams, manual-first release milestone, AI enhancement and implementation gates.
