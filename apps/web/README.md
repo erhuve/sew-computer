@@ -1,0 +1,11 @@
+# Sew Computer studio
+
+React/Vite interface for the private manual/CPU prototype. `server.ts` mounts the authenticated API, trusted engine adapter and PDF exporter in one Bun process. Production serves `dist`; development transforms the editor through Vite. Zo manages the Site lifecycle; do not hand-start or restart the managed Site.
+
+The editor preserves original briefs and unsupported requirements, offers explicit geometry parameters, private raster references, BOM/POM/construction authoring, revision history, saved-revision exports and reviewed manifest imports. Actual pattern panels appear above the fold on desktop/mobile. Geometry uses millimetres with Y increasing upward; SVG inverts Y for display, while PDF coordinates already increase upward.
+
+`SEW_ALLOWED_ORIGINS` supplies exact allowed browser origins; `SEW_DATA_DIR` selects private SQLite/artifact storage (default: the repository's ignored `.local`). `SEW_ACCESS_KEY` can supply the owner credential; otherwise the API creates `.local/access-key` with private permissions. Keep the key outside Git and URLs. Login is required even behind Zo's owner-only page gate. See `../api/README.md` for authentication, storage and recovery limitations.
+
+From the repository root, run `bun run typecheck`, `bun run build` and `bun run test:browser`. Browser tests launch an isolated production server on an ephemeral loopback port and exercise real API requests, secure cookies, downloads and the separately provisioned CPU engine. They never modify the managed Site database. Synthetic screenshots and sample review PDFs are written under `docs/verification/manual-prototype`.
+
+The manual prototype does not interpret prompts, generate concepts, simulate fit or classify patterns as calibrated cutting candidates. Imported corrections update the draft and require an explicit new revision. Public/multi-user deployment and supported backup restoration remain separate gates.

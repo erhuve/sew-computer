@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "purpose": "Original synthetic proportional construction fixture authored for Sew Computer; NOT research body measurements, a demographic average, inferred anatomy or fit advice. Five owner-entered body values remain the only measured inputs. Explicit subset acknowledgement is required before these assumptions are used.",
+  "derived": {
+    "head_l": ["height", 0.14],
+    "waist_line": ["height", 0.25],
+    "hips_line": ["height", 0.12],
+    "bust_line": ["height", 0.12],
+    "vert_bust_line": ["height", 0.11],
+    "armscye_depth": ["height", 0.13],
+    "neck_w": ["height", 0.09],
+    "arm_length": ["height", 0.32],
+    "wrist": ["bust", 0.16],
+    "back_width": ["bust", 0.48],
+    "waist_back_width": ["waist", 0.5],
+    "hip_back_width": ["hips", 0.52],
+    "bust_points": ["bust", 0.18],
+    "bum_points": ["hips", 0.2],
+    "leg_circ": ["hips", 0.58],
+    "crotch_hip_diff": ["height", 0.03]
+  },
+  "fixedDegrees": {
+    "shoulder_incl": 15,
+    "hip_inclination": 10,
+    "arm_pose_angle": 45
+  }
+}

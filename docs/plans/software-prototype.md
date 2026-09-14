@@ -1,8 +1,8 @@
 # Sew Computer: software prototype execution plan
 
-**2026-09-14 · Active plan · Proposed design, ready for implementation planning after review**
+**2026-09-14 · Active plan · Manual/CPU prototype implemented; remaining gates tracked in the implementation review**
 
-This is the only active execution plan. It supersedes the earlier workspace-only software-prototype proposal for sequencing and integration decisions, while preserving the [product intent](../product/vision.md). Specialist designs below are supporting specifications, not competing roadmaps. This repository currently contains documentation, not a working application.
+This is the only active execution plan. It supersedes the earlier workspace-only software-prototype proposal for sequencing and integration decisions, while preserving the [product intent](../product/vision.md). Specialist designs below are supporting specifications, not competing roadmaps. The [implementation review](../reviews/manual-prototype.md) records delivered behavior and deviations; the acceptance requirements below remain the target.
 
 ## Outcome
 
