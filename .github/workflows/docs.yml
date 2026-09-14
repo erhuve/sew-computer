@@ -1,0 +1,19 @@
+name: Check planning documents
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  documents:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check local document links and structure
+        run: python3 scripts/check_docs.py
+      - name: Check whitespace
+        run: git diff-tree --check HEAD
