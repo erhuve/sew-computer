@@ -27,7 +27,8 @@ import {
 } from "../../../../packages/contracts";
 import Authoring from "../components/Authoring";
 import PatternCanvas from "../components/PatternCanvas";
-import { api, ApiError, json, downloadJson } from "../lib/api";
+import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
+import PrivateImage from "../components/PrivateImage";
 import "../studio.css";
 
 const sections = [
@@ -656,7 +657,7 @@ export default function Studio() {
                   {references.length ? (
                     references.map((r) => (
                       <figure key={r.id}>
-                        <img
+                        <PrivateImage
                           src={`/api/projects/${state.project.id}/references/${r.assetId}`}
                           alt={r.caption || `${r.role} ${r.kind}`}
                         />
@@ -1021,6 +1022,10 @@ export default function Studio() {
                   key={f.filename}
                   href={f.url.startsWith("/api/") ? f.url : "/api" + f.url}
                   download={f.filename}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    task(() => downloadFile(f.url, f.filename));
+                  }}
                 >
                   <FileText size={16} />
                   {f.filename}

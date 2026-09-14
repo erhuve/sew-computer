@@ -8,6 +8,7 @@ import {
   type ReviewComment,
 } from "../../../../packages/contracts";
 import { api } from "../lib/api";
+import PrivateImage from "./PrivateImage";
 
 const uid = () => crypto.randomUUID();
 type Props = {
@@ -589,7 +590,7 @@ export default function Authoring({
           </label>
           {doc.views.map((r, i) => (
             <div className="entry" key={r.id}>
-              <img
+              <PrivateImage
                 className="reference-thumb"
                 src={`/api/projects/${projectId}/references/${r.assetId}`}
                 alt={r.caption || `${r.role} ${r.kind}`}

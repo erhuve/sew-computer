@@ -37,7 +37,7 @@ export function createApi(options:ApiOptions):Api {
   let closed=false, decoding=0;
   const tokenHash=(request:Request):string|null=>{
     const cookie=request.headers.get('cookie')??'';
-    const token=cookie.split(';').map(v=>v.trim()).find(v=>v.startsWith(sessionName+'='))?.slice(sessionName.length+1);
+    const token=request.headers.get('X-Sew-Session')??cookie.split(';').map(v=>v.trim()).find(v=>v.startsWith(sessionName+'='))?.slice(sessionName.length+1);
     return token && /^[A-Za-z0-9_-]{48}$/.test(token) ? hash(token) : null;
   };
   const authenticated=(request:Request):boolean=>{
@@ -79,6 +79,7 @@ export function createApi(options:ApiOptions):Api {
       store.db.exec('DELETE FROM sessions WHERE hash NOT IN (SELECT hash FROM sessions ORDER BY expires DESC LIMIT 32)');
     });
     setCookie(c,sessionName,token,{httpOnly:true,secure:true,sameSite:'Strict',path:'/',maxAge:sessionMs/1000});
+    if(c.req.header('X-Sew-Session-Transport')==='header') c.header('X-Sew-Session',token);
     return c.body(null,204);
   });
   api.post('/auth/logout',c=>{

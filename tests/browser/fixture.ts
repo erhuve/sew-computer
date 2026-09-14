@@ -27,7 +27,7 @@ export const test=base.extend<{studio:Studio}>({studio:async({page},use)=>{
       await expect(page.getByRole('heading',{name:'What will you make?'})).toBeVisible();
     };
     const call=async(method:string,path:string,body?:unknown)=>page.evaluate(async args=>{
-      const response=await fetch('/api'+args.path,{method:args.method,headers:{Accept:'application/json',...(args.body===undefined?{}:{'Content-Type':'application/json'})},body:args.body===undefined?undefined:JSON.stringify(args.body)});
+      const response=await fetch('/api'+args.path,{method:args.method,headers:{Accept:'application/json','X-Sew-Session':sessionStorage.getItem('sew-session')??'',...(args.body===undefined?{}:{'Content-Type':'application/json'})},body:args.body===undefined?undefined:JSON.stringify(args.body)});
       const data=response.status===204?null:await response.json();
       if(!response.ok)throw new Error(`${response.status} ${JSON.stringify(data)}`);
       return data;

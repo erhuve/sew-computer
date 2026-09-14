@@ -4,6 +4,15 @@ import {resolve} from 'node:path';
 import {PDFDocument} from 'pdf-lib';
 import sharp from 'sharp';
 const evidence=resolve(import.meta.dirname,'../../docs/verification/manual-prototype');
+test('cookie-stripping proxy retains login on reload and revokes it on logout',async({studio})=>{
+ await studio.login();
+ await studio.page.reload();
+ await expect(studio.page.getByRole('heading',{name:'What will you make?'})).toBeVisible();
+ await studio.call('POST','/auth/logout');
+ await studio.page.reload();
+ await expect(studio.page.getByLabel('Owner access key',{exact:true})).toBeVisible();
+ expect(await studio.page.evaluate(async()=>{const response=await fetch('/api/projects');return response.status;})).toBe(401);
+});
 async function create(studio:any,title='The everyday overshirt'){
  await studio.login();const page=studio.page;
  await page.getByRole('button',{name:'New garment',exact:true}).first().click();
@@ -55,10 +64,13 @@ test('authenticated sanitized reference upload remains private and is not a simu
  await create(studio);const page=studio.page;
  await page.getByRole('button',{name:'References',exact:true}).click();
  const image=await sharp({create:{width:400,height:400,channels:3,background:'#f0eadf'}}).png().toBuffer();
+ const uploaded=page.waitForResponse(response=>response.url().endsWith('/references')&&response.request().method()==='POST'&&response.status()===201);
  await page.locator('input[type=file]').first().setInputFiles({name:'original-sketch.png',mimeType:'image/png',buffer:image});
  await expect(page.locator('.reference-thumb')).toBeVisible();
  await page.getByRole('tab',{name:'Idea & references',exact:true}).click();await expect(page.locator('.reference-board img')).toBeVisible();
- const src=await page.locator('.reference-board img').getAttribute('src');page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Sign out',exact:true}).click();
+ await expect.poll(()=>page.locator('.reference-board img').evaluate((image:HTMLImageElement)=>image.naturalWidth)).toBe(400);
+ const response=await uploaded,asset=await response.json();
+ const src=response.url()+'/'+asset.id;page.once('dialog',dialog=>dialog.accept());await page.getByRole('button',{name:'Sign out',exact:true}).click();
  await expect(page.getByLabel('Owner access key',{exact:true})).toBeVisible();
  const status=await page.evaluate(async src=>(await fetch(src!)).status,src);expect(status).toBe(401);
 });

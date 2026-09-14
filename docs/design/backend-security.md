@@ -36,6 +36,8 @@ React never receives storage paths or provider credentials. Bun alone owns SQLit
 
 Use documented, verified server-side platform identity only if available. Private page visibility is not API authentication. Otherwise implement the contract’s owner-login fallback: Argon2id password hashing, rate-limited login, opaque server-managed sessions, revocation and secure cookies. Validate configured origins and CSRF tokens for mutations, including login and uploads; never derive trust from `Host`.
 
+For the private Zo proxy, which strips cookies, the contract permits explicit `X-Sew-Session` transport of the same expiring session. The browser stores this token in sessionStorage; it is accessible to same-origin JavaScript. All protected image and export requests use authenticated fetches, never URL tokens. See [deployment](../deployment.md) for the operational tradeoff and cookie-stripping regression coverage.
+
 Representative routes:
 
 | Route | Contract |

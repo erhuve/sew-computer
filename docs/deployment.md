@@ -10,6 +10,8 @@ Choose **New garment**, enter an idea, and author the design manually. To try ac
 
 ## Runtime configuration
 
+The private Zo proxy strips request cookies. The studio therefore sends its short-lived session in `X-Sew-Session`, stored in tab-scoped sessionStorage after owner login. The owner key is never persisted in browser storage. Reloads retain the session; logout revokes it server-side and clears it locally. This transport exposes the session to same-origin JavaScript, unlike HttpOnly cookies; do not load untrusted scripts. Reference images and downloads use authenticated fetches rather than credential-bearing URLs. Direct API clients may still use the secure cookie transport. Browser regression tests strip cookies to reproduce the private proxy.
+
 The ignored `apps/web/zosite.json` uses a dedicated publish label, port 56810 and `bun run prod`. Its publish environment includes:
 
 - `NODE_ENV=production`
