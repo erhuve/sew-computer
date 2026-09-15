@@ -14,7 +14,7 @@ export interface HandoffManifest extends Record<string, unknown> {
   revisionNumber: number; parentRevisionId: string | null; revisionCreatedAt: string; snapshotCreatedAt: string; inputDigest: string;
   renderer: 'sew-computer-tech-pack/1';
   sections: {
-    overview: Pick<GarmentDocument, 'title' | 'brief' | 'sizeLabel' | 'garment'>;
+    overview: Pick<GarmentDocument, 'title' | 'brief' | 'sizeLabel' | 'garment' | 'interpretation'>;
     requirements: GarmentDocument['requirements']; materials: GarmentDocument['bom']; bom: GarmentDocument['bom'];
     bodyInputs?: GarmentDocument['body']; finishedMeasurements: GarmentDocument['poms']; construction: GarmentDocument['construction'];
     patternInventory: {
@@ -81,14 +81,14 @@ export async function buildExport(snapshot: ExportSnapshot, geometry: PatternGeo
   if (!saved.disclosure.includeBody) omissions.push('Body input fields and their provenance are omitted.');
   if (!saved.disclosure.includeReferences) omissions.push('Source reference images, sketches, technical-flat images, labels and source captions are omitted.');
   if (!saved.disclosure.includePatterns) omissions.push('Pattern files, panel geometry, engine warnings and engine assembly links are omitted.');
-  omissions.push('No AI interpretation, simulation, cutting-candidate classification, print calibration, physical-fit approval or independently authenticated maker review is included.');
+  omissions.push('No simulation, cutting-candidate classification, print calibration, physical-fit approval or independently authenticated maker review is included. AI suggestions, when present, remain unverified.');
   omissions.push('Contact records and raw model exchanges are not part of this export schema. Owner-entered free text is not automatically scrubbed of personal information.');
   const manifest: HandoffManifest = {
     schemaVersion: 1, snapshotId: saved.id, revisionId: saved.revision.id, projectId: saved.revision.projectId,
     revisionNumber: saved.revision.number, parentRevisionId: saved.revision.parentRevisionId, revisionCreatedAt: saved.revision.createdAt,
     snapshotCreatedAt: saved.createdAt, inputDigest: saved.revision.digest, renderer: 'sew-computer-tech-pack/1', manifestDigest: '',
     sections: {
-      overview: { title: doc.title, brief: doc.brief, sizeLabel: doc.sizeLabel, garment: structuredClone(doc.garment) },
+      overview: { title: doc.title, brief: doc.brief, sizeLabel: doc.sizeLabel, garment: structuredClone(doc.garment),...(doc.interpretation?{interpretation:structuredClone(doc.interpretation)}:{}) },
       requirements: structuredClone(doc.requirements), materials: structuredClone(doc.bom.filter(item => item.category === 'fabric' || item.category === 'lining')),
       bom: structuredClone(doc.bom), ...(saved.disclosure.includeBody ? { bodyInputs: structuredClone(doc.body) } : {}),
       finishedMeasurements: structuredClone(doc.poms), construction: structuredClone(doc.construction),

@@ -2,7 +2,7 @@
 
 Consumer garment-design software: turn descriptions, references and sketches into editable garment designs, connected sewing patterns and a revisioned tech pack.
 
-**Status: private manual/CPU prototype.** The editor supports original briefs, references, manual garment authoring, saved revisions, actual 2D shirt/skirt/trouser geometry, and PDF/JSON review exports. Descriptions are preserved, not interpreted by AI. Patterns are printable references, not sewing-ready or fit-validated outputs. Public hosting is not enabled by this repository.
+**Status: private AI-assisted design prototype.** Describe a garment, optionally include reference images, review an AI proposal, enter measurements, generate actual 2D shirt/skirt/trouser geometry, and export a revisioned PDF/JSON tech pack. AI also drafts materials, measurement definitions and construction notes. Unsupported details remain explicit. Patterns are printable references, not sewing-ready or fit-validated outputs. Public hosting is not enabled by this repository.
 
 **Try it:** [Private Sew Computer studio](https://sew-computer-hatsunemiku.zo.computer). Requires owner Zo sign-in and the studio access key. See [deployment and first-use instructions](docs/deployment.md). This checkout now backs the live service; use an isolated checkout for future development and test builds.
 
@@ -25,7 +25,7 @@ Four specialist design briefs informed the plan. Independent security/contract a
 
 ## Prototype
 
-A private, single-owner editor with real 2D pattern geometry, manual garment/tech-pack authoring, durable revisions, reviewable PDF/manifest export and feedback incorporation. This manual-first milestone must work with every model route disabled. Text/reference interpretation is a separately gated enhancement; the full released Design2GarmentCode AI path and optional simulation require additional runtime and rights checks.
+A private, single-owner editor with reviewable AI proposals, real 2D pattern geometry, manual garment/tech-pack authoring, durable revisions, PDF/manifest export and feedback incorporation. Manual creation still works with every model route disabled. The integrated general-model proposal adapter is separate from the full released Design2GarmentCode AI path and optional simulation. See the [AI integration review](docs/reviews/ai-prototype.md).
 
 The first geometry adapter has limited, explicit capabilities. Unsupported original intent remains editable. A concept image, pattern geometry, print calibration and physical fit are different evidence. See the [implementation review](docs/reviews/manual-prototype.md) for verification and remaining release gates.
 

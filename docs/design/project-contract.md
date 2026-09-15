@@ -2,6 +2,8 @@
 
 **2026-09-14 · Proposed normative integration contract**
 
+Private AI release exception (2026-09-15): the optional Codex login transport rejects provider-side output-token limits. It uses a single tool-free request, bounded input/images, a two-minute deadline, bounded streamed answer and persistent hourly request limit. This does not enforce a provider billing ceiling. The connection is explicitly disclosed in the UI and [deployment instructions](../deployment.md#design-model-connection); dedicated API mode retains a 6,000 completion-token limit. This exception does not grant model output authority over measurements, code, ownership or validation.
+
 This document owns shared semantics. The specialist documents expand it; they must not redefine its states or identities. Decisions remain proposed until implemented and verified. [Product intent](../product/vision.md) overrides an optimization that silently narrows creative freedom.
 
 ## 1. Canonical records

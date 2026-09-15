@@ -12,7 +12,7 @@ export const MeasurementSchema = z.discriminatedUnion('state', [
 export type Measurement = z.infer<typeof MeasurementSchema>;
 export function mm(m: Measurement): number | null { return 'value' in m ? m.value * ({mm:1,cm:10,in:25.4}[m.unit]) : null; }
 export function convert(m: Measurement, unit: z.infer<typeof Unit>): Measurement { return 'value' in m ? {...m, unit, value: Number((mm(m)! / ({mm:1,cm:10,in:25.4}[unit])).toFixed(8))} : m; }
-export function assumed(value: number, unit: 'mm'|'cm'|'in' = 'mm', source = 'Explicit synthetic example; not the wearer’s measurements'): Measurement { return {state:'assumed',value,unit,source}; }
+export function assumed(value: number, unit: 'mm'|'cm'|'in' = 'mm', source = 'Explicit synthetic example; not the wearer’s measurements'): Extract<Measurement,{state:'assumed'}> { return {state:'assumed',value,unit,source}; }
 export const RequirementSchema = z.object({id:Id,text, status:z.enum(['unresolved','supported','unsupported']), note:text}).strict();
 export const BomSchema = z.object({id:Id,name:z.string().max(240),category:z.enum(['fabric','lining','trim','other']),specification:text,placement:text,quantity:z.string().max(240),source:z.string().max(500)}).strict();
 export const PomSchema = z.object({id:Id,name:z.string().max(240),method:text,target:MeasurementSchema,tolerance:MeasurementSchema,size:z.string().max(100),note:text}).strict();
@@ -25,6 +25,7 @@ export const DocumentSchema = z.object({
   body:z.object({height:MeasurementSchema,bust:MeasurementSchema,waist:MeasurementSchema,hip:MeasurementSchema,shoulder:MeasurementSchema}).strict(),
   requirements:z.array(RequirementSchema).max(80), bom:z.array(BomSchema).max(80), poms:z.array(PomSchema).max(80),
   construction:z.array(ConstructionSchema).max(80),callouts:z.array(CalloutSchema).max(80),views:z.array(ViewSchema).max(20),
+  interpretation:z.object({provider:z.string().max(200),model:z.string().max(200),adapter:z.literal('sew-interpretation/1'),proposalId:Id,createdAt:z.string().max(40)}).strict().optional(),
 }).strict();
 export type GarmentDocument = z.infer<typeof DocumentSchema>;
 export function emptyDocument(title='Untitled garment',brief=''):GarmentDocument { return {schemaVersion:1,title,brief,sizeLabel:'Not specified',garment:{family:'none',length:{state:'unknown'},ease:{state:'unknown'},flare:1},body:{height:{state:'unknown'},bust:{state:'unknown'},waist:{state:'unknown'},hip:{state:'unknown'},shoulder:{state:'unknown'}},requirements:[],bom:[],poms:[],construction:[],callouts:[],views:[]}; }

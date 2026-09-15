@@ -1,6 +1,6 @@
 # Sew Computer
 
-- This repository contains a private manual/CPU prototype: React editor, authenticated SQLite API, trusted CPU pattern adapter and revisioned PDF/JSON exports. AI interpretation, simulation, calibrated cutting claims and public multi-user hosting remain outside this release.
+- This repository contains a private AI-assisted design prototype: reviewed text/reference proposals, React editor, authenticated SQLite API, trusted CPU pattern adapter and revisioned PDF/JSON exports. Simulation, calibrated cutting claims and public multi-user hosting remain outside this release. Read `docs/reviews/ai-prototype.md` for the AI boundary and connection limits.
 - The private Zo service `sew-computer` runs from this checkout's `apps/web`; production data lives in ignored `.local-production/`. Use isolated checkouts for future edits and test builds. Read `docs/deployment.md` before releasing; publish the Site privately and preserve the data directory and access key.
 - Read `README.md`, `docs/product/vision.md` and the one active plan, `docs/plans/software-prototype.md`, before implementation.
 - `docs/design/project-contract.md` is normative for shared state, security, units, evidence and exports. The other `docs/design/` files are supporting designs, not competing active plans. Resolve disagreement by updating the contract and every affected design together.

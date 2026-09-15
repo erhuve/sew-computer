@@ -5,11 +5,12 @@ import { z } from 'zod';
 import { DisclosureSchema, Id, emptyDocument, type Artifact, type Draft, type Project, type Revision, type ReviewComment } from '../../packages/contracts';
 import { Handoff, committedPatterns, type Exporter } from './exports';
 import { acceptImport, previewImport } from './imports';
+import { InterpretationService, type Interpreter } from './interpretation';
 import { JobQueue, type Engine } from './jobs';
 import { Store, type ArtifactRow } from './store';
 import { ApiError, document, filenameSchema, hash, id, identitySchema, json, now, objectDigest, readBounded } from './validation';
 
-export type ApiOptions={dataDir:string;allowedOrigins:string[];authKey?:string;engine?:Engine;exporter?:Exporter};
+export type ApiOptions={dataDir:string;allowedOrigins:string[];authKey?:string;engine?:Engine;exporter?:Exporter;interpreter?:Interpreter};
 export type Api=Hono & {close:()=>void};
 const sessionName='sew_session';
 const sessionMs=12*60*60*1000;
@@ -33,6 +34,7 @@ export function createApi(options:ApiOptions):Api {
   const origins=new Set(options.allowedOrigins), store=new Store(options.dataDir,options.authKey);
   store.reconcile();
   const queue=new JobQueue(store,options.engine), handoff=new Handoff(store,options.exporter);
+  const interpretation=new InterpretationService(store,options.interpreter);
   const api=new Hono() as Api;
   let closed=false, decoding=0;
   const tokenHash=(request:Request):string|null=>{
@@ -128,7 +130,19 @@ export function createApi(options:ApiOptions):Api {
       return store.state(projectId);
     });queue.fenceProject(projectId);return c.json(state,201);
   });
-  api.delete('/projects/:id',c=>{const projectId=Id.parse(c.req.param('id'));store.deleteProject(projectId);queue.fenceProject(projectId);return c.body(null,204);});
+  api.get('/interpretation/status',c=>c.json(interpretation.status()));
+  api.get('/projects/:id/proposals/latest',c=>c.json(interpretation.latest(Id.parse(c.req.param('id')))));
+  api.post('/projects/:id/proposals',async c=>{
+    const body=identitySchema.extend({includeReferences:z.boolean(),consent:z.literal(true)}).parse(await json(c.req.raw));
+    return c.json(await interpretation.propose(Id.parse(c.req.param('id')),body),201);
+  });
+  api.post('/projects/:id/proposals/:proposalId/accept',async c=>{
+    const body=identitySchema.parse(await json(c.req.raw)),projectId=Id.parse(c.req.param('id'));
+    const state=interpretation.accept(projectId,Id.parse(c.req.param('proposalId')),body);
+    queue.staleProject(projectId);queue.fenceProject(projectId);
+    return c.json(state,201);
+  });
+  api.delete('/projects/:id',c=>{const projectId=Id.parse(c.req.param('id'));interpretation.cancel(projectId);store.deleteProject(projectId);queue.fenceProject(projectId);return c.body(null,204);});
   api.post('/projects/:id/jobs',async c=>{
     const body=z.object({revisionId:Id,requestId:Id}).strict().parse(await json(c.req.raw));
     return c.json(queue.enqueue(Id.parse(c.req.param('id')),body.revisionId,body.requestId),202);
@@ -195,6 +209,6 @@ export function createApi(options:ApiOptions):Api {
   api.post('/projects/:id/imports/preview',async c=>{const body=z.object({manifest:z.unknown()}).strict().parse(await json(c.req.raw));return c.json(previewImport(store,Id.parse(c.req.param('id')),body.manifest),201);});
   api.post('/projects/:id/imports/:previewId/accept',async c=>{const body=importAcceptSchema.parse(await json(c.req.raw));return c.json(acceptImport(store,Id.parse(c.req.param('id')),Id.parse(c.req.param('previewId')),body));});
   api.notFound(c=>c.json({error:'Route not found'},404));
-  api.close=()=>{if(closed)return;closed=true;queue.close();store.close();};
+  api.close=()=>{if(closed)return;closed=true;interpretation.close();queue.close();store.close();};
   return api;
 }

@@ -34,8 +34,13 @@ export class Store {
     try {
       this.db.exec('PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON;');
       const version = (this.db.query('PRAGMA user_version').get() as {user_version:number}).user_version;
-      if (version !== 0 && version !== 1) throw new Error('Unsupported database schema');
+      if (![0,1,2].includes(version)) throw new Error('Unsupported database schema');
       if (version === 0) this.migrate();
+      if(version<2)this.transaction(()=>{
+        this.db.exec(`CREATE TABLE ai_requests(id TEXT PRIMARY KEY,project_id TEXT NOT NULL,at INTEGER NOT NULL);
+          CREATE TABLE ai_proposals(id TEXT PRIMARY KEY,project_id TEXT NOT NULL REFERENCES projects(id),json TEXT NOT NULL,source_digest TEXT NOT NULL,generation INTEGER NOT NULL,accepted INTEGER NOT NULL DEFAULT 0);
+          PRAGMA user_version=2;`);
+      });
       this.transaction(()=>this.replayDeletions(existed));
       let key = authKey;
       if (key === undefined) {
@@ -244,7 +249,8 @@ export class Store {
     this.db.query('DELETE FROM geometry_heads WHERE revision_id IN (SELECT id FROM revisions WHERE project_id=?)').run(projectId);
     this.db.query('DELETE FROM export_files WHERE snapshot_id IN (SELECT id FROM snapshots WHERE project_id=?)').run(projectId);
     this.db.query('DELETE FROM snapshot_results WHERE snapshot_id IN (SELECT id FROM snapshots WHERE project_id=?)').run(projectId);
-    for(const table of ['artifacts','snapshots','import_previews','comments','jobs','reference_assets','revisions'])this.db.query(`DELETE FROM ${table} WHERE project_id=?`).run(projectId);
+    this.db.query("UPDATE ai_requests SET project_id='deleted' WHERE project_id=?").run(projectId);
+    for(const table of ['ai_proposals','artifacts','snapshots','import_previews','comments','jobs','reference_assets','revisions'])this.db.query(`DELETE FROM ${table} WHERE project_id=?`).run(projectId);
     for(const {storage_key:key} of keys)if(/^[a-zA-Z0-9_-]{24}$/.test(key))rmSync(join(this.root,'blobs',key),{force:true});
     for(const name of readdirSync(join(this.root,'staging')))if(jobIds.some(jobId=>name.startsWith(jobId+'-')))rmSync(join(this.root,'staging',name),{recursive:true,force:true});
   }

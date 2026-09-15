@@ -103,6 +103,7 @@ export function previewImport(store:Store,projectId:string,raw:unknown):ImportPr
     if(own(sections,'overview')) {
       if(!isObject(sections.overview)) throw new ApiError(422,'Invalid overview');
       for(const key of Object.keys(sections.overview)) {
+        if(key==='interpretation')continue;
         if(!fields.overview!.includes(key)) throw new ApiError(422,'Unknown overview field');
         if(key==='garment') compareObject(['garment'],sections.overview[key],fields.garment);
         else propose([key],sections.overview[key]);

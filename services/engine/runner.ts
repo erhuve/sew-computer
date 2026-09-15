@@ -41,6 +41,7 @@ export function validateInput(document: GarmentDocument, inputDigest: string) {
   if (doc.garment.flare < minFlare || doc.garment.flare > maxFlare) throw new Error(`Unsupported ${family} flare: requires ${minFlare}–${maxFlare}`);
   if (family !== 'shirt' && bodyMm.hip - bodyMm.waist < 40) throw new Error('Unsupported lower-garment body combination: hip must exceed waist by at least 40 mm');
   const provenance = [
+    ...(doc.interpretation?[`AI parameter proposal: ${doc.interpretation.provider} / ${doc.interpretation.model} / ${doc.interpretation.adapter}; proposal ${doc.interpretation.proposalId}. Accepted by owner; subsequent manual edits possible. Not a fit or sewing validation.`]:[]),
     'The brief, references, construction text and requirement statuses are preserved but are not interpreted by this manual CPU adapter. Only family, length, ease, flare and entered body values are used.',
     ...Object.entries(doc.body).map(([key, m]) => `Owner-entered body.${key}: ${m.state}; source: ${'source' in m ? m.source : 'unspecified'}.`),
     ...(['length', 'ease'] as const).map(key => `Owner-entered garment.${key}: ${doc.garment[key].state}; source: ${'source' in doc.garment[key] ? doc.garment[key].source : 'unspecified'}.`),

@@ -151,11 +151,12 @@ export async function renderPdf(context: PdfContext, manifest: HandoffManifest, 
   out.field('Garment length parameter', measurement(s.overview.garment.length));
   out.field('Ease parameter', measurement(s.overview.garment.ease));
   out.field('Flare ratio', String(s.overview.garment.flare));
-  out.field('Geometry scope', 'Limited manual CPU adapter; no physical-fit approval or full design realization claim.');
+  out.field('Geometry scope', 'Limited CPU pattern adapter; no physical-fit approval or full design realization claim.');
+  if(s.overview.interpretation)out.field('AI design provenance', `${s.overview.interpretation.provider} / ${s.overview.interpretation.model} / ${s.overview.interpretation.adapter}. Proposal ${s.overview.interpretation.proposalId}; unverified suggestions accepted by the owner, with subsequent edits possible.`);
   const unresolved = s.requirements.filter(r => r.status !== 'supported').length;
   out.heading('Completeness and capability');
   out.paragraph(`${unresolved} unsupported or unresolved requirements; ${s.finishedMeasurements.filter(p => p.target.state === 'unknown').length} unknown POM targets; ${s.construction.length} owner-entered construction notes. Pattern disclosure: ${s.patternInventory.status}.`);
-  out.paragraph('Original unsupported intent is retained. Supported means representable by the adapter, not physically validated. No AI interpretation, simulation, calibrated cutting candidate or physical-fit approval is supplied.', 9, true);
+  out.paragraph('Original unsupported intent is retained. Supported means representable by the adapter, not physically validated. AI suggestions are not validation. No simulation, calibrated cutting candidate or physical-fit approval is supplied.', 9, true);
   for (const requirement of s.requirements) {
     out.heading(`${requirement.id} / ${requirement.status}`);
     out.paragraph(requirement.text);

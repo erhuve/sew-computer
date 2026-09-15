@@ -14,7 +14,7 @@ export function validateExport(snapshot:ExportSnapshot,result:ExportResult,asset
   const sections=manifest.sections as Record<string,unknown>,doc=snapshot.document;
   const sectionKeys=new Set(['overview','requirements','materials','bom','bodyInputs','finishedMeasurements','construction','patternInventory','review','exportDisclosure']);
   require(Object.keys(sections).every(k=>sectionKeys.has(k)),'Renderer returned unknown manifest sections');
-  const projection:Record<string,unknown>={overview:{title:doc.title,brief:doc.brief,sizeLabel:doc.sizeLabel,garment:doc.garment},requirements:doc.requirements,materials:doc.bom.filter(r=>r.category==='fabric'||r.category==='lining'),bom:doc.bom,finishedMeasurements:doc.poms,construction:doc.construction,review:{callouts:doc.callouts,comments:snapshot.comments}};
+  const projection:Record<string,unknown>={overview:{title:doc.title,brief:doc.brief,sizeLabel:doc.sizeLabel,garment:doc.garment,...(doc.interpretation?{interpretation:doc.interpretation}:{})},requirements:doc.requirements,materials:doc.bom.filter(r=>r.category==='fabric'||r.category==='lining'),bom:doc.bom,finishedMeasurements:doc.poms,construction:doc.construction,review:{callouts:doc.callouts,comments:snapshot.comments}};
   for(const [key,value] of Object.entries(projection))require(objectDigest(sections[key]??null)===objectDigest(value),'Renderer altered the saved editable projection');
   if(snapshot.disclosure.includeBody)require(objectDigest(sections.bodyInputs??null)===objectDigest(doc.body),'Renderer omitted disclosed body fields');
   else require(!Object.hasOwn(sections,'bodyInputs'),'Renderer disclosed omitted body inputs');

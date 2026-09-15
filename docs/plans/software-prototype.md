@@ -1,6 +1,8 @@
 # Sew Computer: software prototype execution plan
 
-**2026-09-14 · Active plan · Manual/CPU prototype implemented; remaining gates tracked in the implementation review**
+**2026-09-15 · Active plan · AI-assisted creation integration; remaining physical/research gates stay open**
+
+The owner's latest priority is an immediately usable describe-to-garment software flow. The manual milestone is complete; it is no longer the stopping point. The current implementation connects a tool-free model to reviewed typed proposals, explicit measurements, the existing CPU engine and revisioned exports. See the [AI integration review](../reviews/ai-prototype.md). This scope supersedes the earlier manual-only release sequencing without changing physical-readiness claims.
 
 This is the only active execution plan. It supersedes the earlier workspace-only software-prototype proposal for sequencing and integration decisions, while preserving the [product intent](../product/vision.md). Specialist designs below are supporting specifications, not competing roadmaps. The [implementation review](../reviews/manual-prototype.md) records delivered behavior and deviations; the acceptance requirements below remain the target.
 

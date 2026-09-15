@@ -239,8 +239,8 @@ export default function Authoring({
             ]),
           )}
           <p className="fineprint">
-            No interpretation model is running in this prototype. Descriptions
-            are preserved, not silently converted into parameters.
+            Use “Interpret my design” to propose parameters and technical notes.
+            Nothing changes until you accept the proposal.
           </p>
         </>
       )}
@@ -330,22 +330,21 @@ export default function Authoring({
                   ...doc,
                   garment: {
                     ...doc.garment,
-                    length: assumed(
+                    length: 'value' in doc.garment.length ? doc.garment.length : assumed(
                       doc.garment.family === "shirt"
                         ? 600
                         : doc.garment.family === "skirt"
                           ? 650
                           : 1000,
                     ),
-                    ease: assumed(80),
-                    flare: 1,
+                    ease: 'value' in doc.garment.ease ? doc.garment.ease : assumed(80),
                   },
                   body: {
-                    height: assumed(1700),
-                    bust: assumed(920),
-                    waist: assumed(760),
-                    hip: assumed(980),
-                    shoulder: assumed(400),
+                    height: 'value' in doc.body.height ? doc.body.height : assumed(1700),
+                    bust: 'value' in doc.body.bust ? doc.body.bust : assumed(920),
+                    waist: 'value' in doc.body.waist ? doc.body.waist : assumed(760),
+                    hip: 'value' in doc.body.hip ? doc.body.hip : assumed(980),
+                    shoulder: 'value' in doc.body.shoulder ? doc.body.shoulder : assumed(400),
                   },
                 });
               }}

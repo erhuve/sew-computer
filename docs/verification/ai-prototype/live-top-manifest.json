@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "x1T-TdGbnRQ0J21-jA05JPdM",
+  "revisionId": "IFk9niG59m156293P-9bA_o6",
+  "projectId": "f8xXDDuCThLkZdLsS5OpWYVg",
+  "revisionNumber": 2,
+  "parentRevisionId": "SRSXbVXusp87yhrsSBV8VTNs",
+  "revisionCreatedAt": "2026-09-15T20:56:57.458Z",
+  "snapshotCreatedAt": "2026-09-15T20:57:01.098Z",
+  "inputDigest": "5b5674a14c25fe892ad170ee6c693f4d42e24d1e94fab732af65795e54ecd3be",
+  "renderer": "sew-computer-tech-pack/1",
+  "manifestDigest": "80d0f0a69a022cf55ca3501f607d28945f00ac976e1abe5189cb07c5e154d48b",
+  "sections": {
+    "overview": {
+      "title": "AI validation top",
+      "brief": "Blue linen sleeveless top, symmetric round neck, gently flared, 60 cm long. No sleeves or collar.",
+      "sizeLabel": "Not specified",
+      "garment": {
+        "family": "shirt",
+        "length": {
+          "state": "assumed",
+          "value": 600,
+          "unit": "mm",
+          "source": "AI suggestion; owner confirmation and physical verification required"
+        },
+        "ease": {
+          "state": "assumed",
+          "value": 80,
+          "unit": "mm",
+          "source": "AI suggestion; owner confirmation and physical verification required"
+        },
+        "flare": 1.1
+      },
+      "interpretation": {
+        "provider": "OpenAI · existing Codex login",
+        "model": "gpt-6-astra",
+        "adapter": "sew-interpretation/1",
+        "proposalId": "-fudNVDMtGg0jwzGvqKr9sZ8",
+        "createdAt": "2026-09-15T20:56:57.433Z"
+      }
+    },
+    "requirements": [
+      {
+        "id": "z7KQoTl-WhC8f-PD2SDpCWnU",
+        "text": "Top",
+        "status": "supported",
+        "note": "AI proposal: The shirt family supports the basic top geometry."
+      },
+      {
+        "id": "bidFnGTBlvY7GX4LAW9007CH",
+        "text": "Blue color",
+        "status": "unresolved",
+        "note": "AI proposal: Preserved in the BOM; shade selection remains open. Color is not represented in geometry."
+      },
+      {
+        "id": "JNIWVMnvIRUYa9Qr1J6EYuyC",
+        "text": "Linen fabric",
+        "status": "unresolved",
+        "note": "AI proposal: Preserved in the BOM; fabric weight, drape and shrinkage need review. Fabric is not represented in geometry."
+      },
+      {
+        "id": "Gt1h2o5xwnWbFnaZEOd5xa1n",
+        "text": "Sleeveless; no sleeves",
+        "status": "supported",
+        "note": "AI proposal: The shirt geometry is sleeveless with curved armholes."
+      },
+      {
+        "id": "oAWmn5KtEeMAGig7JwL2aVhT",
+        "text": "Symmetric shape",
+        "status": "supported",
+        "note": "AI proposal: The shirt geometry is symmetric."
+      },
+      {
+        "id": "mUCmwRfXXaRd3cyxRf8B0Rdm",
+        "text": "Round neckline",
+        "status": "supported",
+        "note": "AI proposal: The shirt geometry provides a round neckline; neckline depth and dressing clearance still need review."
+      },
+      {
+        "id": "loNzls4fsB493vJKixCw5Ki7",
+        "text": "Gently flared",
+        "status": "supported",
+        "note": "AI proposal: AI suggestion: change the existing flare value of 1 to 1.1 in response to the brief. Confirm the intended silhouette; this parameter is not a finished hem measurement."
+      },
+      {
+        "id": "071OX_ctD_NzHFW6XM1jyLXX",
+        "text": "60 cm long",
+        "status": "supported",
+        "note": "AI proposal: Recorded as 600 mm construction length within the engine range. Confirm the intended measurement landmarks; body-dependent checks remain outstanding."
+      },
+      {
+        "id": "QQVAVnY-QQSJxZCgOJHc0jyl",
+        "text": "No collar",
+        "status": "supported",
+        "note": "AI proposal: The shirt geometry has no collar panels."
+      }
+    ],
+    "materials": [
+      {
+        "id": "NyX7vwIgcsLX9-TLfUouWdqi",
+        "name": "Blue linen shell fabric",
+        "category": "fabric",
+        "specification": "Owner-requested blue linen. AI suggestion: select an apparel-weight linen after reviewing opacity, drape and shrinkage; exact shade and weight unresolved.",
+        "placement": "Main top panels",
+        "quantity": "Unknown; determine after pattern and fabric width review",
+        "source": "AI suggestion (OpenAI · existing Codex login / gpt-6-astra); Owner brief for material and color; AI suggestion for selection considerations"
+      }
+    ],
+    "bom": [
+      {
+        "id": "NyX7vwIgcsLX9-TLfUouWdqi",
+        "name": "Blue linen shell fabric",
+        "category": "fabric",
+        "specification": "Owner-requested blue linen. AI suggestion: select an apparel-weight linen after reviewing opacity, drape and shrinkage; exact shade and weight unresolved.",
+        "placement": "Main top panels",
+        "quantity": "Unknown; determine after pattern and fabric width review",
+        "source": "AI suggestion (OpenAI · existing Codex login / gpt-6-astra); Owner brief for material and color; AI suggestion for selection considerations"
+      },
+      {
+        "id": "OneN6MQNVVeifpWvt_oAUKLb",
+        "name": "Coordinating blue sewing thread",
+        "category": "other",
+        "specification": "AI suggestion: thread suitable for the selected linen; type and shade to confirm.",
+        "placement": "Seams and edge finishing",
+        "quantity": "Unknown",
+        "source": "AI suggestion (OpenAI · existing Codex login / gpt-6-astra); AI suggestion; confirm before sewing"
+      },
+      {
+        "id": "xAnY1DRcwtTFFDT5APT9sVlh",
+        "name": "Blue neckline and armhole binding",
+        "category": "trim",
+        "specification": "AI suggestion: lightweight matching bias binding, purchased or self-fabric. Finish choice and width unresolved; binding is not generated geometry.",
+        "placement": "Neckline and armholes",
+        "quantity": "Unknown; determine from reviewed edge lengths",
+        "source": "AI suggestion (OpenAI · existing Codex login / gpt-6-astra); AI suggestion; confirm before sewing"
+      }
+    ],
+    "bodyInputs": {
+      "height": {
+        "state": "assumed",
+        "value": 1700,
+        "unit": "mm",
+        "source": "Explicit synthetic example; not the wearer’s measurements"
+      },
+      "bust": {
+        "state": "assumed",
+        "value": 920,
+        "unit": "mm",
+        "source": "Explicit synthetic example; not the wearer’s measurements"
+      },
+      "waist": {
+        "state": "assumed",
+        "value": 760,
+        "unit": "mm",
+        "source": "Explicit synthetic example; not the wearer’s measurements"
+      },
+      "hip": {
+        "state": "assumed",
+        "value": 980,
+        "unit": "mm",
+        "source": "Explicit synthetic example; not the wearer’s measurements"
+      },
+      "shoulder": {
+        "state": "assumed",
+        "value": 400,
+        "unit": "mm",
+        "source": "Explicit synthetic example; not the wearer’s measurements"
+      }
+    },
+    "finishedMeasurements": [
+      {
+        "id": "CwH_TDSgwvKMXXrJQqAeo-z4",
+        "name": "Finished top length",
+        "method": "Measure from high shoulder point beside the neckline to the hem, parallel to center front, with garment laid flat.",
+        "target": {
+          "state": "unknown"
+        },
+        "tolerance": {
+          "state": "unknown"
+        },
+        "size": "Not provided",
+        "note": "AI suggestion; not a measured result. AI-suggested measurement definition. Confirm whether the owner's 60 cm uses these landmarks; construction length does not establish this finished target."
+      },
+      {
+        "id": "yjvsofQZcIY71GOryq1QJmH7",
+        "name": "Chest circumference",
+        "method": "Measure flat across the body at an agreed level below the armholes and double the width; record the measurement level.",
+        "target": {
+          "state": "unknown"
+        },
+        "tolerance": {
+          "state": "unknown"
+        },
+        "size": "Not provided",
+        "note": "AI suggestion; not a measured result. AI-suggested POM; no body measurement or finished chest target is inferred from suggested ease."
+      },
+      {
+        "id": "FYtcBgKGVpjE8fVCsBdA1MeT",
+        "name": "Hem circumference",
+        "method": "Measure the full finished hem perimeter without stretching.",
+        "target": {
+          "state": "unknown"
+        },
+        "tolerance": {
+          "state": "unknown"
+        },
+        "size": "Not provided",
+        "note": "AI suggestion; not a measured result. AI-suggested POM for reviewing gentle flare; the flare parameter is not a circumference."
+      },
+      {
+        "id": "lhPiDtP8sAF5C5pEwedneTPj",
+        "name": "Neck opening circumference",
+        "method": "Measure around the finished neckline edge without stretching.",
+        "target": {
+          "state": "unknown"
+        },
+        "tolerance": {
+          "state": "unknown"
+        },
+        "size": "Not provided",
+        "note": "AI suggestion; not a measured result. AI-suggested POM; review head clearance and neckline shape before sewing."
+      },
+      {
+        "id": "rWpAwibfJZDdAszjsS66jUyl",
+        "name": "Armhole circumference",
+        "method": "Measure around each finished armhole edge without stretching.",
+        "target": {
+          "state": "unknown"
+        },
+        "tolerance": {
+          "state": "unknown"
+        },
+        "size": "Not provided",
+        "note": "AI suggestion; not a measured result. AI-suggested POM for checking left/right symmetry and armhole comfort."
+      }
+    ],
+    "construction": [
+      {
+        "id": "mjT90z8uItl3ZG9hg2y0I6YW",
+        "operation": "Review fabric and pattern decisions",
+        "note": "AI suggested step; unverified. AI suggestion: evaluate linen shrinkage and drape, and confirm length landmarks, ease, neckline clearance, seam allowances and edge finishes. This draft is not cutting-ready."
+      },
+      {
+        "id": "_aG5SzOx8s2ipJ9orqNp3BoQ",
+        "operation": "Prepare and join main panels",
+        "note": "AI suggested step; unverified. AI suggestion: after pattern review, stabilize curved edges as appropriate and join shoulder and side seams. Seam finish and assembly order depend on the chosen binding method and require confirmation."
+      },
+      {
+        "id": "55RwtlHz3WKPN1Ay0Q-K0HwV",
+        "operation": "Finish neckline and armholes",
+        "note": "AI suggested step; unverified. AI suggestion: use lightweight bias binding without adding sleeves or a collar. Binding dimensions, application method and any required pattern adjustments remain unresolved."
+      },
+      {
+        "id": "EyjLHlm74r46azP90IlAeJA6",
+        "operation": "Finish hem and review",
+        "note": "AI suggested step; unverified. AI suggestion: consider a narrow turned hem suitable for the linen and flare. Confirm hem allowance and finished length, then review symmetry, movement and dressing clearance. These are untested draft steps, not professional approval."
+      }
+    ],
+    "patternInventory": {
+      "status": "included",
+      "notice": "Generated garment patterns are reference-only and NOT cutting ready. No cutting-candidate classification, print calibration, seam/annotation validation or physical-fit evidence is supplied. When selected, original pattern files are included byte-for-byte, never restamped or rescaled; bundle identity belongs to this manifest and the separate tech pack.",
+      "flats": {
+        "front": "not_supplied",
+        "back": "not_supplied",
+        "detail": "not_supplied"
+      },
+      "artifacts": [
+        {
+          "id": "Mm3Rm8gF-J-yDj2YEv87Jxn2",
+          "projectId": "f8xXDDuCThLkZdLsS5OpWYVg",
+          "revisionId": "IFk9niG59m156293P-9bA_o6",
+          "jobId": "vR34Dz6lYW2PiY67e0VkQ6E2",
+          "createdAt": "2026-09-15T20:57:01.050Z",
+          "kind": "pattern-json",
+          "mime": "application/json",
+          "digest": "2b25750198529b047a3db72b231565b27b85e31d75e49a4aa0975a9bfa265b89",
+          "bytes": 39294,
+          "classification": "printable-reference",
+          "filename": "pattern.json",
+          "deliveryFilename": "pattern-Mm3Rm8gF-J-yDj2YEv87Jxn2.json"
+        },
+        {
+          "id": "kq9j4mraW8ywcjiVP7Y7vXF1",
+          "projectId": "f8xXDDuCThLkZdLsS5OpWYVg",
+          "revisionId": "IFk9niG59m156293P-9bA_o6",
+          "jobId": "vR34Dz6lYW2PiY67e0VkQ6E2",
+          "createdAt": "2026-09-15T20:57:01.050Z",
+          "kind": "pattern-svg",
+          "mime": "image/svg+xml",
+          "digest": "99421dc9b8d118a81fdbcbcd0cd7a0f19da77b880053aee08860dd90af39827d",
+          "bytes": 22789,
+          "classification": "printable-reference",
+          "filename": "pattern.svg",
+          "deliveryFilename": "pattern-kq9j4mraW8ywcjiVP7Y7vXF1.svg"
+        },
+        {
+          "id": "4RLd7N1P046VE2_yqKltG9Pc",
+          "projectId": "f8xXDDuCThLkZdLsS5OpWYVg",
+          "revisionId": "IFk9niG59m156293P-9bA_o6",
+          "jobId": "vR34Dz6lYW2PiY67e0VkQ6E2",
+          "createdAt": "2026-09-15T20:57:01.050Z",
+          "kind": "pattern-pdf",
+          "mime": "application/pdf",
+          "digest": "20e199f5fca49cfc97d49f89af869d4ce496e94b1facb54c009c939ce2b05c7f",
+          "bytes": 26486,
+          "classification": "printable-reference",
+          "filename": "pattern.pdf",
+          "deliveryFilename": "pattern-4RLd7N1P046VE2_yqKltG9Pc.pdf",
+          "pages": [
+            {
+              "page": 1,
+              "xPt": 0,
+              "yPt": 0,
+              "widthPt": 805.0393700787,
+              "heightPt": 1899.0519392126,
+              "widthMm": 283.9999999999858,
+              "heightMm": 669.9433230000005,
+              "rotationDegrees": 0,
+              "cropBox": {
+                "x": 0,
+                "y": 0,
+                "width": 805.0393700787,
+                "height": 1899.0519392126
+              }
+            },
+            {
+              "page": 2,
+              "xPt": 0,
+              "yPt": 0,
+              "widthPt": 867.4015748031,
+              "heightPt": 1900.2672028346,
+              "widthMm": 305.9999999999825,
+              "heightMm": 670.3720409999838,
+              "rotationDegrees": 0,
+              "cropBox": {
+                "x": 0,
+                "y": 0,
+                "width": 867.4015748031,
+                "height": 1900.2672028346
+              }
+            },
+            {
+              "page": 3,
+              "xPt": 0,
+              "yPt": 0,
+              "widthPt": 805.0393700787,
+              "heightPt": 1899.0519392126,
+              "widthMm": 283.9999999999858,
+              "heightMm": 669.9433230000005,
+              "rotationDegrees": 0,
+              "cropBox": {
+                "x": 0,
+                "y": 0,
+                "width": 805.0393700787,
+                "height": 1899.0519392126
+              }
+            },
+            {
+              "page": 4,
+              "xPt": 0,
+              "yPt": 0,
+              "widthPt": 867.4015748031,
+              "heightPt": 1900.2672028346,
+              "widthMm": 305.9999999999825,
+              "heightMm": 670.3720409999838,
+              "rotationDegrees": 0,
+              "cropBox": {
+                "x": 0,
+                "y": 0,
+                "width": 867.4015748031,
+                "height": 1900.2672028346
+              }
+            }
+          ]
+        }
+      ],
+      "referenceArtifacts": [],
+      "panels": [
+        {
+          "id": "left_btorso",
+          "name": "left_btorso",
+          "widthMm": 264,
+          "heightMm": 629.943323
+        },
+        {
+          "id": "left_ftorso",
+          "name": "left_ftorso",
+          "widthMm": 286,
+          "heightMm": 630.372041
+        },
+        {
+          "id": "right_btorso",
+          "name": "right_btorso",
+          "widthMm": 264,
+          "heightMm": 629.943323
+        },
+        {
+          "id": "right_ftorso",
+          "name": "right_ftorso",
+          "widthMm": 286,
+          "heightMm": 630.372041
+        }
+      ],
+      "provenance": {
+        "engineVersion": "Sew Computer CPU adapter 1 / GarmentCode 7065b3ef01ff61f4462e871d4cb439a0b97c48db / synthetic-body-v1",
+        "inputDigest": "5b5674a14c25fe892ad170ee6c693f4d42e24d1e94fab732af65795e54ecd3be",
+        "units": "mm",
+        "warnings": [
+          "Original synthetic proportional construction fixture authored for Sew Computer; NOT research body measurements, a demographic average, inferred anatomy or fit advice. Five owner-entered body values remain the only measured inputs. Explicit subset acknowledgement is required before these assumptions are used.",
+          "Assumed head_l = 0.14 * construction height = 238.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed waist_line = 0.25 * construction height = 425.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed hips_line = 0.12 * construction height = 204.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed bust_line = 0.12 * construction height = 204.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed vert_bust_line = 0.11 * construction height = 187.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed armscye_depth = 0.13 * construction height = 221.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed neck_w = 0.09 * construction height = 153.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed arm_length = 0.32 * construction height = 544.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed wrist = 0.16 * construction bust = 147.2000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed back_width = 0.48 * construction bust = 441.6000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed waist_back_width = 0.5 * construction waist = 380.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed hip_back_width = 0.52 * construction hips = 509.6000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed bust_points = 0.18 * construction bust = 165.6000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed bum_points = 0.2 * construction hips = 196.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed leg_circ = 0.58 * construction hips = 568.4000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed crotch_hip_diff = 0.03 * construction height = 51.0000 mm; original synthetic fixture, not inferred anatomy.",
+          "Assumed shoulder_incl = 15 degrees; original synthetic fixture.",
+          "Assumed hip_inclination = 10 degrees; original synthetic fixture.",
+          "Assumed arm_pose_angle = 45 degrees; original synthetic fixture.",
+          "Upstream derived assumptions: waist level = height - head_l - waist_line; leg length = waist level - hips_line; sleeve balance = shoulder_w - 20 mm; bust line = 2/3 vert_bust_line + 1/3 bust_line; hip inclination is halved; armscye depth includes 25 mm of upstream ease.",
+          "Canonical inputs are converted mm to cm exactly once; upstream pattern units_in_meter=100 is checked; curve coordinates and lengths are converted cm to mm exactly once. Angles and ratios are not scaled.",
+          "Supported subset: symmetric sleeveless Shirt with curved armholes and circle neck openings; no sleeves or collar panel. Length sets the upstream torso construction length from shoulder baseline; width = (bust + ease)/bust; flare is upstream hem-width ratio. Shoulder inclination can increase panel bounding height; length is not a validated finished POM.",
+          "Pinned default-template settings not exposed in this slice: {\"collar\": {\"b_bezier_x\": 0.175, \"b_bezier_y\": 0.175, \"b_collar\": \"CircleNeckHalf\", \"b_flip_curve\": false, \"bc_angle\": 95, \"bc_depth\": 0.05, \"f_bezier_x\": 0.175, \"f_bezier_y\": 0.175, \"f_collar\": \"CircleNeckHalf\", \"f_flip_curve\": false, \"fc_angle\": 95, \"fc_depth\": 0.15, \"width\": 0.5}, \"shirt\": {\"flare\": 1.1, \"length\": 1.411764705882353, \"width\": 1.0869565217391304}, \"sleeve\": {\"armhole_shape\": \"ArmholeCurve\", \"connect_ruffle\": 1.0, \"connecting_width\": 0.2, \"end_width\": 1.0, \"length\": 0.2, \"opening_dir_mix\": 0.1, \"sleeve_angle\": 11, \"sleeveless\": true, \"smoothing_coeff\": 0.25, \"standing_shoulder\": false, \"standing_shoulder_len\": 4.0}}",
+          "Trusted fixed family classes are selected directly; MetaGarment's implicit waistband insertion/0.7 waist scaling is deliberately not used.",
+          "AI parameter proposal: OpenAI · existing Codex login / gpt-6-astra / sew-interpretation/1; proposal -fudNVDMtGg0jwzGvqKr9sZ8. Accepted by owner; subsequent manual edits possible. Not a fit or sewing validation.",
+          "The brief, references, construction text and requirement statuses are preserved but are not interpreted by this manual CPU adapter. Only family, length, ease, flare and entered body values are used.",
+          "Owner-entered body.height: assumed; source: Explicit synthetic example; not the wearer’s measurements.",
+          "Owner-entered body.bust: assumed; source: Explicit synthetic example; not the wearer’s measurements.",
+          "Owner-entered body.waist: assumed; source: Explicit synthetic example; not the wearer’s measurements.",
+          "Owner-entered body.hip: assumed; source: Explicit synthetic example; not the wearer’s measurements.",
+          "Owner-entered body.shoulder: assumed; source: Explicit synthetic example; not the wearer’s measurements.",
+          "Owner-entered garment.length: assumed; source: AI suggestion; owner confirmation and physical verification required.",
+          "Owner-entered garment.ease: assumed; source: AI suggestion; owner confirmation and physical verification required.",
+          "Requirement z7KQoTl-WhC8f-PD2SDpCWnU remains supported, unverified by engine: Top",
+          "Requirement bidFnGTBlvY7GX4LAW9007CH remains unresolved, unverified by engine: Blue color",
+          "Requirement JNIWVMnvIRUYa9Qr1J6EYuyC remains unresolved, unverified by engine: Linen fabric",
+          "Requirement Gt1h2o5xwnWbFnaZEOd5xa1n remains supported, unverified by engine: Sleeveless; no sleeves",
+          "Requirement oAWmn5KtEeMAGig7JwL2aVhT remains supported, unverified by engine: Symmetric shape",
+          "Requirement mUCmwRfXXaRd3cyxRf8B0Rdm remains supported, unverified by engine: Round neckline",
+          "Requirement loNzls4fsB493vJKixCw5Ki7 remains supported, unverified by engine: Gently flared",
+          "Requirement 071OX_ctD_NzHFW6XM1jyLXX remains supported, unverified by engine: 60 cm long",
+          "Requirement QQVAVnY-QQSJxZCgOJHc0jyl remains supported, unverified by engine: No collar",
+          "Execution: non-root uid 65534; CPU 60 s; address space 2 GiB; output file 16 MiB; wall budget 90 s enforced by parent; seccomp socket/network syscalls denied; IPv4/IPv6/Unix socket probes returned EPERM (not a network namespace).",
+          "No filesystem/network-namespace sandbox is available on this host. Trusted pinned code only, clean environment without API credentials; private single-owner prototype, not public/multiuser or arbitrary-code execution.",
+          "Panel left_btorso: Printable reference only; NOT cutting ready.",
+          "Panel left_btorso: No seam allowances, grainlines, notches, cut quantities, printer calibration or physical fit verification.",
+          "Panel left_btorso: Upstream edge 0: Line, length 590.3667 mm, sampled points 0..1.",
+          "Panel left_btorso: Upstream edge 1: Arc, length 136.2429 mm, sampled points 1..70.",
+          "Panel left_btorso: Upstream edge 2: Line, length 63.3675 mm, sampled points 70..71.",
+          "Panel left_btorso: Upstream edge 3: CubicBezier, length 337.4564 mm, sampled points 71..240.",
+          "Panel left_btorso: Upstream edge 4: Line, length 318.5972 mm, sampled points 240..241.",
+          "Panel left_btorso: Upstream edge 5: Line, length 264.0000 mm, sampled points 241..242.",
+          "Panel left_ftorso: Printable reference only; NOT cutting ready.",
+          "Panel left_ftorso: No seam allowances, grainlines, notches, cut quantities, printer calibration or physical fit verification.",
+          "Panel left_ftorso: Upstream edge 0: Line, length 286.0000 mm, sampled points 0..1.",
+          "Panel left_ftorso: Upstream edge 1: Line, length 319.1526 mm, sampled points 1..2.",
+          "Panel left_ftorso: Upstream edge 2: CubicBezier, length 343.0706 mm, sampled points 2..174.",
+          "Panel left_ftorso: Upstream edge 3: Line, length 63.0698 mm, sampled points 174..175.",
+          "Panel left_ftorso: Upstream edge 4: Arc, length 148.7041 mm, sampled points 175..250.",
+          "Panel left_ftorso: Upstream edge 5: Line, length 566.1697 mm, sampled points 250..251.",
+          "Panel right_btorso: Printable reference only; NOT cutting ready.",
+          "Panel right_btorso: No seam allowances, grainlines, notches, cut quantities, printer calibration or physical fit verification.",
+          "Panel right_btorso: Upstream edge 0: Line, length 264.0000 mm, sampled points 0..1.",
+          "Panel right_btorso: Upstream edge 1: Line, length 318.5972 mm, sampled points 1..2.",
+          "Panel right_btorso: Upstream edge 2: CubicBezier, length 337.4564 mm, sampled points 2..171.",
+          "Panel right_btorso: Upstream edge 3: Line, length 63.3675 mm, sampled points 171..172.",
+          "Panel right_btorso: Upstream edge 4: Arc, length 136.2429 mm, sampled points 172..241.",
+          "Panel right_btorso: Upstream edge 5: Line, length 590.3667 mm, sampled points 241..242.",
+          "Panel right_ftorso: Printable reference only; NOT cutting ready.",
+          "Panel right_ftorso: No seam allowances, grainlines, notches, cut quantities, printer calibration or physical fit verification.",
+          "Panel right_ftorso: Upstream edge 0: Line, length 566.1697 mm, sampled points 0..1.",
+          "Panel right_ftorso: Upstream edge 1: Arc, length 148.7041 mm, sampled points 1..76.",
+          "Panel right_ftorso: Upstream edge 2: Line, length 63.0698 mm, sampled points 76..77.",
+          "Panel right_ftorso: Upstream edge 3: CubicBezier, length 343.0706 mm, sampled points 77..249.",
+          "Panel right_ftorso: Upstream edge 4: Line, length 319.1526 mm, sampled points 249..250.",
+          "Panel right_ftorso: Upstream edge 5: Line, length 286.0000 mm, sampled points 250..251.",
+          "Stitch left_ftorso upstream edge 3 (63.0698 mm) <-> left_btorso upstream edge 2 (63.3675 mm); flags []; seam compatibility unverified.",
+          "Stitch left_ftorso upstream edge 1 (319.1526 mm) <-> left_btorso upstream edge 4 (318.5972 mm); flags []; seam compatibility unverified.",
+          "Stitch right_ftorso upstream edge 2 (63.0698 mm) <-> right_btorso upstream edge 3 (63.3675 mm); flags []; seam compatibility unverified.",
+          "Stitch right_ftorso upstream edge 4 (319.1526 mm) <-> right_btorso upstream edge 1 (318.5972 mm); flags []; seam compatibility unverified.",
+          "Stitch right_ftorso upstream edge 0 (566.1697 mm) <-> left_ftorso upstream edge 5 (566.1697 mm); flags []; seam compatibility unverified.",
+          "Stitch right_btorso upstream edge 5 (590.3667 mm) <-> left_btorso upstream edge 0 (590.3667 mm); flags []; seam compatibility unverified.",
+          "Printable reference only; NOT cutting ready. No allowances, grain, notches, cut counts, closure engineering, tiling, physical print calibration, seam-compatibility or fit validation.",
+          "Actual upstream circular/quadratic/cubic curves are sampled, not replaced with vertex-only polygons. Nominal curve sample spacing 2 mm of arc length with uniform parameter steps (not a guaranteed chord-error tolerance); exact analytical curve bounds in mm; coordinates rounded to 0.000001 mm. Straight edges retain endpoints.",
+          "Upstream panel self-intersection check returned false. This is a limited geometric check, not certification of construction or robust coverage of all parameter combinations.",
+          "Geometry can reveal body dimensions, even if original body inputs are excluded from later exports. Keep artifacts private by default.",
+          "Stitch edge indices identify upstream edges, not sampled-polyline segment indices; point ranges are recorded in the panel warnings.",
+          "Pattern PDF custom paper sizes from actual page geometry (not A4/Letter, not tiled): left_btorso: 284.000000 x 669.943323 mm; left_ftorso: 306.000000 x 670.372041 mm; right_btorso: 284.000000 x 669.943323 mm; right_ftorso: 306.000000 x 670.372041 mm",
+          "SVG physical canvas 306.000000 x 2680.630728 mm. PDF and SVG use sampled normalized paths at nominal 1:1 digital scale, not physically calibrated. No source revision/artifact ID is available to this engine API; input SHA-256 is the immutable document identity on sheets."
+        ]
+      }
+    },
+    "review": {
+      "callouts": [],
+      "comments": []
+    },
+    "exportDisclosure": {
+      "includeBody": true,
+      "includeReferences": false,
+      "includePatterns": true,
+      "omissions": [
+        "Source reference images, sketches, technical-flat images, labels and source captions are omitted.",
+        "No simulation, cutting-candidate classification, print calibration, physical-fit approval or independently authenticated maker review is included. AI suggestions, when present, remain unverified.",
+        "Contact records and raw model exchanges are not part of this export schema. Owner-entered free text is not automatically scrubbed of personal information."
+      ],
+      "classification": "Draft review document",
+      "privacyNotice": "Body inputs and source images are omitted unless selected. Garment parameters, finished measurements, free-text notes and included geometry may still reveal body-related or personal information; redaction is not anonymization. Review these owner-entered fields before sharing.",
+      "pageFormat": {
+        "name": "A4",
+        "widthPt": 595.2755905511812,
+        "heightPt": 841.8897637795276,
+        "widthMm": 210,
+        "heightMm": 297,
+        "scale": "Review layout, not an actual-size pattern"
+      },
+      "textRendering": {
+        "font": "DejaVu Sans 2.37 / Bitstream Vera license",
+        "policy": "PDF text uses embedded DejaVu Sans and NFC display normalization. Unsupported glyphs, control/bidirectional formatting characters and right-to-left script characters are shown deterministically as [U+XXXX] code points instead of dropping text or presenting incorrect shaping/order. JSON retains the exact original strings.",
+        "replacements": []
+      }
+    }
+  }
+}

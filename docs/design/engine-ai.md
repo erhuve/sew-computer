@@ -2,6 +2,8 @@
 
 **2026-09-14 · Proposed · Implementation and validation pending**
 
+Implementation update, 2026-09-15: the general-model adapter now returns schema-constrained, owner-reviewed proposals using a tool-free Codex Responses connection or a configured compatible API. This replaces the proposed GPT-4o-only provider choice below. Provider, privacy, budgets and transport limitations are specified in [deployment](../deployment.md#design-model-connection); verification is recorded in the [AI review](../reviews/ai-prototype.md). Full MMUA/projector reproduction and physical validation remain unimplemented.
+
 This specialty design follows the normative [project contract](project-contract.md) and [product intent](../product/vision.md). It defines the geometry boundary, interpretation options and release evidence. It does not establish manufacturing readiness or depend on marketplace, factory-bidding or crowdfunding features.
 
 ## 1. Evidence boundary

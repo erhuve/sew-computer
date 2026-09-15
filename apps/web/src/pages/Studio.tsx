@@ -29,6 +29,8 @@ import Authoring from "../components/Authoring";
 import PatternCanvas from "../components/PatternCanvas";
 import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
 import PrivateImage from "../components/PrivateImage";
+import DesignAssistant from "../components/DesignAssistant";
+import { rebaseAcceptedDesign, type DesignProposal, type InterpretationStatus } from "../../../../packages/contracts/interpretation";
 import "../studio.css";
 
 const sections = [
@@ -42,13 +44,14 @@ const sections = [
 ];
 const same = (a: unknown, b: unknown) => canonical(a) === canonical(b);
 export default function Studio() {
+  const [aiStatus,setAiStatus]=useState<InterpretationStatus|null>(null),[proposal,setProposal]=useState<DesignProposal|null>(null);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null),
     [key, setKey] = useState(""),
     [projects, setProjects] = useState<Project[]>([]),
     [state, setState] = useState<ProjectState | null>(null),
     [doc, setDoc] = useState<GarmentDocument | null>(null),
     [section, setSection] = useState("idea"),
-    [view, setView] = useState("pattern");
+    [view, setView] = useState("design");
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [notice, setNotice] = useState(""),
@@ -141,7 +144,10 @@ export default function Studio() {
   const list = async () =>
     setProjects((await api<{ projects: Project[] }>("/projects")).projects);
   useEffect(() => {
-    if (authenticated) list().catch(fail);
+    if (authenticated) {
+      list().catch(fail);
+      api<InterpretationStatus>("/interpretation/status").then(setAiStatus).catch(fail);
+    }
   }, [authenticated]);
   const adopt = (next: ProjectState) => {
     sessionEpoch.current++;
@@ -152,7 +158,15 @@ export default function Studio() {
     setSelected(null);
     setGeometry(null);
     setNotice("");
+    setProposal(null);
+    setView(next.artifacts.some(artifact=>artifact.kind==='pattern-json')?'pattern':'design');
   };
+  useEffect(()=>{
+    if(!state)return;
+    let active=true;
+    api<DesignProposal|null>(`/projects/${state.project.id}/proposals/latest`).then(value=>{if(active)setProposal(value);}).catch(fail);
+    return ()=>{active=false;};
+  },[state?.project.id]);
   const load = async (id: string) => {
     if (
       dirty &&
@@ -282,7 +296,9 @@ export default function Studio() {
   }
   async function generate() {
     const epoch = sessionEpoch.current;
-    const currentState = await publish();
+    const existing=current.current.state;
+    const head=existing?.revisions.find(revision=>revision.id===existing.project.headRevisionId);
+    const currentState = head&&same(current.current.doc,head.document)?existing:await publish();
     if (!currentState?.project.headRevisionId) return;
     const job = await api<Job>(
       `/projects/${currentState.project.id}/jobs`,
@@ -294,6 +310,22 @@ export default function Studio() {
     if (epoch !== sessionEpoch.current || current.current.state?.project.id !== currentState.project.id) return;
     setState((s) => (s ? { ...s, jobs: [job, ...s.jobs] } : s));
     setView("pattern");
+  }
+  async function propose(includeReferences:boolean) {
+    const epoch=sessionEpoch.current,projectId=current.current.state?.project.id;
+    const draft=await save();
+    if(!draft||!projectId)return;
+    const result=await api<DesignProposal>(`/projects/${projectId}/proposals`,json('POST',{expectedVersion:draft.version,expectedRevisionId:draft.baseRevisionId,includeReferences,consent:true}));
+    if(epoch===sessionEpoch.current&&current.current.state?.project.id===projectId)setProposal(result);
+  }
+  async function acceptProposal() {
+    if(!proposal||!state||dirty)return;
+    const epoch=sessionEpoch.current,submitted=structuredClone(current.current.doc!);
+    const next=await api<ProjectState>(`/projects/${state.project.id}/proposals/${proposal.id}/accept`,json('POST',{expectedVersion:state.draft.version,expectedRevisionId:state.draft.baseRevisionId}));
+    if(epoch!==sessionEpoch.current)return;
+    setState(next);
+    setDoc(latest=>latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document));
+    setProposal(null);setGeometry(null);setSection('shape');setNotice('Design accepted. Confirm your measurements, then generate.');
   }
   const goHome = () => {
     if (dirty && !confirm("Leave unsaved changes?")) return;
@@ -330,7 +362,7 @@ export default function Studio() {
             <span>Your ideas, taking shape.</span>
           )}
         </div>
-        <span className="prototype-label">MANUAL / CPU PROTOTYPE</span>
+        <span className="prototype-label">DESIGN STUDIO · PRIVATE</span>
         {authenticated && (
           <button
             className="icon-button"
@@ -458,9 +490,8 @@ export default function Studio() {
             </button>
           </div>
           <p className="home-note">
-            Manual authoring and actual 2D geometry. No AI interpretation or
-            simulated fit is implied. Creation doesn’t require a manufacturing
-            order.
+            Describe a garment, review the design, add measurements and generate
+            actual patterns with a draft tech pack. Physical fit is not simulated.
           </p>
         </section>
       ) : (
@@ -572,6 +603,7 @@ export default function Studio() {
                 role="tablist"
                 aria-label="Visual view"
               >
+                <button role="tab" aria-selected={view==='design'} onClick={()=>setView('design')}><FileText size={16}/>Design</button>
                 <button
                   role="tab"
                   aria-selected={view === "pattern"}
@@ -646,7 +678,9 @@ export default function Studio() {
                     . Save & generate to update them.
                   </div>
                 )}
-              {view === "pattern" ? (
+              {view === 'design' ? <DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict}
+                stale={!!proposal&&(dirty||proposal.baseVersion!==state.draft.version||proposal.baseRevisionId!==state.draft.baseRevisionId)}
+                onPropose={images=>task(()=>propose(images))} onAccept={()=>task(acceptProposal)} onMeasurements={()=>setSection('shape')}/> : view === "pattern" ? (
                 <PatternCanvas
                   geometry={geometry}
                   selected={selected}
@@ -775,8 +809,8 @@ export default function Studio() {
               />
             </label>
             <p className="fineprint">
-              Your description is saved as intent. This prototype doesn’t
-              automatically interpret it.
+              Next, interpret your idea into an editable design. You review
+              suggestions before they become a saved revision.
             </p>
             <button className="primary" disabled={busy || !title.trim()}>
               Create garment <ArrowUpRight size={16} />
