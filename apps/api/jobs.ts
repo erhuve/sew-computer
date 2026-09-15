@@ -4,6 +4,7 @@ import type { Artifact, GarmentDocument, Job, PatternGeometry, Project } from '.
 import { canonical } from '../../packages/contracts';
 import { Store, type JobRow, type ProjectRow } from './store';
 import { ApiError, checkFile, geometry, id, now } from './validation';
+import { EngineInputError } from '../../services/engine/runner';
 
 export type Engine = (input:{document:GarmentDocument;inputDigest:string;outputDir:string;signal:AbortSignal})=>Promise<{geometry:PatternGeometry;files:{filename:string;bytes:Uint8Array;mime:string;kind:Artifact['kind']}[]}>;
 const heartbeatMs = 2000;
@@ -167,7 +168,7 @@ export class JobQueue {
       });
     } catch (error) {
       if (!this.closed) this.store.transaction(()=>{
-        if (this.valid(job,epoch)) this.store.jobStatus(job,'failed',error instanceof ApiError ? error.message : controller.signal.aborted ? 'Engine attempt timed out or was interrupted' : 'Engine failed; inspect the supported inputs and private engine setup');
+        if (this.valid(job,epoch)) this.store.jobStatus(job,'failed',error instanceof ApiError || error instanceof EngineInputError ? error.message : controller.signal.aborted ? 'Engine attempt timed out or was interrupted' : 'Engine failed; inspect the supported inputs and private engine setup');
       });
     } finally {
       if (timeout) clearTimeout(timeout);

@@ -130,7 +130,7 @@ export class Store {
   state(projectId: string): ProjectState {
     const row = this.project(projectId);
     const values = <T>(table:string,order='rowid') => (this.db.query(`SELECT json FROM ${table} WHERE project_id=? ORDER BY ${order}`).all(projectId) as {json:string}[]).map(r=>JSON.parse(r.json) as T);
-    return {project:JSON.parse(row.json),draft:JSON.parse(row.draft),revisions:values<Revision>('revisions','number'),jobs:values<Job>('jobs'),artifacts:values<Artifact>('artifacts'),comments:values<ReviewComment>('comments')};
+    return {project:JSON.parse(row.json),draft:JSON.parse(row.draft),revisions:values<Revision>('revisions','number'),jobs:values<Job>('jobs','rowid DESC'),artifacts:values<Artifact>('artifacts'),comments:values<ReviewComment>('comments')};
   }
   job(projectId: string, jobId: string): JobRow {
     this.project(projectId);

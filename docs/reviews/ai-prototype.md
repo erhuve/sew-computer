@@ -22,6 +22,10 @@ Live GPT-6 Astra calls produced accepted designs and successful real CPU generat
 
 [Desktop proposal](../verification/ai-prototype/proposal-desktop.png) and [mobile patterns](../verification/ai-prototype/pattern-mobile.png) use the deterministic browser model fixture and real CPU geometry. The [sample tech pack](../verification/ai-prototype/live-top-tech-pack.pdf) and [editable manifest](../verification/ai-prototype/live-top-manifest.json) come from the live model top test and synthetic body inputs. They are review artifacts, not cutting-ready samples.
 
+## Generation error recovery (2026-09-15)
+
+Incomplete saved designs previously lost actionable input-validation errors behind a generic engine-setup failure. Explicit adapter input errors now identify the missing or unsupported field and the editor step to resolve it; runtime diagnostics remain private. Project state returns generation jobs newest-first, matching the editor and preventing an old failed job from reappearing after a successful retry or reload. Regression coverage uses the real validation boundary, checks unchanged drafts/revisions, and exercises browser failure-to-success recovery with real CPU geometry.
+
 ## Limits
 
 The current engine supports a symmetric sleeveless top, circular skirt and basic darted trousers with length/ease/flare controls. Sleeves, collars, custom necklines, pockets, waistbands, closures, embroidery and arbitrary topology are not generated. AI notes can specify them but do not implement them. Missing dependent body dimensions remain disclosed synthetic assumptions. Patterns lack seam allowances, grain/notches, printer calibration and physical-fit validation; they remain printable references for development and maker review.

@@ -10,7 +10,7 @@ import { createApi, type Api, type ApiOptions } from './index';
 import type { Engine } from './jobs';
 import type { Exporter } from './exports';
 import { geometry as validateApiGeometry, hash, objectDigest } from './validation';
-import { ENGINE_COMMIT, validateGeometry as validateEngineGeometry } from '../../services/engine/runner';
+import { ENGINE_COMMIT, runEngine, validateGeometry as validateEngineGeometry } from '../../services/engine/runner';
 
 const origin='https://sew.test',key='private-test-key-not-used-in-production';
 const active:Api[]=[],directories:string[]=[];
@@ -54,6 +54,27 @@ function make(options:Partial<ApiOptions>={}) {
 }
 
 describe('private API authentication and persistence',()=>{
+  test('reports missing geometry inputs without changing the saved design',async()=>{
+    const h=make({engine:runEngine});await h.login();
+    const project=await h.publish(await h.create());await h.submit(project);
+    const failed=await waitUntil(()=>h.state(project.project.id),state=>state.jobs[0]?.status==='failed');
+    expect(failed.jobs[0]!.error).toContain('No garment family selected');
+    expect(failed.jobs[0]!.error).toContain('Open Design');
+    expect(failed.draft).toEqual(project.draft);
+    expect(failed.revisions).toEqual(project.revisions);
+    expect(failed.artifacts).toHaveLength(0);
+    const shaped=await h.publish(await h.save(failed,doc=>{doc.garment.family='shirt';}));
+    await h.submit(shaped,'missing-measurements');
+    const missing=await waitUntil(()=>h.state(project.project.id),state=>state.jobs[0]?.status==='failed');
+    expect(missing.jobs[0]!.error).toContain('body height must be explicitly known or assumed');
+    expect(missing.jobs[0]!.error).toContain('Shape & body');
+  });
+  test('does not expose private engine runtime diagnostics',async()=>{
+    const h=make({engine:async()=>{throw new Error('Private runtime path /secret/private-engine');}});await h.login();
+    const project=await h.saved();await h.submit(project);
+    const failed=await waitUntil(()=>h.state(project.project.id),state=>state.jobs[0]?.status==='failed');
+    expect(failed.jobs[0]!.error).toBe('Engine failed; inspect the supported inputs and private engine setup');
+  });
   test('both geometry boundaries reject collinear closed panels',()=>{
     const inputDigest=hash('degenerate fixture');
     const geometry=fixtureGeometry(inputDigest);

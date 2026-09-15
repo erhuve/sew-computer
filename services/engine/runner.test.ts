@@ -120,7 +120,7 @@ test('unknown measurements, unsupported families/ranges and digest mismatch fail
   const doc = fixture('shirt');
   expect(() => validateInput(doc, '0'.repeat(64))).toThrow('digest');
   const absent = emptyDocument();
-  expect(() => validateInput(absent, sha(absent))).toThrow('no garment family');
+  expect(() => validateInput(absent, sha(absent))).toThrow('No garment family');
   for (const state of ['unknown', 'not-applicable'] as const) {
     const unknown = structuredClone(doc);
     unknown.body.bust = { state };

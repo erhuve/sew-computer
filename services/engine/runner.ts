@@ -10,6 +10,7 @@ export const ENGINE_COMMIT = '7065b3ef01ff61f4462e871d4cb439a0b97c48db';
 const root = dirname(fileURLToPath(import.meta.url));
 const defaultUpstream = '/home/workspace/Code/design2garmentcode-impl';
 const maxFile = 16 * 1024 * 1024;
+export class EngineInputError extends Error {}
 const files = [
   { filename: 'pattern.json', mime: 'application/json', kind: 'pattern-json' as const },
   { filename: 'pattern.svg', mime: 'image/svg+xml', kind: 'pattern-svg' as const },
@@ -19,11 +20,11 @@ const files = [
 export function validateInput(document: GarmentDocument, inputDigest: string) {
   const doc = documentSchema.parse(document);
   if (!/^[a-f0-9]{64}$/.test(inputDigest) || createHash('sha256').update(canonical(doc)).digest('hex') !== inputDigest) throw new Error('Input digest must match the immutable document');
-  if (doc.garment.family === 'none') throw new Error('Unsupported geometry: no garment family selected; original intent remains unchanged');
+  if (doc.garment.family === 'none') throw new EngineInputError('No garment family selected. Open Design and interpret your brief, then accept a supported proposal; or choose a shape in Shape & body. Your original intent remains unchanged.');
   const value = (name: string, measurement: GarmentDocument['garment']['length'], min: number, max: number) => {
     const mm = millimeters(measurement);
-    if (mm === null) throw new Error(`${name} must be explicitly known or assumed before geometry generation`);
-    if (mm < min || mm > max) throw new Error(`Unsupported ${name}: requires ${min}–${max} mm`);
+    if (mm === null) throw new EngineInputError(`${name} must be explicitly known or assumed before geometry generation. Enter it in Shape & body.`);
+    if (mm < min || mm > max) throw new EngineInputError(`Unsupported ${name}: requires ${min}–${max} mm. Review it in Shape & body.`);
     return mm;
   };
   const bodyMm = {
@@ -38,8 +39,8 @@ export function validateInput(document: GarmentDocument, inputDigest: string) {
   const easeMm = value('circumference ease', doc.garment.ease, 0, family === 'shirt' ? Math.min(200, bodyMm.bust * 0.3) : 200);
   const flareRanges = { shirt: [0.7, 1.5], skirt: [0.5, 2], trousers: [0.7, 1.2] } as const;
   const [minFlare, maxFlare] = flareRanges[family];
-  if (doc.garment.flare < minFlare || doc.garment.flare > maxFlare) throw new Error(`Unsupported ${family} flare: requires ${minFlare}–${maxFlare}`);
-  if (family !== 'shirt' && bodyMm.hip - bodyMm.waist < 40) throw new Error('Unsupported lower-garment body combination: hip must exceed waist by at least 40 mm');
+  if (doc.garment.flare < minFlare || doc.garment.flare > maxFlare) throw new EngineInputError(`Unsupported ${family} flare: requires ${minFlare}–${maxFlare}. Review it in Shape & body.`);
+  if (family !== 'shirt' && bodyMm.hip - bodyMm.waist < 40) throw new EngineInputError('Unsupported lower-garment body combination: this adapter requires hip to exceed waist by at least 40 mm. Check your measurements in Shape & body; if accurate, this body combination is not supported yet.');
   const provenance = [
     ...(doc.interpretation?[`AI parameter proposal: ${doc.interpretation.provider} / ${doc.interpretation.model} / ${doc.interpretation.adapter}; proposal ${doc.interpretation.proposalId}. Accepted by owner; subsequent manual edits possible. Not a fit or sewing validation.`]:[]),
     'The brief, references, construction text and requirement statuses are preserved but are not interpreted by this manual CPU adapter. Only family, length, ease, flare and entered body values are used.',

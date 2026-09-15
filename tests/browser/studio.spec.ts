@@ -30,6 +30,17 @@ async function generate(studio:any){const page=studio.page;
  await expect(page.locator('.pattern-stage svg[role="img"]')).toBeVisible({timeout:30000});
  await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(4);
 }
+test('unfinished design explains missing inputs and recovers to real generation',async({studio})=>{
+ await create(studio);
+ await studio.page.getByRole('button',{name:'Save & generate',exact:true}).click();
+ await expect(studio.page.getByText(/Pattern generation failed: No garment family selected/)).toBeVisible();
+ await expect(studio.page.getByText(/Open Design and interpret your brief/)).toBeVisible();
+ await generate(studio);
+ await studio.page.reload();
+ await studio.page.getByRole('button',{name:/The everyday overshirt Updated/}).click();
+ await expect(studio.page.locator('.pattern-stage svg[role="img"]')).toBeVisible();
+ await expect(studio.page.getByText(/Pattern generation failed:/)).toHaveCount(0);
+});
 test('private login and real CPU generation produce useful above-fold panels',async({studio})=>{
  await create(studio);await generate(studio);
  const {page}=studio;
