@@ -3,12 +3,14 @@ import { useState } from "react";
 import {
   assumed,
   convert,
+  mm,
   type GarmentDocument,
   type Measurement,
   type ReviewComment,
 } from "../../../../packages/contracts";
 import { api } from "../lib/api";
 import PrivateImage from "./PrivateImage";
+import BodySizing from "./BodySizing";
 
 const uid = () => crypto.randomUUID();
 type Props = {
@@ -26,16 +28,19 @@ export function Measure({
   value,
   onChange,
   compact = false,
+  range,
 }: {
   label: string;
   value: Measurement;
   onChange: (m: Measurement) => void;
   compact?: boolean;
+  range?: [number, number];
 }) {
   const [emptyUnit, setEmptyUnit] = useState<'mm' | 'cm' | 'in'>('mm');
   return (
     <fieldset className={`measurement${compact ? ' compact-measurement' : ''}`}>
       <legend>{label}</legend>
+      {range && <input type="range" aria-label={`${label} slider`} min={range[0]} max={range[1]} step="1" disabled={mm(value) === null || mm(value)! < range[0] || mm(value)! > range[1]} value={mm(value) ?? range[0]} onChange={event => onChange({ state: value.state === 'assumed' ? 'assumed' : 'known', value: Number(event.target.value), unit: 'mm', source: value.state === 'assumed' ? 'Owner-adjusted garment estimate' : 'Chosen by owner' })} />}
       <div className="measure-row">
         {!compact && <select
           aria-label={`${label} status`}
@@ -257,6 +262,7 @@ export default function Authoring({
       )}
       {section === "shape" && (
         <>
+          <BodySizing doc={doc} onChange={onChange} />
           <details className="shape-settings" open={doc.garment.family === 'none'}>
           <summary>Garment shape & fit settings</summary>
           <label className="field">
@@ -279,16 +285,19 @@ export default function Authoring({
           </label>
           <Measure
             label="Garment length"
+            range={[doc.garment.family === 'shirt' ? 400 : Math.ceil((mm(doc.body.height) ?? 1700) * 0.12 + 150), doc.garment.family === 'shirt' ? 1100 : 1300]}
             value={doc.garment.length}
             onChange={(v) => replace("garment", { ...doc.garment, length: v })}
           />
           <Measure
             label="Ease"
+            range={[0, 200]}
             value={doc.garment.ease}
             onChange={(v) => replace("garment", { ...doc.garment, ease: v })}
           />
           <label className="field">
             <span>Flare multiplier · supported range varies by family</span>
+            <input type="range" aria-label="Flare slider" min={doc.garment.family === 'skirt' ? 0.5 : 0.7} max={doc.garment.family === 'skirt' ? 2 : doc.garment.family === 'trousers' ? 1.2 : 1.5} step="0.01" value={doc.garment.flare} onChange={event => replace('garment', { ...doc.garment, flare: Number(event.target.value) })} />
             <input
               type="number"
               min={doc.garment.family === "skirt" ? 0.5 : 0.7}
@@ -305,20 +314,7 @@ export default function Authoring({
             />
           </label>
           </details>
-          <h3>Body measurements</h3>
-          <p className="fineprint">
-            Private, explicit inputs. These are never inferred from your
-            references.
-          </p>
-          <div className="body-fields">{Object.entries(doc.body).map(([name, value]) => (
-            <Measure
-              key={name}
-              compact
-              label={name[0].toUpperCase() + name.slice(1)}
-              value={value}
-              onChange={(v) => replace("body", { ...doc.body, [name]: v })}
-            />
-          ))}</div>
+          <details className="profile-settings"><summary>Body measurement status & sources</summary>{Object.entries(doc.body).map(([name, value]) => <Measure key={name} label={`${name[0].toUpperCase() + name.slice(1)} detail`} value={value} onChange={measurement => replace('body', { ...doc.body, [name]: measurement })} />)}</details>
           <details className="example-disclosure">
             <summary>Try an explicitly synthetic example</summary>
             <p>

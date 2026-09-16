@@ -4,7 +4,8 @@ import { access, chmod, chown, lstat, mkdir, mkdtemp, open, realpath, rm } from 
 import { constants } from 'node:fs';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { canonical, DocumentSchema as documentSchema, mm as millimeters, type Artifact, type GarmentDocument, type PatternGeometry } from '../../packages/contracts/index';
+import { canonical, DocumentSchema as documentSchema, type Artifact, type GarmentDocument, type PatternGeometry } from '../../packages/contracts/index';
+import { sizingInput } from '../../packages/contracts/sizing';
 
 export const ENGINE_COMMIT = '7065b3ef01ff61f4462e871d4cb439a0b97c48db';
 const root = dirname(fileURLToPath(import.meta.url));
@@ -20,27 +21,8 @@ const files = [
 export function validateInput(document: GarmentDocument, inputDigest: string) {
   const doc = documentSchema.parse(document);
   if (!/^[a-f0-9]{64}$/.test(inputDigest) || createHash('sha256').update(canonical(doc)).digest('hex') !== inputDigest) throw new Error('Input digest must match the immutable document');
-  if (doc.garment.family === 'none') throw new EngineInputError('No garment family selected. Open Design and interpret your brief, then accept a supported proposal; or choose a shape in Shape & body. Your original intent remains unchanged.');
-  const value = (name: string, measurement: GarmentDocument['garment']['length'], min: number, max: number) => {
-    const mm = millimeters(measurement);
-    if (mm === null) throw new EngineInputError(`${name} must be explicitly known or assumed before geometry generation. Enter it in Shape & body.`);
-    if (mm < min || mm > max) throw new EngineInputError(`Unsupported ${name}: requires ${min}–${max} mm. Review it in Shape & body.`);
-    return mm;
-  };
-  const bodyMm = {
-    height: value('body height', doc.body.height, 1200, 2200),
-    bust: value('body bust circumference', doc.body.bust, 600, 1600),
-    waist: value('body waist circumference', doc.body.waist, 450, 1500),
-    hip: value('body hip circumference', doc.body.hip, 650, 1700),
-    shoulder: value('body shoulder width', doc.body.shoulder, 250, 600),
-  };
-  const family = doc.garment.family;
-  const lengthMm = value('garment construction length', doc.garment.length, family === 'shirt' ? 400 : bodyMm.height * 0.12 + 150, family === 'shirt' ? 1100 : 1300);
-  const easeMm = value('circumference ease', doc.garment.ease, 0, family === 'shirt' ? Math.min(200, bodyMm.bust * 0.3) : 200);
-  const flareRanges = { shirt: [0.7, 1.5], skirt: [0.5, 2], trousers: [0.7, 1.2] } as const;
-  const [minFlare, maxFlare] = flareRanges[family];
-  if (doc.garment.flare < minFlare || doc.garment.flare > maxFlare) throw new EngineInputError(`Unsupported ${family} flare: requires ${minFlare}–${maxFlare}. Review it in Shape & body.`);
-  if (family !== 'shirt' && bodyMm.hip - bodyMm.waist < 40) throw new EngineInputError('Unsupported lower-garment body combination: this adapter requires hip to exceed waist by at least 40 mm. Check your measurements in Shape & body; if accurate, this body combination is not supported yet.');
+  let dimensions: ReturnType<typeof sizingInput>;
+  try { dimensions = sizingInput(doc); } catch (error) { throw new EngineInputError((error as Error).message); }
   const provenance = [
     ...(doc.interpretation?[`AI parameter proposal: ${doc.interpretation.provider} / ${doc.interpretation.model} / ${doc.interpretation.adapter}; proposal ${doc.interpretation.proposalId}. Accepted by owner; subsequent manual edits possible. Not a fit or sewing validation.`]:[]),
     'The brief, references, construction text and requirement statuses are preserved but are not interpreted by this manual CPU adapter. Only family, length, ease, flare and entered body values are used.',
@@ -48,7 +30,7 @@ export function validateInput(document: GarmentDocument, inputDigest: string) {
     ...(['length', 'ease'] as const).map(key => `Owner-entered garment.${key}: ${doc.garment[key].state}; source: ${'source' in doc.garment[key] ? doc.garment[key].source : 'unspecified'}.`),
     ...doc.requirements.map(r => `Requirement ${r.id} remains ${r.status}, unverified by engine: ${r.text}`),
   ];
-  const input = { family, bodyMm, lengthMm, easeMm, flare: doc.garment.flare, provenance, inputDigest };
+  const input = { ...dimensions, provenance, inputDigest };
   if (Buffer.byteLength(JSON.stringify(input)) > 512 * 1024) throw new Error('Engine input exceeds budget');
   return input;
 }
@@ -154,7 +136,12 @@ export async function runEngine(input: { document: GarmentDocument; inputDigest:
       await chown(attempt, 65534, 65534);
       await chown(cacheDir, 65534, 65534);
     }
-    await executeTrusted(python, [join(root, 'worker.py'), upstream], attempt, JSON.stringify(payload), input.signal, 90_000, cacheDir);
+    try {
+      await executeTrusted(python, [join(root, 'worker.py'), upstream], attempt, JSON.stringify(payload), input.signal, 90_000, cacheDir);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('AssertionError: Start and end of an edge should differ')) throw new EngineInputError('The pattern engine produced a zero-length edge for this combination of body measurements and garment settings. This is an engine limitation, not proof a measurement is wrong. Your values are saved unchanged. Review Shape & body; accurate measurements should not be reduced just to make generation succeed.');
+      throw error;
+    }
     input.signal.throwIfAborted();
     const results = [];
     for (const definition of files) results.push({ ...definition, bytes: await readArtifact(join(attempt, definition.filename)) });

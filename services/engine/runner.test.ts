@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { PDFDocument } from 'pdf-lib';
 import { assumed, canonical, emptyDocument, type GarmentDocument } from '../../packages/contracts/index';
 import { cleanEnvironment, ENGINE_COMMIT, executeTrusted, runEngine, validateInput } from './runner';
+import { applySample, sampleSizes } from '../../packages/contracts/sizing';
 
 const root = import.meta.dir;
 const sha = (value: unknown) => createHash('sha256').update(canonical(value)).digest('hex');
@@ -96,6 +97,23 @@ for (const family of families) {
     }, 180_000);
   });
 }
+
+test('all six synthetic starting sizes generate real patterns for all three families', async () => {
+  for (const family of families) for (let index = 0; index < sampleSizes.length; index++) {
+    const doc = emptyDocument(`Sample ${sampleSizes[index]!.label} ${family}`);
+    doc.garment.family = family;
+    const result = await generate(applySample(doc, index));
+    expect(result.geometry.panels.length).toBeGreaterThan(0);
+  }
+}, 240_000);
+
+test('broad shoulder engine failure reports a safe actionable limitation and preserves values', async () => {
+  const doc = fixture('shirt');
+  doc.body.shoulder = assumed(584.2);
+  const before = canonical(doc);
+  await expect(generate(doc)).rejects.toThrow('zero-length edge');
+  expect(canonical(doc)).toBe(before);
+}, 30_000);
 
 test('equivalent mm/cm/in inputs have identical physical geometry', async () => {
   const baseline = fixture('skirt');

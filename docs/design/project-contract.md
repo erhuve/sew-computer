@@ -21,6 +21,8 @@ A derived artifact can remain valid for a historical revision while being out of
 
 ## 2. Values, units and provenance
 
+Visual sizing implementation (2026-09-16): sample sizes are explicitly synthetic assumptions, not standard size-chart or wearer facts. Display-unit changes do not mutate stored measurements; slider edits are stored in millimeters. Editing an estimate retains assumed status until explicit measured confirmation. The illustrative body diagram is not anatomy, actual geometry or simulation. Out-of-range inputs remain intact. A private single-owner reusable body profile uses a monotonic version and explicit reviewed application into the current draft; it never retroactively edits garments. Profile deletion is journaled, independent of garment deletion, and retains a version tombstone to prevent stale restoration. Existing full-restore limitations remain in force.
+
 Use explicit value states `known | assumed | unknown | not_applicable`. An unknown numeric value is not zero or a made-up estimate. Record source, definition, author/method, relevant input versions and an uncertainty/tolerance only when meaningful.
 
 Canonical length is **millimeters**; preserve the user's entered value and unit for display/audit. Convert once at explicit boundaries with versioned conversions. Distinguish body measurements, panel geometry and finished-garment POMs as different field types. Keep angles, ratios, percentages and discrete counts typed; never scale all numbers together. Unknown units block geometric execution or actual-size claims, not saving an idea.

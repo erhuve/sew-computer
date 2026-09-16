@@ -53,6 +53,53 @@ function make(options:Partial<ApiOptions>={}) {
   return {api,app,dataDir,request,login,state,create,save,publish,saved,submit,exported,get cookie(){return cookie;}};
 }
 
+describe('private reusable body measurements', () => {
+  test('auth, origin, strict body schema, persistence and monotonic conflicts protect the profile', async () => {
+    const harness = make();
+    expect((await harness.request('GET', '/body-profile')).status).toBe(401);
+    await harness.login();
+    const { emptyDocument } = await import('../../packages/contracts');
+    const body = emptyDocument().body;
+    body.height = { state: 'known', value: 170, unit: 'cm', source: 'Owner measured' };
+    expect((await harness.request('PUT', '/body-profile', { expectedVersion: 0, body }, { Origin: 'https://untrusted.test' })).status).toBe(403);
+    expect((await harness.request('PUT', '/body-profile', { expectedVersion: 0, body: { ...body, secret: 'extra' } })).status).toBe(422);
+    const saved = await harness.request('PUT', '/body-profile', { expectedVersion: 0, body });
+    expect(saved.headers.get('Cache-Control')).toBe('no-store');
+    expect(await saved.json()).toEqual({ version: 1, body });
+    const conflict = await harness.request('PUT', '/body-profile', { expectedVersion: 0, body });
+    expect(conflict.status).toBe(409);
+    expect(await conflict.json()).not.toHaveProperty('latest');
+    harness.api.close();
+    const reopened = make({ dataDir: harness.dataDir });
+    await reopened.login();
+    expect(await (await reopened.request('GET', '/body-profile')).json()).toEqual({ version: 1, body });
+    expect(await (await reopened.request('PUT', '/body-profile', { expectedVersion: 1, body: null })).json()).toEqual({ version: 2, body: null });
+    expect((await reopened.request('PUT', '/body-profile', { expectedVersion: 1, body })).status).toBe(409);
+    expect((await reopened.request('PUT', '/body-profile', { expectedVersion: 0, body })).status).toBe(409);
+    expect(await (await reopened.request('PUT', '/body-profile', { expectedVersion: 2, body })).json()).toEqual({ version: 3, body });
+    reopened.api.close();
+    const restarted = make({ dataDir: harness.dataDir });
+    await restarted.login();
+    expect(await (await restarted.request('GET', '/body-profile')).json()).toEqual({ version: 3, body });
+  });
+
+  test('profile deletion replays after a stale database restore without deleting garment measurements', async () => {
+    const harness = make(); await harness.login();
+    const project = await harness.saved();
+    const body = project.draft.document.body;
+    await harness.request('PUT', '/body-profile', { expectedVersion: 0, body });
+    const backup = join(harness.dataDir, 'before-delete.sqlite');
+    copyFileSync(join(harness.dataDir, 'sew.sqlite'), backup);
+    expect((await harness.request('PUT', '/body-profile', { expectedVersion: 1, body: null })).status).toBe(200);
+    harness.api.close();
+    copyFileSync(backup, join(harness.dataDir, 'sew.sqlite'));
+    const restored = make({ dataDir: harness.dataDir }); await restored.login();
+    expect(await (await restored.request('GET', '/body-profile')).json()).toEqual({ version: 2, body: null });
+    expect((await restored.state(project.project.id)).draft.document.body).toEqual(body);
+    expect((await restored.request('PUT', '/body-profile', { expectedVersion: 1, body })).status).toBe(409);
+  });
+});
+
 describe('private API authentication and persistence',()=>{
   test('reports missing geometry inputs without changing the saved design',async()=>{
     const h=make({engine:runEngine});await h.login();

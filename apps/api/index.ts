@@ -2,7 +2,8 @@ import { Hono } from 'hono';
 import { setCookie, deleteCookie } from 'hono/cookie';
 import sharp from 'sharp';
 import { z } from 'zod';
-import { DisclosureSchema, Id, emptyDocument, type Artifact, type Draft, type Project, type Revision, type ReviewComment } from '../../packages/contracts';
+import { DisclosureSchema, DocumentSchema, Id, emptyDocument, type Artifact, type Draft, type Project, type Revision, type ReviewComment } from '../../packages/contracts';
+import type { BodyProfile } from '../../packages/contracts/sizing';
 import { Handoff, committedPatterns, type Exporter } from './exports';
 import { acceptImport, previewImport } from './imports';
 import { InterpretationService, type Interpreter } from './interpretation';
@@ -88,6 +89,20 @@ export function createApi(options:ApiOptions):Api {
     const token=tokenHash(c.req.raw);if(token)store.db.query('DELETE FROM sessions WHERE hash=?').run(token);
     deleteCookie(c,sessionName,{path:'/',httpOnly:true,secure:true,sameSite:'Strict'});
     return c.body(null,204);
+  });
+  const readProfile = (): BodyProfile => JSON.parse(store.meta('bodyProfile') ?? '{"version":0,"body":null}');
+  api.get('/body-profile', c => c.json(readProfile()));
+  api.put('/body-profile', async c => {
+    const body = z.object({ expectedVersion: z.number().int().min(0), body: DocumentSchema.shape.body.nullable() }).strict().parse(await json(c.req.raw));
+    const profile = store.transaction(() => {
+      const current = readProfile();
+      if (current.version !== body.expectedVersion) throw new ApiError(409, 'Your saved measurements changed in another tab. Reload the profile before trying again.');
+      const next: BodyProfile = { version: current.version + 1, body: body.body };
+      if (body.body === null) store.deleteBodyProfile(next.version);
+      else store.setMeta('bodyProfile', JSON.stringify(next));
+      return next;
+    });
+    return c.json(profile);
   });
   api.get('/projects',c=>{
     const projects=(store.db.query('SELECT json FROM projects WHERE deleted=0 ORDER BY rowid DESC').all() as {json:string}[]).map(r=>JSON.parse(r.json) as Project);

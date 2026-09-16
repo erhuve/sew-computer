@@ -100,7 +100,7 @@ export default function Studio() {
     (j) => j.status === "queued" || j.status === "running",
   );
   const currentJob = state?.jobs.find(job => job.revisionId === state.project.headRevisionId);
-  const measurementStep = section === 'shape' && view === 'design' && currentJob?.status !== 'failed' && !pending;
+  const measurementStep = section === 'shape' && view === 'design' && !pending;
   useEffect(() => {
     document.querySelector('.editor-sidebar')?.scrollTo(0, 0);
     if (section === 'shape') document.querySelector<HTMLElement>('.body-heading')?.focus();
@@ -579,7 +579,6 @@ export default function Studio() {
                 ))}
                 {measurementStep && <button aria-expanded={showDetails} onClick={() => setShowDetails(!showDetails)}>{showDetails ? 'Fewer details' : 'More details'}</button>}
               </nav>
-              {measurementStep && <div className="step-intro"><span className="eyebrow">02 / Measurements</span><h2 className="body-heading" tabIndex={-1}>Make it your size.</h2><p>Your design is saved. Enter your measurements, then choose <strong>Save & generate</strong>.</p></div>}
               <Authoring
                 key={state.project.id + section}
                 doc={doc}

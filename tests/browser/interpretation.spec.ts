@@ -48,7 +48,7 @@ test('description to reviewed proposal to real geometry and export survives the 
   await expect(page.getByRole('heading',{name:'Make it your size.'})).toBeVisible();
   await expect(page.getByText(/Pattern generation failed:/)).toHaveCount(0);
   await expect(page.getByLabel('Height value',{exact:true})).toBeVisible();
-  await page.getByLabel('Height unit',{exact:true}).selectOption('cm');
+  await page.getByRole('button',{name:'cm',exact:true}).click();
   await page.getByLabel('Height value',{exact:true}).fill('170');
   await page.screenshot({path:resolve(evidence,'measurements-desktop.png')});
   await page.setViewportSize({width:390,height:844});

@@ -8,6 +8,8 @@ This is the only active execution plan. It supersedes the earlier workspace-only
 
 ## Outcome
 
+Visual sizing follow-up (2026-09-16): implement synthetic sample sizes, synchronized sliders/numbers and a clearly labeled schematic, private reusable measurements, shared preflight feedback and a safe explanation of the zero-length-edge failure. Preserve entered measurements, assumptions, unsupported design intent, immutable revisions and export privacy. This extends the existing editor; it does not add simulation or claim broader validated engine coverage. See [visual sizing operations](../deployment.md#visual-sizing) and [adversarial implementation review](../reviews/visual-sizing.md).
+
 Build software that lets a person describe an original garment, attach references, inspect an honest interpretation, edit supported geometry, and export a revisioned draft tech pack plus correctly classified pattern artifacts. Its actual deliverable can then be reviewed and sampled by a maker. Recruiting a maker or choosing one test top is not a prerequisite to development.
 
 The first release has a declared geometry capability, not a claim to represent every possible garment. Unsupported requests remain part of the design and have a visible extension path. The product must not permanently restrict creation to presets, decoration on blanks, manufacturing purchase or paid review.
