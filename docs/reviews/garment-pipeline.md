@@ -1,6 +1,6 @@
 # Component garment pipeline review
 
-2026-09-16. Implementation in an isolated checkout; not deployed. The active scope remains in [the software plan](../plans/software-prototype.md).
+2026-09-16. Component shirt pipeline privately deployed at application commit `284a261` after isolated verification and independent adversarial review. The active scope remains in [the software plan](../plans/software-prototype.md).
 
 ## Delivered implementation
 
@@ -25,6 +25,10 @@ The independent follow-up found no remaining concrete defect in those fixes, ver
 ## Verification and remaining gates
 
 Final release-candidate verification passes 87 application tests, 24 engine tests and all 20 browser cases, plus typecheck, production build, documentation and whitespace checks. The full browser suite ran after the build completed; an earlier overlapping build briefly removed the test server's index file and is not counted as a passing run. The refreshed sample bundle uses the corrected custom-page renderer.
+
+Production verification on 2026-09-16 confirms the deployed application bundle, locked Python runtime and healthy process. Anonymous requests to the private hostname redirect to Zo sign-in; the direct project API returns 401. Authenticated reads confirm existing project/draft/revision state, saved measurements, owner credential and original artifact checksums are unchanged. A fresh production model interpretation, acceptance, synthetic sizing and generation produce 18 component templates with no missing or unresolved requirements in that captured run. All eight export downloads match delivery checksums; withholding patterns yields three files without body inputs or derived construction. [Desktop](../verification/garment-pipeline/production-desktop.png) and [mobile](../verification/garment-pipeline/production-mobile.png) checks exercise the deployed UI. Synthetic verification projects were deleted through the authenticated API and verification sessions revoked. GitHub application and documentation CI pass for the application release.
+
+An earlier production interpretation generated successfully but returned partial requirement coverage. Its synthetic test project was cleaned up before the requirement details were captured, so its cause remains undiagnosed. The later successful run is a captured example, not evidence that model requirement mapping is deterministic or universally complete. Digital coverage and visible unresolved requirements remain necessary.
 
 The final independent release review reproduced cropped mitered seam allowances in custom-size PDFs and the aggregate SVG for a short, strongly flared shirt. Page bounds now include the actual seam, cut, grain and mark extents, with a common translation that preserves millimetre scale. Component PDF pages also reserve enough width for their cutting instructions. The viewer uses the same full-contour layout principle, avoiding clipped and overlapping allowances. Independent regressions verify SVG vertices and piece separation, Poppler-rasterized PDF dimensions, and all 18 browser panel bounds. The reviewer confirmed both fixes. These changes do not alter pattern geometry or historical artifacts; new exports of old revisions preserve their original bytes.
 

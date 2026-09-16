@@ -1,6 +1,6 @@
 # Sew Computer: software prototype execution plan
 
-**2026-09-16 · Active plan · Component garment pipeline implemented, private release verification underway; breadth and physical/research gates remain open**
+**2026-09-16 · Active plan · Component garment pipeline privately deployed; breadth and physical/research gates remain open**
 
 The owner's latest priority is an immediately usable describe-to-garment software flow. The manual milestone is complete; it is no longer the stopping point. The current implementation connects a tool-free model to reviewed typed proposals, explicit measurements, the existing CPU engine and revisioned exports. See the [AI integration review](../reviews/ai-prototype.md). This scope supersedes the earlier manual-only release sequencing without changing physical-readiness claims.
 
