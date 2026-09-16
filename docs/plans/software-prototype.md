@@ -2,11 +2,11 @@
 
 **2026-09-16 · Active plan · Component garment pipeline privately deployed; breadth and physical/research gates remain open**
 
-Pattern-derived 3D planning update, 2026-09-16: agreed architecture and ordered work are recorded below. No 3D implementation or simulator feasibility is claimed. This extends this sole active plan and supersedes the earlier optional-only 3D sequencing, while preserving existing 2D generation, sizing, specifications, private revisions and exports.
+Pattern-derived 3D planning update, 2026-09-16: agreed architecture and ordered work are recorded in the [dedicated engine plan](pattern-derived-3d-engine.md). No 3D implementation or simulator feasibility is claimed. This extends the overall roadmap and supersedes the earlier optional-only 3D sequencing, while preserving existing 2D generation, sizing, specifications, private revisions and exports.
 
 The owner's latest priority is an immediately usable describe-to-garment software flow. The manual milestone is complete; it is no longer the stopping point. The current implementation connects a tool-free model to reviewed typed proposals, explicit measurements, the existing CPU engine and revisioned exports. See the [AI integration review](../reviews/ai-prototype.md). This scope supersedes the earlier manual-only release sequencing without changing physical-readiness claims.
 
-This is the only active execution plan. It supersedes the earlier workspace-only software-prototype proposal for sequencing and integration decisions, while preserving the [product intent](../product/vision.md). Specialist designs below are supporting specifications, not competing roadmaps. The [implementation review](../reviews/manual-prototype.md) records delivered behavior and deviations; the acceptance requirements below remain the target.
+This is the overall product execution roadmap. The [dedicated 3D engine plan](pattern-derived-3d-engine.md) owns that workstream's execution details. This roadmap supersedes the earlier workspace-only software-prototype proposal for sequencing and integration decisions, while preserving the [product intent](../product/vision.md). Specialist designs below are supporting specifications, not competing roadmaps. The [implementation review](../reviews/manual-prototype.md) records delivered behavior and deviations; the acceptance requirements below remain the target.
 
 ## Outcome
 
@@ -25,7 +25,7 @@ The first release has a declared geometry capability, not a claim to represent e
 ## Decisions and alternatives
 
 | Question | Recommendation | Why / rejected alternative |
-|---|---|---|
+| --- | --- | --- |
 | Separate product or Stylr feature? | Independent Sew Computer repository and development Site. | Garment authoring has different data/security and geometry requirements; do not touch either Stylr working directory. |
 | Research GUI or new consumer interface? | React visual workspace around an explicit adapter. | The research GUI is useful reference material, not the intended UX or API security boundary. |
 | Geometry integration? | Pin and wrap the proven CPU GarmentCode path from Design2GarmentCode. | Image-only generation cannot provide connected pattern geometry. Unrestricted generated Python is not an acceptable web-server fallback. |
@@ -131,7 +131,7 @@ Required authoring surfaces in W2/W4: editable BOM rows, POM definitions/values/
 ### Integrated validation matrix
 
 | Suite | Manual/CPU release | Additional AI-enabled release |
-|---|---|---|
+| --- | --- | --- |
 | Project lifecycle | Save/reload; optimistic conflicts; atomic revision and draft updates; undo; deletion during work; interrupted restore | Stale interpretation proposals, retries and provider outage preserve the same state |
 | Geometry and units | Multiple garment families; parameter boundaries; unit round trips; invalid edges/stitches; semantic geometry checks | Measure requirement preservation separately from successful geometry generation |
 | Jobs and artifacts | Crash after write/before DB commit; lease expiry; duplicate work; cancellation and deletion fencing; checksum failures | Provider idempotency and budget reservation/reconciliation |
@@ -150,71 +150,9 @@ Physical fit remains unverified until actual physical evidence exists. These are
 
 ## Pattern-derived 3D workstream
 
-**Status:** planned, 2026-09-16. **Authority:** [project contract §14](../design/project-contract.md#14-pattern-derived-garment-3d). **First acceptance case:** the existing component shirt, including its collar, cuffs, plackets, tails and gathered frills; the plain shirt is an intermediate fixture, not completion. Broader garment support remains open. No runtime, delivery-date or hardware-cost promise precedes the feasibility measurements.
+The dedicated [pattern-derived 3D engine implementation plan](pattern-derived-3d-engine.md) owns this workstream's architecture, milestones, acceptance tests and release gates. It supersedes the detailed V0–V5 section previously embedded here. The overall software plan remains the product roadmap; the dedicated plan follows [project contract §14](../design/project-contract.md#14-pattern-derived-garment-3d).
 
-### V0 — Inspect integration and prove the difficult operations
-
-**Owner:** engine/integration. **Dependencies:** current pattern and assembly schema inventory.
-
-- Inspect actual emitted templates, cut quantities, layers, edge IDs and assembly ratios. Record missing semantics before choosing an adapter; do not assume existing seam validation supplies 3D placement or solver-ready stitching.
-- Evaluate the pinned upstream optional Warp path first. Compare adapting it with another maintained cloth engine if capability or runtime gates fail. Building our own general cloth solver is not the default; a browser viewer alone does not solve assembly.
-- Verify code and asset licenses, installation, supported host hardware, headless operation, bounded memory/runtime and isolated execution. Use cleared synthetic body fixtures; record whether GPU infrastructure is required. Do not provision paid compute without authorization.
-- Exercise two sewn panels, a gathered strip, a folded/layered collar and overlapping closure. Measure meshing error, seam residuals, strain, collisions, runtime and peak memory. Document unsupported constraints and the adapter work needed for the full shirt.
-
-**Exit:** reproducible fixtures and a recorded engine choice backed by actual outputs, with explicit tolerances and resource budgets. A failed candidate triggers an alternative evaluation or a clearly scoped unresolved gate, not an invented garment render. Keep evidence in the existing research/review directories; keep sequencing here.
-
-### V1 — Versioned assembly input and pattern-to-mesh adapter
-
-**Owner:** contracts/engine. **Dependencies:** V0 findings.
-
-- Extend `packages/contracts` with source-bound physical instances, mesh mappings, oriented seam intervals, registration points, folds, closures, layers, material assumptions and initial placement. Use schema migrations without injecting new defaults into historical revisions.
-- Implement trusted conversion under `services/engine`: normalize units, tessellate real outlines, expand mirrors/counts/folds and retain rest-space and edge provenance. Record the cut-line/stitch-line/allowance policy.
-- Separate immutable rest geometry, initial arrangement and solver positions. Validate each transformation and reject degenerate, missing, duplicate or invented instances.
-
-**Exit:** metric and boundary checks across all six synthetic shirt sizes; each physical fabric instance maps to its template and role. Unequal gathered seams preserve source lengths. Deleted pieces, reversed seam direction, incorrect mirrors, bad fold expansion and unit-scale mutations fail independently of rendering.
-
-### V2 — Durable work and assembled-garment artifacts
-
-**Owner:** backend/engine. **Dependencies:** V1; V0 runtime decision.
-
-- Fix interpretation's synchronous proxy-timeout path using durable submission and progress polling, preserving proposal-source concurrency checks. Reuse applicable lifecycle primitives for meshing/assembly/simulation, with separate measured budgets by job kind.
-- Persist revision/input identity, idempotency keys, bounded queue stages and actionable errors. Exercise retry, reload, process restart, cancellation, project deletion and late worker publication through existing fencing semantics.
-- Run assembly and any required settling server-side. Store validated geometry, provenance and diagnostics as immutable private artifacts. Report partial scope when a selected operation cannot be represented; never hide omitted frills or collars.
-- Distinguish raw placement from an assembled approximation and from simulated drape. Define stage-specific seam/contact/strain criteria based on V0 measurements; do not call floating panels an assembled shirt.
-
-**Exit:** a request exceeding the proxy timeout returns promptly with a recoverable job ID. Duplicate requests cannot double-publish; stale/deleted/cancelled attempts cannot replace current results. The full component shirt produces source-traceable output or specific component-level failures, with no silent fallback. A successful assembled-preview gate requires all selected physical components and assembly relationships to pass its declared checks.
-
-### V3 — Visual inspection as the main workspace
-
-**Owner:** frontend. **Dependencies:** V1 artifact schema; V2 for real outputs. Development fixtures must be labeled.
-
-- Add rotatable garment viewing, front/back/reset controls and a 2D/3D selector to `apps/web`. Selecting a physical piece highlights its template; selecting a seam reveals its partner and diagnostics. Provide a piece list, layer visibility and exploded arrangement for inspection.
-- Keep the useful garment view and revision/status label above the fold. Put advanced diagnostics and assumptions in progressive disclosure; retain pattern downloads and sizing controls. Offer keyboard controls, accessible selection and a working 2D fallback when graphics are unavailable.
-- Show queued/running/failed/partial states without replacing the last valid historical view or implying it matches new edits. Fast previews must still derive from the relevant generated patterns; speculative schematics remain separately labeled.
-- Clear private scene resources on logout/deletion. Do not fetch external model assets, embed session credentials in URLs or expose derived geometry through public caches.
-
-**Exit:** desktop/mobile, keyboard and graphics-failure checks cover selection, revisions, loading, errors and recovery. No AI call is needed to inspect a manually authored supported garment. Camera or exploded-view changes leave canonical pattern bytes unchanged.
-
-### V4 — Material-aware drape and scoped validation
-
-**Owner:** engine, with frontend. **Dependencies:** V0–V3. Basic settling needed by V2 may use this solver earlier; this milestone adds and validates the material behavior claims.
-
-- Add explicit assumed or measured fabric properties with supported units, grain orientation and provenance. Model stretching/bending, contact and supported layer/closure behavior; disclose absent friction, thickness, seam bulk or other effects.
-- Record body/pose identity and uncertainty; existing circumference sliders alone do not define a uniquely accurate body surface. Start with an explicitly synthetic mannequin and retain independent body privacy controls.
-- Validate the full shirt across sizes and meaningful component/material variants. Establish bounded convergence behavior and expose penetration, excessive strain and seam residuals instead of silently repairing rest geometry.
-
-**Exit:** reproducible simulated artifacts meet declared numerical checks across the supported matrix, including gathered frills and collar/placket layers. Sensitivity checks show material changes affect deformation while rest pattern geometry stays fixed. Digital drape remains explicitly unvalidated for physical fit; physical claims require scoped sewn-sample comparisons.
-
-### V5 — Independent adversarial review and private release
-
-**Owner:** independent reviewer plus integration. **Dependencies:** the claimed V1–V4 scope passes its exit criteria. A V3 preview-only release may precede V4 if clearly labeled and reported as partial completion of this workstream.
-
-- Attack piece counts/mirroring, seam orientation, gathering, disconnected components, hidden layers, flipped normals, unit mismatch, tessellation drift, extreme valid inputs and solver non-convergence. Verify correspondence from source data, not screenshots alone.
-- Attack model-authored instructions, malformed artifacts and resource limits; test cross-project access, pattern/body-redacted bundles, embedded textures/avatars, stale revision display and cancellation/deletion races.
-- Run applicable application/engine/browser checks, docs validation and representative performance measurements in an isolated checkout. Retain source-bound artifacts, screenshots and findings in a focused implementation review; distinguish executed tests from this planned matrix.
-- Resolve blocking findings and obtain an independent recheck. Deploy only under release authorization, using the existing private deployment procedure and preserved data. Verify live authentication, a fresh generation, 2D/3D identity, all exports and restart recovery; retain a rollback path.
-
-**Completion:** a user can interpret or manually author a supported garment, inspect the same pattern-derived garment in 3D, identify its physical components, edit authoritative inputs and regenerate without losing history or privacy. Delivering a viewer or one plain-shirt demo does not close full component assembly, material drape, broader construction or physical-fit gates.
+Status: planned, 2026-09-16. Start with solver feasibility and physical assembly semantics, alongside the independent asynchronous interpretation fix. Progress through source-preserving meshes, durable assembly jobs, linked 2D/3D inspection, material drape and independent adversarial release review. The full component shirt is the first acceptance case; broader garment support and physical fit remain open.
 
 ## Release gates and unresolved decisions
 

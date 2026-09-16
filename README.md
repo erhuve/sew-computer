@@ -10,7 +10,7 @@ Consumer garment-design software: turn descriptions, references and sketches int
 
 The component pipeline adds an explicit relaxed shirt compiler with sleeves, cuffs, collars, plackets, curved back tails and gathered front frills, plus derived specifications and construction schematics. New patterns include A4 and Letter tiled PDFs with calibration guides. See [scope, review and remaining gates](docs/reviews/garment-pipeline.md). This work does not make arbitrary garments or physically validated cutting patterns available.
 
-1. **[Active software-prototype plan](docs/plans/software-prototype.md)** — scope, workstreams, manual-first release milestone, AI enhancement and implementation gates.
+1. **[Software-prototype roadmap](docs/plans/software-prototype.md)** — overall scope and implementation gates; the **[dedicated 3D engine plan](docs/plans/pattern-derived-3d-engine.md)** owns pattern-derived assembly, simulation and visualization work.
 2. **[Product intent](docs/product/vision.md)** — creative freedom, software-first sequencing, visual-first UI, independent DIY access and private inputs.
 3. **[Normative project contract](docs/design/project-contract.md)** — revision/draft concurrency, units, jobs, artifacts, evidence, privacy and export/import identity.
 
