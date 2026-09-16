@@ -9,6 +9,7 @@
 - Preserve software-first sequencing and open creative intent. Do not gate starting development on a maker appointment or force the product into a permanent preset catalog. Preserve unsupported requests explicitly.
 - Keep creation, sharing and DIY access independent of manufacturing purchases or paid professional review. This is not a promise of unlimited free model inference.
 - Prioritize useful visuals above the fold with progressive disclosure, responsive layouts and accessibility. Distinguish illustrations, actual geometry and simulation.
+- Garment 3D must derive from actual 2D pattern pieces, explicit assembly and material inputs; never substitute AI-generated meshes or silently reshape pieces to close seams. Preserve piece-instance provenance and revision identity. Follow project contract §14 and the pattern-derived 3D workstream in the active plan; these are planned requirements, not implemented capabilities.
 - Do not infer body measurements or sex/gender from reference photos. Inputs and body-derived geometry are private by default.
 - Design2GarmentCode is an external research dependency. `docs/research/design2garmentcode-evidence.md` pins the inspected baseline and limits. Do not silently update it, claim full AI reproduction from the CPU spike, or vendor uncleared assets/weights.
 - Sew Computer is separate from Stylr. Do not modify, test-build or deploy any Stylr working directory for this project.

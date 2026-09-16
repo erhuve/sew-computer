@@ -8,6 +8,8 @@ This specialty design follows the normative [project contract](project-contract.
 
 ## 1. Evidence boundary
 
+Planning update, 2026-09-16: future garment 3D follows [project contract §14](project-contract.md#14-pattern-derived-garment-3d) and the [active workstream](../plans/software-prototype.md#pattern-derived-3d-workstream). Actual pattern pieces supply rest geometry; typed assembly and material inputs drive trusted engines. The model may propose those inputs, but cannot replace pattern-derived meshes. Simulator choice and compatibility with the custom component compiler remain unverified.
+
 The [upstream investigation](../research/design2garmentcode-evidence.md) records CPU execution at commit `7065b3ef01ff61f4462e871d4cb439a0b97c48db`. Observed interfaces include `BodyParameters`, `MetaGarment(name, body, design).assembly()`, `piece.is_self_intersecting()` and `pattern.serialize(...)`. The smoke test enabled printable serialization and disabled 3D serialization.
 
 Fixed shirt, skirt and trouser configurations produced respectively 4, 4 and 6 panels; all fifteen reported artifacts were nonempty. These observations establish neither a portable installation nor correct units, seams, annotations, print scale or fit. Text/image inference and simulation were not exercised. Upstream is not installed in the new application.

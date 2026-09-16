@@ -28,6 +28,8 @@ Before provider transmission, identify the provider, data being sent and applica
 
 The persistent header contains the project title, revision/draft indicator, save status and primary action. The workspace combines a visual area, requirement list and contextual inspector. Explanations and advanced controls open progressively.
 
+Planned 3D extension (2026-09-16): add a pattern-derived garment view under [project contract §14](project-contract.md#14-pattern-derived-garment-3d). Distinguish initial/exploded placement, approximate assembly and simulated drape by evidence. Link physical instances to 2D templates, retain visible revision identity and use accessible inspection controls. Shape edits must change authoritative construction/pattern inputs; temporary arrangement changes do not. Implementation and release order remain in the [active plan](../plans/software-prototype.md#pattern-derived-3d-workstream); the existing views below describe the earlier slice.
+
 Use three explicitly different views:
 
 | View | Content and boundary |
