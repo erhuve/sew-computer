@@ -105,6 +105,8 @@ Before constructing an import proposal, compare each permitted changed field acr
 
 ## 13. Follow-up regression obligations
 
+Component drafting extension (2026-09-16): optional `garment.design` and requirement feature keys participate in the immutable document digest; absent legacy fields are never default-injected into old revisions. Component geometry carries structured edges, cut contours, grain/registration/closure marks, assembly ratios and derived specifications. Validate them against the selected construction before publication/export. Digital coverage never grants physical-fit or cutting authority. Derived specifications are disclosed only with patterns, remain separate from editable rows, and are ignored as import authority. See [implementation review](../reviews/garment-pipeline.md).
+
 - Export with a matching pass and failure while disclosing only the pass: candidate classification stays blocked. The same holds when a withdrawal record is hidden. Evidence after snapshot cutoff changes new assessments only.
 - Publish an ordinary manual draft, immediately edit and publish again using the returned identity; succeed without a spurious base conflict. A concurrent request with the previous identity must not overwrite it. Preserve a newer unsaved client buffer during acknowledgement.
 - Export BOM A, change the same field locally to B without publishing, import external C: require explicit three-way reconciliation showing B as current. Unrelated local changes and omitted private fields survive.

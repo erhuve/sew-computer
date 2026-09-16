@@ -1,5 +1,6 @@
 import type { Artifact, ExportResult, ExportSnapshot } from '../../packages/contracts';
 import { ApiError, checkFile, cleanObject, hash, objectDigest } from './validation';
+import { designCoverage } from '../../packages/contracts/design';
 
 function require(condition:unknown,message:string):asserts condition {if(!condition)throw new ApiError(422,message);}
 export function validateExport(snapshot:ExportSnapshot,result:ExportResult,assets:{artifact:Artifact;bytes:Uint8Array}[]):void {
@@ -12,8 +13,12 @@ export function validateExport(snapshot:ExportSnapshot,result:ExportResult,asset
   require(manifestDigest===objectDigest(content),'Renderer returned invalid manifest digest');
   require(manifest.sections&&typeof manifest.sections==='object'&&!Array.isArray(manifest.sections),'Invalid manifest sections');
   const sections=manifest.sections as Record<string,unknown>,doc=snapshot.document;
-  const sectionKeys=new Set(['overview','requirements','materials','bom','bodyInputs','finishedMeasurements','construction','patternInventory','review','exportDisclosure']);
+  const sectionKeys=new Set(['overview','requirements','materials','bom','bodyInputs','finishedMeasurements','construction','patternInventory','review','exportDisclosure','derivedConstruction','designCoverage']);
   require(Object.keys(sections).every(k=>sectionKeys.has(k)),'Renderer returned unknown manifest sections');
+  const pattern = snapshot.disclosure.includePatterns ? assets.find(asset => asset.artifact.kind === 'pattern-json') : undefined;
+  const geometry = pattern ? JSON.parse(new TextDecoder().decode(pattern.bytes)) : null;
+  require(objectDigest(sections.derivedConstruction ?? null) === objectDigest(geometry?.drafting ?? null), 'Renderer altered or disclosed derived construction');
+  require(objectDigest(sections.designCoverage ?? null) === objectDigest(geometry?.drafting ? designCoverage(doc, geometry) : null), 'Renderer altered design coverage');
   const projection:Record<string,unknown>={overview:{title:doc.title,brief:doc.brief,sizeLabel:doc.sizeLabel,garment:doc.garment,...(doc.interpretation?{interpretation:doc.interpretation}:{})},requirements:doc.requirements,materials:doc.bom.filter(r=>r.category==='fabric'||r.category==='lining'),bom:doc.bom,finishedMeasurements:doc.poms,construction:doc.construction,review:{callouts:doc.callouts,comments:snapshot.comments}};
   for(const [key,value] of Object.entries(projection))require(objectDigest(sections[key]??null)===objectDigest(value),'Renderer altered the saved editable projection');
   if(snapshot.disclosure.includeBody)require(objectDigest(sections.bodyInputs??null)===objectDigest(doc.body),'Renderer omitted disclosed body fields');

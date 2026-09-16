@@ -29,20 +29,25 @@ export default function PatternCanvas({
   let x = 30,
     y = 30,
     rowHeight = 0;
-  const cells = geometry.panels.map((panel) => {
-    const minX = Math.min(...panel.points.map((p) => p[0])),
-      minY = Math.min(...panel.points.map((p) => p[1]));
-    if (x + panel.widthMm > 1600 && x > 30) {
+  const inventory=geometry.drafting?[...geometry.panels].sort((first,second)=>second.heightMm-first.heightMm):geometry.panels;
+  const cells = inventory.map((panel) => {
+    const points = [...panel.points, ...(panel.draft?.cutLine ?? []), ...(panel.draft?.grainline ?? []),
+      ...(panel.draft?.marks.flatMap(mark => [[mark.point[0] - 3, mark.point[1] - 3], [mark.point[0] + 3, mark.point[1] + 3]]) ?? [])];
+    const minX = Math.min(...points.map(point => point[0]!)),
+      minY = Math.min(...points.map(point => point[1]!));
+    const contentWidth = Math.max(...points.map(point => point[0]!)) - minX,
+      contentHeight = Math.max(...points.map(point => point[1]!)) - minY;
+    if (x + contentWidth > (geometry.drafting ? 3200 : 1600) && x > 30) {
       x = 30;
       y += rowHeight + 85;
       rowHeight = 0;
     }
-    const cell = { panel, x, y, minX, minY };
-    x += panel.widthMm + 65;
-    rowHeight = Math.max(rowHeight, panel.heightMm);
+    const cell = { panel, x, y, minX, minY, contentWidth, contentHeight };
+    x += contentWidth + 65;
+    rowHeight = Math.max(rowHeight, contentHeight);
     return cell;
   });
-  const width = Math.max(600, ...cells.map((c) => c.x + c.panel.widthMm + 30)),
+  const width = Math.max(600, ...cells.map(cell => cell.x + cell.contentWidth + 30)),
     height = y + rowHeight + 80;
   return (
     <div className="pattern-stage">
@@ -72,9 +77,9 @@ export default function PatternCanvas({
           role="img"
           aria-label={`Generated ${geometry.family} pattern with ${geometry.panels.length} panels; printable reference, not a cutting pattern`}
           viewBox={`0 0 ${width} ${height}`}
-          style={{ minWidth: `${zoom * 100}%`, width: `${zoom * 100}%` }}
+          style={{ minWidth: `${zoom * 100}%`, width: `${zoom * 100}%`, height:`${zoom*100}%` }}
         >
-          {cells.map(({ panel, x, y, minX, minY }, i) => (
+          {cells.map(({ panel, x, y, minX, minY, contentHeight }, i) => (
             <g
               key={panel.id}
               transform={`translate(${x},${y})`}
@@ -94,19 +99,24 @@ export default function PatternCanvas({
             >
               <polygon
                 points={panel.points
-                  .map(([a, b]) => `${a - minX + 0},${panel.heightMm - (b - minY) + 0}`)
+                  .map(([a, b]) => `${a - minX},${b - minY}`)
                   .join(" ")}
                 fill={i % 2 ? "#e4ece6" : "#eee7da"}
                 strokeWidth={selected === panel.id ? 4 : 2}
                 vectorEffect="non-scaling-stroke"
               />
-              <text x={0} y={panel.heightMm + 28} fontSize={18}>
-                {panel.name}
+              {panel.draft && <>
+                <polyline points={panel.draft.cutLine.map(point => `${point[0] - minX},${point[1] - minY}`).join(' ')} fill="none" stroke="#945947" strokeWidth={1} vectorEffect="non-scaling-stroke"/>
+                <polyline points={panel.draft.grainline.map(point => `${point[0] - minX},${point[1] - minY}`).join(' ')} fill="none" stroke="#457361" strokeWidth={1} strokeDasharray="8 4" vectorEffect="non-scaling-stroke"/>
+                {panel.draft.marks.map((mark,index) => <circle key={index} cx={mark.point[0] - minX} cy={mark.point[1] - minY} r={3} fill="none" stroke="#457361"><title>{mark.kind}: {mark.label}</title></circle>)}
+              </>}
+              <text x={0} y={contentHeight + 28} fontSize={18}>
+                {panel.name}{panel.cutQuantity ? ` · cut ${panel.cutQuantity}` : ''}
               </text>
               <text
                 className="panel-dimension"
                 x={0}
-                y={panel.heightMm + 49}
+                y={contentHeight + 49}
                 fontSize={14}
               >
                 {Math.round(panel.widthMm)} × {Math.round(panel.heightMm)} mm

@@ -129,7 +129,7 @@ def normalize(piece, digest, warnings, family):
     if not stitches:
         raise ValueError("Missing assembly links")
     warnings += [
-        "Printable reference only; NOT cutting ready. No allowances, grain, notches, cut counts, closure engineering, tiling, physical print calibration, seam-compatibility or fit validation.",
+        "Printable reference only; NOT cutting ready. No allowances, grain, notches, cut counts, closure engineering, physical print calibration, seam-compatibility or fit validation.",
         "Actual upstream circular/quadratic/cubic curves are sampled, not replaced with vertex-only polygons. Nominal curve sample spacing 2 mm of arc length with uniform parameter steps (not a guaranteed chord-error tolerance); exact analytical curve bounds in mm; coordinates rounded to 0.000001 mm. Straight edges retain endpoints.",
         "Upstream panel self-intersection check returned false. This is a limited geometric check, not certification of construction or robust coverage of all parameter combinations.",
         "Geometry can reveal body dimensions, even if original body inputs are excluded from later exports. Keep artifacts private by default.",
@@ -145,19 +145,37 @@ def render(geometry):
     import matplotlib.pyplot as plt
     from matplotlib.backends.backend_pdf import PdfPages
     panels = geometry["panels"]
+    pad = 10
+    layouts = []
+    for panel in panels:
+        points = list(panel["points"])
+        if panel.get("draft"):
+            draft = panel["draft"]
+            points.extend(draft["cutLine"])
+            points.extend(draft["grainline"])
+            for mark in draft["marks"]:
+                horizontal, vertical = mark["point"]
+                points.extend([(horizontal - 1.5, vertical - 1.5), (horizontal + 1.5, vertical + 1.5)])
+        min_horizontal = min(0, *(point[0] for point in points))
+        min_vertical = min(0, *(point[1] for point in points))
+        max_horizontal = max(panel["widthMm"], *(point[0] for point in points))
+        max_vertical = max(panel["heightMm"], *(point[1] for point in points))
+        layouts.append((min_horizontal, min_vertical, max_horizontal - min_horizontal, max_vertical - min_vertical))
     page_sizes = []
-    svg_width = max(p["widthMm"] for p in panels) + 20
-    svg_height = sum(p["heightMm"] + 35 for p in panels) + 20
+    svg_width = max(layout[2] for layout in layouts) + pad * 2
+    svg_height = sum(layout[3] + 35 + pad * 2 for layout in layouts) + 20
     elements = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{svg_width:.6f}mm" height="{svg_height:.6f}mm" viewBox="0 0 {svg_width:.6f} {svg_height:.6f}">', '<rect width="100%" height="100%" fill="white"/>', '<text x="10" y="8" font-size="4">PRINTABLE REFERENCE - NOT CUTTING READY</text>']
     offset = 15
     with PdfPages("pattern.pdf", metadata={"Title": "Sew Computer pattern reference", "Creator": "Sew Computer CPU adapter 1", "CreationDate": None, "ModDate": None}) as pdf:
         for number, panel in enumerate(panels, 1):
-            width, height = panel["widthMm"] + 20, panel["heightMm"] + 40
+            min_horizontal, min_vertical, content_width, content_height = layouts[number - 1]
+            shift_horizontal, shift_vertical = pad - min_horizontal, pad - min_vertical
+            width = max(content_width + pad * 2, 240 if panel.get("draft") else 0)
+            height = content_height + 20 + pad * 2
             page_sizes.append(f"{panel['id']}: {width:.6f} x {height:.6f} mm")
             elements.append(f'<text x="10" y="{offset + 5:.6f}" font-size="4">{escape(panel["id"])} - reference only</text>')
-            coords = ' '.join(f'{x + 10:.6f},{y + offset + 12:.6f}' for x, y in panel["points"])
+            coords = ' '.join(f'{x + shift_horizontal:.6f},{y + offset + shift_vertical + 12:.6f}' for x, y in panel["points"])
             elements.append(f'<polyline points="{coords}" fill="#f2f2f2" stroke="#222222" stroke-width="0.3"/>')
-            offset += panel["heightMm"] + 35
             fig = plt.figure(figsize=(width / 25.4, height / 25.4))
             ax = fig.add_axes((0, 0, 1, 1))
             ax.set_xlim(0, width)
@@ -166,10 +184,25 @@ def render(geometry):
             ax.text(10, 6, "PRINTABLE REFERENCE - NOT CUTTING READY", fontsize=8, va="top")
             ax.text(10, 12, f"{panel['id']} | {number}/{len(panels)} | page {width:.2f} x {height:.2f} mm", fontsize=8, va="top")
             ax.text(10, 18, "Input SHA-256: " + geometry["inputDigest"], fontsize=6, va="top")
-            ax.text(10, height - 10, "No seam allowances / grain / notches. No printer calibration or fit verification.", fontsize=7, va="top")
-            xs = [p[0] + 10 for p in panel["points"]]
-            ys = [p[1] + 26 for p in panel["points"]]
+            ax.text(10, height - 6, "Draft annotations supplied; toile required." if panel.get("draft") else "No seam allowances / grain / notches. No printer calibration or fit verification.", fontsize=7, va="top")
+            xs = [p[0] + shift_horizontal for p in panel["points"]]
+            ys = [p[1] + 16 + shift_vertical for p in panel["points"]]
             ax.plot(xs, ys, color="#222222", linewidth=0.6)
+            if panel.get("draft"):
+                draft = panel["draft"]
+                contours = [(draft["cutLine"], "#8b4538", "-"), (draft["grainline"], "#457361", "--")]
+                for contour, color, style in contours:
+                    coordinates = ' '.join(f'{point[0] + shift_horizontal:.6f},{point[1] + offset + shift_vertical + 12:.6f}' for point in contour)
+                    elements.append(f'<polyline points="{coordinates}" fill="none" stroke="{color}" stroke-width="0.4"/>')
+                    ax.plot([point[0] + shift_horizontal for point in contour], [point[1] + shift_vertical + 16 for point in contour], color=color, linestyle=style, linewidth=0.6)
+                for mark in draft["marks"]:
+                    point = mark["point"]
+                    elements.append(f'<circle cx="{point[0] + shift_horizontal:.6f}" cy="{point[1] + offset + shift_vertical + 12:.6f}" r="1.2" fill="none" stroke="#457361"><title>{escape(mark["kind"] + ": " + mark["label"])}</title></circle>')
+                    ax.plot(point[0] + shift_horizontal, point[1] + shift_vertical + 16, marker="+" if mark["kind"] == "notch" else "o", markersize=3, color="#457361")
+                label = f'Cut {draft["cutQuantity"]} {draft["material"]}; red=cut line; black=seam line; green=grain/marks. Transfer labels from JSON.'
+                elements.append(f'<text x="10" y="{offset + 10:.6f}" font-size="3">{escape(label)}</text>')
+                ax.text(10, 20, label, fontsize=6, va="top")
+            offset += content_height + 35 + pad * 2
             pdf.savefig(fig)
             plt.close(fig)
     elements.append('</svg>')
@@ -193,11 +226,14 @@ def main():
     if inputs["family"] not in ("shirt", "skirt", "trousers") or not re.fullmatch("[a-f0-9]{64}", inputs["inputDigest"]):
         raise ValueError("Invalid engine input")
     sys.path.insert(0, str(upstream))
-    body, warnings = build_body(inputs)
-    piece, lowering = compile_piece(inputs, upstream, body)
-    warnings += lowering + inputs["provenance"]
-    warnings += [f"Execution: non-root uid {security['uid']}; CPU 60 s; address space 2 GiB; output file 16 MiB; wall budget 90 s enforced by parent; {security['network']}.", "No filesystem/network-namespace sandbox is available on this host. Trusted pinned code only, clean environment without API credentials; private single-owner prototype, not public/multiuser or arbitrary-code execution."]
-    geometry = normalize(piece, inputs["inputDigest"], warnings, inputs["family"])
+    if inputs.get("design"):
+        from shirt import compile_shirt
+        geometry = compile_shirt(inputs, COMMIT)
+    else:
+        body, warnings = build_body(inputs)
+        piece, lowering = compile_piece(inputs, upstream, body)
+        geometry = normalize(piece, inputs["inputDigest"], warnings + lowering + inputs["provenance"], inputs["family"])
+    geometry["warnings"] += [f"Execution: non-root uid {security['uid']}; CPU 60 s; address space 2 GiB; output file 16 MiB; wall budget 90 s enforced by parent; {security['network']}.", "No filesystem/network-namespace sandbox is available on this host. Trusted pinned code only, clean environment without API credentials; private single-owner prototype, not public/multiuser or arbitrary-code execution."]
     render(geometry)
 
 

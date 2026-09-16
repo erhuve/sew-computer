@@ -204,7 +204,7 @@ test('populated garment exports real patterns and incorporates a bounded maker c
  const href=await manifestLink.getAttribute('href');
  const manifest=await studio.call('GET',href!.replace(/^\/api/,''));
  expect(manifest.sections.bom).toHaveLength(2);expect(manifest.sections.finishedMeasurements).toHaveLength(2);
- expect(manifest.sections.patternInventory.artifacts).toHaveLength(3);expect(manifest.sections.review.comments).toHaveLength(1);
+ expect(manifest.sections.patternInventory.artifacts).toHaveLength(5);expect(manifest.sections.review.comments).toHaveLength(1);
  expect(manifest.sections.bodyInputs).toBeUndefined();expect(manifest.sections.requirements[0].status).toBe('unsupported');
  const download=page.waitForEvent('download');await page.getByRole('link',{name:/tech-pack.pdf/}).click();
  await (await download).saveAs(resolve(evidence,'populated-tech-pack.pdf'));

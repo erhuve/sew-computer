@@ -109,6 +109,8 @@ Maker feedback initially means importing or recording comments against a selecte
 
 ## 7. Component handoff and release checks
 
+The component implementation presents front/back construction schematics with editable choices and dimension sliders. Schematics disclose that they do not predict drape/fit. Original requirements remain visible alongside digital component coverage, and derived construction is tied to the displayed pattern revision. A busy autosave must finish before generation; the generation click must never silently disappear. See [component review](../reviews/garment-pipeline.md).
+
 The editor supplies version-bound user decisions; the coordinator enforces authorization and conflicts. [Engine and AI design](./engine-ai.md) supplies capability reports, typed proposals, artifact provenance and trustworthy geometry mappings. Export processing owns deterministic eligibility and immutable snapshots. The editor displays these decisions rather than recreating them.
 
 Before completing [the prototype plan](../plans/software-prototype.md), test stale acceptance, two-tab conflicts, unsupported-detail retention through export, cancellation races, historical viewing, missing artifacts, failed autosave, redaction and complete keyboard/mobile flows.

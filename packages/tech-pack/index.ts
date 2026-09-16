@@ -3,6 +3,7 @@ import sharp from 'sharp';
 import { canonical, type Artifact, type ExportFile, type ExportResult, type ExportSnapshot, type GarmentDocument, type PatternGeometry, type ReviewComment } from '../contracts';
 import { createPdfContext, PAPER, renderPdf } from './pdf';
 import { captureExport, checkSanitizedPng, digest, type VerifiedAsset } from './validation';
+import { designCoverage } from '../contracts/design';
 
 export interface PatternPdfPage {
   page: number; xPt: number; yPt: number; widthPt: number; heightPt: number; widthMm: number; heightMm: number; rotationDegrees: number;
@@ -25,6 +26,8 @@ export interface HandoffManifest extends Record<string, unknown> {
       provenance?: Pick<PatternGeometry, 'engineVersion' | 'inputDigest' | 'units' | 'warnings'>;
     };
     review: { callouts: GarmentDocument['callouts']; comments: ReviewComment[] };
+    derivedConstruction?: NonNullable<PatternGeometry['drafting']>;
+    designCoverage?: ReturnType<typeof designCoverage>;
     exportDisclosure: ExportSnapshot['disclosure'] & {
       omissions: string[]; classification: 'Draft review document'; privacyNotice: string; pageFormat: typeof PAPER;
       textRendering: { font: string; policy: string; replacements: string[] };
@@ -33,7 +36,7 @@ export interface HandoffManifest extends Record<string, unknown> {
 }
 
 const PRIVACY_NOTICE = 'Body inputs and source images are omitted unless selected. Garment parameters, finished measurements, free-text notes and included geometry may still reveal body-related or personal information; redaction is not anonymization. Review these owner-entered fields before sharing.';
-const PATTERN_NOTICE = 'Generated garment patterns are reference-only and NOT cutting ready. No cutting-candidate classification, print calibration, seam/annotation validation or physical-fit evidence is supplied. When selected, original pattern files are included byte-for-byte, never restamped or rescaled; bundle identity belongs to this manifest and the separate tech pack.';
+const PATTERN_NOTICE = 'Generated garment patterns are reference-only and NOT cutting ready. No cutting-candidate classification, print calibration or physical-fit evidence is supplied. Component drafts report scoped digital seam/annotation checks separately; legacy base patterns do not. When selected, original pattern files are included byte-for-byte, never restamped or rescaled; bundle identity belongs to this manifest and the separate tech pack.';
 const FONT_POLICY = 'PDF text uses embedded DejaVu Sans and NFC display normalization. Unsupported glyphs, control/bidirectional formatting characters and right-to-left script characters are shown deterministically as [U+XXXX] code points instead of dropping text or presenting incorrect shaping/order. JSON retains the exact original strings.';
 
 async function artifactRecord(asset: VerifiedAsset): Promise<DeliveredArtifact> {
@@ -104,6 +107,7 @@ export async function buildExport(snapshot: ExportSnapshot, geometry: PatternGeo
         } : {}),
       },
       review: { callouts: structuredClone(doc.callouts), comments: structuredClone(saved.comments) },
+      ...(captured.geometry?.drafting ? {designCoverage:designCoverage(doc,captured.geometry),derivedConstruction:structuredClone(captured.geometry.drafting)} : {}),
       exportDisclosure: {
         ...saved.disclosure, omissions: [...new Set(omissions)], classification: 'Draft review document', privacyNotice: PRIVACY_NOTICE,
         pageFormat: { ...PAPER }, textRendering: { font: 'DejaVu Sans 2.37 / Bitstream Vera license', policy: FONT_POLICY, replacements: [] },

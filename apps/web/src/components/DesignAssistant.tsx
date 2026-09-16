@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { LoaderCircle, Sparkles } from 'lucide-react';
 import { canonical, type GarmentDocument, type Measurement } from '../../../../packages/contracts';
 import type { DesignProposal, InterpretationStatus } from '../../../../packages/contracts/interpretation';
+import GarmentDesign from './GarmentDesign';
 
 const measurement=(value:Measurement)=>'value' in value?`${value.value} ${value.unit} (${value.state})`:value.state;
 export default function DesignAssistant({doc,status,proposal,busy,stale,onPropose,onAccept,onMeasurements}:{
@@ -15,6 +16,7 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
     <div className="assistant-heading"><Sparkles size={18}/><strong>From idea to pattern</strong></div>
     {proposal?<>
       <p>{proposal.summary}</p>
+      <GarmentDesign doc={proposal.document}/>
       <dl className="proposal-shape">
         <div><dt>Shape</dt><dd>{proposal.document.garment.family}</dd></div>
         <div><dt>Length</dt><dd>{measurement(proposal.document.garment.length)}</dd></div>

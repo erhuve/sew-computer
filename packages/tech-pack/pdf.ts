@@ -4,6 +4,7 @@ import { PDFDocument, rgb, type PDFFont, type PDFImage, type PDFPage } from 'pdf
 import { type Measurement, type PatternGeometry } from '../contracts';
 const measureLabel = (measurement: Measurement) => 'value' in measurement ? `${measurement.value} ${measurement.unit} (${measurement.state})` : measurement.state.replaceAll('-', ' ');
 import type { HandoffManifest } from './index';
+import { garmentFlats, type Flat } from '../contracts/flats';
 
 export const PAPER = { name: 'A4', widthPt: 210 * 72 / 25.4, heightPt: 297 * 72 / 25.4, widthMm: 210, heightMm: 297, scale: 'Review layout, not an actual-size pattern' };
 const INK = rgb(0.13, 0.17, 0.18), MUTED = rgb(0.32, 0.37, 0.39), ACCENT = rgb(0.10, 0.37, 0.34);
@@ -112,11 +113,24 @@ class Layout {
     const start = { x: MARGIN + 4, y: this.y - 110 };
     for (let i = 0; i < outline.length; i++) {
       const a = outline[i]!, b = outline[(i + 1) % outline.length]!;
-      this.page.drawLine({ start: { x: start.x + (a[0] - minX) * scale, y: start.y + (a[1] - minY) * scale }, end: { x: start.x + (b[0] - minX) * scale, y: start.y + (b[1] - minY) * scale }, thickness: 0.7, color: ACCENT });
+      this.page.drawLine({ start: { x: start.x + (a[0] - minX) * scale, y: start.y + 105 - (a[1] - minY) * scale }, end: { x: start.x + (b[0] - minX) * scale, y: start.y + 105 - (b[1] - minY) * scale }, thickness: 0.7, color: ACCENT });
     }
     this.y -= 125;
     this.paragraph(`Panel bounding box: ${panel.widthMm} x ${panel.heightMm} mm. Outline thumbnail, not to scale. These are panel dimensions, not body measurements or finished-garment POMs.`, 9, true);
-    this.field('Reported annotations', 'Allowances, grainlines, notches and cut counts are not validated.');
+    this.field('Reported annotations', panel.draft ? `Cut ${panel.cutQuantity} ${panel.draft.material}; cut line, grainline and registration marks are in the pattern files. Digital checks do not establish physical fit.` : 'Allowances, grainlines, notches and cut counts are not validated.');
+  }
+  flat(flat:Flat) {
+    this.ensure(245);
+    this.heading(`${flat.view} construction schematic`);
+    const all=flat.lines.flatMap(line=>line.points), minX=Math.min(...all.map(point=>point[0])), maxX=Math.max(...all.map(point=>point[0]));
+    const scale=Math.min(WIDTH/(maxX-minX+20),0.65), center=MARGIN+WIDTH/2;
+    for(const line of flat.lines)for(let index=0;index<line.points.length-1;index++) {
+      const start=line.points[index]!,end=line.points[index+1]!;
+      this.page.drawLine({start:{x:center+start[0]*scale,y:this.y-20-start[1]*scale},end:{x:center+end[0]*scale,y:this.y-20-end[1]*scale},thickness:line.detail?0.6:1,color:ACCENT});
+    }
+    for(const point of flat.buttons)this.page.drawCircle({x:center+point[0]*scale,y:this.y-20-point[1]*scale,size:1.2,color:ACCENT});
+    this.y-=220;
+    this.paragraph('Selected construction shown schematically; not a drape simulation, scaled cutting drawing or fit prediction.',8,true);
   }
   footers() {
     const { manifest, context } = this;
@@ -143,6 +157,18 @@ const measurement = (value: Measurement) => `${measureLabel(value)}; source: ${'
 export async function renderPdf(context: PdfContext, manifest: HandoffManifest, geometry: PatternGeometry | null, images: Map<string, PDFImage>): Promise<Uint8Array> {
   const out = new Layout(context, manifest), s = manifest.sections;
   out.section('1. Design overview');
+  if (s.derivedConstruction) {
+    for(const flat of garmentFlats({garment:s.overview.garment},geometry))out.flat(flat);
+    out.heading('Derived construction specification');
+    out.paragraph(`Digital feature coverage: ${s.designCoverage?.status}. ${s.designCoverage?.notice}`);
+    for (const missing of s.designCoverage?.unresolved ?? []) out.field('Unresolved requirement', missing);
+    for (const missing of s.designCoverage?.missing ?? []) out.field('Missing component', missing);
+    out.field('Drafting method', s.derivedConstruction.compiler);
+    out.field('Seam allowance', `${s.derivedConstruction.seamAllowanceMm} mm; cut contours are supplied separately from seam lines.`);
+    for (const measure of s.derivedConstruction.measurements) out.field(measure.name, `${measure.valueMm.toFixed(1)} mm. ${measure.method}`);
+    for (const material of s.derivedConstruction.materials) out.field('Derived material / trim', material);
+    for (const [index, operation] of s.derivedConstruction.operations.entries()) out.field(`Construction ${index + 1}`, operation);
+  }
   out.heading(s.overview.title || 'Untitled garment');
   out.field('Original brief', s.overview.brief);
   out.field('Saved revision', `${manifest.revisionNumber} (${manifest.revisionId}); created ${manifest.revisionCreatedAt}`);
@@ -244,7 +270,7 @@ export async function renderPdf(context: PdfContext, manifest: HandoffManifest, 
     for (const assumption of geometry.assumptions) out.field('Engine assumption', assumption);
     for (const panel of geometry.panels) out.panel(panel);
   } else out.paragraph('No panel geometry is displayed. An absent or withheld pattern is not replaced by an illustration.');
-  out.paragraph('Annotation checks not performed: seam allowances, grain, notches, cut counts/folds, material assignments and grading. Reported annotation strings do not establish completeness. No print calibration or physical scale check is recorded.', 9, true);
+  out.paragraph(geometry?.drafting ? 'Digital checks cover selected piece inventory, cut-contour validity, connected seam edges, seam lengths/gathering, registration and closure marks, grainline bounds and cut counts. Grading, material behavior, physical printing and fit remain unvalidated.' : 'Annotation checks not performed: seam allowances, grain, notches, cut counts/folds, material assignments and grading. Reported annotation strings do not establish completeness. No print calibration or physical scale check is recorded.', 9, true);
 
   out.section('7. Review and change record');
   out.field('Revision', `${manifest.revisionNumber}; ${manifest.revisionId}`);

@@ -74,3 +74,14 @@ body{margin:0;background:var(--background);color:var(--foreground);font-family:A
 @container(max-width:650px){.sizing-workbench{grid-template-columns:1fr}.sizing-topline{align-items:flex-start}.sizing-topline h3{font-size:21px}.sample-picker{flex-wrap:wrap;gap:10px}.sample-picker>div{flex:1;min-width:160px}.sample-picker>button{width:100%}.body-diagram{position:static;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;padding:12px}.diagram-label{grid-column:1/-1}.body-diagram svg{height:190px}.body-diagram figcaption{font-size:13px;align-content:center;min-height:0}.body-diagram small{font-size:11px}.sizing-value{grid-template-columns:minmax(40px,1fr) 85px 24px}.sizing-state{flex-wrap:wrap}}
 @media(max-width:700px){.measurement-step .authoring-content{padding:16px 14px}.measurement-step .step-intro{padding:16px 14px 0}.measurement-step .step-intro p{font-size:14px}}
 @container(max-width:650px){.sizing-topline h2{font-size:24px}.body-diagram svg{height:150px}.sizing-workbench{gap:16px}}
+.garment-design { padding: 1rem; border-bottom: 1px solid var(--border, #d6d5ce); }
+.garment-flats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.garment-flats figure { margin: 0; min-width: 0; }
+.garment-flats svg { width: 100%; min-height: 150px; background: #f4f2eb; color: #3e5147; border-radius: .5rem; }
+.garment-flats figcaption { text-align: center; font-size: .75rem; padding: .4rem; }
+.construction-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; padding: 1rem 0; }
+.construction-controls label { display: flex; flex-direction: column; gap: .4rem; font-size: .85rem; }
+.construction-controls select { max-width: 100%; }
+.garment-design details { margin-top: .8rem; }
+.garment-design li { margin: .6rem 0; }
+@media (max-width: 500px) { .construction-controls { grid-template-columns: 1fr; } }

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { canonical, DisclosureSchema as disclosureSchema, DocumentSchema as documentSchema, Id as idSchema, type Artifact, type ExportSnapshot, type PatternGeometry } from '../contracts';
+import { DraftingSchema, PanelDraftSchema, validateDrafting, validateDesignGeometry } from '../contracts/design';
 
 export const digest = (value: Uint8Array | string): string => createHash('sha256').update(value).digest('hex');
 const checksum = z.string().regex(/^[a-f0-9]{64}$/);
@@ -32,10 +33,12 @@ const geometrySchema: z.ZodType<PatternGeometry> = z.object({
     id: bounded(200).min(1), name: bounded(200).min(1),
     points: z.array(z.tuple([z.number().finite().min(-1e6).max(1e6), z.number().finite().min(-1e6).max(1e6)])).min(3).max(100000),
     widthMm: z.number().finite().positive().max(1e6), heightMm: z.number().finite().positive().max(1e6), cutQuantity: z.number().int().positive().optional(),
+    draft: PanelDraftSchema.optional(),
   }).strict()).min(1).max(200),
   stitches: z.array(z.object({ panelA: bounded(300), panelB: bounded(300), edgeA: z.number().int().nonnegative(), edgeB: z.number().int().nonnegative() }).strict()).max(2000),
   warnings: z.array(bounded(30000)).max(200), engineVersion: bounded(300).min(1),
   assumptions: z.array(bounded(30000)).max(200), classification: z.literal('printable-reference'), inputDigest: checksum,
+  drafting: DraftingSchema.optional(),
 }).strict();
 
 export interface VerifiedAsset { artifact: Artifact; bytes: Uint8Array; filename: string }
@@ -78,7 +81,8 @@ export function captureExport(snapshot: ExportSnapshot, geometry: PatternGeometr
     const bytes = Uint8Array.from(source.bytes);
     if (digest(bytes) !== artifact.digest) throw new Error(`Artifact digest mismatch: ${artifact.id}`);
     if (artifact.mime !== expectedMime[artifact.kind]) throw new Error('Artifact MIME does not match its kind');
-    return { artifact, bytes, filename: `${artifact.kind === 'reference' ? 'reference' : 'pattern'}-${artifact.id}.${extension[artifact.kind]}` };
+    const printFormat = artifact.kind === 'pattern-pdf' && /^pattern-(a4|letter)-tiled\.pdf$/.test(artifact.filename) ? `${artifact.filename.slice(0, -4)}-` : artifact.kind === 'reference' ? 'reference-' : 'pattern-';
+    return { artifact, bytes, filename: `${printFormat}${artifact.id}.${extension[artifact.kind]}` };
   };
   let checkedGeometry: PatternGeometry | null = null;
   const patterns: VerifiedAsset[] = [];
@@ -92,6 +96,8 @@ export function captureExport(snapshot: ExportSnapshot, geometry: PatternGeometr
     if (json[0]!.bytes.length > 32 * 1024 * 1024) throw new Error('Pattern JSON exceeds the 32 MiB limit');
     const committed = geometrySchema.parse(JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(json[0]!.bytes)));
     checkedGeometry = geometrySchema.parse(geometry);
+    validateDrafting(checkedGeometry);
+    validateDesignGeometry(frozen.document,checkedGeometry);
     if (canonical(committed) !== canonical(checkedGeometry)) throw new Error('Geometry does not match the committed pattern JSON');
     if (checkedGeometry.inputDigest !== frozen.revision.digest) throw new Error('Geometry input digest does not match the revision');
     const ids = new Set<string>();

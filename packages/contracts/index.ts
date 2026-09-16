@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { FeatureSchema, ShirtDesignSchema, type PanelDraftSchema, type DraftingSchema } from './design';
 
 export const text = z.string().max(8000);
 export const Id = z.string().regex(/^[a-zA-Z0-9_-]{1,100}$/);
@@ -13,7 +14,7 @@ export type Measurement = z.infer<typeof MeasurementSchema>;
 export function mm(m: Measurement): number | null { return 'value' in m ? m.value * ({mm:1,cm:10,in:25.4}[m.unit]) : null; }
 export function convert(m: Measurement, unit: z.infer<typeof Unit>): Measurement { return 'value' in m ? {...m, unit, value: Number((mm(m)! / ({mm:1,cm:10,in:25.4}[unit])).toFixed(8))} : m; }
 export function assumed(value: number, unit: 'mm'|'cm'|'in' = 'mm', source = 'Explicit synthetic example; not the wearer’s measurements'): Extract<Measurement,{state:'assumed'}> { return {state:'assumed',value,unit,source}; }
-export const RequirementSchema = z.object({id:Id,text, status:z.enum(['unresolved','supported','unsupported']), note:text}).strict();
+export const RequirementSchema = z.object({id:Id,text, status:z.enum(['unresolved','supported','unsupported']), note:text, feature:FeatureSchema.optional()}).strict();
 export const BomSchema = z.object({id:Id,name:z.string().max(240),category:z.enum(['fabric','lining','trim','other']),specification:text,placement:text,quantity:z.string().max(240),source:z.string().max(500)}).strict();
 export const PomSchema = z.object({id:Id,name:z.string().max(240),method:text,target:MeasurementSchema,tolerance:MeasurementSchema,size:z.string().max(100),note:text}).strict();
 export const ConstructionSchema = z.object({id:Id,operation:text,note:text}).strict();
@@ -21,7 +22,7 @@ export const CalloutSchema = z.object({id:Id,anchor:z.string().max(300),text}).s
 export const ViewSchema = z.object({id:Id,assetId:Id,role:z.enum(['front','back','detail']),kind:z.enum(['reference','technical-flat','sketch']),caption:text}).strict();
 export const DocumentSchema = z.object({
   schemaVersion:z.literal(1), title:z.string().min(1).max(160), brief:text, sizeLabel:z.string().max(100),
-  garment:z.object({family:z.enum(['none','shirt','skirt','trousers']),length:MeasurementSchema,ease:MeasurementSchema,flare:z.number().finite().min(0).max(3)}).strict(),
+  garment:z.object({family:z.enum(['none','shirt','skirt','trousers']),length:MeasurementSchema,ease:MeasurementSchema,flare:z.number().finite().min(0).max(3),design:ShirtDesignSchema.nullable().optional()}).strict(),
   body:z.object({height:MeasurementSchema,bust:MeasurementSchema,waist:MeasurementSchema,hip:MeasurementSchema,shoulder:MeasurementSchema}).strict(),
   requirements:z.array(RequirementSchema).max(80), bom:z.array(BomSchema).max(80), poms:z.array(PomSchema).max(80),
   construction:z.array(ConstructionSchema).max(80),callouts:z.array(CalloutSchema).max(80),views:z.array(ViewSchema).max(20),
@@ -36,8 +37,8 @@ export type Job = {id:string,projectId:string,revisionId:string,requestId:string
 export type Artifact = {id:string,projectId:string,revisionId:string,jobId:string|null,kind:'pattern-json'|'pattern-svg'|'pattern-pdf'|'reference',filename:string,mime:string,digest:string,bytes:number,classification:'screen-preview'|'printable-reference',createdAt:string};
 export type ReviewComment = {id:string,projectId:string,revisionId:string,anchor:string,text:string,reportedReviewer:string,recordedBy:'owner',createdAt:string};
 export type ProjectState = {project:Project,draft:Draft,revisions:Revision[],jobs:Job[],artifacts:Artifact[],comments:ReviewComment[]};
-export type PatternPanel = {id:string,name:string,points:[number,number][],widthMm:number,heightMm:number,cutQuantity?:number};
-export type PatternGeometry = {schemaVersion:1,units:'mm',inputDigest:string,engineVersion:string,family:string,panels:PatternPanel[],stitches:{panelA:string,edgeA:number,panelB:string,edgeB:number}[],warnings:string[],classification:'printable-reference',assumptions:string[]};
+export type PatternPanel = {id:string,name:string,points:[number,number][],widthMm:number,heightMm:number,cutQuantity?:number,draft?:z.infer<typeof PanelDraftSchema>};
+export type PatternGeometry = {schemaVersion:1,units:'mm',inputDigest:string,engineVersion:string,family:string,panels:PatternPanel[],stitches:{panelA:string,edgeA:number,panelB:string,edgeB:number}[],warnings:string[],classification:'printable-reference',assumptions:string[],drafting?:z.infer<typeof DraftingSchema>};
 export const DisclosureSchema = z.object({includeBody:z.boolean(),includeReferences:z.boolean(),includePatterns:z.boolean()}).strict();
 export type Disclosure = z.infer<typeof DisclosureSchema>;
 export type ExportSnapshot = {id:string,projectId:string,revision:Revision,document:GarmentDocument,artifacts:Artifact[],comments:ReviewComment[],disclosure:Disclosure,createdAt:string};

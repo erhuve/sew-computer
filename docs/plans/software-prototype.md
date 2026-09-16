@@ -1,12 +1,18 @@
 # Sew Computer: software prototype execution plan
 
-**2026-09-15 · Active plan · AI-assisted creation integration; remaining physical/research gates stay open**
+**2026-09-16 · Active plan · Component garment pipeline implemented, private release verification underway; breadth and physical/research gates remain open**
 
 The owner's latest priority is an immediately usable describe-to-garment software flow. The manual milestone is complete; it is no longer the stopping point. The current implementation connects a tool-free model to reviewed typed proposals, explicit measurements, the existing CPU engine and revisioned exports. See the [AI integration review](../reviews/ai-prototype.md). This scope supersedes the earlier manual-only release sequencing without changing physical-readiness claims.
 
 This is the only active execution plan. It supersedes the earlier workspace-only software-prototype proposal for sequencing and integration decisions, while preserving the [product intent](../product/vision.md). Specialist designs below are supporting specifications, not competing roadmaps. The [implementation review](../reviews/manual-prototype.md) records delivered behavior and deviations; the acceptance requirements below remain the target.
 
 ## Outcome
+
+Garment pipeline follow-up (2026-09-16, in implementation): the owner's current scope is brief → editable construction design → matching component patterns → derived specifications and front/back schematics. The LLM should resolve ordinary design ambiguity itself and explain editable choices; the owner is building the software, not commissioning a bespoke shirt in chat. The white button-up with practical tails and frills is a regression case, not a permanent product restriction. Preserve all existing private revision/export behavior. This supersedes the base-pattern-only interpretation boundary for supported component designs.
+
+The first component compiler is explicitly a relaxed drop-shoulder woven shirt, with optional sleeves, button cuffs/openings, stand/fall collar, front plackets, curved back tails and gathered front frills. It must not silently stand in for set-in sleeves, split coat tails, fitted shaping or other unsupported construction. Digital seam/annotation/coverage checks are separate from physical fit and sewing readiness. Remaining breadth and physical gates stay open; see [garment pipeline review](../reviews/garment-pipeline.md).
+
+Printing follow-up: new generations include nominal 1:1 A4 and US Letter tiled pattern PDFs with overlap/alignment guides, piece inventories and a 100 mm calibration square, alongside the existing custom-size sheets. Raster tests verify digital scale and tile continuity; the wearer must still check their printer output. These files obey the same immutable artifact and pattern-disclosure boundaries. This closes digital home-print tiling, not physical calibration or garment breadth.
 
 Visual sizing follow-up (2026-09-16): implement synthetic sample sizes, synchronized sliders/numbers and a clearly labeled schematic, private reusable measurements, shared preflight feedback and a safe explanation of the zero-length-edge failure. Preserve entered measurements, assumptions, unsupported design intent, immutable revisions and export privacy. This extends the existing editor; it does not add simulation or claim broader validated engine coverage. See [visual sizing operations](../deployment.md#visual-sizing) and [adversarial implementation review](../reviews/visual-sizing.md).
 

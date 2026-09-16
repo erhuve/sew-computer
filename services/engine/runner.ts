@@ -6,6 +6,8 @@ import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { canonical, DocumentSchema as documentSchema, type Artifact, type GarmentDocument, type PatternGeometry } from '../../packages/contracts/index';
 import { sizingInput } from '../../packages/contracts/sizing';
+import { designIssues, validateDrafting, validateDesignGeometry } from '../../packages/contracts/design';
+import { renderTiledPattern, type PrintPaper } from './printing';
 
 export const ENGINE_COMMIT = '7065b3ef01ff61f4462e871d4cb439a0b97c48db';
 const root = dirname(fileURLToPath(import.meta.url));
@@ -25,12 +27,14 @@ export function validateInput(document: GarmentDocument, inputDigest: string) {
   try { dimensions = sizingInput(doc); } catch (error) { throw new EngineInputError((error as Error).message); }
   const provenance = [
     ...(doc.interpretation?[`AI parameter proposal: ${doc.interpretation.provider} / ${doc.interpretation.model} / ${doc.interpretation.adapter}; proposal ${doc.interpretation.proposalId}. Accepted by owner; subsequent manual edits possible. Not a fit or sewing validation.`]:[]),
-    'The brief, references, construction text and requirement statuses are preserved but are not interpreted by this manual CPU adapter. Only family, length, ease, flare and entered body values are used.',
+    'The brief, references, construction text and requirement statuses are preserved but not interpreted by the geometry worker. Only validated structured garment controls and body values drive geometry; textual coverage remains subject to review.',
     ...Object.entries(doc.body).map(([key, m]) => `Owner-entered body.${key}: ${m.state}; source: ${'source' in m ? m.source : 'unspecified'}.`),
     ...(['length', 'ease'] as const).map(key => `Owner-entered garment.${key}: ${doc.garment[key].state}; source: ${'source' in doc.garment[key] ? doc.garment[key].source : 'unspecified'}.`),
     ...doc.requirements.map(r => `Requirement ${r.id} remains ${r.status}, unverified by engine: ${r.text}`),
   ];
-  const input = { ...dimensions, provenance, inputDigest };
+  const design = doc.garment.design;
+  if (design && (dimensions.family !== 'shirt' || designIssues(design).length)) throw new EngineInputError(dimensions.family !== 'shirt' ? 'The relaxed shirt construction requires shirt family.' : designIssues(design).join(' '));
+  const input = { ...dimensions, ...(design ? {design} : {}), provenance, inputDigest };
   if (Buffer.byteLength(JSON.stringify(input)) > 512 * 1024) throw new Error('Engine input exceeds budget');
   return input;
 }
@@ -108,6 +112,7 @@ export function validateGeometry(value: unknown, inputDigest: string): PatternGe
     if (Math.abs(area) < 0.000001) throw new Error('Degenerate zero-area panel');
   }
   if (!geometry.stitches.length || geometry.stitches.length > 1000 || geometry.stitches.some(s => !ids.has(s.panelA) || !ids.has(s.panelB) || !Number.isInteger(s.edgeA) || s.edgeA < 0 || !Number.isInteger(s.edgeB) || s.edgeB < 0)) throw new Error('Invalid stitch graph');
+  validateDrafting(geometry);
   return geometry;
 }
 
@@ -139,6 +144,7 @@ export async function runEngine(input: { document: GarmentDocument; inputDigest:
     try {
       await executeTrusted(python, [join(root, 'worker.py'), upstream], attempt, JSON.stringify(payload), input.signal, 90_000, cacheDir);
     } catch (error) {
+      if (error instanceof Error && error.message.includes('DESIGN_INPUT:')) throw new EngineInputError(error.message.split('DESIGN_INPUT:')[1]!.trim());
       if (error instanceof Error && error.message.includes('AssertionError: Start and end of an edge should differ')) throw new EngineInputError('The pattern engine produced a zero-length edge for this combination of body measurements and garment settings. This is an engine limitation, not proof a measurement is wrong. Your values are saved unchanged. Review Shape & body; accurate measurements should not be reduced just to make generation succeed.');
       throw error;
     }
@@ -146,10 +152,14 @@ export async function runEngine(input: { document: GarmentDocument; inputDigest:
     const results = [];
     for (const definition of files) results.push({ ...definition, bytes: await readArtifact(join(attempt, definition.filename)) });
     const geometry = validateGeometry(JSON.parse(Buffer.from(results[0].bytes).toString('utf8')), input.inputDigest);
+    validateDesignGeometry(input.document,geometry);
     if (geometry.family !== payload.family) throw new Error('Engine returned a different garment family');
     const svg = Buffer.from(results[1].bytes).toString('utf8');
     if (!svg.startsWith('<svg ') || !svg.endsWith('</svg>') || /<(?:script|foreignObject|image|use)\b|\son\w+\s*=|(?:href|url)\s*[=(]/i.test(svg)) throw new Error('Unsafe SVG artifact');
     if (Buffer.from(results[2].bytes.subarray(0, 5)).toString() !== '%PDF-') throw new Error('Invalid PDF artifact');
+    for (const paper of ['A4', 'Letter'] as PrintPaper[]) {
+      results.push({ filename: `pattern-${paper.toLowerCase()}-tiled.pdf`, mime: 'application/pdf', kind: 'pattern-pdf' as const, bytes: await renderTiledPattern(geometry, paper, input.signal) });
+    }
     input.signal.throwIfAborted();
     return { geometry, files: results };
   } finally {

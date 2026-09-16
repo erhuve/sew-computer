@@ -36,8 +36,8 @@ function write(value:unknown,keys:string[],after:unknown,remove:boolean) {
   } else throw new ApiError(409,'Imported field no longer exists');
 }
 const topSchema=z.object({schemaVersion:z.literal(1),snapshotId:Id,revisionId:Id,projectId:Id,manifestDigest:z.string().regex(/^[a-f0-9]{64}$/),sections:z.record(z.string(),z.unknown())}).passthrough();
-const allowedSections=new Set(['overview','requirements','materials','bom','bodyInputs','finishedMeasurements','construction','patternInventory','review','exportDisclosure']);
-const fields:Record<string,string[]>={overview:['title','brief','sizeLabel','garment'],garment:['family','length','ease','flare'],body:['height','bust','waist','hip','shoulder']};
+const allowedSections=new Set(['overview','requirements','materials','bom','bodyInputs','finishedMeasurements','construction','patternInventory','review','exportDisclosure','derivedConstruction','designCoverage']);
+const fields:Record<string,string[]>={overview:['title','brief','sizeLabel','garment'],garment:['family','length','ease','flare','design'],body:['height','bust','waist','hip','shoulder']};
 
 export function previewImport(store:Store,projectId:string,raw:unknown):ImportPreview {
   cleanObject(raw);

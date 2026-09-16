@@ -134,4 +134,6 @@ The no-model authoring path includes BOM rows, POM definitions and values/proven
 
 Pattern geometry itself may expose body dimensions even if raw measurements are omitted. Disclosure controls must explain that redacted input fields do not anonymize the garment geometry.
 
+The component pipeline adds a separately named derived-construction section from the selected immutable geometry. It contains digital POM derivations, material/closure counts, ordered assembly instructions and front/back construction schematics. Include it only with pattern disclosure. Do not replace editable owner/AI rows or treat imported derived sections as authoritative. Digital checks do not change the printable-reference classification; see [component review](../reviews/garment-pipeline.md).
+
 Additional acceptance tests: export a calibrated PDF unchanged in two bundles; verify every digest without circular hashing; fail eligibility for pass-then-fail evidence until scoped disposition; round-trip a body-redacted manifest changing one BOM value without clearing hidden data; author the substantive fixture entirely through the UI with providers disabled.

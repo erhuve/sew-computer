@@ -1,6 +1,7 @@
 import { expect, test } from 'bun:test';
 import { assumed, emptyDocument, mm } from './index';
 import { applySample, bodyFields, editMeasurement, sampleSizes, sizingInput, sizingIssue, sizingWarning } from './sizing';
+import { shirtDocument } from '../test-fixtures/shirt';
 
 test('samples preserve entered and N/A values and garment choices; assumptions stay explicit', () => {
   const doc = emptyDocument();
@@ -56,4 +57,21 @@ test('broad shoulders warn before generation without changing or rejecting accur
   expect(doc.body.shoulder).toEqual(assumed(23, 'in'));
   doc.garment.family = 'skirt';
   expect(sizingWarning(doc)).toBeNull();
+});
+
+test('component construction failures are explained by shared preflight without changing inputs', () => {
+  const cases:[(doc:ReturnType<typeof shirtDocument>)=>void,string][]=[
+    [doc=>{doc.body.shoulder=assumed(590);},'shoulder width'],
+    [doc=>{doc.garment.flare=0.8;},'flare'],
+    [doc=>{doc.body.bust=assumed(1600);doc.garment.length=assumed(400);},'below the armhole'],
+    [doc=>{doc.garment.design!.cuffCircumferenceMm=400;},'sleeve taper'],
+    [doc=>{doc.garment.design!.opening='none';},'front opening'],
+    [doc=>{doc.garment.design!.sleeves='short';doc.garment.design!.cuff='none';doc.garment.design!.sleeveLengthMm=100;},'above the cuff'],
+  ];
+  for(const [change,message] of cases) {
+    const doc=shirtDocument();change(doc);
+    const before=structuredClone(doc);
+    expect(sizingIssue(doc)).toContain(message);
+    expect(doc).toEqual(before);
+  }
 });

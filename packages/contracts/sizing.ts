@@ -1,4 +1,5 @@
 import { assumed, mm, type GarmentDocument, type Measurement } from './index';
+import { designIssues } from './design';
 
 export type Body = GarmentDocument['body'];
 export type BodyKey = keyof Body;
@@ -54,6 +55,21 @@ export function sizingInput(doc: GarmentDocument) {
   const [minimum, maximum] = ranges[family];
   if (doc.garment.flare < minimum || doc.garment.flare > maximum) throw new Error(`Unsupported ${family} flare: requires ${minimum}–${maximum}. Review it in Shape & body.`);
   if (family !== 'shirt' && bodyMm.hip - bodyMm.waist < 40) throw new Error('Unsupported lower-garment body combination: this adapter requires hip to exceed waist by at least 40 mm. Check your measurements in Shape & body; if accurate, this body combination is not supported yet.');
+  const design = doc.garment.design;
+  if (design) {
+    if (family !== 'shirt') throw new Error('The relaxed shirt construction requires shirt family.');
+    const issues = designIssues(design);
+    if (issues.length) throw new Error(issues.join(' '));
+    const width = (Math.max(bodyMm.bust, bodyMm.hip) + easeMm) / 4;
+    const armDepth = bodyMm.bust / 10 + 110;
+    if (width * 2 < bodyMm.shoulder + 20) throw new Error('This relaxed drop-shoulder block needs finished upper-body width at least 20 mm wider than shoulder width. Increase garment ease or choose another construction; do not alter accurate body measurements.');
+    if (lengthMm < armDepth + 150 || doc.garment.flare < 0.9) throw new Error('This relaxed shirt requires at least 150 mm below the armhole and flare of at least 0.9.');
+    if (design.sleeves !== 'none') {
+      const cuffDepth = design.cuff === 'button' ? design.cuffDepthMm : 0;
+      if (design.sleeveLengthMm <= cuffDepth + 120) throw new Error('Sleeve length must leave at least 120 mm above the cuff.');
+      if (cuffDepth && Math.max(design.cuffCircumferenceMm * 1.35, armDepth * 1.1) >= armDepth * 2) throw new Error('Cuff and armhole proportions leave no usable sleeve taper. Revise sleeve/cuff dimensions.');
+    }
+  }
   return { family, bodyMm, lengthMm, easeMm, flare: doc.garment.flare };
 }
 
@@ -62,6 +78,7 @@ export function sizingIssue(doc: GarmentDocument): string | null {
 }
 
 export function sizingWarning(doc: GarmentDocument): string | null {
+  if(doc.garment.design)return null;
   const shoulder = mm(doc.body.shoulder), bust = mm(doc.body.bust), ease = mm(doc.garment.ease);
   if (doc.garment.family === 'shirt' && shoulder !== null && bust !== null && ease !== null && shoulder >= (bust + ease) * 0.48 + 20) return 'This shoulder/chest combination may collapse the top’s armhole in the current engine, which assumes back proportions. Generation may fail even though each measurement is within range. Keep accurate measurements; do not reduce them just to make the engine succeed.';
   return null;

@@ -11,6 +11,8 @@ import {
 import { api } from "../lib/api";
 import PrivateImage from "./PrivateImage";
 import BodySizing from "./BodySizing";
+import { defaultShirtDesign } from '../../../../packages/contracts/design';
+import GarmentDesign from './GarmentDesign';
 
 const uid = () => crypto.randomUUID();
 type Props = {
@@ -263,19 +265,23 @@ export default function Authoring({
       {section === "shape" && (
         <>
           <BodySizing doc={doc} onChange={onChange} />
+          {doc.garment.family==='shirt' && !doc.garment.design && <button onClick={()=>replace('garment',{...doc.garment,design:structuredClone(defaultShirtDesign)})}>Add editable shirt construction</button>}
+          {doc.garment.design && <GarmentDesign doc={doc} onChange={onChange}/>}
           <details className="shape-settings" open={doc.garment.family === 'none'}>
           <summary>Garment shape & fit settings</summary>
           <label className="field">
             <span>Geometry family</span>
             <select
               value={doc.garment.family}
-              onChange={(e) =>
+              onChange={(e) => {
+                if(doc.garment.design && !confirm('Changing the family removes its component construction. Your original requirements remain saved. Continue?'))return;
                 replace("garment", {
                   ...doc.garment,
+                  ...(doc.garment.design?{design:null}:{}),
                   family: e.target
                     .value as GarmentDocument["garment"]["family"],
-                })
-              }
+                });
+              }}
             >
               <option value="none">No geometry selected</option>
               <option value="shirt">Shirt</option>

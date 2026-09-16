@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from 'node:crypto';
 import { z } from 'zod';
 import { canonical, DocumentSchema, type GarmentDocument, type PatternGeometry } from '../../packages/contracts';
+import { DraftingSchema, PanelDraftSchema, validateDrafting } from '../../packages/contracts/design';
 
 export class ApiError extends Error {
   constructor(public status: number, message: string, public extra: Record<string, unknown> = {}) { super(message); }
@@ -65,12 +66,14 @@ const numeric = z.number().finite().min(-100000).max(100000);
 const geometrySchema = z.object({
   schemaVersion:z.literal(1),units:z.literal('mm'),inputDigest:z.string().regex(/^[a-f0-9]{64}$/),
   engineVersion:z.string().min(1).max(500),family:z.enum(['shirt','skirt','trousers']),
-  panels:z.array(z.object({id:z.string().min(1).max(160),name:z.string().min(1).max(300),points:z.array(z.tuple([numeric,numeric])).min(3).max(20000),widthMm:z.number().finite().positive().max(100000),heightMm:z.number().finite().positive().max(100000),cutQuantity:z.number().int().positive().max(100).optional()}).strict()).min(1).max(100),
+  panels:z.array(z.object({id:z.string().min(1).max(160),name:z.string().min(1).max(300),points:z.array(z.tuple([numeric,numeric])).min(3).max(20000),widthMm:z.number().finite().positive().max(100000),heightMm:z.number().finite().positive().max(100000),cutQuantity:z.number().int().positive().max(100).optional(),draft:PanelDraftSchema.optional()}).strict()).min(1).max(100),
   stitches:z.array(z.object({panelA:z.string(),edgeA:z.number().int().nonnegative(),panelB:z.string(),edgeB:z.number().int().nonnegative()}).strict()).max(10000),
   warnings:z.array(z.string().max(8000)).max(200),assumptions:z.array(z.string().max(8000)).max(200),classification:z.literal('printable-reference'),
+  drafting:DraftingSchema.optional(),
 }).strict();
 export function geometry(value: unknown, digest: string): PatternGeometry {
   const parsed = geometrySchema.parse(value);
+  validateDrafting(parsed);
   if (parsed.inputDigest !== digest) throw new ApiError(422, 'Geometry input digest mismatch');
   const panels = new Map(parsed.panels.map(p => [p.id,p]));
   if (panels.size !== parsed.panels.length || parsed.panels.reduce((n,p) => n+p.points.length,0)>200000) throw new ApiError(422, 'Invalid panel inventory');
@@ -83,7 +86,7 @@ export function geometry(value: unknown, digest: string): PatternGeometry {
     if (Math.abs(w-panel.widthMm)>0.2 || Math.abs(h-panel.heightMm)>0.2) throw new ApiError(422, 'Panel bounds mismatch');
   }
   for (const seam of parsed.stitches) {
-    if (!panels.has(seam.panelA) || !panels.has(seam.panelB) || seam.edgeA >= panels.get(seam.panelA)!.points.length || seam.edgeB >= panels.get(seam.panelB)!.points.length) throw new ApiError(422, 'Invalid stitch reference');
+    if (!panels.has(seam.panelA) || !panels.has(seam.panelB) || seam.edgeA >= (panels.get(seam.panelA)!.draft?.edges.length ?? panels.get(seam.panelA)!.points.length) || seam.edgeB >= (panels.get(seam.panelB)!.draft?.edges.length ?? panels.get(seam.panelB)!.points.length)) throw new ApiError(422, 'Invalid stitch reference');
   }
   return parsed;
 }

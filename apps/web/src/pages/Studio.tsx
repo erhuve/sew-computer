@@ -27,6 +27,7 @@ import {
 } from "../../../../packages/contracts";
 import Authoring from "../components/Authoring";
 import PatternCanvas from "../components/PatternCanvas";
+import GarmentDesign from "../components/GarmentDesign";
 import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
 import PrivateImage from "../components/PrivateImage";
 import DesignAssistant from "../components/DesignAssistant";
@@ -82,7 +83,7 @@ export default function Studio() {
   const modalRef = useRef<HTMLDialogElement>(null),
     restoreFocus = useRef<HTMLElement | null>(null),
     current = useRef({ state, doc }),
-    saveLock = useRef(false),
+    saveLock = useRef<Promise<Draft | null> | null>(null),
     sessionEpoch = useRef(0),
     exportEpoch = useRef(0);
   current.current = { state, doc };
@@ -241,19 +242,19 @@ export default function Studio() {
     return () => window.removeEventListener("beforeunload", leave);
   }, [dirty]);
   async function save(): Promise<Draft | null> {
+    if(saveLock.current) { await saveLock.current; return save(); }
     const now = current.current;
-    if (!now.state || !now.doc || saveLock.current || conflict) return null;
+    if (!now.state || !now.doc || conflict) return null;
     if (same(now.doc, now.state.draft.document)) return now.state.draft;
     const projectId = now.state.project.id,
       submitted = structuredClone(now.doc),
       epoch = sessionEpoch.current;
-    saveLock.current = true;
-    try {
+    const identity = {expectedVersion:now.state.draft.version,expectedRevisionId:now.state.draft.baseRevisionId};
+    const pending = (async () => {
       const draft = await api<Draft>(
         `/projects/${projectId}/draft`,
         json("PUT", {
-          expectedVersion: now.state.draft.version,
-          expectedRevisionId: now.state.draft.baseRevisionId,
+          ...identity,
           document: submitted,
         }),
       );
@@ -261,13 +262,14 @@ export default function Studio() {
         epoch === sessionEpoch.current &&
         current.current.state?.project.id === projectId
       ) {
+        current.current = {...current.current,state:{...current.current.state!,draft}};
         setState((s) => (s ? { ...s, draft } : s));
         setNotice("Saved");
       }
       return draft;
-    } finally {
-      saveLock.current = false;
-    }
+    })();
+    saveLock.current=pending;
+    try { return await pending; } finally { if(saveLock.current===pending)saveLock.current=null; }
   }
   useEffect(() => {
     if (!dirty || conflict || busy) return;
@@ -685,9 +687,9 @@ export default function Studio() {
                     . Save & generate to update them.
                   </div>
                 )}
-              {view === 'design' ? <DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict}
+              {view === 'design' ? <><GarmentDesign doc={doc} onChange={busy||conflict ? undefined : change}/><DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict}
                 stale={!!proposal&&(dirty||proposal.baseVersion!==state.draft.version||proposal.baseRevisionId!==state.draft.baseRevisionId)}
-                onPropose={images=>task(()=>propose(images))} onAccept={()=>task(acceptProposal)} onMeasurements={()=>setSection('shape')}/> : view === "pattern" ? (
+                onPropose={images=>task(()=>propose(images))} onAccept={()=>task(acceptProposal)} onMeasurements={()=>setSection('shape')}/></> : view === "pattern" ? (
                 <PatternCanvas
                   geometry={geometry}
                   selected={selected}
@@ -724,6 +726,9 @@ export default function Studio() {
                     </div>
                   )}
                 </div>
+              )}
+              {geometry && (
+                <GarmentDesign doc={state.revisions.find(revision=>revision.digest===geometry.inputDigest)?.document ?? doc} geometry={geometry}/>
               )}
               {geometry && (
                 <details className="geometry-notes">
@@ -1024,6 +1029,7 @@ export default function Studio() {
               when the body-input fields are omitted. Review the files before
               sharing. Patterns are not cutting-ready.
             </p>
+            {includePatterns && <p className="fineprint">New generations include A4 and Letter tiled PDFs. Choose the matching paper, print the guide at 100% first, and measure its 100 mm square before printing the pattern. Older generations may contain only custom-size sheets.</p>}
             <button
               className="primary"
               disabled={busy}

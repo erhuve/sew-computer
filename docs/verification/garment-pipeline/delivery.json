@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "synthetic-export",
+  "revisionId": "synthetic-revision",
+  "projectId": "synthetic-live-shirt",
+  "manifestDigest": "7c512bb0dc9d92eeb346afe5916ac02801c88e29b4d269bff4d3133769a4251f",
+  "algorithm": "sha256",
+  "files": [
+    {
+      "filename": "tech-pack.pdf",
+      "mime": "application/pdf",
+      "size": 141674,
+      "digest": "54ffb6c613393035dc029eefac42d39cff31a24719fc8442e7b731afff773a02"
+    },
+    {
+      "filename": "manifest.json",
+      "mime": "application/json",
+      "size": 214905,
+      "digest": "426d1daaf08c65a5756b63a3740b535d0acd994fefd0bb1cfcfdfbcc99f97c16"
+    },
+    {
+      "filename": "pattern-live-pattern-0.json",
+      "mime": "application/json",
+      "size": 61558,
+      "digest": "d7abe177c2bb956c30c6e35f211b6239e723f648242ee3e8f8628125d94893ea"
+    },
+    {
+      "filename": "pattern-live-pattern-1.svg",
+      "mime": "image/svg+xml",
+      "size": 42442,
+      "digest": "20db7b68054c0c888da13589be963ca6f4cb516ebdad6bc67ba9f96e90b346a9"
+    },
+    {
+      "filename": "pattern-live-pattern-2.pdf",
+      "mime": "application/pdf",
+      "size": 52173,
+      "digest": "b969ce19692666fd4125abfe29d6ee7aa0b6467a9c794ce2d563dca068f8be29"
+    },
+    {
+      "filename": "pattern-a4-tiled-live-pattern-3.pdf",
+      "mime": "application/pdf",
+      "size": 212278,
+      "digest": "31a4a1c295bdc4f369e00a76a770a59d241e43458a099d5d3f9b32ded4f331e4"
+    },
+    {
+      "filename": "pattern-letter-tiled-live-pattern-4.pdf",
+      "mime": "application/pdf",
+      "size": 217142,
+      "digest": "6695eee21093e17c32c87c1ede805dd9684a258ffa823ceef78ca26134b96f22"
+    }
+  ],
+  "checksumPolicy": "Digests cover exact delivered bytes. delivery.json is excluded from its own checksum list; record its hash externally if needed. manifestDigest hashes canonical manifest JSON with only manifestDigest removed, not the formatted manifest file bytes."
+}

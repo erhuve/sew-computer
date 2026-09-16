@@ -109,6 +109,8 @@ Every call requires enforced token, image/pixel, timeout, attempt and cost limit
 
 Release fixtures must include:
 
+The 2026-09-16 component implementation adds a bounded relaxed-shirt compiler alongside the pinned upstream base adapter. It consumes structured construction choices, not executable model output. Ordinary ambiguity is resolved into reviewable choices by the interpreter. Actual piece/edge inventories, selected dimensions, gathered ratios, cut contours and annotation presence are checked before claiming digital coverage. Unsupported topology remains explicit. See [garment pipeline review](../reviews/garment-pipeline.md) for exact supported construction and physical limits.
+
 1. Portable, rights-cleared equivalents of the three smoke configurations.
 2. Unit conversions, NaN/Infinity, missing inputs and body/POM confusion.
 3. Broken topology, mismatched seams, intentional gathering and missing annotations.

@@ -1,9 +1,17 @@
 export {};
 import { interpretationFixture } from '../../packages/test-fixtures/interpretation';
+import { shirtDocument } from '../../packages/test-fixtures/shirt';
 const model=Bun.serve({hostname:'127.0.0.1',port:0,fetch:async request=>{
   const body = await request.text();
   const result = structuredClone(interpretationFixture);
-  if (body.includes('unsupported-tailcoat-fixture')) result.garment = {family:'none',length:{state:'unknown'},ease:{state:'unknown'},flare:1};
+  if (body.includes('complete-shirt-fixture')) {
+    const shirt=shirtDocument();
+    result.garment={...result.garment,design:shirt.garment.design!};
+    result.requirements=shirt.requirements.map(({id,...row})=>({...row,feature:row.feature!}));
+    result.summary='Relaxed white button-up with curved back tails and gathered front frills.';
+    result.questions=[];
+  }
+  if (body.includes('unsupported-tailcoat-fixture')) result.garment = {family:'none',length:{state:'unknown'},ease:{state:'unknown'},flare:1,design:null};
   return Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(result)}}],usage:{prompt_tokens:100,completion_tokens:200}});
 }});
 delete process.env.SEW_CODEX_AUTH_FILE;

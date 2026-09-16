@@ -61,7 +61,7 @@ for (const family of families) {
       expect(geometry.warnings.join('\n')).toContain('non-root uid');
       expect(geometry.warnings.join('\n')).toContain('not public/multiuser');
       expect(geometry.assumptions.join('\n')).toContain('synthetic');
-      expect(files.map(f => f.filename)).toEqual(['pattern.json', 'pattern.svg', 'pattern.pdf']);
+      expect(files.map(f => f.filename)).toEqual(['pattern.json', 'pattern.svg', 'pattern.pdf', 'pattern-a4-tiled.pdf', 'pattern-letter-tiled.pdf']);
       for (const file of files) expect(file.bytes.length).toBeGreaterThan(1000);
       expect(JSON.parse(new TextDecoder().decode(files[0]!.bytes))).toEqual(geometry);
       const svg = new TextDecoder().decode(files[1]!.bytes);

@@ -2,6 +2,8 @@
 
 2026-09-15. Private, single-owner release. This updates the AI status in the historical manual-prototype review.
 
+The later [component garment pipeline](garment-pipeline.md) supersedes the base-only shirt capabilities and missing-annotation limitations below. This document retains the original AI integration's verification history.
+
 ## Behavior
 
 The Design tab sends an explicitly authorized brief and optional sanitized references to a tool-free language model. Its output is strictly validated into garment parameters and additions to requirements, BOM, POM definitions and suggested assembly notes. The owner reviews the proposal before acceptance. Acceptance checks the server-captured draft version, revision, digest and deletion generation, then publishes a revision and rebases the draft atomically. Existing body inputs, references, callouts and technical rows survive. New AI numerical suggestions are marked assumed; the model schema cannot establish known measurements.
