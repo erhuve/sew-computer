@@ -25,16 +25,19 @@ export function Measure({
   label,
   value,
   onChange,
+  compact = false,
 }: {
   label: string;
   value: Measurement;
   onChange: (m: Measurement) => void;
+  compact?: boolean;
 }) {
+  const [emptyUnit, setEmptyUnit] = useState<'mm' | 'cm' | 'in'>('mm');
   return (
-    <fieldset className="measurement">
+    <fieldset className={`measurement${compact ? ' compact-measurement' : ''}`}>
       <legend>{label}</legend>
       <div className="measure-row">
-        <select
+        {!compact && <select
           aria-label={`${label} status`}
           value={value.state}
           onChange={(e) => {
@@ -56,8 +59,8 @@ export function Measure({
           <option value="known">Entered</option>
           <option value="assumed">Assumed</option>
           <option value="not-applicable">N/A</option>
-        </select>
-        {"value" in value && (
+        </select>}
+        {(
           <>
             <input
               type="number"
@@ -65,18 +68,25 @@ export function Measure({
               max="20000"
               step="any"
               aria-label={`${label} value`}
-              value={value.value}
+              value={'value' in value ? value.value : ''}
+              placeholder="Enter value"
               onChange={(e) => {
                 const n = e.target.valueAsNumber;
-                if (Number.isFinite(n)) onChange({ ...value, value: n });
+                if (e.target.value === '') {
+                  if ('value' in value) setEmptyUnit(value.unit);
+                  onChange({state:'unknown'});
+                }
+                else if (Number.isFinite(n)) onChange('value' in value ? { ...value, value: n } : {state:'known',value:n,unit:emptyUnit,source:'Entered by owner'});
               }}
             />
             <select
               aria-label={`${label} unit`}
-              value={value.unit}
-              onChange={(e) =>
-                onChange(convert(value, e.target.value as "mm" | "cm" | "in"))
-              }
+              value={'value' in value ? value.unit : emptyUnit}
+              onChange={(e) => {
+                const unit = e.target.value as 'mm' | 'cm' | 'in';
+                setEmptyUnit(unit);
+                if ('value' in value) onChange(convert(value, unit));
+              }}
             >
               <option>mm</option>
               <option>cm</option>
@@ -85,7 +95,8 @@ export function Measure({
           </>
         )}
       </div>
-      {"source" in value && (
+      {compact && <details className="measurement-details"><summary>{value.state === 'known' ? 'Entered by you' : value.state === 'assumed' ? 'Assumed value — review' : value.state === 'not-applicable' ? 'Not applicable' : 'Not entered'}</summary><Measure label={`${label} detail`} value={value} onChange={onChange}/></details>}
+      {!compact && "source" in value && (
         <input
           aria-label={`${label} source`}
           placeholder="Where did this value come from?"
@@ -246,18 +257,8 @@ export default function Authoring({
       )}
       {section === "shape" && (
         <>
-          <div className="section-heading">
-            <span className="eyebrow">02 / geometry</span>
-            <h2>
-              A starting shape,
-              <br />
-              not a design limit.
-            </h2>
-            <p>
-              These controls use the pinned Design2GarmentCode CPU adapter.
-              Other construction stays in your brief.
-            </p>
-          </div>
+          <details className="shape-settings" open={doc.garment.family === 'none'}>
+          <summary>Garment shape & fit settings</summary>
           <label className="field">
             <span>Geometry family</span>
             <select
@@ -303,19 +304,21 @@ export default function Authoring({
               }}
             />
           </label>
-          <h3>Body inputs</h3>
+          </details>
+          <h3>Body measurements</h3>
           <p className="fineprint">
             Private, explicit inputs. These are never inferred from your
             references.
           </p>
-          {Object.entries(doc.body).map(([name, value]) => (
+          <div className="body-fields">{Object.entries(doc.body).map(([name, value]) => (
             <Measure
               key={name}
+              compact
               label={name[0].toUpperCase() + name.slice(1)}
               value={value}
               onChange={(v) => replace("body", { ...doc.body, [name]: v })}
             />
-          ))}
+          ))}</div>
           <details className="example-disclosure">
             <summary>Try an explicitly synthetic example</summary>
             <p>

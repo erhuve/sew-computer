@@ -44,6 +44,7 @@ const sections = [
 ];
 const same = (a: unknown, b: unknown) => canonical(a) === canonical(b);
 export default function Studio() {
+  const [showDetails, setShowDetails] = useState(false);
   const [aiStatus,setAiStatus]=useState<InterpretationStatus|null>(null),[proposal,setProposal]=useState<DesignProposal|null>(null);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null),
     [key, setKey] = useState(""),
@@ -98,6 +99,12 @@ export default function Studio() {
   const pending = state?.jobs.find(
     (j) => j.status === "queued" || j.status === "running",
   );
+  const currentJob = state?.jobs.find(job => job.revisionId === state.project.headRevisionId);
+  const measurementStep = section === 'shape' && view === 'design' && currentJob?.status !== 'failed' && !pending;
+  useEffect(() => {
+    document.querySelector('.editor-sidebar')?.scrollTo(0, 0);
+    if (section === 'shape') document.querySelector<HTMLElement>('.body-heading')?.focus();
+  }, [section, state?.project.id]);
   const fail = (e: unknown) => {
     setError(e instanceof Error ? e.message : String(e));
     if (e instanceof ApiError && e.status === 409 && e.details.latest)
@@ -159,12 +166,13 @@ export default function Studio() {
     setGeometry(null);
     setNotice("");
     setProposal(null);
-    setView(next.artifacts.some(artifact=>artifact.kind==='pattern-json')?'pattern':'design');
+    setSection(next.draft.document.garment.family === 'none' ? 'idea' : 'shape');
+    setView(next.artifacts.some(artifact=>artifact.kind==='pattern-json' && artifact.revisionId === next.project.headRevisionId)?'pattern':'design');
   };
   useEffect(()=>{
     if(!state)return;
     let active=true;
-    api<DesignProposal|null>(`/projects/${state.project.id}/proposals/latest`).then(value=>{if(active)setProposal(value);}).catch(fail);
+    api<DesignProposal|null>(`/projects/${state.project.id}/proposals/latest`).then(value=>{if(active){setProposal(value);if(value){setSection('idea');setView('design');}}}).catch(fail);
     return ()=>{active=false;};
   },[state?.project.id]);
   const load = async (id: string) => {
@@ -325,7 +333,7 @@ export default function Studio() {
     if(epoch!==sessionEpoch.current)return;
     setState(next);
     setDoc(latest=>latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document));
-    setProposal(null);setGeometry(null);setSection('shape');setNotice('Design accepted. Confirm your measurements, then generate.');
+    setProposal(null);setGeometry(null);setSection('shape');setView('design');setNotice('Design accepted. Confirm your measurements, then generate.');
   }
   const goHome = () => {
     if (dirty && !confirm("Leave unsaved changes?")) return;
@@ -514,6 +522,7 @@ export default function Studio() {
                 Save draft
               </button>
               <button
+                className="primary"
                 disabled={busy || !!conflict || !!pending}
                 onClick={() => task(generate)}
               >
@@ -521,7 +530,6 @@ export default function Studio() {
                 {pending ? "Generating…" : "Save & generate"}
               </button>
               <button
-                className="primary"
                 onClick={() => openModal("revisions")}
               >
                 <Download size={15} />
@@ -556,19 +564,21 @@ export default function Studio() {
               </button>
             </div>
           )}
-          <div className="worktable">
+          <div className={`worktable${measurementStep ? ' measurement-step' : ''}`}>
             <aside className="editor-sidebar">
               <nav className="section-nav" aria-label="Garment details">
-                {sections.map(([id, label]) => (
+                {sections.filter(([id]) => !measurementStep || showDetails || ['idea','shape','references'].includes(id!)).map(([id, label]) => (
                   <button
                     key={id}
                     aria-current={section === id ? "page" : undefined}
-                    onClick={() => setSection(id!)}
+                    onClick={() => { setSection(id!); if(id === 'shape' || id === 'idea') setView('design'); }}
                   >
                     {label}
                   </button>
                 ))}
+                {measurementStep && <button aria-expanded={showDetails} onClick={() => setShowDetails(!showDetails)}>{showDetails ? 'Fewer details' : 'More details'}</button>}
               </nav>
+              {measurementStep && <div className="step-intro"><span className="eyebrow">02 / Measurements</span><h2 className="body-heading" tabIndex={-1}>Make it your size.</h2><p>Your design is saved. Enter your measurements, then choose <strong>Save & generate</strong>.</p></div>}
               <Authoring
                 key={state.project.id + section}
                 doc={doc}
@@ -620,9 +630,6 @@ export default function Studio() {
                   <Image size={16} />
                   Idea & references
                 </button>
-                <button role="tab" disabled aria-selected={false}>
-                  Simulation · later
-                </button>
               </div>
               {pending && (
                 <div className="job-progress" role="status">
@@ -654,9 +661,9 @@ export default function Studio() {
                   </button>
                 </div>
               )}
-              {state.jobs[0]?.status === "failed" && (
+              {currentJob?.status === "failed" && (
                 <div className="alert error">
-                  Pattern generation failed: {state.jobs[0].error}. Your draft
+                  Pattern generation failed: {currentJob.error}. Your draft
                   and saved revision are intact.
                 </div>
               )}

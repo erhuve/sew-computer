@@ -26,7 +26,13 @@ Live GPT-6 Astra calls produced accepted designs and successful real CPU generat
 
 Incomplete saved designs previously lost actionable input-validation errors behind a generic engine-setup failure. Explicit adapter input errors now identify the missing or unsupported field and the editor step to resolve it; runtime diagnostics remain private. Project state returns generation jobs newest-first, matching the editor and preventing an old failed job from reappearing after a successful retry or reload. Regression coverage uses the real validation boundary, checks unchanged drafts/revisions, and exercises browser failure-to-success recovery with real CPU geometry.
 
-## Limits
+## Acceptance and measurement UI recovery (2026-09-16)
+
+Accepting a proposal previously left the generation error from an older revision visible and retained the sidebar scroll position. Errors now belong to the current revision. Acceptance opens a focused measurement form; reopening an accepted design without patterns returns to that form. Measurements can be entered directly, while provenance/status controls, garment settings and secondary technical sections use progressive disclosure. Generation is the primary toolbar action. Existing draft concurrency protections, unsupported requirements and private export controls remain intact.
+
+The browser regression starts with a failed generation, accepts a proposal, reloads the accepted design, enters an explicit measurement in centimeters, and generates real geometry and exports. Desktop/mobile screenshots exercise the focused form. Historical failed jobs remain stored; the current screen no longer presents them as failures of the newly accepted revision.
+
+## Remaining limits
 
 The current engine supports a symmetric sleeveless top, circular skirt and basic darted trousers with length/ease/flare controls. Sleeves, collars, custom necklines, pockets, waistbands, closures, embroidery and arbitrary topology are not generated. AI notes can specify them but do not implement them. Missing dependent body dimensions remain disclosed synthetic assumptions. Patterns lack seam allowances, grain/notches, printer calibration and physical-fit validation; they remain printable references for development and maker review.
 
