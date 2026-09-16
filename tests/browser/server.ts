@@ -1,6 +1,11 @@
 export {};
 import { interpretationFixture } from '../../packages/test-fixtures/interpretation';
-const model=Bun.serve({hostname:'127.0.0.1',port:0,fetch:()=>Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(interpretationFixture)}}],usage:{prompt_tokens:100,completion_tokens:200}})});
+const model=Bun.serve({hostname:'127.0.0.1',port:0,fetch:async request=>{
+  const body = await request.text();
+  const result = structuredClone(interpretationFixture);
+  if (body.includes('unsupported-tailcoat-fixture')) result.garment = {family:'none',length:{state:'unknown'},ease:{state:'unknown'},flare:1};
+  return Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(result)}}],usage:{prompt_tokens:100,completion_tokens:200}});
+}});
 delete process.env.SEW_CODEX_AUTH_FILE;
 process.env.SEW_AI_BASE_URL=`http://127.0.0.1:${model.port}`;
 process.env.SEW_AI_API_KEY='test-provider-only';

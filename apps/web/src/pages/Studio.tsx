@@ -333,7 +333,8 @@ export default function Studio() {
     if(epoch!==sessionEpoch.current)return;
     setState(next);
     setDoc(latest=>latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document));
-    setProposal(null);setGeometry(null);setSection('shape');setView('design');setNotice('Design accepted. Confirm your measurements, then generate.');
+    const hasPatternShape = next.draft.document.garment.family !== 'none';
+    setProposal(null);setGeometry(null);setSection(hasPatternShape ? 'shape' : 'idea');setView('design');setNotice(hasPatternShape ? 'Design accepted. Confirm your measurements, then generate.' : 'Design notes saved. Pattern support is still needed.');
   }
   const goHome = () => {
     if (dirty && !confirm("Leave unsaved changes?")) return;
@@ -523,7 +524,7 @@ export default function Studio() {
               </button>
               <button
                 className="primary"
-                disabled={busy || !!conflict || !!pending}
+                disabled={busy || !!conflict || !!pending || (!!doc.interpretation && doc.garment.family === 'none')}
                 onClick={() => task(generate)}
               >
                 <Layers3 size={15} />

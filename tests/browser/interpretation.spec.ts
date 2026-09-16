@@ -2,6 +2,26 @@ import { test,expect } from './fixture';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+test('unsupported designs accept notes without promising a generatable pattern',async({studio})=>{
+  const {page}=studio;
+  await studio.login();
+  await page.getByRole('button',{name:'New garment',exact:true}).click();
+  await page.getByLabel('Garment name',{exact:true}).fill('Tailcoat notes');
+  await page.getByLabel('Your idea',{exact:true}).fill('unsupported-tailcoat-fixture');
+  await page.getByRole('button',{name:'Create garment'}).click();
+  await page.getByLabel('Send these inputs to the design model').check();
+  await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
+  await page.getByRole('button',{name:'Accept design notes',exact:true}).click();
+  await expect(page.getByRole('heading',{name:'Design saved. Pattern support needed.'})).toBeVisible();
+  await expect(page.getByRole('button',{name:'Save & generate',exact:true})).toBeDisabled();
+  await page.reload();
+  await page.getByRole('button',{name:/Tailcoat notes Updated/}).click();
+  await expect(page.getByRole('heading',{name:'Design saved. Pattern support needed.'})).toBeVisible();
+  await page.getByRole('button',{name:'Choose a simplified base pattern'}).click();
+  await page.getByRole('combobox',{name:'Geometry family'}).selectOption('shirt');
+  await expect(page.getByRole('button',{name:'Save & generate',exact:true})).toBeEnabled();
+});
+
 test('description to reviewed proposal to real geometry and export survives the cookie-stripping proxy',async({studio})=>{
   const {page}=studio;
   await studio.login();
