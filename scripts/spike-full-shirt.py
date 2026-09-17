@@ -65,6 +65,7 @@ def main():
     parser.add_argument("--solver-iterations", type=int, default=10)
     parser.add_argument("--stable-membrane", action="store_true")
     parser.add_argument("--substeps", type=int, default=1)
+    parser.add_argument("--step-seconds", type=float, default=1 / 240)
     parser.add_argument("--ramp-steps", type=int, default=0)
     parser.add_argument("--quality-refinement", action="store_true")
     parser.add_argument("--shirt-placement", action="store_true")
@@ -77,6 +78,8 @@ def main():
     parser.add_argument("--pointwise-contact", action="store_true")
     parser.add_argument("--pin-first-vertex", action="store_true")
     arguments = parser.parse_args()
+    if not math.isfinite(arguments.step_seconds) or not 1 / 1920 <= arguments.step_seconds <= 1 / 30:
+        parser.error("physical step seconds must be finite and within 1/1920..1/30")
     if not 1 <= arguments.global_max_evaluations <= 10000:
         parser.error("global evaluation budget must be 1..10000")
     if not 30 <= arguments.global_cpu_limit_seconds <= 900:
@@ -131,7 +134,7 @@ def main():
     if arguments.coupled_sewing:
         sources["solver_embedded_sewing.py"] = Path(__file__).with_name("solver_embedded_sewing.py")
     if arguments.global_reference:
-        for name in ("solver_global_sewing.py", "solver_global_shift.py", "solver_energy_change.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
+        for name in ("solver_global_sewing.py", "solver_global_shift.py", "solver_energy_change.py", "solver_energy_balance.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
             sources[name] = Path(__file__).with_name(name)
     if arguments.quality_refinement:
         sources["quality_meshing.py"] = engine / "quality_meshing.py"
@@ -324,7 +327,7 @@ def main():
     pipeline = newton.CollisionPipeline(model)
     contacts = pipeline.contacts()
     tensors = model.tri_poses.numpy().copy()
-    timestep = 1 / (240 * arguments.substeps)
+    timestep = arguments.step_seconds / arguments.substeps
     inverse_masses = {identity: model.particle_inv_mass.numpy()[section] for identity, section in sections.items()}
     initial_residuals = constraint_residuals(bundle, {identity: np.asarray(placed_vertices)[section] for identity, section in sections.items()}) if bundle else None
     max_projection = 0.0
@@ -335,6 +338,10 @@ def main():
                        "pinnedVertices": np.flatnonzero(model.particle_inv_mass.numpy() == 0).tolist(),
                        "registrationRecipe": "sew-shirt-source-endpoints/1",
                        "timestepSeconds": timestep, "rampSteps": arguments.ramp_steps,
+                       "stepSeconds": arguments.step_seconds,
+                       "rampDurationSeconds": arguments.ramp_steps * arguments.step_seconds,
+                       "totalDurationSeconds": arguments.steps * arguments.step_seconds,
+                       "settlingDurationSeconds": (arguments.steps - arguments.ramp_steps) * arguments.step_seconds,
                        "sourceEndpointPolicy": "Exact source edge metadata and point intervals; metadata arc discrepancy limited to 1e-6 mm before using source-derived path length" if arguments.embedded_sewing else None,
                        "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged" if bundle else None,
                        "constraintCount": len(bundle["constraints"]) if bundle else len(set(seams))}
@@ -348,7 +355,12 @@ def main():
         "sourceTemplates": templates, "embeddedConstraints": bundle, "coupling": coupling_report}, separators=(",", ":"), allow_nan=False))
     geometry_digest = hashlib.sha256(source_geometry.read_bytes()).hexdigest()
     unconverged_substeps = []
+    energy_balance = None
+    cumulative_target_work = 0.0
+    cumulative_work_adjusted_change = 0.0
     if arguments.global_reference:
+        from solver_energy_balance import global_energy_transition
+        previous_targets = initial_residuals.copy()
         signal.signal(signal.SIGXCPU, global_cpu_limit)
     for step in range(arguments.steps * arguments.substeps):
         if arguments.shirt_placement and seams:
@@ -364,9 +376,19 @@ def main():
         global_error = None
         if arguments.global_reference:
             try:
-                global_positions, global_velocities, global_step_report = global_solver.step(
-                    global_positions, global_velocities, initial_residuals * (1 - closure), timestep,
+                targets = initial_residuals * (1 - closure)
+                candidate_positions, candidate_velocities, candidate_report = global_solver.step(
+                    global_positions, global_velocities, targets, timestep,
                     max_evaluations=arguments.global_max_evaluations, linear_solver=arguments.global_linear_solver)
+                candidate_balance = global_energy_transition(global_solver, global_positions, candidate_positions,
+                    global_velocities, candidate_velocities, previous_targets, targets, timestep)
+                cumulative_target_work += candidate_balance["targetParameterWorkJoules"]
+                cumulative_work_adjusted_change += candidate_balance["mechanicalChangeMinusTargetWorkJoules"]
+                energy_balance = {**candidate_balance,
+                    "cumulativeTargetParameterWorkJoules": cumulative_target_work,
+                    "cumulativeMechanicalChangeMinusTargetWorkJoules": cumulative_work_adjusted_change}
+                global_positions, global_velocities, global_step_report = candidate_positions, candidate_velocities, candidate_report
+                previous_targets = targets.copy()
                 if not global_step_report["converged"]:
                     unconverged_substeps.append(step + 1)
             except (ValueError, FloatingPointError, RuntimeError, np.linalg.LinAlgError) as error:
@@ -405,6 +427,10 @@ def main():
                      "centerOfMassDisplacementMm": motion["centerOfMassDisplacementMm"], "centerOfMassSpeedMetersPerSecond": motion["centerOfMassSpeedMetersPerSecond"],
                      "targetResidualMaxMm": float(np.linalg.norm(target_residuals, axis=1).max() * 1000) if bundle else None,
                      "scope": "Partial energy diagnostics; excludes bending, damping, contact and sewing energy. Moving sewing targets perform work."}
+            if arguments.global_reference:
+                entry["energyBalance"] = energy_balance
+                entry["mechanicalJoules"] = entry["membraneJoules"] + entry["kineticJoules"] + energy_balance["sewingAfterJoules"]
+                entry["scope"] = energy_balance["scope"]
             with trajectory_path.open("a") as trajectory:
                 trajectory.write(json.dumps(entry, allow_nan=False) + "\n")
         if not diagnostic["finite"] or projection_error or global_error:
@@ -472,6 +498,7 @@ def main():
         report["globalReferenceFinalStep"] = global_step_report
         report["globalReferenceAllStepsConverged"] = not unconverged_substeps
         report["globalReferenceUnconvergedSubsteps"] = unconverged_substeps
+        report["globalReferenceEnergyBalance"] = energy_balance
     (arguments.output / "report.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
     (arguments.output / "canonical.json").write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices, "positionsMeters": positions.tolist(), "previousPositionsMeters": previous.tolist() if bundle else None, "velocitiesMetersPerSecond": velocities.tolist(), "particleMassesKg": model.particle_mass.numpy().tolist(), "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "placement": placement if arguments.shirt_placement or arguments.torso_equilibrium_control else "radial-stress", "sourceTemplates": templates, "assembly": graph, "embeddedConstraints": bundle}, separators=(",", ":"), allow_nan=False))
     print(json.dumps(report, allow_nan=False))

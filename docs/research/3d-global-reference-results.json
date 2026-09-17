@@ -2,6 +2,554 @@
   "scope": "Synthetic numerical controls, including rejected full-shirt stress; not garment acceptance",
   "runs": [
     {
+      "run": "global-energy-torso-20260917",
+      "accepted": false,
+      "scope": "Global torso energy accounting control; no garment acceptance",
+      "arguments": {
+        "output": ".planning/solver/global-energy-torso-20260917",
+        "steps": 12,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "global_linear_solver": "direct",
+        "global_max_evaluations": 300,
+        "global_cpu_limit_seconds": 240,
+        "membrane_only_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "step_seconds": 0.004166666666666667,
+        "ramp_steps": 2,
+        "quality_refinement": true,
+        "shirt_placement": false,
+        "torso_equilibrium_control": true,
+        "torso_front_gap_mm": 5,
+        "fixture": "torso",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "5ed770ea14b196fde3fec9997de165f970bb224f38cc8500791570823ef94052",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "4ce7abef581c22348a1ba3248d99d0de5f5ec96e70947c441ed5141f0dbf24f3",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_energy_balance.py": "673a58149edacbaf1d1013580c432407a9c4ffd1341466f5c27421387e53d200",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "reportSha256": "391544ea492ad5516b7524b5d5c888a26945fa92b1fa3bc8741baa99ae4db8b9",
+      "canonicalSha256": "cff17427788be83bbbdb8d3cb91d5f68c6653bd234d50d79c00ee85250612286",
+      "source-geometrySha256": "a9772d1aecfbd647c07cfe1ad5dd8058da94bafbea5cf8d86f46cbe4b5575296",
+      "trajectorySha256": "37e4d4d14884e71d452a8800fcce85402a06343ef665d2605a8c99574a669a78",
+      "wallSeconds": 31.693443278999894,
+      "instances": 4,
+      "vertices": 1366,
+      "triangles": 2196,
+      "constraints": 25,
+      "edgeRatioMin": 0.99982832048469,
+      "edgeRatioMax": 1.0005103734134528,
+      "seamGapMaxMm": 5.167617677915075e-7,
+      "maxSpeedMetersPerSecond": 0.1538053989529187,
+      "massMotion": {
+        "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+        "dynamicMassKg": 0.1576486182901462,
+        "pinnedVertexCount": 0,
+        "centerOfMassDisplacementMeters": [
+          3.0614983927692376e-18,
+          -2.2100467015360992e-17,
+          -3.3920801982218953e-19
+        ],
+        "centerOfMassDisplacementMm": 2.231408695839244e-14,
+        "linearMomentumKgMetersPerSecond": [
+          3.520150042255333e-17,
+          -9.186779655794197e-17,
+          4.6979226581581675e-19
+        ],
+        "centerOfMassSpeedMetersPerSecond": 6.2406005634282035e-16
+      },
+      "globalReferenceAllStepsConverged": true,
+      "globalReferenceUnconvergedSubsteps": [],
+      "globalReferenceEnergyBalance": {
+        "membraneChangeJoules": -8.496451816719479e-7,
+        "kineticChangeJoules": -0.0000016739924746382097,
+        "sewingChangeJoules": -8.86889183231232e-12,
+        "sewingBeforeJoules": 5.188547134897108e-11,
+        "sewingAfterJoules": 4.3016579516658755e-11,
+        "targetParameterWorkJoules": 0,
+        "mechanicalChangeJoules": -0.0000025236465252019902,
+        "mechanicalChangeMinusTargetWorkJoules": -0.0000025236465252019902,
+        "accepted": false,
+        "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+        "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001172238657
+      },
+      "substeps": [
+        {
+          "substep": 1,
+          "converged": true,
+          "gradientInfinityNorm": 4.3275929751852176e-8,
+          "energyBalance": {
+            "membraneChangeJoules": 0.00002648412955143341,
+            "kineticChangeJoules": 0.0005452878708582616,
+            "sewingChangeJoules": 2.8078558271858e-10,
+            "sewingBeforeJoules": 0,
+            "sewingAfterJoules": 2.8078558271858e-10,
+            "targetParameterWorkJoules": 6250,
+            "mechanicalChangeJoules": 0.0005717722811952777,
+            "mechanicalChangeMinusTargetWorkJoules": -6249.999428227719,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 6250,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -6249.999428227719
+          }
+        },
+        {
+          "substep": 2,
+          "converged": true,
+          "gradientInfinityNorm": 3.782056082553551e-7,
+          "energyBalance": {
+            "membraneChangeJoules": 0.00006555641418689245,
+            "kineticChangeJoules": 0.00014917575370780136,
+            "sewingChangeJoules": 1.8495392602145474e-10,
+            "sewingBeforeJoules": 2.807855772829948e-10,
+            "sewingAfterJoules": 4.657395033044496e-10,
+            "targetParameterWorkJoules": 6250.001197402973,
+            "mechanicalChangeJoules": 0.00021473235284861982,
+            "mechanicalChangeMinusTargetWorkJoules": -6250.00098267062,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.00041089834
+          }
+        },
+        {
+          "substep": 3,
+          "converged": true,
+          "gradientInfinityNorm": 8.80345883691458e-9,
+          "energyBalance": {
+            "membraneChangeJoules": -0.00007817737048600259,
+            "kineticChangeJoules": -0.0005286888018877075,
+            "sewingChangeJoules": -2.88928758460219e-10,
+            "sewingBeforeJoules": 4.657395019155145e-10,
+            "sewingAfterJoules": 1.7681074345529544e-10,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.0006068664613024685,
+            "mechanicalChangeMinusTargetWorkJoules": -0.0006068664613024685,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.0010177648
+          }
+        },
+        {
+          "substep": 4,
+          "converged": true,
+          "gradientInfinityNorm": 1.6913610985121836e-7,
+          "energyBalance": {
+            "membraneChangeJoules": -0.000002713998043298843,
+            "kineticChangeJoules": -0.000030311961957035107,
+            "sewingChangeJoules": -4.3240945773219776e-11,
+            "sewingBeforeJoules": 1.76810745225111e-10,
+            "sewingAfterJoules": 1.3356979945189123e-10,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.00003302600324127972,
+            "mechanicalChangeMinusTargetWorkJoules": -0.00003302600324127972,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001050790803
+          }
+        },
+        {
+          "substep": 5,
+          "converged": true,
+          "gradientInfinityNorm": 4.186194165603968e-7,
+          "energyBalance": {
+            "membraneChangeJoules": 0.000017571926392151414,
+            "kineticChangeJoules": -0.00006489025373009413,
+            "sewingChangeJoules": 1.2812404848496186e-10,
+            "sewingBeforeJoules": 1.3356979436585548e-10,
+            "sewingAfterJoules": 2.616938428508173e-10,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.00004731819921389423,
+            "mechanicalChangeMinusTargetWorkJoules": -0.00004731819921389423,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001098109002
+          }
+        },
+        {
+          "substep": 6,
+          "converged": true,
+          "gradientInfinityNorm": 9.040848255194149e-7,
+          "energyBalance": {
+            "membraneChangeJoules": 0.000004339515878983966,
+            "kineticChangeJoules": -0.00003260606480174251,
+            "sewingChangeJoules": 4.2412271283062586e-11,
+            "sewingBeforeJoules": 2.6169385100095714e-10,
+            "sewingAfterJoules": 3.041061222840197e-10,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.00002826650651048726,
+            "mechanicalChangeMinusTargetWorkJoules": -0.00002826650651048726,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001126375508
+          }
+        },
+        {
+          "substep": 7,
+          "converged": true,
+          "gradientInfinityNorm": 1.8528184945001448e-7,
+          "energyBalance": {
+            "membraneChangeJoules": -0.000009172806873398199,
+            "kineticChangeJoules": -0.000008462408459222394,
+            "sewingChangeJoules": -9.421396087156492e-11,
+            "sewingBeforeJoules": 3.0410612282143297e-10,
+            "sewingAfterJoules": 2.0989216194986795e-10,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.000017635309546581465,
+            "mechanicalChangeMinusTargetWorkJoules": -0.000017635309546581465,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001144010817
+          }
+        },
+        {
+          "substep": 8,
+          "converged": true,
+          "gradientInfinityNorm": 4.4559616568134227e-7,
+          "energyBalance": {
+            "membraneChangeJoules": -0.000009855514330354575,
+            "kineticChangeJoules": -0.0000011393868129966673,
+            "sewingChangeJoules": -8.227044536898372e-11,
+            "sewingBeforeJoules": 2.0989216788011612e-10,
+            "sewingAfterJoules": 1.276217225111324e-10,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.000010994983413796612,
+            "mechanicalChangeMinusTargetWorkJoules": -0.000010994983413796612,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.0011550058
+          }
+        },
+        {
+          "substep": 9,
+          "converged": true,
+          "gradientInfinityNorm": 6.961553181822604e-8,
+          "energyBalance": {
+            "membraneChangeJoules": -0.0000052413765700311435,
+            "kineticChangeJoules": -0.000001648968593899621,
+            "sewingChangeJoules": -4.1425310227374534e-11,
+            "sewingBeforeJoules": 1.2762172261466708e-10,
+            "sewingAfterJoules": 8.619641238729256e-11,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.0000068903865892409915,
+            "mechanicalChangeMinusTargetWorkJoules": -0.0000068903865892409915,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001161896187
+          }
+        },
+        {
+          "substep": 10,
+          "converged": true,
+          "gradientInfinityNorm": 7.541284850913813e-9,
+          "energyBalance": {
+            "membraneChangeJoules": -0.000001697328005234154,
+            "kineticChangeJoules": -0.0000028765718237826005,
+            "sewingChangeJoules": -2.1706255330176284e-11,
+            "sewingBeforeJoules": 8.619641503302426e-11,
+            "sewingAfterJoules": 6.449015970284797e-11,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.000004573921535272085,
+            "mechanicalChangeMinusTargetWorkJoules": -0.000004573921535272085,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001166470109
+          }
+        },
+        {
+          "substep": 11,
+          "converged": true,
+          "gradientInfinityNorm": 1.7682714516540293e-7,
+          "energyBalance": {
+            "membraneChangeJoules": -4.708918905015321e-7,
+            "kineticChangeJoules": -0.00000277399768238973,
+            "sewingChangeJoules": -1.2604686328350634e-11,
+            "sewingBeforeJoules": 6.449015865505526e-11,
+            "sewingAfterJoules": 5.188547232670464e-11,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.0000032449021775775903,
+            "mechanicalChangeMinusTargetWorkJoules": -0.0000032449021775775903,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001169715011
+          }
+        },
+        {
+          "substep": 12,
+          "converged": true,
+          "gradientInfinityNorm": 4.852309470749859e-7,
+          "energyBalance": {
+            "membraneChangeJoules": -8.496451816719479e-7,
+            "kineticChangeJoules": -0.0000016739924746382097,
+            "sewingChangeJoules": -8.86889183231232e-12,
+            "sewingBeforeJoules": 5.188547134897108e-11,
+            "sewingAfterJoules": 4.3016579516658755e-11,
+            "targetParameterWorkJoules": 0,
+            "mechanicalChangeJoules": -0.0000025236465252019902,
+            "mechanicalChangeMinusTargetWorkJoules": -0.0000025236465252019902,
+            "accepted": false,
+            "scope": "Contact-disabled global membrane/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+            "cumulativeTargetParameterWorkJoules": 12500.001197402973,
+            "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001172238657
+          }
+        }
+      ]
+    },
+    {
+      "run": "global-slower-ramp-20260917",
+      "accepted": false,
+      "scope": "Slower schedule control, unchanged 1/240 second timestep; not garment acceptance",
+      "arguments": {
+        "output": ".planning/solver/global-slower-ramp-20260917",
+        "steps": 16,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "global_linear_solver": "direct",
+        "global_max_evaluations": 1000,
+        "global_cpu_limit_seconds": 600,
+        "membrane_only_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "ramp_steps": 12,
+        "quality_refinement": true,
+        "shirt_placement": true,
+        "torso_equilibrium_control": false,
+        "torso_front_gap_mm": 0,
+        "fixture": "full-shirt",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "64b061caee51414b1ff77dbb612862d05d4b07ab8bb5bbb45f2ab69acccb8627",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "4ce7abef581c22348a1ba3248d99d0de5f5ec96e70947c441ed5141f0dbf24f3",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "reportSha256": "2814de70ec7a6ba9c642a5324dfdf3b75f90ee41eeca8d0e91ec55c879b93d24",
+      "canonicalSha256": "872ed7f1a3f90f42e23507a3de28c713e552f84f3d1ad03062691a4131c538f1",
+      "source-geometrySha256": "843a7e4f62b61a610123fb7fa6db9307e4d4b8670ef66ada298761c25fc1420c",
+      "trajectorySha256": "a60f5f8bafa958c4ab63aeddcb0631ba9be2908644696d1dafcb73f06f9356a0",
+      "wallSeconds": 602.612210669,
+      "peakRssKiB": 933928,
+      "instances": 24,
+      "vertices": 2244,
+      "triangles": 3512,
+      "constraints": 305,
+      "edgeRatioMin": 0.9157174864374241,
+      "edgeRatioMax": 1.1488169531076309,
+      "seamGapMaxMm": 0.0007247439884131275,
+      "maxSpeedMetersPerSecond": 13.779916806572462,
+      "massMotion": {
+        "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+        "dynamicMassKg": 0.3251475380391966,
+        "pinnedVertexCount": 0,
+        "centerOfMassDisplacementMeters": [
+          4.272319088971826e-18,
+          -2.179924764421722e-17,
+          -3.0186278928939657e-17
+        ],
+        "centerOfMassDisplacementMm": 3.7478945340386105e-14,
+        "linearMomentumKgMetersPerSecond": [
+          -7.697835424647081e-17,
+          6.028164079019405e-17,
+          -2.8380347117523685e-16
+        ],
+        "centerOfMassSpeedMetersPerSecond": 9.23190769416192e-16
+      },
+      "globalReferenceAllStepsConverged": false,
+      "globalReferenceUnconvergedSubsteps": [
+        6,
+        7,
+        12
+      ],
+      "substeps": [
+        {
+          "substep": 1,
+          "timeSeconds": 0.004166666666666667,
+          "converged": true,
+          "gradientInfinityNorm": 9.213928724161047e-8,
+          "evaluations": 187
+        },
+        {
+          "substep": 2,
+          "timeSeconds": 0.008333333333333333,
+          "converged": true,
+          "gradientInfinityNorm": 8.091919081500143e-8,
+          "evaluations": 247
+        },
+        {
+          "substep": 3,
+          "timeSeconds": 0.0125,
+          "converged": true,
+          "gradientInfinityNorm": 1.1230336775713205e-7,
+          "evaluations": 301
+        },
+        {
+          "substep": 4,
+          "timeSeconds": 0.016666666666666666,
+          "converged": true,
+          "gradientInfinityNorm": 5.759156928421223e-7,
+          "evaluations": 321
+        },
+        {
+          "substep": 5,
+          "timeSeconds": 0.020833333333333332,
+          "converged": true,
+          "gradientInfinityNorm": 8.608813623425804e-8,
+          "evaluations": 531
+        },
+        {
+          "substep": 6,
+          "timeSeconds": 0.025,
+          "converged": false,
+          "gradientInfinityNorm": 0.0027028409666793422,
+          "evaluations": 1000
+        },
+        {
+          "substep": 7,
+          "timeSeconds": 0.029166666666666667,
+          "converged": false,
+          "gradientInfinityNorm": 0.00033598493125275297,
+          "evaluations": 1000
+        },
+        {
+          "substep": 8,
+          "timeSeconds": 0.03333333333333333,
+          "converged": true,
+          "gradientInfinityNorm": 6.397887240827682e-8,
+          "evaluations": 304
+        },
+        {
+          "substep": 9,
+          "timeSeconds": 0.0375,
+          "converged": true,
+          "gradientInfinityNorm": 1.3708985132504514e-7,
+          "evaluations": 999
+        },
+        {
+          "substep": 10,
+          "timeSeconds": 0.041666666666666664,
+          "converged": true,
+          "gradientInfinityNorm": 6.749273616379892e-8,
+          "evaluations": 892
+        },
+        {
+          "substep": 11,
+          "timeSeconds": 0.04583333333333333,
+          "converged": true,
+          "gradientInfinityNorm": 1.400259015335581e-7,
+          "evaluations": 447
+        },
+        {
+          "substep": 12,
+          "timeSeconds": 0.05,
+          "converged": false,
+          "gradientInfinityNorm": 0.00020646956918509725,
+          "evaluations": 1000
+        },
+        {
+          "substep": 13,
+          "timeSeconds": 0.05416666666666667,
+          "converged": true,
+          "gradientInfinityNorm": 1.0534592946587207e-7,
+          "evaluations": 960
+        },
+        {
+          "substep": 14,
+          "timeSeconds": 0.058333333333333334,
+          "converged": true,
+          "gradientInfinityNorm": 3.327361848227614e-7,
+          "evaluations": 815
+        },
+        {
+          "substep": 15,
+          "timeSeconds": 0.0625,
+          "converged": true,
+          "gradientInfinityNorm": 6.838536072487078e-8,
+          "evaluations": 844
+        },
+        {
+          "substep": 16,
+          "timeSeconds": 0.06666666666666667,
+          "converged": true,
+          "gradientInfinityNorm": 4.686553571632817e-7,
+          "evaluations": 623
+        }
+      ]
+    },
+    {
       "run": "global-direct-torso-perturbed",
       "accepted": false,
       "reportSha256": "1a02462dfce90e194f22b0eb6e02e7d5c4ce8a0e7d597da5f2ce90d8b4902e5e",
