@@ -1,0 +1,2695 @@
+{
+  "date": "2026-09-17",
+  "scope": "Actual cut-panel interior sewing experiments; no accepted assembly or drape",
+  "reports": {
+    "full-shirt-quality-fail-fast": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "error": "nonfinite-solver-state",
+      "failedStep": 73,
+      "requestedSteps": 120,
+      "state": {
+        "finite": false,
+        "nonfinitePositionValues": 2,
+        "nonfiniteVelocityValues": 2
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "ad6d6e47139b16edf8fca484e84d711f85ba0f06201c5d28007a651ec6b284ac",
+        "solver_spike_geometry.py": "34f5d4de66d85ba31ec883aa4b968c9cc60c77369ec63b090a4c046e59ad21d2",
+        "quality_meshing.py": "57884b4b023e0d67dedd0b5faa6c9aaad93ef586d8d93a0d365f4ed2d85c744c",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      },
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "fixture": "full-shirt",
+      "qualityRefinement": true,
+      "instances": 24,
+      "vertices": 2656,
+      "triangles": 3816,
+      "contactFilterReport": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "45a59c01cb3b57df7762e0a6bcb0f2f29a880d8837e7072a39e7b62e0f39edbe",
+        "seamAnchorPairs": 0,
+        "seamRadiusMeters": null,
+        "triangleDigest": "9eba441808604302e6319bacda9fdd2b03a49e34b8bcc0ee9f043ce284d17f55",
+        "accepted": false
+      },
+      "failedStateSha256": "6098635f5bb9e2d3b401bb9c48a5c6d3a45e9dfe2834669e2252ed3a34028739",
+      "wallSeconds": 82.82296399699999,
+      "peakRssKiB": 809788,
+      "originalReportSha256": "f774d169b746c41b23cb1261bb8b97bf220bb63762e1d336a9cd7b3b2c9e556b",
+      "runInputSha256": "836b5fd894e7a8bb473f87606774d995feb4b392983f9216f3b558f66a4e2b8d"
+    },
+    "final-front-finite-report": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "0e4d36f2e76c9e2727578c832b9601d7379b99f248be059e4b5e5016806ea410",
+        "solver_spike_geometry.py": "34f5d4de66d85ba31ec883aa4b968c9cc60c77369ec63b090a4c046e59ad21d2",
+        "quality_meshing.py": "57884b4b023e0d67dedd0b5faa6c9aaad93ef586d8d93a0d365f4ed2d85c744c",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": true,
+      "contactFilterReport": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "cb1bbbe874c90a4418bb3bb72eb934805ddb12c404b0fe8b7cbb430d1a08622a",
+        "seamAnchorPairs": 0,
+        "seamRadiusMeters": null,
+        "triangleDigest": "e5b251d45b5db89eb94343860f5a4bc9abce97a45ec5618b9c96941d64c5299d",
+        "accepted": false
+      },
+      "instances": 1,
+      "vertices": 375,
+      "triangles": 580,
+      "constraints": 0,
+      "steps": 1,
+      "qualityRefinement": true,
+      "placementRecipe": {
+        "recipe": "sew-shirt-rigid-staging/1",
+        "units": "mm",
+        "inputCoordinates": "physical-instance-rest-after-declared-mirroring",
+        "classification": "unvalidated-placement",
+        "frames": [
+          {
+            "instanceId": "back_left:shell",
+            "originMm": [
+              0,
+              -194.45436482630055,
+              1200
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                -0.7071067811865475,
+                0.7071067811865475,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "back_right:shell",
+            "originMm": [
+              0,
+              -194.45436482630055,
+              1200
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                -0.7071067811865475,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_fall:shell",
+            "originMm": [
+              -217.4105675,
+              97.22718241315027,
+              1220
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_fall:facing",
+            "originMm": [
+              -217.4105675,
+              99.22718241315027,
+              1220
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_stand:shell",
+            "originMm": [
+              -232.4105675,
+              97.22718241315027,
+              1200
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_stand:facing",
+            "originMm": [
+              -232.4105675,
+              99.22718241315027,
+              1200
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_left:shell",
+            "originMm": [
+              689.4543648263005,
+              120,
+              1180
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_left:facing",
+            "originMm": [
+              689.4543648263005,
+              120,
+              1178
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_right:shell",
+            "originMm": [
+              -689.4543648263005,
+              120,
+              1180
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                -1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_right:facing",
+            "originMm": [
+              -689.4543648263005,
+              120,
+              1178
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                -1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ]
+            ]
+          },
+          {
+            "instanceId": "frill_left:shell",
+            "originMm": [
+              -35,
+              204.45436482630055,
+              1120
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "frill_right:shell",
+            "originMm": [
+              35,
+              204.45436482630055,
+              1120
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "front_left:shell",
+            "originMm": [
+              0,
+              194.45436482630055,
+              1200
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                -0.7071067811865475,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "front_right:shell",
+            "originMm": [
+              0,
+              194.45436482630055,
+              1200
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                -0.7071067811865475,
+                0.7071067811865475,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_left_left:shell",
+            "originMm": [
+              689.4543648263005,
+              10,
+              1180
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_left_right:shell",
+            "originMm": [
+              689.4543648263005,
+              10,
+              1180
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_right_left:shell",
+            "originMm": [
+              -689.4543648263005,
+              10,
+              1180
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                -1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_right_right:shell",
+            "originMm": [
+              -689.4543648263005,
+              10,
+              1180
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                -1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_left:shell",
+            "originMm": [
+              -30,
+              194.45436482630055,
+              1120
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_left:facing",
+            "originMm": [
+              -30,
+              196.45436482630055,
+              1120
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_right:shell",
+            "originMm": [
+              30,
+              194.45436482630055,
+              1120
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_right:facing",
+            "originMm": [
+              30,
+              196.45436482630055,
+              1120
+            ],
+            "basis": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instanceId": "sleeve_left:shell",
+            "originMm": [
+              194.45436482630055,
+              206,
+              1200
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          {
+            "instanceId": "sleeve_right:shell",
+            "originMm": [
+              -194.45436482630055,
+              -206,
+              1200
+            ],
+            "basis": [
+              [
+                0,
+                -1,
+                0
+              ],
+              [
+                -1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                -1
+              ]
+            ]
+          }
+        ],
+        "assumptions": [
+          "Body-free four-flat-panel torso staging from drafted shoulder width.",
+          "Straight horizontal sleeve staging; no posed avatar.",
+          "Layer offsets are 2 mm initialization spacing, not material thickness.",
+          "Turning, binding wrap and collision-free placement are not established."
+        ]
+      },
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9999601781416472,
+      "edgeRatioMax": 1.0000368857783999,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 0.00008966255728235683,
+      "maxSpeedMetersPerSecond": 0.000029327663920758897,
+      "wallSeconds": 15.460942975000307,
+      "peakRssKiB": 799700,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "340b576bfa04ff8e0f4162e3552dc72704152b9e3942b5fcfbe26fb2fe21f9d6",
+      "runInputSha256": "723d82c00bd7f7ab1cdd99577662a6e1c4006324293c2ba792ab7a484909e1f0",
+      "canonicalSha256": "0080908c551558ea240119b253bbf4440f3107c98bc0a8680103c7235543f51f"
+    },
+    "embedded-equal-baseline": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "a493ffa7c5def05a4aa4a124f9f7c3c359bd8913e9398031e136a39a071afe24",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "ea2362fa51ef0693e939207cbb2ea3dcbd44ca420b3ad868118b8ac1264ffcae"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "gather": false,
+      "contact": false,
+      "translated": false,
+      "initialResidualMaxMm": 61.97050812463762,
+      "finalResidualMaxMm": 9.51622852305297e-06,
+      "edgeRatioMin": 0.9998571127653122,
+      "edgeRatioMax": 1.0001759155321939,
+      "maxProjectionMm": 33.02107366512506,
+      "restTensorsUnchanged": true,
+      "maxSpeedMPerSecond": 0.00085907441098243,
+      "wallSeconds": 14.508781907000184,
+      "peakRssKiB": 714640,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "9ed03fc6892f04201920e764a258ec6bcbd9f3b1af02ec3d9172a439d0d81b8d",
+      "canonicalSha256": "dc430164e58a1604e1f920ae7407b911f9614f98c6add881915aca455363e411"
+    },
+    "embedded-equal-halfstep": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "a493ffa7c5def05a4aa4a124f9f7c3c359bd8913e9398031e136a39a071afe24",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "ea2362fa51ef0693e939207cbb2ea3dcbd44ca420b3ad868118b8ac1264ffcae"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 8,
+      "timestepSeconds": 0.0005208333333333333,
+      "gather": false,
+      "contact": false,
+      "translated": false,
+      "initialResidualMaxMm": 61.97050812463762,
+      "finalResidualMaxMm": 2.4682428716113935e-05,
+      "edgeRatioMin": 0.9998751141257215,
+      "edgeRatioMax": 1.000122794825835,
+      "maxProjectionMm": 33.02102956566726,
+      "restTensorsUnchanged": true,
+      "maxSpeedMPerSecond": 0.0008758378098718822,
+      "wallSeconds": 20.00628405899988,
+      "peakRssKiB": 714504,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "28022527dbe9767cc2346fa9bc052b199c03b43df5e81292a2c465e92046ef17",
+      "canonicalSha256": "0a97cdfde733e4afa3c1768e75da52a97ae9b08beafcb4d3af73f54a86068b14"
+    },
+    "embedded-equal-translated": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "a493ffa7c5def05a4aa4a124f9f7c3c359bd8913e9398031e136a39a071afe24",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "ea2362fa51ef0693e939207cbb2ea3dcbd44ca420b3ad868118b8ac1264ffcae"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "gather": false,
+      "contact": false,
+      "translated": true,
+      "initialResidualMaxMm": 61.97050812463765,
+      "finalResidualMaxMm": 2.839952209099252e-05,
+      "edgeRatioMin": 0.9998567402362823,
+      "edgeRatioMax": 1.0001763575157887,
+      "maxProjectionMm": 33.021073308172824,
+      "restTensorsUnchanged": true,
+      "maxSpeedMPerSecond": 0.0008675037533976138,
+      "wallSeconds": 13.965858337999862,
+      "peakRssKiB": 714812,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "55b5cfffd2a61ed238761c3223f48242a2203ba5671b25eaa035b9915f1ec5be",
+      "canonicalSha256": "75b3a7e9a4d4f1eac25ac00a602e6cf4ffa8f4af74d3422c0050481fe7d4db0b"
+    },
+    "embedded-gather-baseline": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "a493ffa7c5def05a4aa4a124f9f7c3c359bd8913e9398031e136a39a071afe24",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "ea2362fa51ef0693e939207cbb2ea3dcbd44ca420b3ad868118b8ac1264ffcae"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "gather": true,
+      "contact": false,
+      "translated": false,
+      "initialResidualMaxMm": 463.5230511840876,
+      "finalResidualMaxMm": 1.4722755101862972e-05,
+      "edgeRatioMin": 0.9967301121505202,
+      "edgeRatioMax": 1.0117003427066946,
+      "maxProjectionMm": 259.8941311012989,
+      "restTensorsUnchanged": true,
+      "maxSpeedMPerSecond": 0.14899256825447083,
+      "wallSeconds": 17.261777464000033,
+      "peakRssKiB": 717280,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "2f83b6e1d9d775d31b7a897f21038a7680ded9640066a922f678454f9af59ec9",
+      "canonicalSha256": "9693dedef852d3290be427b44e1916aac0fa6b4f0192ff39a7ee0bba2050410e"
+    },
+    "embedded-equal-contact": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "a493ffa7c5def05a4aa4a124f9f7c3c359bd8913e9398031e136a39a071afe24",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "ea2362fa51ef0693e939207cbb2ea3dcbd44ca420b3ad868118b8ac1264ffcae"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "gather": false,
+      "contact": true,
+      "translated": false,
+      "initialResidualMaxMm": 61.97050812463762,
+      "finalResidualMaxMm": 1.789787797980546e-05,
+      "edgeRatioMin": 0.9967761623072343,
+      "edgeRatioMax": 1.0022569980092204,
+      "maxProjectionMm": 33.02107366512506,
+      "restTensorsUnchanged": true,
+      "maxSpeedMPerSecond": 0.04294774681329727,
+      "wallSeconds": 23.11921156199992,
+      "peakRssKiB": 731536,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "2f92d42c3f1b331ae7095ee3156772a15f96fe72560da901758df02bbabb34d1",
+      "canonicalSha256": "faa856f065c5f8a742d5bcdfb737a544e3601295499de3f587ded29e60e59786"
+    },
+    "embedded-final-equal": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "dddbdb962c055fb3ee6b313ae7dab747cae6e9ce11c95fc8f7a3d5ccfae8c871",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "8a9f290a07aeeee583d4a044775823dd24be3711afdc528f49f936d7865babb8",
+        "solver_spike_geometry.py": "3452147f5c0b41630c005ffaac9c09b1790afe851dc0fb0736d8d9170118546a"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "gather": false,
+      "contact": false,
+      "translated": false,
+      "pointwiseContact": null,
+      "initialResidualMaxMm": 61.97050812463762,
+      "finalResidualMaxMm": 9.51622852305297e-06,
+      "edgeRatioMin": 0.9998571127653122,
+      "edgeRatioMax": 1.0001759155321939,
+      "maxProjectionMm": 33.02107366512506,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 37,
+        "testedCandidates": 208,
+        "scope": "Final nonadjacent surfaces, AABB candidates; touching seam points count; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.00085907441098243,
+      "wallSeconds": 14.18823462399996,
+      "peakRssKiB": 714544,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "d1cc970f42786234c592d1e63ddd55098f78c8e0c981ae6fbec1781ca13128df",
+      "canonicalSha256": "dc430164e58a1604e1f920ae7407b911f9614f98c6add881915aca455363e411"
+    },
+    "embedded-final-contact": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "dddbdb962c055fb3ee6b313ae7dab747cae6e9ce11c95fc8f7a3d5ccfae8c871",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "8a9f290a07aeeee583d4a044775823dd24be3711afdc528f49f936d7865babb8",
+        "solver_spike_geometry.py": "3452147f5c0b41630c005ffaac9c09b1790afe851dc0fb0736d8d9170118546a",
+        "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "gather": false,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v1",
+        "generatedKernelDigest": "8a0094c6302f0b8fb7f2d312532386efc188711200951e483d458f9fbe09542b",
+        "sourceDigests": {
+          "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "632477ebfde821b73a9bd25b72d666e2dbb81b8bc9d36e63226435f815fa3bf1",
+        "triangleDigest": "8ab83121a315583d484267bbdf614dfd5425ac8ee7d94370975b894192acfdac",
+        "accepted": false
+      },
+      "initialResidualMaxMm": 61.97050812463762,
+      "finalResidualMaxMm": 5.435783792288948e-05,
+      "edgeRatioMin": 0.9967860579490662,
+      "edgeRatioMax": 1.0032565146684647,
+      "maxProjectionMm": 33.02107332991803,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 38,
+        "testedCandidates": 235,
+        "scope": "Final nonadjacent surfaces, AABB candidates; touching seam points count; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.06004941090941429,
+      "wallSeconds": 28.094448889999967,
+      "peakRssKiB": 732424,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "a6bfdc085f5c2088e9d082b601eeb4efd3d600f46405399c39dbc2da07344b51",
+      "canonicalSha256": "736d33f4b571c471e68c38d18120f8f72d03e878aa3def75c8e8d548060196f4"
+    },
+    "embedded-final-gather": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "dddbdb962c055fb3ee6b313ae7dab747cae6e9ce11c95fc8f7a3d5ccfae8c871",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "8a9f290a07aeeee583d4a044775823dd24be3711afdc528f49f936d7865babb8",
+        "solver_spike_geometry.py": "3452147f5c0b41630c005ffaac9c09b1790afe851dc0fb0736d8d9170118546a",
+        "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 120,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "gather": true,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v1",
+        "generatedKernelDigest": "8a0094c6302f0b8fb7f2d312532386efc188711200951e483d458f9fbe09542b",
+        "sourceDigests": {
+          "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "1c315a7f23e38e4377ee2df38785f4dc5bd91281b67071e04a4b90926af8a9df",
+        "triangleDigest": "51ef9619892fa47f2bd5d267cc46f9eb9c1dbeec7d24a2aecc283cf9334cdd11",
+        "accepted": false
+      },
+      "initialResidualMaxMm": 463.5230511840876,
+      "finalResidualMaxMm": 7.348822847749033e-06,
+      "edgeRatioMin": 0.8696437459091945,
+      "edgeRatioMax": 2.562848691341094,
+      "maxProjectionMm": 259.89412616786774,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 374,
+        "testedCandidates": 2117,
+        "scope": "Final nonadjacent surfaces, AABB candidates; touching seam points count; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 2.396845579147339,
+      "wallSeconds": 45.245721343000014,
+      "peakRssKiB": 734968,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "0f561a7167ca66dd4746162ddb1fcdc3d56f33b370624dc6093bd4dd8d262b44",
+      "canonicalSha256": "4b27f0ab2528947891d1c01a8f62159fa4ec8239d4d92ddf45816ac0941aded3"
+    },
+    "embedded-ramped-equal": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "f57500c32b847fe86ee55e3e09153cb39ed42c9569affb14c1861472b1f3e322",
+        "solver_spike_geometry.py": "3452147f5c0b41630c005ffaac9c09b1790afe851dc0fb0736d8d9170118546a",
+        "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 240,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "rampSteps": 120,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": false,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v1",
+        "generatedKernelDigest": "8a0094c6302f0b8fb7f2d312532386efc188711200951e483d458f9fbe09542b",
+        "sourceDigests": {
+          "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "632477ebfde821b73a9bd25b72d666e2dbb81b8bc9d36e63226435f815fa3bf1",
+        "triangleDigest": "8ab83121a315583d484267bbdf614dfd5425ac8ee7d94370975b894192acfdac",
+        "accepted": false
+      },
+      "initialResidualMaxMm": 61.97050812463762,
+      "finalResidualMaxMm": 1.941902067259355e-05,
+      "edgeRatioMin": 0.9974152768252926,
+      "edgeRatioMax": 1.0025591178658113,
+      "maxProjectionMm": 0.6071991609990286,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 41,
+        "testedCandidates": 268,
+        "scope": "Final nonadjacent surfaces, AABB candidates; touching seam points count; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.05044592544436455,
+      "wallSeconds": 42.228348563000054,
+      "peakRssKiB": 732128,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "2ad41b94b5382af50949467cc9e7884db7a9d2e96dc8698e3c105c23454dbea7",
+      "canonicalSha256": "2a74f54179b1e1809bfc4984898bf4e944dcffbc7649f4322437fd9d93dfed9d"
+    },
+    "embedded-ramped-gather": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "f57500c32b847fe86ee55e3e09153cb39ed42c9569affb14c1861472b1f3e322",
+        "solver_spike_geometry.py": "3452147f5c0b41630c005ffaac9c09b1790afe851dc0fb0736d8d9170118546a",
+        "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 240,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "rampSteps": 120,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": true,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v1",
+        "generatedKernelDigest": "8a0094c6302f0b8fb7f2d312532386efc188711200951e483d458f9fbe09542b",
+        "sourceDigests": {
+          "solver_point_contact.py": "f0ff5d7ca921d914e243222e6005a1b148f90200eefbc7d3656265903baff6a1",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "1c315a7f23e38e4377ee2df38785f4dc5bd91281b67071e04a4b90926af8a9df",
+        "triangleDigest": "51ef9619892fa47f2bd5d267cc46f9eb9c1dbeec7d24a2aecc283cf9334cdd11",
+        "accepted": false
+      },
+      "initialResidualMaxMm": 463.5230511840876,
+      "finalResidualMaxMm": 1.4859196067451943e-05,
+      "edgeRatioMin": 0.9441755153108708,
+      "edgeRatioMax": 1.409777186133645,
+      "maxProjectionMm": 8.762962294153592,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 231,
+        "testedCandidates": 2414,
+        "scope": "Final nonadjacent surfaces, AABB candidates; touching seam points count; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 2.0636188983917236,
+      "wallSeconds": 72.23977778599988,
+      "peakRssKiB": 734272,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "f081f59e99f66aaa127b9230064e73684af9baca2460eca3933d0ad6afdc2035",
+      "canonicalSha256": "1b842db1f7ebdcc3b6618b263d381dfa751926f079b5617a76564744d9d0ce61"
+    },
+    "embedded-anchor-equal": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "14a357e4895756cfe632f9c004aea47760b6eada68a9b10c72b8200b64b06f86",
+        "solver_spike_geometry.py": "f6d2e2836822420f276359e1eef0120578bbf71c4b3d6d2b16853bbd8a19b76e",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 240,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "rampSteps": 120,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": false,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "f51cb86b391eea5f60fa5e168f435392dcb83196318fcee8b61d95bc17fd847d",
+        "seamAnchorPairs": 5,
+        "seamRadiusMeters": 0.0015,
+        "triangleDigest": "8ab83121a315583d484267bbdf614dfd5425ac8ee7d94370975b894192acfdac",
+        "accepted": false
+      },
+      "seamContactExemptions": true,
+      "initialResidualMaxMm": 61.97050812463762,
+      "finalResidualMaxMm": 2.4070552611581313e-05,
+      "edgeRatioMin": 0.9977968782186508,
+      "edgeRatioMax": 1.0022294521331787,
+      "maxProjectionMm": 0.6071991609990286,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 40,
+        "testedCandidates": 239,
+        "broadPhaseCandidates": 127551,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.07223258912563324,
+      "wallSeconds": 52.28962458500018,
+      "peakRssKiB": 732532,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "087fc5b2f9088beb9360f9dbbc1a7a41c6bc13099e3e802e59a82ddf9116dcb2",
+      "canonicalSha256": "b0ac97f00e33074a33fd19416c60d00fde9f9385d781fa2df5ce79871295a1ea",
+      "runInputSha256": "2b542de09b3d6253a9f603c93c9a8789a287d8496c341426fedf0cfc8289dfad"
+    },
+    "embedded-anchor-gather": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "14a357e4895756cfe632f9c004aea47760b6eada68a9b10c72b8200b64b06f86",
+        "solver_spike_geometry.py": "f6d2e2836822420f276359e1eef0120578bbf71c4b3d6d2b16853bbd8a19b76e",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 240,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "rampSteps": 120,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": true,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "777fc686fffe3d8ece4b14e3f5ff75bfd16dafd1b4774ae99969def488b9a648",
+        "seamAnchorPairs": 5,
+        "seamRadiusMeters": 0.0015,
+        "triangleDigest": "51ef9619892fa47f2bd5d267cc46f9eb9c1dbeec7d24a2aecc283cf9334cdd11",
+        "accepted": false
+      },
+      "seamContactExemptions": true,
+      "initialResidualMaxMm": 463.5230511840876,
+      "finalResidualMaxMm": 1.2387792363773786e-05,
+      "edgeRatioMin": 0.9769744426012039,
+      "edgeRatioMax": 1.079893844612574,
+      "maxProjectionMm": 8.580127389030046,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 194,
+        "testedCandidates": 1898,
+        "broadPhaseCandidates": 360579,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.6484341621398926,
+      "wallSeconds": 82.78090267400012,
+      "peakRssKiB": 734420,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "021d7fd0f34d179d5be5bda3107039a68acea28df682be88aa63738364e50189",
+      "canonicalSha256": "153d67fc6dd8fbd3c1dd5f7ff702499406ef8ce4d9709037013dfe6c0308151d",
+      "runInputSha256": "a22d6f66e99452c80db4dffe6eebcc7a346cecb59ba95b30aebf91c9860b3adc"
+    },
+    "embedded-anchor-gather-slow": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "14a357e4895756cfe632f9c004aea47760b6eada68a9b10c72b8200b64b06f86",
+        "solver_spike_geometry.py": "f6d2e2836822420f276359e1eef0120578bbf71c4b3d6d2b16853bbd8a19b76e",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 480,
+      "substeps": 2,
+      "timestepSeconds": 0.0020833333333333333,
+      "rampSteps": 240,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": true,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "777fc686fffe3d8ece4b14e3f5ff75bfd16dafd1b4774ae99969def488b9a648",
+        "seamAnchorPairs": 5,
+        "seamRadiusMeters": 0.0015,
+        "triangleDigest": "51ef9619892fa47f2bd5d267cc46f9eb9c1dbeec7d24a2aecc283cf9334cdd11",
+        "accepted": false
+      },
+      "seamContactExemptions": true,
+      "initialResidualMaxMm": 463.5230511840876,
+      "finalResidualMaxMm": 3.462279089931377e-05,
+      "edgeRatioMin": 0.9385096425649995,
+      "edgeRatioMax": 1.1291354894638062,
+      "maxProjectionMm": 8.658601711726607,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 304,
+        "testedCandidates": 2416,
+        "broadPhaseCandidates": 351304,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.3983037769794464,
+      "wallSeconds": 85.34425509599987,
+      "peakRssKiB": 733408,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "b29c3d1be643e688c5dabfc96762895b7816092810a97b1dcdcea4067455956d",
+      "canonicalSha256": "a8e5999ba9ac31ae15a6898e9a6b77ce81be4840b589a825c1460a7d81b2d257",
+      "runInputSha256": "4aeec1749618df1ae5f88eb05cec923eb74d0ed026e9e0541879fc12eae1f254"
+    },
+    "embedded-opposed-equal": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "24953b7e1dbd7d43e66024e7df1e3b219544c17bb8f551a289219da530fd73f8",
+        "solver_spike_geometry.py": "f6d2e2836822420f276359e1eef0120578bbf71c4b3d6d2b16853bbd8a19b76e",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "probe_placement.py": "156a6029d5d6be0889b240213ce106f2cacc8a186eed90a23a06640b96f39ea1"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 240,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "stitchSamples": 5,
+      "opposedPlacement": {
+        "recipe": "source-straight-opposed-probe/1",
+        "units": "m",
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "translationM": [
+          0.06,
+          0.0,
+          0.005
+        ],
+        "firstPathName": "right",
+        "secondPathName": "right",
+        "firstLengthMm": 570.0,
+        "secondLengthMm": 570.0,
+        "gapM": 0.005,
+        "classification": "unvalidated-probe-placement",
+        "limitations": [
+          "Requires straight source paths with matching interior-side orientation for opposing panel bulk.",
+          "Rigid initial placement only; allowance overlap, contact and assembled garment quality are not validated."
+        ]
+      },
+      "rampSteps": 120,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": false,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "f51cb86b391eea5f60fa5e168f435392dcb83196318fcee8b61d95bc17fd847d",
+        "seamAnchorPairs": 5,
+        "seamRadiusMeters": 0.0015,
+        "triangleDigest": "8ab83121a315583d484267bbdf614dfd5425ac8ee7d94370975b894192acfdac",
+        "accepted": false
+      },
+      "seamContactExemptions": true,
+      "initialResidualMaxMm": 5.0,
+      "finalResidualMaxMm": 5.986371938546052e-06,
+      "edgeRatioMin": 0.9956021430128722,
+      "edgeRatioMax": 1.0025914758443832,
+      "maxProjectionMm": 0.3887308917333336,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 28,
+        "testedCandidates": 242,
+        "broadPhaseCandidates": 111930,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.07531064748764038,
+      "wallSeconds": 48.06269234499996,
+      "peakRssKiB": 734052,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "99ffa93586f520335e5c7ad71f83f5391e94dd0f524896b8ecd17f4b1d3f4a4b",
+      "canonicalSha256": "3ddf5f4ba8e9bc3bf13444e722db753ef66f949e63964f229b564359da4ef715",
+      "runInputSha256": "2f9100b6e1ea26cb8dc722833129583941e139e7a833dd3fa8123e51c7420195"
+    },
+    "embedded-opposed-gather": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "24953b7e1dbd7d43e66024e7df1e3b219544c17bb8f551a289219da530fd73f8",
+        "solver_spike_geometry.py": "f6d2e2836822420f276359e1eef0120578bbf71c4b3d6d2b16853bbd8a19b76e",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "probe_placement.py": "156a6029d5d6be0889b240213ce106f2cacc8a186eed90a23a06640b96f39ea1"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 240,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "stitchSamples": 5,
+      "opposedPlacement": {
+        "recipe": "source-straight-opposed-probe/1",
+        "units": "m",
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "translationM": [
+          0.065,
+          -0.22800000000000004,
+          0.005
+        ],
+        "firstPathName": "right",
+        "secondPathName": "right",
+        "firstLengthMm": 570.0,
+        "secondLengthMm": 1026.0,
+        "gapM": 0.005,
+        "classification": "unvalidated-probe-placement",
+        "limitations": [
+          "Requires straight source paths with matching interior-side orientation for opposing panel bulk.",
+          "Rigid initial placement only; allowance overlap, contact and assembled garment quality are not validated."
+        ]
+      },
+      "rampSteps": 120,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": true,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "777fc686fffe3d8ece4b14e3f5ff75bfd16dafd1b4774ae99969def488b9a648",
+        "seamAnchorPairs": 5,
+        "seamRadiusMeters": 0.0015,
+        "triangleDigest": "51ef9619892fa47f2bd5d267cc46f9eb9c1dbeec7d24a2aecc283cf9334cdd11",
+        "accepted": false
+      },
+      "seamContactExemptions": true,
+      "initialResidualMaxMm": 228.05481797146936,
+      "finalResidualMaxMm": 1.4824125616003899e-05,
+      "edgeRatioMin": 0.9743032984107901,
+      "edgeRatioMax": 1.045213442431127,
+      "maxProjectionMm": 7.656415110145436,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 315,
+        "testedCandidates": 2133,
+        "broadPhaseCandidates": 333227,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.6779905557632446,
+      "wallSeconds": 87.1689922380001,
+      "peakRssKiB": 733768,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "cf863cd5fecbd45a3962c9ba11636e5f37104760c21379279d505b7b3ef8b01b",
+      "canonicalSha256": "50d7c54c3069e46a7094169bc5607d7818974a0a10b90e9504e23844a7be98c7",
+      "runInputSha256": "a0e11f36c725627105920691bf06c14015152f9e3c9e24ea8e8d1b338d9388ee"
+    },
+    "embedded-opposed-gather-dense": {
+      "classification": "experimental-embedded-sewing",
+      "accepted": false,
+      "sourceDigests": {
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "spike-embedded-sewing.py": "24953b7e1dbd7d43e66024e7df1e3b219544c17bb8f551a289219da530fd73f8",
+        "solver_spike_geometry.py": "f6d2e2836822420f276359e1eef0120578bbf71c4b3d6d2b16853bbd8a19b76e",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "probe_placement.py": "156a6029d5d6be0889b240213ce106f2cacc8a186eed90a23a06640b96f39ea1"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "steps": 240,
+      "substeps": 4,
+      "timestepSeconds": 0.0010416666666666667,
+      "stitchSamples": 21,
+      "opposedPlacement": {
+        "recipe": "source-straight-opposed-probe/1",
+        "units": "m",
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "translationM": [
+          0.065,
+          -0.22800000000000004,
+          0.005
+        ],
+        "firstPathName": "right",
+        "secondPathName": "right",
+        "firstLengthMm": 570.0,
+        "secondLengthMm": 1026.0,
+        "gapM": 0.005,
+        "classification": "unvalidated-probe-placement",
+        "limitations": [
+          "Requires straight source paths with matching interior-side orientation for opposing panel bulk.",
+          "Rigid initial placement only; allowance overlap, contact and assembled garment quality are not validated."
+        ]
+      },
+      "rampSteps": 120,
+      "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged",
+      "gather": true,
+      "contact": true,
+      "translated": false,
+      "pointwiseContact": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "629393b169402f7449928f33c344c5e6b5fb9d5cec7288b027a88ca5940b0a34",
+        "seamAnchorPairs": 21,
+        "seamRadiusMeters": 0.0015,
+        "triangleDigest": "51ef9619892fa47f2bd5d267cc46f9eb9c1dbeec7d24a2aecc283cf9334cdd11",
+        "accepted": false
+      },
+      "seamContactExemptions": true,
+      "initialResidualMaxMm": 228.05481797146936,
+      "finalResidualMaxMm": 4.236344479003601e-05,
+      "edgeRatioMin": 0.9674476691117476,
+      "edgeRatioMax": 1.0430757507508472,
+      "maxProjectionMm": 4.5816485833224,
+      "restTensorsUnchanged": true,
+      "surfaceIntersections": {
+        "intersectingPairCount": 289,
+        "testedCandidates": 1942,
+        "broadPhaseCandidates": 328228,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "maxSpeedMPerSecond": 0.5194961428642273,
+      "wallSeconds": 92.07931135099989,
+      "peakRssKiB": 734780,
+      "limitations": [
+        "Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
+        "Projection follows collision handling and may reintroduce penetration.",
+        "Two actual source templates in a synthetic probe, not executable garment assembly.",
+        "No body, gravity, calibrated materials, binding wrap or turning acceptance."
+      ],
+      "originalReportSha256": "b7f44b30a714d8d208ddc85256dd539c43c45ccf76ddef28825c64baae11c5ff",
+      "canonicalSha256": "f3b81d5d621760ff9fd889f3ce418145b81a34645c8c03cbb8192244facf7b93",
+      "runInputSha256": "40da2e35ede4c50721962ecc79ccafb6df3b7b915947018b0b850bcddb9c7f2f"
+    },
+    "full-shirt-intrinsic": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "b22c7ed22842c18a14d697a7427012d758102f2c0ba64b828341866d5393c008",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "full-shirt",
+      "selectedInstanceIds": [
+        "back_left:shell",
+        "back_right:shell",
+        "collar_fall:facing",
+        "collar_fall:shell",
+        "collar_stand:facing",
+        "collar_stand:shell",
+        "cuff_left:facing",
+        "cuff_left:shell",
+        "cuff_right:facing",
+        "cuff_right:shell",
+        "frill_left:shell",
+        "frill_right:shell",
+        "front_left:shell",
+        "front_right:shell",
+        "opening_binding_left_left:shell",
+        "opening_binding_left_right:shell",
+        "opening_binding_right_left:shell",
+        "opening_binding_right_right:shell",
+        "placket_left:facing",
+        "placket_left:shell",
+        "placket_right:facing",
+        "placket_right:shell",
+        "sleeve_left:shell",
+        "sleeve_right:shell"
+      ],
+      "sewingEnabled": true,
+      "contactEnabled": true,
+      "contactFilterReport": {
+        "profile": "experimental-current-contact-material-locality-v2",
+        "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+        "sourceDigests": {
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+          "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+          "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+        },
+        "referenceDigest": "e1f970dc633e9b28de26a384acb5e9af474ef77fd80e1c119b0831b6e2fce82e",
+        "seamAnchorPairs": 0,
+        "seamRadiusMeters": null,
+        "triangleDigest": "1b2aaafe753b11533da2fb054f245314f86d1b607760112860d48b9168d0fc6e",
+        "accepted": false
+      },
+      "instances": 24,
+      "vertices": 3802,
+      "triangles": 6360,
+      "constraints": 284,
+      "steps": 120,
+      "qualityRefinement": false,
+      "placementRecipe": {
+        "recipe": "sew-shirt-rigid-staging/1",
+        "units": "mm",
+        "inputCoordinates": "physical-instance-rest-after-declared-mirroring",
+        "classification": "unvalidated-placement",
+        "frames": [
+          {
+            "instanceId": "back_left:shell",
+            "originMm": [
+              0.0,
+              -194.45436482630055,
+              1200.0
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "back_right:shell",
+            "originMm": [
+              0.0,
+              -194.45436482630055,
+              1200.0
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                -0.7071067811865475,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_fall:shell",
+            "originMm": [
+              -217.4105675,
+              97.22718241315027,
+              1220.0
+            ],
+            "basis": [
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_fall:facing",
+            "originMm": [
+              -217.4105675,
+              99.22718241315027,
+              1220.0
+            ],
+            "basis": [
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_stand:shell",
+            "originMm": [
+              -232.4105675,
+              97.22718241315027,
+              1200.0
+            ],
+            "basis": [
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "collar_stand:facing",
+            "originMm": [
+              -232.4105675,
+              99.22718241315027,
+              1200.0
+            ],
+            "basis": [
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_left:shell",
+            "originMm": [
+              689.4543648263005,
+              120.0,
+              1180.0
+            ],
+            "basis": [
+              [
+                0.0,
+                -1,
+                0.0
+              ],
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_left:facing",
+            "originMm": [
+              689.4543648263005,
+              120.0,
+              1178.0
+            ],
+            "basis": [
+              [
+                0.0,
+                -1,
+                0.0
+              ],
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_right:shell",
+            "originMm": [
+              -689.4543648263005,
+              120.0,
+              1180.0
+            ],
+            "basis": [
+              [
+                -0.0,
+                -1,
+                -0.0
+              ],
+              [
+                -1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "cuff_right:facing",
+            "originMm": [
+              -689.4543648263005,
+              120.0,
+              1178.0
+            ],
+            "basis": [
+              [
+                -0.0,
+                -1,
+                -0.0
+              ],
+              [
+                -1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "frill_left:shell",
+            "originMm": [
+              -35.0,
+              204.45436482630055,
+              1120.0
+            ],
+            "basis": [
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "frill_right:shell",
+            "originMm": [
+              35.0,
+              204.45436482630055,
+              1120.0
+            ],
+            "basis": [
+              [
+                1,
+                -0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "front_left:shell",
+            "originMm": [
+              0.0,
+              194.45436482630055,
+              1200.0
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                -0.7071067811865475,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "front_right:shell",
+            "originMm": [
+              0.0,
+              194.45436482630055,
+              1200.0
+            ],
+            "basis": [
+              [
+                0.7071067811865475,
+                0.7071067811865475,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.7071067811865475,
+                0.7071067811865475,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_left_left:shell",
+            "originMm": [
+              689.4543648263005,
+              10.0,
+              1180.0
+            ],
+            "basis": [
+              [
+                0.0,
+                -1,
+                0.0
+              ],
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_left_right:shell",
+            "originMm": [
+              689.4543648263005,
+              10.0,
+              1180.0
+            ],
+            "basis": [
+              [
+                0.0,
+                -1,
+                0.0
+              ],
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_right_left:shell",
+            "originMm": [
+              -689.4543648263005,
+              10.0,
+              1180.0
+            ],
+            "basis": [
+              [
+                -0.0,
+                -1,
+                -0.0
+              ],
+              [
+                -1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "opening_binding_right_right:shell",
+            "originMm": [
+              -689.4543648263005,
+              10.0,
+              1180.0
+            ],
+            "basis": [
+              [
+                -0.0,
+                -1,
+                -0.0
+              ],
+              [
+                -1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_left:shell",
+            "originMm": [
+              -30.0,
+              194.45436482630055,
+              1120.0
+            ],
+            "basis": [
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_left:facing",
+            "originMm": [
+              -30.0,
+              196.45436482630055,
+              1120.0
+            ],
+            "basis": [
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                -0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_right:shell",
+            "originMm": [
+              30.0,
+              194.45436482630055,
+              1120.0
+            ],
+            "basis": [
+              [
+                1,
+                -0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "placket_right:facing",
+            "originMm": [
+              30.0,
+              196.45436482630055,
+              1120.0
+            ],
+            "basis": [
+              [
+                1,
+                -0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "sleeve_left:shell",
+            "originMm": [
+              194.45436482630055,
+              206.0,
+              1200.0
+            ],
+            "basis": [
+              [
+                0.0,
+                -1,
+                0.0
+              ],
+              [
+                1,
+                0.0,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                1.0
+              ]
+            ]
+          },
+          {
+            "instanceId": "sleeve_right:shell",
+            "originMm": [
+              -194.45436482630055,
+              -206.0,
+              1200.0
+            ],
+            "basis": [
+              [
+                -0.0,
+                -1,
+                -0.0
+              ],
+              [
+                -1,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ]
+          }
+        ],
+        "assumptions": [
+          "Body-free four-flat-panel torso staging from drafted shoulder width.",
+          "Straight horizontal sleeve staging; no posed avatar.",
+          "Layer offsets are 2 mm initialization spacing, not material thickness.",
+          "Turning, binding wrap and collision-free placement are not established."
+        ]
+      },
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.2058108033846661,
+      "edgeRatioMax": 140.90683878163037,
+      "seamGapMaxMm": 342.14617919921875,
+      "seamGapP95Mm": 88.83330841064472,
+      "maxDisplacementMm": 456.0342613974286,
+      "maxSpeedMetersPerSecond": 1.0208730697631836,
+      "wallSeconds": 231.07557894799993,
+      "peakRssKiB": 752332,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "eb28714de1cfc1d48c61ff5d13acc4c80e3e8a4536873e871ba053514ef2892e",
+      "canonicalSha256": "96a437553d6cbfaf5a3bc423c1117370cbdd158345d5ffe2296afac7bec53869",
+      "runInputSha256": "67d752c95b3e3938e9338150b7d1c7bdc6ddeab1d45d401827f5e6544724b443"
+    }
+  },
+  "failures": [
+    {
+      "name": "full-shirt-quality-boundary-fixed",
+      "exitCode": 1,
+      "stage": "final report serialization",
+      "error": "Nonfinite metric rejected by strict JSON serialization; no final state was retained by this historical harness",
+      "accepted": false,
+      "reportProduced": false,
+      "logSha256": "533b578e59451030b0c71c4e4ec5dbe1ddbfb8d40409ee94e2a1812a400d01ec",
+      "runInputSha256": "27a2366734bf83a4efec01c76011a3f1ca93835a3b189643e7fcb956206a5daf",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "b22c7ed22842c18a14d697a7427012d758102f2c0ba64b828341866d5393c008",
+        "quality_meshing.py": "57884b4b023e0d67dedd0b5faa6c9aaad93ef586d8d93a0d365f4ed2d85c744c",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      }
+    },
+    {
+      "name": "full-shirt-quality-conflict-free",
+      "exitCode": 1,
+      "memoryLimitBytes": 4294967296,
+      "stage": "meshing collar_stand",
+      "error": "MemoryError: duplicate boundary coordinate caused repeated zero-length segment splitting",
+      "accepted": false,
+      "reportProduced": false,
+      "logSha256": "819da958920c328766c179c064919ab4e09eb24627f65f632fa454581a9f43a0",
+      "runInputSha256": "16985fec37d3fe80bec653e38e2f6deb1d8c8e30c2f1aa29bc6ad61329703c22",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "b22c7ed22842c18a14d697a7427012d758102f2c0ba64b828341866d5393c008",
+        "quality_meshing.py": "296361cd87bf7e7c8023a7974ea475175978855023e75bcd08b6de9aaea480f9",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      }
+    },
+    {
+      "name": "full-shirt-pointwise",
+      "exitCode": 152,
+      "cpuLimitSeconds": 240,
+      "stage": "simulation",
+      "accepted": false,
+      "reportProduced": false,
+      "logSha256": "df410106054dd1d66d9c25dfa71954a367b9d593678f176981cc44d5902a9fe8"
+    }
+  ],
+  "contactControls": {
+    "quality-pointwise-one-step": {
+      "profile": "experimental-current-contact-material-locality-v2",
+      "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+      "sourceDigests": {
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+        "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+        "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+      },
+      "referenceDigest": "d8b9cc53b97b8e0b16a772eb67c5bb7425ce9b0b75fb4d1aecc076f25c3709d6",
+      "seamAnchorPairs": 0,
+      "seamRadiusMeters": null,
+      "triangleDigest": "9403dec67d05da37b238d52cdc07a0eea46b8594080acef5cf1169752af82fd1",
+      "accepted": false,
+      "steps": 1,
+      "qualityRefinement": true,
+      "vertices": 3225,
+      "triangles": 6260,
+      "maxDisplacementMm": 0.00012024203286038723,
+      "edgeRatioMin": 0.9876368684289205,
+      "edgeRatioMax": 1.0163584643748778,
+      "finite": true,
+      "wallSeconds": 17.78753847200005,
+      "originalReportSha256": "cebea487253079ae27fd4b4b6f345a1fff4c362d97e8b2ba252f50ba131027f2",
+      "geometrySha256": "07181c5c12ee6aa8b8d2aff4dc22097b1d094aa2b3b4df32f2e9dc8df0b25a24",
+      "inputGeometrySha256": "8226757be32307efbf85fa60df7ad5df0168d5f34ab69471489e3e256d8820a4",
+      "sourceSnapshotSha256": "3b96931dbbea712321c18c29682762ef7832dae35ea28a30723a68c2203ecaf9",
+      "capturedSourceDigests": {
+        "spike-point-contact.py": "32da0cf00c0a44c2a874f526e7ea5e85c926bf19916b3f0a9c8bc9939ba8857d",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      }
+    },
+    "quality-no-contact-one-step": {
+      "profile": "contact-disabled-control",
+      "accepted": false,
+      "steps": 1,
+      "qualityRefinement": true,
+      "vertices": 3225,
+      "triangles": 6260,
+      "maxDisplacementMm": 0.00013938296823685434,
+      "edgeRatioMin": 0.9752909100494912,
+      "edgeRatioMax": 1.0249182675507262,
+      "finite": true,
+      "wallSeconds": 1.4254417610000019,
+      "originalReportSha256": "dc636ba5b86b189ea12108d987c225a036251751311327be0fa34af4fa214a89",
+      "geometrySha256": "3cba17fa51e9bc50c180395d06479c4e4641acb379da08a42d29106d7cb35a17",
+      "inputGeometrySha256": "8226757be32307efbf85fa60df7ad5df0168d5f34ab69471489e3e256d8820a4",
+      "sourceSnapshotSha256": "3b96931dbbea712321c18c29682762ef7832dae35ea28a30723a68c2203ecaf9",
+      "capturedSourceDigests": {
+        "spike-point-contact.py": "32da0cf00c0a44c2a874f526e7ea5e85c926bf19916b3f0a9c8bc9939ba8857d",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      }
+    },
+    "quality-conflict-free-contact": {
+      "profile": "experimental-current-contact-material-locality-v2",
+      "generatedKernelDigest": "ef6dd7c7de2bae69c93592f9d958cdcf5dad63016474fc5d4647d9f38b39f8e6",
+      "sourceDigests": {
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "kernels.py": "c8ab2a367f423a845501d9ea3996902568cdd7a532975cb08f5c0a939687ce58",
+        "tri_mesh_collision.py": "aa3b343f9e0f6b7f28139521a4dc43c02fa7454c1666dc688a630cec3566042c",
+        "solver_vbd.py": "2eaf20bde0cfa436bdaad375b689f5e562130667801ceb3e6098343f4418bc13"
+      },
+      "referenceDigest": "cb1bbbe874c90a4418bb3bb72eb934805ddb12c404b0fe8b7cbb430d1a08622a",
+      "seamAnchorPairs": 0,
+      "seamRadiusMeters": null,
+      "triangleDigest": "e5b251d45b5db89eb94343860f5a4bc9abce97a45ec5618b9c96941d64c5299d",
+      "accepted": false,
+      "canonicalDigest": "02a751daf4f7c88e576548cf23d1773ea7a02ec5c6cdc45ad634fd007cedd496",
+      "steps": 30,
+      "qualityRefinement": true,
+      "contactEnabled": true,
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "capturedSourceDigests": {
+        "spike-point-contact.py": "fe737759bf92e1ef8dc5640adfd30bce7b219012940290dcebb672e9e6491612",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "quality_meshing.py": "296361cd87bf7e7c8023a7974ea475175978855023e75bcd08b6de9aaea480f9"
+      },
+      "vertices": 375,
+      "triangles": 580,
+      "maxDisplacementMm": 0.0007408782712226546,
+      "edgeRatioMin": 0.9999593686845514,
+      "edgeRatioMax": 1.0000363183098568,
+      "finite": true,
+      "wallSeconds": 4.794345063000037,
+      "originalReportSha256": "24811335f40006a968eda22a32957d809b86966a7e2cc4d8e6526f88ec954669",
+      "geometrySha256": "270cb94f122399ae6ca3289d3b4f2f9e89d38516db745de7f60de3f713d62fa7",
+      "inputGeometrySha256": "f5825b1e068cca3e4f243d4384f2fe14f39d616437e4abffd2e49db302324447",
+      "requestSha256": "bfb49443c7138826ee982e50c7025dad16ac763b45e85be3a91bde34d5178eac",
+      "sourceSnapshotSha256": "b0c76a0926f445bf0a9dbad7f6d2b627e2f2d397bb9831cb2525515651cc905d"
+    },
+    "quality-conflict-free-no-contact": {
+      "profile": "contact-disabled-control",
+      "accepted": false,
+      "canonicalDigest": "02a751daf4f7c88e576548cf23d1773ea7a02ec5c6cdc45ad634fd007cedd496",
+      "steps": 30,
+      "qualityRefinement": true,
+      "contactEnabled": false,
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "capturedSourceDigests": {
+        "spike-point-contact.py": "fe737759bf92e1ef8dc5640adfd30bce7b219012940290dcebb672e9e6491612",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "quality_meshing.py": "296361cd87bf7e7c8023a7974ea475175978855023e75bcd08b6de9aaea480f9"
+      },
+      "vertices": 375,
+      "triangles": 580,
+      "maxDisplacementMm": 0.0007944008538603326,
+      "edgeRatioMin": 0.9999347900231716,
+      "edgeRatioMax": 1.0000678130456708,
+      "finite": true,
+      "wallSeconds": 2.4545023139999103,
+      "originalReportSha256": "535571f9caebebae0cd59a084acbe73c6dba0779dafb5f5e6d79a6ab4ef0183e",
+      "geometrySha256": "5fccebae4f8fd695655ace5bb597224ca78faeb14f58c8420bfb722c70468be8",
+      "inputGeometrySha256": "f5825b1e068cca3e4f243d4384f2fe14f39d616437e4abffd2e49db302324447",
+      "requestSha256": "7c0b6fab7be8cd4e949037ec6f97bf623e09a8b89cd91f3c36463bdd3f330e04",
+      "sourceSnapshotSha256": "b0c76a0926f445bf0a9dbad7f6d2b627e2f2d397bb9831cb2525515651cc905d"
+    }
+  },
+  "evidenceNote": "Historical reports bind their captured sources, not necessarily current files. Full reports and canonical/NPZ geometry remain ignored local research artifacts; hashes are retained here. All assembly probes remain rejected. Contact controls establish only the declared stationary diagnostic, not garment acceptance."
+}

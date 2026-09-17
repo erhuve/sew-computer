@@ -20,12 +20,15 @@ def main():
     parser.add_argument("--no-sewing", action="store_true")
     parser.add_argument("--disable-contact", action="store_true")
     parser.add_argument("--rest-neighbor-filters", action="store_true")
+    parser.add_argument("--pointwise-contact", action="store_true")
     arguments = parser.parse_args()
     if not 1 <= arguments.steps <= 1000:
         parser.error("steps must be 1..1000")
     if arguments.disable_contact and arguments.rest_neighbor_filters:
         parser.error("rest-neighbor filters require contact")
-    arguments.output.mkdir(parents=True, exist_ok=False)
+    if arguments.pointwise_contact and (arguments.disable_contact or arguments.rest_neighbor_filters):
+        parser.error("pointwise contact requires contact without static filters")
+    arguments.output.mkdir(parents=True, exist_ok=False, mode=0o700)
     os.environ["WARP_CACHE_PATH"] = str(arguments.output.resolve() / "kernel-cache")
     os.environ["OPENBLAS_NUM_THREADS"] = "1"
     os.environ["OMP_NUM_THREADS"] = "1"
@@ -34,11 +37,22 @@ def main():
     engine = Path(__file__).resolve().parents[1] / "services/engine"
     sources = {name: engine / name for name in ("assembly.py", "meshing.py", "shirt.py", "simulation_validation.py", "meshing_test.py", "placement.py")}
     sources[Path(__file__).name] = Path(__file__)
+    sources["solver_spike_geometry.py"] = Path(__file__).with_name("solver_spike_geometry.py")
     if arguments.quality_refinement:
         sources["quality_meshing.py"] = engine / "quality_meshing.py"
     if arguments.rest_neighbor_filters:
         sources["solver_contact_filters.py"] = Path(__file__).with_name("solver_contact_filters.py")
+    if arguments.pointwise_contact:
+        sources["solver_point_contact.py"] = Path(__file__).with_name("solver_point_contact.py")
     digests = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in sources.items()}
+    snapshot = arguments.output / "source-snapshot"
+    snapshot.mkdir(mode=0o700)
+    for name, path in sources.items():
+        captured = path.read_bytes()
+        if hashlib.sha256(captured).hexdigest() != digests[name]:
+            raise ValueError("Source changed while capturing experiment")
+        (snapshot / name).write_bytes(captured)
+    (arguments.output / "run-input.json").write_text(json.dumps({"sourceDigests": digests, "arguments": {key: str(value) if isinstance(value, Path) else value for key, value in vars(arguments).items()}, "cpuLimitSeconds": 240, "memoryLimitBytes": 4 * 1024 ** 3}, indent=2) + "\n")
     sys.path.insert(0, str(engine))
     from assembly import compile_inventory, compile_assembly
     from meshing import mesh_panel
@@ -47,6 +61,7 @@ def main():
     import newton
     import numpy as np
     import warp as wp
+    from solver_spike_geometry import state_finiteness
 
     wp.init()
     wp.set_device("cpu")
@@ -129,7 +144,12 @@ def main():
         from solver_contact_filters import build_rest_neighbor_filters
         vertex_filters, edge_filters, contact_report = build_rest_neighbor_filters(rest_vertices, model.tri_indices.numpy(), model.edge_indices.numpy(), vertex_instance_ids, 0.003)
         contact_options = {"particle_external_vertex_contact_filtering_map": vertex_filters, "particle_external_edge_contact_filtering_map": edge_filters}
+    if arguments.pointwise_contact:
+        contact_options.update({"particle_topological_contact_filter_threshold": 0, "particle_collision_detection_interval": 1})
     solver = newton.solvers.SolverVBD(model, iterations=10, particle_enable_self_contact=not arguments.disable_contact, particle_self_contact_margin=0.003, particle_self_contact_gap=0.001, **contact_options)
+    if arguments.pointwise_contact:
+        from solver_point_contact import install_point_contact
+        contact_report = install_point_contact(solver, rest_vertices, model.tri_indices.numpy(), vertex_instance_ids, arguments.output, 0.003)
     state = model.state()
     next_state = model.state()
     control = model.control()
@@ -144,7 +164,27 @@ def main():
         pipeline.collide(state, contacts)
         solver.step(state, next_state, control, contacts, 1 / 240)
         state, next_state = next_state, state
-    positions = state.particle_q.numpy()
+        positions, velocities = state.particle_q.numpy(), state.particle_qd.numpy()
+        diagnostic = state_finiteness(positions, velocities)
+        if not diagnostic["finite"]:
+            if digests != {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in sources.items()}:
+                raise ValueError("Source changed during numerical experiment")
+            failed_state = arguments.output / "failed-state.npz"
+            np.savez_compressed(failed_state, positions=positions, velocities=velocities, rest=np.asarray(rest_vertices), triangles=np.asarray(indices).reshape((-1, 3)))
+            failure = {"classification": "rejected-experimental-assembly", "accepted": False,
+                       "error": "nonfinite-solver-state", "failedStep": step + 1, "requestedSteps": arguments.steps,
+                       "state": diagnostic, "sourceDigests": digests, "patternDigest": inventory["patternDigest"],
+                       "versions": {name: importlib.metadata.version(name) for name in (("newton", "warp-lang", "numpy", "shapely", "scipy") if arguments.quality_refinement else ("newton", "warp-lang", "numpy", "shapely"))},
+                       "fixture": arguments.fixture, "qualityRefinement": arguments.quality_refinement,
+                       "instances": len(selected_instances), "vertices": len(rest_vertices), "triangles": len(indices) // 3,
+                       "instanceOffsets": offsets,
+                       "contactFilterReport": contact_report,
+                       "failedStateSha256": hashlib.sha256(failed_state.read_bytes()).hexdigest(),
+                       "wallSeconds": time.monotonic() - started,
+                       "peakRssKiB": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss}
+            (arguments.output / "report.json").write_text(json.dumps(failure, indent=2, allow_nan=False) + "\n")
+            raise ValueError(f"Nonfinite solver state at step {step + 1}; rejected diagnostic saved")
+    positions = state.particle_q.numpy().astype(np.float64)
     rest = np.asarray(rest_vertices)
     faces = np.asarray(indices).reshape((-1, 3))
     ratios = []
@@ -162,7 +202,7 @@ def main():
               "finite": bool(np.isfinite(positions).all()), "restTensorsUnchanged": bool(np.array_equal(tensors, model.tri_poses.numpy())),
               "edgeRatioMin": min(ratios), "edgeRatioMax": max(ratios), "seamGapMaxMm": max(residuals) if residuals else None, "seamGapP95Mm": float(np.percentile(residuals, 95)) if residuals else None,
               "maxDisplacementMm": float(np.linalg.norm(positions - np.asarray(placed_vertices), axis=1).max() * 1000),
-              "maxSpeedMetersPerSecond": float(np.linalg.norm(state.particle_qd.numpy(), axis=1).max()), "wallSeconds": time.monotonic() - started,
+              "maxSpeedMetersPerSecond": float(np.linalg.norm(state.particle_qd.numpy().astype(np.float64), axis=1).max()), "wallSeconds": time.monotonic() - started,
               "peakRssKiB": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
               "limitations": ["Rigid staging is unvalidated; no collision-free placement claim.", "Registration directions are experimental, not validated seam semantics.", "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.", "No body, gravity, calibrated material, collision oracle or convergence acceptance."]}
     (arguments.output / "report.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")

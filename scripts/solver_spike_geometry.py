@@ -1,6 +1,16 @@
 import numpy as np
 
 
+def state_finiteness(positions, velocities):
+    positions, velocities = np.asarray(positions), np.asarray(velocities)
+    if positions.ndim != 2 or positions.shape[1] != 3 or len(positions) == 0 or velocities.shape != positions.shape:
+        raise ValueError("Expected matching nonempty particle position and velocity arrays")
+    invalid_positions = int(np.count_nonzero(~np.isfinite(positions)))
+    invalid_velocities = int(np.count_nonzero(~np.isfinite(velocities)))
+    return {"finite": invalid_positions == 0 and invalid_velocities == 0,
+            "nonfinitePositionValues": invalid_positions, "nonfiniteVelocityValues": invalid_velocities}
+
+
 def segment_triangle(start, end, triangle, tolerance=1e-9):
     direction = end - start
     edge_first = triangle[1] - triangle[0]
@@ -63,6 +73,48 @@ def triangles_intersect(first, second, tolerance=1e-9):
             if segment_triangle(left[index], left[(index + 1) % 3], right, tolerance) is not None:
                 return True
     return False
+
+
+def surface_intersections(positions, triangles, candidate_budget=2000000):
+    if type(candidate_budget) is not int or not 1 <= candidate_budget <= 2000000:
+        raise ValueError("Invalid surface intersection budget")
+    positions = np.asarray(positions, dtype=float)
+    faces = np.asarray(triangles)
+    if positions.ndim != 2 or positions.shape[1] != 3 or not np.isfinite(positions).all():
+        raise ValueError("Finite surface positions required")
+    if faces.ndim != 2 or faces.shape[1] != 3 or faces.dtype.kind not in "iu" or np.any(faces < 0) or np.any(faces >= len(positions)) or len(faces) > 50000:
+        raise ValueError("Bounded indexed surface triangles required")
+    vertices = positions[faces]
+    lengths = np.linalg.norm(vertices[:, 1] - vertices[:, 0], axis=1) * np.linalg.norm(vertices[:, 2] - vertices[:, 0], axis=1)
+    areas = np.linalg.norm(np.cross(vertices[:, 1] - vertices[:, 0], vertices[:, 2] - vertices[:, 0]), axis=1)
+    if np.any(areas <= lengths * 1e-9):
+        raise ValueError("Degenerate surface triangle")
+    lower, upper = vertices.min(axis=1), vertices.max(axis=1)
+    padding = max(float(np.linalg.norm(upper - lower, axis=1).max()) * 1e-9, 1e-12)
+    order = np.argsort(lower[:, 0])
+    sorted_lower = lower[order, 0]
+    count, tested, broad_candidates, examples = 0, 0, 0, []
+    for first_index, first in enumerate(faces):
+        stop = np.searchsorted(sorted_lower, upper[first_index, 0] + padding, side="right")
+        potential = order[:stop]
+        broad_candidates += len(potential)
+        if broad_candidates > candidate_budget * 8:
+            raise ValueError("Surface broad-phase candidate budget exceeded")
+        potential = potential[potential > first_index]
+        candidates = potential[np.all(upper[first_index] + padding >= lower[potential], axis=1) &
+                               np.all(upper[potential] + padding >= lower[first_index], axis=1)]
+        for second_index in candidates:
+            if set(first) & set(faces[second_index]):
+                continue
+            tested += 1
+            if tested > candidate_budget:
+                raise ValueError("Surface intersection candidate budget exceeded")
+            if triangles_intersect(vertices[first_index], vertices[second_index]):
+                count += 1
+                if len(examples) < 30:
+                    examples.append([first_index, int(second_index)])
+    return {"intersectingPairCount": count, "testedCandidates": tested, "broadPhaseCandidates": broad_candidates, "intersectingPairs": examples,
+            "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"}
 
 
 def inspect_geometry(rest, placed, positions, triangles, mappings, seam_paths):

@@ -74,7 +74,8 @@ def mesh_panel(panel, max_edge_mm=40, boundary_fractions=None, quality_refinemen
                     raise ValueError("Boundary refinement exceeds resource budget")
                 lookup[point] = len(positions)
                 positions.append(list(point))
-            boundary.append(point)
+            if not boundary or point != boundary[-1]:
+                boundary.append(point)
     triangles = []
     for triangle in constrained_delaunay_triangles(Polygon(boundary)).geoms:
         indices = [lookup[tuple(point)] for point in list(triangle.exterior.coords)[:-1]]

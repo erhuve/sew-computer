@@ -28,9 +28,21 @@ def quality_triangles(shape, positions, boundary, max_edge_mm, max_vertices=1200
             if shape.contains(point) and shape.boundary.distance(point) > spacing * 0.2:
                 insert(point.coords[0])
     segments = [(tuple(first), tuple(second)) for first, second in zip(boundary, boundary[1:] + boundary[:1])]
+    if any(first == second for first, second in segments):
+        raise ValueError("Quality mesh boundary contains a zero-length segment")
+
+    def split_segment(first, second):
+        middle = tuple((first[axis] + second[axis]) / 2 for axis in range(2))
+        if middle == first or middle == second:
+            raise ValueError("Quality mesh boundary cannot split at available precision")
+        insert(middle)
+        return [(first, middle), (middle, second)]
+
     tolerance = 1e-7
     padded = shape.buffer(tolerance)
     for iteration in range(32):
+        if len(segments) > max_vertices:
+            raise ValueError("Quality mesh boundary segment budget exceeded")
         coordinates = np.asarray(positions)
         triangulation = Delaunay(coordinates)
         triangles = [list(map(int, triangle)) for triangle in triangulation.simplices if padded.covers(Polygon(coordinates[triangle]))]
@@ -40,9 +52,7 @@ def quality_triangles(shape, positions, boundary, max_edge_mm, max_vertices=1200
             replaced = []
             for first, second in segments:
                 if (first, second) in missing:
-                    middle = tuple((first[axis] + second[axis]) / 2 for axis in range(2))
-                    insert(middle)
-                    replaced.extend([(first, middle), (middle, second)])
+                    replaced.extend(split_segment(first, second))
                 else:
                     replaced.append((first, second))
             segments = replaced
@@ -70,22 +80,21 @@ def quality_triangles(shape, positions, boundary, max_edge_mm, max_vertices=1200
                         blocked = True
                 if blocked:
                     continue
-                if not additions or min(math.dist(center, previous) for previous in additions) > min(edge_lengths) * 0.25:
-                    additions.append(center.tolist())
+                radius = float(np.linalg.norm(center - first))
+                if all(math.dist(center, previous) >= max(radius, previous_radius) for previous, previous_radius in additions):
+                    additions.append((center.tolist(), radius))
         if encroached:
             replaced = []
             for segment_index, (first, second) in enumerate(segments):
                 if segment_index in encroached:
-                    middle = tuple((first[axis] + second[axis]) / 2 for axis in range(2))
-                    insert(middle)
-                    replaced.extend([(first, middle), (middle, second)])
+                    replaced.extend(split_segment(first, second))
                 else:
                     replaced.append((first, second))
             segments = replaced
             continue
         if not additions:
             return triangles
-        for point in additions:
+        for point, _ in additions:
             insert(point)
     triangulation = Delaunay(np.asarray(positions))
     return [list(map(int, triangle)) for triangle in triangulation.simplices if padded.covers(Polygon([positions[index] for index in triangle]))]
