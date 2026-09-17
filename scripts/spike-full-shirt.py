@@ -50,6 +50,9 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--steps", type=int, default=120)
     parser.add_argument("--embedded-sewing", action="store_true")
+    parser.add_argument("--coupled-sewing", action="store_true")
+    parser.add_argument("--augmented-sewing", action="store_true")
+    parser.add_argument("--solver-iterations", type=int, default=10)
     parser.add_argument("--stable-membrane", action="store_true")
     parser.add_argument("--substeps", type=int, default=1)
     parser.add_argument("--ramp-steps", type=int, default=0)
@@ -60,7 +63,14 @@ def main():
     parser.add_argument("--disable-contact", action="store_true")
     parser.add_argument("--rest-neighbor-filters", action="store_true")
     parser.add_argument("--pointwise-contact", action="store_true")
+    parser.add_argument("--pin-first-vertex", action="store_true")
     arguments = parser.parse_args()
+    if not 1 <= arguments.solver_iterations <= 200:
+        parser.error("solver iterations must be 1..200")
+    if arguments.augmented_sewing and not arguments.coupled_sewing:
+        parser.error("augmented sewing requires coupled sewing")
+    if arguments.coupled_sewing and (not arguments.embedded_sewing or arguments.no_sewing or arguments.fixture == "front-panel"):
+        parser.error("coupled sewing requires embedded sewing on a sewn fixture")
     if not 1 <= arguments.steps <= 1000:
         parser.error("steps must be 1..1000")
     if not 1 <= arguments.substeps <= 16:
@@ -83,10 +93,13 @@ def main():
     sources = {name: engine / name for name in ("assembly.py", "meshing.py", "shirt.py", "simulation_validation.py", "meshing_test.py", "placement.py", "constraint_coloring.py")}
     sources[Path(__file__).name] = Path(__file__)
     sources["solver_spike_geometry.py"] = Path(__file__).with_name("solver_spike_geometry.py")
+    sources["solver_strain_diagnostics.py"] = Path(__file__).with_name("solver_strain_diagnostics.py")
     if arguments.embedded_sewing:
         sources.update({name: engine / name for name in ("cloth_domain.py", "embedded_constraints.py")})
-    if arguments.stable_membrane:
+    if arguments.stable_membrane or arguments.coupled_sewing:
         sources["solver_membrane_stability.py"] = Path(__file__).with_name("solver_membrane_stability.py")
+    if arguments.coupled_sewing:
+        sources["solver_embedded_sewing.py"] = Path(__file__).with_name("solver_embedded_sewing.py")
     if arguments.quality_refinement:
         sources["quality_meshing.py"] = engine / "quality_meshing.py"
     if arguments.rest_neighbor_filters:
@@ -111,6 +124,7 @@ def main():
     import numpy as np
     import warp as wp
     from solver_spike_geometry import snapshot_particle_positions, state_finiteness
+    from solver_strain_diagnostics import edge_strain_report, mass_motion_report
     if arguments.embedded_sewing:
         from cloth_domain import mesh_cloth_domain, validate_cloth_domain
         from embedded_constraints import build_embedded_constraints, validate_embedded_constraints, project_embedded_constraints, constraint_residuals
@@ -215,13 +229,16 @@ def main():
     for first, second in sorted(set(seams)):
         builder.add_spring(first, second, ke=1000 if arguments.shirt_placement else 1000000, kd=0.01, control=0)
         builder.spring_rest_length[-1] = 0
-    builder.particle_mass[0] = 0
+    if arguments.pin_first_vertex:
+        builder.particle_mass[0] = 0
     builder.color(include_bending=True)
     from constraint_coloring import refine_constraint_colors
     original_colors = {int(vertex): color for color, group in enumerate(builder.particle_color_groups) for vertex in group}
     coloring_report = {"originalColors": len(builder.particle_color_groups),
                        "originalSpringConflicts": sum(original_colors[first] == original_colors[second] for first, second in set(seams))}
-    builder.set_coloring(refine_constraint_colors(len(rest_vertices), builder.particle_color_groups, sorted(set(seams))))
+    sewing_rows = [{offsets[term["instanceId"]] + term["vertex"]: term["coefficient"] for term in constraint["terms"]}
+                   for constraint in bundle["constraints"]] if arguments.coupled_sewing else []
+    builder.set_coloring(refine_constraint_colors(len(rest_vertices), builder.particle_color_groups, [*sorted(set(seams)), *sewing_rows]))
     coloring_report["refinedColors"] = len(builder.particle_color_groups)
     model = builder.finalize(device="cpu")
     final_colors = model.particle_colors.numpy()
@@ -235,15 +252,23 @@ def main():
         contact_options = {"particle_external_vertex_contact_filtering_map": vertex_filters, "particle_external_edge_contact_filtering_map": edge_filters}
     if arguments.pointwise_contact:
         contact_options.update({"particle_topological_contact_filter_threshold": 0, "particle_collision_detection_interval": 1})
-    solver = newton.solvers.SolverVBD(model, iterations=10, particle_enable_self_contact=not arguments.disable_contact, particle_self_contact_margin=0.003, particle_self_contact_gap=0.001, **contact_options)
+    solver = newton.solvers.SolverVBD(model, iterations=arguments.solver_iterations, particle_enable_self_contact=not arguments.disable_contact, particle_self_contact_margin=0.003, particle_self_contact_gap=0.001, **contact_options)
     membrane_report = None
-    if arguments.stable_membrane:
+    if arguments.stable_membrane and not arguments.coupled_sewing:
         from solver_membrane_stability import install_stable_membrane, uninstall_stable_membrane
         membrane_report = install_stable_membrane(solver, arguments.output)
         atexit.register(uninstall_stable_membrane, solver)
     if arguments.pointwise_contact:
         from solver_point_contact import install_point_contact
         contact_report = install_point_contact(solver, rest_vertices, model.tri_indices.numpy(), vertex_instance_ids, arguments.output, 0.003)
+    sewing_report = None
+    if arguments.coupled_sewing:
+        from solver_embedded_sewing import install_embedded_sewing, set_embedded_targets, uninstall_embedded_sewing
+        compliances = {constraint["complianceMPerN"] for constraint in bundle["constraints"]}
+        if len(compliances) != 1:
+            raise ValueError("Coupled research adapter requires uniform captured sewing compliance")
+        sewing_report = install_embedded_sewing(solver, sewing_rows, compliances.pop(), arguments.output, augmented=arguments.augmented_sewing)
+        atexit.register(uninstall_embedded_sewing, solver)
     state = model.state()
     next_state = model.state()
     control = model.control()
@@ -254,7 +279,9 @@ def main():
     inverse_masses = {identity: model.particle_inv_mass.numpy()[section] for identity, section in sections.items()}
     initial_residuals = constraint_residuals(bundle, {identity: np.asarray(placed_vertices)[section] for identity, section in sections.items()}) if bundle else None
     max_projection = 0.0
-    coupling_report = {"mode": "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
+    coupling_report = {"mode": "coupled-embedded-cut-cloth" if arguments.coupled_sewing else "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
+                       "solverIterations": arguments.solver_iterations, "sewingSolver": sewing_report,
+                       "pinnedVertices": np.flatnonzero(model.particle_inv_mass.numpy() == 0).tolist(),
                        "registrationRecipe": "sew-shirt-source-endpoints/1",
                        "timestepSeconds": timestep, "rampSteps": arguments.ramp_steps,
                        "sourceEndpointPolicy": "Exact source edge metadata and point intervals; metadata arc discrepancy limited to 1e-6 mm before using source-derived path length" if arguments.embedded_sewing else None,
@@ -270,15 +297,17 @@ def main():
             stiffness = 1000 + 999000 * min(1, step / max(1, arguments.steps * arguments.substeps - 1))
             model.spring_stiffness.assign(np.full(len(model.spring_stiffness), stiffness, dtype=np.float32))
         previous = snapshot_particle_positions(state) if bundle else None
+        fraction = min(1.0, (step + 1) / (arguments.ramp_steps * arguments.substeps)) if arguments.ramp_steps else 1.0
+        closure = fraction * fraction * (3 - 2 * fraction)
+        if arguments.coupled_sewing:
+            set_embedded_targets(solver, initial_residuals * (1 - closure))
         state.clear_forces()
         pipeline.collide(state, contacts)
         solver.step(state, next_state, control, contacts, timestep)
         projection_error = None
         failure_stage = "cloth-step"
-        if bundle and state_finiteness(next_state.particle_q.numpy(), next_state.particle_qd.numpy())["finite"]:
+        if bundle and not arguments.coupled_sewing and state_finiteness(next_state.particle_q.numpy(), next_state.particle_qd.numpy())["finite"]:
             candidate = next_state.particle_q.numpy()
-            fraction = min(1.0, (step + 1) / (arguments.ramp_steps * arguments.substeps)) if arguments.ramp_steps else 1.0
-            closure = fraction * fraction * (3 - 2 * fraction)
             failure_stage = "embedded-projection"
             try:
                 projected = project_embedded_constraints(bundle, {identity: candidate[section] for identity, section in sections.items()},
@@ -341,12 +370,16 @@ def main():
               "instances": len(selected_instances), "vertices": len(positions), "triangles": len(faces), "constraints": coupling_report["constraintCount"], "steps": arguments.steps, "qualityRefinement": arguments.quality_refinement, "placementRecipe": placement if arguments.shirt_placement else "radial-stress",
               "finite": bool(np.isfinite(positions).all()), "restTensorsUnchanged": bool(np.array_equal(tensors, model.tri_poses.numpy())),
               "edgeRatioMin": min(ratios), "edgeRatioMax": max(ratios), "seamGapMaxMm": max(residuals) if residuals else None, "seamGapP95Mm": float(np.percentile(residuals, 95)) if residuals else None,
+              "edgeStrain": edge_strain_report(rest, positions, faces, vertex_instance_ids, coupling_report["pinnedVertices"]),
+              "massMotion": mass_motion_report(placed_vertices, positions, state.particle_qd.numpy(), model.particle_mass.numpy()),
               "maxDisplacementMm": float(np.linalg.norm(positions - np.asarray(placed_vertices), axis=1).max() * 1000),
               "maxSpeedMetersPerSecond": float(np.linalg.norm(state.particle_qd.numpy().astype(np.float64), axis=1).max()), "wallSeconds": time.monotonic() - started,
               "peakRssKiB": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
               "limitations": ["Rigid staging is unvalidated; no collision-free placement claim.", "Registration directions are experimental, not validated seam semantics.", "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.", "No body, gravity, calibrated material, collision oracle or convergence acceptance.", "All sewing operations ramp simultaneously; graph dependency sequence is not executed.", "Embedded projection follows collision handling and may reintroduce penetration; operator splitting needs convergence validation."]}
+    if arguments.coupled_sewing:
+        report["limitations"][-1] = "Sewing energy shares cloth/contact updates; convergence, contact thickness and assembly semantics remain unvalidated."
     (arguments.output / "report.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
-    (arguments.output / "canonical.json").write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices, "positionsMeters": positions.tolist(), "previousPositionsMeters": previous.tolist() if bundle else None, "velocitiesMetersPerSecond": state.particle_qd.numpy().tolist(), "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "placement": placement if arguments.shirt_placement else "radial-stress", "sourceTemplates": templates, "assembly": graph, "embeddedConstraints": bundle}, separators=(",", ":"), allow_nan=False))
+    (arguments.output / "canonical.json").write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices, "positionsMeters": positions.tolist(), "previousPositionsMeters": previous.tolist() if bundle else None, "velocitiesMetersPerSecond": state.particle_qd.numpy().tolist(), "particleMassesKg": model.particle_mass.numpy().tolist(), "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "placement": placement if arguments.shirt_placement else "radial-stress", "sourceTemplates": templates, "assembly": graph, "embeddedConstraints": bundle}, separators=(",", ":"), allow_nan=False))
     print(json.dumps(report, allow_nan=False))
 
 

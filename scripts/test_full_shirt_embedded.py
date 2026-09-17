@@ -124,7 +124,29 @@ class FullShirtEmbeddedTests(unittest.TestCase):
         self.assertEqual(self.report["classification"], "rejected-experimental-assembly")
         self.assertTrue(self.report["restTensorsUnchanged"])
         self.assertEqual(self.report["coupling"]["mode"], "embedded-cut-cloth")
+        self.assertEqual(self.report["coupling"]["pinnedVertices"], [])
         self.assertTrue(any("reintroduce penetration" in limitation for limitation in self.report["limitations"]))
+
+    def test_coupled_sewing_retains_source_and_explicit_pin(self):
+        output = Path(self.directory.name) / "coupled"
+        result = subprocess.run([sys.executable, str(ROOT / "scripts/spike-full-shirt.py"),
+            "--output", str(output), "--fixture", "torso", "--embedded-sewing", "--coupled-sewing", "--augmented-sewing", "--solver-iterations", "50",
+            "--quality-refinement", "--shirt-placement", "--disable-contact", "--pin-first-vertex",
+            "--steps", "3", "--substeps", "2", "--ramp-steps", "2"],
+            cwd=ROOT, capture_output=True, text=True, timeout=300)
+        self.assertEqual(result.returncode, 0, result.stdout[-2000:] + result.stderr[-2000:])
+        report = json.loads((output / "report.json").read_text())
+        canonical = json.loads((output / "canonical.json").read_text())
+        self.assertEqual(report["coupling"]["pinnedVertices"], [0])
+        self.assertEqual(report["coupling"]["mode"], "coupled-embedded-cut-cloth")
+        self.assertEqual(report["coupling"]["maxProjectionMm"], 0)
+        np.testing.assert_allclose(canonical["positionsMeters"][0], canonical["placedMeters"][0], atol=1e-7)
+        for name in ("restMeters", "placedMeters", "triangles", "embeddedConstraints", "sourceTemplates"):
+            self.assertEqual(canonical[name], self.canonical[name])
+        np.testing.assert_allclose(canonical["velocitiesMetersPerSecond"],
+            (np.asarray(canonical["positionsMeters"]) - np.asarray(canonical["previousPositionsMeters"])) / report["coupling"]["timestepSeconds"], atol=1e-5)
+        self.assertAlmostEqual(report["edgeStrain"]["max"], report["edgeRatioMax"])
+        self.assertFalse(report["accepted"])
 
 
 if __name__ == "__main__":
