@@ -1,6 +1,7 @@
 {
   "date": "2026-09-17",
   "scope": "Actual cut-panel interior sewing experiments; no accepted assembly or drape",
+  "historicalCouplingCaveat": "Reports sourced from spike-embedded-sewing.py in this historical ledger used an aliased pre-step CPU position array. Newton mutated that array, so velocity reconstruction omitted cloth displacement. These trajectories cannot validate full-substep dynamics. Source geometry and final-position residual checks remain observations of the flawed, rejected experiment. See 3d-sewing-stability-results.json and the embedded sewing review for corrected continuation evidence.",
   "reports": {
     "full-shirt-quality-fail-fast": {
       "classification": "rejected-experimental-assembly",

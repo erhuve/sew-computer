@@ -1,6 +1,10 @@
 import numpy as np
 
 
+def snapshot_particle_positions(state):
+    return state.particle_q.numpy().copy()
+
+
 def state_finiteness(positions, velocities):
     positions, velocities = np.asarray(positions), np.asarray(velocities)
     if positions.ndim != 2 or positions.shape[1] != 3 or len(positions) == 0 or velocities.shape != positions.shape:

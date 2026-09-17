@@ -3,10 +3,47 @@ import unittest
 
 import numpy as np
 
-from solver_spike_geometry import state_finiteness, surface_intersections, triangles_intersect
+from solver_spike_geometry import snapshot_particle_positions, state_finiteness, surface_intersections, triangles_intersect
 
 
 class SurfaceOracleTests(unittest.TestCase):
+    def test_snapshot_preserves_complete_velocity_when_vbd_mutates_input(self):
+        try:
+            import newton
+            import warp as wp
+        except ModuleNotFoundError:
+            self.skipTest("Newton research runtime is not installed")
+        wp.init()
+        wp.set_device("cpu")
+        builder = newton.ModelBuilder(gravity=(0, 0, 0))
+        builder.add_cloth_mesh(pos=wp.vec3(0, 0, 0), rot=wp.quat_identity(), scale=1,
+            vel=wp.vec3(0, 0, 0), vertices=[[0, 0, 0], [.1, 0, 0], [0, .1, 0]], indices=[0, 1, 2],
+            density=.2, tri_ke=10000, tri_ka=10000, tri_kd=.01)
+        builder.color(include_bending=True)
+        model = builder.finalize(device="cpu")
+        solver = newton.solvers.SolverVBD(model, iterations=10, particle_enable_self_contact=False)
+        state, next_state = model.state(), model.state()
+        compressed = state.particle_q.numpy().copy()
+        compressed[1, 0] = .08
+        state.particle_q.assign(compressed)
+        previous = snapshot_particle_positions(state)
+        alias = state.particle_q.numpy()
+        timestep = 1 / 240
+        pipeline = newton.CollisionPipeline(model)
+        contacts = pipeline.contacts()
+        state.clear_forces()
+        pipeline.collide(state, contacts)
+        solver.step(state, next_state, model.control(), contacts, timestep)
+        np.testing.assert_array_equal(previous, compressed)
+        self.assertFalse(np.shares_memory(previous, alias))
+        self.assertGreater(float(np.linalg.norm(alias - previous)), 1e-6)
+        expected_velocity = (next_state.particle_q.numpy() - compressed) / timestep
+        reconstructed_velocity = (next_state.particle_q.numpy() - previous) / timestep
+        np.testing.assert_allclose(reconstructed_velocity, expected_velocity, rtol=1e-6, atol=1e-6)
+        np.testing.assert_allclose(reconstructed_velocity, next_state.particle_qd.numpy(), rtol=1e-5, atol=1e-5)
+        aliased_velocity = (next_state.particle_q.numpy() - alias) / timestep
+        self.assertGreater(float(np.linalg.norm(reconstructed_velocity - aliased_velocity)), .001)
+
     def test_nonfinite_state_reports_remain_json_serializable(self):
         positions = np.zeros((2, 3))
         velocities = np.zeros((2, 3))

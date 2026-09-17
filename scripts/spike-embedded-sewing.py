@@ -61,7 +61,7 @@ def main():
     from cloth_domain import mesh_cloth_domain
     from embedded_constraints import build_embedded_constraints, validate_embedded_constraints, project_embedded_constraints, constraint_residuals
     from meshing_test import shirt_pattern
-    from solver_spike_geometry import surface_intersections
+    from solver_spike_geometry import snapshot_particle_positions, state_finiteness, surface_intersections
     import newton
     import numpy as np
     import warp as wp
@@ -135,7 +135,7 @@ def main():
     initial_residuals = constraint_residuals(bundle, placed)
     max_projection = 0.0
     for step in range(arguments.steps * arguments.substeps):
-        previous = state.particle_q.numpy()
+        previous = snapshot_particle_positions(state)
         state.clear_forces()
         pipeline.collide(state, contacts)
         solver.step(state, next_state, model.control(), contacts, timestep)
@@ -152,6 +152,8 @@ def main():
             raise ValueError("Nonfinite coupled sewing state")
         next_state.particle_q.assign(candidate)
         next_state.particle_qd.assign((candidate - previous) / timestep)
+        if not state_finiteness(next_state.particle_q.numpy(), next_state.particle_qd.numpy())["finite"]:
+            raise ValueError("Nonfinite coupled sewing positions or velocities")
         state, next_state = next_state, state
     final = {identity: state.particle_q.numpy()[section] for identity, section in slices.items()}
     ratios = []
@@ -178,14 +180,16 @@ def main():
               "edgeRatioMin": min(ratios), "edgeRatioMax": max(ratios), "maxProjectionMm": max_projection * 1000,
               "restTensorsUnchanged": bool(np.array_equal(tensors, model.tri_poses.numpy())),
               "surfaceIntersections": surface_report,
-              "maxSpeedMPerSecond": float(np.linalg.norm(state.particle_qd.numpy(), axis=1).max()),
+              "maxSpeedMPerSecond": float(np.linalg.norm(state.particle_qd.numpy().astype(np.float64), axis=1).max()),
               "wallSeconds": time.monotonic() - started, "peakRssKiB": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
               "limitations": ["Operator-split VBD cloth and XPBD sewing require timestep/convergence validation.",
                               "Projection follows collision handling and may reintroduce penetration.",
                               "Two actual source templates in a synthetic probe, not executable garment assembly.",
                               "No body, gravity, calibrated materials, binding wrap or turning acceptance."]}
     canonical = {"sources": instances, "constraints": bundle, "restMeters": {key: value.tolist() for key, value in rest.items()},
-                 "positionsMeters": {key: value.tolist() for key, value in final.items()}}
+                 "positionsMeters": {key: value.tolist() for key, value in final.items()},
+                 "previousPositionsMeters": {identity: previous[section].tolist() for identity, section in slices.items()},
+                 "velocitiesMetersPerSecond": {identity: state.particle_qd.numpy()[section].tolist() for identity, section in slices.items()}}
     (arguments.output / "canonical.json").write_text(json.dumps(canonical, allow_nan=False))
     (arguments.output / "report.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
     print(json.dumps(report, allow_nan=False))

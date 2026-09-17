@@ -8,9 +8,25 @@ from assembly import compile_assembly, compile_inventory
 from quality_meshing import quality_triangles
 from shapely.geometry import Polygon
 from simulation_validation import validate_rest_mesh
+from cloth_domain import mesh_cloth_domain, validate_cloth_domain
+from shapely.ops import unary_union
 
 
 class QualityRefinementTests(unittest.TestCase):
+    def test_sleeve_cut_domain_excludes_exterior_nearcollinear_cells(self):
+        for panel in shirt_pattern()["panels"]:
+            if panel["id"] not in ("sleeve_left", "sleeve_right"):
+                continue
+            with self.subTest(panel=panel["id"]):
+                mesh = mesh_cloth_domain(panel, 60, quality_refinement=True)
+                source = Polygon(panel["draft"]["cutLine"])
+                cells = [Polygon([mesh["restPositions"][index] for index in triangle]) for triangle in mesh["triangles"]]
+                self.assertEqual(mesh["restPositions"][:len(panel["draft"]["cutLine"]) - 1], panel["draft"]["cutLine"][:-1])
+                self.assertTrue(all(source.contains(cell.centroid) for cell in cells))
+                self.assertLess(unary_union(cells).symmetric_difference(source).area, 1e-6)
+                self.assertLess(abs(sum(cell.area for cell in cells) - source.area), 1e-6)
+                validate_cloth_domain(panel, mesh)
+
     def test_collar_registration_rounding_does_not_duplicate_boundary(self):
         pattern, inventory = compile_inventory(json.dumps(shirt_pattern()).encode(), CONSTRUCTION)
         graph = compile_assembly(pattern, inventory)

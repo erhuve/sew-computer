@@ -45,7 +45,8 @@ def quality_triangles(shape, positions, boundary, max_edge_mm, max_vertices=1200
             raise ValueError("Quality mesh boundary segment budget exceeded")
         coordinates = np.asarray(positions)
         triangulation = Delaunay(coordinates)
-        triangles = [list(map(int, triangle)) for triangle in triangulation.simplices if padded.covers(Polygon(coordinates[triangle]))]
+        triangles = [list(map(int, triangle)) for triangle in triangulation.simplices
+                     if padded.covers(Polygon(coordinates[triangle])) and shape.contains(Polygon(coordinates[triangle]).centroid)]
         triangle_edges = {tuple(sorted((first, second))) for face in triangles for first, second in zip(face, face[1:] + face[:1])}
         missing = [(first, second) for first, second in segments if tuple(sorted((lookup[first], lookup[second]))) not in triangle_edges]
         if missing:
@@ -97,4 +98,5 @@ def quality_triangles(shape, positions, boundary, max_edge_mm, max_vertices=1200
         for point, _ in additions:
             insert(point)
     triangulation = Delaunay(np.asarray(positions))
-    return [list(map(int, triangle)) for triangle in triangulation.simplices if padded.covers(Polygon([positions[index] for index in triangle]))]
+    return [list(map(int, triangle)) for triangle in triangulation.simplices
+            if padded.covers(Polygon([positions[index] for index in triangle])) and shape.contains(Polygon([positions[index] for index in triangle]).centroid)]

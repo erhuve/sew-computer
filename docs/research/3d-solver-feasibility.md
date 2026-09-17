@@ -188,6 +188,30 @@ On the refined front's 30-step stationary control, contact-enabled maximum displ
 
 The first full-shirt retry exposed a different failure at the collar stand: distinct registration fractions rounded to an identical generated boundary coordinate. Refinement repeatedly split the resulting zero-length segment without increasing the unique-vertex count, exhausting the 4 GiB limit. The fix skips exactly identical consecutive generated coordinates without moving source vertices and adds explicit zero-length, unsplittable-midpoint and segment-count guards. Three refinement regressions pass, including actual collar registration/source checks. All 18 templates now pass the synthetic full-shirt registration/quality-mesh preflight; collar stand and fall have 60/39 vertices. The failed attempt is retained in the ledger rather than replaced by the successful preflight.
 
-The final refined full shirt has 24 physical fabric instances, 2,656 vertices and 3,816 triangles. It becomes nonfinite at **step 73 of 120**, after 82.82 seconds. Two position components and two velocity components are nonfinite; rest coordinates remain finite. The fail-fast harness now preserves a strictly valid rejected JSON report and a checksummed binary failed state instead of losing diagnostics to JSON serialization. Future failures also carry physical-instance offsets. An independent injected-NaN test verifies this rejection path; it is separate from the natural failure. Final finite-state metric calculations use float64 to avoid float32 norm overflow. The successful one-step front-panel smoke check does not promote the failed shirt.
+The final refined full shirt in that run has 24 physical fabric instances, 2,656 vertices and 3,816 triangles. It becomes nonfinite at **step 73 of 120**, after 82.82 seconds. Two position components and two velocity components are nonfinite; rest coordinates remain finite. The fail-fast harness preserves a strictly valid rejected JSON report and a checksummed binary failed state instead of losing diagnostics to JSON serialization. Failures also carry physical-instance offsets. An independent injected-NaN test verifies this rejection path; it is separate from the natural failure. Final finite-state metric calculations use float64 to avoid float32 norm overflow. The successful one-step front-panel smoke check does not promote the failed shirt.
+
+## Full cut-cloth sewing continuation · 2026-09-17
+
+The [stability ledger](3d-sewing-stability-results.json) retains the controls after that failure. Newton's default coloring omits sewing springs; refinement removes 117 conflicts while preserving cloth/bending separation. A pinned CPU-only membrane adapter replaces cancellation-prone area/cofactor arithmetic with equivalent cross-product expressions, retaining the material law and area floor. Independent derivative, ownership/restoration and contact-coexistence checks are in the [review](../reviews/3d-embedded-sewing.md). Neither correction makes an underconverged spring solution physically valid.
+
+The complete research path now supports actual cut fabric via `--embedded-sewing`, substeps and a smooth offset ramp with settling time. It validates all source paths, resolves declared whole-edge endpoints against exact source geometry, and preserves physical mirroring and rest tensors. Refined sleeve meshing excludes exterior slivers rather than relaxing coverage checks. Both coupling harnesses copy the pre-step CPU state; historical embedded trajectories used an alias that invalidated their velocity reconstruction. New canonical outputs retain velocities and previous positions for independent checks.
+
+Corrected full-shirt no-contact run: **24 fabric instances, 2,244 vertices, 3,512 triangles and 305 constraints**, 120 steps with two substeps and an 80-step ramp. It is finite but rejected: maximum edge ratio **11.3479**, seam gap **28.3465 mm**, speed **6.0894 m/s**. Independent artifact validation reproduces geometry, residuals and reconstructed velocities. This does not establish contact, layer order, turning, body interaction or settled material drape.
+
+Reproduce this experimental path with the pinned research Python and a new private output directory:
+
+```sh
+timeout --kill-after=5s 300s .planning/solver/newton-venv/bin/python scripts/spike-full-shirt.py --output .planning/solver/new-cut-cloth-run --embedded-sewing --shirt-placement --quality-refinement --stable-membrane --disable-contact --steps 120 --substeps 2 --ramp-steps 80
+.planning/solver/newton-venv/bin/python scripts/test_solver_constraint_coloring.py
+.planning/solver/newton-venv/bin/python scripts/test_solver_membrane_stability.py
+.planning/solver/newton-venv/bin/python scripts/test_solver_spike_geometry.py
+.planning/solver/newton-venv/bin/python scripts/test_full_shirt_embedded.py
+```
+
+The final same-duration cut-cloth run with pointwise contact also completes, in **237.57 seconds**, with finite states and unchanged rest tensors. It remains rejected: edge ratios **0.1202–22.5654**, maximum seam gap **5.2443 mm**, maximum speed **0.8228 m/s**. Its captured source digests match the final implementation, including the endpoint guard, copied state, membrane adapter and refined sleeve fix. Contact being enabled is not a collision-acceptance result; the solver does not yet establish valid layer order or coupled convergence.
+
+An independent final-surface check of that contact run reports **7,186 intersecting nonadjacent triangle pairs**, with the oracle's documented touch/exclusion limits. This further rejects the result; enabling self-contact alone does not establish successful collision handling.
+
+These are research controls, not production configuration. Allowance folds/layer execution, simultaneous versus staged assembly operations, coupled sewing/contact convergence and scoped numerical acceptance remain unresolved.
 
 Current verification includes 104 application tests, 31 engine cases and 23 browser cases in full runs, followed by all six meshing/placement/coupling wrappers against the collar fix. Typecheck and build pass. Independent numerical review covers eleven coupling, seven contact, eight surface-oracle/state and six rigid-probe tests, plus three refinement regressions. Numerical acceptance of the assembled shirt remains a separate unresolved gate.
