@@ -65,7 +65,7 @@ class GlobalAdversarialTests(unittest.TestCase):
         original = model.particle_q.numpy().astype(float)
         descent = solver_global_sewing._direct_descent
 
-        def audited_descent(evaluate, start, max_evaluations, hessian, objective):
+        def audited_descent(evaluate, start, max_evaluations, hessian, objective, **options):
             shear = solver.materials[:, 0]
             bulk = shear + solver.materials[:, 1]
             alpha = 1 + shear / np.maximum(bulk, 1e-6)
@@ -76,13 +76,14 @@ class GlobalAdversarialTests(unittest.TestCase):
                 residual = evaluate(candidate)
                 self.assertAlmostEqual(objective(candidate), residual @ residual / 2 - constant, places=8)
                 analytical = evaluate(candidate, True).T @ residual
+                np.testing.assert_allclose(options["gradient_function"](candidate), analytical, rtol=1e-11, atol=1e-8)
                 numerical = np.zeros_like(candidate)
                 for coordinate in range(len(candidate)):
                     offset = np.zeros_like(candidate)
                     offset[coordinate] = 1e-7
                     numerical[coordinate] = (objective(candidate + offset) - objective(candidate - offset)) / 2e-7
                 np.testing.assert_allclose(analytical, numerical, rtol=1e-6, atol=1e-3)
-            return descent(evaluate, start, max_evaluations, hessian, objective)
+            return descent(evaluate, start, max_evaluations, hessian, objective, **options)
 
         with patch.object(solver_global_sewing, "_direct_descent", audited_descent):
             solver.step(original, np.zeros_like(original), np.zeros((3, 3)), 1 / 480)

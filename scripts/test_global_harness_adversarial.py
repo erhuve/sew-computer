@@ -13,6 +13,30 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class GlobalHarnessAdversarialTests(unittest.TestCase):
+    def test_global_cli_rejects_invalid_options_before_creating_output(self):
+        cases = [
+            (["--global-max-evaluations", "0"], "1..10000"),
+            (["--global-max-evaluations", "10001"], "1..10000"),
+            (["--global-max-evaluations", "1.5"], "invalid int value"),
+            (["--global-linear-solver", "other"], "invalid choice"),
+            (["--global-linear-solver", "shifted"], "require the global reference"),
+            (["--global-max-evaluations", "1000"], "require the global reference"),
+            (["--global-cpu-limit-seconds", "29"], "30..900"),
+            (["--global-cpu-limit-seconds", "901"], "30..900"),
+            (["--global-cpu-limit-seconds", "60.5"], "invalid int value"),
+            (["--global-cpu-limit-seconds", "600"], "require the global reference"),
+        ]
+        with tempfile.TemporaryDirectory(prefix="sew-global-options-") as directory:
+            for index, (options, message) in enumerate(cases):
+                with self.subTest(options=options):
+                    output = Path(directory) / str(index)
+                    result = subprocess.run([sys.executable, str(ROOT / "scripts/spike-full-shirt.py"),
+                                             "--output", str(output), *options], cwd=ROOT,
+                                            capture_output=True, text=True, timeout=15)
+                    self.assertEqual(result.returncode, 2)
+                    self.assertIn(message, result.stderr)
+                    self.assertFalse(output.exists())
+
     def run_injected_harness(self, output, behavior):
         program = """
 import runpy
@@ -56,6 +80,14 @@ runpy.run_path(sys.argv[0], run_name='__main__')
             report = json.loads((output / "report.json").read_text())
             self.assertFalse(report["accepted"])
             self.assertEqual(report["error"], "global-solve-failed")
+            shift_source = (ROOT / "scripts/solver_global_shift.py").read_bytes()
+            self.assertEqual(report["sourceDigests"]["solver_global_shift.py"],
+                             hashlib.sha256(shift_source).hexdigest())
+            self.assertEqual((output / "source-snapshot/solver_global_shift.py").read_bytes(), shift_source)
+            for name in ("solver_energy_change.py", "solver_global_sewing.py", "solver_membrane_hessian.py"):
+                captured = (output / "source-snapshot" / name).read_bytes()
+                self.assertEqual(captured, (ROOT / "scripts" / name).read_bytes())
+                self.assertEqual(report["sourceDigests"][name], hashlib.sha256(captured).hexdigest())
             self.assertIn("injected global solve failure", report["failureDetail"])
             self.assertEqual(report["failedStep"], 1)
             failed = output / "failed-state.npz"

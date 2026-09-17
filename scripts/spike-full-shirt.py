@@ -58,6 +58,9 @@ def main():
     parser.add_argument("--coupled-sewing", action="store_true")
     parser.add_argument("--augmented-sewing", action="store_true")
     parser.add_argument("--global-reference", action="store_true")
+    parser.add_argument("--global-linear-solver", choices=("direct", "shifted"), default="direct")
+    parser.add_argument("--global-max-evaluations", type=int, default=300)
+    parser.add_argument("--global-cpu-limit-seconds", type=int, default=240)
     parser.add_argument("--membrane-only-control", action="store_true")
     parser.add_argument("--solver-iterations", type=int, default=10)
     parser.add_argument("--stable-membrane", action="store_true")
@@ -74,6 +77,12 @@ def main():
     parser.add_argument("--pointwise-contact", action="store_true")
     parser.add_argument("--pin-first-vertex", action="store_true")
     arguments = parser.parse_args()
+    if not 1 <= arguments.global_max_evaluations <= 10000:
+        parser.error("global evaluation budget must be 1..10000")
+    if not 30 <= arguments.global_cpu_limit_seconds <= 900:
+        parser.error("global CPU budget must be 30..900 seconds")
+    if not arguments.global_reference and (arguments.global_linear_solver != "direct" or arguments.global_max_evaluations != 300 or arguments.global_cpu_limit_seconds != 240):
+        parser.error("global solver settings require the global reference")
     if arguments.membrane_only_control and not arguments.disable_contact:
         parser.error("membrane-only diagnostic requires disabled contact")
     if arguments.global_reference and (not arguments.membrane_only_control or not arguments.embedded_sewing or arguments.no_sewing or arguments.coupled_sewing or arguments.fixture == "front-panel"):
@@ -106,7 +115,7 @@ def main():
     os.environ["WARP_CACHE_PATH"] = str(arguments.output.resolve() / "kernel-cache")
     os.environ["OPENBLAS_NUM_THREADS"] = "1"
     os.environ["OMP_NUM_THREADS"] = "1"
-    resource.setrlimit(resource.RLIMIT_CPU, (240, 245))
+    resource.setrlimit(resource.RLIMIT_CPU, (arguments.global_cpu_limit_seconds, arguments.global_cpu_limit_seconds + 5))
     resource.setrlimit(resource.RLIMIT_AS, (4 * 1024 ** 3, 4 * 1024 ** 3))
     engine = Path(__file__).resolve().parents[1] / "services/engine"
     sources = {name: engine / name for name in ("assembly.py", "meshing.py", "shirt.py", "simulation_validation.py", "meshing_test.py", "placement.py", "constraint_coloring.py")}
@@ -122,7 +131,7 @@ def main():
     if arguments.coupled_sewing:
         sources["solver_embedded_sewing.py"] = Path(__file__).with_name("solver_embedded_sewing.py")
     if arguments.global_reference:
-        for name in ("solver_global_sewing.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
+        for name in ("solver_global_sewing.py", "solver_global_shift.py", "solver_energy_change.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
             sources[name] = Path(__file__).with_name(name)
     if arguments.quality_refinement:
         sources["quality_meshing.py"] = engine / "quality_meshing.py"
@@ -138,7 +147,7 @@ def main():
         if hashlib.sha256(captured).hexdigest() != digests[name]:
             raise ValueError("Source changed while capturing experiment")
         (snapshot / name).write_bytes(captured)
-    (arguments.output / "run-input.json").write_text(json.dumps({"sourceDigests": digests, "arguments": {key: str(value) if isinstance(value, Path) else value for key, value in vars(arguments).items()}, "cpuLimitSeconds": 240, "memoryLimitBytes": 4 * 1024 ** 3}, indent=2) + "\n")
+    (arguments.output / "run-input.json").write_text(json.dumps({"sourceDigests": digests, "arguments": {key: str(value) if isinstance(value, Path) else value for key, value in vars(arguments).items()}, "cpuLimitSeconds": arguments.global_cpu_limit_seconds, "memoryLimitBytes": 4 * 1024 ** 3}, indent=2) + "\n")
     sys.path.insert(0, str(engine))
     from assembly import compile_inventory, compile_assembly
     from meshing import mesh_panel
@@ -355,7 +364,9 @@ def main():
         global_error = None
         if arguments.global_reference:
             try:
-                global_positions, global_velocities, global_step_report = global_solver.step(global_positions, global_velocities, initial_residuals * (1 - closure), timestep)
+                global_positions, global_velocities, global_step_report = global_solver.step(
+                    global_positions, global_velocities, initial_residuals * (1 - closure), timestep,
+                    max_evaluations=arguments.global_max_evaluations, linear_solver=arguments.global_linear_solver)
                 if not global_step_report["converged"]:
                     unconverged_substeps.append(step + 1)
             except (ValueError, FloatingPointError, RuntimeError, np.linalg.LinAlgError) as error:

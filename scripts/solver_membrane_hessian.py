@@ -31,7 +31,7 @@ def membrane_element_derivatives(positions, poses, areas, materials, project_psd
     area_jacobian = np.concatenate((-_skew(second), _skew(first)), axis=2)
     gradient_area = np.einsum("fai,fa->fi", area_jacobian, normals)
     normal_projection = np.eye(3) - normals[:, :, None] * normals[:, None, :]
-    hessian_area = np.einsum("fai,fab,fbj->fij", area_jacobian, normal_projection, area_jacobian) / area_ratios[:, None, None]
+    hessian_area = (area_jacobian.transpose(0, 2, 1) @ normal_projection @ area_jacobian) / area_ratios[:, None, None]
     hessian_area[:, :3, 3:] -= _skew(normals)
     hessian_area[:, 3:, :3] += _skew(normals)
     shear = materials[:, 0]
@@ -48,7 +48,7 @@ def membrane_element_derivatives(positions, poses, areas, materials, project_psd
         for vertex in range(3):
             transform[:, component * 3:component * 3 + 3, vertex * 3:vertex * 3 + 3] = coefficients[:, vertex, component, None, None] * np.eye(3)
     gradient = areas[:, None] * np.einsum("fai,fa->fi", transform, gradient)
-    hessian = areas[:, None, None] * np.einsum("fai,fab,fbj->fij", transform, hessian, transform)
+    hessian = areas[:, None, None] * (transform.transpose(0, 2, 1) @ hessian @ transform)
     hessian = (hessian + hessian.transpose(0, 2, 1)) / 2
     energy = areas * (shear / 2 * (np.sum(flat_deformation ** 2, axis=1) - 2)
                       + bulk / 2 * (area_ratios - alpha) ** 2)
