@@ -1,0 +1,388 @@
+{
+  "scope": "Synthetic numerical controls, including rejected full-shirt stress; not garment acceptance",
+  "runs": [
+    {
+      "run": "global-direct-torso-perturbed",
+      "accepted": false,
+      "reportSha256": "1a02462dfce90e194f22b0eb6e02e7d5c4ce8a0e7d597da5f2ce90d8b4902e5e",
+      "canonicalSha256": "11a7ec555527e18c3839f3ab98516622df86f98c05c048efd9a0099e18c66671",
+      "trajectorySha256": "7da0d28d3798f7d04ae16c328b0f977aaa74682322e21385d448865031b5d5c3",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "4163759cf23185e4cfc3567c19d91bd1d10dc553206d5528258aae3400c2d8c9",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "c90761f4da7d6e5d985295efb52751a03e0f70725a171234eb60f9f3bb6ea272",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "arguments": {
+        "output": ".planning/solver/global-direct-torso-perturbed",
+        "steps": 3,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "membrane_only_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "ramp_steps": 2,
+        "quality_refinement": true,
+        "shirt_placement": false,
+        "torso_equilibrium_control": true,
+        "torso_front_gap_mm": 5.0,
+        "fixture": "torso",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "metrics": {
+        "wallSeconds": 59.14941466299979,
+        "edgeRatioMin": 0.9988326956161122,
+        "edgeRatioMax": 1.001965951559957,
+        "seamGapMaxMm": 2.4380650872104382e-06,
+        "massMotion": {
+          "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+          "dynamicMassKg": 0.1576486182901462,
+          "pinnedVertexCount": 0,
+          "centerOfMassDisplacementMeters": [
+            -3.88616177363906e-16,
+            4.8020416196596287e-17,
+            -2.4070274806782165e-18
+          ],
+          "centerOfMassDisplacementMm": 3.9157922245941743e-13,
+          "linearMomentumKgMetersPerSecond": [
+            -7.0304492087937455e-15,
+            2.926770677400117e-15,
+            -4.925253728055911e-17
+          ],
+          "centerOfMassSpeedMetersPerSecond": 4.8306710069686594e-14
+        }
+      },
+      "unconvergedSubsteps": [
+        1,
+        2,
+        3
+      ],
+      "maxGradientInfinityNorm": 0.031517700156251216
+    },
+    {
+      "run": "global-hessian-torso-perturbed",
+      "accepted": false,
+      "reportSha256": "90ea12e9789abeb1d4614bc9f5bab83bb5d29e1ef779e0169e6a14e61eade647",
+      "canonicalSha256": "b30ca45e32ec8c30b01933eb0ef57573ba3974592a03ad4b4fb3d38be36b2e30",
+      "trajectorySha256": "88859c91b6bad06412a55d495f339ac370ab1df496d83176817b3f1658afac25",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "9406263beefb87b64ede1e9f9eca87de4e4d890d009ff51d6f03ec50d13ef5cf",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "93832255dc8586c14d4df3bce3c7ec1f0aaf3e2177cc1427ea91fe50de1f73d9",
+        "solver_membrane_hessian.py": "396b835f60605f6fda63685b893db908cebbe370aa0a8747ac8838a8555348f6",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "arguments": {
+        "output": ".planning/solver/global-hessian-torso-perturbed",
+        "steps": 3,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "membrane_only_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "ramp_steps": 2,
+        "quality_refinement": true,
+        "shirt_placement": false,
+        "torso_equilibrium_control": true,
+        "torso_front_gap_mm": 5.0,
+        "fixture": "torso",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "metrics": {
+        "wallSeconds": 29.307950023999865,
+        "edgeRatioMin": 0.9997130299969785,
+        "edgeRatioMax": 1.001286624433562,
+        "seamGapMaxMm": 6.095872548328208e-07,
+        "massMotion": {
+          "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+          "dynamicMassKg": 0.1576486182901462,
+          "pinnedVertexCount": 0,
+          "centerOfMassDisplacementMeters": [
+            -9.454225431181232e-16,
+            -6.604833583553673e-17,
+            3.1189859036979584e-18
+          ],
+          "centerOfMassDisplacementMm": 9.47731974650877e-13,
+          "linearMomentumKgMetersPerSecond": [
+            -2.0357201645213493e-14,
+            -1.423432633400575e-15,
+            1.500613412805008e-17
+          ],
+          "centerOfMassSpeedMetersPerSecond": 1.2944554735155506e-13
+        }
+      },
+      "unconvergedSubsteps": [
+        2
+      ],
+      "maxGradientInfinityNorm": 6.9638194082344285e-06
+    },
+    {
+      "run": "global-stable-energy-torso",
+      "accepted": false,
+      "reportSha256": "92a15f3052c59057bdd11fc6de77902fe65958519901a140372aa37b613c9910",
+      "canonicalSha256": "69b65469d1a19f215697bac531619b310c56879b7ce9a026bd6c03ac33fba15f",
+      "trajectorySha256": "a00f4538f4016532a014a3ef6380072994aad75ed5275ba420dfd86aec5bb620",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "9406263beefb87b64ede1e9f9eca87de4e4d890d009ff51d6f03ec50d13ef5cf",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "02fc597c958f15503de7148c95b2875ee5204283bcb9803ee91fc40623a55ee9",
+        "solver_membrane_hessian.py": "396b835f60605f6fda63685b893db908cebbe370aa0a8747ac8838a8555348f6",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "arguments": {
+        "output": ".planning/solver/global-stable-energy-torso",
+        "steps": 12,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "membrane_only_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "ramp_steps": 2,
+        "quality_refinement": true,
+        "shirt_placement": false,
+        "torso_equilibrium_control": true,
+        "torso_front_gap_mm": 5.0,
+        "fixture": "torso",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "metrics": {
+        "wallSeconds": 70.58771060200002,
+        "edgeRatioMin": 0.9998302239290636,
+        "edgeRatioMax": 1.000504611216037,
+        "seamGapMaxMm": 5.186523722336345e-07,
+        "massMotion": {
+          "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+          "dynamicMassKg": 0.1576486182901462,
+          "pinnedVertexCount": 0,
+          "centerOfMassDisplacementMeters": [
+            -5.692776184960168e-15,
+            1.0819123130815582e-15,
+            -9.619573399066596e-17
+          ],
+          "centerOfMassDisplacementMm": 5.795471384148587e-12,
+          "linearMomentumKgMetersPerSecond": [
+            -2.4677064768858044e-14,
+            -9.899846083041813e-16,
+            -9.066126888987962e-16
+          ],
+          "centerOfMassSpeedMetersPerSecond": 1.5676350371610308e-13
+        }
+      },
+      "unconvergedSubsteps": [],
+      "maxGradientInfinityNorm": 8.678472926959557e-07
+    },
+    {
+      "run": "global-stable-energy-shirt",
+      "accepted": false,
+      "completed": false,
+      "exitCode": 152,
+      "failure": "240-second CPU limit, interrupted during sixth substep; no final garment metrics",
+      "arguments": {
+        "output": ".planning/solver/global-stable-energy-shirt",
+        "steps": 8,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "membrane_only_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "ramp_steps": 6,
+        "quality_refinement": true,
+        "shirt_placement": true,
+        "torso_equilibrium_control": false,
+        "torso_front_gap_mm": 0,
+        "fixture": "full-shirt",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "9406263beefb87b64ede1e9f9eca87de4e4d890d009ff51d6f03ec50d13ef5cf",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "02fc597c958f15503de7148c95b2875ee5204283bcb9803ee91fc40623a55ee9",
+        "solver_membrane_hessian.py": "396b835f60605f6fda63685b893db908cebbe370aa0a8747ac8838a8555348f6",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "trajectorySha256": "649ebd466f60544cda0d0ecd926126a6f6e6ecc254b002aa96438c82a8d65214",
+      "sourceGeometrySha256": "75ca532f971089e2d2ce13c25c02e293beb8548c76545d071ae387efccd77ed6",
+      "completedSubsteps": [
+        {
+          "substep": 1,
+          "converged": false,
+          "gradientInfinityNorm": 0.0005925594614999419
+        },
+        {
+          "substep": 2,
+          "converged": false,
+          "gradientInfinityNorm": 0.009824802277321076
+        },
+        {
+          "substep": 3,
+          "converged": false,
+          "gradientInfinityNorm": 0.01726322406130265
+        },
+        {
+          "substep": 4,
+          "converged": false,
+          "gradientInfinityNorm": 0.1192748583169152
+        },
+        {
+          "substep": 5,
+          "converged": false,
+          "gradientInfinityNorm": 0.04387075965473208
+        }
+      ]
+    },
+    {
+      "run": "global-reviewed-torso",
+      "accepted": false,
+      "reportSha256": "9e8e7e923c60832478aa2d8c9940b5c28e22513b37c23ebe6892ff8a97e50ac4",
+      "canonicalSha256": "69b65469d1a19f215697bac531619b310c56879b7ce9a026bd6c03ac33fba15f",
+      "trajectorySha256": "a00f4538f4016532a014a3ef6380072994aad75ed5275ba420dfd86aec5bb620",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "5bb0fdfb88d48ea65caee6d48c4db2350f67b38bd677bcd88dd978654bcb6707",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "dba68167493a855806209c27dc2551f91bec7b9f3f909257cc5021c7a3e95c1d",
+        "solver_membrane_hessian.py": "396b835f60605f6fda63685b893db908cebbe370aa0a8747ac8838a8555348f6",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "arguments": {
+        "output": ".planning/solver/global-reviewed-torso",
+        "steps": 12,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "membrane_only_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "ramp_steps": 2,
+        "quality_refinement": true,
+        "shirt_placement": false,
+        "torso_equilibrium_control": true,
+        "torso_front_gap_mm": 5.0,
+        "fixture": "torso",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "metrics": {
+        "wallSeconds": 78.57083211000008,
+        "edgeRatioMin": 0.9998302239290636,
+        "edgeRatioMax": 1.000504611216037,
+        "seamGapMaxMm": 5.186523722336345e-07,
+        "massMotion": {
+          "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+          "dynamicMassKg": 0.1576486182901462,
+          "pinnedVertexCount": 0,
+          "centerOfMassDisplacementMeters": [
+            -5.692776184960168e-15,
+            1.0819123130815582e-15,
+            -9.619573399066596e-17
+          ],
+          "centerOfMassDisplacementMm": 5.795471384148587e-12,
+          "linearMomentumKgMetersPerSecond": [
+            -2.4677064768858044e-14,
+            -9.899846083041813e-16,
+            -9.066126888987962e-16
+          ],
+          "centerOfMassSpeedMetersPerSecond": 1.5676350371610308e-13
+        },
+        "globalReferenceAllStepsConverged": true,
+        "globalReferenceUnconvergedSubsteps": []
+      }
+    }
+  ]
+}

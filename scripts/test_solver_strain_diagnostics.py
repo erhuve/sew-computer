@@ -2,10 +2,21 @@ import unittest
 
 import numpy as np
 
-from solver_strain_diagnostics import edge_strain_report, mass_motion_report
+from solver_strain_diagnostics import edge_strain_report, mass_motion_report, membrane_energy_report
 
 
 class StrainDiagnosticsTests(unittest.TestCase):
+    def test_membrane_energy_independent_uniform_stretch_and_rigid_motion(self):
+        rest = np.array([[0., 0, 0], [1, 0, 0], [0, 1, 0]])
+        inputs = ([[0, 1, 2]], [np.eye(2)], [0.5], [[10, 20, 0]])
+        self.assertEqual(membrane_energy_report(rest, *inputs)["joules"], 0)
+        rotation = np.array([[0, 0, 1], [0, 1, 0], [-1, 0, 0]])
+        self.assertAlmostEqual(membrane_energy_report(rest @ rotation + 7, *inputs)["joules"], 0)
+        self.assertAlmostEqual(membrane_energy_report(rest * 2, *inputs)["joules"], 67.5)
+        self.assertAlmostEqual(membrane_energy_report(rest * [2, 1, 1], *inputs)["joules"], 10)
+        with self.assertRaises(ValueError):
+            membrane_energy_report(rest * np.nan, *inputs)
+
     def test_closed_seam_does_not_hide_free_system_drift(self):
         initial = [[0, 0, 0], [1, 0, 0]]
         report = mass_motion_report(initial, [[1, 0, 0], [1, 0, 0]], [[10, 0, 0], [0, 0, 0]], [1, 1])

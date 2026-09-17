@@ -42,6 +42,26 @@ class FullShirtEmbeddedTests(unittest.TestCase):
         self.assertIn("cloth_domain.py", self.report["sourceDigests"])
         self.assertIn("embedded_constraints.py", self.report["sourceDigests"])
 
+    def test_trajectory_identity_and_independent_kinetic_energy(self):
+        path = self.output / "trajectory.jsonl"
+        self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), self.report["trajectorySha256"])
+        rows = [json.loads(line) for line in path.read_text().splitlines()]
+        self.assertEqual([row["substep"] for row in rows], list(range(1, 7)))
+        masses = np.asarray(self.canonical["particleMassesKg"])
+        velocities = np.asarray(self.canonical["velocitiesMetersPerSecond"])
+        self.assertAlmostEqual(rows[-1]["kineticJoules"], float(np.sum(masses[:, None] * velocities ** 2) / 2), places=10)
+        self.assertAlmostEqual(rows[-1]["targetResidualMaxMm"], self.report["seamGapMaxMm"], places=5)
+        self.assertIn("sewing energy", rows[-1]["scope"])
+
+    def test_equilibrium_control_rejects_contact_and_wrong_fixture_before_output(self):
+        for arguments in (["--torso-equilibrium-control"], ["--torso-front-gap-mm", "5"],
+                          ["--torso-equilibrium-control", "--fixture", "torso", "--embedded-sewing"],
+                          ["--global-reference", "--embedded-sewing", "--disable-contact"]):
+            output = Path(self.directory.name) / "invalid-control"
+            result = subprocess.run([sys.executable, str(ROOT / "scripts/spike-full-shirt.py"), "--output", str(output), *arguments], capture_output=True, text=True, timeout=10)
+            self.assertEqual(result.returncode, 2, result.stderr)
+            self.assertFalse(output.exists())
+
     def test_full_shirt_source_endpoints_and_invalid_partial_intervals(self):
         specification = importlib.util.spec_from_file_location("full_shirt_probe", ROOT / "scripts/spike-full-shirt.py")
         module = importlib.util.module_from_spec(specification)

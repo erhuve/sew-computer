@@ -1,6 +1,31 @@
 import numpy as np
 
 
+def membrane_energy_report(positions, triangles, rest_poses, rest_areas, materials):
+    positions, poses, areas, materials = [np.asarray(values, dtype=float) for values in (positions, rest_poses, rest_areas, materials)]
+    faces = np.asarray(triangles)
+    count = len(faces)
+    if positions.ndim != 2 or positions.shape[1] != 3 or faces.shape != (count, 3) or faces.dtype.kind not in "iu":
+        raise ValueError("Indexed particle triangles required")
+    if poses.shape != (count, 2, 2) or areas.shape != (count,) or materials.ndim != 2 or materials.shape[0] != count or materials.shape[1] < 3:
+        raise ValueError("Matching membrane rest tensors and materials required")
+    if any(not np.isfinite(values).all() for values in (positions, poses, areas, materials)) or np.any(areas <= 0) or np.any(materials < 0):
+        raise ValueError("Finite positive rest areas and nonnegative materials required")
+    if np.any(faces < 0) or np.any(faces >= len(positions)):
+        raise ValueError("Invalid triangle index")
+    edges = np.stack((positions[faces[:, 1]] - positions[faces[:, 0]], positions[faces[:, 2]] - positions[faces[:, 0]]), axis=2)
+    deformation = edges @ poses
+    invariant = np.sum(deformation ** 2, axis=(1, 2))
+    area_ratio = np.maximum(np.linalg.norm(np.cross(deformation[:, :, 0], deformation[:, :, 1]), axis=1), 1e-10)
+    shear = materials[:, 0]
+    bulk = materials[:, 0] + materials[:, 1]
+    energy = areas * (0.5 * shear * (invariant - 2) + 0.5 * bulk * (area_ratio - 1) ** 2 - bulk * shear / np.maximum(bulk, 1e-6) * (area_ratio - 1))
+    if not np.isfinite(energy).all():
+        raise ValueError("Nonfinite membrane energy")
+    return {"scope": "Rest-referenced stable Neo-Hookean membrane energy only; excludes bending, damping, contact and sewing",
+            "joules": float(energy.sum()), "maximumTriangleJoules": float(energy.max()) if count else 0.0}
+
+
 def mass_motion_report(initial, positions, velocities, masses):
     initial, positions, velocities, masses = [np.asarray(values, dtype=float) for values in (initial, positions, velocities, masses)]
     if initial.ndim != 2 or initial.shape[1] != 3 or positions.shape != initial.shape or velocities.shape != initial.shape or masses.shape != (len(initial),):

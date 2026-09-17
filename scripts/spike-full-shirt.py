@@ -7,6 +7,7 @@ import math
 import os
 from pathlib import Path
 import resource
+import signal
 import sys
 import time
 
@@ -22,6 +23,10 @@ def shirt_registration_direction(operation, participant):
         or (identity == "collar_fall_attach" and template == "collar_fall")
     )
     return "reverse" if reverse else "forward"
+
+
+def global_cpu_limit(signum, frame):
+    raise FloatingPointError("Global reference CPU time limit exhausted")
 
 
 def shirt_embedded_registrations(operations, sources):
@@ -52,12 +57,16 @@ def main():
     parser.add_argument("--embedded-sewing", action="store_true")
     parser.add_argument("--coupled-sewing", action="store_true")
     parser.add_argument("--augmented-sewing", action="store_true")
+    parser.add_argument("--global-reference", action="store_true")
+    parser.add_argument("--membrane-only-control", action="store_true")
     parser.add_argument("--solver-iterations", type=int, default=10)
     parser.add_argument("--stable-membrane", action="store_true")
     parser.add_argument("--substeps", type=int, default=1)
     parser.add_argument("--ramp-steps", type=int, default=0)
     parser.add_argument("--quality-refinement", action="store_true")
     parser.add_argument("--shirt-placement", action="store_true")
+    parser.add_argument("--torso-equilibrium-control", action="store_true")
+    parser.add_argument("--torso-front-gap-mm", type=float, default=0)
     parser.add_argument("--fixture", choices=("full-shirt", "torso", "front-panel"), default="full-shirt")
     parser.add_argument("--no-sewing", action="store_true")
     parser.add_argument("--disable-contact", action="store_true")
@@ -65,6 +74,16 @@ def main():
     parser.add_argument("--pointwise-contact", action="store_true")
     parser.add_argument("--pin-first-vertex", action="store_true")
     arguments = parser.parse_args()
+    if arguments.membrane_only_control and not arguments.disable_contact:
+        parser.error("membrane-only diagnostic requires disabled contact")
+    if arguments.global_reference and (not arguments.membrane_only_control or not arguments.embedded_sewing or arguments.no_sewing or arguments.coupled_sewing or arguments.fixture == "front-panel"):
+        parser.error("global reference requires membrane-only embedded sewing without coupled sewing")
+    if arguments.global_reference and arguments.stable_membrane:
+        parser.error("global reference uses its own membrane evaluation")
+    if arguments.torso_equilibrium_control and (arguments.fixture != "torso" or not arguments.disable_contact or not arguments.embedded_sewing or arguments.shirt_placement):
+        parser.error("torso equilibrium control requires torso, embedded sewing, disabled contact and no shirt placement")
+    if not math.isfinite(arguments.torso_front_gap_mm) or not 0 <= arguments.torso_front_gap_mm <= 100 or (arguments.torso_front_gap_mm and not arguments.torso_equilibrium_control):
+        parser.error("torso front gap requires the equilibrium control and must be 0..100 mm")
     if not 1 <= arguments.solver_iterations <= 200:
         parser.error("solver iterations must be 1..200")
     if arguments.augmented_sewing and not arguments.coupled_sewing:
@@ -94,12 +113,17 @@ def main():
     sources[Path(__file__).name] = Path(__file__)
     sources["solver_spike_geometry.py"] = Path(__file__).with_name("solver_spike_geometry.py")
     sources["solver_strain_diagnostics.py"] = Path(__file__).with_name("solver_strain_diagnostics.py")
+    if arguments.torso_equilibrium_control:
+        sources["solver_torso_control.py"] = Path(__file__).with_name("solver_torso_control.py")
     if arguments.embedded_sewing:
         sources.update({name: engine / name for name in ("cloth_domain.py", "embedded_constraints.py")})
     if arguments.stable_membrane or arguments.coupled_sewing:
         sources["solver_membrane_stability.py"] = Path(__file__).with_name("solver_membrane_stability.py")
     if arguments.coupled_sewing:
         sources["solver_embedded_sewing.py"] = Path(__file__).with_name("solver_embedded_sewing.py")
+    if arguments.global_reference:
+        for name in ("solver_global_sewing.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
+            sources[name] = Path(__file__).with_name(name)
     if arguments.quality_refinement:
         sources["quality_meshing.py"] = engine / "quality_meshing.py"
     if arguments.rest_neighbor_filters:
@@ -188,7 +212,7 @@ def main():
         offset = len(builder.particle_q)
         offsets[instance["id"]] = offset
         sections[instance["id"]] = slice(offset, offset + len(rest))
-        builder.add_cloth_mesh(pos=wp.vec3(0, 0, 0), rot=wp.quat_identity(), scale=1, vel=wp.vec3(0, 0, 0), vertices=rest, indices=faces, density=0.2, tri_ke=10000, tri_ka=10000, tri_kd=0.01, edge_ke=0.01, edge_kd=0.001, particle_radius=0.001, validate_mesh=True)
+        builder.add_cloth_mesh(pos=wp.vec3(0, 0, 0), rot=wp.quat_identity(), scale=1, vel=wp.vec3(0, 0, 0), vertices=rest, indices=faces, density=0.2, tri_ke=10000, tri_ka=10000, tri_kd=0 if arguments.membrane_only_control else 0.01, edge_ke=0 if arguments.membrane_only_control else 0.01, edge_kd=0 if arguments.membrane_only_control else 0.001, particle_radius=0.001, validate_mesh=True)
         angle = ordinal * 2 * math.pi / len(inventory["instances"])
         placed = [[point[0] * math.cos(angle) + 0.5 * math.cos(angle), point[0] * math.sin(angle) + 0.5 * math.sin(angle), 1 - point[1]] for point in rest]
         if arguments.shirt_placement:
@@ -198,6 +222,12 @@ def main():
         vertex_instance_ids.extend([instance["id"]] * len(rest))
         placed_vertices.extend(placed)
         indices.extend(offset + vertex for vertex in faces)
+    if arguments.torso_equilibrium_control:
+        from solver_torso_control import torso_equilibrium_placement
+        controlled, placement = torso_equilibrium_placement(pattern, selected_instances, {identity: rest_vertices[section] for identity, section in sections.items()}, arguments.torso_front_gap_mm)
+        for identity, section in sections.items():
+            placed_vertices[section] = controlled[identity].tolist()
+            builder.particle_q[section] = [wp.vec3(*point) for point in controlled[identity]]
     seams = []
     bundle = None
     embedded_sources = None
@@ -237,7 +267,7 @@ def main():
     coloring_report = {"originalColors": len(builder.particle_color_groups),
                        "originalSpringConflicts": sum(original_colors[first] == original_colors[second] for first, second in set(seams))}
     sewing_rows = [{offsets[term["instanceId"]] + term["vertex"]: term["coefficient"] for term in constraint["terms"]}
-                   for constraint in bundle["constraints"]] if arguments.coupled_sewing else []
+                   for constraint in bundle["constraints"]] if arguments.coupled_sewing or arguments.global_reference else []
     builder.set_coloring(refine_constraint_colors(len(rest_vertices), builder.particle_color_groups, [*sorted(set(seams)), *sewing_rows]))
     coloring_report["refinedColors"] = len(builder.particle_color_groups)
     model = builder.finalize(device="cpu")
@@ -262,6 +292,16 @@ def main():
         from solver_point_contact import install_point_contact
         contact_report = install_point_contact(solver, rest_vertices, model.tri_indices.numpy(), vertex_instance_ids, arguments.output, 0.003)
     sewing_report = None
+    global_solver = None
+    global_step_report = None
+    if arguments.global_reference:
+        from solver_global_sewing import GlobalSewingSolver
+        compliances = {constraint["complianceMPerN"] for constraint in bundle["constraints"]}
+        if len(compliances) != 1:
+            raise ValueError("Global reference requires uniform sewing compliance")
+        global_solver = GlobalSewingSolver(model, sewing_rows, compliances.pop())
+        global_positions = np.asarray(placed_vertices, dtype=float)
+        global_velocities = np.zeros_like(global_positions)
     if arguments.coupled_sewing:
         from solver_embedded_sewing import install_embedded_sewing, set_embedded_targets, uninstall_embedded_sewing
         compliances = {constraint["complianceMPerN"] for constraint in bundle["constraints"]}
@@ -279,7 +319,9 @@ def main():
     inverse_masses = {identity: model.particle_inv_mass.numpy()[section] for identity, section in sections.items()}
     initial_residuals = constraint_residuals(bundle, {identity: np.asarray(placed_vertices)[section] for identity, section in sections.items()}) if bundle else None
     max_projection = 0.0
-    coupling_report = {"mode": "coupled-embedded-cut-cloth" if arguments.coupled_sewing else "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
+    coupling_report = {"mode": "global-membrane-reference" if arguments.global_reference else "coupled-embedded-cut-cloth" if arguments.coupled_sewing else "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
+                       "membraneOnlyControl": arguments.membrane_only_control,
+                       "globalReference": arguments.global_reference,
                        "solverIterations": arguments.solver_iterations, "sewingSolver": sewing_report,
                        "pinnedVertices": np.flatnonzero(model.particle_inv_mass.numpy() == 0).tolist(),
                        "registrationRecipe": "sew-shirt-source-endpoints/1",
@@ -287,26 +329,46 @@ def main():
                        "sourceEndpointPolicy": "Exact source edge metadata and point intervals; metadata arc discrepancy limited to 1e-6 mm before using source-derived path length" if arguments.embedded_sewing else None,
                        "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged" if bundle else None,
                        "constraintCount": len(bundle["constraints"]) if bundle else len(set(seams))}
+    from solver_strain_diagnostics import membrane_energy_report
+    trajectory_path = arguments.output / "trajectory.jsonl"
+    membrane_inputs = (model.tri_indices.numpy().copy(), tensors, model.tri_areas.numpy().copy(), model.tri_materials.numpy().copy())
+    particle_masses = model.particle_mass.numpy().astype(float)
     source_geometry = arguments.output / "source-geometry.json"
     source_geometry.write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices,
         "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "assembly": graph,
         "sourceTemplates": templates, "embeddedConstraints": bundle, "coupling": coupling_report}, separators=(",", ":"), allow_nan=False))
     geometry_digest = hashlib.sha256(source_geometry.read_bytes()).hexdigest()
+    unconverged_substeps = []
+    if arguments.global_reference:
+        signal.signal(signal.SIGXCPU, global_cpu_limit)
     for step in range(arguments.steps * arguments.substeps):
         if arguments.shirt_placement and seams:
             stiffness = 1000 + 999000 * min(1, step / max(1, arguments.steps * arguments.substeps - 1))
             model.spring_stiffness.assign(np.full(len(model.spring_stiffness), stiffness, dtype=np.float32))
-        previous = snapshot_particle_positions(state) if bundle else None
+        previous = global_positions.copy() if arguments.global_reference else snapshot_particle_positions(state) if bundle else None
         fraction = min(1.0, (step + 1) / (arguments.ramp_steps * arguments.substeps)) if arguments.ramp_steps else 1.0
         closure = fraction * fraction * (3 - 2 * fraction)
         if arguments.coupled_sewing:
             set_embedded_targets(solver, initial_residuals * (1 - closure))
         state.clear_forces()
         pipeline.collide(state, contacts)
-        solver.step(state, next_state, control, contacts, timestep)
+        global_error = None
+        if arguments.global_reference:
+            try:
+                global_positions, global_velocities, global_step_report = global_solver.step(global_positions, global_velocities, initial_residuals * (1 - closure), timestep)
+                if not global_step_report["converged"]:
+                    unconverged_substeps.append(step + 1)
+            except (ValueError, FloatingPointError, RuntimeError, np.linalg.LinAlgError) as error:
+                global_error = str(error)
+                global_step_report = None
+                unconverged_substeps.append(step + 1)
+            next_state.particle_q.assign(global_positions.astype(np.float32))
+            next_state.particle_qd.assign(global_velocities.astype(np.float32))
+        else:
+            solver.step(state, next_state, control, contacts, timestep)
         projection_error = None
         failure_stage = "cloth-step"
-        if bundle and not arguments.coupled_sewing and state_finiteness(next_state.particle_q.numpy(), next_state.particle_qd.numpy())["finite"]:
+        if bundle and not arguments.coupled_sewing and not arguments.global_reference and state_finiteness(next_state.particle_q.numpy(), next_state.particle_qd.numpy())["finite"]:
             candidate = next_state.particle_q.numpy()
             failure_stage = "embedded-projection"
             try:
@@ -320,19 +382,34 @@ def main():
             except (ValueError, FloatingPointError) as error:
                 projection_error = str(error)
         state, next_state = next_state, state
-        positions, velocities = state.particle_q.numpy(), state.particle_qd.numpy()
+        positions, velocities = (global_positions, global_velocities) if arguments.global_reference else (state.particle_q.numpy(), state.particle_qd.numpy())
         diagnostic = state_finiteness(positions, velocities)
-        if not diagnostic["finite"] or projection_error:
+        if diagnostic["finite"] and not global_error:
+            motion = mass_motion_report(placed_vertices, positions, velocities, particle_masses)
+            energy = membrane_energy_report(positions, *membrane_inputs)
+            target_residuals = constraint_residuals(bundle, {identity: positions[section] for identity, section in sections.items()}) - initial_residuals * (1 - closure) if bundle else None
+            entry = {"substep": step + 1, "timeSeconds": (step + 1) * timestep, "closure": closure,
+                     "globalSolve": global_step_report,
+                     "membraneJoules": energy["joules"], "kineticJoules": float(np.sum(particle_masses[:, None] * velocities.astype(float) ** 2) / 2),
+                     "centerOfMassDisplacementMm": motion["centerOfMassDisplacementMm"], "centerOfMassSpeedMetersPerSecond": motion["centerOfMassSpeedMetersPerSecond"],
+                     "targetResidualMaxMm": float(np.linalg.norm(target_residuals, axis=1).max() * 1000) if bundle else None,
+                     "scope": "Partial energy diagnostics; excludes bending, damping, contact and sewing energy. Moving sewing targets perform work."}
+            with trajectory_path.open("a") as trajectory:
+                trajectory.write(json.dumps(entry, allow_nan=False) + "\n")
+        if not diagnostic["finite"] or projection_error or global_error:
             if digests != {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in sources.items()}:
                 raise ValueError("Source changed during numerical experiment")
             failed_state = arguments.output / "failed-state.npz"
             np.savez_compressed(failed_state, positions=positions, velocities=velocities, rest=np.asarray(rest_vertices), triangles=np.asarray(indices).reshape((-1, 3)))
             failure = {"classification": "rejected-experimental-assembly", "accepted": False,
-                       "error": "embedded-projection-failed" if projection_error else "nonfinite-solver-state",
-                       "failureDetail": projection_error, "failureStage": failure_stage,
+                       "error": "global-solve-failed" if global_error else "embedded-projection-failed" if projection_error else "nonfinite-solver-state",
+                       "failureDetail": global_error or projection_error, "failureStage": "global-solve" if global_error else failure_stage,
+                       "failedStateMeaning": "previous valid state before failed global solve" if global_error else "failed candidate state",
+                       "globalReferenceAllStepsConverged": False if arguments.global_reference else None,
+                       "globalReferenceUnconvergedSubsteps": unconverged_substeps if arguments.global_reference else None,
                        "failedStep": step // arguments.substeps + 1, "failedSubstep": step % arguments.substeps + 1, "requestedSteps": arguments.steps,
                        "state": diagnostic, "sourceDigests": digests, "patternDigest": inventory["patternDigest"],
-                       "versions": {name: importlib.metadata.version(name) for name in (("newton", "warp-lang", "numpy", "shapely", "scipy") if arguments.quality_refinement else ("newton", "warp-lang", "numpy", "shapely"))},
+                       "versions": {name: importlib.metadata.version(name) for name in (("newton", "warp-lang", "numpy", "shapely", "scipy") if arguments.quality_refinement or arguments.global_reference else ("newton", "warp-lang", "numpy", "shapely"))},
                        "fixture": arguments.fixture, "qualityRefinement": arguments.quality_refinement,
                        "instances": len(selected_instances), "vertices": len(rest_vertices), "triangles": len(indices) // 3,
                        "instanceOffsets": offsets,
@@ -346,7 +423,7 @@ def main():
                        "peakRssKiB": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss}
             (arguments.output / "report.json").write_text(json.dumps(failure, indent=2, allow_nan=False) + "\n")
             raise ValueError(f"Solver rejected at step {step // arguments.substeps + 1}, substep {step % arguments.substeps + 1}; diagnostic saved")
-    positions = state.particle_q.numpy().astype(np.float64)
+    positions = global_positions if arguments.global_reference else state.particle_q.numpy().astype(np.float64)
     rest = np.asarray(rest_vertices)
     faces = np.asarray(indices).reshape((-1, 3))
     ratios = []
@@ -360,26 +437,32 @@ def main():
     if digests != {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in sources.items()}:
         raise ValueError("Source changed during numerical experiment")
     report = {"classification": "rejected-experimental-assembly", "accepted": False, "patternDigest": inventory["patternDigest"], "sourceDigests": digests,
-              "versions": {name: importlib.metadata.version(name) for name in (("newton", "warp-lang", "numpy", "shapely", "scipy") if arguments.quality_refinement else ("newton", "warp-lang", "numpy", "shapely"))},
+              "versions": {name: importlib.metadata.version(name) for name in (("newton", "warp-lang", "numpy", "shapely", "scipy") if arguments.quality_refinement or arguments.global_reference else ("newton", "warp-lang", "numpy", "shapely"))},
               "fixture": arguments.fixture, "selectedInstanceIds": sorted(selected_ids), "sewingEnabled": not arguments.no_sewing, "contactEnabled": not arguments.disable_contact,
               "contactFilterReport": contact_report,
               "constraintColoring": coloring_report,
               "membraneStability": membrane_report,
               "coupling": coupling_report,
               "sourceGeometrySha256": geometry_digest,
-              "instances": len(selected_instances), "vertices": len(positions), "triangles": len(faces), "constraints": coupling_report["constraintCount"], "steps": arguments.steps, "qualityRefinement": arguments.quality_refinement, "placementRecipe": placement if arguments.shirt_placement else "radial-stress",
+              "trajectorySha256": hashlib.sha256(trajectory_path.read_bytes()).hexdigest(),
+              "instances": len(selected_instances), "vertices": len(positions), "triangles": len(faces), "constraints": coupling_report["constraintCount"], "steps": arguments.steps, "qualityRefinement": arguments.quality_refinement, "placementRecipe": placement if arguments.shirt_placement or arguments.torso_equilibrium_control else "radial-stress",
               "finite": bool(np.isfinite(positions).all()), "restTensorsUnchanged": bool(np.array_equal(tensors, model.tri_poses.numpy())),
               "edgeRatioMin": min(ratios), "edgeRatioMax": max(ratios), "seamGapMaxMm": max(residuals) if residuals else None, "seamGapP95Mm": float(np.percentile(residuals, 95)) if residuals else None,
               "edgeStrain": edge_strain_report(rest, positions, faces, vertex_instance_ids, coupling_report["pinnedVertices"]),
-              "massMotion": mass_motion_report(placed_vertices, positions, state.particle_qd.numpy(), model.particle_mass.numpy()),
+              "massMotion": mass_motion_report(placed_vertices, positions, velocities, model.particle_mass.numpy()),
               "maxDisplacementMm": float(np.linalg.norm(positions - np.asarray(placed_vertices), axis=1).max() * 1000),
-              "maxSpeedMetersPerSecond": float(np.linalg.norm(state.particle_qd.numpy().astype(np.float64), axis=1).max()), "wallSeconds": time.monotonic() - started,
+              "maxSpeedMetersPerSecond": float(np.linalg.norm(velocities.astype(np.float64), axis=1).max()), "wallSeconds": time.monotonic() - started,
               "peakRssKiB": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
               "limitations": ["Rigid staging is unvalidated; no collision-free placement claim.", "Registration directions are experimental, not validated seam semantics.", "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.", "No body, gravity, calibrated material, collision oracle or convergence acceptance.", "All sewing operations ramp simultaneously; graph dependency sequence is not executed.", "Embedded projection follows collision handling and may reintroduce penetration; operator splitting needs convergence validation."]}
     if arguments.coupled_sewing:
         report["limitations"][-1] = "Sewing energy shares cloth/contact updates; convergence, contact thickness and assembly semantics remain unvalidated."
+    if arguments.global_reference:
+        report["limitations"][-1] = "Global membrane reference excludes bending, damping and all contact; it is not a garment solver."
+        report["globalReferenceFinalStep"] = global_step_report
+        report["globalReferenceAllStepsConverged"] = not unconverged_substeps
+        report["globalReferenceUnconvergedSubsteps"] = unconverged_substeps
     (arguments.output / "report.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
-    (arguments.output / "canonical.json").write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices, "positionsMeters": positions.tolist(), "previousPositionsMeters": previous.tolist() if bundle else None, "velocitiesMetersPerSecond": state.particle_qd.numpy().tolist(), "particleMassesKg": model.particle_mass.numpy().tolist(), "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "placement": placement if arguments.shirt_placement else "radial-stress", "sourceTemplates": templates, "assembly": graph, "embeddedConstraints": bundle}, separators=(",", ":"), allow_nan=False))
+    (arguments.output / "canonical.json").write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices, "positionsMeters": positions.tolist(), "previousPositionsMeters": previous.tolist() if bundle else None, "velocitiesMetersPerSecond": velocities.tolist(), "particleMassesKg": model.particle_mass.numpy().tolist(), "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "placement": placement if arguments.shirt_placement or arguments.torso_equilibrium_control else "radial-stress", "sourceTemplates": templates, "assembly": graph, "embeddedConstraints": bundle}, separators=(",", ":"), allow_nan=False))
     print(json.dumps(report, allow_nan=False))
 
 
