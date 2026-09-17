@@ -50,7 +50,7 @@ class FullShirtEmbeddedTests(unittest.TestCase):
         graph = compile_assembly(pattern, inventory)
         templates = {panel["id"]: {"panel": panel, "mesh": mesh_cloth_domain(panel, 60, quality_refinement=True)} for panel in pattern["panels"]}
         sources = {instance["id"]: templates[instance["templateId"]] for instance in inventory["instances"]}
-        registrations = module.shirt_embedded_registrations(graph["operations"], sources, True)
+        registrations = module.shirt_embedded_registrations(graph["operations"], sources)
         bundle = build_embedded_constraints(sources, registrations)
         self.assertEqual(len(bundle["sourceIdentities"]), 24)
         self.assertFalse(validate_embedded_constraints(sources, bundle)["solverReady"])
@@ -74,7 +74,7 @@ class FullShirtEmbeddedTests(unittest.TestCase):
             else:
                 participant["intervalMm"][1] += .001
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
-                module.shirt_embedded_registrations([operation], sources, True)
+                module.shirt_embedded_registrations([operation], sources)
 
     def test_source_cut_domain_and_embedded_registration(self):
         panels = {panel["id"]: panel for panel in shirt_pattern()["panels"]}

@@ -11,11 +11,24 @@ import sys
 import time
 
 
-def shirt_embedded_registrations(operations, sources, shirt_placement):
+def shirt_registration_direction(operation, participant):
+    identity = operation["id"]
+    template = participant["instanceId"].split(":")[0]
+    edge = participant["edgeName"]
+    reverse = (
+        (identity.startswith("sleeve_back_") and template.startswith("back_"))
+        or (identity.startswith("underarm_") and edge == "underarm_right")
+        or (identity in ("collar_neck_1", "collar_neck_3", "collar_neck_5") and template != "collar_stand")
+        or (identity == "collar_fall_attach" and template == "collar_fall")
+    )
+    return "reverse" if reverse else "forward"
+
+
+def shirt_embedded_registrations(operations, sources):
     registrations = []
     for operation in operations:
         members = []
-        for member_index, participant in enumerate(operation["participants"]):
+        for participant in operation["participants"]:
             source = sources[participant["instanceId"]]
             mesh = source["mesh"]
             edge = next(edge for edge in source["panel"]["draft"]["edges"] if edge["name"] == participant["edgeName"])
@@ -25,10 +38,9 @@ def shirt_embedded_registrations(operations, sources, shirt_placement):
             start, end = participant["intervalMm"]
             if type(start) not in (int, float) or type(end) not in (int, float) or participant["intervalMm"] != [0, edge["lengthMm"]] or not math.isfinite(end) or abs(end - path["lengthMm"]) > 1e-6:
                 raise ValueError("Assembly registration is not the complete source path")
-            reverse = member_index > 0 and shirt_placement and operation["id"].startswith(("sleeve_back_", "underarm_"))
             members.append({"instanceId": participant["instanceId"], "pathName": participant["edgeName"],
                             "startArcMm": 0, "endArcMm": path["lengthMm"],
-                            "direction": "reverse" if reverse else "forward"})
+                            "direction": shirt_registration_direction(operation, participant)})
         registrations.append({"id": operation["id"], "members": members, "sampleCount": 5, "complianceMPerN": 1e-8})
     return registrations
 
@@ -178,7 +190,7 @@ def main():
     if arguments.embedded_sewing:
         panels = {panel["id"]: panel for panel in pattern["panels"]}
         embedded_sources = {instance["id"]: {"panel": panels[instance["templateId"]], "mesh": templates[instance["templateId"]]} for instance in selected_instances}
-        registrations = shirt_embedded_registrations([] if arguments.no_sewing else operations, embedded_sources, arguments.shirt_placement)
+        registrations = shirt_embedded_registrations([] if arguments.no_sewing else operations, embedded_sources)
         if registrations:
             bundle = build_embedded_constraints(embedded_sources, registrations)
             validate_embedded_constraints(embedded_sources, bundle)
@@ -193,10 +205,10 @@ def main():
                 if abs(selected["arcMm"] - fraction * boundary["lengthMm"]) > 1e-6:
                     raise ValueError("Registration anchor absent; refusing nearest-vertex substitution")
                 vertices.append(offsets[participant["instanceId"]] + selected["vertex"])
+            if shirt_registration_direction(operation, participant) == "reverse":
+                vertices.reverse()
             anchors.append(vertices)
         for vertices in anchors[1:]:
-            if arguments.shirt_placement and operation["id"].startswith(("sleeve_back_", "underarm_")):
-                vertices = list(reversed(vertices))
             for first, second in zip(anchors[0], vertices):
                 if first != second:
                     seams.append((first, second))
@@ -243,6 +255,7 @@ def main():
     initial_residuals = constraint_residuals(bundle, {identity: np.asarray(placed_vertices)[section] for identity, section in sections.items()}) if bundle else None
     max_projection = 0.0
     coupling_report = {"mode": "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
+                       "registrationRecipe": "sew-shirt-source-endpoints/1",
                        "timestepSeconds": timestep, "rampSteps": arguments.ramp_steps,
                        "sourceEndpointPolicy": "Exact source edge metadata and point intervals; metadata arc discrepancy limited to 1e-6 mm before using source-derived path length" if arguments.embedded_sewing else None,
                        "rampSchedule": "initial registration offsets to zero via smoothstep; cloth rest unchanged" if bundle else None,

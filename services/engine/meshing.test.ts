@@ -1,6 +1,13 @@
 import { expect, test } from 'bun:test';
 import { join } from 'node:path';
 
+test('research shirt registration preserves collar junctions and sleeve endpoint connectivity', async () => {
+  const python = process.env.SEW_ENGINE_PYTHON || join(import.meta.dir, '.venv/bin/python');
+  const child = Bun.spawn([python, join(import.meta.dir, '../../scripts/test_shirt_registration_topology.py')], { stdout: 'pipe', stderr: 'pipe', env: { PATH: '/usr/bin:/bin', OPENBLAS_NUM_THREADS: '1' } });
+  const [output, errors, status] = await Promise.all([new Response(child.stdout).text(), new Response(child.stderr).text(), child.exited]);
+  expect({ status, diagnostics: status === 0 ? '' : output + errors }).toEqual({ status: 0, diagnostics: '' });
+}, 120000);
+
 test('sewing constraint colors preserve cloth separation and reject invalid particle partitions', async () => {
   const python = process.env.SEW_ENGINE_PYTHON || join(import.meta.dir, '.venv/bin/python');
   const child = Bun.spawn([python, join(import.meta.dir, 'constraint_coloring_test.py')], { stdout: 'pipe', stderr: 'pipe', env: { PATH: '/usr/bin:/bin', OPENBLAS_NUM_THREADS: '1' } });

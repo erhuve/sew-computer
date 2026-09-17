@@ -215,3 +215,21 @@ An independent final-surface check of that contact run reports **7,186 intersect
 These are research controls, not production configuration. Allowance folds/layer execution, simultaneous versus staged assembly operations, coupled sewing/contact convergence and scoped numerical acceptance remain unresolved.
 
 Current verification includes 104 application tests, 31 engine cases and 23 browser cases in full runs, followed by all six meshing/placement/coupling wrappers against the collar fix. Typecheck and build pass. Independent numerical review covers eleven coupling, seven contact, eight surface-oracle/state and six rigid-probe tests, plus three refinement regressions. Numerical acceptance of the assembled shirt remains a separate unresolved gate.
+
+## Source-endpoint orientation continuation · 2026-09-17
+
+Independent endpoint-equivalence review proves that the previous collar registrations forced three nonzero neckline intervals to collapse through shoulder, center-back and placket junctions. The research harness now uses the same source-endpoint direction recipe for embedded constraints and boundary springs, independently of placement. Neck intervals 1, 3 and 5 reverse their garment-side participants; collar-stand facing retains shell orientation, and placket-right facing reverses with its shell. Collar-fall shell/facing use the opposite traversal to the stand attachment. Four new topology regressions preserve all seven collar-chain junctions and sleeve shoulder/underarm connectivity. This recipe is scoped to the trusted shirt compiler; it does not resolve binding wraps or turning.
+
+The [orientation control ledger](3d-registration-topology-results.json) retains original report/canonical checksums, captured source digests, runtime versions and arguments for the old and new trajectories. Every result remains rejected:
+
+| Control | Maximum edge ratio | Maximum seam gap, mm | Maximum speed, m/s |
+|---|---:|---:|---:|
+| Previous, contact disabled, 120 steps | 11.347855 | 28.346453 | 6.089410 |
+| Corrected orientation, contact disabled, 120 steps | 2.895634 | 0.899999 | 4.913456 |
+| Corrected orientation, contact disabled, 360 steps | 3.318603 | 0.979860 | 4.951132 |
+| Previous, pointwise contact, 120 steps | 22.565358 | 5.244292 | 0.822834 |
+| Corrected orientation, pointwise contact, 120 steps | 40.334746 | 0.967937 | 0.810883 |
+
+The 120-step runs use two substeps and an 80-step closure ramp. The longer no-contact run uses a 240-step ramp. All retain 24 pieces, 2,244 vertices, 3,512 triangles and 305 constraints. Independent artifact checks confirm exactly unchanged rest geometry, triangulation and initial placement for the no-contact comparison. Correct connectivity reduces its error but does not establish convergence; the contact run's maximum local stretch worsens. Small final seam gaps cannot justify either output.
+
+Verification for this research-only change: 104 application tests, eight meshing/placement/coupling wrappers (including four independently authored topology tests), five embedded-shirt integration tests, typecheck and documentation checks pass. Browser and build checks were not repeated because no application or rendering code changed. See the [review](../reviews/3d-embedded-sewing.md) for independently recomputed artifact metrics and the remaining scope limits. Production remains unchanged.
