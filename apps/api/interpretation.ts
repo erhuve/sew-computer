@@ -53,11 +53,11 @@ export class InterpretationService {
   status():InterpretationStatus {
     return this.interpreter?.status??{available:false,provider:'Not configured',model:'',maxOutputTokens:6000,timeoutSeconds:120,referenceLimit:3};
   }
-  async propose(projectId:string,identity:{expectedVersion:number;expectedRevisionId:string|null;includeReferences:boolean;consent:true}):Promise<DesignProposal> {
+  async propose(projectId:string,identity:{expectedVersion:number;expectedRevisionId:string|null;includeReferences:boolean;consent:true},work?:{captured:{draft:Draft;generation:number;requestId:string};signal:AbortSignal;publish:()=>void}):Promise<DesignProposal> {
     const interpreter=this.interpreter;
     if(!interpreter)throw new ApiError(503,'Design AI is not configured on this server');
     if(this.active.size)throw new ApiError(429,'A design proposal is already running; wait for it to finish');
-    const captured=this.store.transaction(()=>{
+    const captured=work?.captured??this.store.transaction(()=>{
       const project=this.store.project(projectId),draft=this.store.checkIdentity(project,identity.expectedVersion,identity.expectedRevisionId);
       if(!draft.document.brief.trim())throw new ApiError(422,'Describe your garment in The idea first');
       if(identity.includeReferences&&draft.document.views.length>3)throw new ApiError(422,'Use at most three references for a proposal');
@@ -70,6 +70,9 @@ export class InterpretationService {
       return {draft,generation:project.generation,requestId};
     });
     const controller=new AbortController();
+    const abort=()=>controller.abort();
+    work?.signal.addEventListener('abort',abort,{once:true});
+    if(work?.signal.aborted)controller.abort();
     this.active.set(projectId,controller);
     const timer=setTimeout(()=>controller.abort(),120000);
     try {
@@ -84,7 +87,12 @@ export class InterpretationService {
       const {body,sizeLabel,views,callouts,...design}=doc;
       const input={...design,referenceCaptions:identity.includeReferences?views.map(view=>({role:view.role,caption:view.caption})):[],privacy:'Body input fields, size label and private callouts are not included. The brief itself may contain personal information.'};
       if(Buffer.byteLength(JSON.stringify(input))>48000)throw new ApiError(413,'Design text exceeds the 48 KB interpretation budget');
-      const result=await interpreter.run({document:input,images,signal:controller.signal});
+      controller.signal.throwIfAborted();
+      const result=await Promise.race([interpreter.run({document:input,images,signal:controller.signal}),new Promise<never>((_,reject)=>{
+        const stop=()=>reject(new Error('Interpretation aborted'));
+        controller.signal.addEventListener('abort',stop,{once:true});
+        if(controller.signal.aborted)stop();
+      })]);
       controller.signal.throwIfAborted();
       cleanObject(result.value);
       const parsed=InterpretationSchema.parse(result.value);
@@ -105,6 +113,7 @@ export class InterpretationService {
       this.store.transaction(()=>{
         const project=this.store.project(projectId);
         if(project.generation!==captured.generation)throw new ApiError(409,'Project changed during interpretation');
+        work?.publish();
         this.store.db.query('INSERT INTO ai_proposals(id,project_id,json,source_digest,generation) VALUES(?,?,?,?,?)').run(proposal.id,projectId,JSON.stringify(proposal),objectDigest(doc),captured.generation);
       });
       return proposal;
@@ -112,7 +121,7 @@ export class InterpretationService {
       if(error instanceof ApiError)throw error;
       if(controller.signal.aborted)throw new ApiError(504,'Design request timed out or was cancelled; your draft is unchanged');
       throw new ApiError(502,'The model returned an invalid proposal or could not be reached; your draft is unchanged');
-    } finally {clearTimeout(timer);this.active.delete(projectId);}
+    } finally {clearTimeout(timer);work?.signal.removeEventListener('abort',abort);this.active.delete(projectId);}
   }
   latest(projectId:string):DesignProposal|null {
     this.store.project(projectId);

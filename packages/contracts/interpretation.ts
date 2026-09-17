@@ -26,6 +26,7 @@ export type DesignProposal = {
   provider:string; model:string; createdAt:string; inputTokens:number|null; outputTokens:number|null;
 };
 export type InterpretationStatus = {available:boolean;provider:string;model:string;maxOutputTokens:number|null;timeoutSeconds:number;referenceLimit:number};
+export type InterpretationJob = {id:string;projectId:string;requestId:string;status:'queued'|'running'|'succeeded'|'failed'|'cancelled';error:string|null;proposalId:string|null;createdAt:string;updatedAt:string};
 
 export function rebaseAcceptedDesign(accepted:GarmentDocument,submitted:GarmentDocument,latest:GarmentDocument):GarmentDocument {
   const next=structuredClone(accepted);

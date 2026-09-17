@@ -85,3 +85,21 @@ body{margin:0;background:var(--background);color:var(--foreground);font-family:A
 .garment-design details { margin-top: .8rem; }
 .garment-design li { margin: .6rem 0; }
 @media (max-width: 500px) { .construction-controls { grid-template-columns: 1fr; } }
+.garment-three-d{padding:16px;min-width:0}
+.three-d-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.three-d-heading h2{font-size:26px;margin:4px 0}
+.three-d-evidence{border:1px solid var(--border);border-radius:20px;padding:7px 12px;font-size:12px;white-space:nowrap;background:var(--secondary)}
+.three-d-disclosure{font-size:13px;line-height:1.5;margin:8px 0 14px;color:var(--muted-foreground)}
+.three-d-controls{display:flex;flex-wrap:wrap;gap:5px;padding:6px;background:var(--muted);border:1px solid var(--border);border-bottom:0}
+.three-d-controls button{min-width:44px;min-height:44px;font-size:13px}
+.three-d-controls [aria-pressed=true]{background:var(--primary);color:var(--primary-foreground)}
+.three-d-canvas{height:clamp(240px,43vh,500px);border:1px solid var(--border);background:#f3f1e9;overflow:hidden;touch-action:none}
+.three-d-canvas canvas{display:block;width:100%;height:100%}
+.three-d-piece-picker{display:flex;align-items:center;gap:12px;margin:12px 0;font-size:13px}
+.three-d-piece-picker select{min-width:0;flex:1;min-height:44px;max-width:100%;font-size:14px}
+.three-d-summary{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted-foreground)}
+.three-d-diagnostics{margin-top:14px;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.three-d-diagnostics summary{cursor:pointer;min-height:44px;align-content:center}
+.three-d-start{border:1px solid var(--border);padding:24px;background:var(--secondary);min-height:240px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.three-d-start h3{font-size:23px;margin:0 0 8px}.three-d-start p{font-size:14px;line-height:1.5}.three-d-start button{min-height:44px}
+@media(max-width:700px){.garment-three-d{padding:12px}.three-d-heading h2{font-size:23px}.three-d-canvas{height:290px}.three-d-evidence{padding:5px 8px}.three-d-piece-picker{flex-direction:column;align-items:stretch}.view-tabs{flex-wrap:wrap}}

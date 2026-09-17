@@ -4,6 +4,7 @@ import { resolve, dirname, extname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createApi } from '../api';
 import { runEngine } from '../../services/engine/runner';
+import { runInspection } from '../../services/engine/inspection-runner';
 import { buildExport } from '../../packages/tech-pack';
 import { configuredInterpreter } from '../api/interpretation';
 import { codexInterpreter } from '../api/codex-interpreter';
@@ -19,7 +20,7 @@ const allowedOrigins=process.env.SEW_ALLOWED_ORIGINS?.split(',').map(v=>v.trim()
 const globalState=globalThis as typeof globalThis & {__sewApi?:ReturnType<typeof createApi>};
 globalState.__sewApi?.close();
 const interpreter=process.env.SEW_CODEX_AUTH_FILE&&process.env.SEW_AI_MODEL?codexInterpreter(process.env.SEW_CODEX_AUTH_FILE,process.env.SEW_AI_MODEL):configuredInterpreter();
-const api=createApi({dataDir:process.env.SEW_DATA_DIR||resolve(root,'../../.local'),allowedOrigins,authKey:process.env.SEW_ACCESS_KEY,engine:runEngine,exporter:buildExport,interpreter});
+const api=createApi({dataDir:process.env.SEW_DATA_DIR||resolve(root,'../../.local'),allowedOrigins,authKey:process.env.SEW_ACCESS_KEY,engine:runEngine,inspectionEngine:runInspection,exporter:buildExport,interpreter});
 globalState.__sewApi=api;
 const app=new Hono();
 app.route('/api',api);

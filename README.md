@@ -48,6 +48,25 @@ SEW_ENGINE_SOURCE=/absolute/path/to/design2garmentcode bun run test:browser
 
 The Zo development Site runs from `apps/web`. Its managed process requires `SEW_ALLOWED_ORIGINS` (exact comma-separated origins), optionally `SEW_DATA_DIR`, and engine source/Python overrides when not using the installed defaults. `SEW_ACCESS_KEY` can supply an owner credential; otherwise the API creates a private `access-key` file inside its data directory. Retrieve it locally; never commit it or place it in a URL. See [API operations and recovery limits](apps/api/README.md). Site configuration, credentials, private SQLite/artifacts, upstream source and Python environments are excluded from Git.
 
+## Pattern-derived 3D development
+
+The isolated implementation includes private durable inspection jobs, source-preserving tessellation, physical fabric inventory/mirroring and an interactive GLB viewport. Generate a component shirt, open **3D inspection**, then **Build 3D inspection**. Rotation, zoom, mesh edges and a keyboard-accessible physical-piece selector link each fabric instance back to its actual 2D pattern. Reloads recover progress. WebGL failures retain the source-piece list and existing 2D views.
+
+These results are explicitly **placement inspection**, not assembled garments or drape. Six interfacing roles in the complete shirt remain unresolved; seam allowances are omitted. A machine-readable assembly graph records seam memberships, localized closures, operation dependencies and outstanding turning/binding/orientation semantics. Solver experiments and optional quality refinement are separate from the trusted application inspection path. See the [active 3D plan](docs/plans/pattern-derived-3d-engine.md), [solver experiments](docs/research/3d-solver-feasibility.md), [foundation review](docs/reviews/3d-engine-foundation.md) and [inspection integration review](docs/reviews/3d-inspection.md).
+
+The separate `services/engine/cloth_domain.py` foundation meshes the actual cut contour, including allowances, and embeds the original interior seam paths with source correspondence. Its independent validator checks cut coverage, topology and path continuity. It is not yet used by the application viewer or solver: weighted stitch constraints, binding wraps and turning remain required. Contact experiments retain rejected controls rather than treating reduced distortion as an accepted garment; see the [cloth/contact review](docs/reviews/3d-cloth-contact.md).
+
+3D artifacts remain authenticated, private, revision-bound and excluded from all existing exports. New patterns or engine versions mark earlier inspection results as outdated. The SQLite migration advances to schema 5; rollback requires a schema-5-capable application. These changes have not been deployed to the live studio.
+
+For a component `pattern.json` and its captured shirt construction JSON, create a new private output directory with the locked engine Python:
+
+```sh
+services/engine/.venv/bin/python scripts/inspect-pattern-3d.py --pattern /absolute/path/pattern.json --construction /absolute/path/construction.json --output /absolute/path/new-private-inspection
+bun test services/engine/meshing.test.ts
+```
+
+The output contains canonical source mappings and a self-contained GLB with an explicit flat arrangement. Both reveal pattern dimensions and must remain private. This CLI is bounded trusted development code, not the application artifact-installation or export path.
+
 ## Documentation checks
 
 ```sh

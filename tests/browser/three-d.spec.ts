@@ -1,0 +1,98 @@
+import { test, expect } from './fixture';
+import { shirtDocument } from '../../packages/test-fixtures/shirt';
+import { mkdir } from 'node:fs/promises';
+import { resolve } from 'node:path';
+
+test('private source-linked 3D inspection survives reload and keeps 2D selection and exports', async ({ studio }) => {
+  test.setTimeout(150000);
+  await studio.login();
+  const document = shirtDocument();
+  document.title = '3D source inspection';
+  const created = await studio.call('POST', '/projects', { title: document.title, brief: document.brief });
+  const path = `/projects/${created.project.id}`;
+  const draft = await studio.call('PUT', `${path}/draft`, { expectedVersion: created.draft.version, expectedRevisionId: created.draft.baseRevisionId, document });
+  const state = await studio.call('POST', `${path}/revisions`, { expectedVersion: draft.version, expectedRevisionId: draft.baseRevisionId });
+  const generation = await studio.call('POST', `${path}/jobs`, { revisionId: state.project.headRevisionId, requestId: '3d-browser-pattern' });
+  await expect.poll(async () => (await studio.call('GET', path)).jobs.find((job: { id: string }) => job.id === generation.id)?.status, { timeout: 45000 }).toBe('succeeded');
+  const before = await studio.call('GET', `${path}/geometry/${state.project.headRevisionId}`);
+  await studio.page.reload();
+  await studio.page.getByRole('button', { name: /3D source inspection/ }).click();
+  await studio.page.getByRole('tab', { name: '3D inspection', exact: true }).click();
+  await studio.page.getByRole('button', { name: 'Build 3D inspection', exact: true }).click();
+  await expect.poll(async () => (await studio.call('GET', `${path}/three-d/latest?revisionId=${state.project.headRevisionId}`))?.status, { timeout: 90000 }).toBe('succeeded');
+  await studio.page.reload();
+  await studio.page.getByRole('button', { name: /3D source inspection/ }).click();
+  let transient = true;
+  await studio.page.route('**/three-d/latest?*', async route => {
+    if (transient) { transient = false; await route.fulfill({ status: 502, contentType: 'text/html', body: 'Temporary proxy error' }); }
+    else await route.continue();
+  });
+  await studio.page.getByRole('tab', { name: '3D inspection', exact: true }).click();
+  await expect(studio.page.getByText('24 fabric pieces', { exact: true })).toBeVisible({ timeout: 25000 });
+  await expect(studio.page.getByText('Placement only', { exact: true })).toBeVisible();
+  await expect(studio.page.locator('.three-d-canvas canvas')).toBeVisible();
+  await expect(studio.page.getByLabel('Physical piece', { exact: true }).locator('option')).toHaveCount(25);
+  await studio.page.getByLabel('Physical piece', { exact: true }).selectOption({ index: 1 });
+  const source = await studio.page.locator('.garment-viewport .fineprint strong').textContent();
+  await studio.page.getByRole('button', { name: 'Rotate 3D left', exact: true }).click();
+  await studio.page.getByRole('button', { name: 'Mesh edges', exact: true }).click();
+  await expect(studio.page.getByRole('button', { name: 'Mesh edges', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await studio.page.getByRole('button', { name: 'Reset view', exact: true }).click();
+  const evidence = resolve(import.meta.dirname, '../../docs/verification/three-d');
+  await mkdir(evidence, { recursive: true });
+  await studio.page.screenshot({ path: resolve(evidence, 'desktop.png'), fullPage: true });
+  await studio.page.getByRole('tab', { name: 'Pattern', exact: true }).click();
+  const panel = before.panels.find((item: { id: string }) => item.id === source);
+  await expect(studio.page.getByRole('button', { name: `Select panel ${panel.name}`, exact: true })).toHaveClass(/selected/);
+  await studio.page.getByRole('tab', { name: '3D inspection', exact: true }).click();
+  await expect(studio.page.locator('.three-d-canvas canvas')).toBeVisible();
+  await studio.page.setViewportSize({ width: 390, height: 844 });
+  await expect(studio.page.getByRole('button', { name: 'Reset view', exact: true })).toBeVisible();
+  expect(await studio.page.evaluate(() => window.document.documentElement.scrollWidth)).toBeLessThanOrEqual(391);
+  await studio.page.screenshot({ path: resolve(evidence, 'mobile.png'), fullPage: true });
+  expect(await studio.call('GET', `${path}/geometry/${state.project.headRevisionId}`)).toEqual(before);
+  const exported = await studio.call('POST', `${path}/exports`, { revisionId: state.project.headRevisionId, disclosure: { includeBody: false, includeReferences: false, includePatterns: true } });
+  expect(exported.files).toHaveLength(8);
+  expect(exported.files.some((file: { filename: string }) => /\.glb$|inspection/.test(file.filename))).toBe(false);
+  await studio.call('DELETE', path);
+  await expect(studio.page.locator('.three-d-canvas canvas')).toHaveCount(0, { timeout: 15000 });
+});
+
+test('a device without WebGL retains source selection and recovers after a display retry', async ({ studio }) => {
+  test.setTimeout(150000);
+  await studio.login();
+  const garment = shirtDocument();
+  const created = await studio.call('POST', '/projects', { title: 'No WebGL shirt', brief: garment.brief });
+  const path = `/projects/${created.project.id}`;
+  const draft = await studio.call('PUT', `${path}/draft`, { expectedVersion: created.draft.version, expectedRevisionId: created.draft.baseRevisionId, document: { ...garment, title: 'No WebGL shirt' } });
+  const state = await studio.call('POST', `${path}/revisions`, { expectedVersion: draft.version, expectedRevisionId: draft.baseRevisionId });
+  const pattern = await studio.call('POST', `${path}/jobs`, { revisionId: state.project.headRevisionId, requestId: 'fallback-pattern' });
+  await expect.poll(async () => (await studio.call('GET', path)).jobs.find((job: { id: string }) => job.id === pattern.id)?.status, { timeout: 45000 }).toBe('succeeded');
+  const inspection = await studio.call('POST', `${path}/three-d`, { revisionId: state.project.headRevisionId, requestId: 'fallback-inspection' });
+  await expect.poll(async () => (await studio.call('GET', `${path}/three-d/${inspection.id}`)).status, { timeout: 90000 }).toBe('succeeded');
+  await studio.page.reload();
+  await studio.page.evaluate(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    (window as any).restoreWebGL = () => { HTMLCanvasElement.prototype.getContext = original; };
+    HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, kind: string, ...args: any[]) {
+      if (kind.includes('webgl')) return null;
+      return (original as any).call(this, kind, ...args);
+    } as typeof original;
+  });
+  await studio.page.getByRole('button', { name: /No WebGL shirt/ }).click();
+  await studio.page.getByRole('tab', { name: '3D inspection', exact: true }).click();
+  await expect(studio.page.getByRole('alert').filter({ hasText: '3D rendering is unavailable' })).toBeVisible();
+  await expect(studio.page.getByLabel('Physical piece', { exact: true }).locator('option')).toHaveCount(25);
+  await studio.page.getByLabel('Physical piece', { exact: true }).selectOption({ index: 2 });
+  await expect(studio.page.locator('.garment-viewport .fineprint')).toContainText('Source pattern:');
+  await studio.page.evaluate(() => (window as any).restoreWebGL());
+  await studio.page.getByRole('button', { name: 'Reload display', exact: true }).click();
+  await expect(studio.page.locator('.three-d-canvas canvas')).toBeVisible();
+  await expect(studio.page.getByRole('button', { name: 'Reset view', exact: true })).toBeEnabled();
+  await studio.page.evaluate(() => document.querySelector<HTMLCanvasElement>('.three-d-canvas canvas')!.dispatchEvent(new Event('webglcontextlost', { cancelable: true })));
+  await expect(studio.page.getByRole('alert').filter({ hasText: 'display was interrupted' })).toBeVisible();
+  await studio.page.getByRole('button', { name: 'Reload display', exact: true }).click();
+  await expect(studio.page.getByRole('button', { name: 'Reset view', exact: true })).toBeEnabled();
+  await studio.page.getByRole('tab', { name: 'Pattern', exact: true }).click();
+  await expect(studio.page.locator('.pattern-stage svg[role="img"]')).toBeVisible();
+});

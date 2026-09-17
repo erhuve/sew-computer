@@ -34,7 +34,7 @@ export class Store {
     try {
       this.db.exec('PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON;');
       const version = (this.db.query('PRAGMA user_version').get() as {user_version:number}).user_version;
-      if (![0,1,2,3].includes(version)) throw new Error('Unsupported database schema');
+      if (![0,1,2,3,4,5].includes(version)) throw new Error('Unsupported database schema');
       if (version === 0) this.migrate();
       if(version<2)this.transaction(()=>{
         this.db.exec(`CREATE TABLE ai_requests(id TEXT PRIMARY KEY,project_id TEXT NOT NULL,at INTEGER NOT NULL);
@@ -42,6 +42,13 @@ export class Store {
           PRAGMA user_version=2;`);
       });
       if(version<3)this.transaction(()=>this.db.exec('PRAGMA user_version=3;'));
+      if(version<4)this.transaction(()=>this.db.exec(`CREATE TABLE IF NOT EXISTS interpretation_jobs(id TEXT PRIMARY KEY,project_id TEXT NOT NULL REFERENCES projects(id),request_id TEXT NOT NULL,input_digest TEXT NOT NULL,input TEXT NOT NULL,json TEXT NOT NULL,status TEXT NOT NULL,lease TEXT,deadline INTEGER,attempts INTEGER NOT NULL DEFAULT 0,UNIQUE(project_id,request_id)); PRAGMA user_version=4;`));
+      if(version<5)this.transaction(()=>this.db.exec(`
+        CREATE TABLE IF NOT EXISTS three_d_jobs(id TEXT PRIMARY KEY,project_id TEXT NOT NULL REFERENCES projects(id),revision_id TEXT NOT NULL REFERENCES revisions(id),request_id TEXT NOT NULL,input_digest TEXT NOT NULL,input TEXT NOT NULL,json TEXT NOT NULL,status TEXT NOT NULL,lease TEXT,deadline INTEGER,attempts INTEGER NOT NULL DEFAULT 0,generation INTEGER NOT NULL DEFAULT 0,cancel_requested INTEGER NOT NULL DEFAULT 0,UNIQUE(project_id,request_id));
+        CREATE TABLE IF NOT EXISTS three_d_artifacts(job_id TEXT NOT NULL REFERENCES three_d_jobs(id),project_id TEXT NOT NULL REFERENCES projects(id),filename TEXT NOT NULL,storage_key TEXT NOT NULL UNIQUE,digest TEXT NOT NULL,bytes INTEGER NOT NULL,mime TEXT NOT NULL,PRIMARY KEY(job_id,filename));
+        CREATE TRIGGER IF NOT EXISTS immutable_three_d_artifact BEFORE UPDATE ON three_d_artifacts BEGIN SELECT RAISE(ABORT,'immutable 3D artifact'); END;
+        PRAGMA user_version=5;
+      `));
       this.transaction(()=>this.replayDeletions(existed));
       let key = authKey;
       if (key === undefined) {
@@ -187,7 +194,7 @@ export class Store {
     return result;
   }
   private referenced(key:string): boolean {
-    return Boolean(this.db.query('SELECT 1 FROM artifacts WHERE storage_key=? UNION ALL SELECT 1 FROM reference_assets WHERE storage_key=? UNION ALL SELECT 1 FROM export_files WHERE storage_key=? LIMIT 1').get(key,key,key));
+    return Boolean(this.db.query('SELECT 1 FROM artifacts WHERE storage_key=? UNION ALL SELECT 1 FROM reference_assets WHERE storage_key=? UNION ALL SELECT 1 FROM export_files WHERE storage_key=? UNION ALL SELECT 1 FROM three_d_artifacts WHERE storage_key=? LIMIT 1').get(key,key,key,key));
   }
   reconcile() {
     this.transaction(()=>{
@@ -199,6 +206,12 @@ export class Store {
         if(/^[a-zA-Z0-9_-]{24}(?:\.[a-zA-Z0-9_-]{24}\.tmp)?$/.test(name))rmSync(join(this.root,'markers',name),{force:true});
       }
       for(const name of readdirSync(join(this.root,'staging'))) {
+        const inspection=/^three-d-([a-zA-Z0-9_-]{24})-(\d+)$/.exec(name);
+        if(inspection) {
+          const running=this.db.query("SELECT 1 FROM three_d_jobs WHERE id=? AND generation=? AND status='running' AND deadline>?").get(inspection[1]!,Number(inspection[2]),Date.now());
+          if(!running)rmSync(join(this.root,'staging',name),{recursive:true,force:true});
+          continue;
+        }
         const match=/^([a-zA-Z0-9_-]{24})-(\d+)$/.exec(name);
         if(!match)continue;
         const running=this.db.query("SELECT 1 FROM jobs WHERE id=? AND generation=? AND status='running' AND lease_deadline>?").get(match[1]!,Number(match[2]),Date.now());
@@ -250,16 +263,18 @@ export class Store {
       if (current.version <= deletedVersion) this.setMeta('bodyProfile', JSON.stringify({ version: deletedVersion, body: null }));
       return;
     }
-    const keys=this.db.query('SELECT storage_key FROM artifacts WHERE project_id=? UNION SELECT storage_key FROM reference_assets WHERE project_id=? UNION SELECT storage_key FROM export_files WHERE snapshot_id IN (SELECT id FROM snapshots WHERE project_id=?)').all(projectId,projectId,projectId) as {storage_key:string}[];
+    const keys=this.db.query('SELECT storage_key FROM artifacts WHERE project_id=? UNION SELECT storage_key FROM reference_assets WHERE project_id=? UNION SELECT storage_key FROM export_files WHERE snapshot_id IN (SELECT id FROM snapshots WHERE project_id=?) UNION SELECT storage_key FROM three_d_artifacts WHERE project_id=?').all(projectId,projectId,projectId,projectId) as {storage_key:string}[];
     const jobIds=(this.db.query('SELECT id FROM jobs WHERE project_id=?').all(projectId) as {id:string}[]).map(r=>r.id);
+    const inspectionIds=(this.db.query('SELECT id FROM three_d_jobs WHERE project_id=?').all(projectId) as {id:string}[]).map(row=>row.id);
     this.db.query('UPDATE projects SET deleted=1,generation=generation+1,json=?,draft=? WHERE id=? AND deleted=0').run('{}','{}',projectId);
     this.db.query('DELETE FROM geometry_heads WHERE revision_id IN (SELECT id FROM revisions WHERE project_id=?)').run(projectId);
     this.db.query('DELETE FROM export_files WHERE snapshot_id IN (SELECT id FROM snapshots WHERE project_id=?)').run(projectId);
     this.db.query('DELETE FROM snapshot_results WHERE snapshot_id IN (SELECT id FROM snapshots WHERE project_id=?)').run(projectId);
     this.db.query("UPDATE ai_requests SET project_id='deleted' WHERE project_id=?").run(projectId);
-    for(const table of ['ai_proposals','artifacts','snapshots','import_previews','comments','jobs','reference_assets','revisions'])this.db.query(`DELETE FROM ${table} WHERE project_id=?`).run(projectId);
+    for(const table of ['three_d_artifacts','three_d_jobs','interpretation_jobs','ai_proposals','artifacts','snapshots','import_previews','comments','jobs','reference_assets','revisions'])this.db.query(`DELETE FROM ${table} WHERE project_id=?`).run(projectId);
     for(const {storage_key:key} of keys)if(/^[a-zA-Z0-9_-]{24}$/.test(key))rmSync(join(this.root,'blobs',key),{force:true});
     for(const name of readdirSync(join(this.root,'staging')))if(jobIds.some(jobId=>name.startsWith(jobId+'-')))rmSync(join(this.root,'staging',name),{recursive:true,force:true});
+    for(const name of readdirSync(join(this.root,'staging')))if(inspectionIds.some(jobId=>name.startsWith('three-d-'+jobId+'-')))rmSync(join(this.root,'staging',name),{recursive:true,force:true});
   }
   deleteProject(projectId:string) {
     this.transaction(()=>{

@@ -2,6 +2,34 @@ import { test,expect } from './fixture';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+test('durable interpretation survives reload while the model is still running',async({studio})=>{
+  const {page}=studio;
+  let completedReads=0;
+  await page.route('**/proposals/latest',async route=>{
+    const response=await route.fetch();
+    if(await response.json()) {
+      completedReads++;
+      if(completedReads===1){await route.fulfill({status:502,contentType:'application/json',body:JSON.stringify({error:'Temporary proposal delivery failure'})});return;}
+    }
+    await route.fulfill({response});
+  });
+  await studio.login();
+  await page.getByRole('button',{name:'New garment',exact:true}).click();
+  await page.getByLabel('Garment name',{exact:true}).fill('Durable interpretation');
+  await page.getByLabel('Your idea',{exact:true}).fill('slow-interpretation-fixture blue linen top');
+  await page.getByRole('button',{name:'Create garment'}).click();
+  await page.getByLabel('Send these inputs to the design model').check();
+  const response=page.waitForResponse(response=>response.url().endsWith('/proposals')&&response.request().method()==='POST');
+  await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
+  expect((await response).status()).toBe(202);
+  await expect(page.getByRole('button',{name:'Cancel interpretation'})).toBeVisible();
+  await page.reload();
+  await page.getByRole('button',{name:/Durable interpretation Updated/}).click();
+  await expect(page.getByRole('button',{name:'Cancel interpretation'})).toBeVisible();
+  await expect(page.getByRole('button',{name:'Accept design & set measurements'})).toBeEnabled();
+  expect(completedReads).toBeGreaterThanOrEqual(2);
+});
+
 test('unsupported designs accept notes without promising a generatable pattern',async({studio})=>{
   const {page}=studio;
   await studio.login();

@@ -53,6 +53,25 @@ function make(options:Partial<ApiOptions>={}) {
   return {api,app,dataDir,request,login,state,create,save,publish,saved,submit,exported,get cookie(){return cookie;}};
 }
 
+test('interpretation HTTP submission acknowledges, scopes polling and enforces cancellation authorization',async()=>{
+  const harness=make({interpreter:{status:{available:true,provider:'test',model:'fixture',maxOutputTokens:6000,timeoutSeconds:120,referenceLimit:3},run:async({signal})=>new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(new Error('Cancelled')),{once:true}))}});
+  expect((await harness.request('GET','/projects/missing/interpretations/latest')).status).toBe(401);
+  await harness.login();
+  const first=await harness.create(),second=await harness.create();
+  const identity={requestId:'durable-request',expectedVersion:first.draft.version,expectedRevisionId:first.draft.baseRevisionId,includeReferences:false,consent:true};
+  const response=await harness.request('POST',`/projects/${first.project.id}/proposals`,identity);
+  expect(response.status).toBe(202);
+  expect(response.headers.get('Cache-Control')).toBe('no-store');
+  const job=await response.json();
+  expect(job.status).toBe('queued');
+  expect(job.input).toBeUndefined();
+  expect((await harness.request('GET',`/projects/${second.project.id}/interpretations/${job.id}`)).status).toBe(404);
+  expect((await harness.request('POST',`/projects/${first.project.id}/interpretations/${job.id}/cancel`,{}, {Origin:'https://untrusted.test'})).status).toBe(403);
+  expect((await (await harness.request('GET',`/projects/${first.project.id}/interpretations/latest`)).json()).status).toBe('running');
+  expect((await (await harness.request('POST',`/projects/${first.project.id}/interpretations/${job.id}/cancel`,{})).json()).status).toBe('cancelled');
+  expect((await harness.request('POST',`/projects/${first.project.id}/proposals`,{...identity,includeReferences:true})).status).toBe(409);
+});
+
 describe('private reusable body measurements', () => {
   test('auth, origin, strict body schema, persistence and monotonic conflicts protect the profile', async () => {
     const harness = make();

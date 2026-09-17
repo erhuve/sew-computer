@@ -2,7 +2,7 @@
 
 **2026-09-16 · Active plan · Component garment pipeline privately deployed; breadth and physical/research gates remain open**
 
-Pattern-derived 3D planning update, 2026-09-16: agreed architecture and ordered work are recorded in the [dedicated engine plan](pattern-derived-3d-engine.md). No 3D implementation or simulator feasibility is claimed. This extends the overall roadmap and supersedes the earlier optional-only 3D sequencing, while preserving existing 2D generation, sizing, specifications, private revisions and exports.
+Pattern-derived 3D implementation update, 2026-09-17: the [dedicated engine plan](pattern-derived-3d-engine.md) tracks private placement inspection, source-preserving meshes, assembly-graph work and solver experiments. The isolated checkout now connects placement inspection to private jobs and an interactive viewport; full-shirt assembly and material-aware drape remain unvalidated and unavailable. This extends the overall roadmap and supersedes the earlier optional-only 3D sequencing, while preserving existing 2D generation, sizing, specifications, private revisions and exports. These implementation changes are not deployed.
 
 The owner's latest priority is an immediately usable describe-to-garment software flow. The manual milestone is complete; it is no longer the stopping point. The current implementation connects a tool-free model to reviewed typed proposals, explicit measurements, the existing CPU engine and revisioned exports. See the [AI integration review](../reviews/ai-prototype.md). This scope supersedes the earlier manual-only release sequencing without changing physical-readiness claims.
 
@@ -152,7 +152,7 @@ Physical fit remains unverified until actual physical evidence exists. These are
 
 The dedicated [pattern-derived 3D engine implementation plan](pattern-derived-3d-engine.md) owns this workstream's architecture, milestones, acceptance tests and release gates. It supersedes the detailed V0–V5 section previously embedded here. The overall software plan remains the product roadmap; the dedicated plan follows [project contract §14](../design/project-contract.md#14-pattern-derived-garment-3d).
 
-Status: planned, 2026-09-16. Start with solver feasibility and physical assembly semantics, alongside the independent asynchronous interpretation fix. Progress through source-preserving meshes, durable assembly jobs, linked 2D/3D inspection, material drape and independent adversarial release review. The full component shirt is the first acceptance case; broader garment support and physical fit remain open.
+Status: implementation in progress, not deployed, 2026-09-16. Solver feasibility and offline source-preserving mesh/inventory foundations are underway; the independent asynchronous interpretation fix is implemented in an isolated checkout. Continue through explicit assembly semantics, durable assembly jobs, linked 2D/3D inspection, material drape and independent adversarial release review. The full component shirt is the first acceptance case; broader garment support and physical fit remain open.
 
 ## Release gates and unresolved decisions
 

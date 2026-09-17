@@ -7,11 +7,13 @@ import type { BodyProfile } from '../../packages/contracts/sizing';
 import { Handoff, committedPatterns, type Exporter } from './exports';
 import { acceptImport, previewImport } from './imports';
 import { InterpretationService, type Interpreter } from './interpretation';
+import { InterpretationQueue } from './interpretation-jobs';
+import { ThreeDQueue, type InspectionEngine } from './three-d-jobs';
 import { JobQueue, type Engine } from './jobs';
 import { Store, type ArtifactRow } from './store';
 import { ApiError, document, filenameSchema, hash, id, identitySchema, json, now, objectDigest, readBounded } from './validation';
 
-export type ApiOptions={dataDir:string;allowedOrigins:string[];authKey?:string;engine?:Engine;exporter?:Exporter;interpreter?:Interpreter};
+export type ApiOptions={dataDir:string;allowedOrigins:string[];authKey?:string;engine?:Engine;exporter?:Exporter;interpreter?:Interpreter;inspectionEngine?:InspectionEngine};
 export type Api=Hono & {close:()=>void};
 const sessionName='sew_session';
 const sessionMs=12*60*60*1000;
@@ -36,6 +38,8 @@ export function createApi(options:ApiOptions):Api {
   store.reconcile();
   const queue=new JobQueue(store,options.engine), handoff=new Handoff(store,options.exporter);
   const interpretation=new InterpretationService(store,options.interpreter);
+  const interpretations=new InterpretationQueue(store,interpretation);
+  const inspections=new ThreeDQueue(store,options.inspectionEngine);
   const api=new Hono() as Api;
   let closed=false, decoding=0;
   const tokenHash=(request:Request):string|null=>{
@@ -147,9 +151,12 @@ export function createApi(options:ApiOptions):Api {
   });
   api.get('/interpretation/status',c=>c.json(interpretation.status()));
   api.get('/projects/:id/proposals/latest',c=>c.json(interpretation.latest(Id.parse(c.req.param('id')))));
+  api.get('/projects/:id/interpretations/latest',c=>c.json(interpretations.latest(Id.parse(c.req.param('id')))));
+  api.get('/projects/:id/interpretations/:jobId',c=>c.json(interpretations.get(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')))));
+  api.post('/projects/:id/interpretations/:jobId/cancel',c=>c.json(interpretations.cancel(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')))));
   api.post('/projects/:id/proposals',async c=>{
-    const body=identitySchema.extend({includeReferences:z.boolean(),consent:z.literal(true)}).parse(await json(c.req.raw));
-    return c.json(await interpretation.propose(Id.parse(c.req.param('id')),body),201);
+    const body=identitySchema.extend({requestId:Id,includeReferences:z.boolean(),consent:z.literal(true)}).parse(await json(c.req.raw));
+    return c.json(interpretations.submit(Id.parse(c.req.param('id')),body),202);
   });
   api.post('/projects/:id/proposals/:proposalId/accept',async c=>{
     const body=identitySchema.parse(await json(c.req.raw)),projectId=Id.parse(c.req.param('id'));
@@ -172,6 +179,17 @@ export function createApi(options:ApiOptions):Api {
     return fileResponse(store.readBlob(row.storage_key,artifact.digest,artifact.bytes),artifact.mime,artifact.mime==='application/pdf'?artifact.filename:undefined);
   });
   api.get('/projects/:id/geometry/:revisionId',c=>c.json(committedPatterns(store,Id.parse(c.req.param('id')),Id.parse(c.req.param('revisionId'))).geometry));
+  api.post('/projects/:id/three-d',async c=>{
+    const body=z.object({revisionId:Id,requestId:Id}).strict().parse(await json(c.req.raw));
+    return c.json(inspections.submit(Id.parse(c.req.param('id')),body.revisionId,body.requestId),202);
+  });
+  api.get('/projects/:id/three-d/latest',c=>c.json(inspections.latest(Id.parse(c.req.param('id')),c.req.query('revisionId')?Id.parse(c.req.query('revisionId')):undefined)));
+  api.get('/projects/:id/three-d/:jobId',c=>c.json(inspections.get(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')))));
+  api.post('/projects/:id/three-d/:jobId/cancel',c=>c.json(inspections.cancel(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')))));
+  for(const [route,filename] of [['report','inspection.json'],['mesh','inspection.glb']] as const)api.get(`/projects/:id/three-d/:jobId/${route}`,c=>{
+    const artifact=inspections.artifact(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')),filename);
+    return fileResponse(artifact.bytes,artifact.mime);
+  });
   api.post('/projects/:id/references',async c=>{
     const projectId=Id.parse(c.req.param('id')),generation=store.project(projectId).generation;
     const label=(c.req.header('X-Filename')??'reference').slice(0,300).split(/[\\/]/).at(-1)!.replace(/[^\p{L}\p{N} ._-]/gu,'_').slice(0,160)||'reference';
@@ -224,6 +242,6 @@ export function createApi(options:ApiOptions):Api {
   api.post('/projects/:id/imports/preview',async c=>{const body=z.object({manifest:z.unknown()}).strict().parse(await json(c.req.raw));return c.json(previewImport(store,Id.parse(c.req.param('id')),body.manifest),201);});
   api.post('/projects/:id/imports/:previewId/accept',async c=>{const body=importAcceptSchema.parse(await json(c.req.raw));return c.json(acceptImport(store,Id.parse(c.req.param('id')),Id.parse(c.req.param('previewId')),body));});
   api.notFound(c=>c.json({error:'Route not found'},404));
-  api.close=()=>{if(closed)return;closed=true;interpretation.close();queue.close();store.close();};
+  api.close=()=>{if(closed)return;closed=true;inspections.close();interpretations.close();interpretation.close();queue.close();store.close();};
   return api;
 }

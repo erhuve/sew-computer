@@ -1,0 +1,90 @@
+{
+  "scope": "Failed numerical experiments; not accepted assembly or drape",
+  "date": "2026-09-17",
+  "reports": {
+    "historical_radial": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "bbbac05acdbaa1aac29349a0044b24d6825e52800e30ee61b78a2a5c23ba3bcc",
+        "meshing.py": "9086946bc7c652027322ca812ff8c259d75e4fba3b2ffa0212f447f3291696c7",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "7e3519ec543d8a5ac6c62d996a1b6db7c64a7acd67bf7fb6a871e6a44674a6e0",
+        "spike-full-shirt.py": "8d635145b6a21d6888106630eca5ee8481ae76fe70a0ff5fc22a629b9300f73e"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "instances": 24,
+      "vertices": 3802,
+      "triangles": 6360,
+      "constraints": 284,
+      "steps": 120,
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.10848126140082785,
+      "edgeRatioMax": 238.54070864892793,
+      "seamGapMaxMm": 1293.1708984375,
+      "seamGapP95Mm": 888.6400268554689,
+      "maxSpeedMetersPerSecond": 0.8160098791122437,
+      "wallSeconds": 126.13939180099987,
+      "peakRssKiB": 751608,
+      "limitations": [
+        "Radial rigid staging is a numerical stress fixture, not garment placement.",
+        "Source-order anchors deliberately do not establish validated seam direction.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "06fe5fa5e4dca8c884dac0f96d63ddf3b9e2311f0c3f5df8b0682c0c8eb54972"
+    },
+    "staged_mirrored": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "spike-full-shirt.py": "f182def2379a90d243d0c6d72ba530623416145dea9b68d60a410ab0fda4cc76",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "instances": 24,
+      "vertices": 3802,
+      "triangles": 6360,
+      "constraints": 284,
+      "steps": 120,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.07255910472436385,
+      "edgeRatioMax": 164.7072676073233,
+      "seamGapMaxMm": 456.10968017578125,
+      "seamGapP95Mm": 236.4975799560548,
+      "maxSpeedMetersPerSecond": 0.47876933217048645,
+      "wallSeconds": 170.839054605,
+      "peakRssKiB": 752140,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "f67ae533ccd37f5b1650d8225b883b21c3b719d721916446b6f89c8816000028",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    }
+  }
+}

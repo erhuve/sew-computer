@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import { LoaderCircle, Sparkles } from 'lucide-react';
 import { canonical, type GarmentDocument, type Measurement } from '../../../../packages/contracts';
-import type { DesignProposal, InterpretationStatus } from '../../../../packages/contracts/interpretation';
+import type { DesignProposal, InterpretationStatus, InterpretationJob } from '../../../../packages/contracts/interpretation';
 import GarmentDesign from './GarmentDesign';
 
 const measurement=(value:Measurement)=>'value' in value?`${value.value} ${value.unit} (${value.state})`:value.state;
-export default function DesignAssistant({doc,status,proposal,busy,stale,onPropose,onAccept,onMeasurements}:{
+export default function DesignAssistant({doc,status,proposal,busy,stale,onPropose,onAccept,onMeasurements,job,onCancel}:{
   doc:GarmentDocument;status:InterpretationStatus|null;proposal:DesignProposal|null;busy:boolean;stale:boolean;
+  job:InterpretationJob|null;onCancel:()=>void;
   onPropose:(includeReferences:boolean)=>void;onAccept:()=>void;onMeasurements:()=>void;
 }) {
   const [consent,setConsent]=useState(false),[images,setImages]=useState(false);
   const missing=Object.entries(doc.body).filter(([,value])=>!('value' in value)).map(([name])=>name);
   const needsPatternSupport = !proposal && !!doc.interpretation && doc.garment.family === 'none';
+  const interpreting=job?.status==='queued'||job?.status==='running';
   return <section className="design-assistant" aria-label="Design assistant">
     <div className="assistant-heading"><Sparkles size={18}/><strong>From idea to pattern</strong></div>
+    {interpreting&&<div role="status"><p>{job.status==='queued'?'Design interpretation queued.':'Interpreting your design…'} You can continue editing or reopen this project later. Changed drafts require a fresh proposal before acceptance.</p><button disabled={busy} onClick={onCancel}>Cancel interpretation</button></div>}
+    {job?.status==='failed'&&<p role="alert">{job.error}</p>}
+    {job?.status==='cancelled'&&<p role="status">Interpretation cancelled. Your draft is unchanged.</p>}
     {proposal?<>
       <p>{proposal.summary}</p>
       <GarmentDesign doc={proposal.document}/>
@@ -45,9 +50,10 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
     <details open={!proposal && !needsPatternSupport}>
       <summary>{proposal?'Request another proposal':'AI input & privacy'}</summary>
       <p className="fineprint">{status?.available?`${status.provider} · ${status.model}`:'The server’s design model is not connected yet.'} Sends your brief and design notes. Body fields and size label are excluded; personal information typed into your brief will still be sent. One request, two-minute timeout, 12 requests/hour. {status?.maxOutputTokens?'Up to 6,000 output tokens; provider charges may apply.':'Uses your Codex allowance; 32 KB answer limit. No provider-side token or cost cap is available on this connection.'}</p>
+      <p className="fineprint">If the server restarts during a request, it may retry once. Up to two model attempts may count toward provider usage.</p>
       <label className="check-field"><input type="checkbox" checked={images} disabled={busy||doc.views.length===0||doc.views.length>3} onChange={event=>setImages(event.target.checked)}/>Include my reference images ({doc.views.length}/3 maximum)</label>
       <label className="check-field"><input type="checkbox" checked={consent} disabled={busy} onChange={event=>setConsent(event.target.checked)}/>Send these inputs to the design model</label>
-      <button className="primary" disabled={busy||!consent||!status?.available||!doc.brief.trim()} onClick={()=>onPropose(images)}>{busy?<LoaderCircle size={16} className="spin"/>:<Sparkles size={16}/>} {busy?'Working…':'Interpret my design'}</button>
+      <button className="primary" disabled={busy||interpreting||!consent||!status?.available||!doc.brief.trim()} onClick={()=>onPropose(images)}>{busy||interpreting?<LoaderCircle size={16} className="spin"/>:<Sparkles size={16}/>} {busy||interpreting?'Working…':'Interpret my design'}</button>
     </details>
     {doc.garment.family!=='none'&&<button disabled={busy} onClick={onMeasurements}>{missing.length?`Add ${missing.length} body measurements`:'Review measurements & generate'}</button>}
   </section>;

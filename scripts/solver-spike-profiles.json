@@ -1,0 +1,15 @@
+{
+  "refined-gather-v1": {
+    "scope": "Synthetic two-panel 1.5 gather, 90 vertices, 128 triangles, five sparse registration anchors; not a garment or material validation profile",
+    "frozenAfter": "480 steps at 1/240 second measured before timestep and translated holdout runs",
+    "maxSeamResidualMm": 0.3,
+    "minEdgeStretch": 0.995,
+    "maxEdgeStretch": 1.005,
+    "minAreaRatio": 0.995,
+    "maxAreaRatio": 1.005,
+    "maxArcLengthRelativeError": 0.001,
+    "maxNonadjacentSurfaceIntersections": 0,
+    "maxCollapsedTriangles": 0,
+    "restTensorUnchanged": true
+  }
+}

@@ -3,6 +3,7 @@ import { interpretationFixture } from '../../packages/test-fixtures/interpretati
 import { shirtDocument } from '../../packages/test-fixtures/shirt';
 const model=Bun.serve({hostname:'127.0.0.1',port:0,fetch:async request=>{
   const body = await request.text();
+  if(body.includes('slow-interpretation-fixture'))await new Promise(resolve=>setTimeout(resolve,6000));
   const result = structuredClone(interpretationFixture);
   if (body.includes('complete-shirt-fixture')) {
     const shirt=shirtDocument();

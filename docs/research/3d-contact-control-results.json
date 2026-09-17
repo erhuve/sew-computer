@@ -1,0 +1,435 @@
+{
+  "date": "2026-09-17",
+  "scope": "Isolated unsewn front-panel controls; no accepted assembly or drape",
+  "reports": {
+    "front-contact-control": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "spike-full-shirt.py": "36ccaa57343898dfa90b8a1ff27e4dbd1a02fd3fc6a1b447fbee7ba2765375ba",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": true,
+      "instances": 1,
+      "vertices": 606,
+      "triangles": 1056,
+      "constraints": 0,
+      "steps": 30,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9474657271262975,
+      "edgeRatioMax": 1.1508856247501495,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 5.012062568599267,
+      "maxSpeedMetersPerSecond": 0.2073625922203064,
+      "wallSeconds": 16.946927733999985,
+      "peakRssKiB": 734308,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "0daaca1ab5ad6c083eebae7c3bc01c6bd10906dc1d65e4a79e8315606955bb99",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    },
+    "front-no-contact-control": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "spike-full-shirt.py": "36ccaa57343898dfa90b8a1ff27e4dbd1a02fd3fc6a1b447fbee7ba2765375ba",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": false,
+      "instances": 1,
+      "vertices": 606,
+      "triangles": 1056,
+      "constraints": 0,
+      "steps": 30,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9997795319597002,
+      "edgeRatioMax": 1.0001444374976665,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 0.0014027705367431818,
+      "maxSpeedMetersPerSecond": 5.810764560010284e-05,
+      "wallSeconds": 8.68733829200005,
+      "peakRssKiB": 718128,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "892803093912d63eb467225cd1985223da61511b4492b070f475b333968b5b79",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    },
+    "front-filtered-control": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "spike-full-shirt.py": "056c25bc14235199fb6178ec507582bd77b6234ac723de1da16e2c193234f679",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "solver_contact_filters.py": "2a0b73ed20fd09146e779affa460094cf1b837b233445da6f2df3e54fffb4f9d"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": true,
+      "contactFilterReport": {
+        "profile": "same-instance-rest-edge-geodesic-v1",
+        "marginMeters": 0.003,
+        "searchVisits": 1454,
+        "vertexTriangleEntries": 5830,
+        "directedEdgeEdgeEntries": 31374,
+        "limitations": [
+          "Research-only endpoint-neighborhood exclusions, not contact acceptance.",
+          "Uses immutable rest-mesh edge paths; may retain close primitive interiors.",
+          "Excludes only same-instance local neighborhoods; separate layers remain contact candidates."
+        ]
+      },
+      "instances": 1,
+      "vertices": 606,
+      "triangles": 1056,
+      "constraints": 0,
+      "steps": 30,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9928748446285721,
+      "edgeRatioMax": 1.0178519114174662,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 0.9370010271837823,
+      "maxSpeedMetersPerSecond": 0.012001684866845608,
+      "wallSeconds": 14.715030786,
+      "peakRssKiB": 736928,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "f04ab45730415be49fcd14cb6c4d7fa2d54a1140c88ca2fc7486f16bda360340",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    },
+    "front-filtered-v2-control": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "44b60caebf1b487bf7f70fa5e8bc98d22333c49b79ac2943d3f8c53cac87d345",
+        "solver_contact_filters.py": "d9b6058a8689febf3ef0e5105e5cfc35a9c4d9687a29fc0474493df69b97c1fe"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": true,
+      "contactFilterReport": {
+        "profile": "same-instance-whole-primitive-rest-geodesic-v2",
+        "marginMeters": 0.003,
+        "searchVisits": 1454,
+        "candidateChecks": 19436,
+        "vertexTriangleEntries": 0,
+        "directedEdgeEdgeEntries": 316,
+        "limitations": [
+          "Research-only whole-primitive neighborhood exclusions, not dynamic contact acceptance.",
+          "Uses immutable rest-mesh edge paths; may retain close primitive interiors.",
+          "Excludes only same-instance local neighborhoods; separate layers remain contact candidates."
+        ]
+      },
+      "instances": 1,
+      "vertices": 606,
+      "triangles": 1056,
+      "constraints": 0,
+      "steps": 30,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9481264871653969,
+      "edgeRatioMax": 1.147316935857693,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 4.797690714751224,
+      "maxSpeedMetersPerSecond": 0.23624618351459503,
+      "wallSeconds": 17.040969664999977,
+      "peakRssKiB": 733952,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "4ce4d7b2e26790083ad2ae855c5f3a403a68305f7fd3934a6510c515efd6c306",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    },
+    "final-front-contact": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "44b60caebf1b487bf7f70fa5e8bc98d22333c49b79ac2943d3f8c53cac87d345"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": true,
+      "contactFilterReport": null,
+      "instances": 1,
+      "vertices": 606,
+      "triangles": 1056,
+      "constraints": 0,
+      "steps": 30,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9474657271262975,
+      "edgeRatioMax": 1.1508856247501495,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 5.012062568599267,
+      "maxSpeedMetersPerSecond": 0.2073625922203064,
+      "wallSeconds": 16.881342897999957,
+      "peakRssKiB": 733564,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "fb35b3d421179ab2dd75588a523cf29073d7e14803b9c8a5ad860739f2da6d4b",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    },
+    "final-front-no-contact": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "44b60caebf1b487bf7f70fa5e8bc98d22333c49b79ac2943d3f8c53cac87d345"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": false,
+      "contactFilterReport": null,
+      "instances": 1,
+      "vertices": 606,
+      "triangles": 1056,
+      "constraints": 0,
+      "steps": 30,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9997795319597002,
+      "edgeRatioMax": 1.0001444374976665,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 0.0014027705367431818,
+      "maxSpeedMetersPerSecond": 5.810764560010284e-05,
+      "wallSeconds": 8.694654040000046,
+      "peakRssKiB": 718156,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "a17625bcd90ef55866208b15389fb28a43c3b9b37121a44c60c62cd2a173adb0",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    },
+    "final-front-filtered": {
+      "classification": "rejected-experimental-assembly",
+      "accepted": false,
+      "patternDigest": "cfe6c71b30441a67e261fc597cf15778492a315d4f374c5dd93f1cc435928576",
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "592313017da29066b8bc024111894f6c3ef6cb723cd22ea6ab8a4f64e3c1ff73",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "d31b9a34ef68a4ec549d0b2dd100b40aed4560be6ce5f7a4106db76a7d6de029",
+        "spike-full-shirt.py": "44b60caebf1b487bf7f70fa5e8bc98d22333c49b79ac2943d3f8c53cac87d345",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2"
+      },
+      "fixture": "front-panel",
+      "selectedInstanceIds": [
+        "front_left:shell"
+      ],
+      "sewingEnabled": false,
+      "contactEnabled": true,
+      "contactFilterReport": {
+        "profile": "same-instance-whole-primitive-rest-geodesic-v2",
+        "marginMeters": 0.003,
+        "searchVisits": 1454,
+        "candidateChecks": 15269,
+        "vertexTriangleEntries": 0,
+        "directedEdgeEdgeEntries": 316,
+        "limitations": [
+          "Research-only whole-primitive neighborhood exclusions, not dynamic contact acceptance.",
+          "Uses immutable rest-mesh edge paths; may retain close primitive interiors.",
+          "Excludes only same-instance local neighborhoods; separate layers remain contact candidates."
+        ]
+      },
+      "instances": 1,
+      "vertices": 606,
+      "triangles": 1056,
+      "constraints": 0,
+      "steps": 30,
+      "qualityRefinement": false,
+      "placementRecipe": "sew-shirt-rigid-staging/1",
+      "finite": true,
+      "restTensorsUnchanged": true,
+      "edgeRatioMin": 0.9481264871653969,
+      "edgeRatioMax": 1.147316935857693,
+      "seamGapMaxMm": null,
+      "seamGapP95Mm": null,
+      "maxDisplacementMm": 4.797690714751224,
+      "maxSpeedMetersPerSecond": 0.23624618351459503,
+      "wallSeconds": 16.90664439300008,
+      "peakRssKiB": 733192,
+      "limitations": [
+        "Rigid staging is unvalidated; no collision-free placement claim.",
+        "Registration directions are experimental, not validated seam semantics.",
+        "Localized button constraints, binding wraps, layer turning and interfacing are not implemented.",
+        "No body, gravity, calibrated material, collision oracle or convergence acceptance."
+      ],
+      "originalReportSha256": "f797432527cb03a3a4685c4a3c929c2dfcd30a5c82dc2837b8ca248f53a02cc0",
+      "placementRecipeDigest": "cba840f6963a63dd4e81278d620cd2a2329cb57cff775a458df144b97c4245ae"
+    }
+  },
+  "historicalRejectedProfile": "same-instance-rest-edge-geodesic-v1: nearby endpoints could exempt distant primitive interiors",
+  "failures": [
+    {
+      "run": "front-quality-v2-control",
+      "stage": "contact-filter-construction",
+      "accepted": false,
+      "reason": "Rest-neighbor candidate check budget exceeded",
+      "candidateLimit": 4000000,
+      "vertices": 3225,
+      "triangles": 6260,
+      "solverStepsCompleted": 0,
+      "logSha256": "b3171511ff83f76551a909b776954dad010654487eb4c78b15b6940f2d733d7d"
+    },
+    {
+      "run": "final-front-quality",
+      "stage": "contact-filter-construction",
+      "accepted": false,
+      "reason": "Rest-neighbor candidate check budget exceeded",
+      "candidateLimit": 4000000,
+      "vertices": 3225,
+      "triangles": 6260,
+      "solverStepsCompleted": 0,
+      "logSha256": "1444efda30226129a8499b993a678486a112866b42e10b9a4b1d5c59524c7659"
+    }
+  ],
+  "finalFailureSourceDigests": {
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "spike-full-shirt.py": "44b60caebf1b487bf7f70fa5e8bc98d22333c49b79ac2943d3f8c53cac87d345"
+  }
+}

@@ -27,11 +27,12 @@ import {
 } from "../../../../packages/contracts";
 import Authoring from "../components/Authoring";
 import PatternCanvas from "../components/PatternCanvas";
+import Garment3D from "../components/Garment3D";
 import GarmentDesign from "../components/GarmentDesign";
 import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
 import PrivateImage from "../components/PrivateImage";
 import DesignAssistant from "../components/DesignAssistant";
-import { rebaseAcceptedDesign, type DesignProposal, type InterpretationStatus } from "../../../../packages/contracts/interpretation";
+import { rebaseAcceptedDesign, type DesignProposal, type InterpretationStatus, type InterpretationJob } from "../../../../packages/contracts/interpretation";
 import "../studio.css";
 
 const sections = [
@@ -47,6 +48,8 @@ const same = (a: unknown, b: unknown) => canonical(a) === canonical(b);
 export default function Studio() {
   const [showDetails, setShowDetails] = useState(false);
   const [aiStatus,setAiStatus]=useState<InterpretationStatus|null>(null),[proposal,setProposal]=useState<DesignProposal|null>(null);
+  const [interpretationJob,setInterpretationJob]=useState<InterpretationJob|null>(null);
+  const interpretationSubmission=useRef<{key:string;requestId:string}|null>(null);
   const [authenticated, setAuthenticated] = useState<boolean | null>(null),
     [key, setKey] = useState(""),
     [projects, setProjects] = useState<Project[]>([]),
@@ -167,15 +170,36 @@ export default function Studio() {
     setGeometry(null);
     setNotice("");
     setProposal(null);
+    setInterpretationJob(null);
     setSection(next.draft.document.garment.family === 'none' ? 'idea' : 'shape');
     setView(next.artifacts.some(artifact=>artifact.kind==='pattern-json' && artifact.revisionId === next.project.headRevisionId)?'pattern':'design');
   };
   useEffect(()=>{
-    if(!state)return;
+    if(!authenticated||!state)return;
+    const projectId=state.project.id;
     let active=true;
-    api<DesignProposal|null>(`/projects/${state.project.id}/proposals/latest`).then(value=>{if(active){setProposal(value);if(value){setSection('idea');setView('design');}}}).catch(fail);
-    return ()=>{active=false;};
-  },[state?.project.id]);
+    let inFlight=false;
+    let nextPollAt=0;
+    let initial=true;
+    const poll=async()=>{
+      if(inFlight)return;
+      inFlight=true;
+      try {
+        const job=await api<InterpretationJob|null>(`/projects/${projectId}/interpretations/latest`);
+        if(!active)return;
+        setInterpretationJob(job);
+        if(!job||job.status==='succeeded') {
+          const result=await api<DesignProposal|null>(`/projects/${projectId}/proposals/latest`);
+          if(active){setProposal(result);if(initial&&result){setSection('idea');setView('design');}}
+        } else setProposal(null);
+        initial=false;
+        nextPollAt=Date.now()+(!job||!['queued','running'].includes(job.status)?10000:0);
+      } catch(error) {if(active)fail(error);} finally {inFlight=false;}
+    };
+    void poll();
+    const timer=setInterval(()=>{if(Date.now()>=nextPollAt)void poll();},1500);
+    return ()=>{active=false;clearInterval(timer);};
+  },[authenticated,state?.project.id,interpretationJob?.id]);
   const load = async (id: string) => {
     if (
       dirty &&
@@ -325,8 +349,11 @@ export default function Studio() {
     const epoch=sessionEpoch.current,projectId=current.current.state?.project.id;
     const draft=await save();
     if(!draft||!projectId)return;
-    const result=await api<DesignProposal>(`/projects/${projectId}/proposals`,json('POST',{expectedVersion:draft.version,expectedRevisionId:draft.baseRevisionId,includeReferences,consent:true}));
-    if(epoch===sessionEpoch.current&&current.current.state?.project.id===projectId)setProposal(result);
+    const key=JSON.stringify([projectId,draft.version,draft.baseRevisionId,includeReferences]);
+    if(interpretationSubmission.current?.key!==key)interpretationSubmission.current={key,requestId:crypto.randomUUID()};
+    const result=await api<InterpretationJob>(`/projects/${projectId}/proposals`,json('POST',{requestId:interpretationSubmission.current.requestId,expectedVersion:draft.version,expectedRevisionId:draft.baseRevisionId,includeReferences,consent:true}));
+    interpretationSubmission.current=null;
+    if(epoch===sessionEpoch.current&&current.current.state?.project.id===projectId){setInterpretationJob(result);setProposal(null);}
   }
   async function acceptProposal() {
     if(!proposal||!state||dirty)return;
@@ -386,6 +413,8 @@ export default function Studio() {
                 setAuthenticated(false);
                 setState(null);
                 setDoc(null);
+                setProposal(null);
+                setInterpretationJob(null);
               })
             }
           >
@@ -632,6 +661,7 @@ export default function Studio() {
                   <Image size={16} />
                   Idea & references
                 </button>
+                <button role="tab" aria-label="3D inspection" aria-selected={view === '3d'} onClick={() => setView('3d')}><Layers3 size={16}/>3D</button>
               </div>
               {pending && (
                 <div className="job-progress" role="status">
@@ -687,7 +717,7 @@ export default function Studio() {
                     . Save & generate to update them.
                   </div>
                 )}
-              {view === 'design' ? <><GarmentDesign doc={doc} onChange={busy||conflict ? undefined : change}/><DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict}
+              {view === 'design' ? <><GarmentDesign doc={doc} onChange={busy||conflict ? undefined : change}/><DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict} job={interpretationJob} onCancel={()=>task(async()=>{if(interpretationJob)setInterpretationJob(await api<InterpretationJob>(`/projects/${state.project.id}/interpretations/${interpretationJob.id}/cancel`,json('POST',{})));})}
                 stale={!!proposal&&(dirty||proposal.baseVersion!==state.draft.version||proposal.baseRevisionId!==state.draft.baseRevisionId)}
                 onPropose={images=>task(()=>propose(images))} onAccept={()=>task(acceptProposal)} onMeasurements={()=>setSection('shape')}/></> : view === "pattern" ? (
                 <PatternCanvas
@@ -695,6 +725,8 @@ export default function Studio() {
                   selected={selected}
                   onSelect={setSelected}
                 />
+              ) : view === '3d' ? (
+                <Garment3D key={`${state.project.id}:${state.project.headRevisionId}`} projectId={state.project.id} revisionId={state.project.headRevisionId} supported={!!geometry?.drafting} selected={selected} onSelect={setSelected} onAuthFailure={fail}/>
               ) : (
                 <div className="reference-board">
                   {references.length ? (

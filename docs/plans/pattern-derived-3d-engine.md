@@ -1,6 +1,26 @@
 # Pattern-derived 3D engine implementation plan
 
-**2026-09-16 · Active dedicated workstream plan · Implementation pending**
+**2026-09-17 · Active dedicated workstream plan · Implementation in progress, not deployed**
+
+## Execution status
+
+The isolated implementation checkout contains durable asynchronous interpretation (J0), a physical-inventory compiler, constrained source-preserving meshes, edge/source correspondences, mirrored fabric instances and self-contained GLB placement derivatives. Private inspection jobs now connect those derivatives to an interactive source-linked viewport. The assembly graph records physical seam memberships, localized closures, free boundaries, dependencies and unsupported operation semantics. These foundations do **not** complete E1/E2: full solver-quality acceptance, executable turning/binding/orientation, fold/holes support and validated assembly remain open. No assembled garment or simulated drape is exposed in the application.
+
+The inspection integration is a separately labeled intermediate capability. It does not satisfy the E3/E4 complete-shirt acceptance criteria. Schema-5 inspection jobs use independent leases, immutable pattern/runtime capture, checked private artifact installation, deletion/recovery cleanup and default exclusion from all exports. The viewport provides rotation, zoom, source selection shared with 2D, explicit placement-only classification, outdated-source warnings and WebGL fallback. [Independent review](../reviews/3d-inspection.md) records its narrower scope and checks.
+
+The original full shirt has 18 templates, 24 shell/facing fabric instances and six unresolved interfacing roles. The independent fixture ledger is `packages/test-fixtures/assembly-expected.json`. Tail geometry is integral to the back pieces. The compiler binds the exact pattern bytes and explicit construction to digests, keeps seam-line geometry unchanged and reports omitted allowances and assembly capabilities. It rejects missing selected pieces rather than adapting construction to the remaining inventory.
+
+E0 evaluates an independently licensed CPU solver after finding the upstream optional Warp fork restricted to non-commercial research. The [feasibility evidence](../research/3d-solver-feasibility.md) records executed fixtures and remaining gates. The [foundation adversarial review](../reviews/3d-engine-foundation.md) records verified fixes and the narrower reviewed implementation scope. Neither is release or full-engine approval.
+
+J0 introduces separately fenced interpretation jobs and prompt HTTP 202 acknowledgement. Reload/polling, cancellation, captured-input conflicts and one bounded interrupted-attempt retry preserve existing geometry jobs. The combined implementation uses schema 5, extending schema 4 with independent inspection records; rollback must retain a schema-5-capable binary. Production data is untouched by isolated checks.
+
+Integration verification, 2026-09-17: **104 application tests and 26 engine cases passed** in full runs. **23 browser cases passed** across the full run and focused reruns after fixing a mobile tab-layout regression. Both new 3D browser cases passed again against the final build, covering real private installation, reload/transient failure recovery, linked selection, unchanged exports, mobile layout, deletion cleanup, WebGL-unavailable fallback and context-loss recovery. Typecheck, build, documentation and whitespace checks passed. Numerical experiments and their independent reviews are recorded separately; these application checks do not validate assembled drape.
+
+Next gate: close solver feasibility on the complete source-derived shirt, including quality meshing, executable assembly semantics and accepted material/placement profiles. Only after those gates should assembled inspection and drape be enabled. The integrated flat GLB must not substitute for these milestones. Retain failed full-shirt experiments and unchanged numerical acceptance criteria; successful rendering cannot promote them.
+
+Continuation, 2026-09-17: a separate cut-domain mesher now retains the actual allowance fabric and source-derived interior stitch paths, with independent topology/source/path validation. All 18 shirt templates are covered by its synthetic fixture. Paths use triangle embeddings, so a weighted solver adapter is still required; a nearest-vertex weld is not a valid substitute. Adversarial review rejected concavity-crossing source supports and inverted topology. Contact controls isolate instability on an unsewn front panel, and a narrowly scoped exclusion map retains separate-layer contact response. Neither experiment closes E0 or provides executable full-shirt sewing. The [cloth/contact review](../reviews/3d-cloth-contact.md) and [control ledger](../research/3d-contact-control-results.json) retain the measured scope.
+
+Latest regression verification: **104 application tests, 28 engine cases across the full and focused runs, and all 23 browser cases passed**. The new engine cases execute six allowance/path tests and the rigid-placement regression. Seven separate contact-research tests pass, including a one-step layer-response control. Typecheck and build pass. Full-shirt simulation remains rejected; the quality-refined contact trial exceeds its resource budget. These checks support committing the foundations, not deploying an assembled garment engine.
 
 ## Authority, scope and document ownership
 

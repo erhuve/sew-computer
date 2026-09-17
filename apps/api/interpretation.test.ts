@@ -108,7 +108,7 @@ test('version-one databases migrate without changing owner drafts',()=>{
   fixture.store.db.exec('DROP TABLE ai_proposals; DROP TABLE ai_requests; PRAGMA user_version=1;');
   fixture.store.close();
   const migrated=new Store(root,'test-key');stores.push(migrated);
-  expect(migrated.db.query('PRAGMA user_version').get()).toEqual({user_version:3});
+  expect(migrated.db.query('PRAGMA user_version').get()).toEqual({user_version:5});
   expect(migrated.draft(fixture.project.id)).toEqual(fixture.draft);
 });
 test('AI provenance survives PDF/manifest export and is not editable through manifest import',async()=>{

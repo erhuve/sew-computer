@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "authorship": "Independent source-instruction audit; not produced by the assembly compiler",
+  "sourceCompiler": "sew-relaxed-shirt/1",
+  "scope": "Physical inventory and construction obligations, not a solver or physical-fit certification",
+  "fullShirt": {
+    "templateCount": 18,
+    "fabricInstanceCount": 24,
+    "interfacingRoleCount": 6,
+    "templates": [
+      {"id":"front_left","roles":["shell"],"hand":"left"},
+      {"id":"front_right","roles":["shell"],"hand":"right"},
+      {"id":"back_left","roles":["shell"],"hand":"left"},
+      {"id":"back_right","roles":["shell"],"hand":"right"},
+      {"id":"placket_left","roles":["shell","facing"],"hand":"left","interfacing":true},
+      {"id":"placket_right","roles":["shell","facing"],"hand":"right","interfacing":true},
+      {"id":"frill_left","roles":["shell"],"hand":"left"},
+      {"id":"frill_right","roles":["shell"],"hand":"right"},
+      {"id":"sleeve_left","roles":["shell"],"hand":"left"},
+      {"id":"sleeve_right","roles":["shell"],"hand":"right"},
+      {"id":"cuff_left","roles":["shell","facing"],"hand":"left","interfacing":true},
+      {"id":"cuff_right","roles":["shell","facing"],"hand":"right","interfacing":true},
+      {"id":"opening_binding_left_left","roles":["shell"],"hand":"left"},
+      {"id":"opening_binding_left_right","roles":["shell"],"hand":"left"},
+      {"id":"opening_binding_right_left","roles":["shell"],"hand":"right"},
+      {"id":"opening_binding_right_right","roles":["shell"],"hand":"right"},
+      {"id":"collar_stand","roles":["shell","facing"],"hand":"center","interfacing":true},
+      {"id":"collar_fall","roles":["shell","facing"],"hand":"center","interfacing":true}
+    ],
+    "mirroring": "Each named left/right template yields only its declared physical layers; opposing sides are mirrored once. Layer count is not a mirrored-pair count. Collar shell and facing share one template.",
+    "interfacing": "Six required interfacing roles have no independently dimensioned cut contour. Must explicitly report unsupported or assumed effective-material treatment until resolved; never silently count these as six fully modeled cloth instances.",
+    "integralFeatures": {"tails":["back_left","back_right"]},
+    "selfSeams": ["underarm_left","underarm_right"],
+    "multiwayAttachments": [
+      {"id":"left_front_attachment","participants":["front_left:shell","placket_left:shell","placket_left:facing","frill_left:shell"]},
+      {"id":"right_front_attachment","participants":["front_right:shell","placket_right:shell","placket_right:facing","frill_right:shell"]}
+    ],
+    "gathers": [
+      {"longTemplate":"frill_left","longEdge":"right","shortTemplate":"placket_left","shortEdge":"right"},
+      {"longTemplate":"frill_right","longEdge":"right","shortTemplate":"placket_right","shortEdge":"right"},
+      {"longTemplate":"sleeve_left","longEdge":"wrist","shortTemplate":"cuff_left","shortEdge":"attachment"},
+      {"longTemplate":"sleeve_right","longEdge":"wrist","shortTemplate":"cuff_right","shortEdge":"attachment"}
+    ],
+    "closureObligations": [
+      "Pair front button marks with opposite buttonhole marks; right placket overlaps left by one placket width. Do not weld front boundaries.",
+      "One localized closure for each cuff; 20 mm extension remains free from the sleeve attachment.",
+      "One localized stand closure; fall does not extend to stand ends."
+    ],
+    "layerObligations": [
+      "Join and turn collar fall free edges before sandwiching both layers into stand shell/facing.",
+      "Stand neckline attachments include four torso neck edges and both placket tops, with explicit layers.",
+      "Cuff and placket shell/facing layers require perimeter and turning operations beyond template attachment pairs.",
+      "Bind each of four sleeve opening edges separately; wrap/fold path remains underdefined in legacy source and must be resolved or explicitly unsupported."
+    ],
+    "freeBoundaryObligations": [
+      "Four body hems remain garment boundaries; curved tails are not attached to another piece.",
+      "Frill ends and free long edges are finished, not joined to torso or opposite frill.",
+      "Cuff openings remain open beyond underarm seam endpoints.",
+      "No cut-on-fold templates occur in this compiler."
+    ],
+    "orderingObligations": [
+      ["interface_layers","close_layered_pieces"],
+      ["gather_frills","close_placket_facings"],
+      ["attach_plackets","attach_collar_stand"],
+      ["turn_collar_fall","attach_collar_fall"],
+      ["attach_flat_sleeves","close_underarms"],
+      ["bind_sleeve_openings","attach_cuffs"],
+      ["attach_cuffs","close_cuff_facings"]
+    ]
+  },
+  "variants": [
+    {"id":"plain_sleeveless_pullover","selection":{"opening":"none","sleeves":"none","cuff":"none","collar":"none","frill":"none","hem":"straight"},"templates":["front_left","front_right","back_left","back_right"],"fabricInstanceCount":4,"interfacingRoleCount":0,"additionalSeam":"center_front","freeBoundaries":["hem","neck","armhole"]},
+    {"id":"sleeved_pullover","selection":{"opening":"none","sleeves":"long","cuff":"none","collar":"none","frill":"none","hem":"straight"},"templates":["front_left","front_right","back_left","back_right","sleeve_left","sleeve_right"],"fabricInstanceCount":6,"interfacingRoleCount":0,"additionalSeam":"center_front","freeBoundaries":["hem","neck","wrist"]},
+    {"id":"full_without_frills","omitTemplates":["frill_left","frill_right"],"templateCount":16,"fabricInstanceCount":22,"interfacingRoleCount":6},
+    {"id":"full_without_cuffs","omitTemplates":["cuff_left","cuff_right","opening_binding_left_left","opening_binding_left_right","opening_binding_right_left","opening_binding_right_right"],"templateCount":12,"fabricInstanceCount":16,"interfacingRoleCount":4,"freeBoundaries":["sleeve_left:wrist","sleeve_right:wrist"]},
+    {"id":"full_stand_only","omitTemplates":["collar_fall"],"templateCount":17,"fabricInstanceCount":22,"interfacingRoleCount":5},
+    {"id":"full_without_collar","omitTemplates":["collar_stand","collar_fall"],"templateCount":16,"fabricInstanceCount":20,"interfacingRoleCount":4},
+    {"id":"full_straight_hem","omitTemplates":[],"templateCount":18,"fabricInstanceCount":24,"interfacingRoleCount":6,"note":"Tail change modifies source back contours, never fabric instance count."}
+  ]
+}
