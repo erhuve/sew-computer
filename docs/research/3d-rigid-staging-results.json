@@ -1,0 +1,446 @@
+{
+  "date": "2026-09-18",
+  "accepted": false,
+  "scope": "Offline rigid initialization and rejected full-shirt contact dynamics; no assembled garment or drape acceptance",
+  "staging": {
+    "classification": "experimental-contact-placement-preflight",
+    "accepted": false,
+    "contactAdmissible": true,
+    "rejection": null,
+    "vertices": 2244,
+    "triangles": 3512,
+    "contactProfile": {
+      "adapter": "experimental-ipc-surface-contact-v2",
+      "ipctk": "1.6.0",
+      "activationDistanceM": 0.001,
+      "minimumDistanceM": 0.0001,
+      "stiffness": 100000000,
+      "physicalBarrier": false,
+      "seamExclusions": false,
+      "accepted": false,
+      "ccd": {
+        "method": "TightInclusionCCD",
+        "tolerance": 0.000001,
+        "maxIterations": 10000,
+        "conservativeRescaling": 0.8,
+        "requiresExternalProcessBudget": true
+      }
+    },
+    "independentSurfaceOracle": {
+      "intersectingPairCount": 0,
+      "testedCandidates": 3772,
+      "broadPhaseCandidates": 6629345,
+      "intersectingPairs": [],
+      "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+    },
+    "toolkitHasIntersections": false,
+    "minimumActiveCandidateDistanceM": 0.00013823759643464057,
+    "distanceScope": "Minimum over toolkit active candidates only; null means no active candidates, not infinite global clearance.",
+    "limitations": [
+      "Placement admission only, not assembled geometry, material calibration or drape acceptance.",
+      "No seam exclusions; a zero-distance sewing target is incompatible with positive separation at that target.",
+      "Topologically adjacent contact, turning, layer order and continuous motion are not certified by this preflight."
+    ],
+    "rigidStaging": {
+      "recipe": "experimental-minimum-translation-staging-v1",
+      "accepted": false,
+      "clearanceM": 0.002,
+      "minimumSeparatingPlaneGapM": 0.002000001999999945,
+      "maxTranslationM": 0.06338146055519996,
+      "maxEdgeVectorErrorM": 2.7755575615628914e-17,
+      "pairCount": 276,
+      "translationsM": {
+        "back_left:shell": [
+          0.004242641394226094,
+          -0.004242641394226096,
+          -1.188383807587495e-19
+        ],
+        "back_right:shell": [
+          -0.010517048149766344,
+          -0.0020317653613141557,
+          -5.69107033059374e-20
+        ],
+        "collar_fall:shell": [
+          0,
+          -0.002000003000000002,
+          0.0002499990000000203
+        ],
+        "collar_fall:facing": [
+          0,
+          1.0000000007925106e-9,
+          0.000249999000000031
+        ],
+        "collar_stand:shell": [
+          0,
+          -9.999999950852227e-10,
+          0
+        ],
+        "collar_stand:facing": [
+          0,
+          0.0020000029999999963,
+          0
+        ],
+        "cuff_left:shell": [
+          0,
+          0,
+          9.999999990399635e-10
+        ],
+        "cuff_left:facing": [
+          0,
+          0,
+          -9.999999990399635e-10
+        ],
+        "cuff_right:shell": [
+          0,
+          0,
+          9.999999990399633e-10
+        ],
+        "cuff_right:facing": [
+          0,
+          0,
+          -9.999999990399633e-10
+        ],
+        "frill_left:shell": [
+          0,
+          0.0013373275493252176,
+          0
+        ],
+        "frill_right:shell": [
+          0,
+          0.0033373295493252194,
+          0
+        ],
+        "front_left:shell": [
+          0.005912864469671919,
+          -0.005733750262540253,
+          -0.061750003000000026
+        ],
+        "front_right:shell": [
+          -0.0027756610919017943,
+          -0.014015790277870855,
+          -0.061750003000000026
+        ],
+        "opening_binding_left_left:shell": [
+          0,
+          0,
+          0
+        ],
+        "opening_binding_left_right:shell": [
+          0,
+          0,
+          0.029250002999999945
+        ],
+        "opening_binding_right_left:shell": [
+          0,
+          0,
+          0.02925000299999994
+        ],
+        "opening_binding_right_right:shell": [
+          0,
+          0,
+          0
+        ],
+        "placket_left:shell": [
+          0,
+          0.00333731954932524,
+          0
+        ],
+        "placket_left:facing": [
+          0,
+          0.005337323549325222,
+          0
+        ],
+        "placket_right:shell": [
+          0,
+          0.0053373215493252284,
+          0
+        ],
+        "placket_right:facing": [
+          0,
+          0.007337325549325233,
+          0
+        ],
+        "sleeve_left:shell": [
+          0.014377332563739189,
+          0,
+          0.032250001000000035
+        ],
+        "sleeve_right:shell": [
+          -0.011240129185969063,
+          0,
+          0.032250001000000084
+        ]
+      },
+      "limitations": [
+        "Static initialization only; movement from the original placement is not simulated.",
+        "Fixed separating planes can reject feasible arrangements; no global packing claim.",
+        "Layer order, turning, sewing thickness and assembly paths remain unresolved.",
+        "Cross-instance separation does not certify within-instance contact."
+      ],
+      "sourceRigidCheckPassed": true,
+      "seamGapsMm": {
+        "constraintCount": 305,
+        "beforeMax": 488.9951431251644,
+        "afterMax": 491.6316234958013,
+        "beforeP95": 337.7633988760636,
+        "afterP95": 338.58585920000024,
+        "maximumIndividualIncrease": 87.36321893157064
+      },
+      "artifactSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095"
+    },
+    "canonicalDigest": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+    "sourceDigests": {
+      "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+      "solver_ipc_contact.py": "f9b82eebc31682d6df677c1b2a72580f5a7aec74e9d14c6dc4f657f4444d0636",
+      "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+      "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+      "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+      "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a"
+    },
+    "runtime": {
+      "ipctk": "1.6.0",
+      "numpy": "2.5.3",
+      "scipy": "1.17.0"
+    },
+    "wallSeconds": 1.3753610109999954
+  },
+  "dynamics": {
+    "artifactDirectory": ".planning/solver/contact-profile-colamd-single-300-v2",
+    "accepted": false,
+    "inputSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+    "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+    "maxEvaluations": 300,
+    "ipcThreads": 1,
+    "cpuLimitSeconds": 180,
+    "sourceDigests": {
+      "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+      "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+      "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+      "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+      "solver_global_sewing.py": "d0be52f2d3b7becfb9b65b1bf75e9f375b02c9ef667267c105e576b6c4bc5372",
+      "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+      "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+      "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+      "solver_ipc_contact.py": "f9b82eebc31682d6df677c1b2a72580f5a7aec74e9d14c6dc4f657f4444d0636",
+      "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+      "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+      "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+      "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+      "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+      "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+      "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+      "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+      "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+      "run.py": "eff5f2e7577e9df2167f414c606507e1b8fbbf776094e4fb8beb91544f9108ff"
+    },
+    "wallSeconds": 103.61103974600019,
+    "cpuSeconds": 99.29,
+    "step": {
+      "converged": false,
+      "stationarityToleranceN": 0.000001,
+      "gradientInfinityNorm": 0.006159232605978726,
+      "evaluations": 300,
+      "initialEnergy": 35487.77918366468,
+      "finalEnergy": 0.18822223319453102
+    },
+    "independentFinalChecks": {
+      "intersections": 0,
+      "minimumActiveCandidateDistanceM": 0.00023216994,
+      "maxEdgeStretchRatio": 2.611754076,
+      "minEdgeStretchRatio": 0.9205019713
+    }
+  },
+  "contactDiagnosis": {
+    "reportPath": ".planning/solver/review-ipc-locality.json",
+    "reportSha256": "db59cd83e4cb348b92d8eac6cd7c860df4396fffcaf0f0d7fbdaf08e4e17a2c9",
+    "sourceSha256": {
+      ".planning/solver/review_ipc_locality.py": "9b7de59e4afa99154750298cbf91721ff6c2a6eb4ecef96ce14d31c01966ff59",
+      ".planning/solver/fold-barrier-shirt-v1/canonical.json": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      ".planning/solver/rigid-shirt-staging-v2/staged-placement.json": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+      "scripts/solver_ipc_contact.py": "f9b82eebc31682d6df677c1b2a72580f5a7aec74e9d14c6dc4f657f4444d0636",
+      ".planning/solver/newton-venv/lib/python3.12/site-packages/ipc/broad_phase/broad_phase.cpp": "9c4b3d03a077fe505228ad25c54549648773be8416170cad33df4d0d80c62cba",
+      ".planning/solver/newton-venv/lib/python3.12/site-packages/ipc/candidates/candidates.cpp": "5962d6c82dc169794403e719cec374a244ef66149f69b352b688285d1b72e21a",
+      ".planning/solver/newton-venv/lib/python3.12/site-packages/ipc/collisions/normal/normal_collisions_builder.cpp": "0146f4a528c29398808cd6060dcab9cb1dd916dad10089f4030d91ca26757cbd",
+      ".planning/solver/newton-venv/lib/python3.12/site-packages/ipc/ogc/feasible_region.cpp": "d528fd7b6fa228edd74a4a74af43a98c1d0562e7d042459ca26c2df5d7185f8d"
+    },
+    "flatRest": {
+      "energyJ": 0.20763896786697755,
+      "peakForceN": 111.94797005877481,
+      "nearestStencils": [
+        {
+          "distanceM": 0.00013823759643464057,
+          "type": "ev_collisions",
+          "vertices": [
+            463,
+            464,
+            786
+          ],
+          "allVerticesShareOneSourceTriangle": true
+        },
+        {
+          "distanceM": 0.00013823759643464057,
+          "type": "ev_collisions",
+          "vertices": [
+            67,
+            68,
+            390
+          ],
+          "allVerticesShareOneSourceTriangle": true
+        }
+      ]
+    },
+    "rejectedAdjacencyFan": {
+      "False": {
+        "energyJ": 0.00021434600198094608,
+        "peakForceN": 0.7422387972493965,
+        "collisionCounts": {
+          "vv_collisions": 0,
+          "ev_collisions": 0,
+          "ee_collisions": 1,
+          "fv_collisions": 0
+        },
+        "nearestStencils": [
+          {
+            "distanceM": 0.0004163054471218133,
+            "type": "ee_collisions",
+            "vertices": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "allVerticesShareOneSourceTriangle": false
+          }
+        ],
+        "continuousStepLimit": 0.296875
+      },
+      "True": {
+        "energyJ": 0,
+        "peakForceN": 0,
+        "collisionCounts": {
+          "vv_collisions": 0,
+          "ev_collisions": 0,
+          "ee_collisions": 0,
+          "fv_collisions": 0
+        },
+        "nearestStencils": [],
+        "continuousStepLimit": 1
+      }
+    },
+    "ogcParallelLayerDerivatives": {
+      "energyJ": 0.0009550075873437282,
+      "directions": [
+        {
+          "gradientAbsoluteErrorN": 28760.451819576912,
+          "plusEnergyJ": 0.0008720252345598303,
+          "minusEnergyJ": 0.0009295468064731769,
+          "analyticDirectionalGradientN": -0.33413709638005556,
+          "hessianRelativeError": 34754.685568589906
+        },
+        {
+          "gradientAbsoluteErrorN": 28760.60934500179,
+          "plusEnergyJ": 0.0008720255357194186,
+          "minusEnergyJ": 0.0009295466297742437,
+          "analyticDirectionalGradientN": 0.06231758925934352,
+          "hessianRelativeError": 92026.48819921855
+        },
+        {
+          "gradientAbsoluteErrorN": 28760.65178741979,
+          "plusEnergyJ": 0.0008720258568404031,
+          "minusEnergyJ": 0.0009295463474859906,
+          "analyticDirectionalGradientN": 0.40646462606775136,
+          "hessianRelativeError": 37595.99570702901
+        },
+        {
+          "gradientAbsoluteErrorN": 68954.01201321221,
+          "plusEnergyJ": 0.0009697405688552465,
+          "minusEnergyJ": 0.0008318317743980411,
+          "analyticDirectionalGradientN": 0.38521539047763087,
+          "hessianRelativeError": 178147.68315240685
+        }
+      ],
+      "minimumProjectedEigenvalue": -9.06872364188561e-13
+    },
+    "areaWeightedImprovedMaxDerivatives": {
+      "offsetLayers": {
+        "energyJ": 8.239428556995822e-9,
+        "directions": [
+          {
+            "gradientAbsoluteErrorN": 1.7093261989050118e-15,
+            "plusEnergyJ": 8.239428261260142e-9,
+            "minusEnergyJ": 8.239428852694093e-9,
+            "analyticDirectionalGradientN": -2.957169772256244e-7,
+            "hessianRelativeError": 2.747496393457011e-7
+          },
+          {
+            "gradientAbsoluteErrorN": 4.2529608984933145e-16,
+            "plusEnergyJ": 8.239427503255744e-9,
+            "minusEnergyJ": 8.239429610700701e-9,
+            "analyticDirectionalGradientN": -0.000001053722478952617,
+            "hessianRelativeError": 1.41059932591362e-7
+          },
+          {
+            "gradientAbsoluteErrorN": 3.4311060055961483e-15,
+            "plusEnergyJ": 8.239434162758515e-9,
+            "minusEnergyJ": 8.239422951211502e-9,
+            "analyticDirectionalGradientN": 0.000005605773509997705,
+            "hessianRelativeError": 2.40893659139523e-7
+          },
+          {
+            "gradientAbsoluteErrorN": 2.0543682992821624e-15,
+            "plusEnergyJ": 8.239434832797025e-9,
+            "minusEnergyJ": 8.239422281157179e-9,
+            "analyticDirectionalGradientN": 0.000006275819924916565,
+            "hessianRelativeError": 1.4682641169939908e-7
+          }
+        ],
+        "minimumProjectedEigenvalue": -0.11597981610575371
+      },
+      "sameSheetFanFold": {
+        "energyJ": 8.931083415872754e-10,
+        "directions": [
+          {
+            "gradientAbsoluteErrorN": 9.712884454517699e-17,
+            "plusEnergyJ": 8.931078262344526e-10,
+            "minusEnergyJ": 8.931088569404125e-10,
+            "analyticDirectionalGradientN": -5.153529798616431e-7,
+            "hessianRelativeError": 1.0367664308438307e-12
+          },
+          {
+            "gradientAbsoluteErrorN": 2.467365682495598e-16,
+            "plusEnergyJ": 8.931079351455072e-10,
+            "minusEnergyJ": 8.931087480294836e-10,
+            "analyticDirectionalGradientN": -4.0644198842772426e-7,
+            "hessianRelativeError": 1.0372911928307727e-12
+          },
+          {
+            "gradientAbsoluteErrorN": 1.9565529345332358e-16,
+            "plusEnergyJ": 8.931107019442205e-10,
+            "minusEnergyJ": 8.931059812349118e-10,
+            "analyticDirectionalGradientN": 0.00000236035465452185,
+            "hessianRelativeError": 5.686990431181915e-13
+          },
+          {
+            "gradientAbsoluteErrorN": 2.6564276714874943e-16,
+            "plusEnergyJ": 8.93108942395644e-10,
+            "minusEnergyJ": 8.93107740779106e-10,
+            "analyticDirectionalGradientN": 6.008082687078282e-7,
+            "hessianRelativeError": 5.829239613681419e-13
+          }
+        ],
+        "minimumProjectedEigenvalue": -1.6510342179748297e-18
+      }
+    },
+    "limits": [
+      "Static source-force diagnosis and adversarial contact controls only; no assembled garment acceptance.",
+      "Python adjacency callback is scratch-only and deprecated by pinned IPC.",
+      "A vertex-adjacency predicate removes whole candidates only when every cross-primitive vertex pair is local."
+    ]
+  },
+  "verification": {
+    "numericalTests": 212,
+    "applicationTests": 104,
+    "typecheck": "pass",
+    "deployment": "not deployed"
+  }
+}
