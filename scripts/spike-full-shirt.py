@@ -62,6 +62,7 @@ def main():
     parser.add_argument("--global-max-evaluations", type=int, default=300)
     parser.add_argument("--global-cpu-limit-seconds", type=int, default=240)
     parser.add_argument("--membrane-only-control", action="store_true")
+    parser.add_argument("--elastic-bending-control", action="store_true")
     parser.add_argument("--solver-iterations", type=int, default=10)
     parser.add_argument("--stable-membrane", action="store_true")
     parser.add_argument("--substeps", type=int, default=1)
@@ -88,8 +89,10 @@ def main():
         parser.error("global solver settings require the global reference")
     if arguments.membrane_only_control and not arguments.disable_contact:
         parser.error("membrane-only diagnostic requires disabled contact")
-    if arguments.global_reference and (not arguments.membrane_only_control or not arguments.embedded_sewing or arguments.no_sewing or arguments.coupled_sewing or arguments.fixture == "front-panel"):
-        parser.error("global reference requires membrane-only embedded sewing without coupled sewing")
+    if arguments.elastic_bending_control and (not arguments.global_reference or arguments.membrane_only_control or not arguments.disable_contact or arguments.global_linear_solver != "direct"):
+        parser.error("elastic bending requires direct global reference, disabled contact and no membrane-only flag")
+    if arguments.global_reference and (not (arguments.membrane_only_control or arguments.elastic_bending_control) or not arguments.embedded_sewing or arguments.no_sewing or arguments.coupled_sewing or arguments.fixture == "front-panel"):
+        parser.error("global reference requires an explicit elastic diagnostic and embedded sewing without coupled sewing")
     if arguments.global_reference and arguments.stable_membrane:
         parser.error("global reference uses its own membrane evaluation")
     if arguments.torso_equilibrium_control and (arguments.fixture != "torso" or not arguments.disable_contact or not arguments.embedded_sewing or arguments.shirt_placement):
@@ -134,7 +137,7 @@ def main():
     if arguments.coupled_sewing:
         sources["solver_embedded_sewing.py"] = Path(__file__).with_name("solver_embedded_sewing.py")
     if arguments.global_reference:
-        for name in ("solver_global_sewing.py", "solver_global_shift.py", "solver_energy_change.py", "solver_energy_balance.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
+        for name in ("solver_global_sewing.py", "solver_global_shift.py", "solver_energy_change.py", "solver_energy_balance.py", "solver_bending.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
             sources[name] = Path(__file__).with_name(name)
     if arguments.quality_refinement:
         sources["quality_meshing.py"] = engine / "quality_meshing.py"
@@ -224,7 +227,7 @@ def main():
         offset = len(builder.particle_q)
         offsets[instance["id"]] = offset
         sections[instance["id"]] = slice(offset, offset + len(rest))
-        builder.add_cloth_mesh(pos=wp.vec3(0, 0, 0), rot=wp.quat_identity(), scale=1, vel=wp.vec3(0, 0, 0), vertices=rest, indices=faces, density=0.2, tri_ke=10000, tri_ka=10000, tri_kd=0 if arguments.membrane_only_control else 0.01, edge_ke=0 if arguments.membrane_only_control else 0.01, edge_kd=0 if arguments.membrane_only_control else 0.001, particle_radius=0.001, validate_mesh=True)
+        builder.add_cloth_mesh(pos=wp.vec3(0, 0, 0), rot=wp.quat_identity(), scale=1, vel=wp.vec3(0, 0, 0), vertices=rest, indices=faces, density=0.2, tri_ke=10000, tri_ka=10000, tri_kd=0 if arguments.membrane_only_control or arguments.elastic_bending_control else 0.01, edge_ke=0 if arguments.membrane_only_control else 0.01, edge_kd=0 if arguments.membrane_only_control or arguments.elastic_bending_control else 0.001, particle_radius=0.001, validate_mesh=True)
         angle = ordinal * 2 * math.pi / len(inventory["instances"])
         placed = [[point[0] * math.cos(angle) + 0.5 * math.cos(angle), point[0] * math.sin(angle) + 0.5 * math.sin(angle), 1 - point[1]] for point in rest]
         if arguments.shirt_placement:
@@ -331,8 +334,9 @@ def main():
     inverse_masses = {identity: model.particle_inv_mass.numpy()[section] for identity, section in sections.items()}
     initial_residuals = constraint_residuals(bundle, {identity: np.asarray(placed_vertices)[section] for identity, section in sections.items()}) if bundle else None
     max_projection = 0.0
-    coupling_report = {"mode": "global-membrane-reference" if arguments.global_reference else "coupled-embedded-cut-cloth" if arguments.coupled_sewing else "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
+    coupling_report = {"mode": "global-elastic-bending-reference" if arguments.elastic_bending_control else "global-membrane-reference" if arguments.global_reference else "coupled-embedded-cut-cloth" if arguments.coupled_sewing else "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
                        "membraneOnlyControl": arguments.membrane_only_control,
+                       "elasticBendingControl": arguments.elastic_bending_control,
                        "globalReference": arguments.global_reference,
                        "solverIterations": arguments.solver_iterations, "sewingSolver": sewing_report,
                        "pinnedVertices": np.flatnonzero(model.particle_inv_mass.numpy() == 0).tolist(),
@@ -349,10 +353,16 @@ def main():
     trajectory_path = arguments.output / "trajectory.jsonl"
     membrane_inputs = (model.tri_indices.numpy().copy(), tensors, model.tri_areas.numpy().copy(), model.tri_materials.numpy().copy())
     particle_masses = model.particle_mass.numpy().astype(float)
+    bending_inputs = ({"indices": global_solver.bending.indices.tolist(),
+                       "restAnglesRadians": global_solver.bending.rest_angles.tolist(),
+                       "restLengthsMeters": global_solver.bending.rest_lengths.tolist(),
+                       "stiffness": global_solver.bending.stiffness.tolist(),
+                       "calibrated": False} if global_solver else None)
     source_geometry = arguments.output / "source-geometry.json"
     source_geometry.write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices,
         "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "assembly": graph,
-        "sourceTemplates": templates, "embeddedConstraints": bundle, "coupling": coupling_report}, separators=(",", ":"), allow_nan=False))
+        "sourceTemplates": templates, "embeddedConstraints": bundle, "elasticBending": bending_inputs,
+        "coupling": coupling_report}, separators=(",", ":"), allow_nan=False))
     geometry_digest = hashlib.sha256(source_geometry.read_bytes()).hexdigest()
     unconverged_substeps = []
     energy_balance = None
@@ -429,7 +439,8 @@ def main():
                      "scope": "Partial energy diagnostics; excludes bending, damping, contact and sewing energy. Moving sewing targets perform work."}
             if arguments.global_reference:
                 entry["energyBalance"] = energy_balance
-                entry["mechanicalJoules"] = entry["membraneJoules"] + entry["kineticJoules"] + energy_balance["sewingAfterJoules"]
+                entry["bendingJoules"] = energy_balance["bendingAfterJoules"]
+                entry["mechanicalJoules"] = entry["membraneJoules"] + entry["kineticJoules"] + entry["bendingJoules"] + energy_balance["sewingAfterJoules"]
                 entry["scope"] = energy_balance["scope"]
             with trajectory_path.open("a") as trajectory:
                 trajectory.write(json.dumps(entry, allow_nan=False) + "\n")
@@ -494,7 +505,7 @@ def main():
     if arguments.coupled_sewing:
         report["limitations"][-1] = "Sewing energy shares cloth/contact updates; convergence, contact thickness and assembly semantics remain unvalidated."
     if arguments.global_reference:
-        report["limitations"][-1] = "Global membrane reference excludes bending, damping and all contact; it is not a garment solver."
+        report["limitations"][-1] = "Global elastic reference excludes damping and all contact; optional bending is uncalibrated. It is not a garment solver."
         report["globalReferenceFinalStep"] = global_step_report
         report["globalReferenceAllStepsConverged"] = not unconverged_substeps
         report["globalReferenceUnconvergedSubsteps"] = unconverged_substeps

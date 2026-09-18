@@ -36,13 +36,16 @@ def _positive_definite_direction(matrix, gradient):
 
 
 def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_hessian=None,
-                    inertia_diagonal=None, gradient_function=None, energy_change_function=None):
+                    inertia_diagonal=None, gradient_function=None, energy_change_function=None,
+                    coupled_hessian=None):
+    if exact_hessian is not None and coupled_hessian is not None:
+        raise ValueError("Choose one safeguarded primary search metric")
     positions = start.copy()
     residual = evaluate(positions)
     energy = objective(positions)
     evaluations = 1
     history = [energy]
-    direction_steps = {"exact": 0, "projected": 0, "shifted": 0}
+    direction_steps = {"exact": 0, "projected": 0, "shifted": 0, "coupled": 0}
     direction_history = []
     status, message = 0, "Residual evaluation budget exhausted"
     while evaluations < max_evaluations:
@@ -51,7 +54,9 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
             status, message = 1, "Stationarity tolerance satisfied"
             break
         accepted = False
-        metrics = [("exact", exact_hessian), ("projected", hessian)] if exact_hessian else [("projected", hessian)]
+        primary = ([("coupled", coupled_hessian)] if coupled_hessian else
+                   [("exact", exact_hessian)] if exact_hessian else [])
+        metrics = primary + [("projected", hessian)]
         for name, metric in metrics:
             matrix = metric(positions)
             shift_report = None
@@ -64,7 +69,7 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
                         if shift_report["lambda"]:
                             name = "shifted"
                     else:
-                        direction = (_positive_definite_direction(matrix, gradient) if name == "exact"
+                        direction = (_positive_definite_direction(matrix, gradient) if name in ("exact", "coupled")
                                      else spsolve(matrix.tocsc(), -gradient))
             except (MatrixRankWarning, np.linalg.LinAlgError):
                 continue
@@ -104,6 +109,7 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
     return OptimizeResult(x=positions, cost=energy, nfev=evaluations, success=status == 1,
                           status=status, message=message, energy_history=history,
                           exact_steps=direction_steps["exact"], projected_steps=direction_steps["projected"],
+                          coupled_steps=direction_steps["coupled"],
                           shifted_steps=direction_steps["shifted"], direction_history=direction_history)
 
 
@@ -120,8 +126,9 @@ class GlobalSewingSolver:
             raise ValueError("Finite physical inputs and at least one active positive-mass vertex required")
         if not np.isfinite(compliance) or compliance <= 0:
             raise ValueError("Positive finite physical compliance required")
-        if model.edge_bending_properties is not None and np.any(model.edge_bending_properties.numpy() != 0):
-            raise ValueError("Global reference does not implement bending; explicitly disable it in diagnostic fixtures")
+        from solver_bending import ElasticDihedralBending
+        self.bending = ElasticDihedralBending.from_model(model)
+        self.has_bending = bool(self.bending.residual(model.particle_q.numpy()).size)
         if np.any(self.materials[:, 2] != 0):
             raise ValueError("Global reference does not implement membrane damping")
         if np.any(self.materials[:, :2] < 0):
@@ -148,12 +155,15 @@ class GlobalSewingSolver:
         targets = np.asarray(targets, dtype=float)
         if linear_solver not in ("direct", "shifted", "lsmr") or type(max_evaluations) is not int or not 1 <= max_evaluations <= 10000:
             raise ValueError("Supported linear solver and bounded positive evaluation budget required")
+        if self.has_bending and linear_solver != "direct":
+            raise ValueError("Bending reference requires direct search with branch-aware line search")
         if (previous.shape != (len(self.mass), 3) or velocities.shape != previous.shape
                 or targets.shape != (self.sewing.shape[0], 3)
                 or not all(np.isfinite(value).all() for value in (previous, velocities, targets))
                 or not np.isfinite(dt) or dt <= 0):
             raise ValueError("Finite correctly shaped state and positive timestep required")
         predicted = previous + dt * velocities
+        self.bending.energy(previous)
         predicted[~self.active] = previous[~self.active]
         inertia_weights = np.repeat(np.sqrt(self.mass) / dt, 3)
         linear_jacobian = diags(inertia_weights, format="csr")
@@ -179,14 +189,18 @@ class GlobalSewingSolver:
             if not np.isfinite(deformation).all() or np.any(raw_area_ratios <= 1e-10):
                 if jacobian:
                     raise ValueError("Degenerate membrane state cannot supply derivatives")
-                return np.full(len(flat) + targets.size + 7 * len(self.faces), np.inf)
+                return np.full(len(flat) + targets.size + 7 * len(self.faces) + len(self.bending.indices), np.inf)
             area_ratios = np.maximum(raw_area_ratios, 1e-10)
             membrane = np.concatenate((sqrt_mu[:, None] * deformation.reshape((-1, 6)),
                                        (sqrt_lame * (area_ratios - alpha))[:, None]), axis=1)
             if not jacobian:
+                try:
+                    bending = self.bending.residual(positions)
+                except ValueError:
+                    return np.full(len(flat) + targets.size + 7 * len(self.faces) + len(self.bending.indices), np.inf)
                 return np.concatenate((inertia_weights * (flat - predicted.ravel()),
                                        (self.sewing @ positions - targets).ravel() / np.sqrt(self.compliance),
-                                       membrane.ravel()))
+                                       membrane.ravel(), bending))
             from scipy.sparse import vstack
             row_indices, column_indices, values = [], [], []
             gradients = np.stack((np.cross(second, area_vectors), np.cross(area_vectors, first)), axis=1)
@@ -204,7 +218,8 @@ class GlobalSewingSolver:
                     values.extend(sqrt_lame * np.sum(gradients[:, :, axis] * coefficients[:, local_vertex], axis=1))
             membrane_jacobian = coo_matrix((values, (row_indices, column_indices)),
                                            shape=(7 * len(self.faces), len(flat))).tocsr()
-            return vstack((linear_jacobian, sewn_jacobian, membrane_jacobian), format="csr")[:, self.free]
+            return vstack((linear_jacobian, sewn_jacobian, membrane_jacobian,
+                           self.bending.jacobian(positions)), format="csr")[:, self.free]
 
         def objective(free_positions):
             flat = fixed.copy()
@@ -224,7 +239,11 @@ class GlobalSewingSolver:
                                            + (shear + lame * (1 - alpha)) * strain)
             inertial = inertia_weights * (flat - predicted.ravel())
             sewing = (self.sewing @ positions - targets).ravel() / np.sqrt(self.compliance)
-            return float((inertial @ inertial + sewing @ sewing) / 2 + membrane_energy.sum())
+            try:
+                bending_energy = self.bending.energy(positions)
+            except ValueError:
+                return float("inf")
+            return float((inertial @ inertial + sewing @ sewing) / 2 + membrane_energy.sum() + bending_energy)
 
         def gradient_function(free_positions):
             flat = fixed.copy()
@@ -244,6 +263,7 @@ class GlobalSewingSolver:
             gradient = (inertia_weights ** 2 * (flat - predicted.ravel())
                         + self.sewing_xyz.T @ ((self.sewing @ positions - targets).ravel() / self.compliance))
             np.add.at(gradient.reshape((-1, 3)), self.faces, element_gradient)
+            gradient += self.bending.gradient(positions).ravel()
             return gradient[self.free]
 
         def energy_change_function(start_positions, end_positions):
@@ -257,6 +277,7 @@ class GlobalSewingSolver:
             delta_deformation = np.einsum("fvc,fva->fca", coefficients, displacement[self.faces])
             try:
                 membrane_change = membrane_energy_change(deformation, delta_deformation, self.areas, self.materials[:, :3])
+                bending_change = self.bending.energy_change(positions, positions + displacement)
             except ValueError:
                 return float("inf")
             inertial = inertia_weights * (flat - predicted.ravel())
@@ -264,7 +285,7 @@ class GlobalSewingSolver:
             sewing = (self.sewing @ positions - targets).ravel() / np.sqrt(self.compliance)
             delta_sewing = (self.sewing @ displacement).ravel() / np.sqrt(self.compliance)
             return float((inertial + .5 * delta_inertial) @ delta_inertial
-                         + (sewing + .5 * delta_sewing) @ delta_sewing + membrane_change)
+                         + (sewing + .5 * delta_sewing) @ delta_sewing + membrane_change + bending_change)
 
         linear_hessian = linear_jacobian.T @ linear_jacobian + sewn_jacobian.T @ sewn_jacobian
         element_dofs = (self.faces[:, :, None] * 3 + np.arange(3)).reshape((-1, 9))
@@ -287,7 +308,10 @@ class GlobalSewingSolver:
                 (np.broadcast_to(element_dofs[:, :, None], elements.shape).ravel(),
                  np.broadcast_to(element_dofs[:, None, :], elements.shape).ravel())),
                 shape=(len(fixed), len(fixed))).tocsr()
-            return (linear_hessian + membrane_hessian)[self.free][:, self.free]
+            flat = fixed.copy()
+            flat[self.free] = free_positions
+            bending_hessian = self.bending.hessian(flat.reshape((-1, 3)))
+            return (linear_hessian + membrane_hessian + bending_hessian)[self.free][:, self.free]
 
         diagonal = diags(self.mass / dt ** 2)
         matrix = diagonal + self.sewing.T @ self.sewing / self.compliance
@@ -297,13 +321,15 @@ class GlobalSewingSolver:
         rhs = rhs[active_indices] - matrix[active_indices][:, fixed_indices] @ previous[fixed_indices]
         linear_start = spsolve(matrix[active_indices][:, active_indices].tocsc(), rhs).reshape((-1, 3)).ravel()
         predicted_start = predicted.ravel()[self.free]
-        start = min((linear_start, predicted_start, previous.ravel()[self.free]), key=objective)
+        start = (previous.ravel()[self.free].copy() if self.has_bending else
+                 min((linear_start, predicted_start, previous.ravel()[self.free]), key=objective))
         initial_energy = objective(start)
         result = _direct_descent(evaluate, start, max_evaluations,
                                 lambda positions: assembled_hessian(positions, True), objective,
-                                exact_hessian=lambda positions: assembled_hessian(positions, False),
+                                exact_hessian=None if self.has_bending else lambda positions: assembled_hessian(positions, False),
                                 inertia_diagonal=inertia_weights[self.free] ** 2 if linear_solver == "shifted" else None,
                                 gradient_function=gradient_function,
+                                coupled_hessian=(lambda positions: assembled_hessian(positions, False)) if self.has_bending else None,
                                 energy_change_function=energy_change_function) if linear_solver in ("direct", "shifted") else least_squares(evaluate, start, jac=lambda positions: evaluate(positions, True),
                                method="trf", tr_solver="lsmr", x_scale="jac", ftol=1e-12, xtol=1e-12,
                                gtol=1e-9, max_nfev=max_evaluations,
@@ -317,16 +343,20 @@ class GlobalSewingSolver:
         gradient = gradient_function(result.x)
         gradient_norm = float(np.max(np.abs(gradient)))
         return final, (final - previous) / dt, {
-            "profile": "experimental-global-membrane-sewing-reference-v6", "accepted": False,
+            "profile": "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
+            "bendingHinges": len(self.bending.indices),
+            "bendingSearchMetric": "Exact membrane + Gauss-Newton bending; projected membrane fallback, not exact total Hessian" if self.has_bending else None,
             "converged": bool(result.success and gradient_norm <= 1e-6),
             "optimizerSuccess": bool(result.success), "stationarityToleranceN": 1e-6,
             "linearSolver": linear_solver, "energyHistory": getattr(result, "energy_history", None),
             "exactSteps": getattr(result, "exact_steps", None), "projectedSteps": getattr(result, "projected_steps", None),
+            "coupledSteps": getattr(result, "coupled_steps", None),
             "shiftedSteps": getattr(result, "shifted_steps", None),
             "directionHistory": getattr(result, "direction_history", None),
             "status": int(result.status), "message": result.message,
             "evaluations": int(result.nfev), "initialEnergy": initial_energy, "finalEnergy": objective(result.x),
             "gradientInfinityNorm": gradient_norm,
-            "limitations": ["No contact, external forces, bending or membrane damping; diagnostic reference only.",
+            "limitations": ["No contact, external forces or material damping; diagnostic reference only.",
+                            "Elastic bending is uncalibrated; endpoint/branch guards do not certify swept nondegeneracy.",
                             "Stationarity does not certify a local energy minimum or dynamic stability."],
         }

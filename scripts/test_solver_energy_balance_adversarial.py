@@ -5,11 +5,13 @@ import numpy as np
 from scipy.sparse import csr_matrix
 
 from solver_energy_balance import global_energy_transition
+from solver_bending import ElasticDihedralBending
 
 
 class EnergyBalanceAdversarialTests(unittest.TestCase):
     def fixture(self, pinned=False):
         return SimpleNamespace(
+            bending=ElasticDihedralBending(2, np.empty((0, 4), dtype=int), [], [], []),
             mass=np.array([0.0 if pinned else 2.0, 3.0]),
             active=np.array([not pinned, True]),
             sewing=csr_matrix([[1.0, -1.0]]), compliance=.04,
@@ -128,6 +130,7 @@ class EnergyBalanceAdversarialTests(unittest.TestCase):
 
     def test_membrane_transition_matches_independent_gram_energy(self):
         solver = SimpleNamespace(
+            bending=ElasticDihedralBending(3, np.empty((0, 4), dtype=int), [], [], []),
             mass=np.array([.2, .3, .4]), active=np.ones(3, dtype=bool),
             sewing=csr_matrix([[1., -.4, -.6]]), compliance=.04,
             poses=np.eye(2)[None], faces=np.array([[0, 1, 2]]),

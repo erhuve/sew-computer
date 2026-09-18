@@ -26,7 +26,7 @@ class GlobalDynamicsHarnessTests(unittest.TestCase):
                     self.assertNotIn("unrecognized arguments", result.stderr)
                     self.assertFalse(output.exists())
 
-    def run_stationary_control(self, output, substeps):
+    def run_stationary_control(self, output, substeps, bending=False):
         program = """
 import runpy
 import sys
@@ -45,10 +45,45 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         return subprocess.run([
             sys.executable, "-c", program, str(ROOT / "scripts"),
             "--output", str(output), "--fixture", "torso", "--embedded-sewing", "--global-reference",
-            "--membrane-only-control", "--torso-equilibrium-control", "--torso-front-gap-mm", "1",
+            "--elastic-bending-control" if bending else "--membrane-only-control", "--torso-equilibrium-control", "--torso-front-gap-mm", "1",
             "--disable-contact", "--steps", "2", "--ramp-steps", "1",
             "--step-seconds", "0.01", "--substeps", str(substeps),
         ], cwd=ROOT, capture_output=True, text=True, timeout=120)
+
+    def test_bending_profile_capture_and_accounting(self):
+        with tempfile.TemporaryDirectory(prefix="sew-bending-harness-") as directory:
+            output = Path(directory) / "result"
+            result = self.run_stationary_control(output, 1, bending=True)
+            self.assertEqual(result.returncode, 0, result.stdout[-2000:] + result.stderr[-2000:])
+            report = json.loads((output / "report.json").read_text())
+            self.assertTrue(report["coupling"]["elasticBendingControl"])
+            self.assertFalse(report["coupling"]["membraneOnlyControl"])
+            self.assertFalse(report["accepted"])
+            source = (ROOT / "scripts/solver_bending.py").read_bytes()
+            self.assertEqual((output / "source-snapshot/solver_bending.py").read_bytes(), source)
+            self.assertEqual(report["sourceDigests"]["solver_bending.py"], hashlib.sha256(source).hexdigest())
+            for line in (output / "trajectory.jsonl").read_text().splitlines():
+                entry = json.loads(line)
+                self.assertEqual(entry["bendingJoules"], entry["energyBalance"]["bendingAfterJoules"])
+                self.assertEqual(entry["energyBalance"]["bendingChangeJoules"], 0.)
+                self.assertAlmostEqual(entry["mechanicalJoules"], entry["membraneJoules"]
+                                       + entry["kineticJoules"] + entry["bendingJoules"]
+                                       + entry["energyBalance"]["sewingAfterJoules"])
+
+    def test_incompatible_bending_profiles_reject_before_output(self):
+        with tempfile.TemporaryDirectory(prefix="sew-bending-options-") as directory:
+            base = ["--elastic-bending-control", "--global-reference", "--embedded-sewing", "--disable-contact"]
+            cases = [base + ["--membrane-only-control"], base + ["--global-linear-solver", "shifted"],
+                     [argument for argument in base if argument != "--disable-contact"],
+                     [argument for argument in base if argument != "--global-reference"]]
+            for index, arguments in enumerate(cases):
+                output = Path(directory) / str(index)
+                result = subprocess.run([sys.executable, str(ROOT / "scripts/spike-full-shirt.py"),
+                                         "--output", str(output), *arguments],
+                                        cwd=ROOT, capture_output=True, text=True, timeout=15)
+                self.assertEqual(result.returncode, 2)
+                self.assertNotIn("unrecognized arguments", result.stderr)
+                self.assertFalse(output.exists())
 
     def test_schedule_accounting_source_capture_and_rejected_diagnostics(self):
         with tempfile.TemporaryDirectory(prefix="sew-dynamics-harness-") as directory:

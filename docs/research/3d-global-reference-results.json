@@ -2,6 +2,716 @@
   "scope": "Synthetic numerical controls, including rejected full-shirt stress; not garment acceptance",
   "runs": [
     {
+      "run": "global-bending-coupled-torso-20260918",
+      "accepted": false,
+      "scope": "Uncalibrated elastic bending, no contact/gravity/damping/body; not garment acceptance",
+      "arguments": {
+        "output": ".planning/solver/global-bending-coupled-torso-20260918",
+        "steps": 12,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "global_linear_solver": "direct",
+        "global_max_evaluations": 300,
+        "global_cpu_limit_seconds": 240,
+        "membrane_only_control": false,
+        "elastic_bending_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "step_seconds": 0.004166666666666667,
+        "ramp_steps": 2,
+        "quality_refinement": true,
+        "shirt_placement": false,
+        "torso_equilibrium_control": true,
+        "torso_front_gap_mm": 5.0,
+        "fixture": "torso",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "df2d15add2ea91cade42933e207b9fc6d56e38407f3c2f319e3ca1aa3c8c44bf",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "63b1bd8be10d3977f9e4e525f876646cacaf73dc190dfbb712509fb2990e0381",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_energy_balance.py": "3ba41e77ad70feaf8672da213fd745b6eebbe7f1cfe409508014cd38509e9f57",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "report.jsonSha256": "8683f0ecb7e640ca49168edd8ea2559fa4a75d712f145bfd53ea012cc09a4efe",
+      "canonical.jsonSha256": "e78e3d3ee5ac1527aeef5ca51e6c4b49028a7f1eee199e1df7e341a1071c8bba",
+      "source-geometry.jsonSha256": "d75031f4776d4b50357d2609f7effcea4c757cfd5dbd66d31f2ca27ecc28f7a6",
+      "trajectory.jsonlSha256": "6a9f7c142627df8b2fb5b8368f1244f00c071d4a8b51571287465ea1c05dc27e",
+      "wallSeconds": 15.970431706999989,
+      "instances": 4,
+      "vertices": 1366,
+      "triangles": 2196,
+      "edgeRatioMin": 0.9999540554038544,
+      "edgeRatioMax": 1.0000617585826237,
+      "seamGapMaxMm": 1.6428465162073854e-07,
+      "maxSpeedMetersPerSecond": 0.09389339534496774,
+      "massMotion": {
+        "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+        "dynamicMassKg": 0.1576486182901462,
+        "pinnedVertexCount": 0,
+        "centerOfMassDisplacementMeters": [
+          8.505054213090326e-19,
+          -1.3908099689244286e-17,
+          -5.513588821166197e-19
+        ],
+        "centerOfMassDisplacementMm": 1.3944984512523562e-14,
+        "linearMomentumKgMetersPerSecond": [
+          8.150121446773979e-18,
+          -6.86723246604695e-17,
+          -1.7015957196246709e-18
+        ],
+        "centerOfMassSpeedMetersPerSecond": 4.3879356006684583e-16
+      },
+      "globalReferenceAllStepsConverged": true,
+      "globalReferenceUnconvergedSubsteps": [],
+      "globalReferenceEnergyBalance": {
+        "membraneChangeJoules": -1.5958151665073586e-07,
+        "bendingChangeJoules": -1.1090243113805167e-06,
+        "bendingBeforeJoules": 2.4421947104637103e-05,
+        "bendingAfterJoules": 2.331292279325658e-05,
+        "kineticChangeJoules": -2.6945299124703535e-06,
+        "sewingChangeJoules": -2.833100303719209e-12,
+        "sewingBeforeJoules": 1.2120690467065425e-11,
+        "sewingAfterJoules": 9.287590163346216e-12,
+        "targetParameterWorkJoules": 0.0,
+        "mechanicalChangeJoules": -3.9631385736019095e-06,
+        "mechanicalChangeMinusTargetWorkJoules": -3.9631385736019095e-06,
+        "accepted": false,
+        "scope": "Contact-disabled global membrane/elastic-bending/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "cumulativeTargetParameterWorkJoules": 12500.001258361202,
+        "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001198393078
+      },
+      "substeps": [
+        {
+          "substep": 1,
+          "converged": true,
+          "forceResidualN": 1.689336707951985e-08,
+          "evaluations": 10
+        },
+        {
+          "substep": 2,
+          "converged": true,
+          "forceResidualN": 7.907651227061024e-09,
+          "evaluations": 7
+        },
+        {
+          "substep": 3,
+          "converged": true,
+          "forceResidualN": 1.7703257549932027e-07,
+          "evaluations": 8
+        },
+        {
+          "substep": 4,
+          "converged": true,
+          "forceResidualN": 2.6421612138764662e-08,
+          "evaluations": 7
+        },
+        {
+          "substep": 5,
+          "converged": true,
+          "forceResidualN": 7.341048444556932e-09,
+          "evaluations": 6
+        },
+        {
+          "substep": 6,
+          "converged": true,
+          "forceResidualN": 1.3485744415959707e-07,
+          "evaluations": 5
+        },
+        {
+          "substep": 7,
+          "converged": true,
+          "forceResidualN": 5.233705183637743e-09,
+          "evaluations": 5
+        },
+        {
+          "substep": 8,
+          "converged": true,
+          "forceResidualN": 6.485768646210648e-09,
+          "evaluations": 5
+        },
+        {
+          "substep": 9,
+          "converged": true,
+          "forceResidualN": 1.0060904619944422e-08,
+          "evaluations": 5
+        },
+        {
+          "substep": 10,
+          "converged": true,
+          "forceResidualN": 7.568628229777017e-09,
+          "evaluations": 5
+        },
+        {
+          "substep": 11,
+          "converged": true,
+          "forceResidualN": 2.3839070381594426e-08,
+          "evaluations": 5
+        },
+        {
+          "substep": 12,
+          "converged": true,
+          "forceResidualN": 7.517638335148238e-09,
+          "evaluations": 5
+        }
+      ]
+    },
+    {
+      "run": "global-bending-coupled-shirt-20260918",
+      "accepted": false,
+      "scope": "Uncalibrated elastic bending, no contact/gravity/damping/body; not garment acceptance",
+      "arguments": {
+        "output": ".planning/solver/global-bending-coupled-shirt-20260918",
+        "steps": 8,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "global_linear_solver": "direct",
+        "global_max_evaluations": 1000,
+        "global_cpu_limit_seconds": 600,
+        "membrane_only_control": false,
+        "elastic_bending_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "step_seconds": 0.004166666666666667,
+        "ramp_steps": 6,
+        "quality_refinement": true,
+        "shirt_placement": true,
+        "torso_equilibrium_control": false,
+        "torso_front_gap_mm": 0,
+        "fixture": "full-shirt",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "df2d15add2ea91cade42933e207b9fc6d56e38407f3c2f319e3ca1aa3c8c44bf",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "63b1bd8be10d3977f9e4e525f876646cacaf73dc190dfbb712509fb2990e0381",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_energy_balance.py": "3ba41e77ad70feaf8672da213fd745b6eebbe7f1cfe409508014cd38509e9f57",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "report.jsonSha256": "b6ef6025ece88b8d26e0c14bec9ad9cd093f6b767635a3c55ee6fde2bb859869",
+      "canonical.jsonSha256": "3d6f33fce9b2dfba62b8690960da6734ffb2face6fcd74438e867a30fea7ab61",
+      "source-geometry.jsonSha256": "1b73721cf8c8c2903178137d1aff8e1b9f85fb9f17f263be32f6ab4e2eb36d09",
+      "trajectory.jsonlSha256": "29bd113c788c78c9ab2144be4be2c83f7c54b19b0db19ea2c23e909eac37926e",
+      "wallSeconds": 55.931627897,
+      "instances": 24,
+      "vertices": 2244,
+      "triangles": 3512,
+      "edgeRatioMin": 0.7854509544088649,
+      "edgeRatioMax": 1.3284486936527005,
+      "seamGapMaxMm": 362.2186485191099,
+      "maxSpeedMetersPerSecond": 0.0,
+      "massMotion": {
+        "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+        "dynamicMassKg": 0.3251475380391966,
+        "pinnedVertexCount": 0,
+        "centerOfMassDisplacementMeters": [
+          6.138160928973384e-14,
+          -6.302236738512732e-14,
+          -7.774929876671166e-14
+        ],
+        "centerOfMassDisplacementMm": 1.1740730049080803e-10,
+        "linearMomentumKgMetersPerSecond": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "centerOfMassSpeedMetersPerSecond": 0.0
+      },
+      "globalReferenceAllStepsConverged": false,
+      "globalReferenceUnconvergedSubsteps": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "globalReferenceEnergyBalance": {
+        "membraneChangeJoules": 0.0,
+        "bendingChangeJoules": 0.0,
+        "bendingBeforeJoules": 0.18133866535019508,
+        "bendingAfterJoules": 0.18133866535019508,
+        "kineticChangeJoules": 0.0,
+        "sewingChangeJoules": 0.0,
+        "sewingBeforeJoules": 181799142.30079523,
+        "sewingAfterJoules": 181799142.30079523,
+        "targetParameterWorkJoules": 0.0,
+        "mechanicalChangeJoules": 0.0,
+        "mechanicalChangeMinusTargetWorkJoules": 0.0,
+        "accepted": false,
+        "scope": "Contact-disabled global membrane/elastic-bending/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "cumulativeTargetParameterWorkJoules": 194979582.6670301,
+        "cumulativeMechanicalChangeMinusTargetWorkJoules": -13180431.647016533
+      },
+      "substeps": [
+        {
+          "substep": 1,
+          "converged": true,
+          "forceResidualN": 7.743490018467802e-08,
+          "evaluations": 143
+        },
+        {
+          "substep": 2,
+          "converged": false,
+          "forceResidualN": 89.7729494186711,
+          "evaluations": 177
+        },
+        {
+          "substep": 3,
+          "converged": false,
+          "forceResidualN": 20524479.9145147,
+          "evaluations": 25
+        },
+        {
+          "substep": 4,
+          "converged": false,
+          "forceResidualN": 41048959.26401286,
+          "evaluations": 25
+        },
+        {
+          "substep": 5,
+          "converged": false,
+          "forceResidualN": 56837020.39643305,
+          "evaluations": 25
+        },
+        {
+          "substep": 6,
+          "converged": false,
+          "forceResidualN": 63152244.8494011,
+          "evaluations": 25
+        },
+        {
+          "substep": 7,
+          "converged": false,
+          "forceResidualN": 63152244.8494011,
+          "evaluations": 25
+        },
+        {
+          "substep": 8,
+          "converged": false,
+          "forceResidualN": 63152244.8494011,
+          "evaluations": 25
+        }
+      ]
+    },
+    {
+      "run": "global-bending-torso-20260918",
+      "accepted": false,
+      "scope": "Uncalibrated elastic bending, no contact/gravity/damping/body; not garment acceptance",
+      "arguments": {
+        "output": ".planning/solver/global-bending-torso-20260918",
+        "steps": 12,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "global_linear_solver": "direct",
+        "global_max_evaluations": 300,
+        "global_cpu_limit_seconds": 240,
+        "membrane_only_control": false,
+        "elastic_bending_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "step_seconds": 0.004166666666666667,
+        "ramp_steps": 2,
+        "quality_refinement": true,
+        "shirt_placement": false,
+        "torso_equilibrium_control": true,
+        "torso_front_gap_mm": 5.0,
+        "fixture": "torso",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "df2d15add2ea91cade42933e207b9fc6d56e38407f3c2f319e3ca1aa3c8c44bf",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "6a1b94ed3b581ec34dc63f6b4501b8691f89a98fb35d2b0031dbecd963a73289",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_energy_balance.py": "3ba41e77ad70feaf8672da213fd745b6eebbe7f1cfe409508014cd38509e9f57",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "report.jsonSha256": "8ef67a6860286453175c1f5f6f298b36099c830ecb744034dbc810d96a7740f0",
+      "canonical.jsonSha256": "577a8ffd37d655fd610656959527af5aeb6cd69fb1296fcb501f8950874bda63",
+      "source-geometry.jsonSha256": "d75031f4776d4b50357d2609f7effcea4c757cfd5dbd66d31f2ca27ecc28f7a6",
+      "trajectory.jsonlSha256": "f0eecd8a60687a4bfa53cdec42918eb096a9f6d68d15d666f9dadb1357066a13",
+      "wallSeconds": 21.951635662999934,
+      "instances": 4,
+      "vertices": 1366,
+      "triangles": 2196,
+      "edgeRatioMin": 0.9999540626040281,
+      "edgeRatioMax": 1.0000617641495728,
+      "seamGapMaxMm": 1.6429533044356435e-07,
+      "maxSpeedMetersPerSecond": 0.09391539196294182,
+      "massMotion": {
+        "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+        "dynamicMassKg": 0.1576486182901462,
+        "pinnedVertexCount": 0,
+        "centerOfMassDisplacementMeters": [
+          1.0017243086669873e-17,
+          5.386662274729387e-18,
+          -3.9881545789848745e-18
+        ],
+        "centerOfMassDisplacementMm": 1.2052662214851381e-14,
+        "linearMomentumKgMetersPerSecond": [
+          3.923169642047909e-17,
+          1.4407520941237104e-17,
+          -2.5111870809143097e-17
+        ],
+        "centerOfMassSpeedMetersPerSecond": 3.092805598853871e-16
+      },
+      "globalReferenceAllStepsConverged": true,
+      "globalReferenceUnconvergedSubsteps": [],
+      "globalReferenceEnergyBalance": {
+        "membraneChangeJoules": -1.5969548484740555e-07,
+        "bendingChangeJoules": -1.108836337973479e-06,
+        "bendingBeforeJoules": 2.4421309164933213e-05,
+        "bendingAfterJoules": 2.3312472826959728e-05,
+        "kineticChangeJoules": -2.6946353055144625e-06,
+        "sewingChangeJoules": -2.837413797976749e-12,
+        "sewingBeforeJoules": 1.212596676571763e-11,
+        "sewingAfterJoules": 9.288552967740881e-12,
+        "targetParameterWorkJoules": 0.0,
+        "mechanicalChangeJoules": -3.9631699657491445e-06,
+        "mechanicalChangeMinusTargetWorkJoules": -3.9631699657491445e-06,
+        "accepted": false,
+        "scope": "Contact-disabled global membrane/elastic-bending/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "cumulativeTargetParameterWorkJoules": 12500.00125836151,
+        "cumulativeMechanicalChangeMinusTargetWorkJoules": -12500.001198394439
+      },
+      "substeps": [
+        {
+          "substep": 1,
+          "converged": true,
+          "forceResidualN": 8.106710849029061e-07,
+          "evaluations": 19
+        },
+        {
+          "substep": 2,
+          "converged": true,
+          "forceResidualN": 5.005458187585295e-07,
+          "evaluations": 11
+        },
+        {
+          "substep": 3,
+          "converged": true,
+          "forceResidualN": 8.978543045361047e-07,
+          "evaluations": 22
+        },
+        {
+          "substep": 4,
+          "converged": true,
+          "forceResidualN": 8.052612649155281e-07,
+          "evaluations": 9
+        },
+        {
+          "substep": 5,
+          "converged": true,
+          "forceResidualN": 2.7237022806473124e-07,
+          "evaluations": 8
+        },
+        {
+          "substep": 6,
+          "converged": true,
+          "forceResidualN": 3.4381936540287157e-07,
+          "evaluations": 7
+        },
+        {
+          "substep": 7,
+          "converged": true,
+          "forceResidualN": 9.507956470981155e-07,
+          "evaluations": 7
+        },
+        {
+          "substep": 8,
+          "converged": true,
+          "forceResidualN": 5.702965779274486e-07,
+          "evaluations": 6
+        },
+        {
+          "substep": 9,
+          "converged": true,
+          "forceResidualN": 3.1684935798860633e-07,
+          "evaluations": 6
+        },
+        {
+          "substep": 10,
+          "converged": true,
+          "forceResidualN": 4.2524188071128496e-07,
+          "evaluations": 6
+        },
+        {
+          "substep": 11,
+          "converged": true,
+          "forceResidualN": 2.39780203653713e-07,
+          "evaluations": 6
+        },
+        {
+          "substep": 12,
+          "converged": true,
+          "forceResidualN": 5.000271040382642e-07,
+          "evaluations": 6
+        }
+      ]
+    },
+    {
+      "run": "global-bending-shirt-20260918",
+      "accepted": false,
+      "scope": "Uncalibrated elastic bending, no contact/gravity/damping/body; not garment acceptance",
+      "arguments": {
+        "output": ".planning/solver/global-bending-shirt-20260918",
+        "steps": 8,
+        "embedded_sewing": true,
+        "coupled_sewing": false,
+        "augmented_sewing": false,
+        "global_reference": true,
+        "global_linear_solver": "direct",
+        "global_max_evaluations": 1000,
+        "global_cpu_limit_seconds": 600,
+        "membrane_only_control": false,
+        "elastic_bending_control": true,
+        "solver_iterations": 10,
+        "stable_membrane": false,
+        "substeps": 1,
+        "step_seconds": 0.004166666666666667,
+        "ramp_steps": 6,
+        "quality_refinement": true,
+        "shirt_placement": true,
+        "torso_equilibrium_control": false,
+        "torso_front_gap_mm": 0,
+        "fixture": "full-shirt",
+        "no_sewing": false,
+        "disable_contact": true,
+        "rest_neighbor_filters": false,
+        "pointwise_contact": false,
+        "pin_first_vertex": false
+      },
+      "sourceDigests": {
+        "assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+        "meshing_test.py": "e4f38c2479ad5c5781e1514bdb32dd77c3b59077fe94f6ec25f4d17d663f37e0",
+        "placement.py": "e1993119c7f67bc5f807a81646b3d6bbee81eb61edbe64bc61a086b4343348eb",
+        "constraint_coloring.py": "5d180246c59810dbf2d40e8089583e14965a236371b7d29413f9cc9604fe3262",
+        "spike-full-shirt.py": "df2d15add2ea91cade42933e207b9fc6d56e38407f3c2f319e3ca1aa3c8c44bf",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "solver_global_sewing.py": "6a1b94ed3b581ec34dc63f6b4501b8691f89a98fb35d2b0031dbecd963a73289",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_energy_balance.py": "3ba41e77ad70feaf8672da213fd745b6eebbe7f1cfe409508014cd38509e9f57",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4"
+      },
+      "versions": {
+        "newton": "1.6.0",
+        "warp-lang": "1.17.0",
+        "numpy": "2.5.3",
+        "shapely": "2.1.2",
+        "scipy": "1.17.0"
+      },
+      "report.jsonSha256": "bfa04a81e114c5eb1d57e422eaefc2351b9290394489274a69134d3a292c9f5f",
+      "canonical.jsonSha256": "5aeec1878e4fb3e750f7cc3bd0c279186ab24a71f2e9ce183314fcd079f3e041",
+      "source-geometry.jsonSha256": "1b73721cf8c8c2903178137d1aff8e1b9f85fb9f17f263be32f6ab4e2eb36d09",
+      "trajectory.jsonlSha256": "62f669d4c1584c0a74332d59241df6ee8b260e93f39728ebe694e773c9b69ae7",
+      "wallSeconds": 144.2445986319999,
+      "instances": 24,
+      "vertices": 2244,
+      "triangles": 3512,
+      "edgeRatioMin": 0.795050485562537,
+      "edgeRatioMax": 1.2153873485927718,
+      "seamGapMaxMm": 362.21863402175956,
+      "maxSpeedMetersPerSecond": 0.0,
+      "massMotion": {
+        "scope": "Dynamic-particle mass motion; pins or external forces invalidate isolated momentum conservation",
+        "dynamicMassKg": 0.3251475380391966,
+        "pinnedVertexCount": 0,
+        "centerOfMassDisplacementMeters": [
+          -1.0910770927829165e-14,
+          -3.8614301031262685e-14,
+          -1.2645700770092703e-14
+        ],
+        "centerOfMassDisplacementMm": 4.207164026204896e-11,
+        "linearMomentumKgMetersPerSecond": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "centerOfMassSpeedMetersPerSecond": 0.0
+      },
+      "globalReferenceAllStepsConverged": false,
+      "globalReferenceUnconvergedSubsteps": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "globalReferenceEnergyBalance": {
+        "membraneChangeJoules": 0.0,
+        "bendingChangeJoules": 0.0,
+        "bendingBeforeJoules": 0.18134162262187306,
+        "bendingAfterJoules": 0.18134162262187306,
+        "kineticChangeJoules": 0.0,
+        "sewingChangeJoules": 0.0,
+        "sewingBeforeJoules": 181799103.34339195,
+        "sewingAfterJoules": 181799103.34339195,
+        "targetParameterWorkJoules": 0.0,
+        "mechanicalChangeJoules": 0.0,
+        "mechanicalChangeMinusTargetWorkJoules": 0.0,
+        "accepted": false,
+        "scope": "Contact-disabled global membrane/elastic-bending/sewing dynamics only. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "cumulativeTargetParameterWorkJoules": 194979543.71778798,
+        "cumulativeMechanicalChangeMinusTargetWorkJoules": -13180433.128327524
+      },
+      "substeps": [
+        {
+          "substep": 1,
+          "converged": true,
+          "forceResidualN": 9.263321411982772e-07,
+          "evaluations": 536
+        },
+        {
+          "substep": 2,
+          "converged": false,
+          "forceResidualN": 30.103054855592,
+          "evaluations": 206
+        },
+        {
+          "substep": 3,
+          "converged": false,
+          "forceResidualN": 20524480.37453664,
+          "evaluations": 25
+        },
+        {
+          "substep": 4,
+          "converged": false,
+          "forceResidualN": 41048959.7166171,
+          "evaluations": 25
+        },
+        {
+          "substep": 5,
+          "converged": false,
+          "forceResidualN": 56837020.84903728,
+          "evaluations": 25
+        },
+        {
+          "substep": 6,
+          "converged": false,
+          "forceResidualN": 63152245.30200534,
+          "evaluations": 25
+        },
+        {
+          "substep": 7,
+          "converged": false,
+          "forceResidualN": 63152245.30200534,
+          "evaluations": 25
+        },
+        {
+          "substep": 8,
+          "converged": false,
+          "forceResidualN": 63152245.30200534,
+          "evaluations": 25
+        }
+      ]
+    },
+    {
       "run": "global-energy-torso-20260917",
       "accepted": false,
       "scope": "Global torso energy accounting control; no garment acceptance",
