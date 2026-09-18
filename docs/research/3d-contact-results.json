@@ -1,0 +1,591 @@
+{
+  "scope": "Research contact controls and rejected source placement; no accepted garment or deployment",
+  "runs": [
+    {
+      "run": "ipc-initial-placement-final",
+      "sourceRun": "fold-barrier-shirt-v1",
+      "classification": "experimental-contact-placement-preflight",
+      "accepted": false,
+      "contactAdmissible": false,
+      "rejection": "Contact state violates minimum surface separation",
+      "vertices": 2244,
+      "triangles": 3512,
+      "contactProfile": {
+        "adapter": "experimental-ipc-surface-contact-v1",
+        "ipctk": "1.6.0",
+        "activationDistanceM": 0.001,
+        "minimumDistanceM": 0.0001,
+        "stiffness": 100000000,
+        "physicalBarrier": false,
+        "seamExclusions": false,
+        "accepted": false
+      },
+      "independentSurfaceOracle": {
+        "intersectingPairCount": 1511,
+        "testedCandidates": 7025,
+        "broadPhaseCandidates": 6663555,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "toolkitHasIntersections": true,
+      "minimumActiveCandidateDistanceM": 0,
+      "distanceScope": "Minimum over toolkit active candidates only; null means no active candidates, not infinite global clearance.",
+      "limitations": [
+        "Placement admission only, not assembled geometry, material calibration or drape acceptance.",
+        "No seam exclusions; a zero-distance sewing target is incompatible with positive separation at that target.",
+        "Topologically adjacent contact, turning, layer order and continuous motion are not certified by this preflight."
+      ],
+      "canonicalDigest": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "sourceDigests": {
+        "solver_contact_preflight.py": "cec596769465f85e2b6ef39d90922bb2ae35d4ae50040755e0c67232fbf9536b",
+        "solver_ipc_contact.py": "3cacd1d0a6b18d444f3826b0d5f7a57b7ab9e73cff3a4b15d54ab787baf4b50d",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea"
+      },
+      "runtime": {
+        "ipctk": "1.6.0",
+        "numpy": "2.5.3",
+        "scipy": "1.17.0"
+      },
+      "wallSeconds": 1.5546733669998503
+    },
+    {
+      "run": "ipc-initial-placement-bounded",
+      "sourceRun": "fold-barrier-shirt-v1",
+      "classification": "experimental-contact-placement-preflight",
+      "accepted": false,
+      "contactAdmissible": false,
+      "rejection": "Contact state violates minimum surface separation",
+      "vertices": 2244,
+      "triangles": 3512,
+      "contactProfile": {
+        "adapter": "experimental-ipc-surface-contact-v2",
+        "ipctk": "1.6.0",
+        "activationDistanceM": 0.001,
+        "minimumDistanceM": 0.0001,
+        "stiffness": 100000000,
+        "physicalBarrier": false,
+        "seamExclusions": false,
+        "accepted": false,
+        "ccd": {
+          "method": "TightInclusionCCD",
+          "tolerance": 0.000001,
+          "maxIterations": 10000,
+          "conservativeRescaling": 0.8,
+          "requiresExternalProcessBudget": true
+        }
+      },
+      "independentSurfaceOracle": {
+        "intersectingPairCount": 1511,
+        "testedCandidates": 7025,
+        "broadPhaseCandidates": 6663555,
+        "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+      },
+      "toolkitHasIntersections": true,
+      "minimumActiveCandidateDistanceM": 0,
+      "distanceScope": "Minimum over toolkit active candidates only; null means no active candidates, not infinite global clearance.",
+      "limitations": [
+        "Placement admission only, not assembled geometry, material calibration or drape acceptance.",
+        "No seam exclusions; a zero-distance sewing target is incompatible with positive separation at that target.",
+        "Topologically adjacent contact, turning, layer order and continuous motion are not certified by this preflight."
+      ],
+      "canonicalDigest": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "sourceDigests": {
+        "solver_contact_preflight.py": "cec596769465f85e2b6ef39d90922bb2ae35d4ae50040755e0c67232fbf9536b",
+        "solver_ipc_contact.py": "f9b82eebc31682d6df677c1b2a72580f5a7aec74e9d14c6dc4f657f4444d0636",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea"
+      },
+      "runtime": {
+        "ipctk": "1.6.0",
+        "numpy": "2.5.3",
+        "scipy": "1.17.0"
+      },
+      "wallSeconds": 1.777531390999684
+    },
+    {
+      "run": "ipc-source-layers-v2",
+      "sourceRun": "fold-barrier-shirt-v1",
+      "accepted": false,
+      "sourceDigests": {
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "cec596769465f85e2b6ef39d90922bb2ae35d4ae50040755e0c67232fbf9536b",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "d0be52f2d3b7becfb9b65b1bf75e9f375b02c9ef667267c105e576b6c4bc5372",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "ed070b5c8eb2cfe77184714e5070cf5c4c42cfa3de3336644c036beb9405588f",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "run.py": "2d82a5d0fa9b6b483e5301e236ccab4a5339aea9c3295c9e15a952e9d2e49bf8"
+      },
+      "steps": [],
+      "scope": "Actual-source cuff shell/facing collision control; no garment assembly or calibrated material claim.",
+      "stabilizer": "One within-shell vertex-difference constraint at its initial vector; not an assembly seam.",
+      "cpuLimitSeconds": 120,
+      "requestedSteps": 4,
+      "maxEvaluations": 300,
+      "timeStepSeconds": 0.004166666666666667,
+      "incomingSpeedMPerSecond": 0.25,
+      "inputSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "failure": {
+        "type": "TimeoutError",
+        "message": "Declared CPU budget reached"
+      },
+      "elapsedSeconds": 122.99476589300002
+    },
+    {
+      "run": "ipc-source-layers-v3",
+      "sourceRun": "fold-barrier-shirt-v1",
+      "accepted": false,
+      "sourceDigests": {
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "cec596769465f85e2b6ef39d90922bb2ae35d4ae50040755e0c67232fbf9536b",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "d0be52f2d3b7becfb9b65b1bf75e9f375b02c9ef667267c105e576b6c4bc5372",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "3cacd1d0a6b18d444f3826b0d5f7a57b7ab9e73cff3a4b15d54ab787baf4b50d",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "run.py": "aae962d2397880ba555b7ec427bcbb78b90671c14a1d7da97cfa68301143be5f"
+      },
+      "steps": [],
+      "scope": "Actual-source cuff initial-crossing CCD iteration-cap diagnostic only; no dynamics or assembly.",
+      "stabilizer": "One within-shell vertex-difference constraint at its initial vector; not an assembly seam.",
+      "cpuLimitSeconds": 20,
+      "requestedSteps": 0,
+      "maxEvaluations": 300,
+      "timeStepSeconds": 0.004166666666666667,
+      "incomingSpeedMPerSecond": 0.25,
+      "inputSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "instances": [
+        {
+          "instance": "cuff_left:shell",
+          "sourceRange": [
+            940,
+            960
+          ],
+          "localRange": [
+            0,
+            20
+          ]
+        },
+        {
+          "instance": "cuff_left:facing",
+          "sourceRange": [
+            960,
+            980
+          ],
+          "localRange": [
+            20,
+            40
+          ]
+        }
+      ],
+      "vertices": 40,
+      "triangles": 48,
+      "contact": {
+        "adapter": "experimental-ipc-surface-contact-v1",
+        "ipctk": "1.6.0",
+        "activationDistanceM": 0.001,
+        "minimumDistanceM": 0.0001,
+        "stiffness": 100000000,
+        "physicalBarrier": false,
+        "seamExclusions": false,
+        "accepted": false
+      },
+      "sourceRestUnchanged": true,
+      "initialMomentumKgMPerSecond": [
+        0,
+        0,
+        0
+      ],
+      "elapsedSeconds": 0.5799509909998051,
+      "initialStateAdmissible": true,
+      "ccd": {
+        "tolerance": 0.000001,
+        "max_iterations": 10000,
+        "conservative_rescaling": 0.8
+      },
+      "initialFreeMotionStepLimit": 0.8125,
+      "completedRequestedSteps": false
+    },
+    {
+      "run": "ipc-source-layers-v4",
+      "sourceRun": "fold-barrier-shirt-v1",
+      "accepted": false,
+      "sourceDigests": {
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "cec596769465f85e2b6ef39d90922bb2ae35d4ae50040755e0c67232fbf9536b",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "d0be52f2d3b7becfb9b65b1bf75e9f375b02c9ef667267c105e576b6c4bc5372",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "f9b82eebc31682d6df677c1b2a72580f5a7aec74e9d14c6dc4f657f4444d0636",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "run.py": "e1256428dd5291b3bd9483683b25d767cfd6056f338ebe912bb8dd295679a7c0"
+      },
+      "steps": [
+        {
+          "profile": "experimental-global-ipc-contact-reference-v1",
+          "accepted": false,
+          "contact": {
+            "adapter": "experimental-ipc-surface-contact-v2",
+            "ipctk": "1.6.0",
+            "activationDistanceM": 0.001,
+            "minimumDistanceM": 0.0001,
+            "stiffness": 100000000,
+            "physicalBarrier": false,
+            "seamExclusions": false,
+            "accepted": false,
+            "ccd": {
+              "method": "TightInclusionCCD",
+              "tolerance": 0.000001,
+              "maxIterations": 10000,
+              "conservativeRescaling": 0.8,
+              "requiresExternalProcessBudget": true
+            }
+          },
+          "contactJoules": 4.828896172327633e-7,
+          "contactSearchMetric": "PSD-projected contact Hessian; not exact total Hessian",
+          "contactRestMetricTolerance": 0.00000762939453125,
+          "localFoldBarrier": false,
+          "foldBarrierJoules": 0,
+          "bendingHinges": 0,
+          "bendingSearchMetric": null,
+          "converged": true,
+          "optimizerSuccess": true,
+          "stationarityToleranceN": 0.000001,
+          "linearSolver": "direct",
+          "exactSteps": 0,
+          "projectedSteps": 0,
+          "coupledSteps": 6,
+          "shiftedSteps": 0,
+          "status": 1,
+          "message": "Stationarity tolerance satisfied",
+          "evaluations": 12,
+          "initialEnergy": 0.00024374999694005828,
+          "finalEnergy": 0.00007766940410541867,
+          "gradientInfinityNorm": 8.997816670301001e-8,
+          "limitations": [
+            "Experimental frictionless surface contact; no body contact, seam exclusions, external forces or material damping. Diagnostic reference only.",
+            "Optional local angular fold barrier changes the energy model; it is not finite-thickness or nonadjacent cloth contact.",
+            "Elastic bending is uncalibrated; endpoint/branch guards do not certify swept nondegeneracy.",
+            "Stationarity does not certify a local energy minimum or dynamic stability."
+          ],
+          "step": 1,
+          "minimumNonadjacentClearanceM": 0.0010878285181203501,
+          "momentumKgMPerSecond": [
+            -1.1831163138123218e-18,
+            2.5913769473454054e-19,
+            8.131516293641283e-20
+          ],
+          "toolkitIntersections": false,
+          "independentSurfaceOracle": {
+            "intersectingPairCount": 0,
+            "testedCandidates": 5,
+            "broadPhaseCandidates": 1550,
+            "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+          },
+          "physicalPathSafe": true,
+          "restPosesUnchanged": true,
+          "restAreasUnchanged": true,
+          "contactSourceUnchanged": true
+        },
+        {
+          "profile": "experimental-global-ipc-contact-reference-v1",
+          "accepted": false,
+          "contact": {
+            "adapter": "experimental-ipc-surface-contact-v2",
+            "ipctk": "1.6.0",
+            "activationDistanceM": 0.001,
+            "minimumDistanceM": 0.0001,
+            "stiffness": 100000000,
+            "physicalBarrier": false,
+            "seamExclusions": false,
+            "accepted": false,
+            "ccd": {
+              "method": "TightInclusionCCD",
+              "tolerance": 0.000001,
+              "maxIterations": 10000,
+              "conservativeRescaling": 0.8,
+              "requiresExternalProcessBudget": true
+            }
+          },
+          "contactJoules": 3.3137742700405525e-7,
+          "contactSearchMetric": "PSD-projected contact Hessian; not exact total Hessian",
+          "contactRestMetricTolerance": 0.00000762939453125,
+          "localFoldBarrier": false,
+          "foldBarrierJoules": 0,
+          "bendingHinges": 0,
+          "bendingSearchMetric": null,
+          "converged": true,
+          "optimizerSuccess": true,
+          "stationarityToleranceN": 0.000001,
+          "linearSolver": "direct",
+          "exactSteps": 0,
+          "projectedSteps": 0,
+          "coupledSteps": 2,
+          "shiftedSteps": 0,
+          "status": 1,
+          "message": "Stationarity tolerance satisfied",
+          "evaluations": 3,
+          "initialEnergy": 0.000047089650942820767,
+          "finalEnergy": 0.000047071002689023135,
+          "gradientInfinityNorm": 5.137018456845971e-7,
+          "limitations": [
+            "Experimental frictionless surface contact; no body contact, seam exclusions, external forces or material damping. Diagnostic reference only.",
+            "Optional local angular fold barrier changes the energy model; it is not finite-thickness or nonadjacent cloth contact.",
+            "Elastic bending is uncalibrated; endpoint/branch guards do not certify swept nondegeneracy.",
+            "Stationarity does not certify a local energy minimum or dynamic stability."
+          ],
+          "step": 2,
+          "minimumNonadjacentClearanceM": 0.0010892542717021484,
+          "momentumKgMPerSecond": [
+            -4.866633433617506e-18,
+            -9.451721883682175e-19,
+            -5.444833664069049e-20
+          ],
+          "toolkitIntersections": false,
+          "independentSurfaceOracle": {
+            "intersectingPairCount": 0,
+            "testedCandidates": 6,
+            "broadPhaseCandidates": 1550,
+            "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+          },
+          "physicalPathSafe": true,
+          "restPosesUnchanged": true,
+          "restAreasUnchanged": true,
+          "contactSourceUnchanged": true
+        },
+        {
+          "profile": "experimental-global-ipc-contact-reference-v1",
+          "accepted": false,
+          "contact": {
+            "adapter": "experimental-ipc-surface-contact-v2",
+            "ipctk": "1.6.0",
+            "activationDistanceM": 0.001,
+            "minimumDistanceM": 0.0001,
+            "stiffness": 100000000,
+            "physicalBarrier": false,
+            "seamExclusions": false,
+            "accepted": false,
+            "ccd": {
+              "method": "TightInclusionCCD",
+              "tolerance": 0.000001,
+              "maxIterations": 10000,
+              "conservativeRescaling": 0.8,
+              "requiresExternalProcessBudget": true
+            }
+          },
+          "contactJoules": 2.524999685487197e-10,
+          "contactSearchMetric": "PSD-projected contact Hessian; not exact total Hessian",
+          "contactRestMetricTolerance": 0.00000762939453125,
+          "localFoldBarrier": false,
+          "foldBarrierJoules": 0,
+          "bendingHinges": 0,
+          "bendingSearchMetric": null,
+          "converged": true,
+          "optimizerSuccess": true,
+          "stationarityToleranceN": 0.000001,
+          "linearSolver": "direct",
+          "exactSteps": 0,
+          "projectedSteps": 0,
+          "coupledSteps": 5,
+          "shiftedSteps": 0,
+          "status": 1,
+          "message": "Stationarity tolerance satisfied",
+          "evaluations": 6,
+          "initialEnergy": 3.314726777035236e-7,
+          "finalEnergy": 3.434897706249794e-9,
+          "gradientInfinityNorm": 7.88146130884296e-7,
+          "limitations": [
+            "Experimental frictionless surface contact; no body contact, seam exclusions, external forces or material damping. Diagnostic reference only.",
+            "Optional local angular fold barrier changes the energy model; it is not finite-thickness or nonadjacent cloth contact.",
+            "Elastic bending is uncalibrated; endpoint/branch guards do not certify swept nondegeneracy.",
+            "Stationarity does not certify a local energy minimum or dynamic stability."
+          ],
+          "step": 3,
+          "minimumNonadjacentClearanceM": 0.0010989754995470434,
+          "momentumKgMPerSecond": [
+            -6.861120263064673e-18,
+            -1.7286189476796511e-18,
+            -4.171637265227429e-20
+          ],
+          "toolkitIntersections": false,
+          "independentSurfaceOracle": {
+            "intersectingPairCount": 0,
+            "testedCandidates": 4,
+            "broadPhaseCandidates": 1550,
+            "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+          },
+          "physicalPathSafe": true,
+          "restPosesUnchanged": true,
+          "restAreasUnchanged": true,
+          "contactSourceUnchanged": true
+        },
+        {
+          "profile": "experimental-global-ipc-contact-reference-v1",
+          "accepted": false,
+          "contact": {
+            "adapter": "experimental-ipc-surface-contact-v2",
+            "ipctk": "1.6.0",
+            "activationDistanceM": 0.001,
+            "minimumDistanceM": 0.0001,
+            "stiffness": 100000000,
+            "physicalBarrier": false,
+            "seamExclusions": false,
+            "accepted": false,
+            "ccd": {
+              "method": "TightInclusionCCD",
+              "tolerance": 0.000001,
+              "maxIterations": 10000,
+              "conservativeRescaling": 0.8,
+              "requiresExternalProcessBudget": true
+            }
+          },
+          "contactJoules": 0,
+          "contactSearchMetric": "PSD-projected contact Hessian; not exact total Hessian",
+          "contactRestMetricTolerance": 0.00000762939453125,
+          "localFoldBarrier": false,
+          "foldBarrierJoules": 0,
+          "bendingHinges": 0,
+          "bendingSearchMetric": null,
+          "converged": true,
+          "optimizerSuccess": true,
+          "stationarityToleranceN": 0.000001,
+          "linearSolver": "direct",
+          "exactSteps": 0,
+          "projectedSteps": 0,
+          "coupledSteps": 2,
+          "shiftedSteps": 0,
+          "status": 1,
+          "message": "Stationarity tolerance satisfied",
+          "evaluations": 3,
+          "initialEnergy": 4.6296102517916994e-9,
+          "finalEnergy": 2.393629447873981e-13,
+          "gradientInfinityNorm": 2.1320194857930553e-7,
+          "limitations": [
+            "Experimental frictionless surface contact; no body contact, seam exclusions, external forces or material damping. Diagnostic reference only.",
+            "Optional local angular fold barrier changes the energy model; it is not finite-thickness or nonadjacent cloth contact.",
+            "Elastic bending is uncalibrated; endpoint/branch guards do not certify swept nondegeneracy.",
+            "Stationarity does not certify a local energy minimum or dynamic stability."
+          ],
+          "step": 4,
+          "minimumNonadjacentClearanceM": 0.0011073019192100238,
+          "momentumKgMPerSecond": [
+            -4.267729118003004e-18,
+            -2.038811431817792e-18,
+            -5.4752209710517974e-18
+          ],
+          "toolkitIntersections": false,
+          "independentSurfaceOracle": {
+            "intersectingPairCount": 0,
+            "testedCandidates": 4,
+            "broadPhaseCandidates": 1550,
+            "scope": "Final nonadjacent surfaces; noncoplanar touches may count; coplanar boundary-only contact omitted; no swept or thickness test"
+          },
+          "physicalPathSafe": true,
+          "restPosesUnchanged": true,
+          "restAreasUnchanged": true,
+          "contactSourceUnchanged": true
+        }
+      ],
+      "scope": "Actual-source cuff shell/facing collision control; no garment assembly or calibrated material claim.",
+      "stabilizer": "One within-shell vertex-difference constraint at its initial vector; not an assembly seam.",
+      "cpuLimitSeconds": 120,
+      "requestedSteps": 4,
+      "maxEvaluations": 300,
+      "timeStepSeconds": 0.004166666666666667,
+      "incomingSpeedMPerSecond": 0.25,
+      "inputSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "instances": [
+        {
+          "instance": "cuff_left:shell",
+          "sourceRange": [
+            940,
+            960
+          ],
+          "localRange": [
+            0,
+            20
+          ]
+        },
+        {
+          "instance": "cuff_left:facing",
+          "sourceRange": [
+            960,
+            980
+          ],
+          "localRange": [
+            20,
+            40
+          ]
+        }
+      ],
+      "vertices": 40,
+      "triangles": 48,
+      "contact": {
+        "adapter": "experimental-ipc-surface-contact-v2",
+        "ipctk": "1.6.0",
+        "activationDistanceM": 0.001,
+        "minimumDistanceM": 0.0001,
+        "stiffness": 100000000,
+        "physicalBarrier": false,
+        "seamExclusions": false,
+        "accepted": false,
+        "ccd": {
+          "method": "TightInclusionCCD",
+          "tolerance": 0.000001,
+          "maxIterations": 10000,
+          "conservativeRescaling": 0.8,
+          "requiresExternalProcessBudget": true
+        }
+      },
+      "sourceRestUnchanged": true,
+      "initialMomentumKgMPerSecond": [
+        0,
+        0,
+        0
+      ],
+      "elapsedSeconds": 1.1548118860000613,
+      "initialStateAdmissible": true,
+      "initialFreeMotionCollisionSafe": false,
+      "completedRequestedSteps": true
+    },
+    {
+      "run": "ipc-source-layers-v1",
+      "accepted": false,
+      "terminationExitCode": 137,
+      "terminationCause": "Unverified; terminated before report initialization; script, source snapshot and log retained locally",
+      "completedDynamicsSteps": 0
+    }
+  ]
+}

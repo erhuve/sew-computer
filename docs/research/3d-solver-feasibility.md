@@ -2,6 +2,8 @@
 
 **2026-09-16 · Executed CPU research spike · E0 partly complete; no production solver acceptance**
 
+Latest contact work, 2026-09-18: the optional global-reference experiment now supports a pinned IPC barrier and continuous contact guards. The existing full-shirt placement fails contact admission before solving; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
+
 ## Decision
 
 Select **Newton 1.6.0 / Warp 1.17.0 / SolverVBD on CPU** as the implementation candidate. It installs headlessly on this host, consumes application-owned rest meshes, preserves their rest tensors, supports independent physical particles, sewing springs and cloth self-contact, and produces ordinary glTF without model-generated geometry. This is a candidate selection, not an accepted full-shirt assembly or drape claim.
@@ -330,3 +332,28 @@ The eight-step full-shirt trial with a six-step closure ramp completes in **182.
 The matched four-substep trial preserves the same 25 ms closure and 33.3 ms total requested duration, but changes the timestep from `1/240` to `1/960 s`. Its first **14 substeps converge**; substeps 15–31 do not, and substep 32 hits the declared 600-second CPU limit. The saved failure report and previous finite state remain rejected; there is no completed final garment. Wall time is 617.65 seconds. Smaller steps postpone failure but do not close the assembly gate, and these two profiles do not establish timestep independence. The next physical gate remains coupled finite-thickness/nonadjacent contact and executable layer operations; neither a stronger uncalibrated angular penalty nor relaxed acceptance would establish that gate.
 
 Subsequent raw-input validation fixes reject invalid empty-hinge parameters and malformed topology before filtering. They do not alter the valid-input numerical equations used in these captured shirt runs. The final-source torso rerun again reproduces the same canonical geometry and all twelve converged steps in 20.30 seconds. Each trial retains its own source snapshot rather than attributing old results to changed bytes.
+
+## Coupled surface-contact reference · 2026-09-18
+
+The optional `IpcSurfaceContact` adapter adds [IPC Toolkit 1.6.0](https://github.com/ipc-sim/ipc-toolkit) to the research global solver. It uses the toolkit's nonphysical barrier mode with explicitly supplied activation distance, minimum surface separation and uncalibrated stiffness. The barrier enters the actual objective, gradient, projected search metric and mechanical-energy accounting. It is not a post-solve position correction. The existing solver remains the default; the full-shirt CLI does not enable this experiment.
+
+[Continuous collision bounds](https://ipctk.xyz/python-api/ccd.html) limit optimizer directions before evaluation; accepted candidates must also pass the physical previous-state-to-candidate path check. Rest geometry, ordered topology and source material metrics remain independent of placed geometry. Input checks reject malformed/nonmanifold topology, degenerate triangles, intersecting starts, insufficient clearance, and unrepresentable squared-distance/barrier scales before native evaluation. Contact-only steps require the guarded direct solver. Contact energy differences currently use float64 subtraction; cancellation near equilibrium is a remaining numerical limitation, not a reason to loosen stationarity.
+
+This is frictionless triangle-surface research: no calibrated cloth thickness, friction, body, layer-turning or sewn-layer model. Incident primitives are omitted by toolkit contact; the separate local hinge guard is not replaced by a claim of universal self-contact. The coupled contact metric is PSD-projected, not the exact total Hessian. A parameter pin and MIT toolkit license do not establish binary redistribution approval.
+
+An actual-source cuff shell/facing control exposes a runtime limit absent from the small triangle tests: default CCD spends its 120-second CPU budget before the first solve. With the same tolerance (`1e-6`) and conservative rescaling (`0.8`), a 10,000-iteration TightInclusion configuration checks the initial crossing path in 0.58 seconds and returns a `0.8125` safe step bound. Profile v2 captures this configuration explicitly. [The pinned implementation](https://github.com/ipc-sim/ipc-toolkit/blob/v1.6.0/src/ipc/ccd/tight_inclusion_ccd.cpp) can retry near-zero impacts without an iteration limit; the configuration is not a substitute for the enclosing process CPU limit. This comparison alone does not establish coupled source-panel dynamics.
+
+The captured full-shirt placement fails before contact simulation: the independent discrete oracle finds **1,511 intersecting nonadjacent pairs**, while toolkit admission independently finds an intersection and zero minimum active candidate distance. It has 2,244 vertices and 3,512 triangles. This pre-existing placement was used in the contact-disabled fold controls; the new finding does not invalidate those narrower convergence observations, but prevents promoting them to a valid contact initialization. The source-bound [contact ledger](3d-contact-results.json) and [adversarial review](../reviews/3d-cloth-contact.md) retain this rejection.
+
+Reproduce the admission check from the isolated checkout, selecting a new output directory:
+
+```sh
+.planning/solver/newton-venv/bin/pip install -r scripts/solver-contact.requirements.txt
+OPENBLAS_NUM_THREADS=1 .planning/solver/newton-venv/bin/python scripts/solver_contact_preflight.py --canonical .planning/solver/fold-barrier-shirt-v1/canonical.json --output .planning/solver/new-contact-preflight --activation-distance-m .001 --minimum-distance-m .0001 --stiffness 1e8
+```
+
+Expected exit status is **2**, with a retained rejection report; status 0 would indicate only placement admission, never garment acceptance. Reports distinguish minimum active-candidate distance from a measured global clearance and preserve input bytes' digest plus source snapshots. They do not certify the supplied file's provenance back to a pattern independently of its existing source ledger.
+
+Next implement collision-free source-preserving staging and explicit finite-separation sewing/layer operations. Zero-distance spring targets across distinct contacting layers are incompatible with positive separation; broad seam exclusions would conceal the problem. Full-shirt contact, assembly, settling and material acceptance remain open.
+
+The final actual-source cuff shell/facing control completes all four requested `1/240 s` steps in **1.155 seconds**, with force residuals `8.998e-8`, `5.137e-7`, `7.881e-7` and `2.132e-7 N`. All recorded clearances exceed **1.08783 mm**, both intersection oracles remain zero, and the physical CCD paths pass. Original rest metrics and source coordinates are unchanged; total-momentum residual is below `6.87e-18 kg m/s`. This uses two existing cuff instances, rigid 2 mm initial separation, opposing 0.25 m/s velocities and an explicitly diagnostic within-shell vector constraint, not an assembly seam. These 16.7 ms of dynamics demonstrate source-derived layer contact only. Independent review verifies saved states/source digests; the contact ledger retains default-CCD resource failures and the final control separately.

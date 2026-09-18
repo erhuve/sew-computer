@@ -1,0 +1,2 @@
+-r solver-spike.requirements.txt
+ipctk==1.6.0

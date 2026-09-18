@@ -30,6 +30,8 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
     bending_change = solver.bending.energy_change(previous, positions)
     barrier = getattr(solver, "fold_barrier", None)
     barrier_change = barrier.energy_change(previous, positions) if barrier is not None else 0.
+    contact = getattr(solver, "contact", None)
+    contact_change = contact.energy_change(previous, positions) if contact is not None else 0.
     velocity_change = velocities - previous_velocities
     kinetic_change = float(np.sum(solver.mass[:, None] *
                                  (previous_velocities + .5 * velocity_change) * velocity_change))
@@ -50,18 +52,21 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         "foldBarrierChangeJoules": barrier_change,
         "foldBarrierBeforeJoules": barrier.energy(previous) if barrier is not None else 0.,
         "foldBarrierAfterJoules": barrier.energy(positions) if barrier is not None else 0.,
+        "contactChangeJoules": contact_change,
+        "contactBeforeJoules": contact.energy(previous) if contact is not None else 0.,
+        "contactAfterJoules": contact.energy(positions) if contact is not None else 0.,
         "kineticChangeJoules": kinetic_change,
         "sewingChangeJoules": sewing_change,
         "sewingBeforeJoules": float(np.sum(previous_residual ** 2) / (2 * solver.compliance)),
         "sewingAfterJoules": float(np.sum((previous_residual + residual_change) ** 2) / (2 * solver.compliance)),
         "targetParameterWorkJoules": target_work,
-        "mechanicalChangeJoules": membrane_change + bending_change + barrier_change + kinetic_change + sewing_change,
-        "mechanicalChangeMinusTargetWorkJoules": membrane_change + bending_change + barrier_change + kinetic_change + fixed_target_change,
+        "mechanicalChangeJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + sewing_change,
+        "mechanicalChangeMinusTargetWorkJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + fixed_target_change,
     }
     if not all(np.isfinite(value) for value in report.values()):
         raise ValueError("Finite energy balance required")
     return {
         **report,
         "accepted": False,
-        "scope": "Contact-disabled global membrane/elastic-bending/sewing dynamics, including the optional experimental local angular fold barrier. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "scope": ("Global membrane/elastic-bending/sewing dynamics with experimental frictionless surface contact. " if contact is not None else "Contact-disabled global membrane/elastic-bending/sewing dynamics. ") + "Includes the optional experimental local angular fold barrier. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
     }
