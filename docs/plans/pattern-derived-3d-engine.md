@@ -32,6 +32,8 @@ Continuation, 2026-09-17: experimental embedded sewing can now run inside the VB
 
 Continuation, 2026-09-18: the offline global reference now includes optional conservative dihedral bending with source-derived rest geometry, coupled Gauss–Newton search and explicit bending-energy accounting. The 12-step torso control converges at every step. This is a numerical foundation, not E3/E5 completion: coupled contact, damping/material calibration, full-shirt settling and layer operations remain open. Current measurements and limits are maintained in the [solver feasibility evidence](../research/3d-solver-feasibility.md#elastic-bending-reference--2026-09-18).
 
+The September 18 local-fold continuation adds an explicitly optional angular barrier and a conservative swept hinge guard to the offline reference. Independent derivative, path and integration reviews pass; the torso control remains unchanged. This is not finite-thickness or general self-contact and does not close full-shirt assembly. See the [current experiment and limits](../research/3d-solver-feasibility.md#local-fold-barrier-and-swept-hinge-controls--2026-09-18).
+
 ## Authority, scope and document ownership
 
 This is the implementation plan for Sew Computer's pattern-derived 3D engine and its application integration. It replaces the detailed E0–V5 section formerly embedded in the [software prototype plan](software-prototype.md); that document remains the overall product roadmap. The [project contract §14](../design/project-contract.md#14-pattern-derived-garment-3d) remains normative. Maintain execution details here rather than in a second competing 3D roadmap.

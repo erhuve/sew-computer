@@ -63,6 +63,8 @@ def main():
     parser.add_argument("--global-cpu-limit-seconds", type=int, default=240)
     parser.add_argument("--membrane-only-control", action="store_true")
     parser.add_argument("--elastic-bending-control", action="store_true")
+    parser.add_argument("--local-fold-barrier-joules", type=float)
+    parser.add_argument("--local-fold-activation-degrees", type=float, default=90.)
     parser.add_argument("--solver-iterations", type=int, default=10)
     parser.add_argument("--stable-membrane", action="store_true")
     parser.add_argument("--substeps", type=int, default=1)
@@ -79,6 +81,13 @@ def main():
     parser.add_argument("--pointwise-contact", action="store_true")
     parser.add_argument("--pin-first-vertex", action="store_true")
     arguments = parser.parse_args()
+    if arguments.local_fold_barrier_joules is not None and (not arguments.elastic_bending_control
+            or not math.isfinite(arguments.local_fold_barrier_joules) or not 0 < arguments.local_fold_barrier_joules <= 1):
+        parser.error("local fold barrier requires elastic bending and a finite stiffness in (0, 1] joules per hinge")
+    if (not math.isfinite(arguments.local_fold_activation_degrees)
+            or not 0 < arguments.local_fold_activation_degrees < 179
+            or (arguments.local_fold_barrier_joules is None and arguments.local_fold_activation_degrees != 90.)):
+        parser.error("local fold activation requires a barrier and an angle in (0, 179) degrees")
     if not math.isfinite(arguments.step_seconds) or not 1 / 1920 <= arguments.step_seconds <= 1 / 30:
         parser.error("physical step seconds must be finite and within 1/1920..1/30")
     if not 1 <= arguments.global_max_evaluations <= 10000:
@@ -138,6 +147,9 @@ def main():
         sources["solver_embedded_sewing.py"] = Path(__file__).with_name("solver_embedded_sewing.py")
     if arguments.global_reference:
         for name in ("solver_global_sewing.py", "solver_global_shift.py", "solver_energy_change.py", "solver_energy_balance.py", "solver_bending.py", "solver_membrane_hessian.py", "solver_embedded_sewing.py", "solver_membrane_stability.py"):
+            sources[name] = Path(__file__).with_name(name)
+    if arguments.local_fold_barrier_joules is not None:
+        for name in ("solver_fold_barrier.py", "solver_hinge_sweep.py"):
             sources[name] = Path(__file__).with_name(name)
     if arguments.quality_refinement:
         sources["quality_meshing.py"] = engine / "quality_meshing.py"
@@ -314,7 +326,9 @@ def main():
         compliances = {constraint["complianceMPerN"] for constraint in bundle["constraints"]}
         if len(compliances) != 1:
             raise ValueError("Global reference requires uniform sewing compliance")
-        global_solver = GlobalSewingSolver(model, sewing_rows, compliances.pop())
+        global_solver = GlobalSewingSolver(model, sewing_rows, compliances.pop(),
+            fold_barrier_joules=arguments.local_fold_barrier_joules,
+            fold_activation_angle=math.radians(arguments.local_fold_activation_degrees))
         global_positions = np.asarray(placed_vertices, dtype=float)
         global_velocities = np.zeros_like(global_positions)
     if arguments.coupled_sewing:
@@ -337,6 +351,8 @@ def main():
     coupling_report = {"mode": "global-elastic-bending-reference" if arguments.elastic_bending_control else "global-membrane-reference" if arguments.global_reference else "coupled-embedded-cut-cloth" if arguments.coupled_sewing else "embedded-cut-cloth" if arguments.embedded_sewing else "boundary-springs", "substeps": arguments.substeps,
                        "membraneOnlyControl": arguments.membrane_only_control,
                        "elasticBendingControl": arguments.elastic_bending_control,
+                       "localFoldBarrierJoulesPerHinge": arguments.local_fold_barrier_joules,
+                       "localFoldActivationDegrees": arguments.local_fold_activation_degrees if arguments.local_fold_barrier_joules is not None else None,
                        "globalReference": arguments.global_reference,
                        "solverIterations": arguments.solver_iterations, "sewingSolver": sewing_report,
                        "pinnedVertices": np.flatnonzero(model.particle_inv_mass.numpy() == 0).tolist(),
@@ -362,6 +378,11 @@ def main():
     source_geometry.write_text(json.dumps({"restMeters": rest_vertices, "placedMeters": placed_vertices,
         "triangles": indices, "instanceOffsets": offsets, "inventory": inventory, "assembly": graph,
         "sourceTemplates": templates, "embeddedConstraints": bundle, "elasticBending": bending_inputs,
+        "localFoldBarrier": {"indices": global_solver.fold_barrier.indices.tolist(),
+            "stiffnessJoulesPerHinge": arguments.local_fold_barrier_joules,
+            "activationDegrees": arguments.local_fold_activation_degrees,
+            "scope": "Experimental angular regularization, not finite-thickness or nonadjacent self-contact"}
+            if global_solver is not None and global_solver.fold_barrier is not None else None,
         "coupling": coupling_report}, separators=(",", ":"), allow_nan=False))
     geometry_digest = hashlib.sha256(source_geometry.read_bytes()).hexdigest()
     unconverged_substeps = []
@@ -440,7 +461,8 @@ def main():
             if arguments.global_reference:
                 entry["energyBalance"] = energy_balance
                 entry["bendingJoules"] = energy_balance["bendingAfterJoules"]
-                entry["mechanicalJoules"] = entry["membraneJoules"] + entry["kineticJoules"] + entry["bendingJoules"] + energy_balance["sewingAfterJoules"]
+                entry["foldBarrierJoules"] = energy_balance["foldBarrierAfterJoules"]
+                entry["mechanicalJoules"] = entry["membraneJoules"] + entry["kineticJoules"] + entry["bendingJoules"] + entry["foldBarrierJoules"] + energy_balance["sewingAfterJoules"]
                 entry["scope"] = energy_balance["scope"]
             with trajectory_path.open("a") as trajectory:
                 trajectory.write(json.dumps(entry, allow_nan=False) + "\n")

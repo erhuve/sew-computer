@@ -26,7 +26,7 @@ class GlobalDynamicsHarnessTests(unittest.TestCase):
                     self.assertNotIn("unrecognized arguments", result.stderr)
                     self.assertFalse(output.exists())
 
-    def run_stationary_control(self, output, substeps, bending=False):
+    def run_stationary_control(self, output, substeps, bending=False, fold_barrier=False):
         program = """
 import runpy
 import sys
@@ -48,7 +48,46 @@ runpy.run_path(sys.argv[0], run_name='__main__')
             "--elastic-bending-control" if bending else "--membrane-only-control", "--torso-equilibrium-control", "--torso-front-gap-mm", "1",
             "--disable-contact", "--steps", "2", "--ramp-steps", "1",
             "--step-seconds", "0.01", "--substeps", str(substeps),
+            *(["--local-fold-barrier-joules", "0.001"] if fold_barrier else []),
         ], cwd=ROOT, capture_output=True, text=True, timeout=120)
+
+    def test_fold_barrier_capture_and_accounting(self):
+        with tempfile.TemporaryDirectory(prefix="sew-fold-harness-") as directory:
+            output = Path(directory) / "result"
+            result = self.run_stationary_control(output, 1, bending=True, fold_barrier=True)
+            self.assertEqual(result.returncode, 0, result.stdout[-2000:] + result.stderr[-2000:])
+            report = json.loads((output / "report.json").read_text())
+            geometry = json.loads((output / "source-geometry.json").read_text())
+            self.assertFalse(report["accepted"])
+            self.assertEqual(report["coupling"]["localFoldBarrierJoulesPerHinge"], .001)
+            self.assertEqual(geometry["localFoldBarrier"]["activationDegrees"], 90.)
+            self.assertTrue(geometry["localFoldBarrier"]["indices"])
+            for name in ("solver_fold_barrier.py", "solver_hinge_sweep.py"):
+                source = (ROOT / "scripts" / name).read_bytes()
+                self.assertEqual((output / "source-snapshot" / name).read_bytes(), source)
+                self.assertEqual(report["sourceDigests"][name], hashlib.sha256(source).hexdigest())
+            for line in (output / "trajectory.jsonl").read_text().splitlines():
+                entry = json.loads(line)
+                self.assertEqual(entry["foldBarrierJoules"], entry["energyBalance"]["foldBarrierAfterJoules"])
+                self.assertEqual(entry["energyBalance"]["foldBarrierChangeJoules"], 0.)
+                self.assertAlmostEqual(entry["mechanicalJoules"], entry["membraneJoules"]
+                    + entry["kineticJoules"] + entry["bendingJoules"] + entry["foldBarrierJoules"]
+                    + entry["energyBalance"]["sewingAfterJoules"])
+
+    def test_invalid_fold_options_rejected_before_output(self):
+        with tempfile.TemporaryDirectory(prefix="sew-fold-options-") as directory:
+            base = ["--elastic-bending-control", "--global-reference", "--embedded-sewing", "--disable-contact"]
+            cases = [base + ["--local-fold-barrier-joules=" + value] for value in ("nan", "inf", "0", "-1", "2")]
+            cases += [["--local-fold-barrier-joules", ".001"], ["--local-fold-activation-degrees", "100"]]
+            cases += [base + ["--local-fold-barrier-joules", ".001", "--local-fold-activation-degrees=" + value]
+                      for value in ("nan", "0", "180")]
+            for index, arguments in enumerate(cases):
+                output = Path(directory) / str(index)
+                result = subprocess.run([sys.executable, str(ROOT / "scripts/spike-full-shirt.py"),
+                    "--output", str(output), *arguments], cwd=ROOT, capture_output=True, text=True, timeout=15)
+                self.assertEqual(result.returncode, 2)
+                self.assertNotIn("unrecognized arguments", result.stderr)
+                self.assertFalse(output.exists())
 
     def test_bending_profile_capture_and_accounting(self):
         with tempfile.TemporaryDirectory(prefix="sew-bending-harness-") as directory:
