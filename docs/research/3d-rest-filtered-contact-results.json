@@ -1,0 +1,577 @@
+{
+  "date": "2026-09-19",
+  "accepted": false,
+  "classification": "experimental-contact-model-and-synthetic-sewing-controls",
+  "motivation": "https://arxiv.org/abs/2510.10256",
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "3de1a68246a025d26725370d447d356de024be99d9fae6eaa71279e9c602fa92",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "8f7869bc0675de0d50b9e895fe48bf498a68f2445a0b4c8bdf8f6061045c4530",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rest_filtered_contact.py": "9c10d8ee502a21894c94859cdc7dd0d719ca318f67a8d60b220bd1803e1465c8",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "1ba134a6a89978c3b2120e5f25b67c4cb39428b4e19e44c9afd6b8afaec1a63a",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "725a0f2e9e388cd11c00709e0c1bd90b546a695b4b50600073bb485d74f0f0eb"
+  },
+  "profile": {
+    "accepted": false,
+    "adapter": "experimental-rest-filtered-contact-v1",
+    "collisionSet": "area-weighted IPC; not improved-max",
+    "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+    "filteredPrimitivePairs": 2086,
+    "fullActivationM": 0.001,
+    "fullMinimumM": 0.0001,
+    "ipctk": "1.6.0",
+    "limitations": [
+      "Changed contact model, not a tolerance fix or paper reproduction.",
+      "Local positive core and activation use one quarter of minimum filtered rest distance.",
+      "Planar connected rest components only; no sewing or layer operations.",
+      "Primitive partition and collision-set transitions require derivative validation.",
+      "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+      "Native broad-phase allocation and CCD require external process budgets."
+    ],
+    "localActivationM": 0.000034559399108680375,
+    "localMinimumM": 0.000034559399108680375,
+    "maxCandidates": 100000,
+    "pathPredicate": "static support certificate then Tight Inclusion; conservative",
+    "pressurePa": 10000,
+    "stiffnessUnits": "Pa"
+  },
+  "stationary": {
+    "directory": ".planning/solver/rest-filtered-shirt-stationary-sep19-v2",
+    "reportSha256": "f0a2a0723c7c6b10e383f9a70508307e3b5870c32588eb0ee8c36516c382a2e7",
+    "completed": true,
+    "accepted": false,
+    "failure": null,
+    "cpuSeconds": 14.91,
+    "wallSeconds": 15.647475359000055,
+    "contactProfile": {
+      "accepted": false,
+      "adapter": "experimental-rest-filtered-contact-v1",
+      "collisionSet": "area-weighted IPC; not improved-max",
+      "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+      "filteredPrimitivePairs": 2086,
+      "fullActivationM": 0.001,
+      "fullMinimumM": 0.0001,
+      "ipctk": "1.6.0",
+      "limitations": [
+        "Changed contact model, not a tolerance fix or paper reproduction.",
+        "Local positive core and activation use one quarter of minimum filtered rest distance.",
+        "Planar connected rest components only; no sewing or layer operations.",
+        "Primitive partition and collision-set transitions require derivative validation.",
+        "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+        "Native broad-phase allocation and CCD require external process budgets."
+      ],
+      "localActivationM": 0.000034559399108680375,
+      "localMinimumM": 0.000034559399108680375,
+      "maxCandidates": 100000,
+      "pathPredicate": "static support certificate then Tight Inclusion; conservative",
+      "pressurePa": 10000,
+      "stiffnessUnits": "Pa"
+    },
+    "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+    "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+    "arguments": {
+      "activation_distance_m": 0.001,
+      "canonical": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+      "ccd_profile": "tight-inclusion",
+      "contact_model": "rest-filtered",
+      "cpu_limit_seconds": 120,
+      "max_attempts": 256,
+      "max_depth": 8,
+      "max_evaluations": 100,
+      "minimum_distance_m": 0.0001,
+      "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rest-filtered-shirt-stationary-sep19-v2",
+      "placement": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+      "pressure_pa": 10000,
+      "step_seconds": 0.004166666666666667,
+      "subdivisions": 1,
+      "target_fraction": 1,
+      "wall_limit_seconds": 150
+    },
+    "initialContactEnergyJ": 0,
+    "initialPeakContactForceN": 0,
+    "finalContactEnergyJ": 0,
+    "finalPeakContactForceN": 0,
+    "acceptedStateArtifacts": [
+      {
+        "path": "accepted-0001.json",
+        "sha256": "2077cf0da6be319e43bb0f4a08f75681e7788c25d16ddca65151a3292ba6c46a"
+      }
+    ],
+    "recoveryErrors": [],
+    "completedFraction": 1,
+    "acceptedSteps": 1,
+    "maximumRecordedResidualN": 7.06369627828265e-8
+  },
+  "motion": {
+    "directory": ".planning/solver/rest-filtered-shirt-motion-sep19-standard-budget",
+    "reportSha256": "1e07461785295f81b3248339cd6a48d215da26805cb6b056710ac8b2e5568b22",
+    "completed": true,
+    "accepted": false,
+    "failure": null,
+    "cpuSeconds": 166.57,
+    "wallSeconds": 174.55411097,
+    "contactProfile": {
+      "accepted": false,
+      "adapter": "experimental-rest-filtered-contact-v1",
+      "collisionSet": "area-weighted IPC; not improved-max",
+      "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+      "filteredPrimitivePairs": 2086,
+      "fullActivationM": 0.001,
+      "fullMinimumM": 0.0001,
+      "ipctk": "1.6.0",
+      "limitations": [
+        "Changed contact model, not a tolerance fix or paper reproduction.",
+        "Local positive core and activation use one quarter of minimum filtered rest distance.",
+        "Planar connected rest components only; no sewing or layer operations.",
+        "Primitive partition and collision-set transitions require derivative validation.",
+        "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+        "Native broad-phase allocation and CCD require external process budgets."
+      ],
+      "localActivationM": 0.000034559399108680375,
+      "localMinimumM": 0.000034559399108680375,
+      "maxCandidates": 100000,
+      "pathPredicate": "static support certificate then Tight Inclusion; conservative",
+      "pressurePa": 10000,
+      "stiffnessUnits": "Pa"
+    },
+    "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+    "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+    "arguments": {
+      "activation_distance_m": 0.001,
+      "canonical": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+      "ccd_profile": "tight-inclusion",
+      "contact_model": "rest-filtered",
+      "cpu_limit_seconds": 240,
+      "max_attempts": 256,
+      "max_depth": 8,
+      "max_evaluations": 100,
+      "minimum_distance_m": 0.0001,
+      "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rest-filtered-shirt-motion-sep19-standard-budget",
+      "placement": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+      "pressure_pa": 10000,
+      "step_seconds": 0.004166666666666667,
+      "subdivisions": 8,
+      "target_fraction": 0.99,
+      "wall_limit_seconds": 360
+    },
+    "initialContactEnergyJ": 0,
+    "initialPeakContactForceN": 0,
+    "finalContactEnergyJ": 0.0012787626436036722,
+    "finalPeakContactForceN": 3.0918212528935802,
+    "acceptedStateArtifacts": [
+      {
+        "path": "accepted-0001.json",
+        "sha256": "13cffd2e46235ebe9768085d63e9732becc8d1e10214cf0135ce4b09779a9eab"
+      },
+      {
+        "path": "accepted-0002.json",
+        "sha256": "242bec0a1edaa13ed8d4febefabda348201aab9367a921ebd289995165ef93e6"
+      },
+      {
+        "path": "accepted-0003.json",
+        "sha256": "260212fa04014f57bb1fb4bd52b8fbe65cb62ca22d11980bd244aa26683339a3"
+      },
+      {
+        "path": "accepted-0004.json",
+        "sha256": "0dfbbe8d5982b3c686d513077ee94fef7ba820baf999643767b0a28e099de161"
+      },
+      {
+        "path": "accepted-0005.json",
+        "sha256": "8c5fbb682b47820ceef37777eb89993410838383dd4acfc180e170cf9e65b88c"
+      },
+      {
+        "path": "accepted-0006.json",
+        "sha256": "fdaa352b05d9bf7d836a8df3a102fa200f5fbb1b6f2038e4748ec236b769fec1"
+      },
+      {
+        "path": "accepted-0007.json",
+        "sha256": "0cb36fb21855331f3e1df3acef206ecc1fc934d768c13879d0dbad96ed0c96cc"
+      },
+      {
+        "path": "accepted-0008.json",
+        "sha256": "251f1becad7e3cc5ee4dce7beb199373b430f0150c2604d7101d028759722889"
+      }
+    ],
+    "recoveryErrors": [],
+    "completedFraction": 1,
+    "acceptedSteps": 8,
+    "maximumRecordedResidualN": 9.275906436548753e-7
+  },
+  "replay": {
+    "accepted": false,
+    "states": [
+      {
+        "endFraction": 0.125,
+        "recomputedResidualN": 6.861981919983815e-8,
+        "recordedResidualN": 6.861981919983815e-8,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0
+      },
+      {
+        "endFraction": 0.25,
+        "recomputedResidualN": 1.0490059517496988e-7,
+        "recordedResidualN": 1.0490059517496988e-7,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0
+      },
+      {
+        "endFraction": 0.375,
+        "recomputedResidualN": 6.562350184646792e-7,
+        "recordedResidualN": 6.562350184646792e-7,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0.000009643154592983226
+      },
+      {
+        "endFraction": 0.5,
+        "recomputedResidualN": 1.5510780979600362e-7,
+        "recordedResidualN": 1.5510780979600362e-7,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0.000044539576768063155
+      },
+      {
+        "endFraction": 0.625,
+        "recomputedResidualN": 7.428733811970173e-7,
+        "recordedResidualN": 7.428733811970173e-7,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0.00005583355902077794
+      },
+      {
+        "endFraction": 0.75,
+        "recomputedResidualN": 1.0451985456068905e-7,
+        "recordedResidualN": 1.0451985456068905e-7,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0.00015826959527397917
+      },
+      {
+        "endFraction": 0.875,
+        "recomputedResidualN": 9.275906436548753e-7,
+        "recordedResidualN": 9.275906436548753e-7,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0.0006557995573358013
+      },
+      {
+        "endFraction": 1,
+        "recomputedResidualN": 8.328711867936084e-8,
+        "recordedResidualN": 8.328711867936084e-8,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "contactEnergyJ": 0.0012787626436036722
+      }
+    ],
+    "contactProfile": {
+      "adapter": "experimental-rest-filtered-contact-v1",
+      "accepted": false,
+      "ipctk": "1.6.0",
+      "stiffnessUnits": "Pa",
+      "pressurePa": 10000,
+      "fullMinimumM": 0.0001,
+      "fullActivationM": 0.001,
+      "localMinimumM": 0.000034559399108680375,
+      "localActivationM": 0.000034559399108680375,
+      "filteredPrimitivePairs": 2086,
+      "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+      "collisionSet": "area-weighted IPC; not improved-max",
+      "pathPredicate": "static support certificate then Tight Inclusion; conservative",
+      "maxCandidates": 100000,
+      "limitations": [
+        "Changed contact model, not a tolerance fix or paper reproduction.",
+        "Local positive core and activation use one quarter of minimum filtered rest distance.",
+        "Planar connected rest components only; no sewing or layer operations.",
+        "Primitive partition and collision-set transitions require derivative validation.",
+        "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+        "Native broad-phase allocation and CCD require external process budgets."
+      ]
+    },
+    "reportSha256": "1e07461785295f81b3248339cd6a48d215da26805cb6b056710ac8b2e5568b22",
+    "seamGaps": {
+      "constraintCount": 305,
+      "beforeMax": 491.6316234958013,
+      "afterMax": 486.7153188056504,
+      "beforeP95": 338.58585920000024,
+      "afterP95": 335.2000789131384,
+      "maximumIndividualIncrease": -0.019998717259715804
+    },
+    "review": "implementer reconstruction; same collision adapter, separate residual formula and endpoint oracle"
+  },
+  "replaySha256": "a7d126856fdac94164e801cabf94c9d95653150bbd90c0c47390794da9c4c9d7",
+  "replayScriptSha256": "72e5ec3686a6aba225a7bede6d645460feb36bd9405fafb3808820ec951998e5",
+  "sewingControl": {
+    "accepted": false,
+    "steps": 16,
+    "maximumResidualN": 9.055085492276778e-7,
+    "finalTargetErrorM": 7.00378263545558e-9,
+    "finalMinimumHeightM": 0.00011000084094881658,
+    "finalContactEnergyJ": 0.00001093203016104002,
+    "review": "implementer rerun with both endpoint oracles; not independent review"
+  },
+  "sewingSourceDigests": {
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_temporal_separation.py": "1ba134a6a89978c3b2120e5f25b67c4cb39428b4e19e44c9afd6b8afaec1a63a",
+    "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "solver_global_sewing.py": "8f7869bc0675de0d50b9e895fe48bf498a68f2445a0b4c8bdf8f6061045c4530",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_adaptive_contact.py": "3de1a68246a025d26725370d447d356de024be99d9fae6eaa71279e9c602fa92",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_rest_filtered_contact.py": "9c10d8ee502a21894c94859cdc7dd0d719ca318f67a8d60b220bd1803e1465c8",
+    "test_solver_rest_filtered_contact.py": "e9a897345282c91b6f73442f19296bc6cff1ec53aa5ea5f2842a239ec3d44bb8",
+    "test_solver_contact_range_adversarial.py": "3969c83b5423212a290457135f69e5de945476df269255e56eca86f77d7d23f3"
+  },
+  "sewingEvidenceSha256": "30db68e2dc3adb8343f0edced4ebf1a937584b15d8629dd23425813c555fa1c5",
+  "sewingProbeSha256": "daa7d99724f67e00417917e4ab2dbc7d246a27aca18958f798ceab2ac3624399",
+  "priorFailures": [
+    {
+      "directory": ".planning/solver/rest-filtered-shirt-stationary-sep19",
+      "reportSha256": "3122a4cc661580d1c07ba112edf03b3d75a624d323c4e820a2c940f3b992a57c",
+      "completed": false,
+      "accepted": false,
+      "failure": {
+        "message": "Rest-filtered candidate budget exceeded",
+        "type": "ValueError"
+      },
+      "cpuSeconds": 2.67,
+      "wallSeconds": 2.886567543999945,
+      "contactProfile": null,
+      "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+        "ccd_profile": "tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 120,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rest-filtered-shirt-stationary-sep19",
+        "placement": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+        "pressure_pa": 10000,
+        "step_seconds": 0.004166666666666667,
+        "subdivisions": 1,
+        "target_fraction": 1,
+        "wall_limit_seconds": 150
+      },
+      "initialContactEnergyJ": null,
+      "initialPeakContactForceN": null,
+      "finalContactEnergyJ": null,
+      "finalPeakContactForceN": null,
+      "acceptedStateArtifacts": [],
+      "recoveryErrors": [],
+      "completedFraction": null,
+      "acceptedSteps": 0,
+      "maximumRecordedResidualN": null
+    },
+    {
+      "directory": ".planning/solver/rest-filtered-shirt-motion-sep19",
+      "reportSha256": "763cdf3637899d17e3a8c38e7a8640d3c07e684eed93ffc6264cd84a88de7833",
+      "completed": false,
+      "accepted": false,
+      "failure": {
+        "message": "cpu-budget-exhausted",
+        "type": "ProcessBudgetFailure"
+      },
+      "cpuSeconds": 120.03,
+      "wallSeconds": 125.05361195499995,
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+        "filteredPrimitivePairs": 2086,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation use one quarter of minimum filtered rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Primitive partition and collision-set transitions require derivative validation.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationM": 0.000034559399108680375,
+        "localMinimumM": 0.000034559399108680375,
+        "maxCandidates": 100000,
+        "pathPredicate": "static support certificate then Tight Inclusion; conservative",
+        "pressurePa": 10000,
+        "stiffnessUnits": "Pa"
+      },
+      "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+        "ccd_profile": "tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 120,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rest-filtered-shirt-motion-sep19",
+        "placement": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+        "pressure_pa": 10000,
+        "step_seconds": 0.004166666666666667,
+        "subdivisions": 8,
+        "target_fraction": 0.99,
+        "wall_limit_seconds": 150
+      },
+      "initialContactEnergyJ": 0,
+      "initialPeakContactForceN": 0,
+      "finalContactEnergyJ": null,
+      "finalPeakContactForceN": null,
+      "acceptedStateArtifacts": [],
+      "recoveryErrors": [],
+      "completedFraction": 0,
+      "acceptedSteps": 0,
+      "maximumRecordedResidualN": null
+    },
+    {
+      "directory": ".planning/solver/rest-filtered-shirt-motion-sep19-v2",
+      "reportSha256": "e32026ae1a5ba60235d06937720b24abc00257d9b56375c7bf4f10edec1230c3",
+      "completed": false,
+      "accepted": false,
+      "failure": {
+        "message": "cpu-budget-exhausted",
+        "type": "ProcessBudgetFailure"
+      },
+      "cpuSeconds": 120.03,
+      "wallSeconds": 125.67791726200005,
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+        "filteredPrimitivePairs": 2086,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation use one quarter of minimum filtered rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Primitive partition and collision-set transitions require derivative validation.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationM": 0.000034559399108680375,
+        "localMinimumM": 0.000034559399108680375,
+        "maxCandidates": 100000,
+        "pathPredicate": "static support certificate then Tight Inclusion; conservative",
+        "pressurePa": 10000,
+        "stiffnessUnits": "Pa"
+      },
+      "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+      "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+        "ccd_profile": "tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 120,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rest-filtered-shirt-motion-sep19-v2",
+        "placement": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+        "pressure_pa": 10000,
+        "step_seconds": 0.004166666666666667,
+        "subdivisions": 8,
+        "target_fraction": 0.99,
+        "wall_limit_seconds": 150
+      },
+      "initialContactEnergyJ": 0,
+      "initialPeakContactForceN": 0,
+      "finalContactEnergyJ": null,
+      "finalPeakContactForceN": null,
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "13cffd2e46235ebe9768085d63e9732becc8d1e10214cf0135ce4b09779a9eab"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "242bec0a1edaa13ed8d4febefabda348201aab9367a921ebd289995165ef93e6"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "260212fa04014f57bb1fb4bd52b8fbe65cb62ca22d11980bd244aa26683339a3"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "0dfbbe8d5982b3c686d513077ee94fef7ba820baf999643767b0a28e099de161"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "8c5fbb682b47820ceef37777eb89993410838383dd4acfc180e170cf9e65b88c"
+        }
+      ],
+      "recoveryErrors": [],
+      "completedFraction": 0.625,
+      "acceptedSteps": 5,
+      "maximumRecordedResidualN": 7.428733811970173e-7
+    }
+  ],
+  "validation": {
+    "fullNumericalTests": 346,
+    "fullNumericalLogSha256": "7ec848a4167fd1d32c4eaeb02d7f65ce9aaf363fc1e6f846dc3be7d8cfdf145a",
+    "finalFocusedTests": 11,
+    "scope": "Full numerical suite before arithmetic-equivalent batched support evaluation; final focused suite and eight-state replay after batching. No application runtime changes.",
+    "testSourceDigests": {
+      "test_solver_rest_filtered_contact.py": "e9a897345282c91b6f73442f19296bc6cff1ec53aa5ea5f2842a239ec3d44bb8",
+      "test_solver_contact_continuation_cli.py": "f8881f74f4ff2a7648238e5f48a74ce8ef31fa2f5da4c68760b33d9c0b2d867a"
+    }
+  },
+  "remainingGates": [
+    "Independent review of local thickness assignment, concavities, long primitives and collision reduction transitions",
+    "Refinement-convergent force quadrature and time convergence",
+    "Temporal certificate integration with pair-specific clearance",
+    "Source-bound finite-thickness garment sewing, turning, folds and layer order",
+    "Full garment closure, settling and material validation"
+  ]
+}

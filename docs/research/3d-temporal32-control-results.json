@@ -1,0 +1,249 @@
+{
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "3de1a68246a025d26725370d447d356de024be99d9fae6eaa71279e9c602fa92",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "8f7869bc0675de0d50b9e895fe48bf498a68f2445a0b4c8bdf8f6061045c4530",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "1ba134a6a89978c3b2120e5f25b67c4cb39428b4e19e44c9afd6b8afaec1a63a",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "a89ed0fb41dbefe6b360818ef67795610a93cbd3642c23a58649cf05216b720c"
+  },
+  "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+  "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+  "arguments": {
+    "activation_distance_m": 2e-05,
+    "canonical": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+    "ccd_profile": "temporal-separation-tight-inclusion",
+    "cpu_limit_seconds": 240,
+    "max_attempts": 256,
+    "max_depth": 8,
+    "max_evaluations": 100,
+    "minimum_distance_m": 0.0001,
+    "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/temporal-control-sep19-32",
+    "placement": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+    "pressure_pa": 10000.0,
+    "step_seconds": 0.004166666666666667,
+    "subdivisions": 32,
+    "target_fraction": 0.99,
+    "wall_limit_seconds": 480
+  },
+  "completed": true,
+  "acceptedStateArtifacts": [
+    {
+      "path": "accepted-0001.json",
+      "sha256": "ad0c0ea14d09883df0c8dd8a7420a03e96ab0d5a7792de1a22bdaa6227e6f1d7"
+    },
+    {
+      "path": "accepted-0002.json",
+      "sha256": "6b7307b8c90469aaa4d47da68fe730e837a19cbe70f1f35d9cb61c8c9ff6f49f"
+    },
+    {
+      "path": "accepted-0003.json",
+      "sha256": "900d25f49435c5ca7d53cac136462069cdfa34f086027ea74484b299afa85d4f"
+    },
+    {
+      "path": "accepted-0004.json",
+      "sha256": "10a4180c87c9e9cfb7f5c26cd28fce9ad6604d9e21ca6def740ce4d0c2bae8bb"
+    },
+    {
+      "path": "accepted-0005.json",
+      "sha256": "c49e4231559558ad5615002472f2d712ebc1bb8447e723b6077a2549ab84d3fa"
+    },
+    {
+      "path": "accepted-0006.json",
+      "sha256": "ffb0ad9fb8187c52f8c92c3306144f122b46289b633be89735c5c78d11f629bc"
+    },
+    {
+      "path": "accepted-0007.json",
+      "sha256": "fc17fdf901b57bfb740c9e73e6152d11aedfe34935dd697958223f02a24bbc4b"
+    },
+    {
+      "path": "accepted-0008.json",
+      "sha256": "b0ad6b2ebfd77ef1aac05f935f598827976887ebcbc84c8da574d43e96c5aa7b"
+    },
+    {
+      "path": "accepted-0009.json",
+      "sha256": "77f2f26eaaec4260b5ade450cbf0879cfc49657db3030c33dbc41e1208a5e0dc"
+    },
+    {
+      "path": "accepted-0010.json",
+      "sha256": "cbf6df42c2a3290133fffcb21200107cb49b144ced5015a5987599558f4a8528"
+    },
+    {
+      "path": "accepted-0011.json",
+      "sha256": "fca2bc792cf0b501b2d23529b6ca0f8537c9fe42d566ff381312b75554467c52"
+    },
+    {
+      "path": "accepted-0012.json",
+      "sha256": "261c6c433e9bb5b20e9b60114741c5ad5a54ac0aaa2bf659c91c4f2b0690cce3"
+    },
+    {
+      "path": "accepted-0013.json",
+      "sha256": "6b7dc3af999214dc10e810ef9e1a60f24bb4439aa06cf648786417a9ba39f33b"
+    },
+    {
+      "path": "accepted-0014.json",
+      "sha256": "dd9be5d0dd32567e889a8d3f55cbb3a31686ef63bf9d12ca3bc0696b24b55a89"
+    },
+    {
+      "path": "accepted-0015.json",
+      "sha256": "153b5fded4fefd8f2cf980db9937d46269a998563a19b5464c8fc6a934786c7a"
+    },
+    {
+      "path": "accepted-0016.json",
+      "sha256": "d9177bd64a5525c50853b148b9f433534d12a48ebe2550f66563f45416cb85fd"
+    },
+    {
+      "path": "accepted-0017.json",
+      "sha256": "234ab08080a32f5294e1814939196cfa269c8d8d91e9021872b9df7bc256f275"
+    },
+    {
+      "path": "accepted-0018.json",
+      "sha256": "8c5b6bbab4749a3e7067a2b8927280dd13612a49b65345c6d06b306ee2feb23d"
+    },
+    {
+      "path": "accepted-0019.json",
+      "sha256": "c76063ad0051d1b5feba0300e57318c336c434c1bc58a9bda20d09db4c9847b0"
+    },
+    {
+      "path": "accepted-0020.json",
+      "sha256": "c12def35262fe0dc61afcbb9f081bccbe6961aa96dcb4f2ab3f096c346bed92e"
+    },
+    {
+      "path": "accepted-0021.json",
+      "sha256": "acfadabd1e1f314f79e2845a44932be06cb7d6218880df290faa6b3456062a98"
+    },
+    {
+      "path": "accepted-0022.json",
+      "sha256": "599dfe5cdb31f7860a6b78e8622140648ba92112e8dc2769a374fbec03c2c10d"
+    },
+    {
+      "path": "accepted-0023.json",
+      "sha256": "7125734899cfe661c6ec1f5e61c16e3454803def288a9e7391b980af579a241e"
+    },
+    {
+      "path": "accepted-0024.json",
+      "sha256": "3690895b9efc7292ba8445d83afa33844b31e0c8b0b57afa8e3af124dbaa79ae"
+    },
+    {
+      "path": "accepted-0025.json",
+      "sha256": "db8b598c1b5f444890c5d276bab42ffb4b0850e09dac85c7d3613b49066b644c"
+    },
+    {
+      "path": "accepted-0026.json",
+      "sha256": "4b59d1096c1f576832b81acab157ac0f5b900ac5345429a968c17440ecefce0a"
+    },
+    {
+      "path": "accepted-0027.json",
+      "sha256": "05d7e5d3f8559b05b3ef8215aac912068636e0c92cb33db1877aee29af042f9f"
+    },
+    {
+      "path": "accepted-0028.json",
+      "sha256": "cc85171d708a7c9b5c6f30114d0a1de1d0a815153b42e92d0a9843ba709a77a1"
+    },
+    {
+      "path": "accepted-0029.json",
+      "sha256": "13c8a049d56911209f00f99ca49ac0a7563894308c8ea542e5172906522c6a1b"
+    },
+    {
+      "path": "accepted-0030.json",
+      "sha256": "4230e5e27e9bc3ca0d266d166ba68cbfd66a8fc7d3d5aad438e2eef14e264c6a"
+    },
+    {
+      "path": "accepted-0031.json",
+      "sha256": "1e68bb8e7f469d881151593e9f055090a78823e52db9f0eb063543d6ba16b140"
+    },
+    {
+      "path": "accepted-0032.json",
+      "sha256": "57a0d93a90aa9fddede84220bc4c1648cc6959fb2d42537dc8298401b3532b68"
+    }
+  ],
+  "supervision": {
+    "cleanupComplete": true,
+    "cleanupLimitSeconds": 2.0,
+    "cpuAccounting": "wait4: worker plus reaped same-group descendants, not supervisor CPU",
+    "cpuLimitSeconds": 240,
+    "cpuSystemSeconds": 0.65,
+    "cpuUserSeconds": 107.94,
+    "hardKillSent": false,
+    "processGroupId": 9704,
+    "reason": "worker-exited",
+    "remainingGroupMembers": [],
+    "sampledGroupCpuSeconds": 108.59,
+    "supervisorSignal": null,
+    "terminateGraceSeconds": 0.25,
+    "wallAccounting": "supervisor monotonic time from launch setup through cleanup and recovery",
+    "wallLimitSeconds": 480,
+    "workerReturnCode": 0,
+    "workerSignal": null
+  },
+  "recoveryErrors": [],
+  "cpuSeconds": 108.59,
+  "wallSeconds": 113.07949813100004,
+  "date": "2026-09-19",
+  "sourceCommit": "f6680f5",
+  "accepted": false,
+  "scope": "Matched 16/32-substep temporal sensitivity; not garment acceptance or timestep independence",
+  "acceptedSubsteps": 32,
+  "rejectedAttempts": 0,
+  "interruptedAttempts": 0,
+  "maximumRecomputedResidualN": 8.65262777427489e-07,
+  "maximumResidualReconstructionDifferenceN": 3.469446951953614e-18,
+  "maximumVelocityReconstructionError": 0.0,
+  "exactRationalLeaves": 222006,
+  "minimumCertifiedLowerBoundM": 0.00010001042232828527,
+  "bothEndpointOraclesZeroEveryState": true,
+  "finalSeamGapsMm": {
+    "constraintCount": 305,
+    "beforeMax": 491.6316234958013,
+    "afterMax": 486.71538179781123,
+    "beforeP95": 338.58585920000024,
+    "afterP95": 335.20024593066006,
+    "maximumIndividualIncrease": -0.019996882415274086
+  },
+  "finalContactEnergyJ": 1.2801421976022358e-05,
+  "finalPeakContactForceN": 1.9740170503008276,
+  "differenceFrom16Substeps": {
+    "positionsMeters": {
+      "max": 0.0032547934089096953,
+      "rms": 0.0002739635999401579
+    },
+    "velocitiesMetersPerSecond": {
+      "max": 4.276551387901427,
+      "rms": 0.4057225814103809
+    }
+  },
+  "reportSha256": "036aa7f2f2898c0d7f63cd586223d52b7e5b27e9ef6c97e3d12a0aa36b4f0f04",
+  "baselineReportSha256": "3a8716018406c7571200fb1dbdd7851cd1485f09371ce965f31a141ec8e07a81",
+  "replayLogDigests": {
+    "replay-full-1-8-final.jsonl": "af8e7f894e323e8e70a69cf3b05b4872076c2c47ff1237e93a63bd61b350627c",
+    "replay-full-17-24-final.jsonl": "8d3b8396a940658db73c9364d97c1e82429d0cdceb82af456737ad18d78dfdf2",
+    "replay-full-25-32-final.jsonl": "634fe95aeecf5c9123e883ed3146e24bd6d8efd605485965e3640a341973d7af",
+    "replay-full-9-16-final.jsonl": "d9b0ac202ec40d664a4e342fc140966d62d4c5697d2706f264ee711e3406f730"
+  },
+  "replayScriptSha256": "603240c6f44054e1268f9b3d6d8f28b3e4230707561435b58052cff84fdf74aa",
+  "limitations": [
+    "Replay by implementing agent, not independent review.",
+    "Finite-thickness sewing, layer operations and intrinsic refinement contact remain unresolved.",
+    "Three temporal resolutions do not establish an accepted error bound."
+  ]
+}

@@ -26,10 +26,14 @@ def parse_arguments():
     parser.add_argument("--wall-limit-seconds", type=int, default=480,
                         help="Parent-enforced elapsed worker budget (default: 480; range: 1–7200)")
     parser.add_argument("--step-seconds", type=float, default=1 / 240)
+    parser.add_argument("--contact-model", choices=("area-improved-max", "rest-filtered"),
+                        default="area-improved-max")
     parser.add_argument("--ccd-profile", choices=("tight-inclusion", "swept-plane-tight-inclusion",
                                                    "temporal-separation-tight-inclusion"),
                         default="tight-inclusion")
     args = parser.parse_args()
+    if args.contact_model == "rest-filtered" and args.ccd_profile != "tight-inclusion":
+        parser.error("Rest-filtered research currently requires its native Tight Inclusion path")
     if (not all(math.isfinite(value) and value > 0 for value in
                 (args.activation_distance_m, args.minimum_distance_m, args.pressure_pa, args.step_seconds))
             or not math.isfinite(args.target_fraction) or not 0 < args.target_fraction <= 1):
@@ -101,10 +105,14 @@ def run_worker(output, parent_pid):
                 or np.max(np.abs(positions)) > 100 or faces.ndim != 2 or faces.shape[1] != 3
                 or not 1 <= len(faces) <= 50000):
             raise ValueError("Bounded matching source and staged geometry required")
-        contact = IpcSurfaceContact(rest, faces, activation_distance_m=args.activation_distance_m,
-                                    minimum_distance_m=args.minimum_distance_m,
-                                    stiffness=args.pressure_pa, energy_profile="area-improved-max",
-                                    ccd_profile=args.ccd_profile)
+        contact_parameters = dict(activation_distance_m=args.activation_distance_m,
+                                  minimum_distance_m=args.minimum_distance_m, stiffness=args.pressure_pa)
+        if args.contact_model == "rest-filtered":
+            from solver_rest_filtered_contact import RestFilteredSurfaceContact
+            contact = RestFilteredSurfaceContact(rest, faces, **contact_parameters)
+        else:
+            contact = IpcSurfaceContact(rest, faces, **contact_parameters,
+                                       energy_profile="area-improved-max", ccd_profile=args.ccd_profile)
         offsets = source["instanceOffsets"]
         if (not isinstance(offsets, dict) or not 2 <= len(offsets) <= 64
                 or any(not isinstance(identity, str) or not identity or type(offset) is not int

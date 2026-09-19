@@ -1,0 +1,190 @@
+{
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "3de1a68246a025d26725370d447d356de024be99d9fae6eaa71279e9c602fa92",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "8f7869bc0675de0d50b9e895fe48bf498a68f2445a0b4c8bdf8f6061045c4530",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "1ba134a6a89978c3b2120e5f25b67c4cb39428b4e19e44c9afd6b8afaec1a63a",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "a89ed0fb41dbefe6b360818ef67795610a93cbd3642c23a58649cf05216b720c"
+  },
+  "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+  "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+  "arguments": {
+    "activation_distance_m": 2e-05,
+    "canonical": ".planning/solver/fold-barrier-shirt-v1/canonical.json",
+    "ccd_profile": "temporal-separation-tight-inclusion",
+    "cpu_limit_seconds": 240,
+    "max_attempts": 256,
+    "max_depth": 8,
+    "max_evaluations": 100,
+    "minimum_distance_m": 0.0001,
+    "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/temporal-control-sep19-16",
+    "placement": ".planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+    "pressure_pa": 10000.0,
+    "step_seconds": 0.004166666666666667,
+    "subdivisions": 16,
+    "target_fraction": 0.99,
+    "wall_limit_seconds": 480
+  },
+  "completed": true,
+  "acceptedStateArtifacts": [
+    {
+      "path": "accepted-0001.json",
+      "sha256": "8839659b0d71e39666176d17c36225d224efd4f24bd241e44db3aa28d4653349"
+    },
+    {
+      "path": "accepted-0002.json",
+      "sha256": "0fcdc0a146f815b1e97b6cda096cca1d81df9546c6c2c85a6b6f223393251c52"
+    },
+    {
+      "path": "accepted-0003.json",
+      "sha256": "01ba493946e022d9ccb52d9898714d5d3c20da81795fb28106d0772c40f14228"
+    },
+    {
+      "path": "accepted-0004.json",
+      "sha256": "66983035723aa8fbc1da41d35971249e7fea15a9db157ca82275106a210cea28"
+    },
+    {
+      "path": "accepted-0005.json",
+      "sha256": "a6b58dfb81aa4c1017bc849489377bf96ab0bb7fcfa9f938140190e39585acc1"
+    },
+    {
+      "path": "accepted-0006.json",
+      "sha256": "0263a54fbfdd4a7f1db3525913dc0227a403b80b3d27405f64d22be0b7d939ce"
+    },
+    {
+      "path": "accepted-0007.json",
+      "sha256": "f5bbe2082ff4235c31c2b06f8bff2a19ba1f8641a755dad68d6810a22c858c77"
+    },
+    {
+      "path": "accepted-0008.json",
+      "sha256": "7ce9f657930b5b4d1aaca3571c53d1fa984d397866843903eb36ba2b640105d9"
+    },
+    {
+      "path": "accepted-0009.json",
+      "sha256": "244e67c860b84a777f3ccd7e5525116b916078fd98abd8dadf83232e910e6c1b"
+    },
+    {
+      "path": "accepted-0010.json",
+      "sha256": "eac09130c6c638375c0f197a7ad30f02b990d58d52566a5ec36d120e4f340f3d"
+    },
+    {
+      "path": "accepted-0011.json",
+      "sha256": "1cade3d347332347e5d2afc93c94a69df6fbbd7710d5b30326a268e05a8bcc16"
+    },
+    {
+      "path": "accepted-0012.json",
+      "sha256": "e42f84f70bede5ae22671c35f481b0bcdbf9aa3171e10bdffea3bd43ee35ab33"
+    },
+    {
+      "path": "accepted-0013.json",
+      "sha256": "9c5ef976434f1ad99d2c85f950efbe83b27286309bf4d36e8724cab104ddcad4"
+    },
+    {
+      "path": "accepted-0014.json",
+      "sha256": "e4b181ca278530985358bb75b97ad0d8c9e1a144f4383726de7a5dcc0cbc2110"
+    },
+    {
+      "path": "accepted-0015.json",
+      "sha256": "43a5d4fda822045346ab6440559c5b34e8e166734dea1a9ba0c9eacaa4669df8"
+    },
+    {
+      "path": "accepted-0016.json",
+      "sha256": "d06916661425628cfa92fa6d8a7c2ee535def42077a7d2a0ffa850b9c76412f7"
+    }
+  ],
+  "supervision": {
+    "cleanupComplete": true,
+    "cleanupLimitSeconds": 2.0,
+    "cpuAccounting": "wait4: worker plus reaped same-group descendants, not supervisor CPU",
+    "cpuLimitSeconds": 240,
+    "cpuSystemSeconds": 0.5499999999999999,
+    "cpuUserSeconds": 93.91,
+    "hardKillSent": false,
+    "processGroupId": 22329,
+    "reason": "worker-exited",
+    "remainingGroupMembers": [],
+    "sampledGroupCpuSeconds": 94.46,
+    "supervisorSignal": null,
+    "terminateGraceSeconds": 0.25,
+    "wallAccounting": "supervisor monotonic time from launch setup through cleanup and recovery",
+    "wallLimitSeconds": 480,
+    "workerReturnCode": 0,
+    "workerSignal": null
+  },
+  "recoveryErrors": [],
+  "cpuSeconds": 94.46,
+  "wallSeconds": 98.81881188100033,
+  "date": "2026-09-19",
+  "accepted": false,
+  "scope": "Matched 8/16-substep temporal sensitivity; not timestep independence or garment acceptance",
+  "sourceCommit": "f6680f5",
+  "acceptedSubsteps": 16,
+  "rejectedAttempts": 0,
+  "maximumRecomputedResidualN": 9.98700356635851e-07,
+  "maximumResidualReconstructionDifferenceN": 0.0,
+  "maximumVelocityReconstructionError": 0.0,
+  "exactRationalLeaves": 113795,
+  "minimumCertifiedLowerBoundM": 0.00010000017843580631,
+  "bothEndpointOraclesZeroEveryState": true,
+  "finalSeamGapsMm": {
+    "constraintCount": 305,
+    "beforeMax": 491.6316234958013,
+    "afterMax": 486.71536015008064,
+    "beforeP95": 338.58585920000024,
+    "afterP95": 335.20024198048145,
+    "maximumIndividualIncrease": -0.019997673073812727
+  },
+  "finalContactEnergyJ": 1.3676613911688262e-05,
+  "finalPeakContactForceN": 2.377254924138583,
+  "positionDifferenceM": {
+    "max": 0.00897791507099218,
+    "rms": 0.0007670429065322604
+  },
+  "velocityDifferenceMPerSecond": {
+    "max": 7.329215829705981,
+    "rms": 0.725572551241301
+  },
+  "reportSha256": "3a8716018406c7571200fb1dbdd7851cd1485f09371ce965f31a141ec8e07a81",
+  "baselineReportSha256": "b11cc06b5299e01c61c1b883c32472a090bf8f6ffe47297319955475d8c978c4",
+  "replaySha256": "402b12ba80cfbfd65bcd10735337e7d36f797cefe7f498fb000ab68dfc91b875",
+  "replayScriptSha256": "20a54c22567f9468f2a88de0b8ff111b1fd305214c6b747360de9484ea3b75a8",
+  "refinementControls": {
+    "testsPassed": 7,
+    "squareWidthM": 0.001,
+    "subdivisions4": {
+      "energyJ": 0.0,
+      "peakForceN": 0.0
+    },
+    "subdivisions6": {
+      "energyJ": 2.7847042642220466e-10,
+      "peakForceN": 4.432137743116201e-06
+    },
+    "subdivisions8": "Rejected: minimum surface separation"
+  },
+  "limitations": [
+    "Only two temporal resolutions; no time-convergence claim.",
+    "Replay by implementing agent, not new independent reviewer.",
+    "Intrinsic mesh contact and finite-thickness sewing remain unresolved."
+  ]
+}

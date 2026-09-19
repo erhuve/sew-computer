@@ -21,7 +21,8 @@ class ContactContinuationCliTests(unittest.TestCase):
                       ["--subdivisions", "3"], ["--max-depth", "31"],
                       ["--max-attempts", "0"], ["--cpu-limit-seconds", "0"],
                       ["--max-attempts", "4097"], ["--max-evaluations", "10001"],
-                      ["--ccd-profile", "unknown"]):
+                      ["--ccd-profile", "unknown"], ["--contact-model", "unknown"],
+                      ["--contact-model", "rest-filtered", "--ccd-profile", "temporal-separation-tight-inclusion"]):
             with self.subTest(extra=extra), tempfile.TemporaryDirectory() as directory:
                 output = Path(directory) / "output"
                 result = subprocess.run(self.command("missing", "missing", output) + extra,
@@ -40,6 +41,13 @@ class ContactContinuationCliTests(unittest.TestCase):
                                  "temporal-separation-tight-inclusion")):
             with self.subTest(profile=expected), mock.patch.object(sys, "argv", [str(script), *arguments, *extra]):
                 self.assertEqual(cli.parse_arguments().ccd_profile, expected)
+                self.assertEqual(cli.parse_arguments().contact_model, "area-improved-max")
+
+    def test_rest_filtered_profile_snapshot_executes_with_journal(self):
+        command = self.command
+        with mock.patch.object(self, "command", side_effect=lambda *args:
+                               command(*args) + ["--contact-model", "rest-filtered"]):
+            self.test_synthetic_stationary_interval_is_complete_but_not_accepted()
 
     def test_temporal_profile_snapshot_executes_with_journal(self):
         command = self.command
