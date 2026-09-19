@@ -37,9 +37,11 @@ def _positive_definite_direction(matrix, gradient):
 
 def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_hessian=None,
                     inertia_diagonal=None, gradient_function=None, energy_change_function=None,
-                    coupled_hessian=None, step_limiter=None):
+                    coupled_hessian=None, step_limiter=None, guard_assembled_metrics=False):
     if exact_hessian is not None and coupled_hessian is not None:
         raise ValueError("Choose one safeguarded primary search metric")
+    if guard_assembled_metrics and inertia_diagonal is None:
+        raise ValueError("Guarded assembled search metrics require physical inertia")
     positions = start.copy()
     residual = evaluate(positions)
     energy = objective(positions)
@@ -58,12 +60,14 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
                    [("exact", exact_hessian)] if exact_hessian else [])
         metrics = primary + [("projected", hessian)]
         for name, metric in metrics:
+            metric_name = name
             matrix = metric(positions)
             shift_report = None
             try:
                 with warnings.catch_warnings():
                     warnings.simplefilter("error", MatrixRankWarning)
-                    if name == "exact" and inertia_diagonal is not None:
+                    if ((guard_assembled_metrics and name == "projected")
+                            or (not guard_assembled_metrics and name == "exact" and inertia_diagonal is not None)):
                         from solver_global_shift import shifted_positive_definite_direction
                         direction, shift_report = shifted_positive_definite_direction(matrix, gradient, inertia_diagonal)
                         if shift_report["lambda"]:
@@ -99,6 +103,8 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
                     history.append(energy)
                     direction_steps[name] += 1
                     direction_history.append({"method": name, "scale": scale, "shift": shift_report})
+                    if guard_assembled_metrics:
+                        direction_history[-1]["metric"] = metric_name
                     accepted = True
                     break
                 scale *= .5
@@ -398,10 +404,12 @@ class GlobalSewingSolver:
         start = (previous.ravel()[self.free].copy() if guarded else
                  min((linear_start, predicted_start, previous.ravel()[self.free]), key=objective))
         initial_energy = objective(start)
+        guard_assembled_metrics = bool(getattr(self.contact, "requires_guarded_metric", False))
         result = _direct_descent(evaluate, start, max_evaluations,
                                 lambda positions: assembled_hessian(positions, True), objective,
                                 exact_hessian=None if guarded else lambda positions: assembled_hessian(positions, False),
-                                inertia_diagonal=inertia_weights[self.free] ** 2 if linear_solver == "shifted" else None,
+                                inertia_diagonal=inertia_weights[self.free] ** 2 if linear_solver == "shifted" or guard_assembled_metrics else None,
+                                guard_assembled_metrics=guard_assembled_metrics,
                                 gradient_function=gradient_function,
                                 coupled_hessian=(lambda positions: assembled_hessian(positions, False)) if guarded else None,
                                 energy_change_function=energy_change_function,
@@ -422,10 +430,10 @@ class GlobalSewingSolver:
         gradient = gradient_function(result.x)
         gradient_norm = float(np.max(np.abs(gradient)))
         return final, (final - previous) / dt, {
-            "profile": "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
+            "profile": "experimental-global-ipc-guarded-contact-reference-v1" if guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
             "contactJoules": self.contact.energy(final) if self.contact is not None else 0.,
-            "contactSearchMetric": "PSD-projected contact Hessian; not exact total Hessian" if self.contact is not None else None,
+            "contactSearchMetric": "Signed-weight contact Hessian; both assembled metrics safeguarded: SPD primary or physical-inertia-shifted projected fallback; not exact total Hessian" if guard_assembled_metrics else "PSD-projected contact Hessian; not exact total Hessian" if self.contact is not None else None,
             "contactRestMetricTolerance": float(self.contact_rest_metric_tolerance) if self.contact is not None else None,
             "localFoldBarrier": self.fold_barrier is not None,
             "foldBarrierJoules": self.fold_barrier.energy(final) if self.fold_barrier is not None else 0.,
