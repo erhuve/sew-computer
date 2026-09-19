@@ -17,16 +17,19 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
         super().__setattr__(name, value)
 
     def __init__(self, rest_positions, faces, *, activation_distance_m,
-                 minimum_distance_m, stiffness, max_candidates=100000):
+                 minimum_distance_m, stiffness, max_candidates=100000,
+                 ccd_profile="tight-inclusion"):
         import ipctk
         from scipy.sparse import coo_matrix
         from scipy.sparse.csgraph import connected_components
 
         if type(max_candidates) is not int or not 1 <= max_candidates <= 1000000:
             raise ValueError("Bounded candidate budget required")
+        if ccd_profile not in ("tight-inclusion", "temporal-separation-tight-inclusion"):
+            raise ValueError("Unsupported rest-filtered continuous contact profile")
         super().__init__(rest_positions, faces, activation_distance_m=activation_distance_m,
                          minimum_distance_m=minimum_distance_m, stiffness=stiffness,
-                         energy_profile="area-improved-max")
+                         energy_profile="area-improved-max", ccd_profile=ccd_profile)
         self._max_candidates = max_candidates
         self._edges = np.asarray(self.mesh.edges)
         adjacency = coo_matrix((np.ones(2 * len(self._edges)),
@@ -206,8 +209,23 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
         return result
 
     def path_safe(self, start, end):
+        if self.ccd_profile == "temporal-separation-tight-inclusion":
+            return self.path_certificate(start, end)["safe"]
         self.validate_state(end)
         return self.step_limit(start, end) == 1.
+
+    def path_certificate(self, start, end, *, max_depth=12, max_nodes=100000, keep_leaves=False):
+        from solver_temporal_separation import certify_linear_path
+
+        self.validate_state(start)
+        self.validate_state(end)
+        report = certify_linear_path(self.mesh, start, end, self.minimum_distance_m,
+            max_depth=max_depth, max_nodes=max_nodes, keep_leaves=keep_leaves,
+            candidate_minimum_distance=lambda name, candidate:
+                self._local_minimum if self._key(name, candidate) in self._filtered
+                else self.minimum_distance_m)
+        report["filteredPairsSha256"] = self.profile()["filteredPairsSha256"]
+        return report
 
     def profile(self):
         encoded = json.dumps(sorted(self._filtered), separators=(",", ":")).encode()
@@ -219,7 +237,9 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
                 "filteredPrimitivePairs": len(self._filtered),
                 "filteredPairsSha256": hashlib.sha256(encoded).hexdigest(),
                 "collisionSet": "area-weighted IPC; not improved-max",
-                "pathPredicate": "static support certificate then Tight Inclusion; conservative",
+                "pathPredicate": ("outward-rounded-temporal-separation-v1 with fixed per-pair thickness"
+                                  if self.ccd_profile == "temporal-separation-tight-inclusion" else
+                                  "static support certificate then Tight Inclusion; conservative"),
                 "maxCandidates": self._max_candidates,
                 "limitations": ["Changed contact model, not a tolerance fix or paper reproduction.",
                     "Local positive core and activation use one quarter of minimum filtered rest distance.",

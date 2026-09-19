@@ -79,10 +79,12 @@ def _primitive_ids(name, candidate, edges, faces):
 
 
 def certify_linear_path(mesh, start, end, minimum_distance, *, max_depth=12,
-                        max_nodes=100000, keep_leaves=False):
+                        max_nodes=100000, keep_leaves=False, candidate_minimum_distance=None):
     import ipctk
 
     start, end, minimum_distance = _motion(mesh, start, end, minimum_distance)
+    if candidate_minimum_distance is not None and not callable(candidate_minimum_distance):
+        raise ValueError("Candidate separation assignment must be callable")
     if (any(isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer))
             for value in (max_depth, max_nodes)) or not 0 <= max_depth <= 30
             or not 1 <= max_nodes <= 1000000 or not isinstance(keep_leaves, bool)):
@@ -99,7 +101,7 @@ def certify_linear_path(mesh, start, end, minimum_distance, *, max_depth=12,
     if keep_leaves:
         report["certificateLeaves"] = []
 
-    def record(name, index, ids, normal, lo, hi, depth, bound):
+    def record(name, index, ids, normal, lo, hi, depth, bound, assigned_minimum):
         report["leafCount"] += 1
         report["deepest"] = max(report["deepest"], depth)
         report["lowerBoundM"] = (float(bound) if report["lowerBoundM"] is None
@@ -107,7 +109,8 @@ def certify_linear_path(mesh, start, end, minimum_distance, *, max_depth=12,
         if keep_leaves:
             report["certificateLeaves"].append({"group": name, "candidate": int(index),
                 "first": ids[0], "second": ids[1], "normal": np.asarray(normal).tolist(),
-                "t0": lo, "t1": hi, "lowerBoundM": float(bound)})
+                "t0": lo, "t1": hi, "lowerBoundM": float(bound),
+                "minimumDistanceM": assigned_minimum})
 
     if total > max_nodes:
         report["reason"] = "node-budget-exhausted"
@@ -117,6 +120,11 @@ def certify_linear_path(mesh, start, end, minimum_distance, *, max_depth=12,
         if not group:
             continue
         ids = [_primitive_ids(name, candidate, edges, faces) for candidate in group]
+        minimums = np.array([minimum_distance if candidate_minimum_distance is None else
+                            _positive_distance(candidate_minimum_distance(name, candidate))
+                            for candidate in group])
+        if np.any(minimums > minimum_distance):
+            raise ValueError("Assigned separation exceeds broad-phase coverage")
         ia, ib = np.asarray([row[0] for row in ids]), np.asarray([row[1] for row in ids])
         a0, b0, a1, b1 = start[ia], start[ib], end[ia], end[ib]
         normals = np.asarray([candidate.compute_distance_vector(candidate.dof(start, edges, faces))
@@ -125,9 +133,14 @@ def certify_linear_path(mesh, start, end, minimum_distance, *, max_depth=12,
             report["reason"] = "node-budget-exhausted"
             return report
         report["nodeCount"] += len(group)
-        safe, bounds = temporal_support_bounds(a0, b0, a1, b1, normals, 0., 1., minimum_distance)
+        safe, bounds = np.zeros(len(group), dtype=bool), np.zeros(len(group))
+        for assigned_minimum in np.unique(minimums):
+            selected = minimums == assigned_minimum
+            safe[selected], bounds[selected] = temporal_support_bounds(
+                a0[selected], b0[selected], a1[selected], b1[selected], normals[selected],
+                0., 1., float(assigned_minimum))
         for i in np.flatnonzero(safe):
-            record(name, i, ids[i], normals[i], 0., 1., 0, bounds[i])
+            record(name, i, ids[i], normals[i], 0., 1., 0, bounds[i], float(minimums[i]))
         report["certifiedCount"] += int(safe.sum())
         report["unresolvedCount"] = total - report["certifiedCount"]
         for i in np.flatnonzero(~safe):
@@ -147,9 +160,9 @@ def certify_linear_path(mesh, start, end, minimum_distance, *, max_depth=12,
                         continue
                     normal = group[i].compute_distance_vector(group[i].dof(y, edges, faces))
                     check, bound = temporal_support_bounds(a0[i:i+1], b0[i:i+1], a1[i:i+1],
-                        b1[i:i+1], [normal], lo, hi, minimum_distance)
+                        b1[i:i+1], [normal], lo, hi, float(minimums[i]))
                     if check[0]:
-                        record(name, i, ids[i], normal, lo, hi, depth, bound[0])
+                        record(name, i, ids[i], normal, lo, hi, depth, bound[0], float(minimums[i]))
                         separated = True
                         break
                 if separated:

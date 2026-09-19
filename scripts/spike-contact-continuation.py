@@ -32,8 +32,8 @@ def parse_arguments():
                                                    "temporal-separation-tight-inclusion"),
                         default="tight-inclusion")
     args = parser.parse_args()
-    if args.contact_model == "rest-filtered" and args.ccd_profile != "tight-inclusion":
-        parser.error("Rest-filtered research currently requires its native Tight Inclusion path")
+    if args.contact_model == "rest-filtered" and args.ccd_profile == "swept-plane-tight-inclusion":
+        parser.error("Rest-filtered research supports tight-inclusion or temporal-separation-tight-inclusion")
     if (not all(math.isfinite(value) and value > 0 for value in
                 (args.activation_distance_m, args.minimum_distance_m, args.pressure_pa, args.step_seconds))
             or not math.isfinite(args.target_fraction) or not 0 < args.target_fraction <= 1):
@@ -109,7 +109,8 @@ def run_worker(output, parent_pid):
                                   minimum_distance_m=args.minimum_distance_m, stiffness=args.pressure_pa)
         if args.contact_model == "rest-filtered":
             from solver_rest_filtered_contact import RestFilteredSurfaceContact
-            contact = RestFilteredSurfaceContact(rest, faces, **contact_parameters)
+            contact = RestFilteredSurfaceContact(rest, faces, **contact_parameters,
+                                                  ccd_profile=args.ccd_profile)
         else:
             contact = IpcSurfaceContact(rest, faces, **contact_parameters,
                                        energy_profile="area-improved-max", ccd_profile=args.ccd_profile)

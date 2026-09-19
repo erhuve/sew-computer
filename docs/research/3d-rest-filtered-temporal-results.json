@@ -1,0 +1,734 @@
+{
+  "date": "2026-09-19",
+  "accepted": false,
+  "classification": "experimental-rest-filtered-temporal-certification",
+  "directory": ".planning/solver/rest-filtered-temporal-sep19",
+  "arguments": {
+    "activation_distance_m": 0.001,
+    "canonical": ".planning/solver/fold-barrier-shirt-v1/canonical.json",
+    "ccd_profile": "temporal-separation-tight-inclusion",
+    "contact_model": "rest-filtered",
+    "cpu_limit_seconds": 240,
+    "max_attempts": 256,
+    "max_depth": 8,
+    "max_evaluations": 100,
+    "minimum_distance_m": 0.0001,
+    "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/rest-filtered-temporal-sep19",
+    "placement": ".planning/solver/rigid-shirt-staging-v2/staged-placement.json",
+    "pressure_pa": 10000.0,
+    "step_seconds": 0.004166666666666667,
+    "subdivisions": 8,
+    "target_fraction": 0.99,
+    "wall_limit_seconds": 360
+  },
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "3de1a68246a025d26725370d447d356de024be99d9fae6eaa71279e9c602fa92",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "8f7869bc0675de0d50b9e895fe48bf498a68f2445a0b4c8bdf8f6061045c4530",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "afbc5ef01e2ea71791e16afe7f5ae2d41a101cd75e5a27e2005e16dfd98fe423"
+  },
+  "canonicalSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+  "placementSha256": "0b66275f599cd9fa30110e6af9e2d27507fa53e2e579b03e6297d31b8827c095",
+  "contactProfile": {
+    "accepted": false,
+    "adapter": "experimental-rest-filtered-contact-v1",
+    "collisionSet": "area-weighted IPC; not improved-max",
+    "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+    "filteredPrimitivePairs": 2086,
+    "fullActivationM": 0.001,
+    "fullMinimumM": 0.0001,
+    "ipctk": "1.6.0",
+    "limitations": [
+      "Changed contact model, not a tolerance fix or paper reproduction.",
+      "Local positive core and activation use one quarter of minimum filtered rest distance.",
+      "Planar connected rest components only; no sewing or layer operations.",
+      "Primitive partition and collision-set transitions require derivative validation.",
+      "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+      "Native broad-phase allocation and CCD require external process budgets."
+    ],
+    "localActivationM": 3.4559399108680375e-05,
+    "localMinimumM": 3.4559399108680375e-05,
+    "maxCandidates": 100000,
+    "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+    "pressurePa": 10000.0,
+    "stiffnessUnits": "Pa"
+  },
+  "completed": true,
+  "cpuSeconds": 71.28,
+  "wallSeconds": 73.90613797100013,
+  "acceptedStateArtifacts": [
+    {
+      "path": "accepted-0001.json",
+      "sha256": "6123a429c5e94463521a4928c7fe299727569c92cc3f41b717d4e9d59f6b42c4"
+    },
+    {
+      "path": "accepted-0002.json",
+      "sha256": "08f67566214b46a7e6f71ce83c786288c5a9a19f8754149739aae895ac801fee"
+    },
+    {
+      "path": "accepted-0003.json",
+      "sha256": "e315a476b34a1d3a084d181fc31978ee2a08ab4040db5974b2735e4f4c21486e"
+    },
+    {
+      "path": "accepted-0004.json",
+      "sha256": "805e282db3b618a07376301467d4396976c88430b0fd6bd5a9ac10b30d0f693a"
+    },
+    {
+      "path": "accepted-0005.json",
+      "sha256": "ab008c4465617fdc99743ec38eab865bc0350ed5f1b9f1c06e25406a1dd8a44e"
+    },
+    {
+      "path": "accepted-0006.json",
+      "sha256": "ec8739e0478c731651650bef3895d30a48bf47a548f94509fe3b93b8665c8823"
+    },
+    {
+      "path": "accepted-0007.json",
+      "sha256": "8294256889f4b7c5bf8dcf3d4d59d613ba1215209f25d959ce8cf4341197f1d0"
+    },
+    {
+      "path": "accepted-0008.json",
+      "sha256": "8d2c78b6f69016420de826b875416b89db5b52000a24501749a3316a2f2c734d"
+    }
+  ],
+  "replay": {
+    "accepted": false,
+    "states": [
+      {
+        "endFraction": 0.125,
+        "recomputedResidualN": 6.861981919983815e-08,
+        "recordedResidualN": 6.861981919983815e-08,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 7244,
+          "certifiedCount": 7244,
+          "unresolvedCount": 0,
+          "nodeCount": 7244,
+          "leafCount": 7244,
+          "deepest": 0,
+          "lowerBoundM": 0.00013764836154712734,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 0.0
+      },
+      {
+        "endFraction": 0.25,
+        "recomputedResidualN": 1.0490059517496988e-07,
+        "recordedResidualN": 1.0490059517496988e-07,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 7303,
+          "certifiedCount": 7303,
+          "unresolvedCount": 0,
+          "nodeCount": 7303,
+          "leafCount": 7303,
+          "deepest": 0,
+          "lowerBoundM": 0.00013751762771841764,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 0.0
+      },
+      {
+        "endFraction": 0.375,
+        "recomputedResidualN": 6.562350184646792e-07,
+        "recordedResidualN": 6.562350184646792e-07,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 7527,
+          "certifiedCount": 7527,
+          "unresolvedCount": 0,
+          "nodeCount": 7527,
+          "leafCount": 7527,
+          "deepest": 0,
+          "lowerBoundM": 0.0001370753175585114,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 9.643154592983226e-06
+      },
+      {
+        "endFraction": 0.5,
+        "recomputedResidualN": 1.5510780979600362e-07,
+        "recordedResidualN": 1.5510780979600362e-07,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 7635,
+          "certifiedCount": 7635,
+          "unresolvedCount": 0,
+          "nodeCount": 7635,
+          "leafCount": 7635,
+          "deepest": 0,
+          "lowerBoundM": 0.0001368620162362618,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 4.4539576768063155e-05
+      },
+      {
+        "endFraction": 0.625,
+        "recomputedResidualN": 7.428733811970173e-07,
+        "recordedResidualN": 7.428733811970173e-07,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 7636,
+          "certifiedCount": 7636,
+          "unresolvedCount": 0,
+          "nodeCount": 7636,
+          "leafCount": 7636,
+          "deepest": 0,
+          "lowerBoundM": 0.00013708394250654238,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 5.583355902077794e-05
+      },
+      {
+        "endFraction": 0.75,
+        "recomputedResidualN": 1.0451985456068905e-07,
+        "recordedResidualN": 1.0451985456068905e-07,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 7397,
+          "certifiedCount": 7397,
+          "unresolvedCount": 0,
+          "nodeCount": 7401,
+          "leafCount": 7397,
+          "deepest": 0,
+          "lowerBoundM": 0.00010379832187113444,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 0.00015826959527397917
+      },
+      {
+        "endFraction": 0.875,
+        "recomputedResidualN": 9.275906436548753e-07,
+        "recordedResidualN": 9.275906436548753e-07,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 7143,
+          "certifiedCount": 7143,
+          "unresolvedCount": 0,
+          "nodeCount": 7185,
+          "leafCount": 7146,
+          "deepest": 1,
+          "lowerBoundM": 0.00010629630368413235,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 0.0006557995573358013
+      },
+      {
+        "endFraction": 1.0,
+        "recomputedResidualN": 8.328711867936084e-08,
+        "recordedResidualN": 8.328711867936084e-08,
+        "endpointIntersections": 0,
+        "physicalPathPass": true,
+        "pathCertificate": {
+          "method": "outward-rounded-temporal-separation-v1",
+          "safe": true,
+          "candidateCount": 6870,
+          "certifiedCount": 6870,
+          "unresolvedCount": 0,
+          "nodeCount": 6920,
+          "leafCount": 6875,
+          "deepest": 2,
+          "lowerBoundM": 0.00010015970258998936,
+          "maxDepth": 12,
+          "maxNodes": 100000,
+          "reason": "certified",
+          "accepted": false,
+          "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d"
+        },
+        "contactEnergyJ": 0.0012787626436036722
+      }
+    ],
+    "contactProfile": {
+      "adapter": "experimental-rest-filtered-contact-v1",
+      "accepted": false,
+      "ipctk": "1.6.0",
+      "stiffnessUnits": "Pa",
+      "pressurePa": 10000.0,
+      "fullMinimumM": 0.0001,
+      "fullActivationM": 0.001,
+      "localMinimumM": 3.4559399108680375e-05,
+      "localActivationM": 3.4559399108680375e-05,
+      "filteredPrimitivePairs": 2086,
+      "filteredPairsSha256": "f57c79f619b7e7a6fc48c8033be5a52fd70d843d43e25106dfaf09647b78426d",
+      "collisionSet": "area-weighted IPC; not improved-max",
+      "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+      "maxCandidates": 100000,
+      "limitations": [
+        "Changed contact model, not a tolerance fix or paper reproduction.",
+        "Local positive core and activation use one quarter of minimum filtered rest distance.",
+        "Planar connected rest components only; no sewing or layer operations.",
+        "Primitive partition and collision-set transitions require derivative validation.",
+        "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+        "Native broad-phase allocation and CCD require external process budgets."
+      ]
+    },
+    "sourceDigests": {
+      "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+      "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+      "solver_adaptive_contact.py": "3de1a68246a025d26725370d447d356de024be99d9fae6eaa71279e9c602fa92",
+      "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+      "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+      "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+      "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+      "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+      "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+      "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+      "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+      "solver_global_sewing.py": "8f7869bc0675de0d50b9e895fe48bf498a68f2445a0b4c8bdf8f6061045c4530",
+      "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+      "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+      "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+      "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+      "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+      "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+      "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+      "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+      "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+      "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+      "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+      "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+      "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+      "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+      "spike-contact-continuation.py": "afbc5ef01e2ea71791e16afe7f5ae2d41a101cd75e5a27e2005e16dfd98fe423"
+    },
+    "reportSha256": "9d534f13b9ef5a9a892c2f689bcd3f6fa9636a4c1125b34b2d86b24102b78e4e",
+    "seamGaps": {
+      "constraintCount": 305,
+      "beforeMax": 491.6316234958013,
+      "afterMax": 486.7153188056504,
+      "beforeP95": 338.58585920000024,
+      "afterP95": 335.2000789131384,
+      "maximumIndividualIncrease": -0.019998717259715804
+    },
+    "edgeStrain": {
+      "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+      "edgeCount": 5732,
+      "min": 0.9849754557746119,
+      "max": 1.0104641225678457,
+      "p95": 1.001629105070464,
+      "p99": 1.00359100415876,
+      "perInstance": {
+        "back_left:shell": {
+          "edgeCount": 1025,
+          "min": 0.9986216586392298,
+          "max": 1.002130764654752,
+          "p95": 1.0007060448663063
+        },
+        "back_right:shell": {
+          "edgeCount": 1025,
+          "min": 0.9984930118174785,
+          "max": 1.0021922403519792,
+          "p95": 1.0009273993986583
+        },
+        "collar_fall:facing": {
+          "edgeCount": 103,
+          "min": 0.9976682193222327,
+          "max": 1.000787634398558,
+          "p95": 1.0003927932070706
+        },
+        "collar_fall:shell": {
+          "edgeCount": 103,
+          "min": 0.9976668777658203,
+          "max": 1.000792999025866,
+          "p95": 1.0003966046087645
+        },
+        "collar_stand:facing": {
+          "edgeCount": 73,
+          "min": 0.9993056369634623,
+          "max": 1.0012043046274426,
+          "p95": 1.000649099858287
+        },
+        "collar_stand:shell": {
+          "edgeCount": 73,
+          "min": 0.9993055652404256,
+          "max": 1.0012043601902332,
+          "p95": 1.0006489199753266
+        },
+        "cuff_left:facing": {
+          "edgeCount": 43,
+          "min": 0.9964059139393991,
+          "max": 1.0017576906740764,
+          "p95": 1.0009074783680993
+        },
+        "cuff_left:shell": {
+          "edgeCount": 43,
+          "min": 0.996409837312719,
+          "max": 1.001757559890249,
+          "p95": 1.0009073023837933
+        },
+        "cuff_right:facing": {
+          "edgeCount": 43,
+          "min": 0.9962353086221838,
+          "max": 1.0014669616326306,
+          "p95": 1.0010175698368318
+        },
+        "cuff_right:shell": {
+          "edgeCount": 43,
+          "min": 0.9962403304202267,
+          "max": 1.0014642827608475,
+          "p95": 1.0010279367953672
+        },
+        "frill_left:shell": {
+          "edgeCount": 151,
+          "min": 0.994947193721015,
+          "max": 1.0013313022976789,
+          "p95": 1.0011930278420391
+        },
+        "frill_right:shell": {
+          "edgeCount": 151,
+          "min": 0.9949825750701434,
+          "max": 1.0013234949701852,
+          "p95": 1.0011688546957456
+        },
+        "front_left:shell": {
+          "edgeCount": 754,
+          "min": 0.9985877703175554,
+          "max": 1.0031617508143742,
+          "p95": 1.0013081430113524
+        },
+        "front_right:shell": {
+          "edgeCount": 754,
+          "min": 0.9975717224461799,
+          "max": 1.0033865387659495,
+          "p95": 1.0014930223441398
+        },
+        "opening_binding_left_left:shell": {
+          "edgeCount": 22,
+          "min": 0.9950678702549337,
+          "max": 1.0047827946017194,
+          "p95": 1.002796599987342
+        },
+        "opening_binding_left_right:shell": {
+          "edgeCount": 22,
+          "min": 0.9990223661302785,
+          "max": 1.0021067397603292,
+          "p95": 1.001668758867069
+        },
+        "opening_binding_right_left:shell": {
+          "edgeCount": 22,
+          "min": 0.9991969451961823,
+          "max": 1.0015087735039032,
+          "p95": 1.0014791709736686
+        },
+        "opening_binding_right_right:shell": {
+          "edgeCount": 22,
+          "min": 0.9956426101993056,
+          "max": 1.0044147552570295,
+          "p95": 1.0035299360316754
+        },
+        "placket_left:facing": {
+          "edgeCount": 86,
+          "min": 0.9995072366930499,
+          "max": 1.0020485078784862,
+          "p95": 1.0017923565914642
+        },
+        "placket_left:shell": {
+          "edgeCount": 86,
+          "min": 0.9995068734391269,
+          "max": 1.0020476018820195,
+          "p95": 1.0017924880238815
+        },
+        "placket_right:facing": {
+          "edgeCount": 86,
+          "min": 0.999483110104344,
+          "max": 1.0021872113755268,
+          "p95": 1.0015984504301123
+        },
+        "placket_right:shell": {
+          "edgeCount": 86,
+          "min": 0.9994827985132008,
+          "max": 1.0021866589192963,
+          "p95": 1.0015983150376857
+        },
+        "sleeve_left:shell": {
+          "edgeCount": 458,
+          "min": 0.9849754557746119,
+          "max": 1.0104641225678457,
+          "p95": 1.0037167165258232
+        },
+        "sleeve_right:shell": {
+          "edgeCount": 458,
+          "min": 0.9855119458294348,
+          "max": 1.0103838797751967,
+          "p95": 1.003712078834729
+        }
+      },
+      "worstEdges": [
+        {
+          "vertices": [
+            1921,
+            1922
+          ],
+          "instanceId": "sleeve_left:shell",
+          "restLengthMm": 58.412128272753435,
+          "currentLengthMm": 59.02335994244825,
+          "ratio": 1.0104641225678457,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            2086,
+            2087
+          ],
+          "instanceId": "sleeve_right:shell",
+          "restLengthMm": 58.412128272753435,
+          "currentLengthMm": 59.01867279015108,
+          "ratio": 1.0103838797751967,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            1936,
+            1937
+          ],
+          "instanceId": "sleeve_left:shell",
+          "restLengthMm": 58.41212827275344,
+          "currentLengthMm": 58.98142421101279,
+          "ratio": 1.0097461940712216,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            2101,
+            2102
+          ],
+          "instanceId": "sleeve_right:shell",
+          "restLengthMm": 58.41212827275344,
+          "currentLengthMm": 58.964761472793676,
+          "ratio": 1.0094609324532695,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            2100,
+            2241
+          ],
+          "instanceId": "sleeve_right:shell",
+          "restLengthMm": 29.20606413637672,
+          "currentLengthMm": 29.467208893725594,
+          "ratio": 1.0089414566827446,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            1935,
+            2076
+          ],
+          "instanceId": "sleeve_left:shell",
+          "restLengthMm": 29.20606413637672,
+          "currentLengthMm": 29.43246353520664,
+          "ratio": 1.0077517942086531,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            1923,
+            2075
+          ],
+          "instanceId": "sleeve_left:shell",
+          "restLengthMm": 29.206064136376728,
+          "currentLengthMm": 29.424522725905668,
+          "ratio": 1.007479905149453,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            1921,
+            1979
+          ],
+          "instanceId": "sleeve_left:shell",
+          "restLengthMm": 38.517075004033856,
+          "currentLengthMm": 38.80314835487782,
+          "ratio": 1.00742718264079,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            2086,
+            2144
+          ],
+          "instanceId": "sleeve_right:shell",
+          "restLengthMm": 38.517075004033856,
+          "currentLengthMm": 38.79980185268438,
+          "ratio": 1.007340299039346,
+          "touchesPin": false
+        },
+        {
+          "vertices": [
+            2088,
+            2240
+          ],
+          "instanceId": "sleeve_right:shell",
+          "restLengthMm": 29.206064136376728,
+          "currentLengthMm": 29.417939040828273,
+          "ratio": 1.0072544832971058,
+          "touchesPin": false
+        }
+      ]
+    },
+    "review": "implementer reconstruction; same collision adapter, separate residual formula and endpoint oracle"
+  },
+  "exactRationalAudit": {
+    "accepted": false,
+    "audit": "implementer exact rational support and complete candidate/time coverage",
+    "reportSha256": "9d534f13b9ef5a9a892c2f689bcd3f6fa9636a4c1125b34b2d86b24102b78e4e",
+    "states": [
+      {
+        "state": "accepted-0001.json",
+        "candidates": 7244,
+        "leaves": 7244,
+        "localCandidates": 152,
+        "minimumCertifiedBoundM": 0.00013764836154712734
+      },
+      {
+        "state": "accepted-0002.json",
+        "candidates": 7303,
+        "leaves": 7303,
+        "localCandidates": 218,
+        "minimumCertifiedBoundM": 0.00013751762771841764
+      },
+      {
+        "state": "accepted-0003.json",
+        "candidates": 7527,
+        "leaves": 7527,
+        "localCandidates": 497,
+        "minimumCertifiedBoundM": 0.0001370753175585114
+      },
+      {
+        "state": "accepted-0004.json",
+        "candidates": 7635,
+        "leaves": 7635,
+        "localCandidates": 612,
+        "minimumCertifiedBoundM": 0.0001368620162362618
+      },
+      {
+        "state": "accepted-0005.json",
+        "candidates": 7636,
+        "leaves": 7636,
+        "localCandidates": 668,
+        "minimumCertifiedBoundM": 0.00013708394250654238
+      },
+      {
+        "state": "accepted-0006.json",
+        "candidates": 7397,
+        "leaves": 7397,
+        "localCandidates": 530,
+        "minimumCertifiedBoundM": 0.00010379832187113444
+      },
+      {
+        "state": "accepted-0007.json",
+        "candidates": 7143,
+        "leaves": 7146,
+        "localCandidates": 341,
+        "minimumCertifiedBoundM": 0.00010629630368413235
+      },
+      {
+        "state": "accepted-0008.json",
+        "candidates": 6870,
+        "leaves": 6875,
+        "localCandidates": 195,
+        "minimumCertifiedBoundM": 0.00010015970258998936
+      }
+    ],
+    "totalLeaves": 58763
+  },
+  "comparison": {
+    "previousDirectory": ".planning/solver/rest-filtered-shirt-motion-sep19-standard-budget",
+    "previousCpuSeconds": 166.57,
+    "maxPositionDifferenceM": 0.0,
+    "maxVelocityDifferenceMPerS": 0.0
+  },
+  "artifactDigests": {
+    "report.json": "9d534f13b9ef5a9a892c2f689bcd3f6fa9636a4c1125b34b2d86b24102b78e4e",
+    "state.json": "d49ef8741007373a2da4850eb7667a9f812b7b1d1780ec495a3b88b2a8422d11",
+    "replay.json": "390cb0729e8cfb0fce398eb65cbaac78f32ca38de31fae50104ea0bfece11d4f",
+    "rational-audit.json": "4795071bd4872182b2e60715a57bd8d977d7a2eba58500186fc1b0df642df10c"
+  },
+  "auditScriptDigests": {
+    "replay-rest-filtered-temporal.py": "1a5e04348b4286ad8b8b0490c6104c4444534cbcbdd3be9b7bd2caab9587cb2d",
+    "audit-rest-filtered-paths.py": "0950c3f89658e2a2a17381cdf5060b605da79fac462c570a6fd36c858f0d95d6"
+  },
+  "verification": {
+    "fullNumericalTests": 352,
+    "finalFocusedRestFilteredTests": 15,
+    "applicationTests": 104,
+    "independentReview": false
+  },
+  "limitations": [
+    "One short full-shirt interval, not full closure or garment deployment acceptance.",
+    "Native broad phase and topological exclusion policy remain trusted.",
+    "Reduced local thickness is an uncalibrated model; locality and refinement-convergence gates remain open.",
+    "Turning, binding, transported seam frames, settling and material validation remain unfinished."
+  ]
+}

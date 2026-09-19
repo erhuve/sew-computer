@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 import ipctk
 import numpy as np
@@ -148,6 +149,77 @@ class RestFilteredContactTests(unittest.TestCase):
                         - contact.energy(positions - epsilon * direction)) / (2 * epsilon)
             np.testing.assert_allclose(observed, expected, rtol=1e-4, atol=1e-7)
 
+    def test_temporal_certificate_covers_both_thickness_groups_exactly(self):
+        from test_solver_temporal_separation import verify_leaf
+        from solver_temporal_separation import _GROUPS
+
+        panel, faces = square_grid(4)
+        rest = np.vstack((panel, panel))
+        contact = filtered(rest, np.vstack((faces, faces + len(panel))),
+                           ccd_profile="temporal-separation-tight-inclusion")
+        start = rest.copy()
+        start[len(panel):, 2] = .00011
+        end = start + [.0003, -.0002, .0004]
+        with patch.object(contact, "step_limit", side_effect=AssertionError("Not a predicate")):
+            self.assertTrue(contact.path_safe(start, end))
+        report = contact.path_certificate(start, end, keep_leaves=True)
+        self.assertTrue(report["safe"], report)
+        self.assertEqual(report["filteredPairsSha256"], contact.profile()["filteredPairsSha256"])
+        candidates = ipctk.Candidates()
+        candidates.build(contact.mesh, start, end,
+                         inflation_radius=np.nextafter(contact.minimum_distance_m / 2, np.inf))
+        expected = {}
+        for group in _GROUPS:
+            for index, candidate in enumerate(getattr(candidates, group)):
+                expected[group, index] = (contact._local_minimum
+                    if contact._key(group, candidate) in contact._filtered else contact.minimum_distance_m)
+        intervals = {}
+        for leaf in report["certificateLeaves"]:
+            identity = leaf["group"], leaf["candidate"]
+            self.assertEqual(leaf["minimumDistanceM"], expected[identity])
+            verify_leaf(start, end, leaf, expected[identity])
+            intervals.setdefault(identity, []).append((leaf["t0"], leaf["t1"]))
+        self.assertEqual(set(intervals), set(expected))
+        self.assertEqual(set(expected.values()), {contact._local_minimum, contact.minimum_distance_m})
+        for spans in intervals.values():
+            cursor = 0.
+            for lower, upper in sorted(spans):
+                self.assertEqual(lower, cursor)
+                self.assertGreater(upper, lower)
+                cursor = upper
+            self.assertEqual(cursor, 1.)
+
+    def test_temporal_crossing_and_budget_exhaustion_fail_closed(self):
+        panel, faces = square_grid(2)
+        rest = np.vstack((panel, panel))
+        contact = filtered(rest, np.vstack((faces, faces + len(panel))),
+                           ccd_profile="temporal-separation-tight-inclusion")
+        start = rest.copy()
+        start[len(panel):, 2] = .002
+        end = start.copy()
+        end[len(panel):, 2] = -.002
+        self.assertFalse(contact.path_safe(start, end))
+        limited = contact.path_certificate(start, start + [.002, .002, .002], max_nodes=1)
+        self.assertFalse(limited["safe"])
+        self.assertEqual(limited["reason"], "node-budget-exhausted")
+        with patch("solver_temporal_separation.certify_linear_path", return_value={"safe": False}):
+            with patch.object(contact, "step_limit", return_value=1.):
+                self.assertFalse(contact.path_safe(start, start))
+
+    def test_temporal_profile_preserves_contact_law_and_optimizer_proposal(self):
+        rest, faces = square_grid(2)
+        original = filtered(rest, faces, activation=.01)
+        temporal = filtered(rest, faces, activation=.01,
+                            ccd_profile="temporal-separation-tight-inclusion")
+        positions = rest * .4
+        positions[4, 2] = .000015
+        self.assertEqual(original.energy(positions), temporal.energy(positions))
+        np.testing.assert_array_equal(original.gradient(positions), temporal.gradient(positions))
+        self.assertEqual((original.hessian(positions) - temporal.hessian(positions)).nnz, 0)
+        self.assertEqual(original.step_limit(rest, positions), temporal.step_limit(rest, positions))
+        with self.assertRaises(ValueError):
+            filtered(rest, faces, ccd_profile="swept-plane-tight-inclusion")
+
     def test_complete_positive_offset_sewing_with_coupled_contact(self):
         import newton
         import warp as wp
@@ -183,6 +255,12 @@ class RestFilteredContactTests(unittest.TestCase):
         self.assertLess(np.max(np.linalg.norm(solver.sewing @ positions - target, axis=1)), 1e-6)
         self.assertGreater(np.min(positions[len(panel):, 2]), .0001)
         np.testing.assert_array_equal(contact.rest_positions, rest)
+
+    def test_complete_positive_offset_sewing_with_temporal_contact(self):
+        original = filtered
+        with patch(__name__ + ".filtered", side_effect=lambda *args, **kwargs:
+                   original(*args, **kwargs, ccd_profile="temporal-separation-tight-inclusion")):
+            self.test_complete_positive_offset_sewing_with_coupled_contact()
 
 
 if __name__ == "__main__":

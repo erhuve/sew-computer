@@ -130,6 +130,26 @@ class TemporalPathTests(unittest.TestCase):
         self.assertEqual(report['reason'],'node-budget-exhausted')
         self.assertLessEqual(report['nodeCount'],1)
 
+    def test_invalid_candidate_thickness_assignments_reject(self):
+        mesh, start, end = self.fixture()
+        for minimum in (0., -1., True, np.nan, np.inf, .061, "small", None):
+            with self.subTest(minimum=minimum), self.assertRaises(ValueError):
+                certify_linear_path(mesh, start, end, .06,
+                    candidate_minimum_distance=lambda name, candidate: minimum)
+        with self.assertRaises(ValueError):
+            certify_linear_path(mesh, start, end, .06, candidate_minimum_distance=.01)
+
+    def test_assigned_thickness_preserves_exact_subdivision_proof(self):
+        mesh, start, end = self.fixture()
+        report = certify_linear_path(mesh, start, end, .08, keep_leaves=True,
+            candidate_minimum_distance=lambda name, candidate: .06)
+        self.assertTrue(report["safe"], report)
+        self.assertGreater(report["deepest"], 0)
+        for leaf in report["certificateLeaves"]:
+            self.assertEqual(leaf["minimumDistanceM"], .06)
+            verify_leaf(start, end, leaf, .06)
+        self.assertFalse(certify_linear_path(mesh, start, end, .08)["safe"])
+
     def test_interior_clearance_violation_despite_safe_endpoints(self):
         mesh,a,b=self.fixture()
         self.assertFalse(certify_linear_path(mesh,a,b,.08)['safe'])
