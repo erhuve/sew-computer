@@ -1,0 +1,929 @@
+{
+  "date": "2026-09-19",
+  "accepted": false,
+  "classification": "actual-source-cuff-parallel-offset-sewing-control; not turned cuff or garment",
+  "directory": ".planning/solver/source-cuff-temporal-sep19",
+  "sourceProvenance": {
+    "sourcePath": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+    "sourceSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+    "selectedInstances": [
+      "cuff_left:shell",
+      "cuff_left:facing"
+    ],
+    "originalRanges": {
+      "cuff_left:shell": [
+        940,
+        960
+      ],
+      "cuff_left:facing": [
+        960,
+        980
+      ]
+    },
+    "initialOffsetM": 0.002,
+    "normal": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "classification": "isolated source-cuff parallel-layer registration; no turning or full garment",
+    "accepted": false
+  },
+  "preparationScriptSha256": "a88864c7417d2e2e4bf281207113017b154fa2b16f1ec07d1d1dd1c356521cdd",
+  "arguments": {
+    "activation_distance_m": 0.001,
+    "canonical": ".planning/solver/source-cuff-temporal-input/canonical.json",
+    "ccd_profile": "temporal-separation-tight-inclusion",
+    "contact_model": "rest-filtered",
+    "cpu_limit_seconds": 120,
+    "max_attempts": 256,
+    "max_depth": 8,
+    "max_evaluations": 100,
+    "minimum_distance_m": 0.0001,
+    "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/source-cuff-temporal-sep19",
+    "placement": ".planning/solver/source-cuff-temporal-input/placement.json",
+    "pressure_pa": 10000.0,
+    "step_seconds": 0.016,
+    "subdivisions": 16,
+    "target_fraction": 0.055,
+    "wall_limit_seconds": 180
+  },
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "3de1a68246a025d26725370d447d356de024be99d9fae6eaa71279e9c602fa92",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "9c1cf560e75683d4351959fbe62375372cf2d2710963df7bccce96cf69be916a",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "8f7869bc0675de0d50b9e895fe48bf498a68f2445a0b4c8bdf8f6061045c4530",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "afbc5ef01e2ea71791e16afe7f5ae2d41a101cd75e5a27e2005e16dfd98fe423"
+  },
+  "canonicalSha256": "6f1cb1ec7edbf622c9a9aba6f7861ba367483597f69f8491f1a1a6d5cd21242b",
+  "placementSha256": "491aa91d291d2bf81dfdd1147fe436a16843e46d9d95dd51d21990676e98d8b8",
+  "vertices": 40,
+  "triangles": 48,
+  "sourceRegistrations": 20,
+  "contactProfile": {
+    "accepted": false,
+    "adapter": "experimental-rest-filtered-contact-v1",
+    "collisionSet": "area-weighted IPC; not improved-max",
+    "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "filteredPrimitivePairs": 0,
+    "fullActivationM": 0.001,
+    "fullMinimumM": 0.0001,
+    "ipctk": "1.6.0",
+    "limitations": [
+      "Changed contact model, not a tolerance fix or paper reproduction.",
+      "Local positive core and activation use one quarter of minimum filtered rest distance.",
+      "Planar connected rest components only; no sewing or layer operations.",
+      "Primitive partition and collision-set transitions require derivative validation.",
+      "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+      "Native broad-phase allocation and CCD require external process budgets."
+    ],
+    "localActivationM": 0.0001,
+    "localMinimumM": 0.0001,
+    "maxCandidates": 100000,
+    "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+    "pressurePa": 10000.0,
+    "stiffnessUnits": "Pa"
+  },
+  "completed": true,
+  "cpuSeconds": 107.92999999999999,
+  "wallSeconds": 112.2043249430003,
+  "acceptedSteps": 18,
+  "rejectedSteps": [
+    {
+      "attemptId": 9,
+      "startFraction": 0.5,
+      "endFraction": 0.5625,
+      "durationSeconds": 0.001,
+      "depth": 0,
+      "gradientInfinityNorm": 0.08313186720333858
+    },
+    {
+      "attemptId": 18,
+      "startFraction": 0.9375,
+      "endFraction": 1.0,
+      "durationSeconds": 0.001,
+      "depth": 0,
+      "gradientInfinityNorm": 1208.085036334925
+    }
+  ],
+  "completedDurationSeconds": 0.016,
+  "maxOffsetTargetErrorM": 2.618316768242712e-05,
+  "maxFinalAnchorGapMm": 0.1361564915420424,
+  "finalContactEnergyJ": 1.09472522124616,
+  "edgeStrain": {
+    "edgeCount": 86,
+    "max": 1.0311145805626605,
+    "min": 0.9687669702247074,
+    "p95": 1.0174903140474372,
+    "p99": 1.0292796417352081,
+    "perInstance": {
+      "cuff_left:facing": {
+        "edgeCount": 43,
+        "max": 1.0311145805626605,
+        "min": 0.9687669702247074,
+        "p95": 1.0109438591272124
+      },
+      "cuff_left:shell": {
+        "edgeCount": 43,
+        "max": 1.0289558290009517,
+        "min": 0.9743661834076972,
+        "p95": 1.020597637886471
+      }
+    },
+    "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+    "worstEdges": [
+      {
+        "currentLengthMm": 44.97956597684553,
+        "instanceId": "cuff_left:facing",
+        "ratio": 1.0311145805626605,
+        "restLengthMm": 43.62227712103634,
+        "touchesPin": false,
+        "vertices": [
+          25,
+          35
+        ]
+      },
+      {
+        "currentLengthMm": 44.885396317985204,
+        "instanceId": "cuff_left:shell",
+        "ratio": 1.0289558290009517,
+        "restLengthMm": 43.62227712103634,
+        "touchesPin": false,
+        "vertices": [
+          8,
+          18
+        ]
+      },
+      {
+        "currentLengthMm": 41.49952043212381,
+        "instanceId": "cuff_left:shell",
+        "ratio": 1.0288483002235147,
+        "restLengthMm": 40.33589832739009,
+        "touchesPin": false,
+        "vertices": [
+          10,
+          19
+        ]
+      },
+      {
+        "currentLengthMm": 53.88038948445721,
+        "instanceId": "cuff_left:shell",
+        "ratio": 1.0208278229462744,
+        "restLengthMm": 52.7810746076157,
+        "touchesPin": false,
+        "vertices": [
+          1,
+          14
+        ]
+      },
+      {
+        "currentLengthMm": 53.75889533630677,
+        "instanceId": "cuff_left:shell",
+        "ratio": 1.01852597234824,
+        "restLengthMm": 52.78107460761569,
+        "touchesPin": false,
+        "vertices": [
+          3,
+          19
+        ]
+      },
+      {
+        "currentLengthMm": 53.540242704136105,
+        "instanceId": "cuff_left:facing",
+        "ratio": 1.0143833391450288,
+        "restLengthMm": 52.7810746076157,
+        "touchesPin": false,
+        "vertices": [
+          22,
+          39
+        ]
+      },
+      {
+        "currentLengthMm": 52.68123102940874,
+        "instanceId": "cuff_left:shell",
+        "ratio": 1.0131005967193987,
+        "restLengthMm": 52.00000000000001,
+        "touchesPin": false,
+        "vertices": [
+          0,
+          13
+        ]
+      },
+      {
+        "currentLengthMm": 37.602699058593295,
+        "instanceId": "cuff_left:shell",
+        "ratio": 1.0123803592698202,
+        "restLengthMm": 37.14285714285712,
+        "touchesPin": false,
+        "vertices": [
+          17,
+          18
+        ]
+      },
+      {
+        "currentLengthMm": 37.55652442477712,
+        "instanceId": "cuff_left:facing",
+        "ratio": 1.0111371960516917,
+        "restLengthMm": 37.142857142857146,
+        "touchesPin": false,
+        "vertices": [
+          34,
+          35
+        ]
+      },
+      {
+        "currentLengthMm": 37.531240274603526,
+        "instanceId": "cuff_left:shell",
+        "ratio": 1.0104564689316333,
+        "restLengthMm": 37.142857142857146,
+        "touchesPin": false,
+        "vertices": [
+          4,
+          14
+        ]
+      }
+    ]
+  },
+  "maxRecomputedResidualN": 7.679465827692411e-07,
+  "acceptedStateArtifacts": [
+    {
+      "path": "accepted-0001.json",
+      "sha256": "812e08d72482290716b6be4cc339ec4f3f85d1a881e06629bc25c5c4b78ff640"
+    },
+    {
+      "path": "accepted-0002.json",
+      "sha256": "2a8fffc0acdf334f301e58fa5311708462d80d38c5bb16b47aa5557efc22ba44"
+    },
+    {
+      "path": "accepted-0003.json",
+      "sha256": "4abbfc481df77ab77cb50f90ad98aa4be3f528d5c36024c1e70fee5d60296448"
+    },
+    {
+      "path": "accepted-0004.json",
+      "sha256": "8ab0d68925c87c5783e978eb2e8d9f6836a813cc4125a80a882172a49be0e76f"
+    },
+    {
+      "path": "accepted-0005.json",
+      "sha256": "cff6973d63025b9c7e5862d4edf10dd5ef59d50857c8924029412c36faaf53ee"
+    },
+    {
+      "path": "accepted-0006.json",
+      "sha256": "e3c3cbab83d1e70fefafad637452bd8dc15663edfc80b2ddc962299b49fe148b"
+    },
+    {
+      "path": "accepted-0007.json",
+      "sha256": "598c2738a1d9694d60e734933fa3baf611773ccc32aeed628d66808e0bfd9c0a"
+    },
+    {
+      "path": "accepted-0008.json",
+      "sha256": "fbdcea1b52d7d8ffc699dd5d4eee2c75dc905eaa5aa79f3f6e595edbb8defb0a"
+    },
+    {
+      "path": "accepted-0009.json",
+      "sha256": "f120de8459a2beb674256b8a477c9a466e6df3c7bef8465c37e6667e747adf21"
+    },
+    {
+      "path": "accepted-0010.json",
+      "sha256": "c434d6959cf3cd9ca0539f51f58db75f3b1542f184be50cb400a942c7d5bf850"
+    },
+    {
+      "path": "accepted-0011.json",
+      "sha256": "0225db5951df25a2c4447118fdb9d5fe46723023c27714d43ec3a8196c62a38a"
+    },
+    {
+      "path": "accepted-0012.json",
+      "sha256": "a613e3ec3e40102e849463ae24f662f9946714d25c8f86b4d8f53344320b3366"
+    },
+    {
+      "path": "accepted-0013.json",
+      "sha256": "07ec07e64af35d8aaf1f69be8655764cd8b555ab198d30466be74cbc05da4c8d"
+    },
+    {
+      "path": "accepted-0014.json",
+      "sha256": "3af62078db07724617dc46be00e0cb3d992925c36b84a91b21c5c2095595bf68"
+    },
+    {
+      "path": "accepted-0015.json",
+      "sha256": "2896855e08920b94831b97889b512f12491b4b6e04b539b43ba7fc33d5f11263"
+    },
+    {
+      "path": "accepted-0016.json",
+      "sha256": "120d078563f7fe5c99b3616fdc81fda77c8919686b5e72648d6fdc2e863399d0"
+    },
+    {
+      "path": "accepted-0017.json",
+      "sha256": "b7df7a9889b7a314b3429efec758d0cf6d6b76917de6d9b9aa9ce4259f7881d1"
+    },
+    {
+      "path": "accepted-0018.json",
+      "sha256": "71a99a44b713600e98eb6aa88cb42edce090ae8e83a8257024402302b79d7cae"
+    }
+  ],
+  "states": [
+    {
+      "endFraction": 0.0625,
+      "recomputedResidualN": 6.264745726488842e-09,
+      "recordedResidualN": 6.264745726488842e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 50,
+        "certifiedCount": 50,
+        "unresolvedCount": 0,
+        "nodeCount": 50,
+        "leafCount": 50,
+        "deepest": 0,
+        "lowerBoundM": 0.023912362092281685,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.0
+    },
+    {
+      "endFraction": 0.125,
+      "recomputedResidualN": 2.5587409696498534e-09,
+      "recordedResidualN": 2.5587409696498534e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 50,
+        "certifiedCount": 50,
+        "unresolvedCount": 0,
+        "nodeCount": 50,
+        "leafCount": 50,
+        "deepest": 0,
+        "lowerBoundM": 0.023912323867264343,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.0
+    },
+    {
+      "endFraction": 0.1875,
+      "recomputedResidualN": 3.390755152843761e-09,
+      "recordedResidualN": 3.390755152843761e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 50,
+        "certifiedCount": 50,
+        "unresolvedCount": 0,
+        "nodeCount": 50,
+        "leafCount": 50,
+        "deepest": 0,
+        "lowerBoundM": 0.023912283579386264,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.0
+    },
+    {
+      "endFraction": 0.25,
+      "recomputedResidualN": 5.702365717768937e-09,
+      "recordedResidualN": 5.702365717768937e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 48,
+        "certifiedCount": 48,
+        "unresolvedCount": 0,
+        "nodeCount": 48,
+        "leafCount": 48,
+        "deepest": 0,
+        "lowerBoundM": 0.02391224910841635,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.0
+    },
+    {
+      "endFraction": 0.3125,
+      "recomputedResidualN": 7.869735619086913e-09,
+      "recordedResidualN": 7.869735619086913e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 46,
+        "certifiedCount": 46,
+        "unresolvedCount": 0,
+        "nodeCount": 46,
+        "leafCount": 46,
+        "deepest": 0,
+        "lowerBoundM": 0.023912220499059875,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.0
+    },
+    {
+      "endFraction": 0.375,
+      "recomputedResidualN": 5.324787881160614e-07,
+      "recordedResidualN": 5.324787881160614e-07,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 46,
+        "certifiedCount": 46,
+        "unresolvedCount": 0,
+        "nodeCount": 46,
+        "leafCount": 46,
+        "deepest": 0,
+        "lowerBoundM": 0.023912252641819218,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 1.3848067373992592e-08
+    },
+    {
+      "endFraction": 0.4375,
+      "recomputedResidualN": 1.0694053313342428e-08,
+      "recordedResidualN": 1.0694053313342428e-08,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 46,
+        "certifiedCount": 46,
+        "unresolvedCount": 0,
+        "nodeCount": 46,
+        "leafCount": 46,
+        "deepest": 0,
+        "lowerBoundM": 0.02391125100054,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 5.765669549236764e-07
+    },
+    {
+      "endFraction": 0.5,
+      "recomputedResidualN": 4.623337003739418e-09,
+      "recordedResidualN": 4.623337003739418e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 34,
+        "certifiedCount": 34,
+        "unresolvedCount": 0,
+        "nodeCount": 34,
+        "leafCount": 34,
+        "deepest": 0,
+        "lowerBoundM": 0.023912459499544892,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.00030982745485650965
+    },
+    {
+      "endFraction": 0.53125,
+      "recomputedResidualN": 3.991317818471034e-09,
+      "recordedResidualN": 3.991317818471034e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 34,
+        "certifiedCount": 34,
+        "unresolvedCount": 0,
+        "nodeCount": 34,
+        "leafCount": 34,
+        "deepest": 0,
+        "lowerBoundM": 0.023912467370562938,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.0037120137304393936
+    },
+    {
+      "endFraction": 0.5625,
+      "recomputedResidualN": 3.4881431423827713e-09,
+      "recordedResidualN": 3.4881431423827713e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 34,
+        "certifiedCount": 34,
+        "unresolvedCount": 0,
+        "nodeCount": 34,
+        "leafCount": 34,
+        "deepest": 0,
+        "lowerBoundM": 0.023851188007728955,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.013185665469933796
+    },
+    {
+      "endFraction": 0.625,
+      "recomputedResidualN": 3.623566113830634e-09,
+      "recordedResidualN": 3.623566113830634e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 102,
+        "certifiedCount": 102,
+        "unresolvedCount": 0,
+        "nodeCount": 118,
+        "leafCount": 102,
+        "deepest": 0,
+        "lowerBoundM": 0.00013657267873144272,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.047505566148110696
+    },
+    {
+      "endFraction": 0.6875,
+      "recomputedResidualN": 7.826001624522405e-09,
+      "recordedResidualN": 7.826001624522405e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 323,
+        "certifiedCount": 323,
+        "unresolvedCount": 0,
+        "nodeCount": 498,
+        "leafCount": 365,
+        "deepest": 2,
+        "lowerBoundM": 0.0001072926817157668,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.10371246569615152
+    },
+    {
+      "endFraction": 0.75,
+      "recomputedResidualN": 8.779530435987226e-09,
+      "recordedResidualN": 8.779530435987226e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 354,
+        "certifiedCount": 354,
+        "unresolvedCount": 0,
+        "nodeCount": 641,
+        "leafCount": 423,
+        "deepest": 3,
+        "lowerBoundM": 0.00010291116826138297,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.18417822895223238
+    },
+    {
+      "endFraction": 0.8125,
+      "recomputedResidualN": 1.4437932661925945e-07,
+      "recordedResidualN": 1.4437932661925945e-07,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 380,
+        "certifiedCount": 380,
+        "unresolvedCount": 0,
+        "nodeCount": 702,
+        "leafCount": 480,
+        "deepest": 3,
+        "lowerBoundM": 0.00010043914828624204,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.2811487920286061
+    },
+    {
+      "endFraction": 0.875,
+      "recomputedResidualN": 7.679465827692411e-07,
+      "recordedResidualN": 7.679465827692411e-07,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 312,
+        "certifiedCount": 312,
+        "unresolvedCount": 0,
+        "nodeCount": 739,
+        "leafCount": 472,
+        "deepest": 7,
+        "lowerBoundM": 0.00010004789763803637,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.4120246771962908
+    },
+    {
+      "endFraction": 0.9375,
+      "recomputedResidualN": 4.424998678587144e-08,
+      "recordedResidualN": 4.424998678587144e-08,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 320,
+        "certifiedCount": 320,
+        "unresolvedCount": 0,
+        "nodeCount": 1476,
+        "leafCount": 832,
+        "deepest": 7,
+        "lowerBoundM": 0.00010035924868470565,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.6107970058564299
+    },
+    {
+      "endFraction": 0.96875,
+      "recomputedResidualN": 3.1134490541262494e-09,
+      "recordedResidualN": 3.1134490541262494e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 241,
+        "certifiedCount": 241,
+        "unresolvedCount": 0,
+        "nodeCount": 1444,
+        "leafCount": 789,
+        "deepest": 7,
+        "lowerBoundM": 0.00010004181957746088,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 0.7819943081899081
+    },
+    {
+      "endFraction": 1.0,
+      "recomputedResidualN": 5.931582336415886e-09,
+      "recordedResidualN": 5.931582336415886e-09,
+      "endpointIntersections": 0,
+      "physicalPathPass": true,
+      "pathCertificate": {
+        "method": "outward-rounded-temporal-separation-v1",
+        "safe": true,
+        "candidateCount": 274,
+        "certifiedCount": 274,
+        "unresolvedCount": 0,
+        "nodeCount": 5081,
+        "leafCount": 2621,
+        "deepest": 9,
+        "lowerBoundM": 0.00010000400195251267,
+        "maxDepth": 12,
+        "maxNodes": 100000,
+        "reason": "certified",
+        "accepted": false,
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "contactEnergyJ": 1.09472522124616
+    }
+  ],
+  "exactRationalAudit": {
+    "accepted": false,
+    "audit": "implementer exact rational support and complete candidate/time coverage",
+    "reportSha256": "95305f2c03e9743ba3130abd2aef2fef89563fd40753d6e6910a3a7b5fc1e643",
+    "states": [
+      {
+        "state": "accepted-0001.json",
+        "candidates": 50,
+        "leaves": 50,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023912362092281685
+      },
+      {
+        "state": "accepted-0002.json",
+        "candidates": 50,
+        "leaves": 50,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023912323867264343
+      },
+      {
+        "state": "accepted-0003.json",
+        "candidates": 50,
+        "leaves": 50,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023912283579386264
+      },
+      {
+        "state": "accepted-0004.json",
+        "candidates": 48,
+        "leaves": 48,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.02391224910841635
+      },
+      {
+        "state": "accepted-0005.json",
+        "candidates": 46,
+        "leaves": 46,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023912220499059875
+      },
+      {
+        "state": "accepted-0006.json",
+        "candidates": 46,
+        "leaves": 46,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023912252641819218
+      },
+      {
+        "state": "accepted-0007.json",
+        "candidates": 46,
+        "leaves": 46,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.02391125100054
+      },
+      {
+        "state": "accepted-0008.json",
+        "candidates": 34,
+        "leaves": 34,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023912459499544892
+      },
+      {
+        "state": "accepted-0009.json",
+        "candidates": 34,
+        "leaves": 34,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023912467370562938
+      },
+      {
+        "state": "accepted-0010.json",
+        "candidates": 34,
+        "leaves": 34,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.023851188007728955
+      },
+      {
+        "state": "accepted-0011.json",
+        "candidates": 102,
+        "leaves": 102,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.00013657267873144272
+      },
+      {
+        "state": "accepted-0012.json",
+        "candidates": 323,
+        "leaves": 365,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.0001072926817157668
+      },
+      {
+        "state": "accepted-0013.json",
+        "candidates": 354,
+        "leaves": 423,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.00010291116826138297
+      },
+      {
+        "state": "accepted-0014.json",
+        "candidates": 380,
+        "leaves": 480,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.00010043914828624204
+      },
+      {
+        "state": "accepted-0015.json",
+        "candidates": 312,
+        "leaves": 472,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.00010004789763803637
+      },
+      {
+        "state": "accepted-0016.json",
+        "candidates": 320,
+        "leaves": 832,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.00010035924868470565
+      },
+      {
+        "state": "accepted-0017.json",
+        "candidates": 241,
+        "leaves": 789,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.00010004181957746088
+      },
+      {
+        "state": "accepted-0018.json",
+        "candidates": 274,
+        "leaves": 2621,
+        "localCandidates": 0,
+        "minimumCertifiedBoundM": 0.00010000400195251267
+      }
+    ],
+    "totalLeaves": 6522
+  },
+  "artifactDigests": {
+    "report.json": "95305f2c03e9743ba3130abd2aef2fef89563fd40753d6e6910a3a7b5fc1e643",
+    "state.json": "ef21bd2ca4f6b9ad4535987071edba842162e13988a47c62b1f6e21e5ccb92af",
+    "replay.json": "33cbded7c43024818fc241e940e6cb352f8cff2e692c10767542a186cd7114fb",
+    "rational-audit.json": "cd0cdc4ed4fe00e268165ef6783679c2be62ceff4fb1dd11eefc2674cb12e465"
+  },
+  "auditScriptDigests": {
+    "replay-rest-filtered-temporal.py": "1a5e04348b4286ad8b8b0490c6104c4444534cbcbdd3be9b7bd2caab9587cb2d",
+    "audit-rest-filtered-paths.py": "22dfe93875e9b43323265cfba25f71eb25a9d276d70c79d2b8214a9a0487acff"
+  },
+  "limitations": [
+    "Only the selected cuff shell/facing are simulated; other garment parts are intentionally absent.",
+    "The 0.11 mm offset and parallel rigid placement are diagnostic assumptions, not a validated sewing recipe.",
+    "No turning, allowance folding, sleeve attachment, damping, settling or material calibration.",
+    "No locally reduced thickness pairs occur on these panels; all contact uses the full 0.1 mm minimum.",
+    "Implementer residual/oracle/rational replay, not independent model review or garment acceptance."
+  ]
+}
