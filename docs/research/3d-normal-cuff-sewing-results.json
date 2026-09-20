@@ -1,0 +1,316 @@
+{
+  "date": "2026-09-20",
+  "accepted": false,
+  "classification": "material-normal source-cuff diagnostic; not turned component or garment assembly",
+  "directory": ".planning/solver/normal-cuff-run-sep20",
+  "completed": true,
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "e4ed7bf9f97ac30ef1000d35cc09b7371735d61597132f178ce07f39d8287f0c",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "df23358826c45d613bc188751e97d58b077d5e2d8fc361e74da3a2b33d8c57f1",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "91a6d5a1b3d32814f545deffb91648fb62a9e76c8f166f026b37b188caed7135",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_normal_sewing.py": "6d3c112887eee1556c89d1e7076eb731f42ab97bd4235e10db0230eea1083e92",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "936e896eee4b73eeb95e44921cdb46e788fb07be7b66ee9a0d1f9e2f72bcb74b"
+  },
+  "canonicalSha256": "9e864a1a3d0538cbfaea513f2ec097e082879d01a7e6158cb410a2a3951d6f37",
+  "placementSha256": "1cca333b56d9823822f4626592d6210aa3b6799a0d5a905095355474c2fd7355",
+  "arguments": {
+    "activation_distance_m": 0.001,
+    "canonical": ".planning/solver/normal-cuff-input-sep20/canonical.json",
+    "ccd_profile": "temporal-separation-tight-inclusion",
+    "contact_model": "rest-filtered",
+    "cpu_limit_seconds": 480,
+    "max_attempts": 256,
+    "max_depth": 8,
+    "max_evaluations": 100,
+    "minimum_distance_m": 0.0001,
+    "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/normal-cuff-run-sep20",
+    "placement": ".planning/solver/normal-cuff-input-sep20/placement.json",
+    "pressure_pa": 10000.0,
+    "sewing_mode": "normal-offset",
+    "step_seconds": 0.016,
+    "subdivisions": 16,
+    "target_fraction": 0.055,
+    "wall_limit_seconds": 600
+  },
+  "cpuSeconds": 199.14,
+  "wallSeconds": 206.6259631959997,
+  "acceptedStateArtifacts": [
+    {
+      "path": "accepted-0001.json",
+      "sha256": "f5ebdc0f94731fd7c6dde1b8658a34aec110b17c50b1ba6f236ace4286b37b14"
+    },
+    {
+      "path": "accepted-0002.json",
+      "sha256": "b3a8cb2eaeb42fefdcad516cb39f9280bffea8c74e93dc01740012e71894ddb6"
+    },
+    {
+      "path": "accepted-0003.json",
+      "sha256": "6fe7d3801139378dbead16b11f05ce5239f008720f3f93df906569ac2d7ba9de"
+    },
+    {
+      "path": "accepted-0004.json",
+      "sha256": "7936ccd178c19f0b0d26d97055b3fbfa914578d381c7f30010cbb17b86ba6b58"
+    },
+    {
+      "path": "accepted-0005.json",
+      "sha256": "f7340b99c1e19272fb9939d4ed93225d6fe6497996768e7ee36c896db8d041d7"
+    },
+    {
+      "path": "accepted-0006.json",
+      "sha256": "9c02674262b3e4f4bb814707206be91fb671680e1c58ddfbe8d5958a05417e9e"
+    },
+    {
+      "path": "accepted-0007.json",
+      "sha256": "8c11a662e2ec4b88697b6c39077fa6909f5890dc1c6979730ddea340916824e7"
+    },
+    {
+      "path": "accepted-0008.json",
+      "sha256": "298c7674b3168437b4a16d1e7aa997cd3af90099f8b16dbf9d313babdeff3c68"
+    },
+    {
+      "path": "accepted-0009.json",
+      "sha256": "a5932e5c5bc6a5e550f4876692f5272471fcaa9c9ef4d423749f919a421c8527"
+    },
+    {
+      "path": "accepted-0010.json",
+      "sha256": "fada179785f9767863063dda6a3ca788f82184112d1e06bc871743a7d0d4b12c"
+    },
+    {
+      "path": "accepted-0011.json",
+      "sha256": "bb628856901c13d02a7857537fc83dd6321f10295005cb4663fad50654cee194"
+    },
+    {
+      "path": "accepted-0012.json",
+      "sha256": "2bededa7f27295c5ba674c0e2e98b0119a15dfa8a3925fca2d02fc030cc3c0d5"
+    },
+    {
+      "path": "accepted-0013.json",
+      "sha256": "75056558ecdf6c9b1afaf7396261822e36c868aeba32b7da48fcb296730653fc"
+    },
+    {
+      "path": "accepted-0014.json",
+      "sha256": "c889a8556178687c43202072d8ed1f2095bd840346651a70ecbf319bb6d7b852"
+    },
+    {
+      "path": "accepted-0015.json",
+      "sha256": "1e0d2e36beaa0991739e0a234f2b248acab74444d131ab87c69dcf3e7d3f9446"
+    },
+    {
+      "path": "accepted-0016.json",
+      "sha256": "a3470701d22767703d9bcc7a7cb3a48e225a304cd8fa999b4f4e301b037d39b8"
+    },
+    {
+      "path": "accepted-0017.json",
+      "sha256": "36507384e309356f204511409ea5c949598e54a7a63e20fe49c5ebc1e6bb4a30"
+    },
+    {
+      "path": "accepted-0018.json",
+      "sha256": "ee479786cadec6b5506d54890a07cdd6149630236d7d32ed73f02edb4cb8bfe7"
+    },
+    {
+      "path": "accepted-0019.json",
+      "sha256": "bffe4c9823ab910a0d9af04a8dfca7047e180f3b1bf93e5eaafd28523fc7a4c7"
+    }
+  ],
+  "stateArtifact": {
+    "path": "state.json",
+    "sha256": "dc819cec961eccbb634e9047ef2c9a82d34b8fda26afeb907c20be41aa21db10"
+  },
+  "failure": null,
+  "rejectedAttemptCount": 3,
+  "completedFraction": 1.0,
+  "maximumAnchorGapMm": 0.13773483335966358,
+  "maximumTargetErrorMm": 0.02786129150507438,
+  "finalContactEnergyJ": 1.0519009019883707,
+  "minimumSampledSignedAnchorOffsetMm": 0.10817239022170891,
+  "lastStateMaximumTangentialOffsetMm": 0.004294517187147929,
+  "sourceComparison": {
+    "unchangedFields": {
+      "restMeters": true,
+      "placedMeters": true,
+      "triangles": true,
+      "instanceOffsets": true,
+      "embeddedConstraints": true,
+      "provenance": true
+    },
+    "addedField": "sewingFrames",
+    "frameCount": 20
+  },
+  "replay": {
+    "verifiedStates": 19,
+    "exactCertificateLeaves": 6215,
+    "maximumResidualN": 7.368537922047835e-07,
+    "finalStateVerified": true,
+    "endpointIntersections": 0,
+    "review": "implementer replay with separate frame reaction formula; not independent model review"
+  },
+  "edgeStrain": {
+    "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+    "edgeCount": 86,
+    "min": 0.9693335482658012,
+    "max": 1.0334292057500982,
+    "p95": 1.0199340040590592,
+    "p99": 1.0294607151988981,
+    "perInstance": {
+      "cuff_left:facing": {
+        "edgeCount": 43,
+        "min": 0.9699747463338956,
+        "max": 1.0287603933369216,
+        "p95": 1.0203207753415753
+      },
+      "cuff_left:shell": {
+        "edgeCount": 43,
+        "min": 0.9693335482658012,
+        "max": 1.0334292057500982,
+        "p95": 1.014160088871512
+      }
+    },
+    "worstEdges": [
+      {
+        "vertices": [
+          5,
+          15
+        ],
+        "instanceId": "cuff_left:shell",
+        "restLengthMm": 43.62227712103634,
+        "currentLengthMm": 45.08053519820327,
+        "ratio": 1.0334292057500982,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          30,
+          39
+        ],
+        "instanceId": "cuff_left:facing",
+        "restLengthMm": 40.33589832739009,
+        "currentLengthMm": 41.49597462888391,
+        "ratio": 1.0287603933369216,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          28,
+          38
+        ],
+        "instanceId": "cuff_left:facing",
+        "restLengthMm": 43.62227712103634,
+        "currentLengthMm": 44.83792525341305,
+        "ratio": 1.027867599139855,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          7,
+          18
+        ],
+        "instanceId": "cuff_left:shell",
+        "restLengthMm": 47.8454676590187,
+        "currentLengthMm": 48.9732250492313,
+        "ratio": 1.023570830120207,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          21,
+          34
+        ],
+        "instanceId": "cuff_left:facing",
+        "restLengthMm": 52.7810746076157,
+        "currentLengthMm": 53.86723643628303,
+        "ratio": 1.0205786228632527,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          23,
+          39
+        ],
+        "instanceId": "cuff_left:facing",
+        "restLengthMm": 52.78107460761569,
+        "currentLengthMm": 53.731141743492564,
+        "ratio": 1.0180001476464784,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          10,
+          11
+        ],
+        "instanceId": "cuff_left:shell",
+        "restLengthMm": 52.00000000000002,
+        "currentLengthMm": 52.73729495083477,
+        "ratio": 1.0141787490545147,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          2,
+          19
+        ],
+        "instanceId": "cuff_left:shell",
+        "restLengthMm": 52.7810746076157,
+        "currentLengthMm": 53.519595174192226,
+        "ratio": 1.0139921472244895,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          7,
+          8
+        ],
+        "instanceId": "cuff_left:shell",
+        "restLengthMm": 52.00000000000002,
+        "currentLengthMm": 52.63495887900817,
+        "ratio": 1.0122107476732336,
+        "touchesPin": false
+      },
+      {
+        "vertices": [
+          14,
+          15
+        ],
+        "instanceId": "cuff_left:shell",
+        "restLengthMm": 37.142857142857146,
+        "currentLengthMm": 37.547767614349155,
+        "ratio": 1.0109014357709387,
+        "touchesPin": false
+      }
+    ]
+  },
+  "artifactDigests": {
+    "report.json": "ff58e9db7eff90c26dc0f0959bbee093fc16bd3710a463e5159c181f1d791c7c",
+    "verified-replay.json": "9943a782e2e902c0144e82ecdda169571f63f2b351f6f743250e3f77ae06c266"
+  },
+  "limitations": [
+    "Different seam energy from scalar distance; trajectories need not agree.",
+    "Gauss-Newton seam search metric, full objective gradient and unchanged stationarity threshold.",
+    "Signed anchor offsets are sampled seam observations, not global or swept surface clearance.",
+    "No turning, allowance folding, binding, seam tangent alignment or swept frame nondegeneracy certificate.",
+    "No material calibration, independent model review, full-shirt acceptance or deployment."
+  ]
+}
