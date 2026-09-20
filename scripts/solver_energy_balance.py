@@ -9,8 +9,9 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         np.asarray(value, dtype=float) for value in
         (previous, positions, previous_velocities, velocities, previous_targets, targets)]
     state_shape = (len(solver.mass), 3)
+    normal_mode = getattr(solver, "sewing_mode", "vector") == "normal-offset"
     distance_mode = getattr(solver, "sewing_mode", "vector") == "distance"
-    target_shape = (solver.sewing.shape[0],) if distance_mode else (solver.sewing.shape[0], 3)
+    target_shape = (solver.sewing.shape[0],) if distance_mode or normal_mode else (solver.sewing.shape[0], 3)
     if (any(value.shape != state_shape for value in (previous, positions, previous_velocities, velocities))
             or any(value.shape != target_shape for value in (previous_targets, targets))
             or not all(np.isfinite(value).all() for value in
@@ -36,7 +37,13 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
     velocity_change = velocities - previous_velocities
     kinetic_change = float(np.sum(solver.mass[:, None] *
                                  (previous_velocities + .5 * velocity_change) * velocity_change))
-    if distance_mode:
+    if normal_mode:
+        old_potential = solver.sewing_potential(previous_targets)
+        new_potential = solver.sewing_potential(targets)
+        previous_residual = old_potential.residual(previous) * np.sqrt(solver.compliance)
+        fixed_residual = new_potential.residual(previous) * np.sqrt(solver.compliance)
+        sewn_displacement = new_potential.residual(positions) * np.sqrt(solver.compliance) - fixed_residual
+    elif distance_mode:
         from solver_distance_sewing import DistanceSewing
         sewing = DistanceSewing(solver.sewing, targets, solver.compliance)
         DistanceSewing(solver.sewing, previous_targets, solver.compliance)
@@ -48,7 +55,7 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
     else:
         previous_residual = solver.sewing @ previous - previous_targets
         sewn_displacement = solver.sewing @ displacement
-    target_change = targets - previous_targets
+    target_change = previous_residual - fixed_residual if normal_mode else targets - previous_targets
     target_work = float(np.sum((-previous_residual + .5 * target_change) * target_change) / solver.compliance)
     residual_change = sewn_displacement - target_change
     sewing_change = float(np.sum((previous_residual + .5 * residual_change) * residual_change) / solver.compliance)

@@ -14,7 +14,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
     velocities = np.asarray(velocities, dtype=float)
     initial_targets = np.asarray(initial_targets, dtype=float)
     targets = np.asarray(targets, dtype=float)
-    distance_mode = getattr(solver, "sewing_mode", "vector") == "distance"
+    distance_mode = getattr(solver, "sewing_mode", "vector") in ("distance", "normal-offset")
     valid_targets = ((targets.ndim == 1 and np.all(targets > 0)
                       and np.all(initial_targets > 0)) if distance_mode else
                      (targets.ndim == 2 and targets.shape[1] == 3))

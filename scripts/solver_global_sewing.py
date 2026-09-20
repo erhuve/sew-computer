@@ -125,9 +125,11 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
 
 class GlobalSewingSolver:
     def __init__(self, model, rows, compliance, *, fold_barrier_joules=None, fold_activation_angle=np.pi / 2,
-                 contact=None, sewing_mode="vector"):
-        if sewing_mode not in ("vector", "distance"):
+                 contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None):
+        if sewing_mode not in ("vector", "distance", "normal-offset"):
             raise ValueError("Unsupported sewing mode")
+        if sewing_mode != "normal-offset" and (sewing_frame_faces is not None or sewing_sides is not None):
+            raise ValueError("Material frames require normal-offset sewing")
         self.sewing_mode = sewing_mode
         self.mass = model.particle_mass.numpy().astype(float)
         self.active = (self.mass > 0) & ((model.particle_flags.numpy() & 1) != 0)
@@ -189,15 +191,34 @@ class GlobalSewingSolver:
         self.compliance = compliance
         self.free = np.flatnonzero(np.repeat(self.active, 3))
         self.sewing_xyz = kron(self.sewing, np.eye(3), format="csr")
+        self.sewing_frame_faces = None
+        self.sewing_sides = None
+        if sewing_mode == "normal-offset":
+            from solver_normal_sewing import NormalOffsetSewing
+            potential = NormalOffsetSewing(self.sewing, np.ones(len(rows)), compliance,
+                                           sewing_frame_faces, sewing_sides)
+            model_faces = {tuple(face) for face in self.faces}
+            if any(tuple(face) not in model_faces for face in potential.faces):
+                raise ValueError("Sewing frames must match ordered source model faces")
+            potential.geometry(model.particle_q.numpy())
+            self.sewing_frame_faces = potential.faces
+            self.sewing_sides = potential.sides
+
+    def sewing_potential(self, targets):
+        if self.sewing_mode == "normal-offset":
+            from solver_normal_sewing import NormalOffsetSewing
+            return NormalOffsetSewing(self.sewing, targets, self.compliance,
+                                      self.sewing_frame_faces, self.sewing_sides)
+        from solver_distance_sewing import DistanceSewing
+        return DistanceSewing(self.sewing, targets, self.compliance)
 
     def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct"):
         previous = np.asarray(previous_positions, dtype=float)
         velocities = np.asarray(previous_velocities, dtype=float)
         targets = np.asarray(targets, dtype=float)
         distance_sewing = None
-        if self.sewing_mode == "distance":
-            from solver_distance_sewing import DistanceSewing
-            distance_sewing = DistanceSewing(self.sewing, targets, self.compliance)
+        if self.sewing_mode in ("distance", "normal-offset"):
+            distance_sewing = self.sewing_potential(targets)
             if linear_solver != "direct":
                 raise ValueError("Distance sewing requires safeguarded direct search")
         if linear_solver not in ("direct", "shifted", "lsmr") or type(max_evaluations) is not int or not 1 <= max_evaluations <= 10000:
@@ -236,6 +257,8 @@ class GlobalSewingSolver:
         sqrt_lame = np.sqrt(self.areas * lame)
         alpha = 1 + self.materials[:, 0] / np.maximum(lame, 1e-6)
         residual_count = len(fixed) + targets.size + 7 * len(self.faces) + len(self.bending.indices)
+        if self.sewing_mode == "normal-offset":
+            residual_count += 2 * targets.size
         if self.fold_barrier is not None:
             residual_count += len(self.fold_barrier.indices)
 
@@ -466,8 +489,10 @@ class GlobalSewingSolver:
             "sewingJoules": float(.5 * np.sum(sewing_residual(final) ** 2)),
             "sewingTargetErrorM": float(np.max(np.abs(sewing_residual(final)), initial=0)
                                          * np.sqrt(self.compliance)),
-            "sewingLimitations": "Scalar anchor distance does not prescribe layer side, seam tangent or turning"
-                                 if distance_sewing is not None else "World-space vector registration",
+            "sewingLimitations": ("Source-normal offset with full frame reactions and Gauss-Newton search; no swept frame nondegeneracy, turning or seam tangent alignment"
+                                  if self.sewing_mode == "normal-offset" else
+                                  "Scalar anchor distance does not prescribe layer side, seam tangent or turning"
+                                  if distance_sewing is not None else "World-space vector registration"),
             "contactJoules": self.contact.energy(final) if self.contact is not None else 0.,
             "contactSearchMetric": "Signed-weight contact Hessian; both assembled metrics safeguarded: SPD primary or physical-inertia-shifted projected fallback; not exact total Hessian" if guard_assembled_metrics else "PSD-projected contact Hessian; not exact total Hessian" if self.contact is not None else None,
             "contactRestMetricTolerance": float(self.contact_rest_metric_tolerance) if self.contact is not None else None,
