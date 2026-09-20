@@ -1,0 +1,176 @@
+{
+  "date": "2026-09-20",
+  "accepted": false,
+  "classification": "completed source-cuff scalar-distance diagnostic; not garment assembly",
+  "directory": ".planning/solver/source-cuff-distance-sep20-480",
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "f2416b091d69555d62725e73ecddc475c97e6eee8f520b064516a2c3c5d10781",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "d23030a1df7529767ddbb4376ef06089851c8ef2a16ff2e4f189c5e65436d678",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "50b6862098062e6f667337ad1a0cc8a89cbb6704774863590872cedd2b333019",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "4907280d90e16bd366b68d15339ab029b26a5ea38f77283143b309f895df4cbd"
+  },
+  "canonicalSha256": "6f1cb1ec7edbf622c9a9aba6f7861ba367483597f69f8491f1a1a6d5cd21242b",
+  "placementSha256": "491aa91d291d2bf81dfdd1147fe436a16843e46d9d95dd51d21990676e98d8b8",
+  "arguments": {
+    "activation_distance_m": 0.001,
+    "canonical": ".planning/solver/source-cuff-temporal-input/canonical.json",
+    "ccd_profile": "temporal-separation-tight-inclusion",
+    "contact_model": "rest-filtered",
+    "cpu_limit_seconds": 480,
+    "max_attempts": 256,
+    "max_depth": 8,
+    "max_evaluations": 100,
+    "minimum_distance_m": 0.0001,
+    "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/source-cuff-distance-sep20-480",
+    "placement": ".planning/solver/source-cuff-temporal-input/placement.json",
+    "pressure_pa": 10000.0,
+    "sewing_mode": "distance",
+    "step_seconds": 0.016,
+    "subdivisions": 16,
+    "target_fraction": 0.055,
+    "wall_limit_seconds": 600
+  },
+  "cpuSeconds": 289.9,
+  "wallSeconds": 301.6467974729999,
+  "acceptedStateArtifacts": [
+    {
+      "path": "accepted-0001.json",
+      "sha256": "5dbe2e5d2de336c565965dfeb6c3420a61c74f51cefdbce96e4d1ec6d3ddec6c"
+    },
+    {
+      "path": "accepted-0002.json",
+      "sha256": "f9e1c5de2b78fc478ea41f99ca1bdea2888076f43c451f1090592c55407a7b4f"
+    },
+    {
+      "path": "accepted-0003.json",
+      "sha256": "9ba559f86cc521fb89f90d5773a6649f2eb1f0a14472f680bdd36b8196e9632c"
+    },
+    {
+      "path": "accepted-0004.json",
+      "sha256": "4c1c9fd5426e7fab386638b07f2ce155033791767024cd97b9c032dd18943156"
+    },
+    {
+      "path": "accepted-0005.json",
+      "sha256": "5258d054d08dd6e0f1e3ed45c7ba199da1f9215cd0df79a82b1e39adca55f22c"
+    },
+    {
+      "path": "accepted-0006.json",
+      "sha256": "893e10971273d1e3ae86c3dec02785fcc89c0cb5c2262381c6beaea855955e1a"
+    },
+    {
+      "path": "accepted-0007.json",
+      "sha256": "5cb12bf8334aa0669fd685534d4765fd1005a49e18869480669e143762582a0c"
+    },
+    {
+      "path": "accepted-0008.json",
+      "sha256": "78e0e053de46f7d727679ee6a945d36f8eda5b97cbb2bea2d9c1499144df8549"
+    },
+    {
+      "path": "accepted-0009.json",
+      "sha256": "99ff6f8cef917e568e858ccf49dcbf6f153d78216f4b09515f84e9d3889c2e80"
+    },
+    {
+      "path": "accepted-0010.json",
+      "sha256": "9e877822d983af6a6a246f133b3c027aa7eb5dc90e73b0e0170c59dc676f0e93"
+    },
+    {
+      "path": "accepted-0011.json",
+      "sha256": "537b94b29d7ee755f1e9f6fca0a6cd24e34845a3c0c4424d72dcf2d4db815a26"
+    },
+    {
+      "path": "accepted-0012.json",
+      "sha256": "7fc2ca4a28bf753bf04f0c229edea0e600c6cb36dd62ff3a32f1e89cb2a3f9b9"
+    },
+    {
+      "path": "accepted-0013.json",
+      "sha256": "2c849376691c2eb4e2d3d9030e2390fdc675e38ffe0fa08b06b1bf3f9f2df0b0"
+    },
+    {
+      "path": "accepted-0014.json",
+      "sha256": "77c0881bf6c66bc7f5af9b85466f65be43fcabb491340de2d6c7e35e00d13466"
+    },
+    {
+      "path": "accepted-0015.json",
+      "sha256": "123c4aac3b03cf7fd434664d6f03e5432c5ba20666b4eb7c24e6795b516d7693"
+    },
+    {
+      "path": "accepted-0016.json",
+      "sha256": "5bd2299677d718e2f74e400fbcd58a57587c42269b9f223fd40e6dad7b44abae"
+    },
+    {
+      "path": "accepted-0017.json",
+      "sha256": "cc5defe93e48a2cfd4ea46902b4410650514ee0d342ade820e5d6ae4a4df07ef"
+    },
+    {
+      "path": "accepted-0018.json",
+      "sha256": "741d530776d0433e03c4578bc88e6be3fcd2f07c80a096f7c9d28df5cfe39542"
+    },
+    {
+      "path": "accepted-0019.json",
+      "sha256": "cd0f754afc80462a6f6ab689b4123f9e6fc51796157848463656c0a61c445a9a"
+    }
+  ],
+  "stateArtifact": {
+    "path": "state.json",
+    "sha256": "85c21f86f71516796f4d9bc9db4a81b1e31e23c44051ea471d377ad477f8d466"
+  },
+  "rejectedAttemptCount": 3,
+  "completedFraction": 1.0,
+  "completedDurationSeconds": 0.016,
+  "maximumAnchorGapMm": 0.13899842554778974,
+  "maximumTargetErrorMm": 0.028998425547789627,
+  "finalContactEnergyJ": 1.0904771476223363,
+  "edgeRatioRange": [
+    0.9685893847389556,
+    1.031475575754931
+  ],
+  "replay": {
+    "verifiedStates": 19,
+    "exactCertificateLeaves": 8342,
+    "maximumResidualN": 9.106291543048428e-07,
+    "endpointIntersections": 0,
+    "finalStateVerified": true,
+    "review": "implementer replay, not independent review"
+  },
+  "comparison": {
+    "previousRun": ".planning/solver/source-cuff-distance-sep20-240",
+    "sameNumericalSourceDigests": true,
+    "first18StateHashesIdentical": true,
+    "change": "CPU/wall budgets increased from 240/360 to 480/600 seconds; output path differs",
+    "previousFailureRetained": true
+  },
+  "artifactDigests": {
+    "report.json": "cc50565f30ad7e05b01bae8781eaa52d93f6f9ab9cde7e9390bbdd714d0e19d1",
+    "verified-replay.json": "48d30ff47e538fd60ba74de83e29fbd9c6e1cf528e47cb59d047af49f4cf3bea"
+  },
+  "limitations": [
+    "Completion is the full prescribed 16 ms parallel cuff closure schedule, not garment assembly percentage.",
+    "Scalar distance does not specify layer side, tangent registration, allowance folding or turning.",
+    "No changed numerical equations, source geometry, compliance, clearance or stationarity threshold.",
+    "No independent contact-model review, material calibration, settling, full-shirt acceptance or deployment."
+  ]
+}
