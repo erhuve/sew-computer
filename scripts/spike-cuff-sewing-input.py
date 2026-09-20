@@ -11,6 +11,7 @@ from solver_process_budget import read_regular
 parser = argparse.ArgumentParser(description="Extract the saved-source left cuff for a parallel-layer sewing diagnostic; not garment assembly")
 parser.add_argument("--canonical", type=Path, required=True)
 parser.add_argument("--output", type=Path, required=True)
+parser.add_argument("--normal-offset-frames", action="store_true")
 args = parser.parse_args()
 source_path = args.canonical.resolve()
 content = read_regular(source_path, 50 * 1024 ** 2)
@@ -54,6 +55,24 @@ control = {"restMeters": subset.tolist(), "placedMeters": placed.tolist(),
                "initialOffsetM": .002, "normal": normal.tolist(),
                "classification": "isolated source-cuff parallel-layer registration; no turning or full garment",
                "accepted": False}}
+if args.normal_offset_frames:
+    frame_faces = []
+    for row in constraints:
+        negative = {offsets[term["instanceId"]] + term["vertex"] for term in row["terms"]
+                    if term["coefficient"] < 0}
+        if any(term["instanceId"] != "cuff_left:facing" for term in row["terms"] if term["coefficient"] < 0):
+            raise ValueError("This frame recipe requires facing-to-shell registrations")
+        matches = [face for face in triangles[1] if negative.issubset(set(face))]
+        if not matches:
+            raise ValueError("Embedded anchor must have a containing source triangle")
+        face = matches[0]
+        frame_normal = np.cross(subset[face[1]] - subset[face[0]], subset[face[2]] - subset[face[0]])
+        frame_normal /= np.linalg.norm(frame_normal)
+        np.testing.assert_allclose(frame_normal, normal, rtol=0, atol=1e-12)
+        frame_faces.append(face.tolist())
+    control["sewingFrames"] = {"faces": frame_faces, "sides": [-1] * len(constraints),
+        "recipe": "parallel-cuff-facing-normal-v1", "accepted": False,
+        "limitations": "Explicit parallel staging side; not turned cuff or allowance fold semantics"}
 output = args.output.resolve()
 output.mkdir(mode=0o700)
 encoded = (json.dumps(control, indent=2, allow_nan=False) + "\n").encode()

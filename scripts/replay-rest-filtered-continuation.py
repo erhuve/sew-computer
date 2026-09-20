@@ -65,9 +65,11 @@ model.particle_q.assign(initial.astype(np.float32))
 rows = [{source["instanceOffsets"][term["instanceId"]] + term["vertex"]: term["coefficient"]
          for term in row["terms"]} for row in source["embeddedConstraints"]["constraints"]]
 solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5,
-                           sewing_mode=arguments.get("sewing_mode", "vector"))
+                           sewing_mode=arguments.get("sewing_mode", "vector"),
+                           sewing_frame_faces=source.get("sewingFrames", {}).get("faces") if arguments.get("sewing_mode") == "normal-offset" else None,
+                           sewing_sides=source.get("sewingFrames", {}).get("sides") if arguments.get("sewing_mode") == "normal-offset" else None)
 initial_targets = solver.sewing @ initial
-if solver.sewing_mode == "distance":
+if solver.sewing_mode in ("distance", "normal-offset"):
     initial_targets = np.linalg.norm(initial_targets, axis=1)
 previous, previous_velocity = initial.copy(), np.zeros_like(initial)
 previous_fraction = 0.
@@ -145,7 +147,22 @@ for artifact in report["acceptedStateArtifacts"]:
     elements = solver.areas[:, None, None] * np.einsum("fvc,fca->fva", coefficients, stress)
     gradient = (np.sqrt(solver.mass) / duration)[:, None] ** 2 * (positions - previous - duration * previous_velocity)
     anchors = solver.sewing @ positions
-    if solver.sewing_mode == "distance":
+    if solver.sewing_mode == "normal-offset":
+        frame = positions[solver.sewing_frame_faces]
+        first_edge, second_edge = frame[:, 1] - frame[:, 0], frame[:, 2] - frame[:, 0]
+        area_vector = np.cross(first_edge, second_edge)
+        area = np.linalg.norm(area_vector, axis=1)
+        normal = area_vector / area[:, None]
+        signed_offset = targets * solver.sewing_sides
+        offset_residual = anchors - signed_offset[:, None] * normal
+        gradient += solver.sewing.T @ (offset_residual / solver.compliance)
+        tangent_residual = offset_residual - np.sum(offset_residual * normal, axis=1)[:, None] * normal
+        area_force = -signed_offset[:, None] * tangent_residual / (solver.compliance * area[:, None])
+        first_reaction = np.cross(second_edge, area_force)
+        second_reaction = np.cross(area_force, first_edge)
+        for local, reaction in enumerate((-first_reaction - second_reaction, first_reaction, second_reaction)):
+            np.add.at(gradient, solver.sewing_frame_faces[:, local], reaction)
+    elif solver.sewing_mode == "distance":
         lengths = np.linalg.norm(anchors, axis=1)
         gradient += solver.sewing.T @ (anchors / lengths[:, None]
                                       * ((lengths - targets) / solver.compliance)[:, None])

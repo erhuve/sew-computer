@@ -26,8 +26,8 @@ def parse_arguments():
     parser.add_argument("--wall-limit-seconds", type=int, default=480,
                         help="Parent-enforced elapsed worker budget (default: 480; range: 1–7200)")
     parser.add_argument("--step-seconds", type=float, default=1 / 240)
-    parser.add_argument("--sewing-mode", choices=("vector", "distance"), default="vector",
-                        help="Experimental scalar anchor lengths or legacy world-space vectors")
+    parser.add_argument("--sewing-mode", choices=("vector", "distance", "normal-offset"), default="vector",
+                        help="Scalar distance, declared source-normal offset, or legacy world-space vector sewing")
     parser.add_argument("--contact-model", choices=("area-improved-max", "rest-filtered"),
                         default="area-improved-max")
     parser.add_argument("--ccd-profile", choices=("tight-inclusion", "swept-plane-tight-inclusion",
@@ -175,10 +175,16 @@ def run_worker(output, parent_pid):
         rows = [{offsets[term["instanceId"]] + term["vertex"]: term["coefficient"]
                  for term in constraint["terms"]} for constraint in source["embeddedConstraints"]["constraints"]]
         solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5,
-                                   sewing_mode=args.sewing_mode)
+                                   sewing_mode=args.sewing_mode,
+                                   sewing_frame_faces=source.get("sewingFrames", {}).get("faces") if args.sewing_mode == "normal-offset" else None,
+                                   sewing_sides=source.get("sewingFrames", {}).get("sides") if args.sewing_mode == "normal-offset" else None)
         initial_targets = solver.sewing @ positions
-        if args.sewing_mode == "distance":
+        if args.sewing_mode in ("distance", "normal-offset"):
             initial_targets = np.linalg.norm(initial_targets, axis=1)
+        if args.sewing_mode == "normal-offset":
+            initial_error = solver.sewing_potential(initial_targets).residual(positions) * np.sqrt(solver.compliance)
+            if np.max(np.abs(initial_error)) > 1e-10:
+                raise ValueError("Initial anchors must match the declared material-normal sides and offsets")
         report["sewingMode"] = args.sewing_mode
         report["attemptJournalRequired"] = True
         progress.save(report, "adaptive-journal-initializing")
@@ -210,6 +216,8 @@ def run_worker(output, parent_pid):
                                                * (args.target_fraction - 1))
         target_errors = (np.abs(np.linalg.norm(final_anchors, axis=1) - completed_targets)
                          if args.sewing_mode == "distance" else
+                         np.linalg.norm(solver.sewing_potential(completed_targets).residual(final).reshape((-1, 3)), axis=1) * np.sqrt(solver.compliance)
+                         if args.sewing_mode == "normal-offset" else
                          np.linalg.norm(final_anchors - completed_targets, axis=1))
         report["finalMaximumAnchorGapM"] = float(np.linalg.norm(final_anchors, axis=1).max())
         report["finalMaximumCompletedTargetErrorM"] = float(target_errors.max())

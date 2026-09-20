@@ -52,6 +52,41 @@ class ContactContinuationCliTests(unittest.TestCase):
                                                 "--ccd-profile", "temporal-separation-tight-inclusion"]):
             self.test_synthetic_stationary_interval_is_complete_but_not_accepted()
 
+    def test_normal_offset_snapshot_executes_and_replays_with_journal(self):
+        command = self.command
+        with mock.patch.object(self, "command", side_effect=lambda *args:
+                               command(*args) + ["--sewing-mode", "normal-offset", "--contact-model", "rest-filtered",
+                                                "--ccd-profile", "temporal-separation-tight-inclusion"]):
+            self.test_synthetic_stationary_interval_is_complete_but_not_accepted()
+
+    def test_normal_offset_missing_wrong_side_or_foreign_frames_reject(self):
+        for frames in (None, {"faces": [[3, 4, 5]], "sides": [1]},
+                       {"faces": [[0, 1, 2]], "sides": [-1]}):
+            with self.subTest(frames=frames), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                rest = [[0., 0., 0.], [.1, 0., 0.], [0., .1, 0.],
+                        [0., 0., .01], [.1, 0., .01], [0., .1, .01]]
+                source = {"restMeters": rest, "placedMeters": rest, "triangles": [0, 1, 2, 3, 4, 5],
+                          "instanceOffsets": {"first": 0, "second": 3},
+                          "embeddedConstraints": {"constraints": [{"terms": [
+                              {"instanceId": "first", "vertex": 0, "coefficient": 1.},
+                              {"instanceId": "second", "vertex": 0, "coefficient": -1.}]}]}}
+                if frames is not None:
+                    source["sewingFrames"] = frames
+                canonical, placement, output = root / "canonical.json", root / "placement.json", root / "run"
+                canonical.write_text(json.dumps(source))
+                placement.write_text(json.dumps({"placedMeters": rest,
+                    "canonicalDigest": hashlib.sha256(canonical.read_bytes()).hexdigest()}))
+                result = subprocess.run(self.command(canonical, placement, output) + ["--sewing-mode", "normal-offset"],
+                                        capture_output=True, text=True, timeout=30)
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                report = json.loads((output / "report.json").read_text())
+                self.assertTrue(report["terminal"])
+                self.assertFalse(report["completed"])
+                self.assertFalse(report["accepted"])
+                self.assertEqual(report["acceptedStateArtifacts"], [])
+                self.assertIn("failure", report)
+
     def test_rest_filtered_profile_snapshot_executes_with_journal(self):
         command = self.command
         with mock.patch.object(self, "command", side_effect=lambda *args:
@@ -94,6 +129,7 @@ class ContactContinuationCliTests(unittest.TestCase):
             rest = [[0., 0., 0.], [.1, 0., 0.], [0., .1, 0.],
                     [0., 0., .01], [.1, 0., .01], [0., .1, .01]]
             source = {"restMeters": rest, "placedMeters": rest, "triangles": [0, 1, 2, 3, 4, 5],
+                      "sewingFrames": {"faces": [[3, 4, 5]], "sides": [-1]},
                       "instanceOffsets": {"first": 0, "second": 3},
                       "embeddedConstraints": {"constraints": [{"terms": [
                           {"instanceId": "first", "vertex": 0, "coefficient": 1.},
@@ -124,7 +160,7 @@ class ContactContinuationCliTests(unittest.TestCase):
             content = (output / artifact["path"]).read_bytes()
             self.assertEqual(hashlib.sha256(content).hexdigest(), artifact["sha256"])
             self.assertEqual(json.loads(content)["record"]["completedDurationSeconds"], 1 / 240)
-            if report["arguments"].get("sewing_mode") == "distance":
+            if report["arguments"].get("sewing_mode") in ("distance", "normal-offset"):
                 replay_command = [sys.executable, str(Path(__file__).with_name("replay-rest-filtered-continuation.py")),
                                   str(output)]
                 replay = subprocess.run(replay_command, capture_output=True, text=True, timeout=30)
