@@ -48,6 +48,8 @@ The September 18 local-fold continuation adds an explicitly optional angular bar
 
 ## Authority, scope and document ownership
 
+September 20 scalar-sewing continuation: the offline reference now offers rotation-invariant positive anchor-distance targets, with exact derivatives, guarded search, supervised adaptive execution and tracked exact-arithmetic replay. Analytical and small coupled-contact controls pass, but the actual-source cuff stops at 98.4375% of its diagnostic schedule within 240 CPU seconds. This does not replace the earlier completed vector-cuff control or implement turning. The [scalar-sewing evidence](../research/3d-solver-feasibility.md#rotation-invariant-scalar-sewing--2026-09-20) and [ledger](../research/3d-distance-sewing-results.json) retain the partial states and failed late solves. Diagnose that scalar/contact transition before promoting this constraint model to assembly; release gates remain unchanged.
+
 This is the implementation plan for Sew Computer's pattern-derived 3D engine and its application integration. It replaces the detailed E0–V5 section formerly embedded in the [software prototype plan](software-prototype.md); that document remains the overall product roadmap. The [project contract §14](../design/project-contract.md#14-pattern-derived-garment-3d) remains normative. Maintain execution details here rather than in a second competing 3D roadmap.
 
 The owner agreed that fabric components must originate from actual 2D patterns. Flexible placement and physically modeled deformation are allowed; independently generated garment meshes and silent rest-shape changes are not. AI may interpret construction into reviewable data. Trusted geometry and simulation code executes it.

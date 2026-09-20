@@ -1,0 +1,1656 @@
+{
+  "date": "2026-09-20",
+  "accepted": false,
+  "classification": "source-cuff scalar-distance sewing; incomplete research controls",
+  "implementationCommits": [
+    "a955a45",
+    "3c29b7d"
+  ],
+  "verification": {
+    "numericalSuite": 361,
+    "finalCliSuite": 8,
+    "applicationSuite": 104,
+    "typecheck": true,
+    "countsOverlap": true
+  },
+  "runs": [
+    {
+      "directory": ".planning/solver/source-cuff-distance-sep20",
+      "accepted": false,
+      "completed": false,
+      "completedFraction": 0.9375,
+      "completedDurationSeconds": 0.015,
+      "cpuSeconds": 120.02,
+      "wallSeconds": 124.69509258699986,
+      "failure": {
+        "message": "cpu-budget-exhausted",
+        "type": "ProcessBudgetFailure"
+      },
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": ".planning/solver/source-cuff-temporal-input/canonical.json",
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 120,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/source-cuff-distance-sep20",
+        "placement": ".planning/solver/source-cuff-temporal-input/placement.json",
+        "pressure_pa": 10000,
+        "sewing_mode": "distance",
+        "step_seconds": 0.016,
+        "subdivisions": 16,
+        "target_fraction": 0.055,
+        "wall_limit_seconds": 180
+      },
+      "sourceDigests": {
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+        "solver_adaptive_contact.py": "f2416b091d69555d62725e73ecddc475c97e6eee8f520b064516a2c3c5d10781",
+        "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+        "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "d23030a1df7529767ddbb4376ef06089851c8ef2a16ff2e4f189c5e65436d678",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "50b6862098062e6f667337ad1a0cc8a89cbb6704774863590872cedd2b333019",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+        "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+        "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "spike-contact-continuation.py": "4907280d90e16bd366b68d15339ab029b26a5ea38f77283143b309f895df4cbd"
+      },
+      "canonicalSha256": "6f1cb1ec7edbf622c9a9aba6f7861ba367483597f69f8491f1a1a6d5cd21242b",
+      "placementSha256": "491aa91d291d2bf81dfdd1147fe436a16843e46d9d95dd51d21990676e98d8b8",
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation use one quarter of minimum filtered rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Primitive partition and collision-set transitions require derivative validation.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationM": 0.0001,
+        "localMinimumM": 0.0001,
+        "maxCandidates": 100000,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000,
+        "stiffnessUnits": "Pa"
+      },
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "5dbe2e5d2de336c565965dfeb6c3420a61c74f51cefdbce96e4d1ec6d3ddec6c"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "f9e1c5de2b78fc478ea41f99ca1bdea2888076f43c451f1090592c55407a7b4f"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "9ba559f86cc521fb89f90d5773a6649f2eb1f0a14472f680bdd36b8196e9632c"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "4c1c9fd5426e7fab386638b07f2ce155033791767024cd97b9c032dd18943156"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "5258d054d08dd6e0f1e3ed45c7ba199da1f9215cd0df79a82b1e39adca55f22c"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "893e10971273d1e3ae86c3dec02785fcc89c0cb5c2262381c6beaea855955e1a"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "5cb12bf8334aa0669fd685534d4765fd1005a49e18869480669e143762582a0c"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "78e0e053de46f7d727679ee6a945d36f8eda5b97cbb2bea2d9c1499144df8549"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "99ff6f8cef917e568e858ccf49dcbf6f153d78216f4b09515f84e9d3889c2e80"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "9e877822d983af6a6a246f133b3c027aa7eb5dc90e73b0e0170c59dc676f0e93"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "537b94b29d7ee755f1e9f6fca0a6cd24e34845a3c0c4424d72dcf2d4db815a26"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "7fc2ca4a28bf753bf04f0c229edea0e600c6cb36dd62ff3a32f1e89cb2a3f9b9"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "2c849376691c2eb4e2d3d9030e2390fdc675e38ffe0fa08b06b1bf3f9f2df0b0"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "77c0881bf6c66bc7f5af9b85466f65be43fcabb491340de2d6c7e35e00d13466"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "123c4aac3b03cf7fd434664d6f03e5432c5ba20666b4eb7c24e6795b516d7693"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "5bd2299677d718e2f74e400fbcd58a57587c42269b9f223fd40e6dad7b44abae"
+        }
+      ],
+      "acceptedSteps": 16,
+      "rejectedSteps": [
+        {
+          "attemptId": 9,
+          "startFraction": 0.5,
+          "endFraction": 0.5625,
+          "durationSeconds": 0.001,
+          "depth": 0,
+          "outcome": "rejected",
+          "error": null,
+          "residualN": 0.08313187035688768,
+          "evaluations": 100
+        },
+        {
+          "attemptId": 18,
+          "startFraction": 0.9375,
+          "endFraction": 1,
+          "durationSeconds": 0.001,
+          "depth": 0,
+          "outcome": "rejected",
+          "error": {
+            "message": "Contact continuation CPU budget exhausted",
+            "type": "TimeoutError"
+          },
+          "residualN": null,
+          "evaluations": null
+        }
+      ],
+      "maxVerifiedResidualN": 6.60428369769761e-7,
+      "exactCertificateLeaves": 3492,
+      "lastMaximumAnchorGapM": 0.00023442747671201627,
+      "lastMaximumCompletedTargetErrorM": 0.000008760055208552727,
+      "replay": {
+        "accepted": false,
+        "states": [
+          {
+            "endFraction": 0.0625,
+            "recomputedResidualN": 1.17494034250653e-9,
+            "recordedResidualN": 1.17494034250653e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 50,
+              "certifiedCount": 50,
+              "unresolvedCount": 0,
+              "nodeCount": 50,
+              "leafCount": 50,
+              "deepest": 0,
+              "lowerBoundM": 0.023912362092281685,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.125,
+            "recomputedResidualN": 1.8549241271128593e-9,
+            "recordedResidualN": 1.8549241271128593e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 50,
+              "certifiedCount": 50,
+              "unresolvedCount": 0,
+              "nodeCount": 50,
+              "leafCount": 50,
+              "deepest": 0,
+              "lowerBoundM": 0.023912323867264332,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.1875,
+            "recomputedResidualN": 3.2131741659210088e-9,
+            "recordedResidualN": 3.2131741658125886e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 50,
+              "certifiedCount": 50,
+              "unresolvedCount": 0,
+              "nodeCount": 50,
+              "leafCount": 50,
+              "deepest": 0,
+              "lowerBoundM": 0.023912283579386292,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.25,
+            "recomputedResidualN": 3.986251822770195e-9,
+            "recordedResidualN": 3.986251822770195e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 48,
+              "certifiedCount": 48,
+              "unresolvedCount": 0,
+              "nodeCount": 48,
+              "leafCount": 48,
+              "deepest": 0,
+              "lowerBoundM": 0.023912249108416342,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.3125,
+            "recomputedResidualN": 3.743133082136085e-9,
+            "recordedResidualN": 3.743133081919245e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 46,
+              "certifiedCount": 46,
+              "unresolvedCount": 0,
+              "nodeCount": 46,
+              "leafCount": 46,
+              "deepest": 0,
+              "lowerBoundM": 0.023912220499059875,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.375,
+            "recomputedResidualN": 5.325055115745769e-7,
+            "recordedResidualN": 5.325082979672213e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 46,
+              "certifiedCount": 46,
+              "unresolvedCount": 0,
+              "nodeCount": 46,
+              "leafCount": 46,
+              "deepest": 0,
+              "lowerBoundM": 0.02391225264181924,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 1.3848067392042333e-8
+          },
+          {
+            "endFraction": 0.4375,
+            "recomputedResidualN": 1.5551025259186169e-9,
+            "recordedResidualN": 1.5544351396334921e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 46,
+              "certifiedCount": 46,
+              "unresolvedCount": 0,
+              "nodeCount": 46,
+              "leafCount": 46,
+              "deepest": 0,
+              "lowerBoundM": 0.023911251000539972,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 5.765669549331319e-7
+          },
+          {
+            "endFraction": 0.5,
+            "recomputedResidualN": 1.6268903936002277e-7,
+            "recordedResidualN": 1.6268903992207318e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 34,
+              "certifiedCount": 34,
+              "unresolvedCount": 0,
+              "nodeCount": 34,
+              "leafCount": 34,
+              "deepest": 0,
+              "lowerBoundM": 0.023912459499553517,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.00030982745515018283
+          },
+          {
+            "endFraction": 0.53125,
+            "recomputedResidualN": 1.0876680889282397e-8,
+            "recordedResidualN": 1.0889071866415634e-8,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 34,
+              "certifiedCount": 34,
+              "unresolvedCount": 0,
+              "nodeCount": 34,
+              "leafCount": 34,
+              "deepest": 0,
+              "lowerBoundM": 0.023910977724916946,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.0037074411419457725
+          },
+          {
+            "endFraction": 0.5625,
+            "recomputedResidualN": 3.574882612156216e-10,
+            "recordedResidualN": 3.587068420074502e-10,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 34,
+              "certifiedCount": 34,
+              "unresolvedCount": 0,
+              "nodeCount": 34,
+              "leafCount": 34,
+              "deepest": 0,
+              "lowerBoundM": 0.023832954989861023,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.012738139783022313
+          },
+          {
+            "endFraction": 0.625,
+            "recomputedResidualN": 3.934605530275803e-8,
+            "recordedResidualN": 3.933832815050664e-8,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 85,
+              "certifiedCount": 85,
+              "unresolvedCount": 0,
+              "nodeCount": 97,
+              "leafCount": 85,
+              "deepest": 0,
+              "lowerBoundM": 0.00010248695030623267,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.04437255286005494
+          },
+          {
+            "endFraction": 0.6875,
+            "recomputedResidualN": 1.5891856719463249e-9,
+            "recordedResidualN": 1.5911183481875923e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 296,
+              "certifiedCount": 296,
+              "unresolvedCount": 0,
+              "nodeCount": 493,
+              "leafCount": 342,
+              "deepest": 2,
+              "lowerBoundM": 0.0001114086747640602,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.09689038903110735
+          },
+          {
+            "endFraction": 0.75,
+            "recomputedResidualN": 3.770557626125992e-7,
+            "recordedResidualN": 3.770571055383698e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 386,
+              "certifiedCount": 386,
+              "unresolvedCount": 0,
+              "nodeCount": 701,
+              "leafCount": 474,
+              "deepest": 3,
+              "lowerBoundM": 0.00010193977765325223,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.17255296959625077
+          },
+          {
+            "endFraction": 0.8125,
+            "recomputedResidualN": 6.60428369769761e-7,
+            "recordedResidualN": 6.604274318533498e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 382,
+              "certifiedCount": 382,
+              "unresolvedCount": 0,
+              "nodeCount": 808,
+              "leafCount": 521,
+              "deepest": 3,
+              "lowerBoundM": 0.00010152387815881195,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.2713011579026331
+          },
+          {
+            "endFraction": 0.875,
+            "recomputedResidualN": 5.8424234339327086e-9,
+            "recordedResidualN": 5.8430487115401775e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 313,
+              "certifiedCount": 313,
+              "unresolvedCount": 0,
+              "nodeCount": 732,
+              "leafCount": 474,
+              "deepest": 6,
+              "lowerBoundM": 0.00010043412192430452,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.40960577950006793
+          },
+          {
+            "endFraction": 0.9375,
+            "recomputedResidualN": 6.17944451164476e-7,
+            "recordedResidualN": 6.17943356928663e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 355,
+              "certifiedCount": 355,
+              "unresolvedCount": 0,
+              "nodeCount": 2100,
+              "leafCount": 1158,
+              "deepest": 8,
+              "lowerBoundM": 0.00010001584311111988,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.6002194316633661
+          }
+        ],
+        "contactProfile": {
+          "adapter": "experimental-rest-filtered-contact-v1",
+          "accepted": false,
+          "ipctk": "1.6.0",
+          "stiffnessUnits": "Pa",
+          "pressurePa": 10000,
+          "fullMinimumM": 0.0001,
+          "fullActivationM": 0.001,
+          "localMinimumM": 0.0001,
+          "localActivationM": 0.0001,
+          "filteredPrimitivePairs": 0,
+          "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "collisionSet": "area-weighted IPC; not improved-max",
+          "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+          "maxCandidates": 100000,
+          "limitations": [
+            "Changed contact model, not a tolerance fix or paper reproduction.",
+            "Local positive core and activation use one quarter of minimum filtered rest distance.",
+            "Planar connected rest components only; no sewing or layer operations.",
+            "Primitive partition and collision-set transitions require derivative validation.",
+            "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+            "Native broad-phase allocation and CCD require external process budgets."
+          ]
+        },
+        "completed": false,
+        "completedFraction": 0.9375,
+        "finalStateVerified": false,
+        "sewingMode": "distance",
+        "exactCertificateLeaves": 3492,
+        "replayScriptSha256": "93f462610b216df89f7b74124340221baceb0f54b1a47ebb8727076c5711126b",
+        "sourceDigests": {
+          "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+          "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+          "solver_adaptive_contact.py": "f2416b091d69555d62725e73ecddc475c97e6eee8f520b064516a2c3c5d10781",
+          "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+          "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+          "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+          "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+          "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+          "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+          "solver_energy_balance.py": "d23030a1df7529767ddbb4376ef06089851c8ef2a16ff2e4f189c5e65436d678",
+          "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+          "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+          "solver_global_sewing.py": "50b6862098062e6f667337ad1a0cc8a89cbb6704774863590872cedd2b333019",
+          "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+          "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+          "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+          "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+          "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+          "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+          "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+          "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+          "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+          "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+          "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+          "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+          "spike-contact-continuation.py": "4907280d90e16bd366b68d15339ab029b26a5ea38f77283143b309f895df4cbd"
+        },
+        "reportSha256": "c7569c997b49772d8a0ed0955e802d9c2f1c8951412916f3429571f108a7f8e0",
+        "seamGaps": {
+          "constraintCount": 20,
+          "beforeMax": 2.0000000000000004,
+          "afterMax": 0.23442747671201633,
+          "beforeP95": 2,
+          "afterP95": 0.234200853907435,
+          "maximumIndividualIncrease": -1.7655725232879838
+        },
+        "edgeStrain": {
+          "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+          "edgeCount": 86,
+          "min": 0.9735507282958108,
+          "max": 1.0256106681116681,
+          "p95": 1.0152997520056615,
+          "p99": 1.0250570722705683,
+          "perInstance": {
+            "cuff_left:facing": {
+              "edgeCount": 43,
+              "min": 0.9767895254523089,
+              "max": 1.0249593788868447,
+              "p95": 1.0187298923917267
+            },
+            "cuff_left:shell": {
+              "edgeCount": 43,
+              "min": 0.9735507282958108,
+              "max": 1.0256106681116681,
+              "p95": 1.0087713619586907
+            }
+          },
+          "worstEdges": [
+            {
+              "vertices": [
+                5,
+                15
+              ],
+              "instanceId": "cuff_left:shell",
+              "restLengthMm": 43.62227712103634,
+              "currentLengthMm": 44.73947278265841,
+              "ratio": 1.0256106681116681,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                30,
+                39
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 40.33589832739009,
+              "currentLengthMm": 41.34265729648466,
+              "ratio": 1.0249593788868447,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                28,
+                38
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 43.62227712103634,
+              "currentLengthMm": 44.605293241430395,
+              "ratio": 1.0225347273290326,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                21,
+                34
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 52.7810746076157,
+              "currentLengthMm": 53.78074666767886,
+              "ratio": 1.0189399717132497,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                23,
+                39
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 52.78107460761569,
+              "currentLengthMm": 53.66986454425064,
+              "ratio": 1.01683917849802,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                37,
+                38
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 37.14285714285712,
+              "currentLengthMm": 37.539597551061746,
+              "ratio": 1.0106814725285862,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                2,
+                19
+              ],
+              "instanceId": "cuff_left:shell",
+              "restLengthMm": 52.7810746076157,
+              "currentLengthMm": 53.30370781345505,
+              "ratio": 1.0099019053652223,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                26,
+                36
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 38.228702220574895,
+              "currentLengthMm": 38.569827085397804,
+              "ratio": 1.008923265635717,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                0,
+                14
+              ],
+              "instanceId": "cuff_left:shell",
+              "restLengthMm": 52.78107460761569,
+              "currentLengthMm": 53.24490900732406,
+              "ratio": 1.0087878923109581,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                7,
+                8
+              ],
+              "instanceId": "cuff_left:shell",
+              "restLengthMm": 52.00000000000002,
+              "currentLengthMm": 52.4483746169908,
+              "ratio": 1.0086225887882843,
+              "touchesPin": false
+            }
+          ]
+        },
+        "review": "implementer reconstruction; same collision adapter, separate residual formula and endpoint oracle"
+      },
+      "artifactDigests": {
+        "report.json": "c7569c997b49772d8a0ed0955e802d9c2f1c8951412916f3429571f108a7f8e0",
+        "verified-replay.json": "ecb7e58bb8c1c933f703d5877ab41cb67287ce9304cc30b10a0030e1ea3af225"
+      }
+    },
+    {
+      "directory": ".planning/solver/source-cuff-distance-sep20-240",
+      "accepted": false,
+      "completed": false,
+      "completedFraction": 0.984375,
+      "completedDurationSeconds": 0.01575,
+      "cpuSeconds": 240.01,
+      "wallSeconds": 249.5515971870002,
+      "failure": {
+        "message": "cpu-budget-exhausted",
+        "type": "ProcessBudgetFailure"
+      },
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": ".planning/solver/source-cuff-temporal-input/canonical.json",
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 240,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/source-cuff-distance-sep20-240",
+        "placement": ".planning/solver/source-cuff-temporal-input/placement.json",
+        "pressure_pa": 10000,
+        "sewing_mode": "distance",
+        "step_seconds": 0.016,
+        "subdivisions": 16,
+        "target_fraction": 0.055,
+        "wall_limit_seconds": 360
+      },
+      "sourceDigests": {
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+        "solver_adaptive_contact.py": "f2416b091d69555d62725e73ecddc475c97e6eee8f520b064516a2c3c5d10781",
+        "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+        "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "d23030a1df7529767ddbb4376ef06089851c8ef2a16ff2e4f189c5e65436d678",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "50b6862098062e6f667337ad1a0cc8a89cbb6704774863590872cedd2b333019",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+        "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+        "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "spike-contact-continuation.py": "4907280d90e16bd366b68d15339ab029b26a5ea38f77283143b309f895df4cbd"
+      },
+      "canonicalSha256": "6f1cb1ec7edbf622c9a9aba6f7861ba367483597f69f8491f1a1a6d5cd21242b",
+      "placementSha256": "491aa91d291d2bf81dfdd1147fe436a16843e46d9d95dd51d21990676e98d8b8",
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation use one quarter of minimum filtered rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Primitive partition and collision-set transitions require derivative validation.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationM": 0.0001,
+        "localMinimumM": 0.0001,
+        "maxCandidates": 100000,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000,
+        "stiffnessUnits": "Pa"
+      },
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "5dbe2e5d2de336c565965dfeb6c3420a61c74f51cefdbce96e4d1ec6d3ddec6c"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "f9e1c5de2b78fc478ea41f99ca1bdea2888076f43c451f1090592c55407a7b4f"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "9ba559f86cc521fb89f90d5773a6649f2eb1f0a14472f680bdd36b8196e9632c"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "4c1c9fd5426e7fab386638b07f2ce155033791767024cd97b9c032dd18943156"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "5258d054d08dd6e0f1e3ed45c7ba199da1f9215cd0df79a82b1e39adca55f22c"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "893e10971273d1e3ae86c3dec02785fcc89c0cb5c2262381c6beaea855955e1a"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "5cb12bf8334aa0669fd685534d4765fd1005a49e18869480669e143762582a0c"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "78e0e053de46f7d727679ee6a945d36f8eda5b97cbb2bea2d9c1499144df8549"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "99ff6f8cef917e568e858ccf49dcbf6f153d78216f4b09515f84e9d3889c2e80"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "9e877822d983af6a6a246f133b3c027aa7eb5dc90e73b0e0170c59dc676f0e93"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "537b94b29d7ee755f1e9f6fca0a6cd24e34845a3c0c4424d72dcf2d4db815a26"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "7fc2ca4a28bf753bf04f0c229edea0e600c6cb36dd62ff3a32f1e89cb2a3f9b9"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "2c849376691c2eb4e2d3d9030e2390fdc675e38ffe0fa08b06b1bf3f9f2df0b0"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "77c0881bf6c66bc7f5af9b85466f65be43fcabb491340de2d6c7e35e00d13466"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "123c4aac3b03cf7fd434664d6f03e5432c5ba20666b4eb7c24e6795b516d7693"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "5bd2299677d718e2f74e400fbcd58a57587c42269b9f223fd40e6dad7b44abae"
+        },
+        {
+          "path": "accepted-0017.json",
+          "sha256": "cc5defe93e48a2cfd4ea46902b4410650514ee0d342ade820e5d6ae4a4df07ef"
+        },
+        {
+          "path": "accepted-0018.json",
+          "sha256": "741d530776d0433e03c4578bc88e6be3fcd2f07c80a096f7c9d28df5cfe39542"
+        }
+      ],
+      "acceptedSteps": 18,
+      "rejectedSteps": [
+        {
+          "attemptId": 9,
+          "startFraction": 0.5,
+          "endFraction": 0.5625,
+          "durationSeconds": 0.001,
+          "depth": 0,
+          "outcome": "rejected",
+          "error": null,
+          "residualN": 0.08313187035688768,
+          "evaluations": 100
+        },
+        {
+          "attemptId": 18,
+          "startFraction": 0.9375,
+          "endFraction": 1,
+          "durationSeconds": 0.001,
+          "depth": 0,
+          "outcome": "rejected",
+          "error": null,
+          "residualN": 18.88070843226501,
+          "evaluations": 100
+        },
+        {
+          "attemptId": 20,
+          "startFraction": 0.96875,
+          "endFraction": 1,
+          "durationSeconds": 0.0005,
+          "depth": 1,
+          "outcome": "rejected",
+          "error": null,
+          "residualN": 480.99751148689666,
+          "evaluations": 100
+        }
+      ],
+      "maxVerifiedResidualN": 9.106291543048428e-7,
+      "exactCertificateLeaves": 5446,
+      "lastMaximumAnchorGapM": 0.00015174982930827682,
+      "lastMaximumCompletedTargetErrorM": 0.000012218579308276707,
+      "replay": {
+        "accepted": false,
+        "states": [
+          {
+            "endFraction": 0.0625,
+            "recomputedResidualN": 1.17494034250653e-9,
+            "recordedResidualN": 1.17494034250653e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 50,
+              "certifiedCount": 50,
+              "unresolvedCount": 0,
+              "nodeCount": 50,
+              "leafCount": 50,
+              "deepest": 0,
+              "lowerBoundM": 0.023912362092281685,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.125,
+            "recomputedResidualN": 1.8549241271128593e-9,
+            "recordedResidualN": 1.8549241271128593e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 50,
+              "certifiedCount": 50,
+              "unresolvedCount": 0,
+              "nodeCount": 50,
+              "leafCount": 50,
+              "deepest": 0,
+              "lowerBoundM": 0.023912323867264332,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.1875,
+            "recomputedResidualN": 3.2131741659210088e-9,
+            "recordedResidualN": 3.2131741658125886e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 50,
+              "certifiedCount": 50,
+              "unresolvedCount": 0,
+              "nodeCount": 50,
+              "leafCount": 50,
+              "deepest": 0,
+              "lowerBoundM": 0.023912283579386292,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.25,
+            "recomputedResidualN": 3.986251822770195e-9,
+            "recordedResidualN": 3.986251822770195e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 48,
+              "certifiedCount": 48,
+              "unresolvedCount": 0,
+              "nodeCount": 48,
+              "leafCount": 48,
+              "deepest": 0,
+              "lowerBoundM": 0.023912249108416342,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.3125,
+            "recomputedResidualN": 3.743133082136085e-9,
+            "recordedResidualN": 3.743133081919245e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 46,
+              "certifiedCount": 46,
+              "unresolvedCount": 0,
+              "nodeCount": 46,
+              "leafCount": 46,
+              "deepest": 0,
+              "lowerBoundM": 0.023912220499059875,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0
+          },
+          {
+            "endFraction": 0.375,
+            "recomputedResidualN": 5.325055115745769e-7,
+            "recordedResidualN": 5.325082979672213e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 46,
+              "certifiedCount": 46,
+              "unresolvedCount": 0,
+              "nodeCount": 46,
+              "leafCount": 46,
+              "deepest": 0,
+              "lowerBoundM": 0.02391225264181924,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 1.3848067392042333e-8
+          },
+          {
+            "endFraction": 0.4375,
+            "recomputedResidualN": 1.5551025259186169e-9,
+            "recordedResidualN": 1.5544351396334921e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 46,
+              "certifiedCount": 46,
+              "unresolvedCount": 0,
+              "nodeCount": 46,
+              "leafCount": 46,
+              "deepest": 0,
+              "lowerBoundM": 0.023911251000539972,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 5.765669549331319e-7
+          },
+          {
+            "endFraction": 0.5,
+            "recomputedResidualN": 1.6268903936002277e-7,
+            "recordedResidualN": 1.6268903992207318e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 34,
+              "certifiedCount": 34,
+              "unresolvedCount": 0,
+              "nodeCount": 34,
+              "leafCount": 34,
+              "deepest": 0,
+              "lowerBoundM": 0.023912459499553517,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.00030982745515018283
+          },
+          {
+            "endFraction": 0.53125,
+            "recomputedResidualN": 1.0876680889282397e-8,
+            "recordedResidualN": 1.0889071866415634e-8,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 34,
+              "certifiedCount": 34,
+              "unresolvedCount": 0,
+              "nodeCount": 34,
+              "leafCount": 34,
+              "deepest": 0,
+              "lowerBoundM": 0.023910977724916946,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.0037074411419457725
+          },
+          {
+            "endFraction": 0.5625,
+            "recomputedResidualN": 3.574882612156216e-10,
+            "recordedResidualN": 3.587068420074502e-10,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 34,
+              "certifiedCount": 34,
+              "unresolvedCount": 0,
+              "nodeCount": 34,
+              "leafCount": 34,
+              "deepest": 0,
+              "lowerBoundM": 0.023832954989861023,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.012738139783022313
+          },
+          {
+            "endFraction": 0.625,
+            "recomputedResidualN": 3.934605530275803e-8,
+            "recordedResidualN": 3.933832815050664e-8,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 85,
+              "certifiedCount": 85,
+              "unresolvedCount": 0,
+              "nodeCount": 97,
+              "leafCount": 85,
+              "deepest": 0,
+              "lowerBoundM": 0.00010248695030623267,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.04437255286005494
+          },
+          {
+            "endFraction": 0.6875,
+            "recomputedResidualN": 1.5891856719463249e-9,
+            "recordedResidualN": 1.5911183481875923e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 296,
+              "certifiedCount": 296,
+              "unresolvedCount": 0,
+              "nodeCount": 493,
+              "leafCount": 342,
+              "deepest": 2,
+              "lowerBoundM": 0.0001114086747640602,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.09689038903110735
+          },
+          {
+            "endFraction": 0.75,
+            "recomputedResidualN": 3.770557626125992e-7,
+            "recordedResidualN": 3.770571055383698e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 386,
+              "certifiedCount": 386,
+              "unresolvedCount": 0,
+              "nodeCount": 701,
+              "leafCount": 474,
+              "deepest": 3,
+              "lowerBoundM": 0.00010193977765325223,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.17255296959625077
+          },
+          {
+            "endFraction": 0.8125,
+            "recomputedResidualN": 6.60428369769761e-7,
+            "recordedResidualN": 6.604274318533498e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 382,
+              "certifiedCount": 382,
+              "unresolvedCount": 0,
+              "nodeCount": 808,
+              "leafCount": 521,
+              "deepest": 3,
+              "lowerBoundM": 0.00010152387815881195,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.2713011579026331
+          },
+          {
+            "endFraction": 0.875,
+            "recomputedResidualN": 5.8424234339327086e-9,
+            "recordedResidualN": 5.8430487115401775e-9,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 313,
+              "certifiedCount": 313,
+              "unresolvedCount": 0,
+              "nodeCount": 732,
+              "leafCount": 474,
+              "deepest": 6,
+              "lowerBoundM": 0.00010043412192430452,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.40960577950006793
+          },
+          {
+            "endFraction": 0.9375,
+            "recomputedResidualN": 6.17944451164476e-7,
+            "recordedResidualN": 6.17943356928663e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 355,
+              "certifiedCount": 355,
+              "unresolvedCount": 0,
+              "nodeCount": 2100,
+              "leafCount": 1158,
+              "deepest": 8,
+              "lowerBoundM": 0.00010001584311111988,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.6002194316633661
+          },
+          {
+            "endFraction": 0.96875,
+            "recomputedResidualN": 9.106291543048428e-7,
+            "recordedResidualN": 9.106265395075752e-7,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 262,
+              "certifiedCount": 262,
+              "unresolvedCount": 0,
+              "nodeCount": 1853,
+              "leafCount": 1000,
+              "deepest": 7,
+              "lowerBoundM": 0.00010009186446519053,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.7735243793702209
+          },
+          {
+            "endFraction": 0.984375,
+            "recomputedResidualN": 1.845893393692677e-8,
+            "recordedResidualN": 1.8459218154021073e-8,
+            "endpointIntersections": 0,
+            "physicalPathPass": true,
+            "pathCertificate": {
+              "method": "outward-rounded-temporal-separation-v1",
+              "safe": true,
+              "candidateCount": 237,
+              "certifiedCount": 237,
+              "unresolvedCount": 0,
+              "nodeCount": 1768,
+              "leafCount": 954,
+              "deepest": 7,
+              "lowerBoundM": 0.00010001184391238155,
+              "maxDepth": 12,
+              "maxNodes": 100000,
+              "reason": "certified",
+              "accepted": false,
+              "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "contactEnergyJ": 0.9045861638803865
+          }
+        ],
+        "contactProfile": {
+          "adapter": "experimental-rest-filtered-contact-v1",
+          "accepted": false,
+          "ipctk": "1.6.0",
+          "stiffnessUnits": "Pa",
+          "pressurePa": 10000,
+          "fullMinimumM": 0.0001,
+          "fullActivationM": 0.001,
+          "localMinimumM": 0.0001,
+          "localActivationM": 0.0001,
+          "filteredPrimitivePairs": 0,
+          "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "collisionSet": "area-weighted IPC; not improved-max",
+          "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+          "maxCandidates": 100000,
+          "limitations": [
+            "Changed contact model, not a tolerance fix or paper reproduction.",
+            "Local positive core and activation use one quarter of minimum filtered rest distance.",
+            "Planar connected rest components only; no sewing or layer operations.",
+            "Primitive partition and collision-set transitions require derivative validation.",
+            "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+            "Native broad-phase allocation and CCD require external process budgets."
+          ]
+        },
+        "completed": false,
+        "completedFraction": 0.984375,
+        "finalStateVerified": false,
+        "sewingMode": "distance",
+        "exactCertificateLeaves": 5446,
+        "replayScriptSha256": "93f462610b216df89f7b74124340221baceb0f54b1a47ebb8727076c5711126b",
+        "sourceDigests": {
+          "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+          "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+          "solver_adaptive_contact.py": "f2416b091d69555d62725e73ecddc475c97e6eee8f520b064516a2c3c5d10781",
+          "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+          "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+          "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+          "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+          "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+          "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+          "solver_energy_balance.py": "d23030a1df7529767ddbb4376ef06089851c8ef2a16ff2e4f189c5e65436d678",
+          "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+          "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+          "solver_global_sewing.py": "50b6862098062e6f667337ad1a0cc8a89cbb6704774863590872cedd2b333019",
+          "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+          "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+          "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+          "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+          "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+          "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+          "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+          "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+          "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+          "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+          "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+          "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+          "spike-contact-continuation.py": "4907280d90e16bd366b68d15339ab029b26a5ea38f77283143b309f895df4cbd"
+        },
+        "reportSha256": "35d8942e8f8e5e9cd4ab76841474e5cacdd3cd92ca93e960c4501b965d3d177b",
+        "seamGaps": {
+          "constraintCount": 20,
+          "beforeMax": 2.0000000000000004,
+          "afterMax": 0.15174982930827705,
+          "beforeP95": 2,
+          "afterP95": 0.15012183906827695,
+          "maximumIndividualIncrease": -1.848250170691723
+        },
+        "edgeStrain": {
+          "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+          "edgeCount": 86,
+          "min": 0.9693813837488349,
+          "max": 1.0308912823559695,
+          "p95": 1.0163569655230476,
+          "p99": 1.0287729846491716,
+          "perInstance": {
+            "cuff_left:facing": {
+              "edgeCount": 43,
+              "min": 0.9767001665749065,
+              "max": 1.0283991674067954,
+              "p95": 1.0199904919681353
+            },
+            "cuff_left:shell": {
+              "edgeCount": 43,
+              "min": 0.9693813837488349,
+              "max": 1.0308912823559695,
+              "p95": 1.0094278548873181
+            }
+          },
+          "worstEdges": [
+            {
+              "vertices": [
+                5,
+                15
+              ],
+              "instanceId": "cuff_left:shell",
+              "restLengthMm": 43.62227712103634,
+              "currentLengthMm": 44.969825200592624,
+              "ratio": 1.0308912823559695,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                28,
+                38
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 43.62227712103634,
+              "currentLengthMm": 44.86111347166227,
+              "ratio": 1.0283991674067954,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                30,
+                39
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 40.33589832739009,
+              "currentLengthMm": 41.44913451236652,
+              "ratio": 1.0275991419836679,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                21,
+                34
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 52.7810746076157,
+              "currentLengthMm": 53.85219056703129,
+              "ratio": 1.020293561042068,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                23,
+                39
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 52.78107460761569,
+              "currentLengthMm": 53.6922274530062,
+              "ratio": 1.0172628703027398,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                37,
+                38
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 37.14285714285712,
+              "currentLengthMm": 37.6494579011189,
+              "ratio": 1.0136392511839711,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                2,
+                19
+              ],
+              "instanceId": "cuff_left:shell",
+              "restLengthMm": 52.7810746076157,
+              "currentLengthMm": 53.43686608263029,
+              "ratio": 1.0124247465571679,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                24,
+                34
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 37.142857142857146,
+              "currentLengthMm": 37.54378049606226,
+              "ratio": 1.0107940902785992,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                20,
+                33
+              ],
+              "instanceId": "cuff_left:facing",
+              "restLengthMm": 52.00000000000001,
+              "currentLengthMm": 52.53797328749412,
+              "ratio": 1.0103456401441175,
+              "touchesPin": false
+            },
+            {
+              "vertices": [
+                14,
+                15
+              ],
+              "instanceId": "cuff_left:shell",
+              "restLengthMm": 37.142857142857146,
+              "currentLengthMm": 37.49436490795927,
+              "ratio": 1.0094636705989035,
+              "touchesPin": false
+            }
+          ]
+        },
+        "review": "implementer reconstruction; same collision adapter, separate residual formula and endpoint oracle"
+      },
+      "artifactDigests": {
+        "report.json": "35d8942e8f8e5e9cd4ab76841474e5cacdd3cd92ca93e960c4501b965d3d177b",
+        "verified-replay.json": "e266c63ce8076eb11878db1f0b194c365292215e7a767ab00b89e078fb9df94b"
+      }
+    }
+  ],
+  "limitations": [
+    "Scalar-distance sewing is rotation invariant but does not prescribe layer side, turning, binding or seam tangent alignment.",
+    "Both source-cuff runs exhausted their declared CPU budgets; neither completes the requested closure.",
+    "Completed fractions measure the diagnostic target schedule, not garment assembly completion.",
+    "Exact rational path verification and separate residual reconstruction were performed by the implementer, not an independent reviewer.",
+    "Previous complete vector-cuff control remains separate; scalar sewing is optional and not a replacement of its evidence.",
+    "No calibrated material, settling, full-shirt assembly or deployment acceptance."
+  ]
+}
