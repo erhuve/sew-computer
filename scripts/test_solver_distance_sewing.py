@@ -135,6 +135,32 @@ class DistanceSewingTests(unittest.TestCase):
         self.assertAlmostEqual(final[1, 1] / final[1, 0], .5, places=8)
         self.assertLess(abs(np.linalg.norm(final[1]) - .02), 1e-5)
 
+    def test_scalar_adaptive_targets_preserve_original_schedule_after_rejection(self):
+        from types import SimpleNamespace
+        from solver_adaptive_contact import adaptive_contact_step
+
+        observed = []
+
+        def step(positions, velocities, targets, duration):
+            observed.append((float(targets[0]), duration))
+            valid = duration <= .25
+            return positions, velocities, {"converged": valid,
+                "gradientInfinityNorm": 0. if valid else 1.}
+
+        solver = SimpleNamespace(sewing_mode="distance", step=step)
+        positions = np.array([[0., 0., 0.], [.002, 0., 0.]])
+        _, _, report = adaptive_contact_step(solver, positions, np.zeros_like(positions),
+                                             [.002], [.00011], 1., initial_subdivisions=2)
+        self.assertTrue(report["complete"])
+        self.assertEqual(len(report["rejectedSteps"]), 2)
+        for attempt in report["acceptedSteps"]:
+            self.assertEqual(attempt["durationSeconds"], .25)
+        np.testing.assert_allclose([target for target, duration in observed if duration == .25],
+                                   [.002 + fraction * (.00011 - .002) for fraction in (.25, .5, .75, 1.)])
+        for targets in ([0.], [-.001], [[.001, 0., 0.]]):
+            with self.assertRaises(ValueError):
+                adaptive_contact_step(solver, positions, np.zeros_like(positions), [.002], targets, 1.)
+
 
 if __name__ == "__main__":
     unittest.main()

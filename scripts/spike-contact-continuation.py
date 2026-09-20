@@ -26,6 +26,8 @@ def parse_arguments():
     parser.add_argument("--wall-limit-seconds", type=int, default=480,
                         help="Parent-enforced elapsed worker budget (default: 480; range: 1–7200)")
     parser.add_argument("--step-seconds", type=float, default=1 / 240)
+    parser.add_argument("--sewing-mode", choices=("vector", "distance"), default="vector",
+                        help="Experimental scalar anchor lengths or legacy world-space vectors")
     parser.add_argument("--contact-model", choices=("area-improved-max", "rest-filtered"),
                         default="area-improved-max")
     parser.add_argument("--ccd-profile", choices=("tight-inclusion", "swept-plane-tight-inclusion",
@@ -172,8 +174,12 @@ def run_worker(output, parent_pid):
         np.testing.assert_array_equal(faces, model.tri_indices.numpy())
         rows = [{offsets[term["instanceId"]] + term["vertex"]: term["coefficient"]
                  for term in constraint["terms"]} for constraint in source["embeddedConstraints"]["constraints"]]
-        solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5)
+        solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5,
+                                   sewing_mode=args.sewing_mode)
         initial_targets = solver.sewing @ positions
+        if args.sewing_mode == "distance":
+            initial_targets = np.linalg.norm(initial_targets, axis=1)
+        report["sewingMode"] = args.sewing_mode
         report["attemptJournalRequired"] = True
         progress.save(report, "adaptive-journal-initializing")
         journal = AttemptJournal(output, report, positions, np.zeros_like(positions), dt=args.step_seconds,
@@ -199,6 +205,14 @@ def run_worker(output, parent_pid):
         report["finalToolkitHasIntersections"] = bool(ipctk.has_intersections(contact.mesh, final))
         report["finalContactEnergyJ"] = contact.energy(final)
         report["finalPeakContactForceN"] = float(np.max(np.abs(contact.gradient(final))))
+        final_anchors = solver.sewing @ final
+        completed_targets = initial_targets * (1 + report["adaptive"]["completedFraction"]
+                                               * (args.target_fraction - 1))
+        target_errors = (np.abs(np.linalg.norm(final_anchors, axis=1) - completed_targets)
+                         if args.sewing_mode == "distance" else
+                         np.linalg.norm(final_anchors - completed_targets, axis=1))
+        report["finalMaximumAnchorGapM"] = float(np.linalg.norm(final_anchors, axis=1).max())
+        report["finalMaximumCompletedTargetErrorM"] = float(target_errors.max())
         if (report["finalIndependentSurfaceOracle"]["intersectingPairCount"] != 0
                 or report["finalToolkitHasIntersections"]):
             raise ValueError("Final state fails an intersection oracle")
@@ -235,7 +249,8 @@ def main():
               "limitations": ["Trusted saved-source research CLI; not an untrusted-input service boundary.",
                   "Completing one physical interval is not assembled garment or drape acceptance.",
                   "Adaptive subdivisions alter time discretization, not total duration, target ramp or tolerances.",
-                  "No finite-thickness seam targets, body contact, damping or calibrated material model.",
+                  "Fraction-scaled diagnostic seam targets; no layer-side, turning or binding execution.",
+                  "No body contact, damping or calibrated material model.",
                   "Linux same-process-group supervision; not a sandbox for escaping descendants.",
                   "Supervisor SIGKILL or host loss cannot publish a terminal report; progress remains incomplete.",
                   "Worker budgets exclude initial regular-file capture and allow bounded termination/reaping grace."]}

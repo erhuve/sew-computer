@@ -22,6 +22,7 @@ class ContactContinuationCliTests(unittest.TestCase):
                       ["--max-attempts", "0"], ["--cpu-limit-seconds", "0"],
                       ["--max-attempts", "4097"], ["--max-evaluations", "10001"],
                       ["--ccd-profile", "unknown"], ["--contact-model", "unknown"],
+                      ["--sewing-mode", "unknown"],
                       ["--contact-model", "rest-filtered", "--ccd-profile", "swept-plane-tight-inclusion"]):
             with self.subTest(extra=extra), tempfile.TemporaryDirectory() as directory:
                 output = Path(directory) / "output"
@@ -42,6 +43,14 @@ class ContactContinuationCliTests(unittest.TestCase):
             with self.subTest(profile=expected), mock.patch.object(sys, "argv", [str(script), *arguments, *extra]):
                 self.assertEqual(cli.parse_arguments().ccd_profile, expected)
                 self.assertEqual(cli.parse_arguments().contact_model, "area-improved-max")
+                self.assertEqual(cli.parse_arguments().sewing_mode, "vector")
+
+    def test_distance_profile_snapshot_executes_with_journal(self):
+        command = self.command
+        with mock.patch.object(self, "command", side_effect=lambda *args:
+                               command(*args) + ["--sewing-mode", "distance", "--contact-model", "rest-filtered",
+                                                "--ccd-profile", "temporal-separation-tight-inclusion"]):
+            self.test_synthetic_stationary_interval_is_complete_but_not_accepted()
 
     def test_rest_filtered_profile_snapshot_executes_with_journal(self):
         command = self.command
@@ -115,6 +124,20 @@ class ContactContinuationCliTests(unittest.TestCase):
             content = (output / artifact["path"]).read_bytes()
             self.assertEqual(hashlib.sha256(content).hexdigest(), artifact["sha256"])
             self.assertEqual(json.loads(content)["record"]["completedDurationSeconds"], 1 / 240)
+            if report["arguments"].get("sewing_mode") == "distance":
+                replay_command = [sys.executable, str(Path(__file__).with_name("replay-rest-filtered-continuation.py")),
+                                  str(output)]
+                replay = subprocess.run(replay_command, capture_output=True, text=True, timeout=30)
+                self.assertEqual(replay.returncode, 0, replay.stdout + replay.stderr)
+                verification = json.loads((output / "verified-replay.json").read_text())
+                self.assertTrue(verification["finalStateVerified"])
+                self.assertEqual(len(verification["states"]), 1)
+                corrupted = json.loads(content)
+                corrupted["positionsMeters"][0][0] += .001
+                (output / artifact["path"]).write_text(json.dumps(corrupted))
+                replay = subprocess.run(replay_command, capture_output=True, text=True, timeout=30)
+                self.assertNotEqual(replay.returncode, 0)
+                self.assertIn("AssertionError", replay.stderr)
             rejected_output = root / "active-reference"
             rejected = subprocess.run(self.command(canonical, placement, rejected_output)
                                       + ["--activation-distance-m", ".02"],
