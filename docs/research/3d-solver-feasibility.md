@@ -536,3 +536,13 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python
 ```
 
 The tracked extraction script reproduces the captured input bytes exactly on this source fixture. The source capture itself remains private ignored research data; the script is not an application garment exporter or an arbitrary-input service. No live service, production database or application capability is changed by these controls.
+
+## Rotation-invariant scalar sewing · 2026-09-20
+
+The offline global solver now has an optional `sewing_mode="distance"`. Each unchanged embedded anchor row supplies a vector between material registrations; the new energy is `(length - target_distance)^2 / (2 * compliance)`. Targets are positive scalar distances in metres, rather than fixed world-space vectors. This removes the directional spring torque that a fixed nonzero vector target introduces when a sewn component rotates. The existing vector mode remains the default. This is a distinct constraint model, not evidence that an old trajectory was wrong.
+
+`solver_distance_sewing.py` supplies the scalar residual, exact gradient and Hessian, a PSD-projected fallback search metric, and cancellation-resistant energy differences. The global solver includes these terms in the actual coupled objective and stationarity test. Compressed springs can have negative tangential curvature; the existing positive-definite primary check and projected fallback handle that curvature without altering the energy. Zero-length anchors reject because the positive-distance norm energy is nondifferentiable there. Mechanical-energy accounting uses scalar-length changes and retains separately labeled target-parameter work.
+
+Six focused tests verify all coordinate derivatives, exact versus projected curvature, rigid covariance, zero resultant force/torque, analytical free-particle compression and expansion, pinned tangential motion, energy accounting, and a complete two-triangle-layer closure with active contact and both endpoint intersection oracles. The latter reaches a prescribed 0.11 mm spacing above the unchanged 0.1 mm contact minimum. No contact exemptions or source-metric changes are introduced; the force residual threshold remains 1e-6 N.
+
+Distance alone does not determine layer side, seam tangent alignment, allowance folding or turning. It can permit tangential freedom that a real seam should constrain. This primitive therefore remains optional research infrastructure and must be combined with explicit garment operations and validated frames before assembly acceptance. It does not enable application simulation or deployment.
