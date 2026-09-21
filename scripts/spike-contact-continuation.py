@@ -28,6 +28,8 @@ def parse_arguments():
     parser.add_argument("--step-seconds", type=float, default=1 / 240)
     parser.add_argument("--sewing-mode", choices=("vector", "distance", "normal-offset"), default="vector",
                         help="Scalar distance, declared source-normal offset, or legacy world-space vector sewing")
+    parser.add_argument("--fold-actuation", action="store_true",
+                        help="Execute the explicit captured source-hinge angle schedule alongside sewing")
     parser.add_argument("--contact-model", choices=("area-improved-max", "rest-filtered"),
                         default="area-improved-max")
     parser.add_argument("--ccd-profile", choices=("tight-inclusion", "swept-plane-tight-inclusion",
@@ -81,6 +83,9 @@ def run_worker(output, parent_pid):
             raise ValueError("Captured input hash mismatch")
         progress.save(report, "validating-inputs")
         source, placement = json.loads(canonical_bytes), json.loads(placement_bytes)
+        fold_recipe = source.get("foldActuation")
+        if args.fold_actuation != isinstance(fold_recipe, dict):
+            raise ValueError("Fold actuation requires both explicit opt-in and a captured recipe")
         if placement.get("canonicalDigest") != canonical_digest:
             raise ValueError("Staged placement canonicalDigest does not match captured canonical bytes")
         import newton
@@ -117,7 +122,7 @@ def run_worker(output, parent_pid):
             contact = IpcSurfaceContact(rest, faces, **contact_parameters,
                                        energy_profile="area-improved-max", ccd_profile=args.ccd_profile)
         offsets = source["instanceOffsets"]
-        if (not isinstance(offsets, dict) or not 2 <= len(offsets) <= 64
+        if (not isinstance(offsets, dict) or not (1 if args.fold_actuation else 2) <= len(offsets) <= 64
                 or any(not isinstance(identity, str) or not identity or type(offset) is not int
                        or not 0 <= offset < len(rest) for identity, offset in offsets.items())):
             raise ValueError("Bounded physical instance offsets required")
@@ -146,7 +151,8 @@ def run_worker(output, parent_pid):
         if original_positions.shape != rest.shape or not np.isfinite(original_positions).all():
             raise ValueError("Matching finite original placement required")
         report["seamGapsMm"] = staging_seam_gaps(source, original_positions, positions)
-        if report["seamGapsMm"] is None:
+        if report["seamGapsMm"] is None and not (args.fold_actuation
+                and source.get("embeddedConstraints", {}).get("constraints") == []):
             raise ValueError("Nonempty source-validated embedded sewing constraints required")
         report["contactProfile"] = contact.profile()
         contact.validate_state(positions)
@@ -177,13 +183,26 @@ def run_worker(output, parent_pid):
         solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5,
                                    sewing_mode=args.sewing_mode,
                                    sewing_frame_faces=source.get("sewingFrames", {}).get("faces") if args.sewing_mode == "normal-offset" else None,
-                                   sewing_sides=source.get("sewingFrames", {}).get("sides") if args.sewing_mode == "normal-offset" else None)
+                                   sewing_sides=source.get("sewingFrames", {}).get("sides") if args.sewing_mode == "normal-offset" else None,
+                                   fold_hinges=fold_recipe.get("hinges") if fold_recipe else None,
+                                   fold_stiffness_joules=fold_recipe.get("stiffnessJoules") if fold_recipe else None)
+        fold_options = {}
+        if args.fold_actuation:
+            if solver.fold_actuation is None:
+                raise ValueError("Fold recipe must declare source hinges and stiffness")
+            initial_fold = solver.fold_actuation.potential(fold_recipe.get("initialAnglesRadians"))
+            final_fold = solver.fold_actuation.potential(fold_recipe.get("targetAnglesRadians"))
+            if not np.allclose(initial_fold.angles(positions), initial_fold.rest_angles, rtol=0, atol=1e-10):
+                raise ValueError("Initial fold targets must match the declared rigid placement")
+            fold_options = {"initial_fold_targets": initial_fold.rest_angles,
+                            "fold_targets": final_fold.rest_angles}
+            report["foldActuation"] = fold_recipe
         initial_targets = solver.sewing @ positions
         if args.sewing_mode in ("distance", "normal-offset"):
             initial_targets = np.linalg.norm(initial_targets, axis=1)
         if args.sewing_mode == "normal-offset":
             initial_error = solver.sewing_potential(initial_targets).residual(positions) * np.sqrt(solver.compliance)
-            if np.max(np.abs(initial_error)) > 1e-10:
+            if np.max(np.abs(initial_error), initial=0) > 1e-10:
                 raise ValueError("Initial anchors must match the declared material-normal sides and offsets")
         report["sewingMode"] = args.sewing_mode
         report["attemptJournalRequired"] = True
@@ -196,7 +215,8 @@ def run_worker(output, parent_pid):
         final, velocity, report["adaptive"] = adaptive_contact_step(
             solver, positions, np.zeros_like(positions), initial_targets, args.target_fraction * initial_targets,
             args.step_seconds, initial_subdivisions=args.subdivisions, max_attempts=args.max_attempts,
-            max_depth=args.max_depth, max_evaluations=args.max_evaluations, attempt_journal=journal)
+            max_depth=args.max_depth, max_evaluations=args.max_evaluations, attempt_journal=journal,
+            **fold_options)
         recovered = recover_attempt_journal(output, report)
         if recovered["attemptJournal"]["errors"]:
             raise ValueError("Attempt journal verification failed")
@@ -219,8 +239,14 @@ def run_worker(output, parent_pid):
                          np.linalg.norm(solver.sewing_potential(completed_targets).residual(final).reshape((-1, 3)), axis=1) * np.sqrt(solver.compliance)
                          if args.sewing_mode == "normal-offset" else
                          np.linalg.norm(final_anchors - completed_targets, axis=1))
-        report["finalMaximumAnchorGapM"] = float(np.linalg.norm(final_anchors, axis=1).max())
-        report["finalMaximumCompletedTargetErrorM"] = float(target_errors.max())
+        report["finalMaximumAnchorGapM"] = float(np.linalg.norm(final_anchors, axis=1).max()) if len(rows) else None
+        report["finalMaximumCompletedTargetErrorM"] = float(target_errors.max()) if len(rows) else None
+        if args.fold_actuation:
+            completed_fold_targets = initial_fold.rest_angles + report["adaptive"]["completedFraction"] * (
+                final_fold.rest_angles - initial_fold.rest_angles)
+            report["finalFoldAnglesRadians"] = final_fold.angles(final).tolist()
+            report["finalFoldTargetErrorRadians"] = float(np.max(np.abs(
+                final_fold.angles(final) - completed_fold_targets)))
         if (report["finalIndependentSurfaceOracle"]["intersectingPairCount"] != 0
                 or report["finalToolkitHasIntersections"]):
             raise ValueError("Final state fails an intersection oracle")

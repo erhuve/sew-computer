@@ -64,10 +64,17 @@ model = builder.finalize(device="cpu")
 model.particle_q.assign(initial.astype(np.float32))
 rows = [{source["instanceOffsets"][term["instanceId"]] + term["vertex"]: term["coefficient"]
          for term in row["terms"]} for row in source["embeddedConstraints"]["constraints"]]
+fold_recipe = source.get("foldActuation") if arguments.get("fold_actuation") else None
 solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5,
                            sewing_mode=arguments.get("sewing_mode", "vector"),
                            sewing_frame_faces=source.get("sewingFrames", {}).get("faces") if arguments.get("sewing_mode") == "normal-offset" else None,
-                           sewing_sides=source.get("sewingFrames", {}).get("sides") if arguments.get("sewing_mode") == "normal-offset" else None)
+                           sewing_sides=source.get("sewingFrames", {}).get("sides") if arguments.get("sewing_mode") == "normal-offset" else None,
+                           fold_hinges=fold_recipe["hinges"] if fold_recipe else None,
+                           fold_stiffness_joules=fold_recipe["stiffnessJoules"] if fold_recipe else None)
+if fold_recipe:
+    initial_fold = solver.fold_actuation.potential(fold_recipe["initialAnglesRadians"])
+    final_fold = solver.fold_actuation.potential(fold_recipe["targetAnglesRadians"])
+    np.testing.assert_allclose(initial_fold.angles(initial), initial_fold.rest_angles, rtol=0, atol=1e-10)
 initial_targets = solver.sewing @ initial
 if solver.sewing_mode in ("distance", "normal-offset"):
     initial_targets = np.linalg.norm(initial_targets, axis=1)
@@ -170,6 +177,16 @@ for artifact in report["acceptedStateArtifacts"]:
         gradient += solver.sewing.T @ ((anchors - targets) / solver.compliance)
     np.add.at(gradient, faces, elements)
     gradient += solver.bending.gradient(positions) + solver.fold_barrier.gradient(positions) + contact.gradient(positions)
+    fold_diagnostics = {}
+    if fold_recipe:
+        fold_targets = (final_fold.rest_angles if record["endFraction"] == 1 else
+            initial_fold.rest_angles + record["endFraction"] * (final_fold.rest_angles - initial_fold.rest_angles))
+        actuator = solver.fold_actuation.potential(fold_targets)
+        gradient += actuator.gradient(positions)
+        np.testing.assert_array_equal(record["step"]["foldTargetsRadians"], fold_targets)
+        np.testing.assert_array_equal(record["step"]["foldAnglesRadians"], actuator.angles(positions))
+        fold_diagnostics = {"foldAnglesRadians": actuator.angles(positions).tolist(),
+                            "foldTargetErrorRadians": float(np.max(np.abs(actuator.angles(positions) - fold_targets)))}
     residual = float(np.max(np.abs(gradient.ravel()[solver.free])))
     assert residual <= 1e-6
     assert surface_intersections(positions, faces)["intersectingPairCount"] == 0
@@ -184,7 +201,8 @@ for artifact in report["acceptedStateArtifacts"]:
     np.testing.assert_array_equal(contact.rest_positions, rest)
     results.append({"endFraction": record["endFraction"], "recomputedResidualN": residual,
         "recordedResidualN": record["step"]["gradientInfinityNorm"], "endpointIntersections": 0,
-        "physicalPathPass": True, "pathCertificate": proof, "contactEnergyJ": contact.energy(positions)})
+        "physicalPathPass": True, "pathCertificate": proof, "contactEnergyJ": contact.energy(positions),
+        **fold_diagnostics})
     previous, previous_velocity, previous_fraction = positions, velocity, record["endFraction"]
 assert report["adaptive"]["completedFraction"] == previous_fraction
 assert report["adaptive"]["completedDurationSeconds"] == previous_fraction * arguments["step_seconds"]
@@ -201,11 +219,12 @@ result = {"accepted": False, "states": results, "contactProfile": contact.profil
           "completed": report["completed"], "completedFraction": previous_fraction,
           "finalStateVerified": bool(report.get("stateArtifact")),
           "sewingMode": solver.sewing_mode, "exactCertificateLeaves": total_leaves,
+          "foldActuation": fold_recipe,
           "replayScriptSha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
           "sourceDigests": report["sourceDigests"], "reportSha256": hashlib.sha256((run / "report.json").read_bytes()).hexdigest(),
           "seamGaps": staging_seam_gaps(source, initial, previous),
           "edgeStrain": edge_strain_report(rest, previous, faces, identities),
-          "review": "implementer reconstruction; same collision adapter, separate residual formula and endpoint oracle"}
+          "review": "implementer reconstruction; same collision and fold-angle derivative modules, separate assembled residual formula and endpoint oracle"}
 destination = run / "verified-replay.json"
 with destination.open("x") as handle:
     handle.write(json.dumps(result, indent=2, allow_nan=False) + "\n")
