@@ -4,7 +4,7 @@ from solver_energy_change import membrane_energy_change
 
 
 def global_energy_transition(solver, previous, positions, previous_velocities, velocities,
-                             previous_targets, targets, dt):
+                             previous_targets, targets, dt, *, previous_fold_targets=None, fold_targets=None):
     previous, positions, previous_velocities, velocities, previous_targets, targets = [
         np.asarray(value, dtype=float) for value in
         (previous, positions, previous_velocities, velocities, previous_targets, targets)]
@@ -62,6 +62,20 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
     fixed_target_residual = previous_residual - target_change
     fixed_target_change = float(np.sum((fixed_target_residual + .5 * sewn_displacement) * sewn_displacement)
                                 / solver.compliance)
+    fold_recipe = getattr(solver, "fold_actuation", None)
+    fold_change, fold_work, fold_fixed_change, fold_before, fold_after = 0., 0., 0., 0., 0.
+    if fold_recipe is None:
+        if previous_fold_targets is not None or fold_targets is not None:
+            raise ValueError("Fold energy targets require an actuator recipe")
+    else:
+        old_fold = fold_recipe.potential(previous_fold_targets)
+        new_fold = fold_recipe.potential(fold_targets)
+        angle_change = new_fold.rest_angles - old_fold.rest_angles
+        old_error = old_fold.angles(previous) - old_fold.rest_angles
+        fold_work = float(np.sum(old_fold.weights * angle_change * (-old_error + .5 * angle_change)))
+        fold_fixed_change = new_fold.energy_change(previous, positions)
+        fold_change = fold_work + fold_fixed_change
+        fold_before, fold_after = old_fold.energy(previous), new_fold.energy(positions)
     report = {
         "membraneChangeJoules": membrane_change,
         "bendingChangeJoules": bending_change,
@@ -77,14 +91,18 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         "sewingChangeJoules": sewing_change,
         "sewingBeforeJoules": float(np.sum(previous_residual ** 2) / (2 * solver.compliance)),
         "sewingAfterJoules": float(np.sum((previous_residual + residual_change) ** 2) / (2 * solver.compliance)),
-        "targetParameterWorkJoules": target_work,
-        "mechanicalChangeJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + sewing_change,
-        "mechanicalChangeMinusTargetWorkJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + fixed_target_change,
+        "foldActuationChangeJoules": fold_change,
+        "foldActuationBeforeJoules": fold_before,
+        "foldActuationAfterJoules": fold_after,
+        "foldTargetParameterWorkJoules": fold_work,
+        "targetParameterWorkJoules": target_work + fold_work,
+        "mechanicalChangeJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + sewing_change + fold_change,
+        "mechanicalChangeMinusTargetWorkJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + fixed_target_change + fold_fixed_change,
     }
     if not all(np.isfinite(value) for value in report.values()):
         raise ValueError("Finite energy balance required")
     return {
         **report,
         "accepted": False,
-        "scope": ("Global membrane/elastic-bending/sewing dynamics with experimental frictionless surface contact. " if contact is not None else "Contact-disabled global membrane/elastic-bending/sewing dynamics. ") + "Includes the optional experimental local angular fold barrier. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "scope": ("Global membrane/elastic-bending/sewing dynamics with experimental frictionless surface contact. " if contact is not None else "Contact-disabled global membrane/elastic-bending/sewing dynamics. ") + "Includes optional local angular fold barriers and prescribed fold actuation. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
     }

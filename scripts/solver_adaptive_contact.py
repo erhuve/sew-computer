@@ -7,7 +7,7 @@ from solver_attempt_journal import diagnostic_json
 
 def adaptive_contact_step(solver, positions, velocities, initial_targets, targets, dt, *,
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
-                          attempt_journal=None, **step_options):
+                          attempt_journal=None, initial_fold_targets=None, fold_targets=None, **step_options):
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
     positions = np.asarray(positions, dtype=float)
@@ -34,6 +34,13 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         raise ValueError("Bounded depth, positive attempt budget and dyadic initial subdivisions required")
     current_positions, current_velocities = positions.copy(), velocities.copy()
     initial_targets, targets = initial_targets.copy(), targets.copy()
+    fold_recipe = getattr(solver, "fold_actuation", None)
+    if fold_recipe is None:
+        if initial_fold_targets is not None or fold_targets is not None:
+            raise ValueError("Fold schedule requires an actuator recipe")
+    else:
+        initial_fold_targets = fold_recipe.potential(initial_fold_targets).rest_angles.copy()
+        fold_targets = fold_recipe.potential(fold_targets).rest_angles.copy()
     attempts, accepted, rejected = [], [], []
     completed_fraction = 0.
     reason = "attempt-budget-exhausted"
@@ -62,8 +69,12 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         fatal = False
         propagate = None
         try:
+            options = dict(step_options)
+            if fold_recipe is not None:
+                options["fold_targets"] = (fold_targets.copy() if end_fraction == 1 else
+                    initial_fold_targets + end_fraction * (fold_targets - initial_fold_targets))
             candidate_positions, candidate_velocities, step_report = solver.step(
-                current_positions.copy(), current_velocities.copy(), substep_targets, duration, **step_options)
+                current_positions.copy(), current_velocities.copy(), substep_targets, duration, **options)
             if not isinstance(step_report, dict):
                 raise ValueError("Solver diagnostic report must be an object")
             record["step"], nonfinite = diagnostic_json(step_report)

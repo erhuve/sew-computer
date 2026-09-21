@@ -125,7 +125,8 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
 
 class GlobalSewingSolver:
     def __init__(self, model, rows, compliance, *, fold_barrier_joules=None, fold_activation_angle=np.pi / 2,
-                 contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None):
+                 contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None,
+                 fold_hinges=None, fold_stiffness_joules=None):
         if sewing_mode not in ("vector", "distance", "normal-offset"):
             raise ValueError("Unsupported sewing mode")
         if sewing_mode != "normal-offset" and (sewing_frame_faces is not None or sewing_sides is not None):
@@ -159,6 +160,10 @@ class GlobalSewingSolver:
         from solver_bending import ElasticDihedralBending
         self.bending = ElasticDihedralBending.from_model(model)
         self.has_bending = bool(self.bending.residual(model.particle_q.numpy()).size)
+        self.fold_actuation = None
+        if fold_hinges is not None or fold_stiffness_joules is not None:
+            from solver_fold_actuation import FoldActuation
+            self.fold_actuation = FoldActuation(model, fold_hinges, fold_stiffness_joules)
         self.fold_barrier = None
         if fold_barrier_joules is not None:
             from solver_fold_barrier import LocalAngularFoldBarrier
@@ -181,7 +186,8 @@ class GlobalSewingSolver:
         if model.spring_count or model.tet_count:
             raise ValueError("Global reference does not implement springs or volumetric elements")
         from solver_embedded_sewing import validate_rows
-        rows = validate_rows(rows, len(self.mass), model.particle_colors.numpy())
+        if not (self.fold_actuation is not None and isinstance(rows, list) and not rows):
+            rows = validate_rows(rows, len(self.mass), model.particle_colors.numpy())
         if any(abs(sum(row.values())) > 1e-12 for row in rows):
             raise ValueError("Global sewing rows must preserve translation to float64 precision")
         entries = [(index, vertex, coefficient) for index, row in enumerate(rows) for vertex, coefficient in row.items()]
@@ -212,10 +218,16 @@ class GlobalSewingSolver:
         from solver_distance_sewing import DistanceSewing
         return DistanceSewing(self.sewing, targets, self.compliance)
 
-    def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct"):
+    def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct",
+             *, fold_targets=None):
         previous = np.asarray(previous_positions, dtype=float)
         velocities = np.asarray(previous_velocities, dtype=float)
         targets = np.asarray(targets, dtype=float)
+        if (self.fold_actuation is None) != (fold_targets is None):
+            raise ValueError("Fold recipe and explicit step targets must be supplied together")
+        actuator = self.fold_actuation.potential(fold_targets) if self.fold_actuation is not None else None
+        if actuator is not None and linear_solver != "direct":
+            raise ValueError("Fold actuation requires guarded direct search")
         distance_sewing = None
         if self.sewing_mode in ("distance", "normal-offset"):
             distance_sewing = self.sewing_potential(targets)
@@ -237,6 +249,8 @@ class GlobalSewingSolver:
         if self.contact is not None:
             self.contact.validate_state(previous)
         self.bending.energy(previous)
+        if actuator is not None:
+            actuator.energy(previous)
         predicted[~self.active] = previous[~self.active]
         inertia_weights = np.repeat(np.sqrt(self.mass) / dt, 3)
         linear_jacobian = diags(inertia_weights, format="csr")
@@ -261,6 +275,8 @@ class GlobalSewingSolver:
             residual_count += 2 * targets.size
         if self.fold_barrier is not None:
             residual_count += len(self.fold_barrier.indices)
+        if actuator is not None:
+            residual_count += len(actuator.indices)
 
         def evaluate(free_positions, jacobian=False):
             flat = fixed.copy()
@@ -282,11 +298,12 @@ class GlobalSewingSolver:
                     bending = self.bending.residual(positions)
                     barrier = self.fold_barrier.residual(positions) if self.fold_barrier is not None else np.empty(0)
                     sewing = sewing_residual(positions)
+                    fold = actuator.residual(positions) if actuator is not None else np.empty(0)
                 except ValueError:
                     return np.full(residual_count, np.inf)
                 return np.concatenate((inertia_weights * (flat - predicted.ravel()),
                                        sewing,
-                                       membrane.ravel(), bending, barrier))
+                                       membrane.ravel(), bending, barrier, fold))
             from scipy.sparse import vstack
             row_indices, column_indices, values = [], [], []
             gradients = np.stack((np.cross(second, area_vectors), np.cross(area_vectors, first)), axis=1)
@@ -307,6 +324,8 @@ class GlobalSewingSolver:
             sewing_jacobian = (distance_sewing.jacobian(positions) if distance_sewing is not None
                                else sewn_jacobian)
             blocks = [linear_jacobian, sewing_jacobian, membrane_jacobian, self.bending.jacobian(positions)]
+            if actuator is not None:
+                blocks.append(actuator.jacobian(positions))
             if self.fold_barrier is not None:
                 blocks.append(self.fold_barrier.jacobian(positions))
             return vstack(blocks, format="csr")[:, self.free]
@@ -333,10 +352,11 @@ class GlobalSewingSolver:
                 bending_energy = self.bending.energy(positions)
                 barrier_energy = self.fold_barrier.energy(positions) if self.fold_barrier is not None else 0.
                 contact_energy = self.contact.energy(positions) if self.contact is not None else 0.
+                fold_energy = actuator.energy(positions) if actuator is not None else 0.
             except ValueError:
                 return float("inf")
             return float((inertial @ inertial + sewing @ sewing) / 2 + membrane_energy.sum()
-                         + bending_energy + barrier_energy + contact_energy)
+                         + bending_energy + barrier_energy + contact_energy + fold_energy)
 
         def gradient_function(free_positions):
             flat = fixed.copy()
@@ -358,6 +378,8 @@ class GlobalSewingSolver:
             gradient = inertia_weights ** 2 * (flat - predicted.ravel()) + sewing_gradient
             np.add.at(gradient.reshape((-1, 3)), self.faces, element_gradient)
             gradient += self.bending.gradient(positions).ravel()
+            if actuator is not None:
+                gradient += actuator.gradient(positions).ravel()
             if self.fold_barrier is not None:
                 gradient += self.fold_barrier.gradient(positions).ravel()
             if self.contact is not None:
@@ -380,6 +402,13 @@ class GlobalSewingSolver:
                 bending_change = self.bending.energy_change(positions, positions + displacement)
                 barrier_change = 0.
                 contact_change = 0.
+                fold_change = 0.
+                if actuator is not None:
+                    from solver_hinge_sweep import hinge_sweep_safe
+                    if (not hinge_sweep_safe(positions, positions + displacement, actuator.indices)
+                            or not hinge_sweep_safe(previous, positions + displacement, actuator.indices)):
+                        return float("inf")
+                    fold_change = actuator.energy_change(positions, positions + displacement)
                 if self.contact is not None:
                     if (not self.contact.path_safe(positions, positions + displacement)
                             or not self.contact.path_safe(previous, positions + displacement)):
@@ -402,7 +431,7 @@ class GlobalSewingSolver:
                 sewing_change = (sewing + .5 * delta_sewing) @ delta_sewing
             return float((inertial + .5 * delta_inertial) @ delta_inertial
                          + sewing_change + membrane_change
-                         + bending_change + barrier_change + contact_change)
+                         + bending_change + barrier_change + contact_change + fold_change)
 
         def step_limiter(start_positions, end_positions):
             start_flat, end_flat = fixed.copy(), fixed.copy()
@@ -435,6 +464,8 @@ class GlobalSewingSolver:
             flat = fixed.copy()
             flat[self.free] = free_positions
             bending_hessian = self.bending.hessian(flat.reshape((-1, 3)))
+            if actuator is not None:
+                bending_hessian += actuator.hessian(flat.reshape((-1, 3)))
             if distance_sewing is not None:
                 bending_hessian += distance_sewing.hessian(flat.reshape((-1, 3)), project_psd)
             if self.fold_barrier is not None:
@@ -453,7 +484,7 @@ class GlobalSewingSolver:
         linear_start = spsolve(matrix[active_indices][:, active_indices].tocsc(), rhs).reshape((-1, 3)).ravel()
         predicted_start = predicted.ravel()[self.free]
         guarded = (self.has_bending or self.fold_barrier is not None or self.contact is not None
-                   or distance_sewing is not None)
+                   or distance_sewing is not None or actuator is not None)
         start = (previous.ravel()[self.free].copy() if guarded else
                  min((linear_start, predicted_start, previous.ravel()[self.free]), key=objective))
         initial_energy = objective(start)
@@ -473,6 +504,10 @@ class GlobalSewingSolver:
         final = fixed.copy()
         final[self.free] = result.x
         final = final.reshape((-1, 3))
+        if actuator is not None:
+            from solver_hinge_sweep import hinge_sweep_safe
+            if not hinge_sweep_safe(previous, final, actuator.indices):
+                raise ValueError("Physical fold step crosses an invalid hinge path")
         if self.contact is not None:
             self.contact.validate_state(final)
             if not self.contact.path_safe(previous, final):
@@ -486,6 +521,11 @@ class GlobalSewingSolver:
             "profile": "experimental-global-ipc-guarded-contact-reference-v1" if guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
             "sewingMode": self.sewing_mode,
+            "foldActuation": actuator is not None,
+            "foldActuationJoules": actuator.energy(final) if actuator is not None else 0.,
+            "foldTargetsRadians": actuator.rest_angles.tolist() if actuator is not None else None,
+            "foldAnglesRadians": actuator.angles(final).tolist() if actuator is not None else None,
+            "foldActuationLimitations": "External angle penalty, not a change of cloth rest shape or a turning/binding recipe; Gauss-Newton search" if actuator is not None else None,
             "sewingJoules": float(.5 * np.sum(sewing_residual(final) ** 2)),
             "sewingTargetErrorM": float(np.max(np.abs(sewing_residual(final)), initial=0)
                                          * np.sqrt(self.compliance)),
