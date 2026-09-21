@@ -1,0 +1,658 @@
+{
+  "date": "2026-09-21",
+  "accepted": false,
+  "classification": "isolated actual-source cuff-shell centerline folds; not allowance folding, turning or assembled garment",
+  "runs": [
+    {
+      "directory": ".planning/solver/cuff-fold-run-sep21",
+      "completed": true,
+      "accepted": false,
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": ".planning/solver/cuff-fold-input-sep21/canonical.json",
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 240,
+        "fold_actuation": true,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/cuff-fold-run-sep21",
+        "placement": ".planning/solver/cuff-fold-input-sep21/placement.json",
+        "pressure_pa": 10000.0,
+        "sewing_mode": "vector",
+        "step_seconds": 0.08,
+        "subdivisions": 16,
+        "target_fraction": 1.0,
+        "wall_limit_seconds": 360
+      },
+      "recipe": {
+        "hinges": [
+          [
+            0,
+            1,
+            14,
+            4
+          ],
+          [
+            6,
+            12,
+            15,
+            16
+          ],
+          [
+            13,
+            5,
+            15,
+            14
+          ],
+          [
+            7,
+            11,
+            17,
+            18
+          ],
+          [
+            2,
+            3,
+            19,
+            9
+          ],
+          [
+            8,
+            10,
+            18,
+            19
+          ],
+          [
+            6,
+            11,
+            16,
+            17
+          ]
+        ],
+        "stiffnessJoules": [
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02
+        ],
+        "initialAnglesRadians": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "targetAnglesRadians": [
+          2.6,
+          2.6,
+          2.6,
+          2.6,
+          2.6,
+          2.6,
+          2.6
+        ],
+        "recipe": "source-cuff-shell-centerline-diagnostic-v1",
+        "accepted": false,
+        "limitations": "Experimental centerline fold, not an original construction fold, allowance turn or assembled cuff"
+      },
+      "provenance": {
+        "sourcePath": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+        "sourceSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+        "selectedInstance": "cuff_left:shell",
+        "originalRange": [
+          940,
+          960
+        ],
+        "classification": "source-preserving isolated shell fold diagnostic",
+        "accepted": false
+      },
+      "sourceCoordinatesAndTopologyUnchanged": true,
+      "canonicalSha256": "da35dd737cb5f97b22da16d63e3e8f0f1e9d8303a7f45f66f3df42e7933647b9",
+      "placementSha256": "ec8ff2f1d1c86f8235258e83618d234894f10c72325c0b61a72468a5b6a5b358",
+      "reportSha256": "fd1570fa57ac8b6251a06b8efd716f8f66620aac7d04637954a739fcdea498c7",
+      "replaySha256": "fe5affe82f42066f6b43ad7c9a253eda5535fef92b2fe1508eb37baa5c9fa49f",
+      "cpuSeconds": 6.74,
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "431bfdb9bc4aae5e669269aca05847c725bb276f825b5089456b1f93d894b09e"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "2ef7b09c1688b83f356dc32aed0d661663554fd1b2a0f93c7778a224ce52c39b"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "bc10ad05474116aca5dd824de7faf9cd497047c082840907362db1fa65bce55c"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "0e0f9279d84d390f5c57a35274f6e2fa9cb6fb0a9f76122661950fb83356e2ed"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "b7f3fdf94c126bfcca5691388217d960da2df185543e3945a030c7a45cbed477"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "8af6e44d47dc64198ed7a5772656511f9b60956ddf354805d68a22473a69fb6f"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "d518e5a16287e3b660228da9ca226d67a6370b6858c3f73b66a3fc30579a825c"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "c2c1653d7b6c49eec3a0b380715f31d4d022eeff15438395ece100237fd5ad42"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "ece0fd39c9ecd46b452a97a44eda0c623ad6777d5baccd57d79571821a60fa20"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "b240a752f36f4c2e93b5712421e93d5fc4ea9eda85fa4b6593aaf1b4e856f991"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "1f67b564667728b46a4aa2c0ac5677d5025d9fea37ad162ebe0e66e57ee5f98b"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "1803d73be97dfbc635b49961d3ce2b05a39302c6f54bdd5e483e7ce46f92c20c"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "ac1bd2605ea1c706e2e40c2620dea81e8db83b8ce1f6569f9ca46f8337ba55b0"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "b85509637ecc6847839877b1644997831bbc6ef4e9eb22d877490836c9667c2b"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "fa40de054403fc8c34de1e420237d648fc0fe012cc05ee49c824ae12c49e3123"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "a8c7a14855f159ff6490719a1f9169401a5d351aa45c754ebffd532ef367b8f4"
+        }
+      ],
+      "rejectedAttempts": 0,
+      "finalAnglesDegrees": [
+        146.18890889076073,
+        146.17386258948605,
+        146.17571548785585,
+        146.17386265276187,
+        146.18890889010993,
+        146.17571548667541,
+        146.20589963405885
+      ],
+      "finalTargetErrorRadians": 0.0487848174557044,
+      "finalContactEnergyJ": 0.0,
+      "finalEdgeRatioRange": [
+        0.9999992440492026,
+        1.0000006845865208
+      ],
+      "verifiedStates": 16,
+      "exactCertificateLeaves": 400,
+      "maximumRecomputedResidualN": 5.282011572606271e-07
+    },
+    {
+      "directory": ".planning/solver/cuff-tight-fold-run-sep21",
+      "completed": true,
+      "accepted": false,
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": ".planning/solver/cuff-tight-fold-input-sep21/canonical.json",
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 240,
+        "fold_actuation": true,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/cuff-tight-fold-run-sep21",
+        "placement": ".planning/solver/cuff-tight-fold-input-sep21/placement.json",
+        "pressure_pa": 10000.0,
+        "sewing_mode": "vector",
+        "step_seconds": 0.08,
+        "subdivisions": 16,
+        "target_fraction": 1.0,
+        "wall_limit_seconds": 360
+      },
+      "recipe": {
+        "hinges": [
+          [
+            0,
+            1,
+            14,
+            4
+          ],
+          [
+            6,
+            12,
+            15,
+            16
+          ],
+          [
+            13,
+            5,
+            15,
+            14
+          ],
+          [
+            7,
+            11,
+            17,
+            18
+          ],
+          [
+            2,
+            3,
+            19,
+            9
+          ],
+          [
+            8,
+            10,
+            18,
+            19
+          ],
+          [
+            6,
+            11,
+            16,
+            17
+          ]
+        ],
+        "stiffnessJoules": [
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02
+        ],
+        "initialAnglesRadians": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "targetAnglesRadians": [
+          3.05,
+          3.05,
+          3.05,
+          3.05,
+          3.05,
+          3.05,
+          3.05
+        ],
+        "recipe": "source-cuff-shell-centerline-diagnostic-v1",
+        "accepted": false,
+        "limitations": "Experimental centerline fold, not an original construction fold, allowance turn or assembled cuff"
+      },
+      "provenance": {
+        "sourcePath": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+        "sourceSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+        "selectedInstance": "cuff_left:shell",
+        "originalRange": [
+          940,
+          960
+        ],
+        "classification": "source-preserving isolated shell fold diagnostic",
+        "accepted": false
+      },
+      "sourceCoordinatesAndTopologyUnchanged": true,
+      "canonicalSha256": "aae64b8c9581bc54285dd23d2964f4fa46b87c3bab073de563a013f3d8edbda8",
+      "placementSha256": "e2ad706b0f573060dde306fb1ff2710a706cd125dfe74bb33243463ad162f7e3",
+      "reportSha256": "639ac0be144c0b6fff8260226c04bd61ff67fa654ba42b8589864568889d9796",
+      "replaySha256": "a2484d4bf9b40f06edbce6ef12beec5b5d9d3b23834a93e21b04c8d05362b00c",
+      "cpuSeconds": 7.029999999999999,
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "e3d533b82579992b65cec8eaa2a385ee8087ef9d77c15576e5affae881c33498"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "1c6f085b4971c480837a32ba96283fe63bdf599d228a10f565e280e57df08a45"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "6f1a107028b161a3e648426877f7a19145e13141e6577d4ae9e92bf9e1dae7b9"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "4bf35082402ab056f6372b73292da63c5ef90ce61d1fd3d07193f1806493f4f5"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "d79165ef07feb675da34f32bf8616c09f4ca9c4d2976969f05b6196a60a54627"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "e3c2e5a68799692445a6c84677fca14db25c1c3a7df744ee72e46af421c07111"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "ec90a97945fcb7d6b90b3adb008e78ceb414f4a0ebab887e32e5e90818e09b56"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "019ec5c2d6047088477f554928ef0e70747390090c4bab6e60e0cd808dbbfd26"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "a12606dfc28800b912d614867ebac479330cd2171b37c10909dee6802e42750f"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "7c24cdd25e379ca129794068adaae1a50c7a4aec0ee428417ccfbecb2be929f8"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "f9f6b994676fde55a8eabd48d5836bc7a005e265a508ab549f692223aabcd3d3"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "ea8851e1f167207ee9ecc63ab84b12e60b492e11f358c953fd392db4360f2b1f"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "7521b6e535f68331658d93e3c637e21af3f04a0be06f34147ff78b2c0d1d60a8"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "c9d6c6912fa4eaf26c1e3fa10ad61c68c02652b1ad04f585a0aa5ea760c8f75c"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "671e18897e3b1aeac6befbd329dbe9b4c065ab3fb3d922683e2185f1abd18919"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "7a6a2dea70889cb349718d91c02f273e6c63e835559acee0d576d3ac2186ceb4"
+        }
+      ],
+      "rejectedAttempts": 0,
+      "finalAnglesDegrees": [
+        171.33063857177706,
+        171.32188853597603,
+        171.3254510431673,
+        171.32188877893344,
+        171.3306385627013,
+        171.32545095728028,
+        171.34243506055293
+      ],
+      "finalTargetErrorRadians": 0.059868964312490114,
+      "finalContactEnergyJ": 0.0,
+      "finalEdgeRatioRange": [
+        0.9999990260956876,
+        1.0000007809430997
+      ],
+      "verifiedStates": 16,
+      "exactCertificateLeaves": 386,
+      "maximumRecomputedResidualN": 7.481468215593187e-07
+    },
+    {
+      "directory": ".planning/solver/cuff-contact-fold-run-sep21",
+      "completed": true,
+      "accepted": false,
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "canonical": ".planning/solver/cuff-contact-fold-input-sep21/canonical.json",
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 240,
+        "fold_actuation": true,
+        "max_attempts": 256,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "output": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/cuff-contact-fold-run-sep21",
+        "placement": ".planning/solver/cuff-contact-fold-input-sep21/placement.json",
+        "pressure_pa": 10000.0,
+        "sewing_mode": "vector",
+        "step_seconds": 0.08,
+        "subdivisions": 16,
+        "target_fraction": 1.0,
+        "wall_limit_seconds": 360
+      },
+      "recipe": {
+        "hinges": [
+          [
+            0,
+            1,
+            14,
+            4
+          ],
+          [
+            6,
+            12,
+            15,
+            16
+          ],
+          [
+            13,
+            5,
+            15,
+            14
+          ],
+          [
+            7,
+            11,
+            17,
+            18
+          ],
+          [
+            2,
+            3,
+            19,
+            9
+          ],
+          [
+            8,
+            10,
+            18,
+            19
+          ],
+          [
+            6,
+            11,
+            16,
+            17
+          ]
+        ],
+        "stiffnessJoules": [
+          2.0,
+          2.0,
+          2.0,
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "initialAnglesRadians": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "targetAnglesRadians": [
+          3.13,
+          3.13,
+          3.13,
+          3.13,
+          3.13,
+          3.13,
+          3.13
+        ],
+        "recipe": "source-cuff-shell-centerline-diagnostic-v1",
+        "accepted": false,
+        "limitations": "Experimental centerline fold, not an original construction fold, allowance turn or assembled cuff"
+      },
+      "provenance": {
+        "sourcePath": "/home/workspace/Code/sew-computer-3d-engine/.planning/solver/fold-barrier-shirt-v1/canonical.json",
+        "sourceSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c",
+        "selectedInstance": "cuff_left:shell",
+        "originalRange": [
+          940,
+          960
+        ],
+        "classification": "source-preserving isolated shell fold diagnostic",
+        "accepted": false
+      },
+      "sourceCoordinatesAndTopologyUnchanged": true,
+      "canonicalSha256": "5c072ec866ab8a584c61529bd590b96f1a5cfbe831a57da080d893651ad63322",
+      "placementSha256": "710c62712f7bb7f51cae61ec785de325371269b44564c0d0c7bcb1f9d3e03354",
+      "reportSha256": "86ac2091bc68ca34cc0fd6beb7697918067a70d0dffdd86120fa4bea9dd8314e",
+      "replaySha256": "b1e1e3e14a2b7b56396572b03a0404cf3040c907917f78fbfc873305e0af0343",
+      "cpuSeconds": 6.09,
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "bb21e00c70ac8ae1fcd8a53f1e99094d75c6d142789e64300411282e9cc91adf"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "0a18ab754031b3b65546db7a5aa14610495e5d9a6c82cc877d68e6da0eafce6d"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "588479d08a1c5ff7e2d791515686e5c0caa7f01fee5260f14718c505d8a06a85"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "144a9eaf88011d91d051a911e47648932416d60728b798b909a3dccb024da86f"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "fe98fc1e5980999b09861d4692887dfbc0947bf81deb775fe56580d718ae3ed3"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "ff080961b7a6275cfaea8149026ee05dc96c4eb3147e00b282f82c60052a3054"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "9721efe181556804a79d4dee24786160b7f7ec3dc6d2ecd9cfbb4201dce7a10c"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "6843e812fec1e5991fc5996d43b7976391ef7eb344bb416f4b85d4e4fbfb9dc8"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "66799d25b2fa38eb61cb697214d06fb7be7dbc193a45f4c9be49e71516b5f5c4"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "bb5b8d748cd3e04ce3b0b0381d35655990001016ee68458c4e6a2201885967e6"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "969d327d0b1d70489ee3963c04a030f0a48ce113bb923c9a345e971ef5c7e6bc"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "5e82c7475d583eb804af293227f5c8d7f8f67284b011e1bebc5cba2df7ffe6ef"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "033f2b67b2d9b9154c82f74f027738197bdf3f62d6c6bed6cad2edd203617963"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "fe55ebb33966d90f147c82060c205f1dd86b6e651984a7002f33c1460f967ade"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "2aacdae02f198c2adfe1533fbcc629b665f928af6497157e0c94cc845215ece1"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "f9315509c658ad76aec8b966ec22931ce23214e22a351a3d5230fd7c7c110070"
+        }
+      ],
+      "rejectedAttempts": 0,
+      "finalAnglesDegrees": [
+        178.3995464102919,
+        178.36627506029507,
+        178.374112034365,
+        178.36627509552605,
+        178.39954640901408,
+        178.37411203871187,
+        177.19257848245906
+      ],
+      "finalTargetErrorRadians": 0.03740609538263184,
+      "finalContactEnergyJ": 0.0006203487921098423,
+      "finalEdgeRatioRange": [
+        0.9999258181712419,
+        1.0000693304027746
+      ],
+      "verifiedStates": 16,
+      "exactCertificateLeaves": 386,
+      "maximumRecomputedResidualN": 9.459488000684857e-07
+    }
+  ],
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "05225bd33a7ba94781fdcdcc5b5d1f971af63192d85fbb0542f5dcfa5a898094",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+    "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+    "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+    "solver_global_sewing.py": "2a01120cbf4ddb42827c5e8eb2fd5fe829b973b6ff367a122b25918cc7bd5467",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_normal_sewing.py": "6d3c112887eee1556c89d1e7076eb731f42ab97bd4235e10db0230eea1083e92",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+    "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "spike-contact-continuation.py": "19556d3707e7b29fbf6c4fce0af216bbc9fc8bce84740454105d35936a414c63"
+  },
+  "extractorSha256": "4625d01a927b9fe8b85a6663fb2c4dfb79d2b828f878843307f417129d141d1c",
+  "replayScriptSha256": "25da673b4da5ed022a35d365631c0282a31c6b0e8dd4b36b132d6bc10eb0a8cf",
+  "limitations": [
+    "Explicit experimental centerline; not the construction allowance line.",
+    "Prescribed external fold torques, not permanent material creases.",
+    "Single shell only: no facing, turning opening, sleeve attachment or binding.",
+    "Shared derivative/contact modules in implementer replay; independent model review remains open.",
+    "Uncalibrated material and thickness model; no resolution or timestep convergence acceptance.",
+    "Nothing deployed; full-shirt assembly and settling remain unfinished."
+  ]
+}

@@ -612,3 +612,27 @@ The supervised continuation CLI now accepts `--fold-actuation` only with a captu
 `spike-cuff-fold-input.py` extracts the actual 20-vertex, 24-triangle cuff shell without changing any coordinates or topology. Its seven existing centerline hinges form a verified continuous crease. This is an experimental centerline operation, explicitly not the shirt's original allowance line or a cuff-turning recipe. The extractor records the parent canonical hash and original vertex range. It never silently inserts or moves a crease.
 
 The complete numerical run passes **372 tests** after the primitive, with **two new moving-fold CLI tests** separately passing after supervised integration. The CLI tests exercise captured motion/replay, tampering, missing opt-in/recipe, wrong initial angles, invalid topology, stiffness and branch targets. **104 application tests pass**, and all **ten existing continuation CLI regressions** pass on the final integration. These counts overlap; they are not an aggregate release certification.
+
+### Completed source-cuff fold controls
+
+Three 80 ms source-cuff shell schedules complete with sixteen accepted states and zero rejected attempts each. All use the unchanged source mesh, 0.1 mm nonincident contact minimum, 1 mm activation range, 10,000 Pa barrier pressure and 1e-6 N stationarity tolerance. This fixture has zero rest-filtered primitive pairs, so none receives a reduced minimum. The prescribed torques are experimental external actuation; the cloth's elastic rest angles and membrane metric remain unchanged.
+
+| Target angle / per-hinge stiffness | Final measured hinge angles | CPU seconds | Final contact energy | Exact contact proof leaves | Maximum replay residual |
+| --- | --- | --- | --- | --- | --- |
+| 2.6 rad / 0.02 J/rad² | 146.174–146.206° | 6.74 | 0 J | 400 | 5.282e-7 N |
+| 3.05 rad / 0.02 J/rad² | 171.322–171.342° | 7.03 | 0 J | 386 | 7.482e-7 N |
+| 3.13 rad / 2 J/rad² | 177.193–178.400° | 6.09 | 0.000620349 J | 386 | 9.459e-7 N |
+
+These are three different target/actuator controls, not performance comparisons or a temporal-convergence study. The first two stay outside contact activation; the stronger third control exercises nonzero self-contact response. Its final edge ratios are **0.999925818–1.000069330**, less than 0.0075% deviation from unchanged rest lengths. Achieved angles differ from requested targets because the coupled solve balances actuation, inertia, elastic bending, fold barriers and contact. No state was geometrically projected into its target.
+
+Implementer replay verifies all **48 states and 1,172 exact-rational contact-path leaves**, hashes and journal agreement, reconstructed velocities, full residuals, hinge sweeps and both endpoint intersection oracles. Zero endpoint intersections are detected in every saved state. The [source-bound ledger](3d-source-cuff-fold-results.json) records exact inputs, sources, state/report/replay hashes, extraction provenance and source-coordinate/topology equality. The [figure](3d-source-cuff-fold.png) renders saved geometry rather than an illustrative garment.
+
+Reproduce the first control with fresh output directories:
+
+```sh
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python scripts/spike-cuff-fold-input.py --canonical .planning/solver/fold-barrier-shirt-v1/canonical.json --output .planning/solver/new-fold-input
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python scripts/spike-contact-continuation.py --canonical .planning/solver/new-fold-input/canonical.json --placement .planning/solver/new-fold-input/placement.json --output .planning/solver/new-fold-run --fold-actuation --contact-model rest-filtered --ccd-profile temporal-separation-tight-inclusion --activation-distance-m .001 --minimum-distance-m .0001 --pressure-pa 10000 --target-fraction 1 --step-seconds .08 --subdivisions 16 --cpu-limit-seconds 240 --wall-limit-seconds 360
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python scripts/replay-rest-filtered-continuation.py .planning/solver/new-fold-run
+```
+
+For the other controls, add `--target-angle-radians 3.05` or `--target-angle-radians 3.13 --stiffness-joules 2` to extraction and select new directories. The original full-shirt source remains private ignored research data. These controls fold one shell around its existing mesh centerline; they do not execute a construction allowance fold, sewn shell/facing turning, binding, sleeve attachment or full-shirt assembly. Contact-model review, timestep/refinement convergence, settling and material acceptance remain open. Nothing is deployed.
