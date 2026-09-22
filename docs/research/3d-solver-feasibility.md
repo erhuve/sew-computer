@@ -605,7 +605,21 @@ The [source-bound material-normal cuff ledger](3d-normal-cuff-sewing-results.jso
 
 `spike-cuff-fold-input.py --crease outer-allowance` verifies that the cuff template matches the captured canonical mesh and reconstructs the recorded outer stitch samples from their source triangles. The experimental recipe explicitly extends this straight stitching line through both side allowances to the cut boundary. That extension is an operator choice, not an inferred instruction to turn a sewn cuff. The default centerline control remains available.
 
-Five focused tests pass, covering source interpolation, parent mappings, rotation/translation, existing crease edges, malformed topology, T-junctions and extractor source-correspondence rejection. The first 2.6-radian source-cuff allowance schedule completes and implementer replay verifies sixteen states and 1,151 exact contact-path proof leaves, with maximum residual 9.990e-7 N. This verifies a single shell fold, not the assembled cuff or garment. Near-closure, signed-direction and regression results are recorded separately below when verified. Turning through an opening, corner handling, binding, convergence under timestep/refinement changes, material validation and independent model review remain open.
+Five focused tests pass, covering source interpolation, parent mappings, rotation/translation, existing crease edges, malformed topology, T-junctions and extractor source-correspondence rejection. The broader numerical run passes **378 tests**; the final five focused tests additionally cover the later T-junction and extractor checks. These counts overlap.
+
+Three 80 ms schedules complete on the subdivided **33-vertex, 48-triangle shell with twelve allowance hinges**, each with sixteen replay-verified states. All retain the 0.1 mm nonincident contact minimum, 1 mm activation range, 10,000 Pa pressure and 1e-6 N stationarity tolerance. No primitive pairs receive reduced thickness in these fixtures.
+
+| Target / stiffness | Measured final angles | CPU seconds | Final contact energy | Exact path-proof leaves |
+| --- | --- | --- | --- | --- |
+| 2.6 rad / 0.02 J/rad² | 146.246–148.161° | 11.68 | 0 J | 1,151 |
+| 3.13 rad / 2 J/rad² | 176.799–177.704° | 14.76 | 0.028389 J | 1,366 |
+| -2.6 rad / 0.02 J/rad² | -148.161–-146.246° | 11.99 | 0 J | 1,151 |
+
+Replay verifies **48 states and 3,668 exact path-proof leaves**, with zero detected endpoint intersections and maximum residual 9.990e-7 N. Reversing the moderate target produces the exact Z-reflection of the positive result in this pinned run. This demonstrates signed actuation for this symmetric fixture, not global layer-side certification. The strong near-closed fold activates contact and has final edge ratios **0.992803–1.003424** (up to 0.720% compression); rest coordinates remain unchanged, but the cloth deforms under force. This is not material or strain acceptance.
+
+The [source-bound ledger](3d-source-cuff-allowance-results.json) retains input/report/replay/state and numerical source hashes. Re-extraction with the final preprocessing code reproduces all three captured inputs byte-for-byte. The [figure](3d-source-cuff-allowance.png) renders saved solver geometry. Reproduce using the existing fold commands with `--crease outer-allowance` on extraction; add `--target-angle-radians 3.13 --stiffness-joules 2` or `--target-angle-radians -2.6` for the other controls. Use fresh output directories and replay each run.
+
+This verifies a single shell fold, not the assembled cuff or garment. Turning through an opening, corner handling, binding, convergence under timestep/refinement changes, material validation and independent model review remain open. Nothing is deployed.
 
 ## Prescribed fold actuation · 2026-09-21
 

@@ -1,0 +1,844 @@
+{
+  "date": "2026-09-22",
+  "accepted": false,
+  "classification": "source-cuff single-shell allowance fold; not sewn cuff turning or garment acceptance",
+  "preparationSources": {
+    "spike-cuff-fold-input.py": "b9b80bd9210a413bd764fe0a7add9917d089f40750dfd4f900e31e985c74defd",
+    "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2"
+  },
+  "extensionPolicy": "Outer stitch line extended through both side allowances to cut boundary",
+  "reverseFoldReflectionMaximumErrorM": 0.0,
+  "controls": [
+    {
+      "directory": ".planning/solver/cuff-allowance-run-sep22",
+      "accepted": false,
+      "completed": true,
+      "targetRadians": 2.6,
+      "stiffnessJoules": 0.02,
+      "canonicalSha256": "73b9e7113173c0957afcca59d3b67419e2603df1358657dd58ea2555fa47e7bc",
+      "reportSha256": "05ac3f10f1d6e325fe7c01d5292f42159dd7aefecd5895b16efc3a9f7d3e7657",
+      "replaySha256": "59883ed08c30289f9fd1de607b8d6b1b83e336c232f400be92ebb1adcdf845d8",
+      "stateSha256": "15b507c4ab378d931faa5646e49ea7cac03a438c72587250e7e841b284b5c004",
+      "currentExtractorReproducesCapturedInput": true,
+      "sourceDigests": {
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+        "solver_adaptive_contact.py": "05225bd33a7ba94781fdcdcc5b5d1f971af63192d85fbb0542f5dcfa5a898094",
+        "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+        "solver_crease_mesh.py": "3053f9bacd7dab482198d66d30fef0f55f6a23d5c205236847c5c36ea46dc769",
+        "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "2a01120cbf4ddb42827c5e8eb2fd5fe829b973b6ff367a122b25918cc7bd5467",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_normal_sewing.py": "6d3c112887eee1556c89d1e7076eb731f42ab97bd4235e10db0230eea1083e92",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+        "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+        "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "spike-contact-continuation.py": "19556d3707e7b29fbf6c4fce0af216bbc9fc8bce84740454105d35936a414c63"
+      },
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation use one quarter of minimum filtered rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Primitive partition and collision-set transitions require derivative validation.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationM": 0.0001,
+        "localMinimumM": 0.0001,
+        "maxCandidates": 100000,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "f47f6963c09a5e3cee9869d02d52e26aca3f214b55128e0ef2f038d1d597d1b3"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "1a74d44ad2966f5ec6943a803bbead6307c2820f9c90368540814023b947fe46"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "94e76bdcb6a7d5cd58155102f2959bb072a1f03cc09d752da1dccc976652782a"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "f6fc9da00e9e96cc3139a5ebc62c5e20a23e7317901d7a282f68be1709b34262"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "8d8056c5ec3de856937be8eb3ef25637eca1e340ea7b1e674ec681a35ae818bb"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "b5b19865c231c62772d7c6b5b3f0220ae6a2ee808bdf0ea756c512721dab2439"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "55c7b41000556582d8d635b431959e88a0fb358cbdf6d5f51308c86f06cbc5ba"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "00fa3c8b7dc668c5afa8d1cc4ebf58a4b68ec480aeac2b6c34b721645fc7137a"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "1e5c18ef620c86e61bef5ae99ec90d214ae4698fbd6e04dae11343a584adbe94"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "8757e2c715649b0c86cff4b7642fed8feb72fedbca1ef30e8061114cfec211e5"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "2b86ed86895224e92722f5e41ca22fbcfe47a895a402c1ee8f554210823a2628"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "12d8b5741eae46ea1de5aa9c2801f5f577fa2791bfdeb5b6cb784854038f98e1"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "fa85f03f3e256d7dd4364cc57c8150b103be3afd90de60c264e9873b600ca69e"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "24860376f6f0b624fc34c2194b2c97800f8e4e1cce532acf1152813a091ab1d2"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "ab0df46dc28a59f35e776e26f86bc0e1dd8d2f89d07fa8570baa134cb5aea20b"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "dfba2b660a3bc339c55706f08d1d59c85b150fee92e3202d10932ddca92e0fea"
+        }
+      ],
+      "cpuSeconds": 11.68,
+      "verifiedStates": 16,
+      "exactCertificateLeaves": 1151,
+      "maxResidualN": 9.9897373133373e-07,
+      "finalAngleDegrees": [
+        146.24602859170687,
+        148.16112735598455
+      ],
+      "finalContactEnergyJ": 0.0,
+      "edgeStrain": {
+        "edgeCount": 80,
+        "max": 1.0001123321987273,
+        "min": 0.9996764395390549,
+        "p95": 1.0000467483402509,
+        "p99": 1.0001046248158634,
+        "perInstance": {
+          "cuff_left:shell": {
+            "edgeCount": 80,
+            "max": 1.0001123321987273,
+            "min": 0.9996764395390549,
+            "p95": 1.0000467483402509
+          }
+        },
+        "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+        "worstEdges": [
+          {
+            "currentLengthMm": 9.905874528444535,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0001123321987273,
+            "restLengthMm": 9.904761904761902,
+            "touchesPin": false,
+            "vertices": [
+              27,
+              28
+            ]
+          },
+          {
+            "currentLengthMm": 9.905777895796213,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000102576017887,
+            "restLengthMm": 9.904761904761902,
+            "touchesPin": false,
+            "vertices": [
+              24,
+              25
+            ]
+          },
+          {
+            "currentLengthMm": 28.035829454167462,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000516446471004,
+            "restLengthMm": 28.034381628421585,
+            "touchesPin": false,
+            "vertices": [
+              17,
+              29
+            ]
+          },
+          {
+            "currentLengthMm": 15.533639492516523,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000492211986864,
+            "restLengthMm": 15.532874945792644,
+            "touchesPin": false,
+            "vertices": [
+              6,
+              28
+            ]
+          },
+          {
+            "currentLengthMm": 52.00242414586997,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000046618189807,
+            "restLengthMm": 52.00000000000002,
+            "touchesPin": false,
+            "vertices": [
+              10,
+              11
+            ]
+          },
+          {
+            "currentLengthMm": 38.13509800564266,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000462763717475,
+            "restLengthMm": 38.133333333333354,
+            "touchesPin": false,
+            "vertices": [
+              30,
+              31
+            ]
+          },
+          {
+            "currentLengthMm": 31.496459274932906,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000041002391033,
+            "restLengthMm": 31.495167897743112,
+            "touchesPin": false,
+            "vertices": [
+              17,
+              30
+            ]
+          },
+          {
+            "currentLengthMm": 29.58085116070693,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000403110562117,
+            "restLengthMm": 29.579658773419393,
+            "touchesPin": false,
+            "vertices": [
+              19,
+              32
+            ]
+          },
+          {
+            "currentLengthMm": 47.13196201767667,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000036338049061,
+            "restLengthMm": 47.13024939636186,
+            "touchesPin": false,
+            "vertices": [
+              7,
+              31
+            ]
+          },
+          {
+            "currentLengthMm": 38.016955966519056,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000350935470608,
+            "restLengthMm": 38.015621863504144,
+            "touchesPin": false,
+            "vertices": [
+              15,
+              24
+            ]
+          }
+        ]
+      },
+      "vertices": 33,
+      "triangles": 48,
+      "sourceSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c"
+    },
+    {
+      "directory": ".planning/solver/cuff-allowance-tight-run-sep22",
+      "accepted": false,
+      "completed": true,
+      "targetRadians": 3.13,
+      "stiffnessJoules": 2.0,
+      "canonicalSha256": "dcb0e8c84d6ad203da0822961540c38b6e255d88278aedc99119e0d014a840dd",
+      "reportSha256": "8324d70843ac3ad1891a94206585ba6d54f33b244261ab419c4a1477e52f40fb",
+      "replaySha256": "b03ebe17f8c0f44a6df8151e2a27aa224fe2d62ec69187d2d31a5b9346b55518",
+      "stateSha256": "a5b84b49cbd07757c4ce9f7ccedb49ad1d0fc4f10ea2b6dd3e4e3ad6b2c44274",
+      "currentExtractorReproducesCapturedInput": true,
+      "sourceDigests": {
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+        "solver_adaptive_contact.py": "05225bd33a7ba94781fdcdcc5b5d1f971af63192d85fbb0542f5dcfa5a898094",
+        "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+        "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+        "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "2a01120cbf4ddb42827c5e8eb2fd5fe829b973b6ff367a122b25918cc7bd5467",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_normal_sewing.py": "6d3c112887eee1556c89d1e7076eb731f42ab97bd4235e10db0230eea1083e92",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+        "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+        "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "spike-contact-continuation.py": "19556d3707e7b29fbf6c4fce0af216bbc9fc8bce84740454105d35936a414c63"
+      },
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation use one quarter of minimum filtered rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Primitive partition and collision-set transitions require derivative validation.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationM": 0.0001,
+        "localMinimumM": 0.0001,
+        "maxCandidates": 100000,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "c7814101de2e10bb59624f3e3fb3f8ca026b77809259529ca44040b91ccdc280"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "84d5342e6b788bf258f5b598f96d49fa4226b4c4ce60ebd22ac95325019b9a51"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "aa2e1732cac847ed016e0639cd60402980ebb50e10d3878f3cb69dc3a4daaf84"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "7c1b5501658dd4d478586ce62802683c230ee7e91ba320b379dcb4da88e3cad3"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "1967b161fb768236378f5fe8ab56c9fe09047d9b9d189d660f572356a9fd9c9a"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "bf85a2c42192d3ba95df3e4402654890f9fc4067847ccaf5f5b74284b123da53"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "f9fd2537b27f5911a1246cc65e0e99e57322d129514cc2afbc52e0a20beff3d3"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "b4a592abf1dfa3d43a2381ad4807a61967b2f69fdfc4f50879d88dbbe53445e4"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "1928f63742c311c24a087a73cafce0ab0285a7bffaf8cb8a130a6bb420fddf5f"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "7a855b63b8029732828a4a79951e96533aca9bbfb3d71d81bb0234deb32c3e53"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "406ea9fe2a788c99af6a8db15abfbe8f2da6f57ee01598c6eec3d50119a65c58"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "cf4147bbf7c01f36d85ca37755787370d01be2293a8bf9ee82dc6d6038609571"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "0239f9380707bb4541574e998fdf0a9bcb2688744d2e139836774f45ca2c5e21"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "6fe49f9541fcd310347c1b03cb560fa39ec2967d869fe930996482d9cb2fdcf7"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "a5fd30bbe769b4d72db100be9d8a78ca317a7f37554ba1f81d6ce17f539c908a"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "16c1ba922d074f069bb18693086691751d431652bf3e675c5ae545b94f09462f"
+        }
+      ],
+      "cpuSeconds": 14.76,
+      "verifiedStates": 16,
+      "exactCertificateLeaves": 1366,
+      "maxResidualN": 7.347057717765892e-07,
+      "finalAngleDegrees": [
+        176.7988475365127,
+        177.70430433707503
+      ],
+      "finalContactEnergyJ": 0.028388781893553008,
+      "edgeStrain": {
+        "edgeCount": 80,
+        "max": 1.0034241221228921,
+        "min": 0.9928029438560991,
+        "p95": 1.0016555889857612,
+        "p99": 1.0025735762761765,
+        "perInstance": {
+          "cuff_left:shell": {
+            "edgeCount": 80,
+            "max": 1.0034241221228921,
+            "min": 0.9928029438560991,
+            "p95": 1.0016555889857612
+          }
+        },
+        "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+        "worstEdges": [
+          {
+            "currentLengthMm": 11.672438700047305,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0034241221228921,
+            "restLengthMm": 11.632607232276355,
+            "touchesPin": false,
+            "vertices": [
+              8,
+              31
+            ]
+          },
+          {
+            "currentLengthMm": 9.92801315317158,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.002347481810594,
+            "restLengthMm": 9.90476190476189,
+            "touchesPin": false,
+            "vertices": [
+              22,
+              23
+            ]
+          },
+          {
+            "currentLengthMm": 27.554523438434455,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0019826704885257,
+            "restLengthMm": 27.5,
+            "touchesPin": false,
+            "vertices": [
+              4,
+              20
+            ]
+          },
+          {
+            "currentLengthMm": 14.100307731920296,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0018013916501747,
+            "restLengthMm": 14.07495322869752,
+            "touchesPin": false,
+            "vertices": [
+              1,
+              21
+            ]
+          },
+          {
+            "currentLengthMm": 9.921084112074023,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0016479151613185,
+            "restLengthMm": 9.904761904761916,
+            "touchesPin": false,
+            "vertices": [
+              26,
+              27
+            ]
+          },
+          {
+            "currentLengthMm": 29.62023603104011,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0013717960011488,
+            "restLengthMm": 29.579658773419393,
+            "touchesPin": false,
+            "vertices": [
+              19,
+              32
+            ]
+          },
+          {
+            "currentLengthMm": 38.065640178697755,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0013157305534337,
+            "restLengthMm": 38.015621863504165,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              32
+            ]
+          },
+          {
+            "currentLengthMm": 9.916372516658775,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.001172225239588,
+            "restLengthMm": 9.904761904761902,
+            "touchesPin": false,
+            "vertices": [
+              27,
+              28
+            ]
+          },
+          {
+            "currentLengthMm": 9.91635265483816,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0011702199596237,
+            "restLengthMm": 9.90476190476189,
+            "touchesPin": false,
+            "vertices": [
+              29,
+              30
+            ]
+          },
+          {
+            "currentLengthMm": 43.308740561745346,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0009711953564484,
+            "restLengthMm": 43.266720124072094,
+            "touchesPin": false,
+            "vertices": [
+              8,
+              23
+            ]
+          }
+        ]
+      },
+      "vertices": 33,
+      "triangles": 48,
+      "sourceSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c"
+    },
+    {
+      "directory": ".planning/solver/cuff-allowance-reverse-run-sep22",
+      "accepted": false,
+      "completed": true,
+      "targetRadians": -2.6,
+      "stiffnessJoules": 0.02,
+      "canonicalSha256": "459d62e0ce3bd0c890300c02ccdde7100d79735cb27b084cb46f28ba1981016d",
+      "reportSha256": "522ac6aa5c88a46080310881275a908ac04f298d564ffd001f2d627b5daf667f",
+      "replaySha256": "5a90ab17301d41cd5176fc408af9ebe7d5f126de15f84bc163ece8a627209059",
+      "stateSha256": "85f25b6c2eab12f3bb4786822c89191898e155a36462e0543e0df11c9582d943",
+      "currentExtractorReproducesCapturedInput": true,
+      "sourceDigests": {
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+        "solver_adaptive_contact.py": "05225bd33a7ba94781fdcdcc5b5d1f971af63192d85fbb0542f5dcfa5a898094",
+        "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "0a046214466cc9b23a07d5c723c507def66997914ce2f4be5fb77641b17f7de2",
+        "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+        "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_barrier.py": "f4d157e2906498e11b9841a2568a63f29412ba664417c7e4d603bf04c6f543b5",
+        "solver_global_sewing.py": "2a01120cbf4ddb42827c5e8eb2fd5fe829b973b6ff367a122b25918cc7bd5467",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_contact.py": "65dda933f9caa6f6ab74520cb0b9b3749e8da135aaf952aa8c6e6889ade2b403",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_normal_sewing.py": "6d3c112887eee1556c89d1e7076eb731f42ab97bd4235e10db0230eea1083e92",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+        "solver_rest_filtered_contact.py": "2a3d7bb328284070053b21d8067057ace92ab1313d26f4ba45bac2c784b41005",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_swept_separation.py": "a6ecf2d98a4cdc223484d22fdbf57c08655f8c9b8d96047272376b0c25ac4ec7",
+        "solver_temporal_separation.py": "375dc21ebea1250818768c0b688d3b1e6cca588993ad9bcd2ca185c3b531b9f1",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "spike-contact-continuation.py": "19556d3707e7b29fbf6c4fce0af216bbc9fc8bce84740454105d35936a414c63"
+      },
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation use one quarter of minimum filtered rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Primitive partition and collision-set transitions require derivative validation.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationM": 0.0001,
+        "localMinimumM": 0.0001,
+        "maxCandidates": 100000,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "acceptedStateArtifacts": [
+        {
+          "path": "accepted-0001.json",
+          "sha256": "ab48c53d80f55165aff0d744bcba94a89e87daeea75e3bbe209c66624169403f"
+        },
+        {
+          "path": "accepted-0002.json",
+          "sha256": "3e5c9759cb955e199bf47d0947aff776fe53099c0e1c38a687fb90ed214df31d"
+        },
+        {
+          "path": "accepted-0003.json",
+          "sha256": "5fd658e969b2711822ed354e802ce70df3539d672664776054231b24e9acee45"
+        },
+        {
+          "path": "accepted-0004.json",
+          "sha256": "bf328babf6ab33a2b6425b05402d312468f21b27a1cafe92aa1661e7c78f40c2"
+        },
+        {
+          "path": "accepted-0005.json",
+          "sha256": "6a6bcbce3987859bf6494c9f9076608298e9c1f67dfe18f3c79e3a82ae902154"
+        },
+        {
+          "path": "accepted-0006.json",
+          "sha256": "543c8db927836ee7d9b6be9b1b51f85026ca71bc62dd9e926ad42cc6efd5b836"
+        },
+        {
+          "path": "accepted-0007.json",
+          "sha256": "69ee6d8aa978ae25331e5e98f89ca89090323082376382a6ab3479694add4c3d"
+        },
+        {
+          "path": "accepted-0008.json",
+          "sha256": "87fcb09021b5fa40d65574a75848f47cdc62f734882a5333d38c6637c1e379ee"
+        },
+        {
+          "path": "accepted-0009.json",
+          "sha256": "3bbbbe22df68290ab1967dfc88778f95d74a4aca160a613fe3da060ebe5c22b6"
+        },
+        {
+          "path": "accepted-0010.json",
+          "sha256": "30d1956d86f26a23c13c520d0f33a4ae2fbab24b0b4ab3e532e409e25d2f326c"
+        },
+        {
+          "path": "accepted-0011.json",
+          "sha256": "fd212b651939deb861d0ac3fc6bb67fc8d25ec0d7d26888be4a173aa6e6170a7"
+        },
+        {
+          "path": "accepted-0012.json",
+          "sha256": "30f63989bd0049d0e9f5338f4048c80fbb5d13682512e287a1084473832d9464"
+        },
+        {
+          "path": "accepted-0013.json",
+          "sha256": "f3b0362fd1e92ef6b995d490bd363625321104bbae50e2b18f42b9f930ae373d"
+        },
+        {
+          "path": "accepted-0014.json",
+          "sha256": "f5f48a656ae7947f9993a99e208745de4a671ad7db6487b8f63c1352438fd62c"
+        },
+        {
+          "path": "accepted-0015.json",
+          "sha256": "d07697c3a4211b7d5ffc38782fd2aee6a672ef1b61981e8bf0ef8db3bf7ead74"
+        },
+        {
+          "path": "accepted-0016.json",
+          "sha256": "8c1d836694d4d833471849a74e2ef9e6b907f5b637dfaaad11942d1a578d8b59"
+        }
+      ],
+      "cpuSeconds": 11.99,
+      "verifiedStates": 16,
+      "exactCertificateLeaves": 1151,
+      "maxResidualN": 9.9897373133373e-07,
+      "finalAngleDegrees": [
+        -148.16112735598455,
+        -146.24602859170687
+      ],
+      "finalContactEnergyJ": 0.0,
+      "edgeStrain": {
+        "edgeCount": 80,
+        "max": 1.0001123321987273,
+        "min": 0.9996764395390549,
+        "p95": 1.0000467483402509,
+        "p99": 1.0001046248158634,
+        "perInstance": {
+          "cuff_left:shell": {
+            "edgeCount": 80,
+            "max": 1.0001123321987273,
+            "min": 0.9996764395390549,
+            "p95": 1.0000467483402509
+          }
+        },
+        "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+        "worstEdges": [
+          {
+            "currentLengthMm": 9.905874528444535,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0001123321987273,
+            "restLengthMm": 9.904761904761902,
+            "touchesPin": false,
+            "vertices": [
+              27,
+              28
+            ]
+          },
+          {
+            "currentLengthMm": 9.905777895796213,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000102576017887,
+            "restLengthMm": 9.904761904761902,
+            "touchesPin": false,
+            "vertices": [
+              24,
+              25
+            ]
+          },
+          {
+            "currentLengthMm": 28.035829454167462,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000516446471004,
+            "restLengthMm": 28.034381628421585,
+            "touchesPin": false,
+            "vertices": [
+              17,
+              29
+            ]
+          },
+          {
+            "currentLengthMm": 15.533639492516523,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000492211986864,
+            "restLengthMm": 15.532874945792644,
+            "touchesPin": false,
+            "vertices": [
+              6,
+              28
+            ]
+          },
+          {
+            "currentLengthMm": 52.00242414586997,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000046618189807,
+            "restLengthMm": 52.00000000000002,
+            "touchesPin": false,
+            "vertices": [
+              10,
+              11
+            ]
+          },
+          {
+            "currentLengthMm": 38.13509800564266,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000462763717475,
+            "restLengthMm": 38.133333333333354,
+            "touchesPin": false,
+            "vertices": [
+              30,
+              31
+            ]
+          },
+          {
+            "currentLengthMm": 31.496459274932906,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000041002391033,
+            "restLengthMm": 31.495167897743112,
+            "touchesPin": false,
+            "vertices": [
+              17,
+              30
+            ]
+          },
+          {
+            "currentLengthMm": 29.58085116070693,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000403110562117,
+            "restLengthMm": 29.579658773419393,
+            "touchesPin": false,
+            "vertices": [
+              19,
+              32
+            ]
+          },
+          {
+            "currentLengthMm": 47.13196201767667,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.000036338049061,
+            "restLengthMm": 47.13024939636186,
+            "touchesPin": false,
+            "vertices": [
+              7,
+              31
+            ]
+          },
+          {
+            "currentLengthMm": 38.016955966519056,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0000350935470608,
+            "restLengthMm": 38.015621863504144,
+            "touchesPin": false,
+            "vertices": [
+              15,
+              24
+            ]
+          }
+        ]
+      },
+      "vertices": 33,
+      "triangles": 48,
+      "sourceSha256": "266a222c9962368250fa54d41d8414fcbc6d485466311c6d3a5dae685141489c"
+    }
+  ],
+  "limitations": [
+    "Uncalibrated actuation and material",
+    "No turning, corner treatment or binding",
+    "No timestep/refinement convergence or independent model review",
+    "Nothing deployed"
+  ]
+}
