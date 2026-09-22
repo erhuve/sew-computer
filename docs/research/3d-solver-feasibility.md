@@ -599,6 +599,14 @@ Final maximum anchor gap is **0.137735 mm** against the prescribed **0.11 mm** n
 
 The [source-bound material-normal cuff ledger](3d-normal-cuff-sewing-results.json) records the exact sources, inputs, states, rejected-attempt count, replay hashes and unchanged-source comparison. Next operations must explicitly define allowance folds, turning openings and attachment order, then validate their collision-constrained execution. Do not treat this closed parallel registration as an executable turning operation or full-shirt acceptance. Nothing is deployed.
 
+## Source-cuff allowance crease · 2026-09-22
+
+`solver_crease_mesh.py` subdivides a planar source triangulation along an explicit straight line. It retains original vertices, adds only interpolated edge points, records each child's parent triangle and checks parent coverage. Overlap, inconsistent winding, T-junctions, disconnected creases and boundary-only lines reject. This is optional offline research preprocessing, not a replacement production mesher or general curved/multiple-crease implementation.
+
+`spike-cuff-fold-input.py --crease outer-allowance` verifies that the cuff template matches the captured canonical mesh and reconstructs the recorded outer stitch samples from their source triangles. The experimental recipe explicitly extends this straight stitching line through both side allowances to the cut boundary. That extension is an operator choice, not an inferred instruction to turn a sewn cuff. The default centerline control remains available.
+
+Five focused tests pass, covering source interpolation, parent mappings, rotation/translation, existing crease edges, malformed topology, T-junctions and extractor source-correspondence rejection. The first 2.6-radian source-cuff allowance schedule completes and implementer replay verifies sixteen states and 1,151 exact contact-path proof leaves, with maximum residual 9.990e-7 N. This verifies a single shell fold, not the assembled cuff or garment. Near-closure, signed-direction and regression results are recorded separately below when verified. Turning through an opening, corner handling, binding, convergence under timestep/refinement changes, material validation and independent model review remain open.
+
 ## Prescribed fold actuation · 2026-09-21
 
 The offline solver now accepts an explicit subset of ordered source hinges, positive per-hinge angular stiffness in joules/radian², and signed target angles in radians. A separate actuator potential adds torques and frame reactions to the coupled objective; it does not replace the cloth's rest angles, membrane metric or elastic bending. Its Gauss–Newton search metric is not an exact Hessian. Both optimizer and physical hinge paths are checked even when the optional local fold barrier is absent. Existing contact checks remain active.
