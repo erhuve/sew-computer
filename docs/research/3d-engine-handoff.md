@@ -6,6 +6,8 @@ Current continuation: the [numerical adversarial review](../reviews/3d-cloth-con
 
 ## Repository and scope
 
+The [fourfold-duration comparison](3d-solver-feasibility.md#fixed-timestep-binding-time-control--2026-09-23) improves tracking at the unchanged 2 ms timestep: the 3° command peaks at 3.165° and finishes at 0.477 mm/s maximum speed. Both slower controls complete and replay 256 steps without retries. Relative angle still changes 0.03148° over the 64 ms passive tail. The [ledger](3d-binding-fourfold-time-results.json) and [figure](3d-binding-fourfold-time.png) preserve the original control alongside the slower outcome; neither is a settled-pose or construction acceptance result.
+
 The [first five-fabric binding motion](3d-solver-feasibility.md#first-source-binding-motion--2026-09-23) now has matched zero/3° controls, complete independent replay and source-frame/surface observations. Both complete 64 steps without rejection. The driven run overshoots to 4.485° and ends with 0.01787 m/s maximum speed, so tracking and settling remain unresolved. Five sampled attachments stay held; wrapping, stitch-down, apex securing and source phase completion remain open. The [ledger](3d-binding-first-turn-results.json) and [figure](3d-binding-first-turn.png) preserve the outcome rather than promoting numerical completion into garment acceptance.
 
 The [two-timestep ledger](3d-cuff-temporal-results.json) and [figure](3d-cuff-temporal-results.png) now preserve the half-step comparison and independent review. The older hold and frame/contact artifacts remain unchanged. Reproduction and scope are in [solver evidence](3d-solver-feasibility.md#two-timestep-sensitivity).

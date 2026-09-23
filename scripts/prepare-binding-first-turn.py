@@ -6,6 +6,8 @@ material grippers request a small whole-strip turn, hold, release and passive
 tail. No seam engagement phase, wrap, stitch-down, apex or construction
 milestone is supplied or completed. Use the source-compatible pinned Linux
 runtime; exact source coefficient rederivation is intentionally required.
+The selected time policy declares the total physical interval and initial
+subdivision count; the runner must use those values. Target knots are unchanged.
 """
 
 import argparse
@@ -37,7 +39,7 @@ from solver_sewing_input import PROFILE as SEWING_PROFILE, bind_sewing_activatio
 
 ACTIVE_INSTANCE = "opening_binding_left_left:shell"
 SLEEVE_INSTANCE = "sleeve_left:shell"
-SUBDIVISIONS = 64
+TIME_POLICIES = {"original-128ms-v1": (.128, 64), "fourfold-512ms-v1": (.512, 256)}
 GAP_M = .001
 EXPECTED_FACES = [[1, 10, 2], [5, 10, 1], [10, 5, 9], [10, 6, 2],
                   [6, 10, 9], [3, 8, 0], [8, 4, 0], [5, 4, 9],
@@ -71,9 +73,15 @@ def sampled_anchors(positions, faces, anchors):
                                  Fraction())) for axis in range(3)] for anchor in anchors])
 
 
-def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1.):
+def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1.,
+             time_policy="original-128ms-v1"):
     if not sys.platform.startswith("linux"):
         raise ValueError("Use the compatible pinned Linux source runtime; no cross-runtime coefficient tolerance")
+    if type(time_policy) is not str or time_policy not in TIME_POLICIES:
+        raise ValueError("Explicit supported binding first-turn time policy required")
+    duration, subdivisions = TIME_POLICIES[time_policy]
+    time_declaration = {"profile": "binding-first-turn-time-v1", "id": time_policy,
+                        "durationSeconds": duration, "nominalStepSeconds": duration / subdivisions}
     if (type(angle_degrees) not in (int, float) or not math.isfinite(angle_degrees)
             or not 0 <= angle_degrees <= 3
             or type(gripper_stiffness_n_per_m) not in (int, float)
@@ -240,7 +248,7 @@ def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1
     source["gripperActuation"] = {"profile": GRIPPER_PROFILE, "accepted": False, "meshSha256": mesh_identity(source),
         "anchors": anchors, "schedule": {"profile": SCHEDULE_PROFILE,
             "gripperIds": [anchor["id"] for anchor in anchors], "knots": knots}}
-    grippers, gripper_schedule, _ = bind_material_grippers(source, SUBDIVISIONS)
+    grippers, gripper_schedule, _ = bind_material_grippers(source, subdivisions)
     initial_targets, initial_activation = gripper_schedule.parameters(0)
     initial_gripper_energy = grippers.potential(initial_targets, initial_activation).energy(placed)
     lower_gap = GAP_M - .010 * math.sin(theta)
@@ -254,7 +262,8 @@ def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1
         "codeDigests": {name: sha(content) for name, content in code.items()},
         "runtime": {"python": platform.python_version(), "platform": sys.platform,
                     **{name: importlib.metadata.version(name) for name in ("numpy", "scipy", "shapely")}},
-        "subdivisions": SUBDIVISIONS, "angleDegrees": float(angle_degrees), "angleRadians": theta,
+        "subdivisions": subdivisions, "timePolicy": time_declaration,
+        "angleDegrees": float(angle_degrees), "angleRadians": theta,
         "nominalSeamOffsetMeters": GAP_M, "heldSeamTargetsMeters": targets[:5].tolist(),
         "targetPolicy": "Held positive distances sampled by the declared CSR/binary64 distance geometry at rigid initial placement; tiny original source-length mismatch retained. Pending targets are unused positive 1 mm placeholders.",
         "sourceArcLengthsMeters": {"strip": strip_length, "sleeve": float(np.linalg.norm(sleeve_axis[1] - sleeve_axis[0]))},
@@ -295,7 +304,7 @@ def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1
         "initialTargetsMeters": targets.tolist(), "finalTargetsMeters": targets.tolist(),
         "schedule": {"profile": "sewing-row-activation-v1", "rowIds": row_ids,
             "knots": [{"fraction": fraction, "activation": activation.tolist()} for fraction in (0., 1.)]}}
-    bind_sewing_activation(source, SUBDIVISIONS, sewing_mode="distance")
+    bind_sewing_activation(source, subdivisions, sewing_mode="distance")
     if any(canonical_encoded(source[key]) != canonical_encoded(unit[key]) for key in unit):
         raise ValueError("Original source unit changed while preparing controls")
     if read_regular(unit_path, 8 * 1024 ** 2) != unit_bytes or any(read_regular(path) != code[name] for name, path in paths.items()):
@@ -315,7 +324,8 @@ def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1
     atomic_bytes(output / "placement.json", encoded(placement))
     print(json.dumps({"prepared": True, "accepted": False, "angleDegrees": angle_degrees,
         "vertices": len(rest), "triangles": len(faces), "fabricInstances": len(unit["instances"]),
-        "activeSeamRows": 5, "pendingSeamRows": 35, "grippers": 3, "subdivisions": SUBDIVISIONS,
+        "activeSeamRows": 5, "pendingSeamRows": 35, "grippers": 3, "subdivisions": subdivisions,
+        "timePolicy": time_declaration,
         "canonicalSha256": sha(canonical), "minimumRigidReferenceGapMeters": lower_gap,
         "initialGripperEnergyJoules": initial_gripper_energy, "solverRun": False}))
 
@@ -326,9 +336,11 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--angle-degrees", type=float, default=3.)
     parser.add_argument("--gripper-stiffness-n-per-m", type=float, default=1.)
+    parser.add_argument("--time-policy", choices=tuple(TIME_POLICIES), default="original-128ms-v1",
+                        help="Declared total duration and subdivision count, both with a 2 ms nominal step")
     args = parser.parse_args()
     generate(args.source_unit, args.output, angle_degrees=args.angle_degrees,
-             gripper_stiffness_n_per_m=args.gripper_stiffness_n_per_m)
+             gripper_stiffness_n_per_m=args.gripper_stiffness_n_per_m, time_policy=args.time_policy)
 
 
 if __name__ == "__main__":

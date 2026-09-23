@@ -7,6 +7,7 @@ prepare and inspect controls only, without importing or running a solver.
 import copy
 from fractions import Fraction
 import hashlib
+import importlib.util
 import json
 import math
 import os
@@ -61,16 +62,23 @@ class BindingFirstTurnInputTests(unittest.TestCase):
         cls.unit_path = cls.directory / "left/unit.json"
         cls.unit_bytes = cls.unit_path.read_bytes()
         cls.unit = json.loads(cls.unit_bytes)
-        cls.outputs, cls.sources = {}, {}
-        for angle in (0, 3):
-            output = cls.directory / f"angle-{angle}"
-            result = cls.command(GENERATOR, "--source-unit", cls.unit_path, "--output", output,
-                                 "--angle-degrees", angle)
-            summary = json.loads(result.stdout)
-            if summary["solverRun"] is not False or summary["accepted"] is not False:
-                raise AssertionError("Input preparation must not claim a solver run or acceptance")
-            cls.outputs[angle] = output
-            cls.sources[angle] = json.loads((output / "canonical.json").read_bytes())
+        cls.all_outputs, cls.all_sources = {}, {}
+        for policy in ("original-128ms-v1", "fourfold-512ms-v1"):
+            for angle in (0, 3):
+                output = cls.directory / f"{policy}-angle-{angle}"
+                # Exercise the public default independently of its explicit ID.
+                options = () if policy == "original-128ms-v1" else ("--time-policy", policy)
+                result = cls.command(GENERATOR, "--source-unit", cls.unit_path, "--output", output,
+                                     "--angle-degrees", angle, *options)
+                summary = json.loads(result.stdout)
+                if summary["solverRun"] is not False or summary["accepted"] is not False:
+                    raise AssertionError("Input preparation must not claim a solver run or acceptance")
+                cls.all_outputs[policy, angle] = output
+                cls.all_sources[policy, angle] = json.loads((output / "canonical.json").read_bytes())
+                if summary["timePolicy"] != cls.all_sources[policy, angle]["bindingFirstTurnDiagnostic"]["timePolicy"]:
+                    raise AssertionError("Prepared timing summary differs from captured declaration")
+        cls.outputs = {angle: cls.all_outputs["original-128ms-v1", angle] for angle in (0, 3)}
+        cls.sources = {angle: cls.all_sources["original-128ms-v1", angle] for angle in (0, 3)}
 
     @classmethod
     def command(cls, entry, *arguments, succeeds=True):
@@ -84,8 +92,8 @@ class BindingFirstTurnInputTests(unittest.TestCase):
         return process
 
     def test_original_source_and_matched_control_metadata_are_preserved(self):
-        for angle, source in self.sources.items():
-            with self.subTest(angle=angle):
+        for (policy, angle), source in self.all_sources.items():
+            with self.subTest(policy=policy, angle=angle):
                 for key in self.unit:
                     self.assertEqual(encoded(source[key]), encoded(self.unit[key]), key)
                 self.assertEqual(len(source["instances"]), 5)
@@ -119,9 +127,9 @@ class BindingFirstTurnInputTests(unittest.TestCase):
         self.assertEqual(encoded(first), encoded(second))
 
     def test_exact_held_and_pending_rows_with_unchanged_scalar_targets(self):
-        for source in self.sources.values():
-            controls, manifest = bind_sewing_activation(source, 64, sewing_mode="distance")
+        for source in self.all_sources.values():
             metadata = source["bindingFirstTurnDiagnostic"]
+            controls, manifest = bind_sewing_activation(source, metadata["subdivisions"], sewing_mode="distance")
             self.assertEqual(list(controls.row_ids[:5]), metadata["heldRowIds"])
             self.assertEqual(metadata["heldRowIndices"], list(range(5)))
             self.assertEqual(metadata["pendingRowIndices"], list(range(5, 40)))
@@ -237,8 +245,8 @@ class BindingFirstTurnInputTests(unittest.TestCase):
         self.assertGreater(metadata["rigidReferenceClearanceMeters"]["minimumToSleevePlane"], .0002)
 
     def test_exact_hashes_and_captured_input_generator_dependency_bytes(self):
-        for angle, output in self.outputs.items():
-            source = self.sources[angle]
+        for key, output in self.all_outputs.items():
+            source = self.all_sources[key]
             metadata = source["bindingFirstTurnDiagnostic"]
             self.assertEqual((output / "source-unit.json").read_bytes(), self.unit_bytes)
             self.assertEqual(metadata["sourceUnitBytesSha256"], digest(self.unit_bytes))
@@ -263,17 +271,72 @@ class BindingFirstTurnInputTests(unittest.TestCase):
             self.assertFalse((output / "verified-replay.json").exists())
 
     def test_both_controls_reproduce_from_captured_repository_shaped_tree(self):
-        for angle, original in self.outputs.items():
-            with self.subTest(angle=angle):
-                output = self.directory / f"reproduced-{angle}"
+        for (policy, angle), original in self.all_outputs.items():
+            with self.subTest(policy=policy, angle=angle):
+                output = self.directory / f"reproduced-{policy}-{angle}"
                 self.command(original / "source-snapshot/scripts/prepare-binding-first-turn.py",
                              "--source-unit", original / "source-unit.json", "--output", output,
-                             "--angle-degrees", angle)
+                             "--angle-degrees", angle, "--time-policy", policy)
                 for name in ("canonical.json", "placement.json", "source-unit.json"):
                     self.assertEqual((original / name).read_bytes(), (output / name).read_bytes(), name)
-                for name in self.sources[angle]["bindingFirstTurnDiagnostic"]["codeDigests"]:
+                for name in self.all_sources[policy, angle]["bindingFirstTurnDiagnostic"]["codeDigests"]:
                     self.assertEqual((original / "source-snapshot" / name).read_bytes(),
                                      (output / "source-snapshot" / name).read_bytes(), name)
+
+    def test_time_dilation_changes_only_declared_duration_and_subdivisions(self):
+        for angle in (0, 3):
+            with self.subTest(angle=angle):
+                original = self.all_sources["original-128ms-v1", angle]
+                dilated = self.all_sources["fourfold-512ms-v1", angle]
+                for source, policy, duration, count in ((original, "original-128ms-v1", .128, 64),
+                                                       (dilated, "fourfold-512ms-v1", .512, 256)):
+                    metadata = source["bindingFirstTurnDiagnostic"]
+                    self.assertEqual(metadata["subdivisions"], count)
+                    self.assertEqual(metadata["timePolicy"], {"profile": "binding-first-turn-time-v1",
+                        "id": policy, "durationSeconds": duration, "nominalStepSeconds": .002})
+                    self.assertEqual(duration / count, .002)
+                    _, schedule, _ = bind_material_grippers(source, count)
+                    knots = source["gripperActuation"]["schedule"]["knots"]
+                    self.assertEqual(len(knots), 12)
+                    self.assertTrue(all((Fraction(knot["fraction"]) * count).denominator == 1 for knot in knots))
+                    # Adaptive samples keep the same original-fraction recipe;
+                    # only their physical time changes under dilation.
+                    for fraction in (Fraction(1, 256), Fraction(7, 32), Fraction(13, 16), Fraction(1)):
+                        _, reference, _ = bind_material_grippers(original, 64)
+                        for actual, expected in zip(schedule.parameters(fraction), reference.parameters(fraction)):
+                            np.testing.assert_array_equal(actual, expected)
+                self.assertEqual(encoded(original["gripperActuation"]), encoded(dilated["gripperActuation"]))
+                self.assertEqual(original["placedMeters"], dilated["placedMeters"])
+                # Compare the complete source, including every original field,
+                # anchor, activation, target, frame and research declaration.
+                values = [copy.deepcopy(source) for source in (original, dilated)]
+                for value in values:
+                    value["bindingFirstTurnDiagnostic"].pop("timePolicy")
+                    value["bindingFirstTurnDiagnostic"].pop("subdivisions")
+                    value["sewingActuation"].pop("sourceSha256")
+                self.assertEqual(encoded(values[0]), encoded(values[1]))
+                placements = [json.loads((self.all_outputs[policy, angle] / "placement.json").read_bytes())
+                              for policy in ("original-128ms-v1", "fourfold-512ms-v1")]
+                for placement in placements:
+                    placement.pop("canonicalDigest")
+                self.assertEqual(encoded(placements[0]), encoded(placements[1]))
+
+    def test_invalid_time_policy_rejects_before_input_read_or_output(self):
+        for index, policy in enumerate(("unknown", "original-128ms", "fourfold-512ms-v1 ", "256", "")):
+            with self.subTest(policy=policy):
+                output = self.directory / f"invalid-policy-cli-{index}"
+                self.command(GENERATOR, "--source-unit", self.unit_path, "--output", output,
+                             "--time-policy", policy, succeeds=False)
+                self.assertFalse(output.exists())
+        spec = importlib.util.spec_from_file_location("first_turn_policy_validation", GENERATOR)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        for index, policy in enumerate((None, False, 0, [], {}, "unknown")):
+            with self.subTest(raw_policy=policy):
+                output = self.directory / f"invalid-policy-api-{index}"
+                with self.assertRaisesRegex(ValueError, "supported.*time policy"):
+                    module.generate(self.directory / "deliberately-missing-source.json", output, time_policy=policy)
+                self.assertFalse(output.exists())
 
     def test_invalid_angles_and_stiffness_fail_before_output(self):
         for index, (flag, value) in enumerate((

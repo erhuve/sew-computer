@@ -26,6 +26,35 @@ from solver_surface_distance_diagnostics import minimum_surface_distance
 SCRIPTS = Path(__file__).resolve().parent
 
 
+def validate_time_policy(metadata, arguments=None):
+    """Admit only declared fixed-duration controls, including historical v1."""
+    policies = {"original-128ms-v1": (.128, 64), "fourfold-512ms-v1": (.512, 256)}
+    if "timePolicy" in metadata:
+        declaration = metadata["timePolicy"]
+        require(type(declaration) is dict and type(declaration.get("id")) is str
+                and declaration["id"] in policies, "Known explicit binding time policy required")
+        identity = declaration["id"]
+    else:
+        # Historical snapshots predate this field. Their original physical
+        # duration and grid are fixed, not inferred from supplied run arguments.
+        identity = "original-128ms-v1"
+        declaration = None
+    duration, subdivisions = policies[identity]
+    expected = {"profile": "binding-first-turn-time-v1", "id": identity,
+                "durationSeconds": duration, "nominalStepSeconds": .002}
+    if declaration is not None:
+        require(encoded(declaration) == encoded(expected), "Declared binding timing constants differ")
+    require(type(metadata.get("subdivisions")) is int and metadata["subdivisions"] == subdivisions,
+            "Declared binding grid differs from time policy")
+    if arguments is not None:
+        require(type(arguments.get("subdivisions")) is int and arguments["subdivisions"] == subdivisions
+                and type(arguments.get("step_seconds")) in (int, float)
+                and arguments["step_seconds"] == duration
+                and arguments["step_seconds"] / subdivisions == .002,
+                "Actual duration/grid differs from binding time policy")
+    return expected
+
+
 def encoded(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
 
@@ -72,6 +101,7 @@ def grip_observations(record, positions, fraction):
 def validate_reference(source, initial, sewing, grippers):
     """Check the declared reference against source paths and actual controls."""
     metadata = source["bindingFirstTurnDiagnostic"]
+    validate_time_policy(metadata)
     require(metadata.get("profile") == "source-left-binding-first-turn-v1"
             and metadata["bindingInstanceId"] == "opening_binding_left_left:shell"
             and metadata["sleeveInstanceId"] == "sleeve_left:shell", "Bounded left-binding reference required")
@@ -188,6 +218,7 @@ def load_control(directory):
     require(digest(encoded(original)) == metadata["sourceUnitCanonicalSha256"],
             "Original cuff source fields changed")
     arguments = report["arguments"]
+    time_policy = validate_time_policy(metadata, arguments)
     require(arguments.get("sewing_activation") is True and arguments.get("material_grippers") is True
             and arguments.get("sewing_mode") == "distance" and arguments["subdivisions"] == metadata["subdivisions"],
             "Matched captured sewing and material-gripper controls required")
@@ -222,7 +253,8 @@ def load_control(directory):
         groups.append(np.flatnonzero(np.all((faces >= lower) & (faces < upper), axis=1)).tolist())
 
     def observe(positions, fraction, speed):
-        return {"fraction": fraction, "maximumSpeedMetersPerSecond": speed,
+        return {"fraction": fraction, "timeSeconds": fraction * time_policy["durationSeconds"],
+            "maximumSpeedMetersPerSecond": speed,
             "bindingGeometry": analyze_binding_diagnostic(rest, initial, positions, faces, **options),
             "surfaceSeparation": minimum_surface_distance(positions, faces, *groups),
             "gripperGeometry": grip_observations(grippers, positions, fraction)}
@@ -239,6 +271,8 @@ def load_control(directory):
         fraction = record["endFraction"]
         require(record["startFraction"] == previous_fraction and fraction > previous_fraction
                 and proof["endFraction"] == fraction, "Continuous original state fractions required")
+        require(record["durationSeconds"] == time_policy["durationSeconds"] * (fraction - previous_fraction),
+                "Actual transition duration differs from original control fractions")
         require(proof.get("physicalPathPass") is True and proof.get("endpointIntersections") == 0
                 and type(proof.get("recomputedResidualN")) in (int, float)
                 and 0 <= proof["recomputedResidualN"] <= 1e-6,
@@ -269,6 +303,7 @@ def load_control(directory):
                 "Constant sewing controls must perform zero parameter work")
         observed = observe(positions, fraction, float(np.max(np.linalg.norm(velocities, axis=1))))
         observed.update(stateSha256=state_digest, recomputedResidualNewtons=proof["recomputedResidualN"],
+            stepDurationSeconds=record["durationSeconds"],
             contactEnergyJoules=proof["contactEnergyJ"], sewingPathVerification=path,
             gripperMomentum=step["gripperMomentum"])
         states.append(observed)
@@ -287,6 +322,8 @@ def load_control(directory):
         "replaySha256": replay_digest, "sourceUnitSha256": metadata["sourceUnitCanonicalSha256"],
         "physicsArguments": {key: value for key, value in arguments.items() if key not in ("canonical", "placement", "output")},
         "declaration": metadata, "states": states,
+        "timePolicy": time_policy,
+        "nominalTimeStepPreserved": all(state["stepDurationSeconds"] == .002 for state in states[1:]),
         "sewingWorkSummary": replay["verifiedSewingWorkSummary"], "gripperWorkSummary": replay["verifiedGripperWorkSummary"],
         "exactContactLeaves": replay["exactCertificateLeaves"], "sewingPathToleranceMeters": tolerance,
         "sourceDigests": report["sourceDigests"], "matchedSourceSha256": matched_source_digest,
