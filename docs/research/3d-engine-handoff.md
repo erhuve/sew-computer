@@ -6,6 +6,8 @@ Current continuation: the [numerical adversarial review](../reviews/3d-cloth-con
 
 ## Repository and scope
 
+The [two-timestep ledger](3d-cuff-temporal-results.json) and [figure](3d-cuff-temporal-results.png) now preserve the half-step comparison and independent review. The older hold and frame/contact artifacts remain unchanged. Reproduction and scope are in [solver evidence](3d-solver-feasibility.md#two-timestep-sensitivity).
+
 - Repository: `erhuve/sew-computer`; continue on `physical-path-certificate-sep19`.
 - Isolated research checkout on Zo: `Code/sew-computer-3d-engine`, relative to the workspace root. The live service checkout is `Code/sew-computer`; do not edit or test-build it for this work. Historical README/local AGENTS statements that this research checkout backs production are stale; follow the workspace routing index and verify service configuration before any release.
 - All implementation and evidence through `1db01e6` were already committed and pushed when this handoff began. The fetched `origin/main` is an ancestor of this development branch. Continue the development branch rather than starting from main and losing the research changes.
