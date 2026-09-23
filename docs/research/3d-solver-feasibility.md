@@ -4,6 +4,18 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Verified cuff hold control · 2026-09-23
+
+The latest numerical review repairs contact locality, native candidate completeness, swept triangle nondegeneracy and small-update fold-energy arithmetic. Full Linux discovery passes 427 tests, with five later adversarial replay/coverage tests and six source-generator tests passing separately. The [review](../reviews/3d-cloth-contact.md#numerical-continuation-review--2026-09-23) records failure evidence, independent checks and exact proof limits.
+
+A fresh synthetic source cuff now has a corrected 64 ms sewing/fold baseline and a 256 ms control that holds the same final targets for another 192 ms. The first 67 saved states have identical positions and velocities; both runs use identical numerical source bytes. Independent replay verifies all 373 states and 126,686 exact contact-proof leaves, plus swept triangle nondegeneracy and conservative candidate coverage. Captured settings, source/runtime/verifier hashes and measurements are in the [hold ledger](3d-cuff-hold-results.json).
+
+![Actual cuff geometry, hinge-angle ranges and maximum vertex speed through the hold](3d-cuff-hold-results.png)
+
+The hold lowers maximum vertex speed from 1.50883 to 0.0193617 m/s but leaves the facing at 0.094–39.07° against the 68.75° target. Shell angles end at 55.67–78.36°. This is a repeatable target-fidelity failure after substantial motion decay, not a settled or accepted cuff. Source geometry is unchanged; there is no calibrated damping or material validation. The scalar-distance comparison now completes and replays 266 further states with identical source/ramp/contact settings. Facing angles improve to 29.03–62.04°, but maximum speed remains 0.20305 m/s and the adaptive partition differs. Scalar sewing omits layer-side/orientation constraints. The [seam comparison](3d-cuff-hold-results-seams.png) records this diagnostic, not a model acceptance. Review traced an additional asymmetry to incidental crease-child selection for the facing normal frames; explicit body/allowance frame binding is the next correction. Actual turning, sleeve attachment and full-shirt execution remain unfinished.
+
+Generate the ledger and figure from the captured runs with `scripts/report-cuff-hold.py --baseline <run> --hold <run> --runtime <runtime.json> --output-prefix <prefix> [--distance-hold <run>]` in a separate plotting environment with `matplotlib==3.10.7`. The script verifies source/input/report/state hashes and the shared trajectory prefix before rendering. `.planning/` trajectories are ignored; the committed summaries do not reproduce missing captured bytes. The first Linux control using defective LBVH is explicitly rejected and excluded from these physical comparisons.
+
 ## Decision
 
 Select **Newton 1.6.0 / Warp 1.17.0 / SolverVBD on CPU** as the implementation candidate. It installs headlessly on this host, consumes application-owned rest meshes, preserves their rest tensors, supports independent physical particles, sewing springs and cloth self-contact, and produces ordinary glTF without model-generated geometry. This is a candidate selection, not an accepted full-shirt assembly or drape claim.

@@ -2,6 +2,8 @@
 
 **September 23, 2026 · Research checkpoint through `1db01e6` · Not deployment-ready**
 
+Current continuation: the [numerical adversarial review](../reviews/3d-cloth-contact.md#numerical-continuation-review--2026-09-23) supersedes the historical model-review status below. Contact locality, all-triangle swept nondegeneracy and binary64 fold-energy precision are repaired. Every native contact path now explicitly uses `HashGrid`; independent exact-rational replay additionally proves candidate coverage. The complete Linux suite passes 427 tests; five later independent coverage/replay tests and six source-generation tests pass separately. The corrected baseline and hold replay 373 states and 126,686 contact-proof leaves. Their first 64 ms are bit-identical; extending to 256 ms reduces maximum speed about 78-fold without resolving facing underfold. See the [new evidence ledger](3d-cuff-hold-results.json), [figure](3d-cuff-hold-results.png) and [interpretation](3d-solver-feasibility.md#verified-cuff-hold-control--2026-09-23). The defective Linux LBVH capture rejects replay and supports no physical conclusion. The historical six-control ledger remains unchanged and has not acquired the new proofs. A same-input scalar-distance hold also completes and verifies 266 states; facing angles improve but retain target error and more motion. Source review found that crease frame regions were chosen by child enumeration rather than explicit body/allowance semantics. That binding is the next correction. No garment is accepted.
+
 ## Repository and scope
 
 - Repository: `erhuve/sew-computer`; continue on `physical-path-certificate-sep19`.
@@ -31,7 +33,7 @@ Key entry points: `scripts/solver_assembly_schedule.py`, `scripts/solver_cuff_se
 The [six-control ledger](3d-cuff-sequence-results.json), [saved-geometry figure](3d-cuff-sequence.png) and [detailed outcome table](3d-solver-feasibility.md#combined-cuff-sequence-outcomes) are committed. All six controls remain `accepted: false`.
 
 - Recorded verification: **386 numerical tests**, a later overlapping seven-test normal-sewing run, and **11 separate harness tests**. These are historical checkpoint results, not newly rerun release checks for this documentation handoff.
-- Replay verifies **461 saved states and 251,106 exact-rational contact-path proof leaves**, including accepted prefixes of failed runs. Both endpoint intersection oracles pass every saved state. This does not certify global layer order, turning or garment quality; replay also shares some force implementations and is not independent model review.
+- Historical replay verified **461 saved states and 251,106 exact-rational contact-path proof leaves**, including accepted prefixes of failed runs. Both endpoint intersection oracles passed every saved state. This does not certify global layer order, turning or garment quality; replay also shares some force implementations and is not independent model review.
 - The completed 0.5 mm-offset, 1.2-radian control takes **39.01 CPU seconds** with exact seam curvature versus **398.86 seconds** with the prior metric. Adaptive histories differ; final geometry differs by **32.925 mm even after rigid alignment**. Do not describe this as equivalent-result acceleration or temporal convergence.
 - Facing folds miss targets: measured angles span about **0.08–84.33 degrees** against a **68.75-degree** target; maximum edge stretch is **3.66%** in the completed exact-curvature control.
 - Tight **0.11 mm** controls exhaust **600 CPU seconds**, stopping at 37.5% or 35.15625% with the new metric. Stronger wide-gap actuation reaches 94.140625% before exhausting 256 attempts, with up to **12.29% stretch**. Stronger actuation is not an accepted fix.
@@ -53,11 +55,15 @@ Fetch before starting and before every push; preserve concurrent changes. Commit
 
 The ignored research runtime is `.planning/solver/newton-venv`; its pinned dependencies are `scripts/solver-contact.requirements.txt` (which includes `solver-spike.requirements.txt`). On a new machine, create a separate virtual environment and install those requirements. The upstream pattern engine needs its separately provisioned locked checkout; see the root README and `services/engine/source-lock.json`.
 
-Run from the isolated repository root. For focused checks:
+The September 23 Linux ARM controls used Python 3.13.15 with the same package pins. IPC Toolkit 1.6.0 was built from upstream tag commit `478876f30bf8ea768772dd8983c26a1a801ad976`; the available source distribution failed to build on that host. A separate Python 3.13 Linux environment with CMake, a C++ toolchain, Git and Ninja can install `scripts/solver-spike.requirements.txt`, then `git+https://github.com/ipc-sim/ipc-toolkit.git@478876f30bf8ea768772dd8983c26a1a801ad976`. Record the resulting runtime identity rather than assuming a wheel and source build are equivalent. The new ledger includes the measured platform and package versions. The exact upstream cause of the native LBVH omission remains open; explicit HashGrid and independent candidate-coverage verification are required for these controls.
+
+Run from the isolated repository root. The complete numerical discovery and supervised continuation CLI require Linux (`/proc`, `prctl` and process-resource enforcement). Individual numerical and source-generation tests also run on macOS; that does not verify the Linux worker lifecycle. Keep Warp's cache in the isolated writable research directory. For focused checks:
 
 ```sh
+export WARP_CACHE_PATH="$PWD/.planning/solver/warp-cache"
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python -m unittest discover -s scripts -p 'test_solver_normal_sewing.py'
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python -m unittest discover -s scripts -p 'test_solver_cuff_sequence.py'
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python -m unittest discover -s scripts -p 'test_prepare_cuff_source.py'
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python -m unittest discover -s scripts -p 'test_solver_*.py'
 python3 scripts/check_docs.py
 git diff --check
@@ -79,3 +85,11 @@ These are experimental settings, not acceptance thresholds. Changes to source, t
 The six `.planning/solver/cuff-sequence-*-sep23` run directories named in the ledger are present on this Zo at handoff. They hold local research artifacts; `.planning/` is ignored. The parent source used in documented extraction is `.planning/solver/fold-barrier-shirt-v1/canonical.json`. A Git clone carries code, ledgers and figures, **not** the virtual environment, private parent source, captured inputs, journals or full saved trajectories. Hashes identify those artifacts but cannot recreate their bytes.
 
 For a handoff to another machine, arrange an authorized private transfer of the required parent input and captured run directories, or regenerate synthetic fixtures using the documented pipeline and record new digests. Retain numerical source snapshots when reproducing the prior-metric controls; current code alone will use the new metric. Do not commit private measurements, production data, credentials, external assets or runtime files to make a clone self-contained. Full replay requires the original saved artifacts; the committed evidence summaries alone are insufficient.
+
+To generate a fresh synthetic cuff with the pinned research runtime:
+
+```sh
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .planning/solver/newton-venv/bin/python scripts/prepare-cuff-source.py --output .planning/solver/new-synthetic-cuff-source
+```
+
+Pass its `canonical.json` through the existing sewing and fold extraction commands above. This source has new provenance and does not reproduce the historical canonical bytes. It preserves the sleeve-attachment opening but does not execute the selected perimeter operations' external dependencies or demonstrate turning. The generator and complete sewing/fold source-remapping pipeline have six independent regression tests in `scripts/test_prepare_cuff_source.py`.

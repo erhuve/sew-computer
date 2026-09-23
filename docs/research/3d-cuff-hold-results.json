@@ -1,0 +1,4419 @@
+{
+  "accepted": false,
+  "limitations": [
+    "Synthetic coarse cuff control; no turning, sleeve attachment or garment acceptance.",
+    "Targets hold after the unchanged sewing/fold ramps; no physical damping is added.",
+    "Motion decay includes implicit integration; this is not a temporal/refinement convergence study.",
+    "Candidate coverage and nonzero triangle area do not establish layer order or physical thickness at incident primitives.",
+    "Raw source snapshots, journals and trajectories remain in ignored research storage; hashes cannot recreate missing bytes."
+  ],
+  "profile": "synthetic-cuff-normal-offset-hold-evidence-v1",
+  "reportGeneratorSha256": "899a17f2ebf9c5d043156225b82101f1b0c9388ca3899d722a024ebacccf2ffe",
+  "runs": {
+    "baseline": {
+      "accepted": false,
+      "acceptedSteps": 67,
+      "acceptedTimePartition": {
+        "endTimesSha256": "47e2ea7624bb6bcd50f7e0ea7af6d2dedcf6f4283e5d1fa8bcc230db32b1b0be",
+        "initialStepSeconds": 0.001,
+        "maximumStepSeconds": 0.0010000000000000009,
+        "minimumStepSeconds": 0.0004999999999999987
+      },
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "assembly_schedule": true,
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 480,
+        "fold_actuation": true,
+        "max_attempts": 1024,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "pressure_pa": 10000.0,
+        "sewing_mode": "normal-offset",
+        "step_seconds": 0.064,
+        "subdivisions": 64,
+        "target_fraction": 0.25,
+        "wall_limit_seconds": 720
+      },
+      "assemblySchedule": {
+        "knots": [
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.0,
+            "sewingProgress": 0.0
+          },
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.25,
+            "sewingProgress": 1.0
+          },
+          {
+            "foldProgress": 1.0,
+            "fraction": 1.0,
+            "sewingProgress": 1.0
+          }
+        ],
+        "profile": "sewing-fold-progress-v1"
+      },
+      "canonicalSha256": "918a64a58403a69a5767efaf20f8095c735fe3448f763580c910b4fe1e5283ce",
+      "completed": true,
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v2",
+        "broadPhase": "ipctk-HashGrid-explicit-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation derive from each primitive pair's own rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationRangeM": null,
+        "localMinimumRangeM": null,
+        "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+        "maxCandidates": 100000,
+        "parameterBuckets": 1,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "coverageComparisons": 239309,
+      "coveredCandidateOccurrences": 25031,
+      "edgeStrain": {
+        "edgeCount": 160,
+        "max": 1.0268121283219467,
+        "min": 0.9835750842843833,
+        "p95": 1.0092189297592526,
+        "p99": 1.0196575183059964,
+        "perInstance": {
+          "cuff_left:facing": {
+            "edgeCount": 80,
+            "max": 1.0268121283219467,
+            "min": 0.9915904923723153,
+            "p95": 1.0109463664352671
+          },
+          "cuff_left:shell": {
+            "edgeCount": 80,
+            "max": 1.0101471366300683,
+            "min": 0.9835750842843833,
+            "p95": 1.0079408183351897
+          }
+        },
+        "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+        "worstEdges": [
+          {
+            "currentLengthMm": 10.268121283219468,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0268121283219467,
+            "restLengthMm": 10.000000000000002,
+            "touchesPin": false,
+            "vertices": [
+              34,
+              53
+            ]
+          },
+          {
+            "currentLengthMm": 10.45319327814095,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.025393814491855,
+            "restLengthMm": 10.194320592153309,
+            "touchesPin": false,
+            "vertices": [
+              39,
+              60
+            ]
+          },
+          {
+            "currentLengthMm": 10.156712785836204,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0156712785836202,
+            "restLengthMm": 10.000000000000002,
+            "touchesPin": false,
+            "vertices": [
+              35,
+              55
+            ]
+          },
+          {
+            "currentLengthMm": 40.94678262682214,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0151449285813285,
+            "restLengthMm": 40.33589832739009,
+            "touchesPin": false,
+            "vertices": [
+              43,
+              52
+            ]
+          },
+          {
+            "currentLengthMm": 53.347172189966464,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0107253894802113,
+            "restLengthMm": 52.78107460761569,
+            "touchesPin": false,
+            "vertices": [
+              36,
+              52
+            ]
+          },
+          {
+            "currentLengthMm": 39.110943135196635,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0104588561668428,
+            "restLengthMm": 38.70612137891817,
+            "touchesPin": false,
+            "vertices": [
+              47,
+              54
+            ]
+          },
+          {
+            "currentLengthMm": 35.44270558142182,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0101471366300683,
+            "restLengthMm": 35.0866762832804,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              30
+            ]
+          },
+          {
+            "currentLengthMm": 10.857195409508243,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.009385794638636,
+            "restLengthMm": 10.7562395539707,
+            "touchesPin": false,
+            "vertices": [
+              41,
+              65
+            ]
+          },
+          {
+            "currentLengthMm": 37.484948331895225,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0092101473971797,
+            "restLengthMm": 37.14285714285712,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              19
+            ]
+          },
+          {
+            "currentLengthMm": 9.991221219307038,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0087290654108083,
+            "restLengthMm": 9.90476190476189,
+            "touchesPin": false,
+            "vertices": [
+              29,
+              30
+            ]
+          }
+        ]
+      },
+      "exactContactLeaves": 25440,
+      "exactTriangleLeaves": 6432,
+      "finalAnglesDegrees": [
+        66.41648017059529,
+        73.94444890163047,
+        74.11092346407726,
+        71.62139863547931,
+        71.85949652506456,
+        65.77805582179862,
+        49.34987243236861,
+        72.94675372443578,
+        73.06341033274582,
+        68.9250173706891,
+        70.93878450591416,
+        71.07776144769707,
+        24.20380122031018,
+        32.249374464714,
+        13.453800662449861,
+        22.12853860252092,
+        22.105740334403112,
+        0.09582804067335372,
+        10.33921206373138,
+        36.23276098496885,
+        36.0746093438079,
+        25.990697577236173,
+        38.58891818919117,
+        38.11852391967824
+      ],
+      "finalLayerAnglesDegrees": {
+        "facing": {
+          "maximum": 38.58891818919117,
+          "mean": 24.965150450307096,
+          "minimum": 0.09582804067335372
+        },
+        "shell": {
+          "maximum": 74.11092346407726,
+          "mean": 69.16936694437467,
+          "minimum": 49.34987243236861
+        }
+      },
+      "finalMaximumSeamTargetErrorMm": 0.0026650433464455482,
+      "finalMaximumSpeedMps": 1.508832767023271,
+      "finalState": {
+        "path": "state.json",
+        "sha256": "320aa973c2b9f941387c026f36ef31a81fb161e88244620e42e445f121303391"
+      },
+      "lastAcceptedState": {
+        "path": "accepted-0067.json",
+        "sha256": "8ce500ab492c0b8d6373a8627e105c2b4a925cbf29fe4eeab038c5c6afc1633f"
+      },
+      "maximumReconstructedResidualN": 9.841089037565531e-07,
+      "placementSha256": "a5133b2e83612e505bc9d0bcfcb183a1328ce4bef20f03910b6e6932c661dd8e",
+      "rejectedAttempts": 3,
+      "replaySha256": "44718171153902cc8b167182a5e2dd85212ce593f5834a561f2705c54197cfbb",
+      "reportSha256": "c3b52d19852f6c9a460217a27ec7f5b42fb376af0881f370281cb5dd9e6a5dcb",
+      "runDirectory": "cuff-linux-normal-hashgrid-v2",
+      "seamTargetErrorDefinition": "Norm of anchor-displacement minus the prescribed material-normal offset vector.",
+      "sewingMode": "normal-offset",
+      "sourceProvenance": {
+        "accepted": false,
+        "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+        "inputSha256": {
+          "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+          "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+        },
+        "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+        "subdivision": {
+          "classification": "straight-line subdivision, not physical assembly",
+          "creaseEdges": [
+            [
+              20,
+              21
+            ],
+            [
+              21,
+              24
+            ],
+            [
+              22,
+              23
+            ],
+            [
+              23,
+              32
+            ],
+            [
+              24,
+              25
+            ],
+            [
+              25,
+              26
+            ],
+            [
+              26,
+              27
+            ],
+            [
+              27,
+              28
+            ],
+            [
+              28,
+              29
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              30,
+              31
+            ],
+            [
+              31,
+              32
+            ]
+          ],
+          "creaseVertices": [
+            22,
+            23,
+            32,
+            31,
+            30,
+            29,
+            28,
+            27,
+            26,
+            25,
+            24,
+            21,
+            20
+          ],
+          "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+          "parentTriangles": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            3,
+            3,
+            3,
+            4,
+            5,
+            6,
+            7,
+            7,
+            7,
+            8,
+            9,
+            9,
+            9,
+            10,
+            10,
+            10,
+            11,
+            11,
+            11,
+            12,
+            12,
+            12,
+            13,
+            14,
+            14,
+            14,
+            15,
+            16,
+            16,
+            16,
+            17,
+            18,
+            18,
+            18,
+            19,
+            20,
+            20,
+            20,
+            21,
+            21,
+            21,
+            22,
+            23
+          ],
+          "sourceStitchPath": {
+            "lengthMm": 240.0,
+            "name": "outer",
+            "samples": [
+              {
+                "arcMm": 0.0,
+                "restPosition": [
+                  240.0,
+                  55.0
+                ],
+                "sourceFraction": 0.0,
+                "sourceSegment": 3,
+                "triangle": 14,
+                "weights": [
+                  0.0018315018315018523,
+                  0.26666666666666666,
+                  0.7315018315018316
+                ]
+              },
+              {
+                "arcMm": 38.038095238095224,
+                "restPosition": [
+                  201.96190476190478,
+                  55.0
+                ],
+                "sourceFraction": 0.15849206349206343,
+                "sourceSegment": 3,
+                "triangle": 16,
+                "weights": [
+                  0.26666666666666694,
+                  0.7333333333333331,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 47.94285714285715,
+                "restPosition": [
+                  192.05714285714285,
+                  55.0
+                ],
+                "sourceFraction": 0.19976190476190478,
+                "sourceSegment": 3,
+                "triangle": 12,
+                "weights": [
+                  0.26666666666666666,
+                  0.7333333333333331,
+                  3.3306690738754696e-16
+                ]
+              },
+              {
+                "arcMm": 86.07619047619048,
+                "restPosition": [
+                  153.92380952380952,
+                  55.0
+                ],
+                "sourceFraction": 0.35865079365079366,
+                "sourceSegment": 3,
+                "triangle": 7,
+                "weights": [
+                  4.0810659694939096e-17,
+                  0.2666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 95.98095238095237,
+                "restPosition": [
+                  144.01904761904763,
+                  55.0
+                ],
+                "sourceFraction": 0.3999206349206349,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.0,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 134.1142857142857,
+                "restPosition": [
+                  105.8857142857143,
+                  55.0
+                ],
+                "sourceFraction": 0.5588095238095238,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.7333333333333331,
+                  0.26666666666666666,
+                  2.7755575615628914e-16
+                ]
+              },
+              {
+                "arcMm": 144.01904761904763,
+                "restPosition": [
+                  95.98095238095237,
+                  55.0
+                ],
+                "sourceFraction": 0.6000793650793651,
+                "sourceSegment": 3,
+                "triangle": 3,
+                "weights": [
+                  0.7333333333333334,
+                  2.0405329847469546e-16,
+                  0.2666666666666664
+                ]
+              },
+              {
+                "arcMm": 153.92380952380952,
+                "restPosition": [
+                  86.07619047619048,
+                  55.0
+                ],
+                "sourceFraction": 0.6413492063492063,
+                "sourceSegment": 3,
+                "triangle": 10,
+                "weights": [
+                  2.9150471210670777e-17,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 192.05714285714285,
+                "restPosition": [
+                  47.94285714285715,
+                  55.0
+                ],
+                "sourceFraction": 0.8002380952380952,
+                "sourceSegment": 3,
+                "triangle": 9,
+                "weights": [
+                  0.2666666666666667,
+                  0.7333333333333333,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 201.96190476190475,
+                "restPosition": [
+                  38.03809523809525,
+                  55.0
+                ],
+                "sourceFraction": 0.8415079365079364,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.2666666666666666,
+                  0.7333333333333335,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 240.0,
+                "restPosition": [
+                  0.0,
+                  55.0
+                ],
+                "sourceFraction": 1.0,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.26666666666666666,
+                  0.0018315018315018233,
+                  0.7315018315018316
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "samples": [
+                  0,
+                  1
+                ],
+                "triangle": 14
+              },
+              {
+                "samples": [
+                  1,
+                  2
+                ],
+                "triangle": 16
+              },
+              {
+                "samples": [
+                  2,
+                  3
+                ],
+                "triangle": 12
+              },
+              {
+                "samples": [
+                  3,
+                  4
+                ],
+                "triangle": 7
+              },
+              {
+                "samples": [
+                  4,
+                  5
+                ],
+                "triangle": 20
+              },
+              {
+                "samples": [
+                  5,
+                  6
+                ],
+                "triangle": 21
+              },
+              {
+                "samples": [
+                  6,
+                  7
+                ],
+                "triangle": 3
+              },
+              {
+                "samples": [
+                  7,
+                  8
+                ],
+                "triangle": 10
+              },
+              {
+                "samples": [
+                  8,
+                  9
+                ],
+                "triangle": 9
+              },
+              {
+                "samples": [
+                  9,
+                  10
+                ],
+                "triangle": 11
+              }
+            ],
+            "sourceEnd": 4,
+            "sourceStart": 3
+          },
+          "sourceWeights": [
+            {
+              "0": 1.0
+            },
+            {
+              "1": 1.0
+            },
+            {
+              "2": 1.0
+            },
+            {
+              "3": 1.0
+            },
+            {
+              "4": 1.0
+            },
+            {
+              "5": 1.0
+            },
+            {
+              "6": 1.0
+            },
+            {
+              "7": 1.0
+            },
+            {
+              "8": 1.0
+            },
+            {
+              "9": 1.0
+            },
+            {
+              "10": 1.0
+            },
+            {
+              "11": 1.0
+            },
+            {
+              "12": 1.0
+            },
+            {
+              "13": 1.0
+            },
+            {
+              "14": 1.0
+            },
+            {
+              "15": 1.0
+            },
+            {
+              "16": 1.0
+            },
+            {
+              "17": 1.0
+            },
+            {
+              "18": 1.0
+            },
+            {
+              "19": 1.0
+            },
+            {
+              "1": 0.7333333333333334,
+              "4": 0.26666666666666666
+            },
+            {
+              "1": 0.7333333333333334,
+              "14": 0.26666666666666666
+            },
+            {
+              "2": 0.7333333333333334,
+              "9": 0.26666666666666666
+            },
+            {
+              "19": 0.26666666666666666,
+              "2": 0.7333333333333334
+            },
+            {
+              "14": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "16": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "8": 0.7333333333333334
+            },
+            {
+              "19": 0.26666666666666666,
+              "8": 0.7333333333333334
+            }
+          ],
+          "triangles": [
+            [
+              14,
+              4,
+              0
+            ],
+            [
+              21,
+              1,
+              20
+            ],
+            [
+              4,
+              14,
+              21
+            ],
+            [
+              4,
+              21,
+              20
+            ],
+            [
+              13,
+              14,
+              0
+            ],
+            [
+              6,
+              26,
+              27
+            ],
+            [
+              26,
+              15,
+              16
+            ],
+            [
+              26,
+              16,
+              27
+            ],
+            [
+              13,
+              15,
+              14
+            ],
+            [
+              15,
+              12,
+              16
+            ],
+            [
+              12,
+              15,
+              13
+            ],
+            [
+              30,
+              7,
+              29
+            ],
+            [
+              17,
+              18,
+              30
+            ],
+            [
+              17,
+              30,
+              29
+            ],
+            [
+              18,
+              17,
+              11
+            ],
+            [
+              25,
+              5,
+              24
+            ],
+            [
+              15,
+              25,
+              24
+            ],
+            [
+              15,
+              24,
+              14
+            ],
+            [
+              5,
+              25,
+              26
+            ],
+            [
+              5,
+              26,
+              6
+            ],
+            [
+              25,
+              15,
+              26
+            ],
+            [
+              24,
+              5,
+              1
+            ],
+            [
+              24,
+              1,
+              21
+            ],
+            [
+              14,
+              24,
+              21
+            ],
+            [
+              31,
+              8,
+              7
+            ],
+            [
+              31,
+              7,
+              30
+            ],
+            [
+              18,
+              31,
+              30
+            ],
+            [
+              10,
+              18,
+              11
+            ],
+            [
+              8,
+              32,
+              23
+            ],
+            [
+              8,
+              23,
+              2
+            ],
+            [
+              32,
+              19,
+              23
+            ],
+            [
+              19,
+              10,
+              3
+            ],
+            [
+              32,
+              8,
+              31
+            ],
+            [
+              19,
+              32,
+              31
+            ],
+            [
+              19,
+              31,
+              18
+            ],
+            [
+              10,
+              19,
+              18
+            ],
+            [
+              22,
+              2,
+              23
+            ],
+            [
+              19,
+              9,
+              22
+            ],
+            [
+              19,
+              22,
+              23
+            ],
+            [
+              9,
+              19,
+              3
+            ],
+            [
+              6,
+              28,
+              29
+            ],
+            [
+              6,
+              29,
+              7
+            ],
+            [
+              28,
+              17,
+              29
+            ],
+            [
+              28,
+              6,
+              27
+            ],
+            [
+              17,
+              28,
+              27
+            ],
+            [
+              17,
+              27,
+              16
+            ],
+            [
+              12,
+              17,
+              16
+            ],
+            [
+              17,
+              12,
+              11
+            ]
+          ],
+          "vertices": [
+            [
+              -0.01,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.065
+            ],
+            [
+              0.25,
+              0.065
+            ],
+            [
+              0.25,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.0275
+            ],
+            [
+              0.042,
+              0.065
+            ],
+            [
+              0.094,
+              0.065
+            ],
+            [
+              0.146,
+              0.065
+            ],
+            [
+              0.198,
+              0.065
+            ],
+            [
+              0.25,
+              0.0275
+            ],
+            [
+              0.198,
+              -0.01
+            ],
+            [
+              0.146,
+              -0.01
+            ],
+            [
+              0.094,
+              -0.01
+            ],
+            [
+              0.042,
+              -0.01
+            ],
+            [
+              0.027142857142857146,
+              0.0275
+            ],
+            [
+              0.0642857142857143,
+              0.0275
+            ],
+            [
+              0.10142857142857144,
+              0.0275
+            ],
+            [
+              0.1385714285714286,
+              0.0275
+            ],
+            [
+              0.17571428571428574,
+              0.0275
+            ],
+            [
+              0.21285714285714286,
+              0.0275
+            ],
+            [
+              -0.01,
+              0.055
+            ],
+            [
+              -9.523809523809528e-05,
+              0.055
+            ],
+            [
+              0.25,
+              0.055
+            ],
+            [
+              0.2400952380952381,
+              0.055
+            ],
+            [
+              0.038038095238095246,
+              0.055
+            ],
+            [
+              0.04794285714285715,
+              0.055
+            ],
+            [
+              0.08607619047619047,
+              0.055
+            ],
+            [
+              0.09598095238095239,
+              0.055
+            ],
+            [
+              0.10588571428571429,
+              0.055
+            ],
+            [
+              0.14401904761904763,
+              0.055
+            ],
+            [
+              0.15392380952380952,
+              0.055
+            ],
+            [
+              0.19205714285714287,
+              0.055
+            ],
+            [
+              0.2019619047619048,
+              0.055
+            ]
+          ]
+        }
+      },
+      "supervisedCpuSeconds": 67.93681,
+      "verificationDigests": {
+        "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+        "replayScriptSha256": "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a",
+        "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "workerReportedCpuSeconds": 66.72706489000001
+    },
+    "distanceHold": {
+      "accepted": false,
+      "acceptedSteps": 266,
+      "acceptedTimePartition": {
+        "endTimesSha256": "989ec6bfe9230c2c870c3374b908a167627bb14cf63b27101fd3f0f620cae3d3",
+        "initialStepSeconds": 0.001,
+        "maximumStepSeconds": 0.0010000000000000009,
+        "minimumStepSeconds": 0.0002500000000000002
+      },
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "assembly_schedule": true,
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 900,
+        "fold_actuation": true,
+        "max_attempts": 1024,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "pressure_pa": 10000.0,
+        "sewing_mode": "distance",
+        "step_seconds": 0.256,
+        "subdivisions": 256,
+        "target_fraction": 0.25,
+        "wall_limit_seconds": 1440
+      },
+      "assemblySchedule": {
+        "knots": [
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.0,
+            "sewingProgress": 0.0
+          },
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.0625,
+            "sewingProgress": 1.0
+          },
+          {
+            "foldProgress": 1.0,
+            "fraction": 0.25,
+            "sewingProgress": 1.0
+          },
+          {
+            "foldProgress": 1.0,
+            "fraction": 1.0,
+            "sewingProgress": 1.0
+          }
+        ],
+        "profile": "sewing-fold-progress-v1"
+      },
+      "canonicalSha256": "40ca533388186d6d6654005930e69f3538f8d17b86f64af1f858c3b3aa269301",
+      "completed": true,
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v2",
+        "broadPhase": "ipctk-HashGrid-explicit-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation derive from each primitive pair's own rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationRangeM": null,
+        "localMinimumRangeM": null,
+        "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+        "maxCandidates": 100000,
+        "parameterBuckets": 1,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "coverageComparisons": 918733,
+      "coveredCandidateOccurrences": 128074,
+      "edgeStrain": {
+        "edgeCount": 160,
+        "max": 1.015529518721864,
+        "min": 0.9854262500161111,
+        "p95": 1.00876429401578,
+        "p99": 1.0140882599510315,
+        "perInstance": {
+          "cuff_left:facing": {
+            "edgeCount": 80,
+            "max": 1.015529518721864,
+            "min": 0.9854262500161111,
+            "p95": 1.0089131343095488
+          },
+          "cuff_left:shell": {
+            "edgeCount": 80,
+            "max": 1.013700996322772,
+            "min": 0.9888044739558499,
+            "p95": 1.0084965703914701
+          }
+        },
+        "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+        "worstEdges": [
+          {
+            "currentLengthMm": 10.155295187218643,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.015529518721864,
+            "restLengthMm": 10.000000000000002,
+            "touchesPin": false,
+            "vertices": [
+              34,
+              53
+            ]
+          },
+          {
+            "currentLengthMm": 27.902752398332655,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.014645541757551,
+            "restLengthMm": 27.5,
+            "touchesPin": false,
+            "vertices": [
+              37,
+              53
+            ]
+          },
+          {
+            "currentLengthMm": 40.88854032204937,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.013700996322772,
+            "restLengthMm": 40.33589832739009,
+            "touchesPin": false,
+            "vertices": [
+              10,
+              19
+            ]
+          },
+          {
+            "currentLengthMm": 39.23615894825996,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0136938951891596,
+            "restLengthMm": 38.70612137891817,
+            "touchesPin": false,
+            "vertices": [
+              14,
+              21
+            ]
+          },
+          {
+            "currentLengthMm": 10.32541874681392,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0128599207250277,
+            "restLengthMm": 10.194320592153309,
+            "touchesPin": false,
+            "vertices": [
+              39,
+              60
+            ]
+          },
+          {
+            "currentLengthMm": 10.876445633851436,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.011175474409769,
+            "restLengthMm": 10.75623955397069,
+            "touchesPin": false,
+            "vertices": [
+              38,
+              57
+            ]
+          },
+          {
+            "currentLengthMm": 53.292315626177555,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.009686066878375,
+            "restLengthMm": 52.78107460761569,
+            "touchesPin": false,
+            "vertices": [
+              3,
+              19
+            ]
+          },
+          {
+            "currentLengthMm": 53.245234743984234,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0087940637779582,
+            "restLengthMm": 52.78107460761569,
+            "touchesPin": false,
+            "vertices": [
+              33,
+              47
+            ]
+          },
+          {
+            "currentLengthMm": 32.269986638771506,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0087627271861916,
+            "restLengthMm": 31.989669888759973,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              31
+            ]
+          },
+          {
+            "currentLengthMm": 29.481443824692356,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.008625031232635,
+            "restLengthMm": 29.229339855529112,
+            "touchesPin": false,
+            "vertices": [
+              37,
+              54
+            ]
+          }
+        ]
+      },
+      "exactContactLeaves": 128759,
+      "exactTriangleLeaves": 25536,
+      "finalAnglesDegrees": [
+        73.29193941387858,
+        75.093434697781,
+        68.87999873818212,
+        68.75538603662591,
+        67.97842023802517,
+        62.86799506429455,
+        72.30808757928754,
+        68.43297969295972,
+        68.15222381579517,
+        67.99874668859819,
+        64.79596665895133,
+        64.45570569421349,
+        62.03759857730336,
+        47.08630866644,
+        29.03199898713613,
+        38.548086629811515,
+        38.869502396498305,
+        47.52046967715168,
+        47.141769726762654,
+        33.20585517714691,
+        33.39734853445728,
+        56.20784510526994,
+        29.288219145331507,
+        29.187941258701805
+      ],
+      "finalLayerAnglesDegrees": {
+        "facing": {
+          "maximum": 62.03759857730336,
+          "mean": 40.96024532350092,
+          "minimum": 29.03199898713613
+        },
+        "shell": {
+          "maximum": 75.093434697781,
+          "mean": 68.58424035988274,
+          "minimum": 62.86799506429455
+        }
+      },
+      "finalMaximumSeamTargetErrorMm": 0.007064042990474338,
+      "finalMaximumSpeedMps": 0.20305218068686573,
+      "finalState": {
+        "path": "state.json",
+        "sha256": "5113c9b625fd9f38e2012347d57f37ae7ffa13fd14de9f24f6dfdb071f6464ff"
+      },
+      "lastAcceptedState": {
+        "path": "accepted-0266.json",
+        "sha256": "e4a8ae8d34776ddb2e98bc011d7680987f8349b63a17f74865cf8a0a988adbbc"
+      },
+      "maximumReconstructedResidualN": 9.962119954520787e-07,
+      "placementSha256": "1521126ae668751aa4b482d8a6516c8135bbca89dfd6661a824f03458e20f4a3",
+      "rejectedAttempts": 10,
+      "replaySha256": "3fb4bc08acd79624fcc9bb55f38ed330518f647d643a92ac3ee731c2c185bdc0",
+      "reportSha256": "348a2fa14bd796f3293a678f9a5e241c8d15de3c474d79675351a7e38d0a91cc",
+      "runDirectory": "cuff-linux-distance-hold-hashgrid-v2",
+      "seamTargetErrorDefinition": "Absolute difference between anchor distance and the prescribed scalar separation.",
+      "sewingMode": "distance",
+      "sourceProvenance": {
+        "accepted": false,
+        "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+        "holdDiagnostic": {
+          "accepted": false,
+          "durationSeconds": 0.256,
+          "initialSubdivisions": 256,
+          "limitations": "No added material damping; target hold is not settled garment acceptance.",
+          "originalDurationSeconds": 0.064,
+          "parentCanonicalSha256": "918a64a58403a69a5767efaf20f8095c735fe3448f763580c910b4fe1e5283ce",
+          "rampPreservation": "sewing0-.016s; fold.016-.064s; both targets held.064-.256s"
+        },
+        "inputSha256": {
+          "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+          "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+        },
+        "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+        "subdivision": {
+          "classification": "straight-line subdivision, not physical assembly",
+          "creaseEdges": [
+            [
+              20,
+              21
+            ],
+            [
+              21,
+              24
+            ],
+            [
+              22,
+              23
+            ],
+            [
+              23,
+              32
+            ],
+            [
+              24,
+              25
+            ],
+            [
+              25,
+              26
+            ],
+            [
+              26,
+              27
+            ],
+            [
+              27,
+              28
+            ],
+            [
+              28,
+              29
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              30,
+              31
+            ],
+            [
+              31,
+              32
+            ]
+          ],
+          "creaseVertices": [
+            22,
+            23,
+            32,
+            31,
+            30,
+            29,
+            28,
+            27,
+            26,
+            25,
+            24,
+            21,
+            20
+          ],
+          "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+          "parentTriangles": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            3,
+            3,
+            3,
+            4,
+            5,
+            6,
+            7,
+            7,
+            7,
+            8,
+            9,
+            9,
+            9,
+            10,
+            10,
+            10,
+            11,
+            11,
+            11,
+            12,
+            12,
+            12,
+            13,
+            14,
+            14,
+            14,
+            15,
+            16,
+            16,
+            16,
+            17,
+            18,
+            18,
+            18,
+            19,
+            20,
+            20,
+            20,
+            21,
+            21,
+            21,
+            22,
+            23
+          ],
+          "sourceStitchPath": {
+            "lengthMm": 240.0,
+            "name": "outer",
+            "samples": [
+              {
+                "arcMm": 0.0,
+                "restPosition": [
+                  240.0,
+                  55.0
+                ],
+                "sourceFraction": 0.0,
+                "sourceSegment": 3,
+                "triangle": 14,
+                "weights": [
+                  0.0018315018315018523,
+                  0.26666666666666666,
+                  0.7315018315018316
+                ]
+              },
+              {
+                "arcMm": 38.038095238095224,
+                "restPosition": [
+                  201.96190476190478,
+                  55.0
+                ],
+                "sourceFraction": 0.15849206349206343,
+                "sourceSegment": 3,
+                "triangle": 16,
+                "weights": [
+                  0.26666666666666694,
+                  0.7333333333333331,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 47.94285714285715,
+                "restPosition": [
+                  192.05714285714285,
+                  55.0
+                ],
+                "sourceFraction": 0.19976190476190478,
+                "sourceSegment": 3,
+                "triangle": 12,
+                "weights": [
+                  0.26666666666666666,
+                  0.7333333333333331,
+                  3.3306690738754696e-16
+                ]
+              },
+              {
+                "arcMm": 86.07619047619048,
+                "restPosition": [
+                  153.92380952380952,
+                  55.0
+                ],
+                "sourceFraction": 0.35865079365079366,
+                "sourceSegment": 3,
+                "triangle": 7,
+                "weights": [
+                  4.0810659694939096e-17,
+                  0.2666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 95.98095238095237,
+                "restPosition": [
+                  144.01904761904763,
+                  55.0
+                ],
+                "sourceFraction": 0.3999206349206349,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.0,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 134.1142857142857,
+                "restPosition": [
+                  105.8857142857143,
+                  55.0
+                ],
+                "sourceFraction": 0.5588095238095238,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.7333333333333331,
+                  0.26666666666666666,
+                  2.7755575615628914e-16
+                ]
+              },
+              {
+                "arcMm": 144.01904761904763,
+                "restPosition": [
+                  95.98095238095237,
+                  55.0
+                ],
+                "sourceFraction": 0.6000793650793651,
+                "sourceSegment": 3,
+                "triangle": 3,
+                "weights": [
+                  0.7333333333333334,
+                  2.0405329847469546e-16,
+                  0.2666666666666664
+                ]
+              },
+              {
+                "arcMm": 153.92380952380952,
+                "restPosition": [
+                  86.07619047619048,
+                  55.0
+                ],
+                "sourceFraction": 0.6413492063492063,
+                "sourceSegment": 3,
+                "triangle": 10,
+                "weights": [
+                  2.9150471210670777e-17,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 192.05714285714285,
+                "restPosition": [
+                  47.94285714285715,
+                  55.0
+                ],
+                "sourceFraction": 0.8002380952380952,
+                "sourceSegment": 3,
+                "triangle": 9,
+                "weights": [
+                  0.2666666666666667,
+                  0.7333333333333333,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 201.96190476190475,
+                "restPosition": [
+                  38.03809523809525,
+                  55.0
+                ],
+                "sourceFraction": 0.8415079365079364,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.2666666666666666,
+                  0.7333333333333335,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 240.0,
+                "restPosition": [
+                  0.0,
+                  55.0
+                ],
+                "sourceFraction": 1.0,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.26666666666666666,
+                  0.0018315018315018233,
+                  0.7315018315018316
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "samples": [
+                  0,
+                  1
+                ],
+                "triangle": 14
+              },
+              {
+                "samples": [
+                  1,
+                  2
+                ],
+                "triangle": 16
+              },
+              {
+                "samples": [
+                  2,
+                  3
+                ],
+                "triangle": 12
+              },
+              {
+                "samples": [
+                  3,
+                  4
+                ],
+                "triangle": 7
+              },
+              {
+                "samples": [
+                  4,
+                  5
+                ],
+                "triangle": 20
+              },
+              {
+                "samples": [
+                  5,
+                  6
+                ],
+                "triangle": 21
+              },
+              {
+                "samples": [
+                  6,
+                  7
+                ],
+                "triangle": 3
+              },
+              {
+                "samples": [
+                  7,
+                  8
+                ],
+                "triangle": 10
+              },
+              {
+                "samples": [
+                  8,
+                  9
+                ],
+                "triangle": 9
+              },
+              {
+                "samples": [
+                  9,
+                  10
+                ],
+                "triangle": 11
+              }
+            ],
+            "sourceEnd": 4,
+            "sourceStart": 3
+          },
+          "sourceWeights": [
+            {
+              "0": 1.0
+            },
+            {
+              "1": 1.0
+            },
+            {
+              "2": 1.0
+            },
+            {
+              "3": 1.0
+            },
+            {
+              "4": 1.0
+            },
+            {
+              "5": 1.0
+            },
+            {
+              "6": 1.0
+            },
+            {
+              "7": 1.0
+            },
+            {
+              "8": 1.0
+            },
+            {
+              "9": 1.0
+            },
+            {
+              "10": 1.0
+            },
+            {
+              "11": 1.0
+            },
+            {
+              "12": 1.0
+            },
+            {
+              "13": 1.0
+            },
+            {
+              "14": 1.0
+            },
+            {
+              "15": 1.0
+            },
+            {
+              "16": 1.0
+            },
+            {
+              "17": 1.0
+            },
+            {
+              "18": 1.0
+            },
+            {
+              "19": 1.0
+            },
+            {
+              "1": 0.7333333333333334,
+              "4": 0.26666666666666666
+            },
+            {
+              "1": 0.7333333333333334,
+              "14": 0.26666666666666666
+            },
+            {
+              "2": 0.7333333333333334,
+              "9": 0.26666666666666666
+            },
+            {
+              "19": 0.26666666666666666,
+              "2": 0.7333333333333334
+            },
+            {
+              "14": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "16": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "8": 0.7333333333333334
+            },
+            {
+              "19": 0.26666666666666666,
+              "8": 0.7333333333333334
+            }
+          ],
+          "triangles": [
+            [
+              14,
+              4,
+              0
+            ],
+            [
+              21,
+              1,
+              20
+            ],
+            [
+              4,
+              14,
+              21
+            ],
+            [
+              4,
+              21,
+              20
+            ],
+            [
+              13,
+              14,
+              0
+            ],
+            [
+              6,
+              26,
+              27
+            ],
+            [
+              26,
+              15,
+              16
+            ],
+            [
+              26,
+              16,
+              27
+            ],
+            [
+              13,
+              15,
+              14
+            ],
+            [
+              15,
+              12,
+              16
+            ],
+            [
+              12,
+              15,
+              13
+            ],
+            [
+              30,
+              7,
+              29
+            ],
+            [
+              17,
+              18,
+              30
+            ],
+            [
+              17,
+              30,
+              29
+            ],
+            [
+              18,
+              17,
+              11
+            ],
+            [
+              25,
+              5,
+              24
+            ],
+            [
+              15,
+              25,
+              24
+            ],
+            [
+              15,
+              24,
+              14
+            ],
+            [
+              5,
+              25,
+              26
+            ],
+            [
+              5,
+              26,
+              6
+            ],
+            [
+              25,
+              15,
+              26
+            ],
+            [
+              24,
+              5,
+              1
+            ],
+            [
+              24,
+              1,
+              21
+            ],
+            [
+              14,
+              24,
+              21
+            ],
+            [
+              31,
+              8,
+              7
+            ],
+            [
+              31,
+              7,
+              30
+            ],
+            [
+              18,
+              31,
+              30
+            ],
+            [
+              10,
+              18,
+              11
+            ],
+            [
+              8,
+              32,
+              23
+            ],
+            [
+              8,
+              23,
+              2
+            ],
+            [
+              32,
+              19,
+              23
+            ],
+            [
+              19,
+              10,
+              3
+            ],
+            [
+              32,
+              8,
+              31
+            ],
+            [
+              19,
+              32,
+              31
+            ],
+            [
+              19,
+              31,
+              18
+            ],
+            [
+              10,
+              19,
+              18
+            ],
+            [
+              22,
+              2,
+              23
+            ],
+            [
+              19,
+              9,
+              22
+            ],
+            [
+              19,
+              22,
+              23
+            ],
+            [
+              9,
+              19,
+              3
+            ],
+            [
+              6,
+              28,
+              29
+            ],
+            [
+              6,
+              29,
+              7
+            ],
+            [
+              28,
+              17,
+              29
+            ],
+            [
+              28,
+              6,
+              27
+            ],
+            [
+              17,
+              28,
+              27
+            ],
+            [
+              17,
+              27,
+              16
+            ],
+            [
+              12,
+              17,
+              16
+            ],
+            [
+              17,
+              12,
+              11
+            ]
+          ],
+          "vertices": [
+            [
+              -0.01,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.065
+            ],
+            [
+              0.25,
+              0.065
+            ],
+            [
+              0.25,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.0275
+            ],
+            [
+              0.042,
+              0.065
+            ],
+            [
+              0.094,
+              0.065
+            ],
+            [
+              0.146,
+              0.065
+            ],
+            [
+              0.198,
+              0.065
+            ],
+            [
+              0.25,
+              0.0275
+            ],
+            [
+              0.198,
+              -0.01
+            ],
+            [
+              0.146,
+              -0.01
+            ],
+            [
+              0.094,
+              -0.01
+            ],
+            [
+              0.042,
+              -0.01
+            ],
+            [
+              0.027142857142857146,
+              0.0275
+            ],
+            [
+              0.0642857142857143,
+              0.0275
+            ],
+            [
+              0.10142857142857144,
+              0.0275
+            ],
+            [
+              0.1385714285714286,
+              0.0275
+            ],
+            [
+              0.17571428571428574,
+              0.0275
+            ],
+            [
+              0.21285714285714286,
+              0.0275
+            ],
+            [
+              -0.01,
+              0.055
+            ],
+            [
+              -9.523809523809528e-05,
+              0.055
+            ],
+            [
+              0.25,
+              0.055
+            ],
+            [
+              0.2400952380952381,
+              0.055
+            ],
+            [
+              0.038038095238095246,
+              0.055
+            ],
+            [
+              0.04794285714285715,
+              0.055
+            ],
+            [
+              0.08607619047619047,
+              0.055
+            ],
+            [
+              0.09598095238095239,
+              0.055
+            ],
+            [
+              0.10588571428571429,
+              0.055
+            ],
+            [
+              0.14401904761904763,
+              0.055
+            ],
+            [
+              0.15392380952380952,
+              0.055
+            ],
+            [
+              0.19205714285714287,
+              0.055
+            ],
+            [
+              0.2019619047619048,
+              0.055
+            ]
+          ]
+        }
+      },
+      "supervisedCpuSeconds": 130.928225,
+      "verificationDigests": {
+        "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+        "replayScriptSha256": "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a",
+        "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "workerReportedCpuSeconds": 129.926542365
+    },
+    "hold": {
+      "accepted": false,
+      "acceptedSteps": 306,
+      "acceptedTimePartition": {
+        "endTimesSha256": "2fa37260782d0331bcb0dcd684a98f583ea1f1e319a99ba2ee8b7184ba725212",
+        "initialStepSeconds": 0.001,
+        "maximumStepSeconds": 0.0010000000000000009,
+        "minimumStepSeconds": 0.0002500000000000002
+      },
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "assembly_schedule": true,
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 900,
+        "fold_actuation": true,
+        "max_attempts": 1024,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "pressure_pa": 10000.0,
+        "sewing_mode": "normal-offset",
+        "step_seconds": 0.256,
+        "subdivisions": 256,
+        "target_fraction": 0.25,
+        "wall_limit_seconds": 1440
+      },
+      "assemblySchedule": {
+        "knots": [
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.0,
+            "sewingProgress": 0.0
+          },
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.0625,
+            "sewingProgress": 1.0
+          },
+          {
+            "foldProgress": 1.0,
+            "fraction": 0.25,
+            "sewingProgress": 1.0
+          },
+          {
+            "foldProgress": 1.0,
+            "fraction": 1.0,
+            "sewingProgress": 1.0
+          }
+        ],
+        "profile": "sewing-fold-progress-v1"
+      },
+      "canonicalSha256": "40ca533388186d6d6654005930e69f3538f8d17b86f64af1f858c3b3aa269301",
+      "completed": true,
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v2",
+        "broadPhase": "ipctk-HashGrid-explicit-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation derive from each primitive pair's own rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationRangeM": null,
+        "localMinimumRangeM": null,
+        "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+        "maxCandidates": 100000,
+        "parameterBuckets": 1,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "coverageComparisons": 1056255,
+      "coveredCandidateOccurrences": 100817,
+      "edgeStrain": {
+        "edgeCount": 160,
+        "max": 1.0267800685118726,
+        "min": 0.9837130613770722,
+        "p95": 1.0091944970935554,
+        "p99": 1.0195477107167559,
+        "perInstance": {
+          "cuff_left:facing": {
+            "edgeCount": 80,
+            "max": 1.0267800685118726,
+            "min": 0.9916141867878016,
+            "p95": 1.0109900280833295
+          },
+          "cuff_left:shell": {
+            "edgeCount": 80,
+            "max": 1.0102713387865254,
+            "min": 0.9837130613770722,
+            "p95": 1.0066216251615936
+          }
+        },
+        "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+        "worstEdges": [
+          {
+            "currentLengthMm": 10.267800685118727,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0267800685118726,
+            "restLengthMm": 10.000000000000002,
+            "touchesPin": false,
+            "vertices": [
+              34,
+              53
+            ]
+          },
+          {
+            "currentLengthMm": 10.452726466554013,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0253480231531664,
+            "restLengthMm": 10.194320592153309,
+            "touchesPin": false,
+            "vertices": [
+              39,
+              60
+            ]
+          },
+          {
+            "currentLengthMm": 10.155169851253524,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.015516985125352,
+            "restLengthMm": 10.000000000000002,
+            "touchesPin": false,
+            "vertices": [
+              35,
+              55
+            ]
+          },
+          {
+            "currentLengthMm": 40.93510986762925,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0148555397322654,
+            "restLengthMm": 40.33589832739009,
+            "touchesPin": false,
+            "vertices": [
+              43,
+              52
+            ]
+          },
+          {
+            "currentLengthMm": 53.35040189673017,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0107865801018066,
+            "restLengthMm": 52.78107460761569,
+            "touchesPin": false,
+            "vertices": [
+              36,
+              52
+            ]
+          },
+          {
+            "currentLengthMm": 39.109601725549275,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0104241999006096,
+            "restLengthMm": 38.70612137891817,
+            "touchesPin": false,
+            "vertices": [
+              47,
+              54
+            ]
+          },
+          {
+            "currentLengthMm": 35.447063422279115,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0102713387865254,
+            "restLengthMm": 35.0866762832804,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              30
+            ]
+          },
+          {
+            "currentLengthMm": 10.865951199808217,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0101998142833308,
+            "restLengthMm": 10.7562395539707,
+            "touchesPin": false,
+            "vertices": [
+              41,
+              65
+            ]
+          },
+          {
+            "currentLengthMm": 37.48240175317909,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0091415856625146,
+            "restLengthMm": 37.14285714285712,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              19
+            ]
+          },
+          {
+            "currentLengthMm": 53.216950533540064,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0082581858964554,
+            "restLengthMm": 52.78107460761569,
+            "touchesPin": false,
+            "vertices": [
+              0,
+              14
+            ]
+          }
+        ]
+      },
+      "exactContactLeaves": 101246,
+      "exactTriangleLeaves": 29376,
+      "finalAnglesDegrees": [
+        66.48489335693658,
+        73.64195340449908,
+        78.35863270028126,
+        71.31819238651975,
+        71.52209146075165,
+        65.87075985468013,
+        55.666897170152865,
+        70.93607956522153,
+        70.99930138197377,
+        69.71435172484168,
+        70.4447598149269,
+        70.60132549418546,
+        24.210680194837582,
+        31.805888124582943,
+        14.415289522410198,
+        21.749997203682742,
+        21.72693881018159,
+        0.09381376726472519,
+        11.340944926897025,
+        35.50019190503362,
+        35.310478350013526,
+        25.92944586760283,
+        39.06621819357195,
+        38.59501185213236
+      ],
+      "finalLayerAnglesDegrees": {
+        "facing": {
+          "maximum": 39.06621819357195,
+          "mean": 24.97874155985092,
+          "minimum": 0.09381376726472519
+        },
+        "shell": {
+          "maximum": 78.35863270028126,
+          "mean": 69.62993652624755,
+          "minimum": 55.666897170152865
+        }
+      },
+      "finalMaximumSeamTargetErrorMm": 0.0026415684444589527,
+      "finalMaximumSpeedMps": 0.01936169604751357,
+      "finalState": {
+        "path": "state.json",
+        "sha256": "aae3fad553f3d2e1a4b833cb13e6f7e7892bb660556101411230525f4220facb"
+      },
+      "lastAcceptedState": {
+        "path": "accepted-0306.json",
+        "sha256": "e43ce383b1e0737a6a33dd2641899c2b95509c4eb6a6e89dbd50d838dd477eec"
+      },
+      "maximumReconstructedResidualN": 9.99342590346508e-07,
+      "placementSha256": "1521126ae668751aa4b482d8a6516c8135bbca89dfd6661a824f03458e20f4a3",
+      "rejectedAttempts": 50,
+      "replaySha256": "bc7941aa96cc75773acfa74e0f1799120cc0203beb87c6d002ace6510ceea0db",
+      "reportSha256": "77b1df0a90fd46262d368a3fd73213ddfa8dc5c686f39a0696771e795ce5a034",
+      "runDirectory": "cuff-linux-normal-hold-hashgrid-v2",
+      "seamTargetErrorDefinition": "Norm of anchor-displacement minus the prescribed material-normal offset vector.",
+      "sewingMode": "normal-offset",
+      "sourceProvenance": {
+        "accepted": false,
+        "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+        "holdDiagnostic": {
+          "accepted": false,
+          "durationSeconds": 0.256,
+          "initialSubdivisions": 256,
+          "limitations": "No added material damping; target hold is not settled garment acceptance.",
+          "originalDurationSeconds": 0.064,
+          "parentCanonicalSha256": "918a64a58403a69a5767efaf20f8095c735fe3448f763580c910b4fe1e5283ce",
+          "rampPreservation": "sewing0-.016s; fold.016-.064s; both targets held.064-.256s"
+        },
+        "inputSha256": {
+          "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+          "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+        },
+        "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+        "subdivision": {
+          "classification": "straight-line subdivision, not physical assembly",
+          "creaseEdges": [
+            [
+              20,
+              21
+            ],
+            [
+              21,
+              24
+            ],
+            [
+              22,
+              23
+            ],
+            [
+              23,
+              32
+            ],
+            [
+              24,
+              25
+            ],
+            [
+              25,
+              26
+            ],
+            [
+              26,
+              27
+            ],
+            [
+              27,
+              28
+            ],
+            [
+              28,
+              29
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              30,
+              31
+            ],
+            [
+              31,
+              32
+            ]
+          ],
+          "creaseVertices": [
+            22,
+            23,
+            32,
+            31,
+            30,
+            29,
+            28,
+            27,
+            26,
+            25,
+            24,
+            21,
+            20
+          ],
+          "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+          "parentTriangles": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            3,
+            3,
+            3,
+            4,
+            5,
+            6,
+            7,
+            7,
+            7,
+            8,
+            9,
+            9,
+            9,
+            10,
+            10,
+            10,
+            11,
+            11,
+            11,
+            12,
+            12,
+            12,
+            13,
+            14,
+            14,
+            14,
+            15,
+            16,
+            16,
+            16,
+            17,
+            18,
+            18,
+            18,
+            19,
+            20,
+            20,
+            20,
+            21,
+            21,
+            21,
+            22,
+            23
+          ],
+          "sourceStitchPath": {
+            "lengthMm": 240.0,
+            "name": "outer",
+            "samples": [
+              {
+                "arcMm": 0.0,
+                "restPosition": [
+                  240.0,
+                  55.0
+                ],
+                "sourceFraction": 0.0,
+                "sourceSegment": 3,
+                "triangle": 14,
+                "weights": [
+                  0.0018315018315018523,
+                  0.26666666666666666,
+                  0.7315018315018316
+                ]
+              },
+              {
+                "arcMm": 38.038095238095224,
+                "restPosition": [
+                  201.96190476190478,
+                  55.0
+                ],
+                "sourceFraction": 0.15849206349206343,
+                "sourceSegment": 3,
+                "triangle": 16,
+                "weights": [
+                  0.26666666666666694,
+                  0.7333333333333331,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 47.94285714285715,
+                "restPosition": [
+                  192.05714285714285,
+                  55.0
+                ],
+                "sourceFraction": 0.19976190476190478,
+                "sourceSegment": 3,
+                "triangle": 12,
+                "weights": [
+                  0.26666666666666666,
+                  0.7333333333333331,
+                  3.3306690738754696e-16
+                ]
+              },
+              {
+                "arcMm": 86.07619047619048,
+                "restPosition": [
+                  153.92380952380952,
+                  55.0
+                ],
+                "sourceFraction": 0.35865079365079366,
+                "sourceSegment": 3,
+                "triangle": 7,
+                "weights": [
+                  4.0810659694939096e-17,
+                  0.2666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 95.98095238095237,
+                "restPosition": [
+                  144.01904761904763,
+                  55.0
+                ],
+                "sourceFraction": 0.3999206349206349,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.0,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 134.1142857142857,
+                "restPosition": [
+                  105.8857142857143,
+                  55.0
+                ],
+                "sourceFraction": 0.5588095238095238,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.7333333333333331,
+                  0.26666666666666666,
+                  2.7755575615628914e-16
+                ]
+              },
+              {
+                "arcMm": 144.01904761904763,
+                "restPosition": [
+                  95.98095238095237,
+                  55.0
+                ],
+                "sourceFraction": 0.6000793650793651,
+                "sourceSegment": 3,
+                "triangle": 3,
+                "weights": [
+                  0.7333333333333334,
+                  2.0405329847469546e-16,
+                  0.2666666666666664
+                ]
+              },
+              {
+                "arcMm": 153.92380952380952,
+                "restPosition": [
+                  86.07619047619048,
+                  55.0
+                ],
+                "sourceFraction": 0.6413492063492063,
+                "sourceSegment": 3,
+                "triangle": 10,
+                "weights": [
+                  2.9150471210670777e-17,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 192.05714285714285,
+                "restPosition": [
+                  47.94285714285715,
+                  55.0
+                ],
+                "sourceFraction": 0.8002380952380952,
+                "sourceSegment": 3,
+                "triangle": 9,
+                "weights": [
+                  0.2666666666666667,
+                  0.7333333333333333,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 201.96190476190475,
+                "restPosition": [
+                  38.03809523809525,
+                  55.0
+                ],
+                "sourceFraction": 0.8415079365079364,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.2666666666666666,
+                  0.7333333333333335,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 240.0,
+                "restPosition": [
+                  0.0,
+                  55.0
+                ],
+                "sourceFraction": 1.0,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.26666666666666666,
+                  0.0018315018315018233,
+                  0.7315018315018316
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "samples": [
+                  0,
+                  1
+                ],
+                "triangle": 14
+              },
+              {
+                "samples": [
+                  1,
+                  2
+                ],
+                "triangle": 16
+              },
+              {
+                "samples": [
+                  2,
+                  3
+                ],
+                "triangle": 12
+              },
+              {
+                "samples": [
+                  3,
+                  4
+                ],
+                "triangle": 7
+              },
+              {
+                "samples": [
+                  4,
+                  5
+                ],
+                "triangle": 20
+              },
+              {
+                "samples": [
+                  5,
+                  6
+                ],
+                "triangle": 21
+              },
+              {
+                "samples": [
+                  6,
+                  7
+                ],
+                "triangle": 3
+              },
+              {
+                "samples": [
+                  7,
+                  8
+                ],
+                "triangle": 10
+              },
+              {
+                "samples": [
+                  8,
+                  9
+                ],
+                "triangle": 9
+              },
+              {
+                "samples": [
+                  9,
+                  10
+                ],
+                "triangle": 11
+              }
+            ],
+            "sourceEnd": 4,
+            "sourceStart": 3
+          },
+          "sourceWeights": [
+            {
+              "0": 1.0
+            },
+            {
+              "1": 1.0
+            },
+            {
+              "2": 1.0
+            },
+            {
+              "3": 1.0
+            },
+            {
+              "4": 1.0
+            },
+            {
+              "5": 1.0
+            },
+            {
+              "6": 1.0
+            },
+            {
+              "7": 1.0
+            },
+            {
+              "8": 1.0
+            },
+            {
+              "9": 1.0
+            },
+            {
+              "10": 1.0
+            },
+            {
+              "11": 1.0
+            },
+            {
+              "12": 1.0
+            },
+            {
+              "13": 1.0
+            },
+            {
+              "14": 1.0
+            },
+            {
+              "15": 1.0
+            },
+            {
+              "16": 1.0
+            },
+            {
+              "17": 1.0
+            },
+            {
+              "18": 1.0
+            },
+            {
+              "19": 1.0
+            },
+            {
+              "1": 0.7333333333333334,
+              "4": 0.26666666666666666
+            },
+            {
+              "1": 0.7333333333333334,
+              "14": 0.26666666666666666
+            },
+            {
+              "2": 0.7333333333333334,
+              "9": 0.26666666666666666
+            },
+            {
+              "19": 0.26666666666666666,
+              "2": 0.7333333333333334
+            },
+            {
+              "14": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "16": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "8": 0.7333333333333334
+            },
+            {
+              "19": 0.26666666666666666,
+              "8": 0.7333333333333334
+            }
+          ],
+          "triangles": [
+            [
+              14,
+              4,
+              0
+            ],
+            [
+              21,
+              1,
+              20
+            ],
+            [
+              4,
+              14,
+              21
+            ],
+            [
+              4,
+              21,
+              20
+            ],
+            [
+              13,
+              14,
+              0
+            ],
+            [
+              6,
+              26,
+              27
+            ],
+            [
+              26,
+              15,
+              16
+            ],
+            [
+              26,
+              16,
+              27
+            ],
+            [
+              13,
+              15,
+              14
+            ],
+            [
+              15,
+              12,
+              16
+            ],
+            [
+              12,
+              15,
+              13
+            ],
+            [
+              30,
+              7,
+              29
+            ],
+            [
+              17,
+              18,
+              30
+            ],
+            [
+              17,
+              30,
+              29
+            ],
+            [
+              18,
+              17,
+              11
+            ],
+            [
+              25,
+              5,
+              24
+            ],
+            [
+              15,
+              25,
+              24
+            ],
+            [
+              15,
+              24,
+              14
+            ],
+            [
+              5,
+              25,
+              26
+            ],
+            [
+              5,
+              26,
+              6
+            ],
+            [
+              25,
+              15,
+              26
+            ],
+            [
+              24,
+              5,
+              1
+            ],
+            [
+              24,
+              1,
+              21
+            ],
+            [
+              14,
+              24,
+              21
+            ],
+            [
+              31,
+              8,
+              7
+            ],
+            [
+              31,
+              7,
+              30
+            ],
+            [
+              18,
+              31,
+              30
+            ],
+            [
+              10,
+              18,
+              11
+            ],
+            [
+              8,
+              32,
+              23
+            ],
+            [
+              8,
+              23,
+              2
+            ],
+            [
+              32,
+              19,
+              23
+            ],
+            [
+              19,
+              10,
+              3
+            ],
+            [
+              32,
+              8,
+              31
+            ],
+            [
+              19,
+              32,
+              31
+            ],
+            [
+              19,
+              31,
+              18
+            ],
+            [
+              10,
+              19,
+              18
+            ],
+            [
+              22,
+              2,
+              23
+            ],
+            [
+              19,
+              9,
+              22
+            ],
+            [
+              19,
+              22,
+              23
+            ],
+            [
+              9,
+              19,
+              3
+            ],
+            [
+              6,
+              28,
+              29
+            ],
+            [
+              6,
+              29,
+              7
+            ],
+            [
+              28,
+              17,
+              29
+            ],
+            [
+              28,
+              6,
+              27
+            ],
+            [
+              17,
+              28,
+              27
+            ],
+            [
+              17,
+              27,
+              16
+            ],
+            [
+              12,
+              17,
+              16
+            ],
+            [
+              17,
+              12,
+              11
+            ]
+          ],
+          "vertices": [
+            [
+              -0.01,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.065
+            ],
+            [
+              0.25,
+              0.065
+            ],
+            [
+              0.25,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.0275
+            ],
+            [
+              0.042,
+              0.065
+            ],
+            [
+              0.094,
+              0.065
+            ],
+            [
+              0.146,
+              0.065
+            ],
+            [
+              0.198,
+              0.065
+            ],
+            [
+              0.25,
+              0.0275
+            ],
+            [
+              0.198,
+              -0.01
+            ],
+            [
+              0.146,
+              -0.01
+            ],
+            [
+              0.094,
+              -0.01
+            ],
+            [
+              0.042,
+              -0.01
+            ],
+            [
+              0.027142857142857146,
+              0.0275
+            ],
+            [
+              0.0642857142857143,
+              0.0275
+            ],
+            [
+              0.10142857142857144,
+              0.0275
+            ],
+            [
+              0.1385714285714286,
+              0.0275
+            ],
+            [
+              0.17571428571428574,
+              0.0275
+            ],
+            [
+              0.21285714285714286,
+              0.0275
+            ],
+            [
+              -0.01,
+              0.055
+            ],
+            [
+              -9.523809523809528e-05,
+              0.055
+            ],
+            [
+              0.25,
+              0.055
+            ],
+            [
+              0.2400952380952381,
+              0.055
+            ],
+            [
+              0.038038095238095246,
+              0.055
+            ],
+            [
+              0.04794285714285715,
+              0.055
+            ],
+            [
+              0.08607619047619047,
+              0.055
+            ],
+            [
+              0.09598095238095239,
+              0.055
+            ],
+            [
+              0.10588571428571429,
+              0.055
+            ],
+            [
+              0.14401904761904763,
+              0.055
+            ],
+            [
+              0.15392380952380952,
+              0.055
+            ],
+            [
+              0.19205714285714287,
+              0.055
+            ],
+            [
+              0.2019619047619048,
+              0.055
+            ]
+          ]
+        }
+      },
+      "supervisedCpuSeconds": 351.71508700000004,
+      "verificationDigests": {
+        "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+        "replayScriptSha256": "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a",
+        "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "workerReportedCpuSeconds": 350.596330016
+    }
+  },
+  "runtime": {
+    "ipctkSource": {
+      "url": "https://github.com/ipc-sim/ipc-toolkit.git",
+      "vcs_info": {
+        "commit_id": "478876f30bf8ea768772dd8983c26a1a801ad976",
+        "requested_revision": "478876f30bf8ea768772dd8983c26a1a801ad976",
+        "vcs": "git"
+      }
+    },
+    "longdoubleMantissaBits": 112,
+    "machine": "aarch64",
+    "packages": {
+      "ipctk": "1.6.0",
+      "newton": "1.6.0",
+      "numpy": "2.5.3",
+      "scipy": "1.17.0",
+      "shapely": "2.1.2",
+      "warp-lang": "1.17.0"
+    },
+    "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+    "python": "3.13.15"
+  },
+  "runtimeEvidence": "Separately captured runtime metadata; the run reports do not cryptographically bind this manifest.",
+  "runtimeManifestSha256": "43a5e3bc6cd1b78960d2648bdb0cf8aebc47376143b9d0e67403371045f0e1e8",
+  "seamLawComparison": {
+    "accepted": false,
+    "comparisonSeconds": 0.256,
+    "distanceRun": "cuff-linux-distance-hold-hashgrid-v2",
+    "limitations": [
+      "Only the seam potential changes; captured geometry, placement, targets, contact, code and other arguments agree.",
+      "Adaptive time partitions differ in these runs; this is not a comparison on identical physical substeps.",
+      "Final states retain motion; this finite-duration control does not establish equilibrium or timestep/refinement convergence.",
+      "Normal-offset seam error is a vector residual; distance-only seam error is a scalar distance residual. Their magnitudes are not the same metric.",
+      "Distance-only sewing does not prescribe the material-normal side or orientation. It is a diagnostic substitution, not an accepted cuff construction."
+    ],
+    "normalRun": "cuff-linux-normal-hold-hashgrid-v2",
+    "sameAcceptedTimePartition": false,
+    "sharedCanonicalSha256": "40ca533388186d6d6654005930e69f3538f8d17b86f64af1f858c3b3aa269301",
+    "sharedPlacementSha256": "1521126ae668751aa4b482d8a6516c8135bbca89dfd6661a824f03458e20f4a3"
+  },
+  "sharedPrefix": {
+    "maximumPositionDifferenceM": 0.0,
+    "maximumVelocityDifferenceMps": 0.0,
+    "seconds": 0.064,
+    "states": 67
+  },
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "840a55bee7a668abf450d3cbc6155267cbb0bc44e63a19a46349d890f74ed5d2",
+    "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+    "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+    "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+    "solver_cuff_sequence.py": "5132d08a7d11857e60a866eb441a00d585f75f39337b8725b25a4a7335cf98af",
+    "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+    "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+    "solver_global_sewing.py": "ec79f238045fda558ce9120a0b0a913607e5c94dfa6821686e0b177d20a3a663",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+    "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_normal_sewing.py": "0c97bb3f92a4c47b078aef53dd75b122681ddaa7e1f81cc3cfad770fdcc9badb",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+    "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+    "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e",
+    "spike-contact-continuation.py": "748b2bd3c2ea05863056bdce892dd161e7e8fc8fc481f592e39506bea5154ed1"
+  },
+  "sourceProvenance": {
+    "accepted": false,
+    "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+    "inputSha256": {
+      "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+      "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+    },
+    "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+    "subdivision": {
+      "classification": "straight-line subdivision, not physical assembly",
+      "creaseEdges": [
+        [
+          20,
+          21
+        ],
+        [
+          21,
+          24
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          23,
+          32
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          31,
+          32
+        ]
+      ],
+      "creaseVertices": [
+        22,
+        23,
+        32,
+        31,
+        30,
+        29,
+        28,
+        27,
+        26,
+        25,
+        24,
+        21,
+        20
+      ],
+      "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+      "parentTriangles": [
+        0,
+        1,
+        1,
+        1,
+        2,
+        3,
+        3,
+        3,
+        4,
+        5,
+        6,
+        7,
+        7,
+        7,
+        8,
+        9,
+        9,
+        9,
+        10,
+        10,
+        10,
+        11,
+        11,
+        11,
+        12,
+        12,
+        12,
+        13,
+        14,
+        14,
+        14,
+        15,
+        16,
+        16,
+        16,
+        17,
+        18,
+        18,
+        18,
+        19,
+        20,
+        20,
+        20,
+        21,
+        21,
+        21,
+        22,
+        23
+      ],
+      "sourceStitchPath": {
+        "lengthMm": 240.0,
+        "name": "outer",
+        "samples": [
+          {
+            "arcMm": 0.0,
+            "restPosition": [
+              240.0,
+              55.0
+            ],
+            "sourceFraction": 0.0,
+            "sourceSegment": 3,
+            "triangle": 14,
+            "weights": [
+              0.0018315018315018523,
+              0.26666666666666666,
+              0.7315018315018316
+            ]
+          },
+          {
+            "arcMm": 38.038095238095224,
+            "restPosition": [
+              201.96190476190478,
+              55.0
+            ],
+            "sourceFraction": 0.15849206349206343,
+            "sourceSegment": 3,
+            "triangle": 16,
+            "weights": [
+              0.26666666666666694,
+              0.7333333333333331,
+              0.0
+            ]
+          },
+          {
+            "arcMm": 47.94285714285715,
+            "restPosition": [
+              192.05714285714285,
+              55.0
+            ],
+            "sourceFraction": 0.19976190476190478,
+            "sourceSegment": 3,
+            "triangle": 12,
+            "weights": [
+              0.26666666666666666,
+              0.7333333333333331,
+              3.3306690738754696e-16
+            ]
+          },
+          {
+            "arcMm": 86.07619047619048,
+            "restPosition": [
+              153.92380952380952,
+              55.0
+            ],
+            "sourceFraction": 0.35865079365079366,
+            "sourceSegment": 3,
+            "triangle": 7,
+            "weights": [
+              4.0810659694939096e-17,
+              0.2666666666666666,
+              0.7333333333333334
+            ]
+          },
+          {
+            "arcMm": 95.98095238095237,
+            "restPosition": [
+              144.01904761904763,
+              55.0
+            ],
+            "sourceFraction": 0.3999206349206349,
+            "sourceSegment": 3,
+            "triangle": 20,
+            "weights": [
+              0.0,
+              0.26666666666666666,
+              0.7333333333333334
+            ]
+          },
+          {
+            "arcMm": 134.1142857142857,
+            "restPosition": [
+              105.8857142857143,
+              55.0
+            ],
+            "sourceFraction": 0.5588095238095238,
+            "sourceSegment": 3,
+            "triangle": 20,
+            "weights": [
+              0.7333333333333331,
+              0.26666666666666666,
+              2.7755575615628914e-16
+            ]
+          },
+          {
+            "arcMm": 144.01904761904763,
+            "restPosition": [
+              95.98095238095237,
+              55.0
+            ],
+            "sourceFraction": 0.6000793650793651,
+            "sourceSegment": 3,
+            "triangle": 3,
+            "weights": [
+              0.7333333333333334,
+              2.0405329847469546e-16,
+              0.2666666666666664
+            ]
+          },
+          {
+            "arcMm": 153.92380952380952,
+            "restPosition": [
+              86.07619047619048,
+              55.0
+            ],
+            "sourceFraction": 0.6413492063492063,
+            "sourceSegment": 3,
+            "triangle": 10,
+            "weights": [
+              2.9150471210670777e-17,
+              0.26666666666666666,
+              0.7333333333333334
+            ]
+          },
+          {
+            "arcMm": 192.05714285714285,
+            "restPosition": [
+              47.94285714285715,
+              55.0
+            ],
+            "sourceFraction": 0.8002380952380952,
+            "sourceSegment": 3,
+            "triangle": 9,
+            "weights": [
+              0.2666666666666667,
+              0.7333333333333333,
+              0.0
+            ]
+          },
+          {
+            "arcMm": 201.96190476190475,
+            "restPosition": [
+              38.03809523809525,
+              55.0
+            ],
+            "sourceFraction": 0.8415079365079364,
+            "sourceSegment": 3,
+            "triangle": 11,
+            "weights": [
+              0.2666666666666666,
+              0.7333333333333335,
+              0.0
+            ]
+          },
+          {
+            "arcMm": 240.0,
+            "restPosition": [
+              0.0,
+              55.0
+            ],
+            "sourceFraction": 1.0,
+            "sourceSegment": 3,
+            "triangle": 11,
+            "weights": [
+              0.26666666666666666,
+              0.0018315018315018233,
+              0.7315018315018316
+            ]
+          }
+        ],
+        "segments": [
+          {
+            "samples": [
+              0,
+              1
+            ],
+            "triangle": 14
+          },
+          {
+            "samples": [
+              1,
+              2
+            ],
+            "triangle": 16
+          },
+          {
+            "samples": [
+              2,
+              3
+            ],
+            "triangle": 12
+          },
+          {
+            "samples": [
+              3,
+              4
+            ],
+            "triangle": 7
+          },
+          {
+            "samples": [
+              4,
+              5
+            ],
+            "triangle": 20
+          },
+          {
+            "samples": [
+              5,
+              6
+            ],
+            "triangle": 21
+          },
+          {
+            "samples": [
+              6,
+              7
+            ],
+            "triangle": 3
+          },
+          {
+            "samples": [
+              7,
+              8
+            ],
+            "triangle": 10
+          },
+          {
+            "samples": [
+              8,
+              9
+            ],
+            "triangle": 9
+          },
+          {
+            "samples": [
+              9,
+              10
+            ],
+            "triangle": 11
+          }
+        ],
+        "sourceEnd": 4,
+        "sourceStart": 3
+      },
+      "sourceWeights": [
+        {
+          "0": 1.0
+        },
+        {
+          "1": 1.0
+        },
+        {
+          "2": 1.0
+        },
+        {
+          "3": 1.0
+        },
+        {
+          "4": 1.0
+        },
+        {
+          "5": 1.0
+        },
+        {
+          "6": 1.0
+        },
+        {
+          "7": 1.0
+        },
+        {
+          "8": 1.0
+        },
+        {
+          "9": 1.0
+        },
+        {
+          "10": 1.0
+        },
+        {
+          "11": 1.0
+        },
+        {
+          "12": 1.0
+        },
+        {
+          "13": 1.0
+        },
+        {
+          "14": 1.0
+        },
+        {
+          "15": 1.0
+        },
+        {
+          "16": 1.0
+        },
+        {
+          "17": 1.0
+        },
+        {
+          "18": 1.0
+        },
+        {
+          "19": 1.0
+        },
+        {
+          "1": 0.7333333333333334,
+          "4": 0.26666666666666666
+        },
+        {
+          "1": 0.7333333333333334,
+          "14": 0.26666666666666666
+        },
+        {
+          "2": 0.7333333333333334,
+          "9": 0.26666666666666666
+        },
+        {
+          "19": 0.26666666666666666,
+          "2": 0.7333333333333334
+        },
+        {
+          "14": 0.26666666666666666,
+          "5": 0.7333333333333334
+        },
+        {
+          "15": 0.26666666666666666,
+          "5": 0.7333333333333334
+        },
+        {
+          "15": 0.26666666666666666,
+          "6": 0.7333333333333334
+        },
+        {
+          "16": 0.26666666666666666,
+          "6": 0.7333333333333334
+        },
+        {
+          "17": 0.26666666666666666,
+          "6": 0.7333333333333334
+        },
+        {
+          "17": 0.26666666666666666,
+          "7": 0.7333333333333334
+        },
+        {
+          "18": 0.26666666666666666,
+          "7": 0.7333333333333334
+        },
+        {
+          "18": 0.26666666666666666,
+          "8": 0.7333333333333334
+        },
+        {
+          "19": 0.26666666666666666,
+          "8": 0.7333333333333334
+        }
+      ],
+      "triangles": [
+        [
+          14,
+          4,
+          0
+        ],
+        [
+          21,
+          1,
+          20
+        ],
+        [
+          4,
+          14,
+          21
+        ],
+        [
+          4,
+          21,
+          20
+        ],
+        [
+          13,
+          14,
+          0
+        ],
+        [
+          6,
+          26,
+          27
+        ],
+        [
+          26,
+          15,
+          16
+        ],
+        [
+          26,
+          16,
+          27
+        ],
+        [
+          13,
+          15,
+          14
+        ],
+        [
+          15,
+          12,
+          16
+        ],
+        [
+          12,
+          15,
+          13
+        ],
+        [
+          30,
+          7,
+          29
+        ],
+        [
+          17,
+          18,
+          30
+        ],
+        [
+          17,
+          30,
+          29
+        ],
+        [
+          18,
+          17,
+          11
+        ],
+        [
+          25,
+          5,
+          24
+        ],
+        [
+          15,
+          25,
+          24
+        ],
+        [
+          15,
+          24,
+          14
+        ],
+        [
+          5,
+          25,
+          26
+        ],
+        [
+          5,
+          26,
+          6
+        ],
+        [
+          25,
+          15,
+          26
+        ],
+        [
+          24,
+          5,
+          1
+        ],
+        [
+          24,
+          1,
+          21
+        ],
+        [
+          14,
+          24,
+          21
+        ],
+        [
+          31,
+          8,
+          7
+        ],
+        [
+          31,
+          7,
+          30
+        ],
+        [
+          18,
+          31,
+          30
+        ],
+        [
+          10,
+          18,
+          11
+        ],
+        [
+          8,
+          32,
+          23
+        ],
+        [
+          8,
+          23,
+          2
+        ],
+        [
+          32,
+          19,
+          23
+        ],
+        [
+          19,
+          10,
+          3
+        ],
+        [
+          32,
+          8,
+          31
+        ],
+        [
+          19,
+          32,
+          31
+        ],
+        [
+          19,
+          31,
+          18
+        ],
+        [
+          10,
+          19,
+          18
+        ],
+        [
+          22,
+          2,
+          23
+        ],
+        [
+          19,
+          9,
+          22
+        ],
+        [
+          19,
+          22,
+          23
+        ],
+        [
+          9,
+          19,
+          3
+        ],
+        [
+          6,
+          28,
+          29
+        ],
+        [
+          6,
+          29,
+          7
+        ],
+        [
+          28,
+          17,
+          29
+        ],
+        [
+          28,
+          6,
+          27
+        ],
+        [
+          17,
+          28,
+          27
+        ],
+        [
+          17,
+          27,
+          16
+        ],
+        [
+          12,
+          17,
+          16
+        ],
+        [
+          17,
+          12,
+          11
+        ]
+      ],
+      "vertices": [
+        [
+          -0.01,
+          -0.01
+        ],
+        [
+          -0.01,
+          0.065
+        ],
+        [
+          0.25,
+          0.065
+        ],
+        [
+          0.25,
+          -0.01
+        ],
+        [
+          -0.01,
+          0.0275
+        ],
+        [
+          0.042,
+          0.065
+        ],
+        [
+          0.094,
+          0.065
+        ],
+        [
+          0.146,
+          0.065
+        ],
+        [
+          0.198,
+          0.065
+        ],
+        [
+          0.25,
+          0.0275
+        ],
+        [
+          0.198,
+          -0.01
+        ],
+        [
+          0.146,
+          -0.01
+        ],
+        [
+          0.094,
+          -0.01
+        ],
+        [
+          0.042,
+          -0.01
+        ],
+        [
+          0.027142857142857146,
+          0.0275
+        ],
+        [
+          0.0642857142857143,
+          0.0275
+        ],
+        [
+          0.10142857142857144,
+          0.0275
+        ],
+        [
+          0.1385714285714286,
+          0.0275
+        ],
+        [
+          0.17571428571428574,
+          0.0275
+        ],
+        [
+          0.21285714285714286,
+          0.0275
+        ],
+        [
+          -0.01,
+          0.055
+        ],
+        [
+          -9.523809523809528e-05,
+          0.055
+        ],
+        [
+          0.25,
+          0.055
+        ],
+        [
+          0.2400952380952381,
+          0.055
+        ],
+        [
+          0.038038095238095246,
+          0.055
+        ],
+        [
+          0.04794285714285715,
+          0.055
+        ],
+        [
+          0.08607619047619047,
+          0.055
+        ],
+        [
+          0.09598095238095239,
+          0.055
+        ],
+        [
+          0.10588571428571429,
+          0.055
+        ],
+        [
+          0.14401904761904763,
+          0.055
+        ],
+        [
+          0.15392380952380952,
+          0.055
+        ],
+        [
+          0.19205714285714287,
+          0.055
+        ],
+        [
+          0.2019619047619048,
+          0.055
+        ]
+      ]
+    }
+  },
+  "verificationScope": "Checks captured hashes and completed replay results; does not re-execute the numerical or exact proofs."
+}
