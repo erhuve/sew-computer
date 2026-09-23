@@ -18,6 +18,10 @@ The seam-activation primitive checkpoint passes **565 full Linux numerical/super
 
 The captured seam-control integration subsequently passes **628 full Linux numerical/supervision tests in 268.099 seconds**, including complete five-fabric cuff capture and independent combined-control replay. The final namespace hardening and focused rechecks are recorded in the [review](../reviews/3d-cloth-contact.md#current-verification-boundary). These numerical controls still do not execute a binding or turning phase.
 
+The next [sampled seam-path gate](3d-solver-feasibility.md#sampled-sewing-path-bounds--2026-09-23) adds optional exact temporal distance-error proof to replay. It requires explicit tolerance and captured scalar-distance controls, rejects knot-crossing intervals, and retains the distinction between sampled temporal bounds and continuous spatial stitching. Construction-specific attachment and motion still need their own source-preserving inputs and observations.
+
+This final checkpoint passes **660 full pinned Linux numerical/supervision tests in 315.871 seconds**, including the final namespace fix and thirty new seam-path/CLI tests. Twenty-seven focused sweep tests also pass on macOS. The earlier checkpoint counts remain historical, not additional current tests.
+
 The final gripper checkpoint passes **514 full Linux numerical/supervision tests in 203.919 seconds**. A preceding run exposed two stale unrestricted mock fixtures; only their declared optional solver features changed, and original guard assertions remain intact. The focused 61 gripper checks and 24 journal checks overlap the full discovery and must not be added to its total. See the review for failure logs and scope. No application release checks or deployment were performed.
 
 - Repository: `erhuve/sew-computer`; continue on `physical-path-certificate-sep19`.

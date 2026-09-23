@@ -25,6 +25,7 @@ broad_phase_verifier, broad_phase_verifier_digest = load_verifier("solver_ipc_br
 coverage_verifier, coverage_verifier_digest = load_verifier("solver_candidate_coverage.py", "replay_coverage_verifier")
 gripper_verifier, gripper_verifier_digest = load_verifier("solver_gripper_replay.py", "replay_material_gripper_verifier")
 sewing_verifier, sewing_verifier_digest = load_verifier("solver_sewing_replay.py", "replay_sewing_activation_verifier")
+sewing_path_verifier, sewing_path_verifier_digest = load_verifier("solver_sewing_sweep.py", "replay_sewing_path_verifier")
 capture_verifier, capture_verifier_digest = load_verifier("solver_process_budget.py", "replay_capture_verifier")
 
 if not __debug__:
@@ -34,9 +35,14 @@ parser = argparse.ArgumentParser(description="Replay trusted saved rest-filtered
 parser.add_argument("run", type=Path)
 parser.add_argument("--cpu-limit-seconds", type=int, default=100,
                     help="Bounded replay CPU budget, independent of simulation budgets (1–3600 seconds)")
+parser.add_argument("--sewing-path-tolerance-m", type=float,
+                    help="Optional unweighted sampled-distance seam bound over each affine saved-state path; explicit positive metres")
 replay_arguments = parser.parse_args()
 if not 1 <= replay_arguments.cpu_limit_seconds <= 3600:
     parser.error("Replay CPU limit must be between 1 and 3600 seconds")
+sewing_path_tolerance = replay_arguments.sewing_path_tolerance_m
+if sewing_path_tolerance is not None and (not math.isfinite(sewing_path_tolerance) or sewing_path_tolerance <= 0):
+    parser.error("Sewing path tolerance must be finite and strictly positive")
 resource.setrlimit(resource.RLIMIT_CPU, (replay_arguments.cpu_limit_seconds,
                                       replay_arguments.cpu_limit_seconds + 5))
 resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
@@ -84,6 +90,8 @@ if gripper_enabled:
 sewing_enabled = arguments.get("sewing_activation", False)
 assert type(sewing_enabled) is bool
 assert sewing_enabled == ("sewingActuation" in source)
+if sewing_path_tolerance is not None and (not sewing_enabled or arguments.get("sewing_mode") != "distance"):
+    parser.error("Sewing path verification requires captured scalar-distance controls")
 sewing_controls, sewing_record = None, None
 initial_sewing_verification = None
 if sewing_enabled:
@@ -104,6 +112,11 @@ if arguments.get("assembly_schedule"):
     AssemblySchedule(recipe, arguments["subdivisions"])
     assert report["assemblySchedule"] == recipe
     schedule_knots = recipe["knots"]
+
+sewing_path_knots = None
+if sewing_path_tolerance is not None:
+    sewing_path_knots = sorted(set(sewing_record.fractions) | {
+        Fraction(knot["fraction"]) for knot in (schedule_knots or [])})
 
 
 def operation_progress(fraction, key):
@@ -274,6 +287,20 @@ for artifact in report["acceptedStateArtifacts"]:
             old_targets, targets, record["step"])
         gradient += sewing_gradient
         sewing_diagnostics = {"sewingVerification": sewing_evidence}
+        if sewing_path_tolerance is not None:
+            start_fraction, end_fraction = sewing_path_verifier.verify_control_interval(
+                record["startFraction"], record["endFraction"], sewing_path_knots)
+            path_evidence = sewing_path_verifier.verify_distance_sewing_sweep_exact(
+                previous, positions, sewing_record.rows, row_ids=sewing_record.row_ids,
+                initial_targets=old_targets, final_targets=targets,
+                initial_activation=sewing_verifier.parameters(sewing_record, start_fraction),
+                final_activation=sewing_verifier.parameters(sewing_record, end_fraction),
+                tolerance_m=sewing_path_tolerance)
+            sewing_diagnostics["sewingPathVerification"] = dict(path_evidence,
+                sourceSha256=sewing_record.source_sha256,
+                startFraction=record["startFraction"], endFraction=record["endFraction"],
+                targetReference="Exact affine interpolation between independently reconstructed binary64 endpoint targets; a planned-ramp geometric reference, not backward-Euler parameter work or continuously applied forces",
+                knotPolicy="No captured activation or assembly knot lies inside this accepted interval")
     elif solver.sewing_mode == "normal-offset":
         frame = positions[solver.sewing_frame_faces]
         first_edge, second_edge = frame[:, 1] - frame[:, 0], frame[:, 2] - frame[:, 0]
@@ -434,6 +461,8 @@ result = {"accepted": False, "states": results, "contactProfile": contact.profil
           "candidateCoverageVerifierSha256": coverage_verifier_digest,
           "captureVerifierSha256": capture_verifier_digest,
           "sewingVerifierSha256": sewing_verifier_digest if sewing_enabled else None,
+          "sewingPathVerifierSha256": sewing_path_verifier_digest if sewing_path_tolerance is not None else None,
+          "sewingPathToleranceM": sewing_path_tolerance,
           "initialSewingVerification": initial_sewing_verification,
           "verifiedSewingWorkSummary": verified_sewing_summary,
           "gripperVerifierSha256": gripper_verifier_digest if gripper_enabled else None,
