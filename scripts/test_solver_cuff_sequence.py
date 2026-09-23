@@ -174,7 +174,7 @@ class CuffSequenceTests(unittest.TestCase):
             else:
                 sewing["placedMeters"][25][0] += .001
             with self.subTest(mutation=mutation), self.assertRaises((ValueError, AssertionError)):
-                combine_cuff_controls(sewing, fold)
+                combine_cuff_controls(sewing, fold, crease_frame_region="body")
 
 
 if __name__ == "__main__":

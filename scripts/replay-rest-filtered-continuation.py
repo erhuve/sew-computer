@@ -26,11 +26,17 @@ coverage_verifier, coverage_verifier_digest = load_verifier("solver_candidate_co
 if not __debug__:
     raise RuntimeError("Replay requires enabled verification assertions")
 
-resource.setrlimit(resource.RLIMIT_CPU, (100, 105))
-resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
 parser = argparse.ArgumentParser(description="Replay trusted saved rest-filtered research states and exact path proofs")
 parser.add_argument("run", type=Path)
-run = parser.parse_args().run.resolve()
+parser.add_argument("--cpu-limit-seconds", type=int, default=100,
+                    help="Bounded replay CPU budget, independent of simulation budgets (1–3600 seconds)")
+replay_arguments = parser.parse_args()
+if not 1 <= replay_arguments.cpu_limit_seconds <= 3600:
+    parser.error("Replay CPU limit must be between 1 and 3600 seconds")
+resource.setrlimit(resource.RLIMIT_CPU, (replay_arguments.cpu_limit_seconds,
+                                      replay_arguments.cpu_limit_seconds + 5))
+resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+run = replay_arguments.run.resolve()
 report = json.loads((run / "report.json").read_text())
 assert report["terminal"]
 assert report["accepted"] is False
@@ -297,6 +303,9 @@ result = {"accepted": False, "states": results, "contactProfile": contact.profil
           "broadPhaseVerifierSha256": broad_phase_verifier_digest,
           "candidateCoverageVerifierSha256": coverage_verifier_digest,
           "verificationBroadPhase": broad_phase_verifier.CONTACT_BROAD_PHASE_PROFILE,
+          "verificationCpuLimitSeconds": replay_arguments.cpu_limit_seconds,
+          "verificationCpuSeconds": (resource.getrusage(resource.RUSAGE_SELF).ru_utime
+                                     + resource.getrusage(resource.RUSAGE_SELF).ru_stime),
           "sourceDigests": report["sourceDigests"], "reportSha256": hashlib.sha256((run / "report.json").read_bytes()).hexdigest(),
           "seamGaps": staging_seam_gaps(source, initial, previous),
           "edgeStrain": edge_strain_report(rest, previous, faces, identities),
