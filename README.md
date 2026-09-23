@@ -50,6 +50,8 @@ The Zo development Site runs from `apps/web`. Its managed process requires `SEW_
 
 ## Pattern-derived 3D development
 
+For continuation from the September 23 research checkpoint, start with the [3D engine handoff](docs/research/3d-engine-handoff.md): current branch, verified evidence, remaining blockers, reproduction commands and local-only artifact dependencies. The dedicated implementation plan remains authoritative; the handoff is a checkpoint, not a new plan or release approval.
+
 The isolated implementation includes private durable inspection jobs, source-preserving tessellation, physical fabric inventory/mirroring and an interactive GLB viewport. Generate a component shirt, open **3D inspection**, then **Build 3D inspection**. Rotation, zoom, mesh edges and a keyboard-accessible physical-piece selector link each fabric instance back to its actual 2D pattern. Reloads recover progress. WebGL failures retain the source-piece list and existing 2D views.
 
 These results are explicitly **placement inspection**, not assembled garments or drape. Six interfacing roles in the complete shirt remain unresolved; seam allowances are omitted. A machine-readable assembly graph records seam memberships, localized closures, operation dependencies and outstanding turning/binding/orientation semantics. Solver experiments and optional quality refinement are separate from the trusted application inspection path. See the [active 3D plan](docs/plans/pattern-derived-3d-engine.md), [solver experiments](docs/research/3d-solver-feasibility.md), [foundation review](docs/reviews/3d-engine-foundation.md) and [inspection integration review](docs/reviews/3d-inspection.md).
