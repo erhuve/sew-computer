@@ -1,0 +1,3017 @@
+{
+  "profile": "source-binding-gripper-remap-evidence-v1",
+  "accepted": false,
+  "date": "2026-09-23",
+  "scope": "Source/control migration and independent arithmetic audit only; no grippers installed, refined placement created or trajectory executed.",
+  "runtime": {
+    "python": "3.13.15",
+    "system": "Linux",
+    "machine": "aarch64",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.17.0",
+      "shapely": "2.1.2"
+    }
+  },
+  "baseArtifact": {
+    "path": ".planning/solver/binding-first-turn-unit-sep23-v1/unit.json",
+    "fileSha256": "cf5a0bab226b9aa287b7d93b3f099ddd6fe06739378f0e1794d31ad61dde3567",
+    "bytes": 258176,
+    "canonicalSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c"
+  },
+  "originalCapturedControl": {
+    "path": ".planning/solver/binding-fourfold-three-run-sep23-v1/canonical.json",
+    "fileSha256": "05e70cc9b2adcad1038f5aaf7b2c0694ba7c229984e30a66ddc575fc11aa4b6e",
+    "bytes": 294293,
+    "canonicalSha256": "aa2db98db73b49d538dcd12715a4151884f532d2c5db8990de60b9c416524129"
+  },
+  "artifacts": {
+    "audit.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/audit.json",
+      "fileSha256": "4bf6e159f384dd50f5d4a2b15cb1634637ccf5693c9c43334c0c106c805d1a8b",
+      "bytes": 1228,
+      "canonicalSha256": "11883bfe19520eec6866ea4bd5ad4434fd8e92bfdc4eff1982799430b2f76a9a"
+    },
+    "conversion-audit.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/conversion-audit.json",
+      "fileSha256": "de883e224d54307ead7ed2a6dc297a98e29c403968f331fda41630d7b9708b0e",
+      "bytes": 1228,
+      "canonicalSha256": "62953f4c13d4f2c1c859affde0bbe9f5bd18be264dfc67eae5135e74c2061d47"
+    },
+    "conversion-descriptor.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/conversion-descriptor.json",
+      "fileSha256": "b6443dee07824e6e5fadd3f7e49d345bb6444ea3df98678e5f1f4c3c6a449b5f",
+      "bytes": 27908,
+      "canonicalSha256": "2d7fc0e2320f8cc402b1efda0133ff3a155e4b5e48054963f42c4ce040f9de3c"
+    },
+    "conversion-original.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/conversion-original.json",
+      "fileSha256": "6abfebf0c35cf5f33a25f88dd84ed33fa5e8394a9055058f5d5461079c37da3c",
+      "bytes": 294288,
+      "canonicalSha256": "2dec55e255e09f11ef234c844015ca998bbde47716295d3daa72d6f6d77fa643"
+    },
+    "descriptor.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/descriptor.json",
+      "fileSha256": "e9f33a98b6c0f9a01df6faa9be2472a7d62f2e44f59fb468d0f8e8f811fe806e",
+      "bytes": 26678,
+      "canonicalSha256": "25b44f08778fd4b14194fc6cbd75d63a60209a4f1de43a156f43b9c669c855a8"
+    },
+    "original.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/original.json",
+      "fileSha256": "05e70cc9b2adcad1038f5aaf7b2c0694ba7c229984e30a66ddc575fc11aa4b6e",
+      "bytes": 294293,
+      "canonicalSha256": "aa2db98db73b49d538dcd12715a4151884f532d2c5db8990de60b9c416524129"
+    },
+    "refined.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/refined.json",
+      "fileSha256": "f1add81d9d9b6152abf8d975728750f7788bc5ad05931802259b942d230329a1",
+      "bytes": 439145,
+      "canonicalSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694"
+    },
+    "seam-audit.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/seam-audit.json",
+      "fileSha256": "0145bad6da611a012a00f3ae7a6230d2c064ab32e4ddf9ab5b2519b09511d1e3",
+      "bytes": 985,
+      "canonicalSha256": "ac0c1b1820291f7f62a90b0c1e18312b04ded852396a332433ca10979ee91372"
+    },
+    "sleeve-audit.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/sleeve-audit.json",
+      "fileSha256": "a63bb70218cb377db7080a10a6672c3667382349d68e6f401d81e5e12a7fa0bd",
+      "bytes": 1232,
+      "canonicalSha256": "ce99898f4a1829caaeaad22f031d5b4bb1491885ca974d7ffabd840c66c76640"
+    },
+    "sleeve-descriptor.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/sleeve-descriptor.json",
+      "fileSha256": "bc04c67b4b63b628772b8fbfb03a0775a76ddb6786c4ab408b0a9fed46aca770",
+      "bytes": 28416,
+      "canonicalSha256": "081a1f13ed738c7c8d3ca328904f0f4360ef5c54a9ba035a7701054fae463586"
+    },
+    "sleeve-original.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/sleeve-original.json",
+      "fileSha256": "748159f74dbcebf94beb6853c57272cf50180fc77b004bc6ce4fbadbf15e313c",
+      "bytes": 294712,
+      "canonicalSha256": "6c63c2b4ba98d20d0ff955570630cdef1e3b756c056e0088e81c1728b5b7933c"
+    },
+    "source-validation.json": {
+      "path": ".planning/solver/binding-gripper-remap-sep23-v2/source-validation.json",
+      "fileSha256": "de252c4a8363f6d6fb47361d125704b34801e1ba8a544d8bc0ea123f1068d750",
+      "bytes": 5019,
+      "canonicalSha256": "2787f1a5cefda4348cc550f449e3aae3c4eb160095dc2697195d471a2facb7d8"
+    }
+  },
+  "helperDigests": {
+    "solver_binding_gripper_remap.py": "27159d748cc26323ba359395324c11427531342075310c10fba3bda1e570aab8",
+    "solver_binding_gripper_remap_replay.py": "eb7552dfbbecf50d7976279507e6e1a47482bde7cf00fa9814eaa1ca09abc42e",
+    "solver_binding_remap_replay.py": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f",
+    "solver_gripper_input.py": "743e0f822c94a0d14a31e955c7a4368bbef9388b60d4c66510600c4f2ccb7873",
+    "solver_material_grippers.py": "c586c9d9198ac941a7dadbda8fc57c9cc33d17aa3676d6851378926e4fb9b0d8"
+  },
+  "generatorSha256": "dd085c63ddff0ee1d2af0ec1615fc5d2e5ef50bd2fac406fd4c7416d4a1efa7a",
+  "sourceBinding": {
+    "profile": "binding-refined-source-binding-v1",
+    "sourceProfile": "source-left-binding-refined-unit-v1",
+    "accepted": false,
+    "solverReady": false,
+    "sourceCorrespondenceValidated": true,
+    "sourceUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "refinementDescriptorSha256": "7652f0ffef44d83e72d43654589dd9d589b9151fabbaaa91d132f342fc649665",
+    "seamRemapDescriptorSha256": "0163315ce7fc39091c425aa521633b2dc0d9a915a49da8f0222919962c11f6bf",
+    "numericalSourceCoreSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+    "originalEmbeddedConstraintsSha256": "d2a4ec1a8d10e86c17e742571b61dccb380ee2f6082ab8cb707ce49d54612633",
+    "numericalEmbeddedConstraintsSha256": "c473c0e39c8f957c56032c9b0d98be305a2185818451abc19609796561f4125a",
+    "rowGroups": [
+      {
+        "memberIndex": 1,
+        "registrationId": "bind_opening_left_left",
+        "rowIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "bind_opening_left_right",
+        "rowIndices": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "cuff_gather_left",
+        "rowIndices": [
+          10,
+          12,
+          14,
+          16,
+          18
+        ]
+      },
+      {
+        "memberIndex": 2,
+        "registrationId": "cuff_gather_left",
+        "rowIndices": [
+          11,
+          13,
+          15,
+          17,
+          19
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:extension",
+        "rowIndices": [
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:end",
+        "rowIndices": [
+          25,
+          26,
+          27,
+          28,
+          29
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:outer",
+        "rowIndices": [
+          30,
+          31,
+          32,
+          33,
+          34
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:start",
+        "rowIndices": [
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      }
+    ],
+    "phaseConstraintRows": {
+      "cuff:left:attach-facing": [
+        11,
+        13,
+        15,
+        17,
+        19
+      ],
+      "cuff:left:bind-opening-left": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "cuff:left:bind-opening-right": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "cuff:left:close-shell": [
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "cuff:left:stitch-end": [
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "cuff:left:stitch-extension": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "cuff:left:stitch-outer": [
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "cuff:left:stitch-start": [
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "cuff:left:turn": [],
+      "cuff:left:turn-under-shell-attachment": []
+    },
+    "counts": {
+      "constraints": 40,
+      "fabricInstances": 5,
+      "phases": 10,
+      "sourceOperations": 7,
+      "starRowSelectors": 8,
+      "triangles": 398,
+      "vertices": 245,
+      "remappedBindingAnchors": 5,
+      "unchangedLocalRows": 35
+    },
+    "checkedSourceDigests": {
+      "services/engine/assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+      "services/engine/cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+      "services/engine/embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+      "services/engine/inspection_gltf.py": "336e50a04cc85930ed65bd87c9dc8df0ed5d8c39788ddab584c7f89e4520378e",
+      "services/engine/meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+      "services/engine/quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4",
+      "services/engine/shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+      "services/engine/simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+      "solver_attempt_journal.py": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c",
+      "solver_binding_refinement.py": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb",
+      "solver_binding_remap.py": "904894294afb8666115b29d4ef468a53dcaa00f932caa348f6672544ac2413fb",
+      "solver_binding_source.py": "51561505f8e490e54444d07873dd9a72386acf837a9ca65eb5d89316bbf64ff8",
+      "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+      "solver_cuff_construction.py": "f76e642a3201d4fd9de76cc77b6048334d2cf5046d80c8dffa01c6dee43bef0f",
+      "solver_cuff_source_binding.py": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f",
+      "solver_engine_source_namespace.py": "2a08d3703380981ad186427482bb9b6c4a5016044e910efea3bd03d01ee51108",
+      "solver_process_budget.py": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766",
+      "solver_sewing_activation_schedule.py": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48",
+      "solver_sewing_input.py": "cd21a37cc3baf30c00c79d0b83d35b70e1ec562a138d94ea66147d13b7fe433f",
+      "spike-full-shirt.py": "2f4287225a25e7a4e8f87c0f1284aabe7684ece781947ba860b3ae2e43e07dc4"
+    },
+    "scope": "Strict original source and declared numerical-refinement rederivation with recorded coefficient approximation; source phases remain declarative and unexecuted.",
+    "limitations": [
+      "Explicit derived numerical research source; no construction phase or garment acceptance.",
+      "Original templates, cut boundaries, source annotations and all forty original rows are retained only in immutable baseUnit.",
+      "Refinement retains the original vertex prefix and full cut domain under the separately recorded splitter and binary64 limits.",
+      "Five numerical anchors use prescribed nearest-binary64 conversion; thirty-five local rows remain byte-identical by canonical JSON.",
+      "Crease-side material frames and original-gripper migration are not supplied by this profile; normal-offset sewing is unsupported.",
+      "Placement and numerical controls require separate captured input validation; no material calibration, settling or convergence is implied."
+    ]
+  },
+  "independentSeamAudit": {
+    "profile": "independent-binding-remap-verification-v1",
+    "verified": true,
+    "accepted": false,
+    "sourceProfile": "source-left-binding-refined-unit-v1",
+    "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+    "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "refinementSha256": "7652f0ffef44d83e72d43654589dd9d589b9151fabbaaa91d132f342fc649665",
+    "remapSha256": "0163315ce7fc39091c425aa521633b2dc0d9a915a49da8f0222919962c11f6bf",
+    "rowCount": 40,
+    "remappedRows": 5,
+    "unchangedRows": 35,
+    "enumeratedCandidateCount": 23,
+    "selectedChildTriangleIndices": [
+      25,
+      35,
+      40,
+      14,
+      5
+    ],
+    "scope": "Independent raw-stage exact coefficient composition, complete original-parent child enumeration, nonnegativity, nearest-even binary64 conversion, residual bounds and derived mesh/row consistency. Pattern and split-geometry rederivation require the separately captured source validator; no frame-side, independent refined-motion, construction or physical acceptance proof."
+  },
+  "descriptor": {
+    "profile": "source-binding-gripper-remap-v1",
+    "policy": "same-control-exact-coefficient-nearest-binary64-v1",
+    "accepted": false,
+    "solverReady": false,
+    "executable": false,
+    "subdivisions": 256,
+    "originalSourceSha256": "aa2db98db73b49d538dcd12715a4151884f532d2c5db8990de60b9c416524129",
+    "refinedSourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+    "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "originalRecipeSha256": "e68d8a430e172c931e8924135908262b768a29e34b072310792a48b5d734de0d",
+    "originalMeshSha256": "d156f9544e2b2676639af617ccfe3b2fe2160899743b0c0871eabce892569ce7",
+    "refinedMeshSha256": "f08c4700992b56e965de270389fb9b7db33032505f3906ec7f918706482fab20",
+    "originalRecipe": {
+      "accepted": false,
+      "anchors": [
+        {
+          "id": "binding-wrist-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 54,
+          "weights": [
+            0.5,
+            0.25,
+            0.25
+          ]
+        },
+        {
+          "id": "binding-apex-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 49,
+          "weights": [
+            0.25,
+            0.5,
+            0.25
+          ]
+        },
+        {
+          "id": "binding-allowance",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 58,
+          "weights": [
+            0.375,
+            0.375,
+            0.25
+          ]
+        }
+      ],
+      "meshSha256": "d156f9544e2b2676639af617ccfe3b2fe2160899743b0c0871eabce892569ce7",
+      "profile": "captured-material-grippers-v1",
+      "schedule": {
+        "gripperIds": [
+          "binding-wrist-body",
+          "binding-apex-body",
+          "binding-allowance"
+        ],
+        "knots": [
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.0,
+            "targetsMeters": [
+              [
+                0.07561946493758835,
+                0.4776533226760195,
+                0.001
+              ],
+              [
+                0.0674972033980228,
+                0.40773124738501076,
+                0.001
+              ],
+              [
+                0.0467253152080486,
+                0.4455769287423712,
+                0.001
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.0625,
+            "targetsMeters": [
+              [
+                0.07561903943203574,
+                0.47765337210343384,
+                0.001130898759347037
+              ],
+              [
+                0.06749677789247019,
+                0.4077312968124251,
+                0.001130898759347037
+              ],
+              [
+                0.04672542158443676,
+                0.44557691638551766,
+                0.0009672753101632407
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.125,
+            "targetsMeters": [
+              [
+                0.07561776293360514,
+                0.47765352038355946,
+                0.0012617919114268888
+              ],
+              [
+                0.06749550139403959,
+                0.4077314450925507,
+                0.0012617919114268888
+              ],
+              [
+                0.04672574070904441,
+                0.4455768793154863,
+                0.0009345520221432777
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.1875,
+            "targetsMeters": [
+              [
+                0.0756156354969775,
+                0.47765376751004457,
+                0.0013926738492125658
+              ],
+              [
+                0.06749337395741195,
+                0.4077316922190358,
+                0.0013926738492125658
+              ],
+              [
+                0.04672627256820132,
+                0.44557681753386497,
+                0.0009018315376968585
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.25,
+            "targetsMeters": [
+              [
+                0.07561265721328513,
+                0.4776541134723031,
+                0.001523538966157463
+              ],
+              [
+                0.06749039567371957,
+                0.40773203818129433,
+                0.001523538966157463
+              ],
+              [
+                0.04672701713912441,
+                0.4455767310433003,
+                0.0008691152584606341
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.3125,
+            "targetsMeters": [
+              [
+                0.07560882821010778,
+                0.4776545582555151,
+                0.0016543816564355226
+              ],
+              [
+                0.06748656667054223,
+                0.4077324829645064,
+                0.0016543816564355226
+              ],
+              [
+                0.04672797438991874,
+                0.4455766198474973,
+                0.0008364045858911192
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.375,
+            "targetsMeters": [
+              [
+                0.07560414865146722,
+                0.47765510184062776,
+                0.001785196315181372
+              ],
+              [
+                0.06748188711190167,
+                0.40773302654961896,
+                0.001785196315181372
+              ],
+              [
+                0.04672914427957889,
+                0.4455764839512192,
+                0.0008037009212046568
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.4375,
+            "targetsMeters": [
+              [
+                0.07559861873782014,
+                0.4776557442043554,
+                0.0019159773387304152
+              ],
+              [
+                0.0674763571982546,
+                0.4077336689133467,
+                0.0019159773387304152
+              ],
+              [
+                0.04673052675799066,
+                0.44557632336028724,
+                0.000771005665317396
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.5,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.75,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          },
+          {
+            "activation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "fraction": 0.875,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          },
+          {
+            "activation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "fraction": 1.0,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          }
+        ],
+        "profile": "material-gripper-target-activation-v1"
+      }
+    },
+    "numericalRecipe": {
+      "accepted": false,
+      "anchors": [
+        {
+          "id": "binding-wrist-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 75,
+          "weights": [
+            0.5,
+            0.0,
+            0.5
+          ]
+        },
+        {
+          "id": "binding-apex-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 55,
+          "weights": [
+            0.0,
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "id": "binding-allowance",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 86,
+          "weights": [
+            0.375,
+            0.125,
+            0.5
+          ]
+        }
+      ],
+      "meshSha256": "f08c4700992b56e965de270389fb9b7db33032505f3906ec7f918706482fab20",
+      "profile": "captured-material-grippers-v1",
+      "schedule": {
+        "gripperIds": [
+          "binding-wrist-body",
+          "binding-apex-body",
+          "binding-allowance"
+        ],
+        "knots": [
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.0,
+            "targetsMeters": [
+              [
+                0.07561946493758835,
+                0.4776533226760195,
+                0.001
+              ],
+              [
+                0.0674972033980228,
+                0.40773124738501076,
+                0.001
+              ],
+              [
+                0.0467253152080486,
+                0.4455769287423712,
+                0.001
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.0625,
+            "targetsMeters": [
+              [
+                0.07561903943203574,
+                0.47765337210343384,
+                0.001130898759347037
+              ],
+              [
+                0.06749677789247019,
+                0.4077312968124251,
+                0.001130898759347037
+              ],
+              [
+                0.04672542158443676,
+                0.44557691638551766,
+                0.0009672753101632407
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.125,
+            "targetsMeters": [
+              [
+                0.07561776293360514,
+                0.47765352038355946,
+                0.0012617919114268888
+              ],
+              [
+                0.06749550139403959,
+                0.4077314450925507,
+                0.0012617919114268888
+              ],
+              [
+                0.04672574070904441,
+                0.4455768793154863,
+                0.0009345520221432777
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.1875,
+            "targetsMeters": [
+              [
+                0.0756156354969775,
+                0.47765376751004457,
+                0.0013926738492125658
+              ],
+              [
+                0.06749337395741195,
+                0.4077316922190358,
+                0.0013926738492125658
+              ],
+              [
+                0.04672627256820132,
+                0.44557681753386497,
+                0.0009018315376968585
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.25,
+            "targetsMeters": [
+              [
+                0.07561265721328513,
+                0.4776541134723031,
+                0.001523538966157463
+              ],
+              [
+                0.06749039567371957,
+                0.40773203818129433,
+                0.001523538966157463
+              ],
+              [
+                0.04672701713912441,
+                0.4455767310433003,
+                0.0008691152584606341
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.3125,
+            "targetsMeters": [
+              [
+                0.07560882821010778,
+                0.4776545582555151,
+                0.0016543816564355226
+              ],
+              [
+                0.06748656667054223,
+                0.4077324829645064,
+                0.0016543816564355226
+              ],
+              [
+                0.04672797438991874,
+                0.4455766198474973,
+                0.0008364045858911192
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.375,
+            "targetsMeters": [
+              [
+                0.07560414865146722,
+                0.47765510184062776,
+                0.001785196315181372
+              ],
+              [
+                0.06748188711190167,
+                0.40773302654961896,
+                0.001785196315181372
+              ],
+              [
+                0.04672914427957889,
+                0.4455764839512192,
+                0.0008037009212046568
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.4375,
+            "targetsMeters": [
+              [
+                0.07559861873782014,
+                0.4776557442043554,
+                0.0019159773387304152
+              ],
+              [
+                0.0674763571982546,
+                0.4077336689133467,
+                0.0019159773387304152
+              ],
+              [
+                0.04673052675799066,
+                0.44557632336028724,
+                0.000771005665317396
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.5,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          },
+          {
+            "activation": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "fraction": 0.75,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          },
+          {
+            "activation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "fraction": 0.875,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          },
+          {
+            "activation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "fraction": 1.0,
+            "targetsMeters": [
+              [
+                0.07559223870604967,
+                0.47765648531918153,
+                0.0020467191248588765
+              ],
+              [
+                0.06746997716648412,
+                0.4077344100281728,
+                0.0020467191248588765
+              ],
+              [
+                0.04673212176593328,
+                0.4455761380815807,
+                0.0007383202187852806
+              ]
+            ]
+          }
+        ],
+        "profile": "material-gripper-target-activation-v1"
+      }
+    },
+    "anchors": [
+      {
+        "gripperIndex": 0,
+        "id": "binding-wrist-body",
+        "instanceId": "opening_binding_left_left:shell",
+        "migrationKind": "refined-binding",
+        "originalAnchor": {
+          "id": "binding-wrist-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 54,
+          "weights": [
+            0.5,
+            0.25,
+            0.25
+          ]
+        },
+        "originalLocalTriangleIndex": 6,
+        "originalLocalVertices": [
+          8,
+          4,
+          0
+        ],
+        "candidates": [
+          {
+            "childTriangleIndex": 26,
+            "sourceParentTriangle": 6,
+            "orientedVertices": [
+              25,
+              4,
+              0
+            ],
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "numerator": "1",
+                "denominator": "1",
+                "roundedBinary64": 1.0
+              },
+              {
+                "numerator": "-1",
+                "denominator": "4",
+                "roundedBinary64": -0.25
+              },
+              {
+                "numerator": "1",
+                "denominator": "4",
+                "roundedBinary64": 0.25
+              }
+            ]
+          },
+          {
+            "childTriangleIndex": 27,
+            "sourceParentTriangle": 6,
+            "orientedVertices": [
+              25,
+              0,
+              19
+            ],
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            ]
+          },
+          {
+            "childTriangleIndex": 28,
+            "sourceParentTriangle": 6,
+            "orientedVertices": [
+              8,
+              25,
+              19
+            ],
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              },
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            ]
+          }
+        ],
+        "coefficientAudit": {
+          "exactSelectedWeights": [
+            {
+              "vertex": 19,
+              "weight": {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            },
+            {
+              "vertex": 25,
+              "weight": {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            }
+          ],
+          "selectedNumericalWeights": [
+            {
+              "vertex": 19,
+              "weight": 0.5
+            },
+            {
+              "vertex": 25,
+              "weight": 0.5
+            }
+          ],
+          "weightRoundingErrors": [
+            {
+              "vertex": 25,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "vertex": 0,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "vertex": 19,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            }
+          ],
+          "pullback": {
+            "coefficients": [
+              {
+                "sourceVertex": 0,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 1,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 2,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 3,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 4,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 5,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 6,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 7,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 8,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 9,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 10,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              }
+            ],
+            "residualL1": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "residualLInfinity": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "roundingBoundL1": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "roundingBoundLInfinity": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "residualSum": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          },
+          "weightSums": {
+            "source": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "exactDerived": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "binary64Derived": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "exactDerivedMinusSource": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "binary64DerivedMinusSource": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          },
+          "storedCoordinateResidualsMeters": {
+            "exactWeightsMinusSource": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            ],
+            "binary64WeightsMinusSource": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            ],
+            "binary64MinusExactWeights": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            ]
+          }
+        },
+        "selectedLocalTriangleIndex": 27,
+        "equivalentLocalTriangleIndices": [
+          27,
+          28
+        ],
+        "selectedCanonicalTriangleIndex": 75,
+        "numericalAnchor": {
+          "id": "binding-wrist-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 75,
+          "weights": [
+            0.5,
+            0.0,
+            0.5
+          ]
+        },
+        "originalWeightSum": {
+          "numerator": "1",
+          "denominator": "1",
+          "roundedBinary64": 1.0
+        },
+        "storedCoordinateResidualMeters": [
+          {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          },
+          {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          },
+          {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          }
+        ]
+      },
+      {
+        "gripperIndex": 1,
+        "id": "binding-apex-body",
+        "instanceId": "opening_binding_left_left:shell",
+        "migrationKind": "refined-binding",
+        "originalAnchor": {
+          "id": "binding-apex-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 49,
+          "weights": [
+            0.25,
+            0.5,
+            0.25
+          ]
+        },
+        "originalLocalTriangleIndex": 1,
+        "originalLocalVertices": [
+          5,
+          10,
+          1
+        ],
+        "candidates": [
+          {
+            "childTriangleIndex": 7,
+            "sourceParentTriangle": 1,
+            "orientedVertices": [
+              5,
+              28,
+              22
+            ],
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              },
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            ]
+          },
+          {
+            "childTriangleIndex": 8,
+            "sourceParentTriangle": 1,
+            "orientedVertices": [
+              5,
+              22,
+              1
+            ],
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "numerator": "1",
+                "denominator": "4",
+                "roundedBinary64": 0.25
+              },
+              {
+                "numerator": "1",
+                "denominator": "1",
+                "roundedBinary64": 1.0
+              },
+              {
+                "numerator": "-1",
+                "denominator": "4",
+                "roundedBinary64": -0.25
+              }
+            ]
+          },
+          {
+            "childTriangleIndex": 9,
+            "sourceParentTriangle": 1,
+            "orientedVertices": [
+              28,
+              10,
+              22
+            ],
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            ]
+          }
+        ],
+        "coefficientAudit": {
+          "exactSelectedWeights": [
+            {
+              "vertex": 22,
+              "weight": {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            },
+            {
+              "vertex": 28,
+              "weight": {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            }
+          ],
+          "selectedNumericalWeights": [
+            {
+              "vertex": 22,
+              "weight": 0.5
+            },
+            {
+              "vertex": 28,
+              "weight": 0.5
+            }
+          ],
+          "weightRoundingErrors": [
+            {
+              "vertex": 5,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "vertex": 28,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "vertex": 22,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            }
+          ],
+          "pullback": {
+            "coefficients": [
+              {
+                "sourceVertex": 0,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 1,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 2,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 3,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 4,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 5,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 6,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 7,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 8,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 9,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 10,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              }
+            ],
+            "residualL1": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "residualLInfinity": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "roundingBoundL1": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "roundingBoundLInfinity": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "residualSum": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          },
+          "weightSums": {
+            "source": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "exactDerived": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "binary64Derived": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "exactDerivedMinusSource": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "binary64DerivedMinusSource": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          },
+          "storedCoordinateResidualsMeters": {
+            "exactWeightsMinusSource": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            ],
+            "binary64WeightsMinusSource": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            ],
+            "binary64MinusExactWeights": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            ]
+          }
+        },
+        "selectedLocalTriangleIndex": 7,
+        "equivalentLocalTriangleIndices": [
+          7,
+          9
+        ],
+        "selectedCanonicalTriangleIndex": 55,
+        "numericalAnchor": {
+          "id": "binding-apex-body",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 55,
+          "weights": [
+            0.0,
+            0.5,
+            0.5
+          ]
+        },
+        "originalWeightSum": {
+          "numerator": "1",
+          "denominator": "1",
+          "roundedBinary64": 1.0
+        },
+        "storedCoordinateResidualMeters": [
+          {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          },
+          {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          },
+          {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          }
+        ]
+      },
+      {
+        "gripperIndex": 2,
+        "id": "binding-allowance",
+        "instanceId": "opening_binding_left_left:shell",
+        "migrationKind": "refined-binding",
+        "originalAnchor": {
+          "id": "binding-allowance",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 58,
+          "weights": [
+            0.375,
+            0.375,
+            0.25
+          ]
+        },
+        "originalLocalTriangleIndex": 10,
+        "originalLocalVertices": [
+          7,
+          6,
+          9
+        ],
+        "candidates": [
+          {
+            "childTriangleIndex": 38,
+            "sourceParentTriangle": 10,
+            "orientedVertices": [
+              7,
+              6,
+              15
+            ],
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "numerator": "3",
+                "denominator": "8",
+                "roundedBinary64": 0.375
+              },
+              {
+                "numerator": "1",
+                "denominator": "8",
+                "roundedBinary64": 0.125
+              },
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            ]
+          },
+          {
+            "childTriangleIndex": 39,
+            "sourceParentTriangle": 10,
+            "orientedVertices": [
+              7,
+              15,
+              18
+            ],
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              },
+              {
+                "numerator": "3",
+                "denominator": "4",
+                "roundedBinary64": 0.75
+              },
+              {
+                "numerator": "-1",
+                "denominator": "4",
+                "roundedBinary64": -0.25
+              }
+            ]
+          },
+          {
+            "childTriangleIndex": 40,
+            "sourceParentTriangle": 10,
+            "orientedVertices": [
+              15,
+              9,
+              18
+            ],
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "numerator": "3",
+                "denominator": "4",
+                "roundedBinary64": 0.75
+              },
+              {
+                "numerator": "-1",
+                "denominator": "2",
+                "roundedBinary64": -0.5
+              },
+              {
+                "numerator": "3",
+                "denominator": "4",
+                "roundedBinary64": 0.75
+              }
+            ]
+          }
+        ],
+        "coefficientAudit": {
+          "exactSelectedWeights": [
+            {
+              "vertex": 6,
+              "weight": {
+                "numerator": "1",
+                "denominator": "8",
+                "roundedBinary64": 0.125
+              }
+            },
+            {
+              "vertex": 7,
+              "weight": {
+                "numerator": "3",
+                "denominator": "8",
+                "roundedBinary64": 0.375
+              }
+            },
+            {
+              "vertex": 15,
+              "weight": {
+                "numerator": "1",
+                "denominator": "2",
+                "roundedBinary64": 0.5
+              }
+            }
+          ],
+          "selectedNumericalWeights": [
+            {
+              "vertex": 6,
+              "weight": 0.125
+            },
+            {
+              "vertex": 7,
+              "weight": 0.375
+            },
+            {
+              "vertex": 15,
+              "weight": 0.5
+            }
+          ],
+          "weightRoundingErrors": [
+            {
+              "vertex": 7,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "vertex": 6,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "vertex": 15,
+              "binary64MinusExact": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            }
+          ],
+          "pullback": {
+            "coefficients": [
+              {
+                "sourceVertex": 0,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 1,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 2,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 3,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 4,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 5,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 6,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 7,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 8,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 9,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              },
+              {
+                "sourceVertex": 10,
+                "binary64MinusSource": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                },
+                "absoluteRoundingBound": {
+                  "numerator": "0",
+                  "denominator": "1",
+                  "roundedBinary64": 0.0
+                }
+              }
+            ],
+            "residualL1": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "residualLInfinity": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "roundingBoundL1": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "roundingBoundLInfinity": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "residualSum": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          },
+          "weightSums": {
+            "source": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "exactDerived": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "binary64Derived": {
+              "numerator": "1",
+              "denominator": "1",
+              "roundedBinary64": 1.0
+            },
+            "exactDerivedMinusSource": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            },
+            "binary64DerivedMinusSource": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          },
+          "storedCoordinateResidualsMeters": {
+            "exactWeightsMinusSource": [
+              {
+                "numerator": "1",
+                "denominator": "2305843009213693952",
+                "roundedBinary64": 4.336808689942018e-19
+              },
+              {
+                "numerator": "1",
+                "denominator": "576460752303423488",
+                "roundedBinary64": 1.734723475976807e-18
+              }
+            ],
+            "binary64WeightsMinusSource": [
+              {
+                "numerator": "1",
+                "denominator": "2305843009213693952",
+                "roundedBinary64": 4.336808689942018e-19
+              },
+              {
+                "numerator": "1",
+                "denominator": "576460752303423488",
+                "roundedBinary64": 1.734723475976807e-18
+              }
+            ],
+            "binary64MinusExactWeights": [
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            ]
+          }
+        },
+        "selectedLocalTriangleIndex": 38,
+        "equivalentLocalTriangleIndices": [
+          38
+        ],
+        "selectedCanonicalTriangleIndex": 86,
+        "numericalAnchor": {
+          "id": "binding-allowance",
+          "instanceId": "opening_binding_left_left:shell",
+          "stiffnessNPerM": 1.0,
+          "triangleIndex": 86,
+          "weights": [
+            0.375,
+            0.125,
+            0.5
+          ]
+        },
+        "originalWeightSum": {
+          "numerator": "1",
+          "denominator": "1",
+          "roundedBinary64": 1.0
+        },
+        "storedCoordinateResidualMeters": [
+          {
+            "numerator": "1",
+            "denominator": "2305843009213693952",
+            "roundedBinary64": 4.336808689942018e-19
+          },
+          {
+            "numerator": "1",
+            "denominator": "576460752303423488",
+            "roundedBinary64": 1.734723475976807e-18
+          },
+          {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Source-bound gripper recipe derivation only; no controls are installed, no placement is generated and no solver trajectory is executed.",
+      "Targets, activation, stiffness, identities and order remain exactly as captured. Only mesh identity and source-derived triangle/weight bindings change.",
+      "Once-rounded numerical coefficients follow the explicit seam-remap conversion policy; exact pullback and stored-coordinate reconstruction residuals are separate observations.",
+      "Equivalent child triangles name the same point-grip operator and select no material normal, crease side, solid tool or construction phase.",
+      "Unchanged instances retain original local ordered triangles and raw weights while their canonical indices are rebuilt.",
+      "Rest-coordinate residuals can change spring extension even with exact coefficient pullback. World placement, force/work comparison and captured replay require separate validation.",
+      "This bounded migration accepts one through sixteen original grippers. Source-pattern and refined geometry validity use the existing strict source validators."
+    ]
+  },
+  "independentGripperAudit": {
+    "profile": "independent-binding-gripper-remap-verification-v1",
+    "verified": true,
+    "accepted": false,
+    "originalSourceSha256": "aa2db98db73b49d538dcd12715a4151884f532d2c5db8990de60b9c416524129",
+    "refinedSourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+    "descriptorSha256": "25b44f08778fd4b14194fc6cbd75d63a60209a4f1de43a156f43b9c669c855a8",
+    "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "originalRecipeSha256": "e68d8a430e172c931e8924135908262b768a29e34b072310792a48b5d734de0d",
+    "numericalRecipeSha256": "c65c259d01c61cfe04d730ea02996eaaabf2af4487978a829924716320009b97",
+    "subdivisions": 256,
+    "gripperCount": 3,
+    "refinedBindingGrippers": 3,
+    "unchangedInstanceGrippers": 0,
+    "enumeratedCandidateCount": 9,
+    "selectedCanonicalTriangleIndices": [
+      75,
+      55,
+      86
+    ],
+    "sourceScope": "Independent canonical/base identity, raw two-stage lineage, original-parent candidate completeness, exact coefficient pullback, prescribed nearest-even conversion, recorded residuals, canonical reindexing and unchanged control recipe. Pattern and split-geometry validity require the separately captured source validator. No frame-side, independent refined-motion, material, construction or physical acceptance proof."
+  },
+  "observations": {
+    "selectedCanonicalTriangleIndices": [
+      75,
+      55,
+      86
+    ],
+    "maximumCoefficientResidual": 0.0,
+    "storedCoordinateResidualNormsMeters": [
+      0.0,
+      0.0,
+      1.788112030672749e-18
+    ],
+    "unchangedOriginalScheduleSha256": "f148a2a6df25089d23dfcaa588045601676878590a550971d37e92e18d3bbefd"
+  },
+  "unchangedInstanceCounterexample": {
+    "kind": "synthetic extra grip, not a historical trajectory",
+    "originalTriangleIndex": 200,
+    "correctRefinedTriangleIndex": 232,
+    "wrongRetainedTrianglePassesGenericBinder": true,
+    "wrongRetainedTriangleRestShiftMeters": [
+      -0.22628006041666665,
+      -0.0459821428571429,
+      0.0
+    ],
+    "wrongRetainedTriangleRestShiftNormMeters": 0.23090479250960774,
+    "correctAnchor": {
+      "gripperIndex": 3,
+      "id": "sleeve-index-counterexample",
+      "instanceId": "sleeve_left:shell",
+      "migrationKind": "unchanged-instance",
+      "originalAnchor": {
+        "id": "sleeve-index-counterexample",
+        "instanceId": "sleeve_left:shell",
+        "triangleIndex": 200,
+        "weights": [
+          0.5,
+          0.25,
+          0.25
+        ],
+        "stiffnessNPerM": 1.0
+      },
+      "originalLocalTriangleIndex": 128,
+      "originalLocalVertices": [
+        150,
+        140,
+        141
+      ],
+      "selectedLocalTriangleIndex": 128,
+      "equivalentLocalTriangleIndices": [
+        128
+      ],
+      "selectedCanonicalTriangleIndex": 232,
+      "numericalAnchor": {
+        "id": "sleeve-index-counterexample",
+        "instanceId": "sleeve_left:shell",
+        "triangleIndex": 232,
+        "weights": [
+          0.5,
+          0.25,
+          0.25
+        ],
+        "stiffnessNPerM": 1.0
+      },
+      "originalWeightSum": {
+        "numerator": "1",
+        "denominator": "1",
+        "roundedBinary64": 1.0
+      },
+      "storedCoordinateResidualMeters": [
+        {
+          "numerator": "0",
+          "denominator": "1",
+          "roundedBinary64": 0.0
+        },
+        {
+          "numerator": "0",
+          "denominator": "1",
+          "roundedBinary64": 0.0
+        },
+        {
+          "numerator": "0",
+          "denominator": "1",
+          "roundedBinary64": 0.0
+        }
+      ]
+    },
+    "independentAudit": {
+      "profile": "independent-binding-gripper-remap-verification-v1",
+      "verified": true,
+      "accepted": false,
+      "originalSourceSha256": "6c63c2b4ba98d20d0ff955570630cdef1e3b756c056e0088e81c1728b5b7933c",
+      "refinedSourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+      "descriptorSha256": "081a1f13ed738c7c8d3ca328904f0f4360ef5c54a9ba035a7701054fae463586",
+      "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+      "originalRecipeSha256": "966a2037a03d66bce0195b0e979573268f913b5ff1864b89e6f6085d0c05d99f",
+      "numericalRecipeSha256": "c6b137ffa17fd758082a1451a52b4cca785f870f6837b467e9d1d7d2819f82d5",
+      "subdivisions": 256,
+      "gripperCount": 4,
+      "refinedBindingGrippers": 3,
+      "unchangedInstanceGrippers": 1,
+      "enumeratedCandidateCount": 9,
+      "selectedCanonicalTriangleIndices": [
+        75,
+        55,
+        86,
+        232
+      ],
+      "sourceScope": "Independent canonical/base identity, raw two-stage lineage, original-parent candidate completeness, exact coefficient pullback, prescribed nearest-even conversion, recorded residuals, canonical reindexing and unchanged control recipe. Pattern and split-geometry validity require the separately captured source validator. No frame-side, independent refined-motion, material, construction or physical acceptance proof."
+    }
+  },
+  "nonexactConversionCounterexample": {
+    "kind": "synthetic changed declared original grip, not a historical trajectory",
+    "originalWeights": [
+      0.1,
+      0.2,
+      0.7
+    ],
+    "anchor": {
+      "gripperIndex": 2,
+      "id": "binding-allowance",
+      "instanceId": "opening_binding_left_left:shell",
+      "migrationKind": "refined-binding",
+      "originalAnchor": {
+        "id": "binding-allowance",
+        "instanceId": "opening_binding_left_left:shell",
+        "stiffnessNPerM": 1.0,
+        "triangleIndex": 58,
+        "weights": [
+          0.1,
+          0.2,
+          0.7
+        ]
+      },
+      "originalLocalTriangleIndex": 10,
+      "originalLocalVertices": [
+        7,
+        6,
+        9
+      ],
+      "candidates": [
+        {
+          "childTriangleIndex": 38,
+          "sourceParentTriangle": 10,
+          "orientedVertices": [
+            7,
+            6,
+            15
+          ],
+          "coefficientNonnegative": false,
+          "exactWeights": [
+            {
+              "numerator": "3602879701896397",
+              "denominator": "36028797018963968",
+              "roundedBinary64": 0.1
+            },
+            {
+              "numerator": "-9007199254740991",
+              "denominator": "18014398509481984",
+              "roundedBinary64": -0.49999999999999994
+            },
+            {
+              "numerator": "3152519739159347",
+              "denominator": "2251799813685248",
+              "roundedBinary64": 1.4
+            }
+          ]
+        },
+        {
+          "childTriangleIndex": 39,
+          "sourceParentTriangle": 10,
+          "orientedVertices": [
+            7,
+            15,
+            18
+          ],
+          "coefficientNonnegative": false,
+          "exactWeights": [
+            {
+              "numerator": "-14411518807585585",
+              "denominator": "36028797018963968",
+              "roundedBinary64": -0.3999999999999999
+            },
+            {
+              "numerator": "3602879701896397",
+              "denominator": "9007199254740992",
+              "roundedBinary64": 0.4
+            },
+            {
+              "numerator": "9007199254740991",
+              "denominator": "9007199254740992",
+              "roundedBinary64": 0.9999999999999999
+            }
+          ]
+        },
+        {
+          "childTriangleIndex": 40,
+          "sourceParentTriangle": 10,
+          "orientedVertices": [
+            15,
+            9,
+            18
+          ],
+          "coefficientNonnegative": true,
+          "exactWeights": [
+            {
+              "numerator": "3602879701896397",
+              "denominator": "9007199254740992",
+              "roundedBinary64": 0.4
+            },
+            {
+              "numerator": "14411518807585585",
+              "denominator": "36028797018963968",
+              "roundedBinary64": 0.3999999999999999
+            },
+            {
+              "numerator": "3602879701896397",
+              "denominator": "18014398509481984",
+              "roundedBinary64": 0.2
+            }
+          ]
+        }
+      ],
+      "coefficientAudit": {
+        "exactSelectedWeights": [
+          {
+            "vertex": 9,
+            "weight": {
+              "numerator": "14411518807585585",
+              "denominator": "36028797018963968",
+              "roundedBinary64": 0.3999999999999999
+            }
+          },
+          {
+            "vertex": 15,
+            "weight": {
+              "numerator": "3602879701896397",
+              "denominator": "9007199254740992",
+              "roundedBinary64": 0.4
+            }
+          },
+          {
+            "vertex": 18,
+            "weight": {
+              "numerator": "3602879701896397",
+              "denominator": "18014398509481984",
+              "roundedBinary64": 0.2
+            }
+          }
+        ],
+        "selectedNumericalWeights": [
+          {
+            "vertex": 9,
+            "weight": 0.3999999999999999
+          },
+          {
+            "vertex": 15,
+            "weight": 0.4
+          },
+          {
+            "vertex": 18,
+            "weight": 0.2
+          }
+        ],
+        "weightRoundingErrors": [
+          {
+            "vertex": 15,
+            "binary64MinusExact": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          },
+          {
+            "vertex": 9,
+            "binary64MinusExact": {
+              "numerator": "-1",
+              "denominator": "36028797018963968",
+              "roundedBinary64": -2.7755575615628914e-17
+            }
+          },
+          {
+            "vertex": 18,
+            "binary64MinusExact": {
+              "numerator": "0",
+              "denominator": "1",
+              "roundedBinary64": 0.0
+            }
+          }
+        ],
+        "pullback": {
+          "coefficients": [
+            {
+              "sourceVertex": 0,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 1,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 2,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 3,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 4,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 5,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 6,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 7,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 8,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "sourceVertex": 9,
+              "binary64MinusSource": {
+                "numerator": "-1",
+                "denominator": "36028797018963968",
+                "roundedBinary64": -2.7755575615628914e-17
+              },
+              "absoluteRoundingBound": {
+                "numerator": "1",
+                "denominator": "36028797018963968",
+                "roundedBinary64": 2.7755575615628914e-17
+              }
+            },
+            {
+              "sourceVertex": 10,
+              "binary64MinusSource": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              },
+              "absoluteRoundingBound": {
+                "numerator": "0",
+                "denominator": "1",
+                "roundedBinary64": 0.0
+              }
+            }
+          ],
+          "residualL1": {
+            "numerator": "1",
+            "denominator": "36028797018963968",
+            "roundedBinary64": 2.7755575615628914e-17
+          },
+          "residualLInfinity": {
+            "numerator": "1",
+            "denominator": "36028797018963968",
+            "roundedBinary64": 2.7755575615628914e-17
+          },
+          "roundingBoundL1": {
+            "numerator": "1",
+            "denominator": "36028797018963968",
+            "roundedBinary64": 2.7755575615628914e-17
+          },
+          "roundingBoundLInfinity": {
+            "numerator": "1",
+            "denominator": "36028797018963968",
+            "roundedBinary64": 2.7755575615628914e-17
+          },
+          "residualSum": {
+            "numerator": "-1",
+            "denominator": "36028797018963968",
+            "roundedBinary64": -2.7755575615628914e-17
+          }
+        },
+        "weightSums": {
+          "source": {
+            "numerator": "36028797018963967",
+            "denominator": "36028797018963968",
+            "roundedBinary64": 1.0
+          },
+          "exactDerived": {
+            "numerator": "36028797018963967",
+            "denominator": "36028797018963968",
+            "roundedBinary64": 1.0
+          },
+          "binary64Derived": {
+            "numerator": "18014398509481983",
+            "denominator": "18014398509481984",
+            "roundedBinary64": 1.0
+          },
+          "exactDerivedMinusSource": {
+            "numerator": "0",
+            "denominator": "1",
+            "roundedBinary64": 0.0
+          },
+          "binary64DerivedMinusSource": {
+            "numerator": "-1",
+            "denominator": "36028797018963968",
+            "roundedBinary64": -2.7755575615628914e-17
+          }
+        },
+        "storedCoordinateResidualsMeters": {
+          "exactWeightsMinusSource": [
+            {
+              "numerator": "10808639105689191",
+              "denominator": "20769187434139310514121985316880384",
+              "roundedBinary64": 5.204170427930422e-19
+            },
+            {
+              "numerator": "10808639105689191",
+              "denominator": "5192296858534827628530496329220096",
+              "roundedBinary64": 2.081668171172169e-18
+            }
+          ],
+          "binary64WeightsMinusSource": [
+            {
+              "numerator": "1261007895663739",
+              "denominator": "5192296858534827628530496329220096",
+              "roundedBinary64": 2.42861286636753e-19
+            },
+            {
+              "numerator": "444303386850173",
+              "denominator": "649037107316853453566312041152512",
+              "roundedBinary64": 6.845577577019314e-19
+            }
+          ],
+          "binary64MinusExactWeights": [
+            {
+              "numerator": "-5764607523034235",
+              "denominator": "20769187434139310514121985316880384",
+              "roundedBinary64": -2.7755575615628914e-19
+            },
+            {
+              "numerator": "-7254212010887807",
+              "denominator": "5192296858534827628530496329220096",
+              "roundedBinary64": -1.3971104134702373e-18
+            }
+          ]
+        }
+      },
+      "selectedLocalTriangleIndex": 40,
+      "equivalentLocalTriangleIndices": [
+        40
+      ],
+      "selectedCanonicalTriangleIndex": 88,
+      "numericalAnchor": {
+        "id": "binding-allowance",
+        "instanceId": "opening_binding_left_left:shell",
+        "stiffnessNPerM": 1.0,
+        "triangleIndex": 88,
+        "weights": [
+          0.4,
+          0.3999999999999999,
+          0.2
+        ]
+      },
+      "originalWeightSum": {
+        "numerator": "36028797018963967",
+        "denominator": "36028797018963968",
+        "roundedBinary64": 1.0
+      },
+      "storedCoordinateResidualMeters": [
+        {
+          "numerator": "1261007895663739",
+          "denominator": "5192296858534827628530496329220096",
+          "roundedBinary64": 2.42861286636753e-19
+        },
+        {
+          "numerator": "444303386850173",
+          "denominator": "649037107316853453566312041152512",
+          "roundedBinary64": 6.845577577019314e-19
+        },
+        {
+          "numerator": "0",
+          "denominator": "1",
+          "roundedBinary64": 0.0
+        }
+      ]
+    },
+    "independentAudit": {
+      "profile": "independent-binding-gripper-remap-verification-v1",
+      "verified": true,
+      "accepted": false,
+      "originalSourceSha256": "2dec55e255e09f11ef234c844015ca998bbde47716295d3daa72d6f6d77fa643",
+      "refinedSourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+      "descriptorSha256": "2d7fc0e2320f8cc402b1efda0133ff3a155e4b5e48054963f42c4ce040f9de3c",
+      "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+      "originalRecipeSha256": "9800ce3ad453c3de87017ff02f9a2308e5a60f454a51ecd0a34f9ddf28de03ef",
+      "numericalRecipeSha256": "8b6cd18c74bbce8442481905fe1bce4a1d377011298bc5fe114a18e88416d99e",
+      "subdivisions": 256,
+      "gripperCount": 3,
+      "refinedBindingGrippers": 3,
+      "unchangedInstanceGrippers": 0,
+      "enumeratedCandidateCount": 9,
+      "selectedCanonicalTriangleIndices": [
+        75,
+        55,
+        88
+      ],
+      "sourceScope": "Independent canonical/base identity, raw two-stage lineage, original-parent candidate completeness, exact coefficient pullback, prescribed nearest-even conversion, recorded residuals, canonical reindexing and unchanged control recipe. Pattern and split-geometry validity require the separately captured source validator. No frame-side, independent refined-motion, material, construction or physical acceptance proof."
+    }
+  },
+  "mechanicalScope": {
+    "definitions": "delta = new anchor minus old anchor; r = old anchor minus unchanged target; c = stiffness times activation",
+    "forceChange": "-c * delta",
+    "energyChange": "c * (dot(r, delta) + dot(delta, delta)/2)",
+    "limitations": "Exact coefficient pullback applies to lineage-interpolated original nodal values; stored coordinates and independently moving refined nodes need separate mechanical validation."
+  },
+  "entrypointStatus": "The prepared capture/main-replay entrypoint patch remains unapplied following automatic approval rejection; explicit authorization is pending.",
+  "limitations": [
+    "Source-bound gripper recipe derivation only; no controls are installed, no placement is generated and no solver trajectory is executed.",
+    "Targets, activation, stiffness, identities and order remain exactly as captured. Only mesh identity and source-derived triangle/weight bindings change.",
+    "Once-rounded numerical coefficients follow the explicit seam-remap conversion policy; exact pullback and stored-coordinate reconstruction residuals are separate observations.",
+    "Equivalent child triangles name the same point-grip operator and select no material normal, crease side, solid tool or construction phase.",
+    "Unchanged instances retain original local ordered triangles and raw weights while their canonical indices are rebuilt.",
+    "Rest-coordinate residuals can change spring extension even with exact coefficient pullback. World placement, force/work comparison and captured replay require separate validation.",
+    "This bounded migration accepts one through sixteen original grippers. Source-pattern and refined geometry validity use the existing strict source validators.",
+    "Original extra metadata and controls are hashed but their placement/other-control semantics are not validated by this migration.",
+    "The independent arithmetic auditor does not rederive pattern/split geometry; the separate strict source binder does.",
+    "Raw synthetic artifacts remain ignored. The tracked ledger does not establish a captured refined trajectory or accepted garment construction."
+  ]
+}
