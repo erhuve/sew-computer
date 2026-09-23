@@ -30,6 +30,8 @@ def parse_arguments():
                         help="Scalar distance, declared source-normal offset, or legacy world-space vector sewing")
     parser.add_argument("--fold-actuation", action="store_true",
                         help="Execute the explicit captured source-hinge angle schedule alongside sewing")
+    parser.add_argument("--assembly-schedule", action="store_true",
+                        help="Execute captured piecewise sewing/fold progress without resetting cloth state")
     parser.add_argument("--contact-model", choices=("area-improved-max", "rest-filtered"),
                         default="area-improved-max")
     parser.add_argument("--ccd-profile", choices=("tight-inclusion", "swept-plane-tight-inclusion",
@@ -86,6 +88,16 @@ def run_worker(output, parent_pid):
         fold_recipe = source.get("foldActuation")
         if args.fold_actuation != isinstance(fold_recipe, dict):
             raise ValueError("Fold actuation requires both explicit opt-in and a captured recipe")
+        schedule_recipe = source.get("assemblySchedule")
+        if args.assembly_schedule != isinstance(schedule_recipe, dict):
+            raise ValueError("Assembly schedule requires both explicit opt-in and a captured recipe")
+        schedule = None
+        if args.assembly_schedule:
+            from solver_assembly_schedule import AssemblySchedule
+            if not args.fold_actuation:
+                raise ValueError("Assembly schedule requires explicit fold actuation")
+            schedule = AssemblySchedule(schedule_recipe, args.subdivisions)
+            report["assemblySchedule"] = schedule_recipe
         if placement.get("canonicalDigest") != canonical_digest:
             raise ValueError("Staged placement canonicalDigest does not match captured canonical bytes")
         import newton
@@ -216,7 +228,7 @@ def run_worker(output, parent_pid):
             solver, positions, np.zeros_like(positions), initial_targets, args.target_fraction * initial_targets,
             args.step_seconds, initial_subdivisions=args.subdivisions, max_attempts=args.max_attempts,
             max_depth=args.max_depth, max_evaluations=args.max_evaluations, attempt_journal=journal,
-            **fold_options)
+            assembly_schedule=schedule_recipe, **fold_options)
         recovered = recover_attempt_journal(output, report)
         if recovered["attemptJournal"]["errors"]:
             raise ValueError("Attempt journal verification failed")
@@ -232,8 +244,12 @@ def run_worker(output, parent_pid):
         report["finalContactEnergyJ"] = contact.energy(final)
         report["finalPeakContactForceN"] = float(np.max(np.abs(contact.gradient(final))))
         final_anchors = solver.sewing @ final
-        completed_targets = initial_targets * (1 + report["adaptive"]["completedFraction"]
-                                               * (args.target_fraction - 1))
+        completed_fraction = report["adaptive"]["completedFraction"]
+        sewing_progress, fold_progress = (schedule.progress(completed_fraction) if schedule else
+                                          (completed_fraction, completed_fraction))
+        final_targets = args.target_fraction * initial_targets
+        completed_targets = (final_targets if sewing_progress == 1 else
+                             initial_targets + sewing_progress * (final_targets - initial_targets))
         target_errors = (np.abs(np.linalg.norm(final_anchors, axis=1) - completed_targets)
                          if args.sewing_mode == "distance" else
                          np.linalg.norm(solver.sewing_potential(completed_targets).residual(final).reshape((-1, 3)), axis=1) * np.sqrt(solver.compliance)
@@ -242,8 +258,8 @@ def run_worker(output, parent_pid):
         report["finalMaximumAnchorGapM"] = float(np.linalg.norm(final_anchors, axis=1).max()) if len(rows) else None
         report["finalMaximumCompletedTargetErrorM"] = float(target_errors.max()) if len(rows) else None
         if args.fold_actuation:
-            completed_fold_targets = initial_fold.rest_angles + report["adaptive"]["completedFraction"] * (
-                final_fold.rest_angles - initial_fold.rest_angles)
+            completed_fold_targets = (final_fold.rest_angles if fold_progress == 1 else
+                initial_fold.rest_angles + fold_progress * (final_fold.rest_angles - initial_fold.rest_angles))
             report["finalFoldAnglesRadians"] = final_fold.angles(final).tolist()
             report["finalFoldTargetErrorRadians"] = float(np.max(np.abs(
                 final_fold.angles(final) - completed_fold_targets)))

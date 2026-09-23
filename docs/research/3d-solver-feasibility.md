@@ -599,6 +599,14 @@ Final maximum anchor gap is **0.137735 mm** against the prescribed **0.11 mm** n
 
 The [source-bound material-normal cuff ledger](3d-normal-cuff-sewing-results.json) records the exact sources, inputs, states, rejected-attempt count, replay hashes and unchanged-source comparison. Next operations must explicitly define allowance folds, turning openings and attachment order, then validate their collision-constrained execution. Do not treat this closed parallel registration as an executable turning operation or full-shirt acceptance. Nothing is deployed.
 
+## Staged sewing and folding · 2026-09-23
+
+The captured continuation CLI accepts an opt-in `assemblySchedule` with independent piecewise-linear sewing and fold progress. Knots must coincide with the initial dyadic time grid, so no attempted interval crosses an operation boundary. Targets may hold while the other operation advances. Both ramps must span their complete captured targets, and malformed, decreasing or unaligned schedules reject before motion. Existing linear controls retain their original interpolation.
+
+Positions, velocities, rest geometry, contact, seam constraints and fold stiffness persist across operation boundaries. A rejected attempt subdivides time within its original stage and restores the last accepted state; it does not restart the cloth or reset its rest metric. The immutable input and attempt journal bind the schedule. Replay independently interpolates operation progress and reconstructs residuals at each saved state, retaining both endpoint intersection oracles and exact-rational continuous-contact proofs.
+
+Focused tests cover staged target holds, velocity/state continuity, rejected-step rollback, invalid knots, missing opt-in and captured fold replay. This is operation scheduling infrastructure, not demonstrated cuff turning or garment acceptance. The source-cuff combined closure/fold experiment is a separate gate.
+
 ## Source-cuff allowance crease · 2026-09-22
 
 `solver_crease_mesh.py` subdivides a planar source triangulation along an explicit straight line. It retains original vertices, adds only interpolated edge points, records each child's parent triangle and checks parent coverage. Overlap, inconsistent winding, T-junctions, disconnected creases and boundary-only lines reject. This is optional offline research preprocessing, not a replacement production mesher or general curved/multiple-crease implementation.

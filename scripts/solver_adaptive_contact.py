@@ -3,11 +3,13 @@ import copy
 import numpy as np
 
 from solver_attempt_journal import diagnostic_json
+from solver_assembly_schedule import AssemblySchedule
 
 
 def adaptive_contact_step(solver, positions, velocities, initial_targets, targets, dt, *,
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
-                          attempt_journal=None, initial_fold_targets=None, fold_targets=None, **step_options):
+                          attempt_journal=None, initial_fold_targets=None, fold_targets=None,
+                          assembly_schedule=None, **step_options):
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
     positions = np.asarray(positions, dtype=float)
@@ -41,6 +43,11 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
     else:
         initial_fold_targets = fold_recipe.potential(initial_fold_targets).rest_angles.copy()
         fold_targets = fold_recipe.potential(fold_targets).rest_angles.copy()
+    schedule = None
+    if assembly_schedule is not None:
+        if fold_recipe is None:
+            raise ValueError("Assembly schedule requires explicit fold actuation")
+        schedule = AssemblySchedule(assembly_schedule, initial_subdivisions)
     attempts, accepted, rejected = [], [], []
     completed_fraction = 0.
     reason = "attempt-budget-exhausted"
@@ -59,8 +66,10 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         if duration <= 0 or not np.isfinite(duration):
             reason = "substep-duration-underflow"
             break
-        substep_targets = (targets.copy() if end_fraction == 1 else
-                           initial_targets + end_fraction * (targets - initial_targets))
+        sewing_progress, fold_progress = (schedule.progress(end_fraction) if schedule else
+                                          (end_fraction, end_fraction))
+        substep_targets = (targets.copy() if sewing_progress == 1 else
+                           initial_targets + sewing_progress * (targets - initial_targets))
         record = {"attemptId": len(attempts) + 1, "parentAttemptId": parent_attempt,
                   "initialInterval": initial_interval, "startFraction": start_fraction,
                   "endFraction": end_fraction, "durationSeconds": duration, "depth": depth, "converged": False}
@@ -71,8 +80,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         try:
             options = dict(step_options)
             if fold_recipe is not None:
-                options["fold_targets"] = (fold_targets.copy() if end_fraction == 1 else
-                    initial_fold_targets + end_fraction * (fold_targets - initial_fold_targets))
+                options["fold_targets"] = (fold_targets.copy() if fold_progress == 1 else
+                    initial_fold_targets + fold_progress * (fold_targets - initial_fold_targets))
             candidate_positions, candidate_velocities, step_report = solver.step(
                 current_positions.copy(), current_velocities.copy(), substep_targets, duration, **options)
             if not isinstance(step_report, dict):
@@ -144,5 +153,6 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         "initialSubdivisions": int(initial_subdivisions), "maxDepth": int(max_depth),
         "maxAttempts": int(max_attempts), "stationarityToleranceN": 1e-6,
         "attempts": attempts, "acceptedSteps": accepted, "rejectedSteps": rejected, "interruptedSteps": [],
-        "targetInterpolation": "linear over the original physical interval",
+        "targetInterpolation": ("captured piecewise-linear sewing/fold progress" if schedule else
+                                "linear over the original physical interval"),
     }

@@ -8,6 +8,7 @@ import tempfile
 import unittest
 
 from test_solver_fold_actuation import fold_fixture
+from test_solver_assembly_schedule import staged_recipe
 
 
 class FoldContinuationCliTests(unittest.TestCase):
@@ -19,7 +20,7 @@ class FoldContinuationCliTests(unittest.TestCase):
                 "foldActuation": {"hinges": solver.fold_actuation.hinges.tolist(),
                     "stiffnessJoules": [.02], "initialAnglesRadians": [0.], "targetAnglesRadians": [.4]}}
 
-    def run_control(self, root, source, enabled=True):
+    def run_control(self, root, source, enabled=True, scheduled=False):
         canonical, placement, output = root / "canonical.json", root / "placement.json", root / "run"
         canonical.write_text(json.dumps(source))
         placement.write_text(json.dumps({"placedMeters": source["placedMeters"],
@@ -31,6 +32,8 @@ class FoldContinuationCliTests(unittest.TestCase):
             "--target-fraction", "1", "--subdivisions", "2", "--step-seconds", ".02"]
         if enabled:
             command.append("--fold-actuation")
+        if scheduled:
+            command.append("--assembly-schedule")
         result = subprocess.run(command, capture_output=True, text=True, timeout=30)
         return result, output, json.loads((output / "report.json").read_text())
 
@@ -77,6 +80,31 @@ class FoldContinuationCliTests(unittest.TestCase):
                 self.assertFalse(report["completed"])
                 self.assertTrue(report["terminal"])
                 self.assertFalse(report["accepted"])
+                self.assertEqual(report["acceptedStateArtifacts"], [])
+                self.assertIn("failure", report)
+
+    def test_staged_fold_holds_then_moves_and_replays(self):
+        source = self.fixture()
+        source["assemblySchedule"] = staged_recipe()
+        with tempfile.TemporaryDirectory() as directory:
+            result, output, report = self.run_control(Path(directory), source, scheduled=True)
+            self.assertEqual(result.returncode, 0, result.stderr + str(report.get("failure")))
+            first = json.loads((output / report["acceptedStateArtifacts"][0]["path"]).read_text())
+            self.assertEqual(first["record"]["endFraction"], .5)
+            self.assertEqual(first["record"]["step"]["foldTargetsRadians"], [0.])
+            self.assertGreater(report["finalFoldAnglesRadians"][0], .3)
+            replay = subprocess.run([sys.executable, str(Path(__file__).with_name("replay-rest-filtered-continuation.py")),
+                                     str(output)], capture_output=True, text=True, timeout=30)
+            self.assertEqual(replay.returncode, 0, replay.stdout + replay.stderr)
+        for missing in ("opt-in", "recipe", "alignment"):
+            changed = copy.deepcopy(source)
+            if missing == "recipe":
+                del changed["assemblySchedule"]
+            if missing == "alignment":
+                changed["assemblySchedule"]["knots"][1]["fraction"] = .25
+            with self.subTest(missing=missing), tempfile.TemporaryDirectory() as directory:
+                result, _, report = self.run_control(Path(directory), changed, scheduled=missing != "opt-in")
+                self.assertEqual(result.returncode, 1)
                 self.assertEqual(report["acceptedStateArtifacts"], [])
                 self.assertIn("failure", report)
 

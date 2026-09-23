@@ -45,6 +45,24 @@ rest = np.asarray(source["restMeters"])
 faces = np.asarray(source["triangles"]).reshape((-1, 3))
 initial = np.asarray(placement["placedMeters"])
 arguments = report["arguments"]
+schedule_knots = None
+if arguments.get("assembly_schedule"):
+    from solver_assembly_schedule import AssemblySchedule
+    recipe = source["assemblySchedule"]
+    AssemblySchedule(recipe, arguments["subdivisions"])
+    assert report["assemblySchedule"] == recipe
+    schedule_knots = recipe["knots"]
+
+
+def operation_progress(fraction, key):
+    if schedule_knots is None:
+        return fraction
+    upper_index = next(index for index in range(1, len(schedule_knots))
+                       if fraction <= schedule_knots[index]["fraction"])
+    lower, upper = schedule_knots[upper_index - 1], schedule_knots[upper_index]
+    remaining = (upper["fraction"] - fraction) / (upper["fraction"] - lower["fraction"])
+    return remaining * lower[key] + (1 - remaining) * upper[key]
+
 contact = RestFilteredSurfaceContact(rest, faces, activation_distance_m=arguments["activation_distance_m"],
     minimum_distance_m=arguments["minimum_distance_m"], stiffness=arguments["pressure_pa"],
     ccd_profile=arguments["ccd_profile"])
@@ -139,8 +157,9 @@ for artifact in report["acceptedStateArtifacts"]:
     assert duration == arguments["step_seconds"] * (record["endFraction"] - previous_fraction)
     np.testing.assert_array_equal(velocity, (positions - previous) / duration)
     final_targets = initial_targets * arguments["target_fraction"]
-    targets = (final_targets if record["endFraction"] == 1 else
-               initial_targets + record["endFraction"] * (final_targets - initial_targets))
+    sewing_progress = operation_progress(record["endFraction"], "sewingProgress")
+    targets = (final_targets if sewing_progress == 1 else
+               initial_targets + sewing_progress * (final_targets - initial_targets))
     coefficients = np.concatenate((-solver.poses.sum(axis=1)[:, None], solver.poses), axis=1)
     deformation = np.einsum("fvc,fva->fca", coefficients, positions[faces])
     normals = np.cross(deformation[:, 0], deformation[:, 1])
@@ -179,11 +198,12 @@ for artifact in report["acceptedStateArtifacts"]:
     gradient += solver.bending.gradient(positions) + solver.fold_barrier.gradient(positions) + contact.gradient(positions)
     fold_diagnostics = {}
     if fold_recipe:
-        fold_targets = (final_fold.rest_angles if record["endFraction"] == 1 else
-            initial_fold.rest_angles + record["endFraction"] * (final_fold.rest_angles - initial_fold.rest_angles))
+        fold_progress = operation_progress(record["endFraction"], "foldProgress")
+        fold_targets = (final_fold.rest_angles if fold_progress == 1 else
+            initial_fold.rest_angles + fold_progress * (final_fold.rest_angles - initial_fold.rest_angles))
         actuator = solver.fold_actuation.potential(fold_targets)
         gradient += actuator.gradient(positions)
-        np.testing.assert_array_equal(record["step"]["foldTargetsRadians"], fold_targets)
+        np.testing.assert_allclose(record["step"]["foldTargetsRadians"], fold_targets, rtol=0, atol=1e-14)
         np.testing.assert_array_equal(record["step"]["foldAnglesRadians"], actuator.angles(positions))
         fold_diagnostics = {"foldAnglesRadians": actuator.angles(positions).tolist(),
                             "foldTargetErrorRadians": float(np.max(np.abs(actuator.angles(positions) - fold_targets)))}
@@ -220,6 +240,7 @@ result = {"accepted": False, "states": results, "contactProfile": contact.profil
           "finalStateVerified": bool(report.get("stateArtifact")),
           "sewingMode": solver.sewing_mode, "exactCertificateLeaves": total_leaves,
           "foldActuation": fold_recipe,
+          "assemblySchedule": source.get("assemblySchedule") if arguments.get("assembly_schedule") else None,
           "replayScriptSha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
           "sourceDigests": report["sourceDigests"], "reportSha256": hashlib.sha256((run / "report.json").read_bytes()).hexdigest(),
           "seamGaps": staging_seam_gaps(source, initial, previous),
