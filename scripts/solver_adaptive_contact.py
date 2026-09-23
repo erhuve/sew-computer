@@ -13,6 +13,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                           assembly_schedule=None, gripper_schedule=None, **step_options):
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
+    if "sewing_activation" in step_options:
+        raise ValueError("Adaptive sewing activation requires an explicit captured activation schedule")
     positions = np.asarray(positions, dtype=float)
     velocities = np.asarray(velocities, dtype=float)
     initial_targets = np.asarray(initial_targets, dtype=float)

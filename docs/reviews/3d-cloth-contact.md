@@ -110,7 +110,19 @@ Independent gripper replay uses its own source validation, control sampling and 
 
 The focused Linux run passes **61 gripper tests**, including seven supervised capture/replay cases and nine semantic tampering attacks. A separate retained [contact-control ledger](../research/3d-material-gripper-contact-results.json) has eight saved states. Independent review recomputes every gap/speed and 150-digit Decimal parameter-work total, checks all captured and current-verifier hashes, and independently enumerates swept bounds. The 216 primitive comparisons require zero collision-core candidates; sixteen triangle leaves pass. The fixture exercises contact near its activation boundary and release, not narrow collision-core proofs or any garment operation.
 
+### Pending-seam primitive review
+
+The [activation primitives](../research/3d-solver-feasibility.md#pending-seam-mechanics--2026-09-23) retain source rows while weighting all sewing terms, including the direct initializer and material-frame reactions. Independent dense backward-Euler checks cover mixed active/pending vector rows; complex-step checks cover weighted normal curvature. Pending coincident scalar anchors and unused frame geometry are skipped, while malicious optimizer endpoints still fail the enclosing triangle/contact guards. Active error diagnostics are unweighted. The adaptive boundary rejects raw weights rather than silently running an unrecorded control.
+
+Independent 180-digit Decimal cases check cancelling target/activation work, tiny distance/normal motion, zero-weight overflow and coupled sewing/fold/gripper accounting. Omitted-activation energy dictionaries match the committed legacy implementation exactly in all three modes. Exact rational work is conditional on sampled binary64 lengths/normals and does not certify exact geometric normalization. Review also found positive extended-precision input could become zero during float64 conversion; activation now rejects that loss instead of silently making a row pending.
+
+An additional schedule counterexample used a zero initial weight and the smallest positive binary64 final weight. Midpoint interpolation rounded a mathematically positive activation to zero. Sampling now rejects that underflow without clipping or promoting the weight; exact endpoints and representable tiny values remain supported.
+
+Source-member binding, adaptive control/work capture, CLI integration and independent trajectory replay are still required. The standalone schedule's row IDs do not supply that evidence, and these tests do not establish seam coverage or completion of a construction phase.
+
 ### Current verification boundary
+
+The seam-activation primitive checkpoint passes **565 full Linux numerical/supervision tests in 201.509 seconds**, including 51 new primitive, schedule, direct-integration and energy cases. Its log is retained in ignored `.planning/solver/sewing-activation-full-numerical-sep23-v1.log`. Fifteen primitive and nine schedule tests also pass on macOS, and the 48-test energy selection passes on both platforms. These focused selections overlap the full Linux discovery.
 
 For the material-gripper checkpoint, the final full Linux numerical/supervision discovery passes **514 tests in 203.919 seconds**. The initial 514-test run retained two failures in unrestricted mock solvers, which fabricated a gripper recipe when their new optional attribute was read. Explicitly declaring vector mode and absent fold/gripper recipes fixes those two test fixtures; their underflow and journal-byte-budget assertions remain unchanged. The focused 24-test journal run and final full rerun pass. No numerical tolerance or admission rule was relaxed. Both logs remain in ignored `.planning/solver/gripper-full-numerical-sep23-v1.log` and `gripper-full-numerical-sep23-v2.log`.
 

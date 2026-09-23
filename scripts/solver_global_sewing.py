@@ -220,19 +220,27 @@ class GlobalSewingSolver:
             self.sewing_frame_faces = potential.faces
             self.sewing_sides = potential.sides
 
-    def sewing_potential(self, targets):
+    def sewing_potential(self, targets, *, activation=None):
         if self.sewing_mode == "normal-offset":
             from solver_normal_sewing import NormalOffsetSewing
             return NormalOffsetSewing(self.sewing, targets, self.compliance,
-                                      self.sewing_frame_faces, self.sewing_sides)
+                                      self.sewing_frame_faces, self.sewing_sides, activation=activation)
         from solver_distance_sewing import DistanceSewing
-        return DistanceSewing(self.sewing, targets, self.compliance)
+        return DistanceSewing(self.sewing, targets, self.compliance, activation=activation)
 
     def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct",
-             *, fold_targets=None, gripper_targets=None, gripper_activation=None):
+             *, fold_targets=None, gripper_targets=None, gripper_activation=None, sewing_activation=None):
         previous = np.asarray(previous_positions, dtype=float)
         velocities = np.asarray(previous_velocities, dtype=float)
         targets = np.asarray(targets, dtype=float)
+        from solver_sewing_activation import validate_sewing_activation
+        sewing_weights = validate_sewing_activation(sewing_activation, self.sewing.shape[0])
+        sewing_positive = sewing_weights > 0
+        active_sewing = self.sewing if np.all(sewing_positive) else self.sewing[sewing_positive]
+        active_weights = sewing_weights[sewing_positive]
+        sqrt_sewing_weights = np.sqrt(sewing_weights)
+        if sewing_activation is not None and linear_solver != "direct":
+            raise ValueError("Explicit sewing activation requires guarded direct search")
         if (self.fold_actuation is None) != (fold_targets is None):
             raise ValueError("Fold recipe and explicit step targets must be supplied together")
         actuator = self.fold_actuation.potential(fold_targets) if self.fold_actuation is not None else None
@@ -250,7 +258,7 @@ class GlobalSewingSolver:
             raise ValueError("Fold actuation requires guarded direct search")
         distance_sewing = None
         if self.sewing_mode in ("distance", "normal-offset"):
-            distance_sewing = self.sewing_potential(targets)
+            distance_sewing = self.sewing_potential(targets, activation=sewing_activation)
             if linear_solver != "direct":
                 raise ValueError("Distance sewing requires safeguarded direct search")
         if linear_solver not in ("direct", "shifted", "lsmr") or type(max_evaluations) is not int or not 1 <= max_evaluations <= 10000:
@@ -279,12 +287,22 @@ class GlobalSewingSolver:
         inertia_weights = np.repeat(np.sqrt(self.mass) / dt, 3)
         linear_jacobian = diags(inertia_weights, format="csr")
         sewn_jacobian = self.sewing_xyz / np.sqrt(self.compliance)
+        if sewing_activation is not None:
+            sewn_jacobian = diags(np.repeat(sqrt_sewing_weights, 3),
+                                  shape=(3 * len(sewing_weights),) * 2) @ sewn_jacobian
         if distance_sewing is not None:
             distance_sewing.geometry(previous)
 
+        def vector_sewing_error(positions):
+            # Pending rows must not perform an overflowing subtraction only
+            # to multiply it by zero afterward. Their source rows stay intact.
+            result = np.zeros((len(sewing_weights), 3))
+            result[sewing_positive] = active_sewing @ positions - targets[sewing_positive]
+            return result
+
         def sewing_residual(positions):
             return (distance_sewing.residual(positions) if distance_sewing is not None else
-                    (self.sewing @ positions - targets).ravel() / np.sqrt(self.compliance))
+                    (sqrt_sewing_weights[:, None] * vector_sewing_error(positions)).ravel() / np.sqrt(self.compliance))
         fixed = previous.ravel().copy()
         coefficients = np.concatenate((-self.poses.sum(axis=1)[:, None, :], self.poses), axis=1)
         previous_deformation = np.einsum("fvc,fva->fca", coefficients, previous[self.faces])
@@ -404,7 +422,8 @@ class GlobalSewingSolver:
                       + (lame * (area_ratios - alpha))[:, None, None] * area_gradients)
             element_gradient = self.areas[:, None, None] * np.einsum("fvc,fca->fva", coefficients, stress)
             sewing_gradient = (distance_sewing.gradient(positions) if distance_sewing is not None else
-                self.sewing_xyz.T @ ((self.sewing @ positions - targets).ravel() / self.compliance))
+                (active_sewing.T @ (active_weights[:, None] *
+                    (active_sewing @ positions - targets[sewing_positive]) / self.compliance)).ravel())
             gradient = inertia_weights ** 2 * (flat - predicted.ravel()) + sewing_gradient
             np.add.at(gradient.reshape((-1, 3)), self.faces, element_gradient)
             gradient += self.bending.gradient(positions).ravel()
@@ -464,7 +483,10 @@ class GlobalSewingSolver:
             delta_inertial = inertia_weights * delta
             if sewing_change is None:
                 sewing = sewing_residual(positions)
-                delta_sewing = (self.sewing @ displacement).ravel() / np.sqrt(self.compliance)
+                delta_sewing = np.zeros((len(sewing_weights), 3))
+                delta_sewing[sewing_positive] = (np.sqrt(active_weights)[:, None] *
+                                                (active_sewing @ displacement) / np.sqrt(self.compliance))
+                delta_sewing = delta_sewing.ravel()
                 sewing_change = (sewing + .5 * delta_sewing) @ delta_sewing
             return float((inertial + .5 * delta_inertial) @ delta_inertial
                          + sewing_change + membrane_change
@@ -516,9 +538,10 @@ class GlobalSewingSolver:
             return (linear_hessian + membrane_hessian + bending_hessian)[self.free][:, self.free]
 
         diagonal = diags(self.mass / dt ** 2)
-        matrix = diagonal + self.sewing.T @ self.sewing / self.compliance
-        linear_targets = self.sewing @ previous if distance_sewing is not None else targets
-        rhs = diagonal @ predicted + self.sewing.T @ linear_targets / self.compliance
+        weighted_sewing = diags(active_weights, shape=(len(active_weights),) * 2) @ active_sewing
+        matrix = diagonal + active_sewing.T @ weighted_sewing / self.compliance
+        linear_targets = active_sewing @ previous if distance_sewing is not None else targets[sewing_positive]
+        rhs = diagonal @ predicted + active_sewing.T @ (active_weights[:, None] * linear_targets) / self.compliance
         active_indices = np.flatnonzero(self.active)
         fixed_indices = np.flatnonzero(~self.active)
         rhs = rhs[active_indices] - matrix[active_indices][:, fixed_indices] @ previous[fixed_indices]
@@ -561,10 +584,27 @@ class GlobalSewingSolver:
             raise ValueError("Degenerate membrane state rejected by global reference")
         gradient = gradient_function(result.x)
         gradient_norm = float(np.max(np.abs(gradient)))
+        row_errors = np.zeros(len(sewing_weights))
+        if self.sewing_mode == "distance":
+            _, lengths = distance_sewing.geometry(final)
+            row_errors[sewing_positive] = np.abs(lengths[sewing_positive] - targets[sewing_positive])
+        elif self.sewing_mode == "normal-offset":
+            _, _, normals, _ = distance_sewing.geometry(final)
+            errors = active_sewing @ final - (targets[sewing_positive] * self.sewing_sides[sewing_positive])[:, None] * normals[sewing_positive]
+            row_errors[sewing_positive] = np.max(np.abs(errors), axis=1)
+        else:
+            row_errors = np.max(np.abs(vector_sewing_error(final)), axis=1)
         return final, (final - previous) / dt, {
             "profile": "experimental-global-ipc-guarded-contact-reference-v1" if guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
             "sewingMode": self.sewing_mode,
+            "sewingActivationExplicit": sewing_activation is not None,
+            "sewingActivation": sewing_weights.tolist(),
+            "sewingActivationLimitations": "Per-row energy weights, not completed construction phases or continuous seam coverage; parameter work requires adjacent controls" if sewing_activation is not None else None,
+            "activeSewingRows": np.flatnonzero(sewing_positive).tolist(),
+            "pendingSewingRows": np.flatnonzero(~sewing_positive).tolist(),
+            "sewingRowTargetErrorsM": [float(error) if active else None for error, active in zip(row_errors, sewing_positive)],
+            "sewingTargetErrorMetric": "Unweighted maximum absolute Cartesian component per active vector/normal row; absolute scalar-distance error in distance mode; pending rows excluded",
             "triangleSweep": "all source faces; numerical Bernstein guard on optimizer and physical affine paths; v1",
             "foldActuation": actuator is not None,
             "foldActuationJoules": actuator.energy(final) if actuator is not None else 0.,
@@ -578,8 +618,7 @@ class GlobalSewingSolver:
             "gripperActivation": grippers.activation.tolist() if grippers is not None else None,
             "gripperLimitations": "Prescribed compliant source-material anchors on free cloth; targets are not collision geometry or a verified binding/turning recipe. Parameter work requires adjacent states." if grippers is not None else None,
             "sewingJoules": float(.5 * np.sum(sewing_residual(final) ** 2)),
-            "sewingTargetErrorM": float(np.max(np.abs(sewing_residual(final)), initial=0)
-                                         * np.sqrt(self.compliance)),
+            "sewingTargetErrorM": float(np.max(row_errors, initial=0)),
             "sewingLimitations": ("Source-normal offset with full frame reactions and exact sewing curvature; Gauss-Newton fallback; swept triangles guarded, no turning or seam tangent alignment"
                                   if self.sewing_mode == "normal-offset" else
                                   "Scalar anchor distance does not prescribe layer side, seam tangent or turning"
