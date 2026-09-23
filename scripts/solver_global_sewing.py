@@ -467,7 +467,9 @@ class GlobalSewingSolver:
             if actuator is not None:
                 bending_hessian += actuator.hessian(flat.reshape((-1, 3)))
             if distance_sewing is not None:
-                bending_hessian += distance_sewing.hessian(flat.reshape((-1, 3)), project_psd)
+                bending_hessian += (distance_sewing.exact_hessian(flat.reshape((-1, 3)))
+                    if self.sewing_mode == "normal-offset" and not project_psd else
+                    distance_sewing.hessian(flat.reshape((-1, 3)), project_psd))
             if self.fold_barrier is not None:
                 bending_hessian += self.fold_barrier.hessian(flat.reshape((-1, 3)))
             if self.contact is not None:
@@ -529,7 +531,7 @@ class GlobalSewingSolver:
             "sewingJoules": float(.5 * np.sum(sewing_residual(final) ** 2)),
             "sewingTargetErrorM": float(np.max(np.abs(sewing_residual(final)), initial=0)
                                          * np.sqrt(self.compliance)),
-            "sewingLimitations": ("Source-normal offset with full frame reactions and Gauss-Newton search; no swept frame nondegeneracy, turning or seam tangent alignment"
+            "sewingLimitations": ("Source-normal offset with full frame reactions and exact sewing curvature; Gauss-Newton fallback; no swept frame nondegeneracy, turning or seam tangent alignment"
                                   if self.sewing_mode == "normal-offset" else
                                   "Scalar anchor distance does not prescribe layer side, seam tangent or turning"
                                   if distance_sewing is not None else "World-space vector registration"),

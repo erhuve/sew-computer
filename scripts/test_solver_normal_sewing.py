@@ -40,6 +40,39 @@ class NormalSewingTests(unittest.TestCase):
         frozen_force = np.asarray(self.rows.T @ self.potential.residual(self.positions).reshape((-1, 3))) / np.sqrt(.003)
         self.assertGreater(np.linalg.norm(force - frozen_force), .01)
 
+    def test_exact_curvature_matches_gradient_differences_and_rigid_covariance(self):
+        epsilon = 1e-7
+        matrix = self.potential.exact_hessian(self.positions).toarray()
+        np.testing.assert_allclose(matrix, matrix.T, rtol=0, atol=1e-10)
+        for index, direction in enumerate(np.eye(12).reshape((-1, 4, 3))):
+            difference = (self.potential.gradient(self.positions + epsilon * direction)
+                          - self.potential.gradient(self.positions - epsilon * direction)) / (2 * epsilon)
+            np.testing.assert_allclose(matrix[:, index], difference, rtol=2e-7, atol=1e-7)
+        self.assertGreater(np.max(np.abs(matrix - self.potential.hessian(self.positions).toarray())), 1.)
+        rotation = np.linalg.qr(np.random.default_rng(337).normal(size=(3, 3)))[0]
+        transform = np.kron(np.eye(4), rotation.T)
+        moved = self.potential.exact_hessian(self.positions @ rotation + [.1, -.2, .3]).toarray()
+        np.testing.assert_allclose(moved, transform @ matrix @ transform.T, rtol=1e-10, atol=1e-8)
+
+    def test_exact_curvature_accumulates_shared_frames_and_vanishes_at_zero_residual(self):
+        rows = csr_matrix([[-.2, -.3, -.5, 1.], [-.4, -.1, -.5, 1.]])
+        potential = NormalOffsetSewing(rows, [.002, .003], .003, [[0, 1, 2], [0, 1, 2]], [-1, 1])
+        matrix = potential.exact_hessian(self.positions).toarray()
+        expected = sum(NormalOffsetSewing(rows[index:index + 1], [potential.targets[index]], .003,
+                       [[0, 1, 2]], [potential.sides[index]]).exact_hessian(self.positions).toarray()
+                       for index in range(2))
+        np.testing.assert_allclose(matrix, expected, rtol=1e-12, atol=1e-10)
+        direction = np.random.default_rng(28).normal(size=(4, 3))
+        epsilon = 1e-7
+        difference = (potential.gradient(self.positions + epsilon * direction)
+                      - potential.gradient(self.positions - epsilon * direction)) / (2 * epsilon)
+        np.testing.assert_allclose(matrix @ direction.ravel(), difference, rtol=1e-7, atol=1e-6)
+        positions = np.array([[0., 0., 0.], [.02, 0., 0.], [0., .03, 0.], [.006, .015, .002]])
+        np.testing.assert_allclose(self.potential.exact_hessian(positions).toarray(),
+                                   self.potential.hessian(positions).toarray(), rtol=0, atol=1e-10)
+        with self.assertRaises(ValueError):
+            self.potential.exact_hessian(np.zeros((4, 3)))
+
     def test_explicit_side_distinguishes_equal_distance_layers(self):
         positions = np.array([[0., 0., 0.], [.02, 0., 0.], [0., .03, 0.], [.006, .015, .002]])
         np.testing.assert_allclose(self.potential.residual(positions), 0, atol=1e-14)

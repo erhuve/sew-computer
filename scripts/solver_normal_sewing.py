@@ -78,6 +78,34 @@ class NormalOffsetSewing:
         jacobian = self.jacobian(positions)
         return jacobian.T @ jacobian
 
+    def exact_hessian(self, positions):
+        first, second, normals, magnitude = self.geometry(positions)
+        signed = self.targets * self.sides
+        residual = self.sewing @ positions - signed[:, None] * normals
+        area_derivatives = np.concatenate((_skew(second - first), -_skew(second), _skew(first)), axis=2)
+        normal_dot = np.sum(residual * normals, axis=1)
+        curvature = (-residual[:, :, None] * normals[:, None, :]
+                     - normals[:, :, None] * residual[:, None, :]
+                     - normal_dot[:, None, None] * np.eye(3)
+                     + 3 * normal_dot[:, None, None] * normals[:, :, None] * normals[:, None, :])
+        curvature /= magnitude[:, None, None] ** 2
+        area_gradient = (residual - normal_dot[:, None] * normals) / magnitude[:, None]
+        identity = np.eye(3)
+        edge_map = np.block([[-identity, identity, np.zeros((3, 3))],
+                             [-identity, np.zeros((3, 3)), identity]])
+        elements = np.einsum("nai,nab,nbj->nij", area_derivatives, curvature, area_derivatives)
+        for index, gradient in enumerate(area_gradient):
+            cross_curvature = np.block([[np.zeros((3, 3)), -_skew(gradient)],
+                                         [_skew(gradient), np.zeros((3, 3))]])
+            elements[index] += edge_map.T @ cross_curvature @ edge_map
+        elements *= (-signed / self.compliance)[:, None, None]
+        dofs = (self.faces[:, :, None] * 3 + np.arange(3)).reshape((-1, 9))
+        rows = np.broadcast_to(dofs[:, :, None], elements.shape)
+        columns = np.broadcast_to(dofs[:, None, :], elements.shape)
+        correction = coo_matrix((elements.ravel(), (rows.ravel(), columns.ravel())),
+                                shape=(self.sewing_xyz.shape[1],) * 2).tocsr()
+        return self.hessian(positions) + correction
+
     def energy_change(self, start, end):
         before, after = self.residual(start), self.residual(end)
         return float((before + .5 * (after - before)) @ (after - before))
