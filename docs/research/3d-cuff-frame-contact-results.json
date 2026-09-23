@@ -1,0 +1,6216 @@
+{
+  "accepted": false,
+  "activationComparisons": [
+    {
+      "accepted": false,
+      "afterRun": "cuff-linux-body-frame-activation01-hold-v1",
+      "argumentDifferencesExcludingFilePaths": [
+        {
+          "after": 0.0001,
+          "before": 0.001,
+          "path": "/activation_distance_m"
+        }
+      ],
+      "beforeRun": "cuff-linux-body-frame-hold-hashgrid-v1",
+      "canonicalDifferences": [],
+      "contactProfileDifferences": [
+        {
+          "after": 0.0001,
+          "before": 0.001,
+          "path": "/fullActivationM"
+        }
+      ],
+      "interpretation": "Only the contact activation width beyond the exclusion core changes (outer force-support distance = core + activation). This changes the constitutive contact energy/force model; the 0.1 mm exclusion core, 10000 Pa pressure, source frame policy and all other inputs remain fixed. This is model sensitivity, not calibration, tolerance relaxation or an accepted construction.",
+      "replayVerificationComparison": {
+        "afterBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": 600,
+          "recordedCpuSeconds": 121.441262
+        },
+        "beforeBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": null,
+          "recordedCpuSeconds": null
+        },
+        "digestDifferences": [
+          {
+            "after": "c6fc6a2434c11d1e8df4e6d08540696c4cd5503ac30fd8162467c65041f6e96a",
+            "before": "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a",
+            "path": "/replayScriptSha256"
+          }
+        ],
+        "interpretation": "The triangle, broad-phase and candidate-coverage verifier modules are identical. The standalone replay script hash and verification budget may differ and are recorded explicitly; identical replayer bytes are not claimed."
+      },
+      "sourceDigestDifferences": [],
+      "timePartition": {
+        "after": {
+          "endTimesSha256": "f77da1c52a3cac269eed0884cd36979403708ff98a852864a681091c775dd102",
+          "initialStepSeconds": 0.001,
+          "maximumStepSeconds": 0.0010000000000000009,
+          "minimumStepSeconds": 0.0009999999999999731
+        },
+        "before": {
+          "endTimesSha256": "833ca2e7d051c213f0b747e75036d7773dca96f47d63cd204d5710f291869e43",
+          "initialStepSeconds": 0.001,
+          "maximumStepSeconds": 0.0010000000000000009,
+          "minimumStepSeconds": 0.0002500000000000002
+        },
+        "commonEndTimeCount": 256,
+        "interpretation": "Matching times do not imply matching states. Adaptive integration and implicit numerical dissipation can differ; this is not a fixed-substep or timestep-convergence comparison.",
+        "sameAcceptedTimePartition": false,
+        "sameEndTimesPrefixCount": 17,
+        "sameEndTimesPrefixLastSeconds": 0.017
+      }
+    },
+    {
+      "accepted": false,
+      "afterRun": "cuff-linux-body-frame-activation005-hold-v1",
+      "argumentDifferencesExcludingFilePaths": [
+        {
+          "after": 5e-05,
+          "before": 0.001,
+          "path": "/activation_distance_m"
+        }
+      ],
+      "beforeRun": "cuff-linux-body-frame-hold-hashgrid-v1",
+      "canonicalDifferences": [],
+      "contactProfileDifferences": [
+        {
+          "after": 5e-05,
+          "before": 0.001,
+          "path": "/fullActivationM"
+        }
+      ],
+      "interpretation": "Only the contact activation width beyond the exclusion core changes (outer force-support distance = core + activation). This changes the constitutive contact energy/force model; the 0.1 mm exclusion core, 10000 Pa pressure, source frame policy and all other inputs remain fixed. This is model sensitivity, not calibration, tolerance relaxation or an accepted construction.",
+      "replayVerificationComparison": {
+        "afterBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": 600,
+          "recordedCpuSeconds": 128.410623
+        },
+        "beforeBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": null,
+          "recordedCpuSeconds": null
+        },
+        "digestDifferences": [
+          {
+            "after": "c6fc6a2434c11d1e8df4e6d08540696c4cd5503ac30fd8162467c65041f6e96a",
+            "before": "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a",
+            "path": "/replayScriptSha256"
+          }
+        ],
+        "interpretation": "The triangle, broad-phase and candidate-coverage verifier modules are identical. The standalone replay script hash and verification budget may differ and are recorded explicitly; identical replayer bytes are not claimed."
+      },
+      "sourceDigestDifferences": [],
+      "timePartition": {
+        "after": {
+          "endTimesSha256": "33cea656f008de6bfa5dff2a85c5eae4de3af2770a05311a07e4d06b2ff368a5",
+          "initialStepSeconds": 0.001,
+          "maximumStepSeconds": 0.0010000000000000009,
+          "minimumStepSeconds": 0.0005000000000000004
+        },
+        "before": {
+          "endTimesSha256": "833ca2e7d051c213f0b747e75036d7773dca96f47d63cd204d5710f291869e43",
+          "initialStepSeconds": 0.001,
+          "maximumStepSeconds": 0.0010000000000000009,
+          "minimumStepSeconds": 0.0002500000000000002
+        },
+        "commonEndTimeCount": 257,
+        "interpretation": "Matching times do not imply matching states. Adaptive integration and implicit numerical dissipation can differ; this is not a fixed-substep or timestep-convergence comparison.",
+        "sameAcceptedTimePartition": false,
+        "sameEndTimesPrefixCount": 19,
+        "sameEndTimesPrefixLastSeconds": 0.018000000000000002
+      }
+    }
+  ],
+  "frameComparison": {
+    "accepted": false,
+    "afterRun": "cuff-linux-body-frame-hold-hashgrid-v1",
+    "argumentDifferencesExcludingFilePaths": [],
+    "beforeRun": "cuff-linux-normal-hold-hashgrid-v2",
+    "canonicalDifferences": [
+      {
+        "after": {
+          "baselineCanonicalSha256": "2c7ec32249490e6eecc0f87be8e9e356b2e7ede977f1df9b1f869129b297d8e3",
+          "changedPhysics": "explicit body-side seam reference triangles at seven crease registrations; source metrics, anchors and targets unchanged",
+          "durationSeconds": 0.256,
+          "holdSeconds": 0.192,
+          "rampSeconds": 0.064
+        },
+        "path": "/provenance/holdControl"
+      },
+      {
+        "before": {
+          "accepted": false,
+          "durationSeconds": 0.256,
+          "initialSubdivisions": 256,
+          "limitations": "No added material damping; target hold is not settled garment acceptance.",
+          "originalDurationSeconds": 0.064,
+          "parentCanonicalSha256": "918a64a58403a69a5767efaf20f8095c735fe3448f763580c910b4fe1e5283ce",
+          "rampPreservation": "sewing0-.016s; fold.016-.064s; both targets held.064-.256s"
+        },
+        "path": "/provenance/holdDiagnostic"
+      },
+      {
+        "after": [
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              9,
+              19,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              9,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 19,
+            "sourceParentVertices": [
+              3,
+              9,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              9,
+              22
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              9,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 18,
+            "sourceParentVertices": [
+              2,
+              9,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              9,
+              22
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              9,
+              19,
+              22
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 18,
+            "sourceParentVertices": [
+              2,
+              9,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              32,
+              19,
+              23
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              23,
+              32
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 14,
+            "sourceParentVertices": [
+              2,
+              8,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              32,
+              19,
+              23
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              23,
+              32
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 14,
+            "sourceParentVertices": [
+              2,
+              8,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              18,
+              31,
+              30
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              30,
+              31
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 12,
+            "sourceParentVertices": [
+              7,
+              8,
+              18
+            ]
+          },
+          {
+            "childVertices": [
+              28,
+              17,
+              29
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              28,
+              29
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 20,
+            "sourceParentVertices": [
+              6,
+              7,
+              17
+            ]
+          },
+          {
+            "childVertices": [
+              25,
+              15,
+              26
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              25,
+              26
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 10,
+            "sourceParentVertices": [
+              5,
+              6,
+              15
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              24,
+              21
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              21,
+              24
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 11,
+            "sourceParentVertices": [
+              1,
+              5,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              24,
+              21
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              21,
+              24
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 11,
+            "sourceParentVertices": [
+              1,
+              5,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              4,
+              14,
+              21
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              4,
+              14,
+              21
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 1,
+            "sourceParentVertices": [
+              1,
+              4,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              4,
+              0
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              4,
+              14
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 0,
+            "sourceParentVertices": [
+              0,
+              4,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              4,
+              0
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              0,
+              4,
+              14
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 0,
+            "sourceParentVertices": [
+              0,
+              4,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              13,
+              14,
+              0
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              0,
+              13,
+              14
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 2,
+            "sourceParentVertices": [
+              0,
+              13,
+              14
+            ]
+          }
+        ],
+        "path": "/sewingFrames/bindings"
+      },
+      {
+        "after": {
+          "basis": "all off-crease source registrations occupy one strict halfspace",
+          "creaseEndpointsMeters": [
+            [
+              0.24,
+              0.055
+            ],
+            [
+              0.0,
+              0.055
+            ]
+          ],
+          "leftNormal": [
+            -0.0,
+            -1.0
+          ],
+          "sign": 1,
+          "sourcePathName": "outer",
+          "toleranceMeters": 2.7060118255469617e-13
+        },
+        "path": "/sewingFrames/bodyHalfspace"
+      },
+      {
+        "after": "body",
+        "path": "/sewingFrames/creaseFrameRegion"
+      },
+      {
+        "after": 65,
+        "before": 41,
+        "path": "/sewingFrames/faces/9/0"
+      },
+      {
+        "after": 52,
+        "before": 65,
+        "path": "/sewingFrames/faces/9/1"
+      },
+      {
+        "after": 65,
+        "before": 41,
+        "path": "/sewingFrames/faces/10/0"
+      },
+      {
+        "after": 52,
+        "before": 65,
+        "path": "/sewingFrames/faces/10/1"
+      },
+      {
+        "after": 51,
+        "before": 64,
+        "path": "/sewingFrames/faces/11/0"
+      },
+      {
+        "after": 64,
+        "before": 40,
+        "path": "/sewingFrames/faces/11/1"
+      },
+      {
+        "after": 61,
+        "before": 39,
+        "path": "/sewingFrames/faces/12/0"
+      },
+      {
+        "after": 50,
+        "before": 61,
+        "path": "/sewingFrames/faces/12/1"
+      },
+      {
+        "after": 58,
+        "before": 38,
+        "path": "/sewingFrames/faces/13/0"
+      },
+      {
+        "after": 48,
+        "before": 58,
+        "path": "/sewingFrames/faces/13/1"
+      },
+      {
+        "after": 47,
+        "before": 57,
+        "path": "/sewingFrames/faces/14/0"
+      },
+      {
+        "after": 57,
+        "before": 34,
+        "path": "/sewingFrames/faces/14/1"
+      },
+      {
+        "after": 47,
+        "before": 57,
+        "path": "/sewingFrames/faces/15/0"
+      },
+      {
+        "after": 57,
+        "before": 34,
+        "path": "/sewingFrames/faces/15/1"
+      },
+      {
+        "after": "Explicit normal-seam frame choice for this parallel source-cuff diagnostic; not turning, layer order or accepted construction",
+        "path": "/sewingFrames/limitations"
+      },
+      {
+        "after": "explicit-facing-source-parent-region-v2",
+        "before": "remapped-facing-source-parent-v1",
+        "path": "/sewingFrames/recipe"
+      },
+      {
+        "after": "requested crease region, then lexicographic source-parent and child vertex identities",
+        "path": "/sewingFrames/selectionPolicy"
+      }
+    ],
+    "changedFrameRegistrationIndices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "contactProfileDifferences": [],
+    "inputHelperUnifiedDiff": "--- historical/solver_cuff_sequence.py\n+++ body-frame/solver_cuff_sequence.py\n@@ -6,7 +6,9 @@\n from solver_crease_mesh import split_straight_crease\n \n \n-def combine_cuff_controls(sewing, fold):\n+def combine_cuff_controls(sewing, fold, *, crease_frame_region=None):\n+    if crease_frame_region not in (None, \"body\", \"allowance\"):\n+        raise ValueError(\"Crease frame region must be explicitly body or allowance\")\n     identities = (\"cuff_left:shell\", \"cuff_left:facing\")\n     original = np.asarray(sewing[\"restMeters\"], dtype=float)\n     original_faces = np.asarray(sewing[\"triangles\"]).reshape((-1, 3))\n@@ -29,10 +31,21 @@\n     line = np.asarray([path[\"samples\"][index][\"restPosition\"] for index in (0, -1)]) * .001\n     expected = json.loads(json.dumps(split_straight_crease(original[:20, :2], original_faces[:24], line)))\n     for key, value in expected.items():\n+        if key in (\"triangles\", \"parentTriangles\"):\n+            continue\n         if subdivision[key] != value:\n             raise ValueError(\"Subdivision differs from reconstructed source parents\")\n+    # Child enumeration is not a material-frame declaration. Verify each exact\n+    # oriented child and its parent, but permit a consistent enumeration change.\n+    if (len(subdivision[\"parentTriangles\"]) != len(faces)\n+            or any(type(parent) is not int for parent in subdivision[\"parentTriangles\"])\n+            or sorted((parent, tuple(triangle)) for parent, triangle in\n+                      zip(subdivision[\"parentTriangles\"], subdivision[\"triangles\"]))\n+            != sorted((parent, tuple(triangle)) for parent, triangle in\n+                      zip(expected[\"parentTriangles\"], expected[\"triangles\"]))):\n+        raise ValueError(\"Subdivision differs from reconstructed source parents\")\n     np.testing.assert_array_equal(panel[:, :2], expected[\"vertices\"])\n-    np.testing.assert_array_equal(faces, expected[\"triangles\"])\n+    np.testing.assert_array_equal(faces, subdivision[\"triangles\"])\n     np.testing.assert_array_equal(fold[\"placedMeters\"], panel)\n     placed_original = np.asarray(sewing[\"placedMeters\"])\n     np.testing.assert_array_equal(placed_original[:20], original[:20])\n@@ -43,16 +56,23 @@\n     rows = copy.deepcopy(sewing[\"embeddedConstraints\"][\"constraints\"])\n     if len(rows) != 20:\n         raise ValueError(\"All twenty source cuff registrations required\")\n-    frame_faces = []\n+    direction = line[1] - line[0]\n+    crease_normal = np.array([-direction[1], direction[0]]) / np.linalg.norm(direction)\n+    tolerance = max(np.linalg.norm(np.ptp(panel[:, :2], axis=0)) * 1e-12, 1e-14)\n+    distances = (panel[:, :2] - line[0]) @ crease_normal\n+    distances[np.abs(distances) <= tolerance] = 0.\n+    off_crease_sides, frame_requests = set(), []\n     for row in rows:\n         samples = row[\"sourceSamples\"]\n         if [sample[\"instanceId\"] for sample in samples] != list(identities):\n             raise ValueError(\"Ordered shell/facing source anchors required\")\n+        if samples[0][\"pathName\"] != samples[1][\"pathName\"]:\n+            raise ValueError(\"Paired source registrations must name the same cuff path\")\n         expected_terms = sorted((sample[\"instanceId\"], weight[\"vertex\"], sign * weight[\"weight\"])\n             for sign, sample in zip((1, -1), samples) for weight in sample[\"weights\"] if weight[\"weight\"] != 0)\n         if sorted((term[\"instanceId\"], term[\"vertex\"], term[\"coefficient\"]) for term in row[\"terms\"]) != expected_terms:\n             raise ValueError(\"Seam terms differ from source anchors\")\n-        remapped_terms = []\n+        remapped_terms, coordinates = [], []\n         for sign, sample in zip((1, -1), samples):\n             weights = sample[\"weights\"]\n             if (not 1 <= len(weights) <= 3 or len({weight[\"vertex\"] for weight in weights}) != len(weights)\n@@ -63,13 +83,22 @@\n                 raise ValueError(\"Normalized source-triangle anchor required\")\n             coordinate = sum(weight[\"weight\"] * original[weight[\"vertex\"], :2] for weight in weights)\n             np.testing.assert_allclose(coordinate * 1000, sample[\"restPositionMm\"], rtol=0, atol=1e-9)\n+            coordinates.append(coordinate)\n+            signed_distance = float((coordinate - line[0]) @ crease_normal)\n+            on_crease = bool(abs(signed_distance) <= tolerance)\n+            if sample[\"pathName\"] == \"outer\" and not on_crease:\n+                raise ValueError(\"Outer registrations must lie on the source outer crease\")\n+            if not on_crease:\n+                off_crease_sides.add(1 if signed_distance > 0 else -1)\n             parents = [index for index, triangle in enumerate(original_faces[:24])\n                        if {weight[\"vertex\"] for weight in weights}.issubset(set(triangle))]\n             match = None\n             for child, parent in enumerate(expected[\"parentTriangles\"]):\n                 if parent not in parents:\n                     continue\n-                triangle = faces[child]\n+                # Preserve the original source interpolation independently of\n+                # the explicitly chosen frame or the input child enumeration.\n+                triangle = np.asarray(expected[\"triangles\"][child])\n                 barycentric = np.linalg.solve(np.vstack((panel[triangle, :2].T, np.ones(3))), [*coordinate, 1.])\n                 if np.min(barycentric) >= -1e-12:\n                     barycentric[np.abs(barycentric) < 1e-12] = 0.\n@@ -87,8 +116,40 @@\n             remapped_terms.extend({\"instanceId\": sample[\"instanceId\"], \"vertex\": weight[\"vertex\"],\n                                    \"coefficient\": sign * weight[\"weight\"]} for weight in sample[\"weights\"])\n             if sign == -1:\n-                frame_faces.append((triangle + len(panel)).tolist())\n+                frame_requests.append((parents, {weight[\"vertex\"] for weight in sample[\"weights\"]}, on_crease))\n+        if not np.allclose(coordinates[0], coordinates[1], rtol=0., atol=1e-12):\n+            raise ValueError(\"Paired source registrations must preserve coincident material anchors\")\n         row[\"terms\"] = sorted(remapped_terms, key=lambda term: (term[\"instanceId\"], term[\"vertex\"]))\n+    if len(off_crease_sides) != 1:\n+        raise ValueError(\"Off-crease source registrations must unambiguously identify one body halfspace\")\n+    body_side = off_crease_sides.pop()\n+    frame_faces, frame_bindings = [], []\n+    for parents, support, on_crease in frame_requests:\n+        matches = []\n+        for triangle, parent in zip(faces, subdivision[\"parentTriangles\"]):\n+            if parent not in parents or not support.issubset(set(triangle)):\n+                continue\n+            sides = set(np.sign(distances[triangle]).astype(int)) - {0}\n+            if len(sides) != 1:\n+                raise ValueError(\"Frame child must lie strictly on one side of the source crease\")\n+            region = \"body\" if sides.pop() == body_side else \"allowance\"\n+            matches.append((parent, triangle, region))\n+        if not matches:\n+            raise ValueError(\"No source-parent frame child contains the negative anchor support\")\n+        regions = {match[2] for match in matches}\n+        if len(regions) > 1 and crease_frame_region is None:\n+            raise ValueError(\"Ambiguous crease frame: explicitly choose body or allowance with --crease-frame-region\")\n+        if on_crease and crease_frame_region is not None:\n+            matches = [match for match in matches if match[2] == crease_frame_region]\n+        if not matches:\n+            raise ValueError(\"Requested crease frame region has no source-parent child containing the negative anchor support\")\n+        parent, triangle, region = min(matches, key=lambda match: (\n+            tuple(sorted(original_faces[match[0]].tolist())), tuple(sorted(match[1].tolist()))))\n+        frame_faces.append((triangle + len(panel)).tolist())\n+        frame_bindings.append({\"instanceId\": identities[1], \"sourceParentTriangle\": parent,\n+            \"sourceParentVertices\": sorted(original_faces[parent].tolist()),\n+            \"childVertices\": triangle.tolist(), \"negativeAnchorVertices\": sorted(support),\n+            \"onCrease\": on_crease, \"region\": region})\n     actuator = copy.deepcopy(fold[\"foldActuation\"])\n     hinges = np.asarray(actuator[\"hinges\"])\n     for key in (\"stiffnessJoules\", \"initialAnglesRadians\", \"targetAnglesRadians\"):\n@@ -103,7 +164,15 @@\n         \"instanceOffsets\": {identities[0]: 0, identities[1]: len(panel)},\n         \"embeddedConstraints\": {\"constraints\": rows},\n         \"sewingFrames\": {\"faces\": frame_faces, \"sides\": [-1] * len(rows),\n-            \"recipe\": \"remapped-facing-source-parent-v1\", \"accepted\": False},\n+            \"recipe\": \"explicit-facing-source-parent-region-v2\", \"accepted\": False,\n+            \"creaseFrameRegion\": crease_frame_region,\n+            \"bodyHalfspace\": {\"sourcePathName\": \"outer\", \"creaseEndpointsMeters\": line.tolist(),\n+                \"leftNormal\": crease_normal.tolist(), \"sign\": body_side,\n+                \"basis\": \"all off-crease source registrations occupy one strict halfspace\",\n+                \"toleranceMeters\": float(tolerance)},\n+            \"selectionPolicy\": \"requested crease region, then lexicographic source-parent and child vertex identities\",\n+            \"bindings\": frame_bindings,\n+            \"limitations\": \"Explicit normal-seam frame choice for this parallel source-cuff diagnostic; not turning, layer order or accepted construction\"},\n         \"foldActuation\": actuator,\n         \"assemblySchedule\": {\"profile\": \"sewing-fold-progress-v1\", \"knots\": [\n             {\"fraction\": 0., \"sewingProgress\": 0., \"foldProgress\": 0.},\n",
+    "interpretation": "Seven on-crease material-normal reference triangles move from allowance children to body children. Source metrics, mesh, sewing anchors/compliance, fold targets, initial positions and contact are identical. Only the input-construction helper changes in captured code; every solver/contact module and dependency requirement is identical.",
+    "replayVerificationComparison": {
+      "afterBudget": {
+        "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+        "recordedCpuLimitSeconds": null,
+        "recordedCpuSeconds": null
+      },
+      "beforeBudget": {
+        "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+        "recordedCpuLimitSeconds": null,
+        "recordedCpuSeconds": null
+      },
+      "digestDifferences": [],
+      "interpretation": "The triangle, broad-phase and candidate-coverage verifier modules are identical. The standalone replay script hash and verification budget may differ and are recorded explicitly; identical replayer bytes are not claimed."
+    },
+    "sourceDigestDifferences": [
+      {
+        "after": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044",
+        "before": "5132d08a7d11857e60a866eb441a00d585f75f39337b8725b25a4a7335cf98af",
+        "path": "/solver_cuff_sequence.py"
+      }
+    ],
+    "sourceFramePolicy": {
+      "creaseRegistrationIndices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "metadata": {
+        "accepted": false,
+        "bindings": [
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              10,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              10,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 15,
+            "sourceParentVertices": [
+              3,
+              10,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              9,
+              19,
+              3
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              3,
+              9,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 19,
+            "sourceParentVertices": [
+              3,
+              9,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              9,
+              22
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              9,
+              19
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 18,
+            "sourceParentVertices": [
+              2,
+              9,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              19,
+              9,
+              22
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              9,
+              19,
+              22
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 18,
+            "sourceParentVertices": [
+              2,
+              9,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              32,
+              19,
+              23
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              23,
+              32
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 14,
+            "sourceParentVertices": [
+              2,
+              8,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              32,
+              19,
+              23
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              23,
+              32
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 14,
+            "sourceParentVertices": [
+              2,
+              8,
+              19
+            ]
+          },
+          {
+            "childVertices": [
+              18,
+              31,
+              30
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              30,
+              31
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 12,
+            "sourceParentVertices": [
+              7,
+              8,
+              18
+            ]
+          },
+          {
+            "childVertices": [
+              28,
+              17,
+              29
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              28,
+              29
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 20,
+            "sourceParentVertices": [
+              6,
+              7,
+              17
+            ]
+          },
+          {
+            "childVertices": [
+              25,
+              15,
+              26
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              25,
+              26
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 10,
+            "sourceParentVertices": [
+              5,
+              6,
+              15
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              24,
+              21
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              21,
+              24
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 11,
+            "sourceParentVertices": [
+              1,
+              5,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              24,
+              21
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              21,
+              24
+            ],
+            "onCrease": true,
+            "region": "body",
+            "sourceParentTriangle": 11,
+            "sourceParentVertices": [
+              1,
+              5,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              4,
+              14,
+              21
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              4,
+              14,
+              21
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 1,
+            "sourceParentVertices": [
+              1,
+              4,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              4,
+              0
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              4,
+              14
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 0,
+            "sourceParentVertices": [
+              0,
+              4,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              14,
+              4,
+              0
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              0,
+              4,
+              14
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 0,
+            "sourceParentVertices": [
+              0,
+              4,
+              14
+            ]
+          },
+          {
+            "childVertices": [
+              13,
+              14,
+              0
+            ],
+            "instanceId": "cuff_left:facing",
+            "negativeAnchorVertices": [
+              0,
+              13,
+              14
+            ],
+            "onCrease": false,
+            "region": "body",
+            "sourceParentTriangle": 2,
+            "sourceParentVertices": [
+              0,
+              13,
+              14
+            ]
+          }
+        ],
+        "bodyHalfspace": {
+          "basis": "all off-crease source registrations occupy one strict halfspace",
+          "creaseEndpointsMeters": [
+            [
+              0.24,
+              0.055
+            ],
+            [
+              0.0,
+              0.055
+            ]
+          ],
+          "leftNormal": [
+            -0.0,
+            -1.0
+          ],
+          "sign": 1,
+          "sourcePathName": "outer",
+          "toleranceMeters": 2.7060118255469617e-13
+        },
+        "creaseFrameRegion": "body",
+        "faces": [
+          [
+            52,
+            43,
+            36
+          ],
+          [
+            52,
+            43,
+            36
+          ],
+          [
+            52,
+            43,
+            36
+          ],
+          [
+            52,
+            43,
+            36
+          ],
+          [
+            52,
+            43,
+            36
+          ],
+          [
+            52,
+            43,
+            36
+          ],
+          [
+            42,
+            52,
+            36
+          ],
+          [
+            52,
+            42,
+            55
+          ],
+          [
+            52,
+            42,
+            55
+          ],
+          [
+            65,
+            52,
+            56
+          ],
+          [
+            65,
+            52,
+            56
+          ],
+          [
+            51,
+            64,
+            63
+          ],
+          [
+            61,
+            50,
+            62
+          ],
+          [
+            58,
+            48,
+            59
+          ],
+          [
+            47,
+            57,
+            54
+          ],
+          [
+            47,
+            57,
+            54
+          ],
+          [
+            37,
+            47,
+            54
+          ],
+          [
+            47,
+            37,
+            33
+          ],
+          [
+            47,
+            37,
+            33
+          ],
+          [
+            46,
+            47,
+            33
+          ]
+        ],
+        "limitations": "Explicit normal-seam frame choice for this parallel source-cuff diagnostic; not turning, layer order or accepted construction",
+        "recipe": "explicit-facing-source-parent-region-v2",
+        "selectionPolicy": "requested crease region, then lexicographic source-parent and child vertex identities",
+        "sides": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "validation": "Every facing frame is an oriented source child of its stated parent, contains its negative anchor support, and lies on the declared body side. Off-crease anchors independently identify that side."
+    },
+    "timePartition": {
+      "after": {
+        "endTimesSha256": "833ca2e7d051c213f0b747e75036d7773dca96f47d63cd204d5710f291869e43",
+        "initialStepSeconds": 0.001,
+        "maximumStepSeconds": 0.0010000000000000009,
+        "minimumStepSeconds": 0.0002500000000000002
+      },
+      "before": {
+        "endTimesSha256": "2fa37260782d0331bcb0dcd684a98f583ea1f1e319a99ba2ee8b7184ba725212",
+        "initialStepSeconds": 0.001,
+        "maximumStepSeconds": 0.0010000000000000009,
+        "minimumStepSeconds": 0.0002500000000000002
+      },
+      "commonEndTimeCount": 263,
+      "interpretation": "Matching times do not imply matching states. Adaptive integration and implicit numerical dissipation can differ; this is not a fixed-substep or timestep-convergence comparison.",
+      "sameAcceptedTimePartition": false,
+      "sameEndTimesPrefixCount": 13,
+      "sameEndTimesPrefixLastSeconds": 0.013000000000000001
+    }
+  },
+  "limitations": [
+    "Synthetic coarse cuff with parallel shell/facing; no turning, sleeve attachment, layer-order acceptance or physical fit claim.",
+    "The activation distance is an uncalibrated model parameter. A smaller value changes contact energy and forces; it does not validate the material or establish a preferred setting.",
+    "The unchanged sewing/fold ramps end at 64 ms, followed by a 192 ms target hold. No physical damping is added.",
+    "Motion at the final sample is reported, not assumed zero. Finite-duration controls do not establish equilibrium, temporal convergence or mesh convergence.",
+    "Accepted integration steps are numerically admitted states, not accepted garment constructions. All runs retain accepted: false.",
+    "Exact path/candidate/triangle checks do not guarantee layer order or thickness at incident primitives.",
+    "Raw source snapshots and trajectories remain in ignored research storage. Recorded hashes cannot reconstruct missing bytes."
+  ],
+  "profile": "synthetic-cuff-frame-contact-sensitivity-evidence-v1",
+  "replayAttemptHistory": [
+    {
+      "completedAttempt": {
+        "log": "cuff-linux-body-frame-activation01-hold-v1-replay-600.log",
+        "logSha256": "4a0ae34c82779f92afe98816a8574f37846e800b1305891e1eb77bcc8f8e6752",
+        "recordedVerifierBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": 600,
+          "recordedCpuSeconds": 121.441262
+        },
+        "wrapperResources": {
+          "cpuSeconds": 122.39959,
+          "exitCode": 0,
+          "maximumResidentKiB": 339884,
+          "wallSeconds": 125.605279182
+        }
+      },
+      "initialAttempt": {
+        "cpuHardLimitSeconds": 105,
+        "cpuSoftLimitSeconds": 100,
+        "observation": "The task supervisor reported exit 137 with no completed verification artifact. The saved stdout log contains no completed-proof record and does not itself record the exit status or signal cause.",
+        "stdoutLog": "cuff-linux-body-frame-activation01-hold-v1-replay.log",
+        "stdoutLogSha256": "6a7fff9e0dfdec4d9adf51ce772efd3e88b6d4e1fe8e7f5f14b84023d703089a"
+      },
+      "interpretation": "The successful verifier CPU time exceeds the earlier 105 s hard limit. A larger verification budget was needed; no memory failure is evidenced. Solver captures and exact proof mathematics were unchanged. The standalone replay CLI gained an explicit bounded CPU option and recorded CPU metadata; its changed digest is preserved separately.",
+      "run": "cuff-linux-body-frame-activation01-hold-v1"
+    },
+    {
+      "completedAttempt": {
+        "log": "cuff-linux-body-frame-activation005-hold-v1-replay-600.log",
+        "logSha256": "bc3443ba5204e75fd8027322d08101ff59556f4360293cb5c7ba268e0424e66f",
+        "recordedVerifierBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": 600,
+          "recordedCpuSeconds": 128.410623
+        },
+        "wrapperResources": {
+          "cpuSeconds": 129.29432400000002,
+          "exitCode": 0,
+          "maximumResidentKiB": 339736,
+          "wallSeconds": 132.30414210200001
+        }
+      },
+      "initialAttempt": {
+        "cpuHardLimitSeconds": 105,
+        "cpuSoftLimitSeconds": 100,
+        "observation": "The task supervisor reported exit 137 with no completed verification artifact. The saved stdout log contains no completed-proof record and does not itself record the exit status or signal cause.",
+        "stdoutLog": "cuff-linux-body-frame-activation005-hold-v1-replay.log",
+        "stdoutLogSha256": "e09cce0d329d8e12f577f773b96e247caf928c987e34295fc3f7ed32f4934acb"
+      },
+      "interpretation": "The successful verifier CPU time exceeds the earlier 105 s hard limit. A larger verification budget was needed; no memory failure is evidenced. Solver captures and exact proof mathematics were unchanged. The standalone replay CLI gained an explicit bounded CPU option and recorded CPU metadata; its changed digest is preserved separately.",
+      "run": "cuff-linux-body-frame-activation005-hold-v1"
+    }
+  ],
+  "reportGeneratorSha256": "3444d638606816023aef73876abb46771e6252cb7ad979fe5f9dfba3e9019a11",
+  "reportHelperSha256": "899a17f2ebf9c5d043156225b82101f1b0c9388ca3899d722a024ebacccf2ffe",
+  "reviewedReplayVersions": {
+    "c6fc6a2434c11d1e8df4e6d08540696c4cd5503ac30fd8162467c65041f6e96a": "Reviewed bounded CPU CLI/reporting revision (commit 753673e); exact replay mathematics unchanged.",
+    "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a": "Historical fixed 100 s soft / 105 s hard CPU budget; no recorded replay CPU fields."
+  },
+  "runs": {
+    "bodyFrameHolds": [
+      {
+        "accepted": false,
+        "acceptedSteps": 288,
+        "acceptedTimePartition": {
+          "endTimesSha256": "833ca2e7d051c213f0b747e75036d7773dca96f47d63cd204d5710f291869e43",
+          "initialStepSeconds": 0.001,
+          "maximumStepSeconds": 0.0010000000000000009,
+          "minimumStepSeconds": 0.0002500000000000002
+        },
+        "arguments": {
+          "activation_distance_m": 0.001,
+          "assembly_schedule": true,
+          "ccd_profile": "temporal-separation-tight-inclusion",
+          "contact_model": "rest-filtered",
+          "cpu_limit_seconds": 900,
+          "fold_actuation": true,
+          "max_attempts": 1024,
+          "max_depth": 8,
+          "max_evaluations": 100,
+          "minimum_distance_m": 0.0001,
+          "pressure_pa": 10000.0,
+          "sewing_mode": "normal-offset",
+          "step_seconds": 0.256,
+          "subdivisions": 256,
+          "target_fraction": 0.25,
+          "wall_limit_seconds": 1440
+        },
+        "assemblySchedule": {
+          "knots": [
+            {
+              "foldProgress": 0.0,
+              "fraction": 0.0,
+              "sewingProgress": 0.0
+            },
+            {
+              "foldProgress": 0.0,
+              "fraction": 0.0625,
+              "sewingProgress": 1.0
+            },
+            {
+              "foldProgress": 1.0,
+              "fraction": 0.25,
+              "sewingProgress": 1.0
+            },
+            {
+              "foldProgress": 1.0,
+              "fraction": 1.0,
+              "sewingProgress": 1.0
+            }
+          ],
+          "profile": "sewing-fold-progress-v1"
+        },
+        "canonicalSha256": "1b6a349ab3d02814a26c1411dd533e0c0b642d28d18585f46ccda3ef9414fb90",
+        "completed": true,
+        "contactProfile": {
+          "accepted": false,
+          "adapter": "experimental-rest-filtered-contact-v2",
+          "broadPhase": "ipctk-HashGrid-explicit-v1",
+          "collisionSet": "area-weighted IPC; not improved-max",
+          "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "filteredPrimitivePairs": 0,
+          "fullActivationM": 0.001,
+          "fullMinimumM": 0.0001,
+          "ipctk": "1.6.0",
+          "limitations": [
+            "Changed contact model, not a tolerance fix or paper reproduction.",
+            "Local positive core and activation derive from each primitive pair's own rest distance.",
+            "Planar connected rest components only; no sewing or layer operations.",
+            "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+            "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+            "Native broad-phase allocation and CCD require external process budgets."
+          ],
+          "localActivationRangeM": null,
+          "localMinimumRangeM": null,
+          "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+          "maxCandidates": 100000,
+          "parameterBuckets": 1,
+          "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+          "pressurePa": 10000.0,
+          "stiffnessUnits": "Pa"
+        },
+        "coverageComparisons": 998091,
+        "coveredCandidateOccurrences": 94879,
+        "edgeStrain": {
+          "edgeCount": 160,
+          "max": 1.0238878548093102,
+          "min": 0.9813320800671694,
+          "p95": 1.0088235511625014,
+          "p99": 1.0131595251610561,
+          "perInstance": {
+            "cuff_left:facing": {
+              "edgeCount": 80,
+              "max": 1.0238878548093102,
+              "min": 0.9901460723526899,
+              "p95": 1.0108690943646432
+            },
+            "cuff_left:shell": {
+              "edgeCount": 80,
+              "max": 1.0106075747087675,
+              "min": 0.9813320800671694,
+              "p95": 1.0056325451310755
+            }
+          },
+          "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+          "worstEdges": [
+            {
+              "currentLengthMm": 10.437841042338228,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0238878548093102,
+              "restLengthMm": 10.194320592153309,
+              "touchesPin": false,
+              "vertices": [
+                39,
+                60
+              ]
+            },
+            {
+              "currentLengthMm": 40.97528733095703,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.015851611841573,
+              "restLengthMm": 40.33589832739009,
+              "touchesPin": false,
+              "vertices": [
+                43,
+                52
+              ]
+            },
+            {
+              "currentLengthMm": 10.877664086160822,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.011288753061036,
+              "restLengthMm": 10.7562395539707,
+              "touchesPin": false,
+              "vertices": [
+                41,
+                65
+              ]
+            },
+            {
+              "currentLengthMm": 53.35811013140503,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0109326217413936,
+              "restLengthMm": 52.78107460761569,
+              "touchesPin": false,
+              "vertices": [
+                36,
+                52
+              ]
+            },
+            {
+              "currentLengthMm": 39.126692448972044,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0108657508184984,
+              "restLengthMm": 38.70612137891817,
+              "touchesPin": false,
+              "vertices": [
+                47,
+                54
+              ]
+            },
+            {
+              "currentLengthMm": 10.107261611231507,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0107261611231506,
+              "restLengthMm": 10.000000000000002,
+              "touchesPin": false,
+              "vertices": [
+                34,
+                53
+              ]
+            },
+            {
+              "currentLengthMm": 37.53685277489705,
+              "instanceId": "cuff_left:shell",
+              "ratio": 1.0106075747087675,
+              "restLengthMm": 37.14285714285712,
+              "touchesPin": false,
+              "vertices": [
+                18,
+                19
+              ]
+            },
+            {
+              "currentLengthMm": 10.096165096696247,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0096165096696246,
+              "restLengthMm": 10.000000000000002,
+              "touchesPin": false,
+              "vertices": [
+                35,
+                55
+              ]
+            },
+            {
+              "currentLengthMm": 9.991743706327627,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.008781816504232,
+              "restLengthMm": 9.904761904761902,
+              "touchesPin": false,
+              "vertices": [
+                57,
+                58
+              ]
+            },
+            {
+              "currentLengthMm": 32.260094840472696,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0084535086686761,
+              "restLengthMm": 31.989669888759973,
+              "touchesPin": false,
+              "vertices": [
+                51,
+                64
+              ]
+            }
+          ]
+        },
+        "exactContactLeaves": 95160,
+        "exactTriangleLeaves": 27648,
+        "finalAnglesDegrees": [
+          65.71339863989145,
+          72.43659174689276,
+          71.10500143250673,
+          71.76660793610147,
+          72.27633578322374,
+          65.36540555736825,
+          43.1815844986686,
+          80.12894141281299,
+          80.35665197682515,
+          64.85093017853887,
+          70.20309329129599,
+          70.9011119476148,
+          48.62740264225858,
+          33.57740677737921,
+          14.747090462209265,
+          25.35376140440339,
+          25.27988674270023,
+          46.44254133561168,
+          3.2261967651760215,
+          51.610444733709336,
+          51.31529693998371,
+          24.44429665952594,
+          36.31665736426735,
+          35.75415548063745
+        ],
+        "finalContactEnergyJ": 0.26202299697189324,
+        "finalLayerAnglesDegrees": {
+          "facing": {
+            "maximum": 51.610444733709336,
+            "mean": 33.05792810898852,
+            "minimum": 3.2261967651760215
+          },
+          "shell": {
+            "maximum": 80.35665197682515,
+            "mean": 69.0238045334784,
+            "minimum": 43.1815844986686
+          }
+        },
+        "finalMaximumSeamTargetErrorMm": 0.0025830887476753074,
+        "finalMaximumSpeedMps": 0.029551449057869942,
+        "finalPeakContactForceN": 160.6360502471173,
+        "finalState": {
+          "path": "state.json",
+          "sha256": "80d86554290f3f6a49a14d779d6261dcf75bec4e9bfa9235b86ee7aae76dad99"
+        },
+        "lastAcceptedState": {
+          "path": "accepted-0288.json",
+          "sha256": "40ec53ad431c3001a3010f61dcb0ec27cc582204f0786f8ea97dc2afdd502dae"
+        },
+        "maximumReconstructedResidualN": 9.984023361386818e-07,
+        "placementSha256": "634f50445909e2f0a58a6b5a178728ea54da3ee6df66a389f5255ee80d3fbd2d",
+        "rejectedAttempts": 32,
+        "replayBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": null,
+          "recordedCpuSeconds": null
+        },
+        "replaySha256": "456b9c3eeb625606c420f2fe6a2dbe7096851107b01ee3921b363a9433e23c53",
+        "reportSha256": "2286cc77a03e3d1732390d929caea30171f4fcc408826afa82d2c9df41bec88a",
+        "runDirectory": "cuff-linux-body-frame-hold-hashgrid-v1",
+        "seamTargetErrorDefinition": "Norm of anchor-displacement minus the prescribed material-normal offset vector.",
+        "sewingFrameRecipe": "explicit-facing-source-parent-region-v2",
+        "sewingMode": "normal-offset",
+        "sourceDigests": {
+          "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+          "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+          "solver_adaptive_contact.py": "840a55bee7a668abf450d3cbc6155267cbb0bc44e63a19a46349d890f74ed5d2",
+          "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+          "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+          "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+          "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+          "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+          "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+          "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+          "solver_cuff_sequence.py": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044",
+          "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+          "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+          "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+          "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+          "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+          "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+          "solver_global_sewing.py": "ec79f238045fda558ce9120a0b0a913607e5c94dfa6821686e0b177d20a3a663",
+          "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+          "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+          "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+          "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+          "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+          "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+          "solver_normal_sewing.py": "0c97bb3f92a4c47b078aef53dd75b122681ddaa7e1f81cc3cfad770fdcc9badb",
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+          "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+          "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+          "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+          "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+          "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+          "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+          "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+          "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e",
+          "spike-contact-continuation.py": "748b2bd3c2ea05863056bdce892dd161e7e8fc8fc481f592e39506bea5154ed1"
+        },
+        "sourceProvenance": {
+          "accepted": false,
+          "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+          "holdControl": {
+            "baselineCanonicalSha256": "2c7ec32249490e6eecc0f87be8e9e356b2e7ede977f1df9b1f869129b297d8e3",
+            "changedPhysics": "explicit body-side seam reference triangles at seven crease registrations; source metrics, anchors and targets unchanged",
+            "durationSeconds": 0.256,
+            "holdSeconds": 0.192,
+            "rampSeconds": 0.064
+          },
+          "inputSha256": {
+            "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+            "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+          },
+          "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+          "subdivision": {
+            "classification": "straight-line subdivision, not physical assembly",
+            "creaseEdges": [
+              [
+                20,
+                21
+              ],
+              [
+                21,
+                24
+              ],
+              [
+                22,
+                23
+              ],
+              [
+                23,
+                32
+              ],
+              [
+                24,
+                25
+              ],
+              [
+                25,
+                26
+              ],
+              [
+                26,
+                27
+              ],
+              [
+                27,
+                28
+              ],
+              [
+                28,
+                29
+              ],
+              [
+                29,
+                30
+              ],
+              [
+                30,
+                31
+              ],
+              [
+                31,
+                32
+              ]
+            ],
+            "creaseVertices": [
+              22,
+              23,
+              32,
+              31,
+              30,
+              29,
+              28,
+              27,
+              26,
+              25,
+              24,
+              21,
+              20
+            ],
+            "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+            "parentTriangles": [
+              0,
+              1,
+              1,
+              1,
+              2,
+              3,
+              3,
+              3,
+              4,
+              5,
+              6,
+              7,
+              7,
+              7,
+              8,
+              9,
+              9,
+              9,
+              10,
+              10,
+              10,
+              11,
+              11,
+              11,
+              12,
+              12,
+              12,
+              13,
+              14,
+              14,
+              14,
+              15,
+              16,
+              16,
+              16,
+              17,
+              18,
+              18,
+              18,
+              19,
+              20,
+              20,
+              20,
+              21,
+              21,
+              21,
+              22,
+              23
+            ],
+            "sourceStitchPath": {
+              "lengthMm": 240.0,
+              "name": "outer",
+              "samples": [
+                {
+                  "arcMm": 0.0,
+                  "restPosition": [
+                    240.0,
+                    55.0
+                  ],
+                  "sourceFraction": 0.0,
+                  "sourceSegment": 3,
+                  "triangle": 14,
+                  "weights": [
+                    0.0018315018315018523,
+                    0.26666666666666666,
+                    0.7315018315018316
+                  ]
+                },
+                {
+                  "arcMm": 38.038095238095224,
+                  "restPosition": [
+                    201.96190476190478,
+                    55.0
+                  ],
+                  "sourceFraction": 0.15849206349206343,
+                  "sourceSegment": 3,
+                  "triangle": 16,
+                  "weights": [
+                    0.26666666666666694,
+                    0.7333333333333331,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 47.94285714285715,
+                  "restPosition": [
+                    192.05714285714285,
+                    55.0
+                  ],
+                  "sourceFraction": 0.19976190476190478,
+                  "sourceSegment": 3,
+                  "triangle": 12,
+                  "weights": [
+                    0.26666666666666666,
+                    0.7333333333333331,
+                    3.3306690738754696e-16
+                  ]
+                },
+                {
+                  "arcMm": 86.07619047619048,
+                  "restPosition": [
+                    153.92380952380952,
+                    55.0
+                  ],
+                  "sourceFraction": 0.35865079365079366,
+                  "sourceSegment": 3,
+                  "triangle": 7,
+                  "weights": [
+                    4.0810659694939096e-17,
+                    0.2666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 95.98095238095237,
+                  "restPosition": [
+                    144.01904761904763,
+                    55.0
+                  ],
+                  "sourceFraction": 0.3999206349206349,
+                  "sourceSegment": 3,
+                  "triangle": 20,
+                  "weights": [
+                    0.0,
+                    0.26666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 134.1142857142857,
+                  "restPosition": [
+                    105.8857142857143,
+                    55.0
+                  ],
+                  "sourceFraction": 0.5588095238095238,
+                  "sourceSegment": 3,
+                  "triangle": 20,
+                  "weights": [
+                    0.7333333333333331,
+                    0.26666666666666666,
+                    2.7755575615628914e-16
+                  ]
+                },
+                {
+                  "arcMm": 144.01904761904763,
+                  "restPosition": [
+                    95.98095238095237,
+                    55.0
+                  ],
+                  "sourceFraction": 0.6000793650793651,
+                  "sourceSegment": 3,
+                  "triangle": 3,
+                  "weights": [
+                    0.7333333333333334,
+                    2.0405329847469546e-16,
+                    0.2666666666666664
+                  ]
+                },
+                {
+                  "arcMm": 153.92380952380952,
+                  "restPosition": [
+                    86.07619047619048,
+                    55.0
+                  ],
+                  "sourceFraction": 0.6413492063492063,
+                  "sourceSegment": 3,
+                  "triangle": 10,
+                  "weights": [
+                    2.9150471210670777e-17,
+                    0.26666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 192.05714285714285,
+                  "restPosition": [
+                    47.94285714285715,
+                    55.0
+                  ],
+                  "sourceFraction": 0.8002380952380952,
+                  "sourceSegment": 3,
+                  "triangle": 9,
+                  "weights": [
+                    0.2666666666666667,
+                    0.7333333333333333,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 201.96190476190475,
+                  "restPosition": [
+                    38.03809523809525,
+                    55.0
+                  ],
+                  "sourceFraction": 0.8415079365079364,
+                  "sourceSegment": 3,
+                  "triangle": 11,
+                  "weights": [
+                    0.2666666666666666,
+                    0.7333333333333335,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 240.0,
+                  "restPosition": [
+                    0.0,
+                    55.0
+                  ],
+                  "sourceFraction": 1.0,
+                  "sourceSegment": 3,
+                  "triangle": 11,
+                  "weights": [
+                    0.26666666666666666,
+                    0.0018315018315018233,
+                    0.7315018315018316
+                  ]
+                }
+              ],
+              "segments": [
+                {
+                  "samples": [
+                    0,
+                    1
+                  ],
+                  "triangle": 14
+                },
+                {
+                  "samples": [
+                    1,
+                    2
+                  ],
+                  "triangle": 16
+                },
+                {
+                  "samples": [
+                    2,
+                    3
+                  ],
+                  "triangle": 12
+                },
+                {
+                  "samples": [
+                    3,
+                    4
+                  ],
+                  "triangle": 7
+                },
+                {
+                  "samples": [
+                    4,
+                    5
+                  ],
+                  "triangle": 20
+                },
+                {
+                  "samples": [
+                    5,
+                    6
+                  ],
+                  "triangle": 21
+                },
+                {
+                  "samples": [
+                    6,
+                    7
+                  ],
+                  "triangle": 3
+                },
+                {
+                  "samples": [
+                    7,
+                    8
+                  ],
+                  "triangle": 10
+                },
+                {
+                  "samples": [
+                    8,
+                    9
+                  ],
+                  "triangle": 9
+                },
+                {
+                  "samples": [
+                    9,
+                    10
+                  ],
+                  "triangle": 11
+                }
+              ],
+              "sourceEnd": 4,
+              "sourceStart": 3
+            },
+            "sourceWeights": [
+              {
+                "0": 1.0
+              },
+              {
+                "1": 1.0
+              },
+              {
+                "2": 1.0
+              },
+              {
+                "3": 1.0
+              },
+              {
+                "4": 1.0
+              },
+              {
+                "5": 1.0
+              },
+              {
+                "6": 1.0
+              },
+              {
+                "7": 1.0
+              },
+              {
+                "8": 1.0
+              },
+              {
+                "9": 1.0
+              },
+              {
+                "10": 1.0
+              },
+              {
+                "11": 1.0
+              },
+              {
+                "12": 1.0
+              },
+              {
+                "13": 1.0
+              },
+              {
+                "14": 1.0
+              },
+              {
+                "15": 1.0
+              },
+              {
+                "16": 1.0
+              },
+              {
+                "17": 1.0
+              },
+              {
+                "18": 1.0
+              },
+              {
+                "19": 1.0
+              },
+              {
+                "1": 0.7333333333333334,
+                "4": 0.26666666666666666
+              },
+              {
+                "1": 0.7333333333333334,
+                "14": 0.26666666666666666
+              },
+              {
+                "2": 0.7333333333333334,
+                "9": 0.26666666666666666
+              },
+              {
+                "19": 0.26666666666666666,
+                "2": 0.7333333333333334
+              },
+              {
+                "14": 0.26666666666666666,
+                "5": 0.7333333333333334
+              },
+              {
+                "15": 0.26666666666666666,
+                "5": 0.7333333333333334
+              },
+              {
+                "15": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "16": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "17": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "17": 0.26666666666666666,
+                "7": 0.7333333333333334
+              },
+              {
+                "18": 0.26666666666666666,
+                "7": 0.7333333333333334
+              },
+              {
+                "18": 0.26666666666666666,
+                "8": 0.7333333333333334
+              },
+              {
+                "19": 0.26666666666666666,
+                "8": 0.7333333333333334
+              }
+            ],
+            "triangles": [
+              [
+                14,
+                4,
+                0
+              ],
+              [
+                21,
+                1,
+                20
+              ],
+              [
+                4,
+                14,
+                21
+              ],
+              [
+                4,
+                21,
+                20
+              ],
+              [
+                13,
+                14,
+                0
+              ],
+              [
+                6,
+                26,
+                27
+              ],
+              [
+                26,
+                15,
+                16
+              ],
+              [
+                26,
+                16,
+                27
+              ],
+              [
+                13,
+                15,
+                14
+              ],
+              [
+                15,
+                12,
+                16
+              ],
+              [
+                12,
+                15,
+                13
+              ],
+              [
+                30,
+                7,
+                29
+              ],
+              [
+                17,
+                18,
+                30
+              ],
+              [
+                17,
+                30,
+                29
+              ],
+              [
+                18,
+                17,
+                11
+              ],
+              [
+                25,
+                5,
+                24
+              ],
+              [
+                15,
+                25,
+                24
+              ],
+              [
+                15,
+                24,
+                14
+              ],
+              [
+                5,
+                25,
+                26
+              ],
+              [
+                5,
+                26,
+                6
+              ],
+              [
+                25,
+                15,
+                26
+              ],
+              [
+                24,
+                5,
+                1
+              ],
+              [
+                24,
+                1,
+                21
+              ],
+              [
+                14,
+                24,
+                21
+              ],
+              [
+                31,
+                8,
+                7
+              ],
+              [
+                31,
+                7,
+                30
+              ],
+              [
+                18,
+                31,
+                30
+              ],
+              [
+                10,
+                18,
+                11
+              ],
+              [
+                8,
+                32,
+                23
+              ],
+              [
+                8,
+                23,
+                2
+              ],
+              [
+                32,
+                19,
+                23
+              ],
+              [
+                19,
+                10,
+                3
+              ],
+              [
+                32,
+                8,
+                31
+              ],
+              [
+                19,
+                32,
+                31
+              ],
+              [
+                19,
+                31,
+                18
+              ],
+              [
+                10,
+                19,
+                18
+              ],
+              [
+                22,
+                2,
+                23
+              ],
+              [
+                19,
+                9,
+                22
+              ],
+              [
+                19,
+                22,
+                23
+              ],
+              [
+                9,
+                19,
+                3
+              ],
+              [
+                6,
+                28,
+                29
+              ],
+              [
+                6,
+                29,
+                7
+              ],
+              [
+                28,
+                17,
+                29
+              ],
+              [
+                28,
+                6,
+                27
+              ],
+              [
+                17,
+                28,
+                27
+              ],
+              [
+                17,
+                27,
+                16
+              ],
+              [
+                12,
+                17,
+                16
+              ],
+              [
+                17,
+                12,
+                11
+              ]
+            ],
+            "vertices": [
+              [
+                -0.01,
+                -0.01
+              ],
+              [
+                -0.01,
+                0.065
+              ],
+              [
+                0.25,
+                0.065
+              ],
+              [
+                0.25,
+                -0.01
+              ],
+              [
+                -0.01,
+                0.0275
+              ],
+              [
+                0.042,
+                0.065
+              ],
+              [
+                0.094,
+                0.065
+              ],
+              [
+                0.146,
+                0.065
+              ],
+              [
+                0.198,
+                0.065
+              ],
+              [
+                0.25,
+                0.0275
+              ],
+              [
+                0.198,
+                -0.01
+              ],
+              [
+                0.146,
+                -0.01
+              ],
+              [
+                0.094,
+                -0.01
+              ],
+              [
+                0.042,
+                -0.01
+              ],
+              [
+                0.027142857142857146,
+                0.0275
+              ],
+              [
+                0.0642857142857143,
+                0.0275
+              ],
+              [
+                0.10142857142857144,
+                0.0275
+              ],
+              [
+                0.1385714285714286,
+                0.0275
+              ],
+              [
+                0.17571428571428574,
+                0.0275
+              ],
+              [
+                0.21285714285714286,
+                0.0275
+              ],
+              [
+                -0.01,
+                0.055
+              ],
+              [
+                -9.523809523809528e-05,
+                0.055
+              ],
+              [
+                0.25,
+                0.055
+              ],
+              [
+                0.2400952380952381,
+                0.055
+              ],
+              [
+                0.038038095238095246,
+                0.055
+              ],
+              [
+                0.04794285714285715,
+                0.055
+              ],
+              [
+                0.08607619047619047,
+                0.055
+              ],
+              [
+                0.09598095238095239,
+                0.055
+              ],
+              [
+                0.10588571428571429,
+                0.055
+              ],
+              [
+                0.14401904761904763,
+                0.055
+              ],
+              [
+                0.15392380952380952,
+                0.055
+              ],
+              [
+                0.19205714285714287,
+                0.055
+              ],
+              [
+                0.2019619047619048,
+                0.055
+              ]
+            ]
+          }
+        },
+        "supervisedCpuSeconds": 205.809121,
+        "verificationDigests": {
+          "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+          "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+          "replayScriptSha256": "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a",
+          "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+        },
+        "workerReportedCpuSeconds": 204.75632989
+      },
+      {
+        "accepted": false,
+        "acceptedSteps": 256,
+        "acceptedTimePartition": {
+          "endTimesSha256": "f77da1c52a3cac269eed0884cd36979403708ff98a852864a681091c775dd102",
+          "initialStepSeconds": 0.001,
+          "maximumStepSeconds": 0.0010000000000000009,
+          "minimumStepSeconds": 0.0009999999999999731
+        },
+        "arguments": {
+          "activation_distance_m": 0.0001,
+          "assembly_schedule": true,
+          "ccd_profile": "temporal-separation-tight-inclusion",
+          "contact_model": "rest-filtered",
+          "cpu_limit_seconds": 900,
+          "fold_actuation": true,
+          "max_attempts": 1024,
+          "max_depth": 8,
+          "max_evaluations": 100,
+          "minimum_distance_m": 0.0001,
+          "pressure_pa": 10000.0,
+          "sewing_mode": "normal-offset",
+          "step_seconds": 0.256,
+          "subdivisions": 256,
+          "target_fraction": 0.25,
+          "wall_limit_seconds": 1440
+        },
+        "assemblySchedule": {
+          "knots": [
+            {
+              "foldProgress": 0.0,
+              "fraction": 0.0,
+              "sewingProgress": 0.0
+            },
+            {
+              "foldProgress": 0.0,
+              "fraction": 0.0625,
+              "sewingProgress": 1.0
+            },
+            {
+              "foldProgress": 1.0,
+              "fraction": 0.25,
+              "sewingProgress": 1.0
+            },
+            {
+              "foldProgress": 1.0,
+              "fraction": 1.0,
+              "sewingProgress": 1.0
+            }
+          ],
+          "profile": "sewing-fold-progress-v1"
+        },
+        "canonicalSha256": "1b6a349ab3d02814a26c1411dd533e0c0b642d28d18585f46ccda3ef9414fb90",
+        "completed": true,
+        "contactProfile": {
+          "accepted": false,
+          "adapter": "experimental-rest-filtered-contact-v2",
+          "broadPhase": "ipctk-HashGrid-explicit-v1",
+          "collisionSet": "area-weighted IPC; not improved-max",
+          "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "filteredPrimitivePairs": 0,
+          "fullActivationM": 0.0001,
+          "fullMinimumM": 0.0001,
+          "ipctk": "1.6.0",
+          "limitations": [
+            "Changed contact model, not a tolerance fix or paper reproduction.",
+            "Local positive core and activation derive from each primitive pair's own rest distance.",
+            "Planar connected rest components only; no sewing or layer operations.",
+            "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+            "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+            "Native broad-phase allocation and CCD require external process budgets."
+          ],
+          "localActivationRangeM": null,
+          "localMinimumRangeM": null,
+          "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+          "maxCandidates": 100000,
+          "parameterBuckets": 1,
+          "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+          "pressurePa": 10000.0,
+          "stiffnessUnits": "Pa"
+        },
+        "coverageComparisons": 987136,
+        "coveredCandidateOccurrences": 202262,
+        "edgeStrain": {
+          "edgeCount": 160,
+          "max": 1.0001516315389127,
+          "min": 0.999784270122448,
+          "p95": 1.0000331362609591,
+          "p99": 1.0001215608430425,
+          "perInstance": {
+            "cuff_left:facing": {
+              "edgeCount": 80,
+              "max": 1.0001516315389127,
+              "min": 0.9999306725737808,
+              "p95": 1.0000511767102822
+            },
+            "cuff_left:shell": {
+              "edgeCount": 80,
+              "max": 1.00006283936421,
+              "min": 0.999784270122448,
+              "p95": 1.0000195583326565
+            }
+          },
+          "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+          "worstEdges": [
+            {
+              "currentLengthMm": 10.001516315389129,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0001516315389127,
+              "restLengthMm": 10.000000000000002,
+              "touchesPin": false,
+              "vertices": [
+                34,
+                53
+              ]
+            },
+            {
+              "currentLengthMm": 10.001499327616848,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0001499327616845,
+              "restLengthMm": 10.000000000000002,
+              "touchesPin": false,
+              "vertices": [
+                35,
+                55
+              ]
+            },
+            {
+              "currentLengthMm": 27.502800731009614,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.000101844763986,
+              "restLengthMm": 27.5,
+              "touchesPin": false,
+              "vertices": [
+                37,
+                53
+              ]
+            },
+            {
+              "currentLengthMm": 9.905384313702635,
+              "instanceId": "cuff_left:shell",
+              "ratio": 1.00006283936421,
+              "restLengthMm": 9.90476190476189,
+              "touchesPin": false,
+              "vertices": [
+                22,
+                23
+              ]
+            },
+            {
+              "currentLengthMm": 9.905272922201638,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000515931068963,
+              "restLengthMm": 9.904761904761902,
+              "touchesPin": false,
+              "vertices": [
+                57,
+                58
+              ]
+            },
+            {
+              "currentLengthMm": 9.905268580823403,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000511547946709,
+              "restLengthMm": 9.904761904761902,
+              "touchesPin": false,
+              "vertices": [
+                60,
+                61
+              ]
+            },
+            {
+              "currentLengthMm": 29.58085377375471,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000403993955596,
+              "restLengthMm": 29.579658773419403,
+              "touchesPin": false,
+              "vertices": [
+                47,
+                57
+              ]
+            },
+            {
+              "currentLengthMm": 38.01711786123648,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000393521836288,
+              "restLengthMm": 38.015621863504144,
+              "touchesPin": false,
+              "vertices": [
+                48,
+                57
+              ]
+            },
+            {
+              "currentLengthMm": 31.496201226080885,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000328091071344,
+              "restLengthMm": 31.495167897743112,
+              "touchesPin": false,
+              "vertices": [
+                50,
+                63
+              ]
+            },
+            {
+              "currentLengthMm": 29.580586868489334,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000313761249597,
+              "restLengthMm": 29.579658773419393,
+              "touchesPin": false,
+              "vertices": [
+                52,
+                65
+              ]
+            }
+          ]
+        },
+        "exactContactLeaves": 202289,
+        "exactTriangleLeaves": 24576,
+        "finalAnglesDegrees": [
+          67.98796891206075,
+          68.3835536069215,
+          68.35969445751466,
+          67.94669303157696,
+          67.94887476825879,
+          67.88934943687346,
+          67.51811084349505,
+          67.93918830788368,
+          67.94114091463679,
+          68.40942276269355,
+          67.96402223424003,
+          67.96275741303515,
+          67.83717571314065,
+          68.32652997974873,
+          68.19995824568382,
+          67.7798025200646,
+          67.77492585094494,
+          67.7968205679597,
+          67.37464773360016,
+          67.80369099740618,
+          67.80299317546041,
+          68.07119192366895,
+          67.77613755872169,
+          67.78451926476238
+        ],
+        "finalContactEnergyJ": 4.817855110711064e-06,
+        "finalLayerAnglesDegrees": {
+          "facing": {
+            "maximum": 68.32652997974873,
+            "mean": 67.86069946093018,
+            "minimum": 67.37464773360016
+          },
+          "shell": {
+            "maximum": 68.40942276269355,
+            "mean": 68.02089805743253,
+            "minimum": 67.51811084349505
+          }
+        },
+        "finalMaximumSeamTargetErrorMm": 4.491539366759979e-05,
+        "finalMaximumSpeedMps": 0.013824010424957803,
+        "finalPeakContactForceN": 0.21787834393586386,
+        "finalState": {
+          "path": "state.json",
+          "sha256": "d6ac53e677aa9681bb12471f539057b7a61384da25432caf845dec63ff7f3dfa"
+        },
+        "lastAcceptedState": {
+          "path": "accepted-0256.json",
+          "sha256": "7b20cac3a51c9b273c54358e825d3f92face8b708884610dacdc726eabfe1838"
+        },
+        "maximumReconstructedResidualN": 8.447181741935705e-07,
+        "placementSha256": "634f50445909e2f0a58a6b5a178728ea54da3ee6df66a389f5255ee80d3fbd2d",
+        "rejectedAttempts": 0,
+        "replayBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": 600,
+          "recordedCpuSeconds": 121.441262
+        },
+        "replaySha256": "1f652b1d68b4e5d82895fcaa47ed4fc8c7a07d1db47a1b27a7c5a5437e286bdc",
+        "reportSha256": "a6071f27abd70bcf2a2b40bdebfb238e0962fb9d6b0960c1677abd270791f7a9",
+        "runDirectory": "cuff-linux-body-frame-activation01-hold-v1",
+        "seamTargetErrorDefinition": "Norm of anchor-displacement minus the prescribed material-normal offset vector.",
+        "sewingFrameRecipe": "explicit-facing-source-parent-region-v2",
+        "sewingMode": "normal-offset",
+        "sourceDigests": {
+          "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+          "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+          "solver_adaptive_contact.py": "840a55bee7a668abf450d3cbc6155267cbb0bc44e63a19a46349d890f74ed5d2",
+          "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+          "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+          "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+          "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+          "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+          "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+          "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+          "solver_cuff_sequence.py": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044",
+          "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+          "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+          "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+          "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+          "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+          "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+          "solver_global_sewing.py": "ec79f238045fda558ce9120a0b0a913607e5c94dfa6821686e0b177d20a3a663",
+          "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+          "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+          "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+          "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+          "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+          "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+          "solver_normal_sewing.py": "0c97bb3f92a4c47b078aef53dd75b122681ddaa7e1f81cc3cfad770fdcc9badb",
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+          "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+          "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+          "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+          "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+          "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+          "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+          "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+          "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e",
+          "spike-contact-continuation.py": "748b2bd3c2ea05863056bdce892dd161e7e8fc8fc481f592e39506bea5154ed1"
+        },
+        "sourceProvenance": {
+          "accepted": false,
+          "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+          "holdControl": {
+            "baselineCanonicalSha256": "2c7ec32249490e6eecc0f87be8e9e356b2e7ede977f1df9b1f869129b297d8e3",
+            "changedPhysics": "explicit body-side seam reference triangles at seven crease registrations; source metrics, anchors and targets unchanged",
+            "durationSeconds": 0.256,
+            "holdSeconds": 0.192,
+            "rampSeconds": 0.064
+          },
+          "inputSha256": {
+            "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+            "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+          },
+          "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+          "subdivision": {
+            "classification": "straight-line subdivision, not physical assembly",
+            "creaseEdges": [
+              [
+                20,
+                21
+              ],
+              [
+                21,
+                24
+              ],
+              [
+                22,
+                23
+              ],
+              [
+                23,
+                32
+              ],
+              [
+                24,
+                25
+              ],
+              [
+                25,
+                26
+              ],
+              [
+                26,
+                27
+              ],
+              [
+                27,
+                28
+              ],
+              [
+                28,
+                29
+              ],
+              [
+                29,
+                30
+              ],
+              [
+                30,
+                31
+              ],
+              [
+                31,
+                32
+              ]
+            ],
+            "creaseVertices": [
+              22,
+              23,
+              32,
+              31,
+              30,
+              29,
+              28,
+              27,
+              26,
+              25,
+              24,
+              21,
+              20
+            ],
+            "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+            "parentTriangles": [
+              0,
+              1,
+              1,
+              1,
+              2,
+              3,
+              3,
+              3,
+              4,
+              5,
+              6,
+              7,
+              7,
+              7,
+              8,
+              9,
+              9,
+              9,
+              10,
+              10,
+              10,
+              11,
+              11,
+              11,
+              12,
+              12,
+              12,
+              13,
+              14,
+              14,
+              14,
+              15,
+              16,
+              16,
+              16,
+              17,
+              18,
+              18,
+              18,
+              19,
+              20,
+              20,
+              20,
+              21,
+              21,
+              21,
+              22,
+              23
+            ],
+            "sourceStitchPath": {
+              "lengthMm": 240.0,
+              "name": "outer",
+              "samples": [
+                {
+                  "arcMm": 0.0,
+                  "restPosition": [
+                    240.0,
+                    55.0
+                  ],
+                  "sourceFraction": 0.0,
+                  "sourceSegment": 3,
+                  "triangle": 14,
+                  "weights": [
+                    0.0018315018315018523,
+                    0.26666666666666666,
+                    0.7315018315018316
+                  ]
+                },
+                {
+                  "arcMm": 38.038095238095224,
+                  "restPosition": [
+                    201.96190476190478,
+                    55.0
+                  ],
+                  "sourceFraction": 0.15849206349206343,
+                  "sourceSegment": 3,
+                  "triangle": 16,
+                  "weights": [
+                    0.26666666666666694,
+                    0.7333333333333331,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 47.94285714285715,
+                  "restPosition": [
+                    192.05714285714285,
+                    55.0
+                  ],
+                  "sourceFraction": 0.19976190476190478,
+                  "sourceSegment": 3,
+                  "triangle": 12,
+                  "weights": [
+                    0.26666666666666666,
+                    0.7333333333333331,
+                    3.3306690738754696e-16
+                  ]
+                },
+                {
+                  "arcMm": 86.07619047619048,
+                  "restPosition": [
+                    153.92380952380952,
+                    55.0
+                  ],
+                  "sourceFraction": 0.35865079365079366,
+                  "sourceSegment": 3,
+                  "triangle": 7,
+                  "weights": [
+                    4.0810659694939096e-17,
+                    0.2666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 95.98095238095237,
+                  "restPosition": [
+                    144.01904761904763,
+                    55.0
+                  ],
+                  "sourceFraction": 0.3999206349206349,
+                  "sourceSegment": 3,
+                  "triangle": 20,
+                  "weights": [
+                    0.0,
+                    0.26666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 134.1142857142857,
+                  "restPosition": [
+                    105.8857142857143,
+                    55.0
+                  ],
+                  "sourceFraction": 0.5588095238095238,
+                  "sourceSegment": 3,
+                  "triangle": 20,
+                  "weights": [
+                    0.7333333333333331,
+                    0.26666666666666666,
+                    2.7755575615628914e-16
+                  ]
+                },
+                {
+                  "arcMm": 144.01904761904763,
+                  "restPosition": [
+                    95.98095238095237,
+                    55.0
+                  ],
+                  "sourceFraction": 0.6000793650793651,
+                  "sourceSegment": 3,
+                  "triangle": 3,
+                  "weights": [
+                    0.7333333333333334,
+                    2.0405329847469546e-16,
+                    0.2666666666666664
+                  ]
+                },
+                {
+                  "arcMm": 153.92380952380952,
+                  "restPosition": [
+                    86.07619047619048,
+                    55.0
+                  ],
+                  "sourceFraction": 0.6413492063492063,
+                  "sourceSegment": 3,
+                  "triangle": 10,
+                  "weights": [
+                    2.9150471210670777e-17,
+                    0.26666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 192.05714285714285,
+                  "restPosition": [
+                    47.94285714285715,
+                    55.0
+                  ],
+                  "sourceFraction": 0.8002380952380952,
+                  "sourceSegment": 3,
+                  "triangle": 9,
+                  "weights": [
+                    0.2666666666666667,
+                    0.7333333333333333,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 201.96190476190475,
+                  "restPosition": [
+                    38.03809523809525,
+                    55.0
+                  ],
+                  "sourceFraction": 0.8415079365079364,
+                  "sourceSegment": 3,
+                  "triangle": 11,
+                  "weights": [
+                    0.2666666666666666,
+                    0.7333333333333335,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 240.0,
+                  "restPosition": [
+                    0.0,
+                    55.0
+                  ],
+                  "sourceFraction": 1.0,
+                  "sourceSegment": 3,
+                  "triangle": 11,
+                  "weights": [
+                    0.26666666666666666,
+                    0.0018315018315018233,
+                    0.7315018315018316
+                  ]
+                }
+              ],
+              "segments": [
+                {
+                  "samples": [
+                    0,
+                    1
+                  ],
+                  "triangle": 14
+                },
+                {
+                  "samples": [
+                    1,
+                    2
+                  ],
+                  "triangle": 16
+                },
+                {
+                  "samples": [
+                    2,
+                    3
+                  ],
+                  "triangle": 12
+                },
+                {
+                  "samples": [
+                    3,
+                    4
+                  ],
+                  "triangle": 7
+                },
+                {
+                  "samples": [
+                    4,
+                    5
+                  ],
+                  "triangle": 20
+                },
+                {
+                  "samples": [
+                    5,
+                    6
+                  ],
+                  "triangle": 21
+                },
+                {
+                  "samples": [
+                    6,
+                    7
+                  ],
+                  "triangle": 3
+                },
+                {
+                  "samples": [
+                    7,
+                    8
+                  ],
+                  "triangle": 10
+                },
+                {
+                  "samples": [
+                    8,
+                    9
+                  ],
+                  "triangle": 9
+                },
+                {
+                  "samples": [
+                    9,
+                    10
+                  ],
+                  "triangle": 11
+                }
+              ],
+              "sourceEnd": 4,
+              "sourceStart": 3
+            },
+            "sourceWeights": [
+              {
+                "0": 1.0
+              },
+              {
+                "1": 1.0
+              },
+              {
+                "2": 1.0
+              },
+              {
+                "3": 1.0
+              },
+              {
+                "4": 1.0
+              },
+              {
+                "5": 1.0
+              },
+              {
+                "6": 1.0
+              },
+              {
+                "7": 1.0
+              },
+              {
+                "8": 1.0
+              },
+              {
+                "9": 1.0
+              },
+              {
+                "10": 1.0
+              },
+              {
+                "11": 1.0
+              },
+              {
+                "12": 1.0
+              },
+              {
+                "13": 1.0
+              },
+              {
+                "14": 1.0
+              },
+              {
+                "15": 1.0
+              },
+              {
+                "16": 1.0
+              },
+              {
+                "17": 1.0
+              },
+              {
+                "18": 1.0
+              },
+              {
+                "19": 1.0
+              },
+              {
+                "1": 0.7333333333333334,
+                "4": 0.26666666666666666
+              },
+              {
+                "1": 0.7333333333333334,
+                "14": 0.26666666666666666
+              },
+              {
+                "2": 0.7333333333333334,
+                "9": 0.26666666666666666
+              },
+              {
+                "19": 0.26666666666666666,
+                "2": 0.7333333333333334
+              },
+              {
+                "14": 0.26666666666666666,
+                "5": 0.7333333333333334
+              },
+              {
+                "15": 0.26666666666666666,
+                "5": 0.7333333333333334
+              },
+              {
+                "15": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "16": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "17": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "17": 0.26666666666666666,
+                "7": 0.7333333333333334
+              },
+              {
+                "18": 0.26666666666666666,
+                "7": 0.7333333333333334
+              },
+              {
+                "18": 0.26666666666666666,
+                "8": 0.7333333333333334
+              },
+              {
+                "19": 0.26666666666666666,
+                "8": 0.7333333333333334
+              }
+            ],
+            "triangles": [
+              [
+                14,
+                4,
+                0
+              ],
+              [
+                21,
+                1,
+                20
+              ],
+              [
+                4,
+                14,
+                21
+              ],
+              [
+                4,
+                21,
+                20
+              ],
+              [
+                13,
+                14,
+                0
+              ],
+              [
+                6,
+                26,
+                27
+              ],
+              [
+                26,
+                15,
+                16
+              ],
+              [
+                26,
+                16,
+                27
+              ],
+              [
+                13,
+                15,
+                14
+              ],
+              [
+                15,
+                12,
+                16
+              ],
+              [
+                12,
+                15,
+                13
+              ],
+              [
+                30,
+                7,
+                29
+              ],
+              [
+                17,
+                18,
+                30
+              ],
+              [
+                17,
+                30,
+                29
+              ],
+              [
+                18,
+                17,
+                11
+              ],
+              [
+                25,
+                5,
+                24
+              ],
+              [
+                15,
+                25,
+                24
+              ],
+              [
+                15,
+                24,
+                14
+              ],
+              [
+                5,
+                25,
+                26
+              ],
+              [
+                5,
+                26,
+                6
+              ],
+              [
+                25,
+                15,
+                26
+              ],
+              [
+                24,
+                5,
+                1
+              ],
+              [
+                24,
+                1,
+                21
+              ],
+              [
+                14,
+                24,
+                21
+              ],
+              [
+                31,
+                8,
+                7
+              ],
+              [
+                31,
+                7,
+                30
+              ],
+              [
+                18,
+                31,
+                30
+              ],
+              [
+                10,
+                18,
+                11
+              ],
+              [
+                8,
+                32,
+                23
+              ],
+              [
+                8,
+                23,
+                2
+              ],
+              [
+                32,
+                19,
+                23
+              ],
+              [
+                19,
+                10,
+                3
+              ],
+              [
+                32,
+                8,
+                31
+              ],
+              [
+                19,
+                32,
+                31
+              ],
+              [
+                19,
+                31,
+                18
+              ],
+              [
+                10,
+                19,
+                18
+              ],
+              [
+                22,
+                2,
+                23
+              ],
+              [
+                19,
+                9,
+                22
+              ],
+              [
+                19,
+                22,
+                23
+              ],
+              [
+                9,
+                19,
+                3
+              ],
+              [
+                6,
+                28,
+                29
+              ],
+              [
+                6,
+                29,
+                7
+              ],
+              [
+                28,
+                17,
+                29
+              ],
+              [
+                28,
+                6,
+                27
+              ],
+              [
+                17,
+                28,
+                27
+              ],
+              [
+                17,
+                27,
+                16
+              ],
+              [
+                12,
+                17,
+                16
+              ],
+              [
+                17,
+                12,
+                11
+              ]
+            ],
+            "vertices": [
+              [
+                -0.01,
+                -0.01
+              ],
+              [
+                -0.01,
+                0.065
+              ],
+              [
+                0.25,
+                0.065
+              ],
+              [
+                0.25,
+                -0.01
+              ],
+              [
+                -0.01,
+                0.0275
+              ],
+              [
+                0.042,
+                0.065
+              ],
+              [
+                0.094,
+                0.065
+              ],
+              [
+                0.146,
+                0.065
+              ],
+              [
+                0.198,
+                0.065
+              ],
+              [
+                0.25,
+                0.0275
+              ],
+              [
+                0.198,
+                -0.01
+              ],
+              [
+                0.146,
+                -0.01
+              ],
+              [
+                0.094,
+                -0.01
+              ],
+              [
+                0.042,
+                -0.01
+              ],
+              [
+                0.027142857142857146,
+                0.0275
+              ],
+              [
+                0.0642857142857143,
+                0.0275
+              ],
+              [
+                0.10142857142857144,
+                0.0275
+              ],
+              [
+                0.1385714285714286,
+                0.0275
+              ],
+              [
+                0.17571428571428574,
+                0.0275
+              ],
+              [
+                0.21285714285714286,
+                0.0275
+              ],
+              [
+                -0.01,
+                0.055
+              ],
+              [
+                -9.523809523809528e-05,
+                0.055
+              ],
+              [
+                0.25,
+                0.055
+              ],
+              [
+                0.2400952380952381,
+                0.055
+              ],
+              [
+                0.038038095238095246,
+                0.055
+              ],
+              [
+                0.04794285714285715,
+                0.055
+              ],
+              [
+                0.08607619047619047,
+                0.055
+              ],
+              [
+                0.09598095238095239,
+                0.055
+              ],
+              [
+                0.10588571428571429,
+                0.055
+              ],
+              [
+                0.14401904761904763,
+                0.055
+              ],
+              [
+                0.15392380952380952,
+                0.055
+              ],
+              [
+                0.19205714285714287,
+                0.055
+              ],
+              [
+                0.2019619047619048,
+                0.055
+              ]
+            ]
+          }
+        },
+        "supervisedCpuSeconds": 56.108995,
+        "verificationDigests": {
+          "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+          "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+          "replayScriptSha256": "c6fc6a2434c11d1e8df4e6d08540696c4cd5503ac30fd8162467c65041f6e96a",
+          "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+        },
+        "workerReportedCpuSeconds": 55.125041706
+      },
+      {
+        "accepted": false,
+        "acceptedSteps": 257,
+        "acceptedTimePartition": {
+          "endTimesSha256": "33cea656f008de6bfa5dff2a85c5eae4de3af2770a05311a07e4d06b2ff368a5",
+          "initialStepSeconds": 0.001,
+          "maximumStepSeconds": 0.0010000000000000009,
+          "minimumStepSeconds": 0.0005000000000000004
+        },
+        "arguments": {
+          "activation_distance_m": 5e-05,
+          "assembly_schedule": true,
+          "ccd_profile": "temporal-separation-tight-inclusion",
+          "contact_model": "rest-filtered",
+          "cpu_limit_seconds": 900,
+          "fold_actuation": true,
+          "max_attempts": 1024,
+          "max_depth": 8,
+          "max_evaluations": 100,
+          "minimum_distance_m": 0.0001,
+          "pressure_pa": 10000.0,
+          "sewing_mode": "normal-offset",
+          "step_seconds": 0.256,
+          "subdivisions": 256,
+          "target_fraction": 0.25,
+          "wall_limit_seconds": 1440
+        },
+        "assemblySchedule": {
+          "knots": [
+            {
+              "foldProgress": 0.0,
+              "fraction": 0.0,
+              "sewingProgress": 0.0
+            },
+            {
+              "foldProgress": 0.0,
+              "fraction": 0.0625,
+              "sewingProgress": 1.0
+            },
+            {
+              "foldProgress": 1.0,
+              "fraction": 0.25,
+              "sewingProgress": 1.0
+            },
+            {
+              "foldProgress": 1.0,
+              "fraction": 1.0,
+              "sewingProgress": 1.0
+            }
+          ],
+          "profile": "sewing-fold-progress-v1"
+        },
+        "canonicalSha256": "1b6a349ab3d02814a26c1411dd533e0c0b642d28d18585f46ccda3ef9414fb90",
+        "completed": true,
+        "contactProfile": {
+          "accepted": false,
+          "adapter": "experimental-rest-filtered-contact-v2",
+          "broadPhase": "ipctk-HashGrid-explicit-v1",
+          "collisionSet": "area-weighted IPC; not improved-max",
+          "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "filteredPrimitivePairs": 0,
+          "fullActivationM": 5e-05,
+          "fullMinimumM": 0.0001,
+          "ipctk": "1.6.0",
+          "limitations": [
+            "Changed contact model, not a tolerance fix or paper reproduction.",
+            "Local positive core and activation derive from each primitive pair's own rest distance.",
+            "Planar connected rest components only; no sewing or layer operations.",
+            "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+            "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+            "Native broad-phase allocation and CCD require external process budgets."
+          ],
+          "localActivationRangeM": null,
+          "localMinimumRangeM": null,
+          "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+          "maxCandidates": 100000,
+          "parameterBuckets": 1,
+          "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+          "pressurePa": 10000.0,
+          "stiffnessUnits": "Pa"
+        },
+        "coverageComparisons": 990992,
+        "coveredCandidateOccurrences": 200101,
+        "edgeStrain": {
+          "edgeCount": 160,
+          "max": 1.0000801986288743,
+          "min": 0.999964422250303,
+          "p95": 1.0000160490844978,
+          "p99": 1.0000515394788447,
+          "perInstance": {
+            "cuff_left:facing": {
+              "edgeCount": 80,
+              "max": 1.0000801986288743,
+              "min": 0.999964422250303,
+              "p95": 1.0000161318395633
+            },
+            "cuff_left:shell": {
+              "edgeCount": 80,
+              "max": 1.0000718377457976,
+              "min": 0.9999721897992377,
+              "p95": 1.0000159227903203
+            }
+          },
+          "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+          "worstEdges": [
+            {
+              "currentLengthMm": 10.000801986288746,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000801986288743,
+              "restLengthMm": 10.000000000000002,
+              "touchesPin": false,
+              "vertices": [
+                34,
+                53
+              ]
+            },
+            {
+              "currentLengthMm": 10.000718377457977,
+              "instanceId": "cuff_left:shell",
+              "ratio": 1.0000718377457976,
+              "restLengthMm": 10.000000000000002,
+              "touchesPin": false,
+              "vertices": [
+                1,
+                20
+              ]
+            },
+            {
+              "currentLengthMm": 27.501029432346375,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000374339035045,
+              "restLengthMm": 27.5,
+              "touchesPin": false,
+              "vertices": [
+                37,
+                53
+              ]
+            },
+            {
+              "currentLengthMm": 27.500876080395226,
+              "instanceId": "cuff_left:shell",
+              "ratio": 1.0000318574689173,
+              "restLengthMm": 27.5,
+              "touchesPin": false,
+              "vertices": [
+                4,
+                20
+              ]
+            },
+            {
+              "currentLengthMm": 35.087486796448,
+              "instanceId": "cuff_left:shell",
+              "ratio": 1.0000231003119548,
+              "restLengthMm": 35.0866762832804,
+              "touchesPin": false,
+              "vertices": [
+                18,
+                30
+              ]
+            },
+            {
+              "currentLengthMm": 31.49578265397042,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000195190649341,
+              "restLengthMm": 31.495167897743112,
+              "touchesPin": false,
+              "vertices": [
+                50,
+                63
+              ]
+            },
+            {
+              "currentLengthMm": 9.904947577808855,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000187458364713,
+              "restLengthMm": 9.904761904761902,
+              "touchesPin": false,
+              "vertices": [
+                60,
+                61
+              ]
+            },
+            {
+              "currentLengthMm": 28.03486075661337,
+              "instanceId": "cuff_left:shell",
+              "ratio": 1.0000170907351598,
+              "restLengthMm": 28.03438162842159,
+              "touchesPin": false,
+              "vertices": [
+                16,
+                27
+              ]
+            },
+            {
+              "currentLengthMm": 52.00083170156049,
+              "instanceId": "cuff_left:facing",
+              "ratio": 1.0000159942607787,
+              "restLengthMm": 52.0,
+              "touchesPin": false,
+              "vertices": [
+                45,
+                46
+              ]
+            },
+            {
+              "currentLengthMm": 52.00082478861607,
+              "instanceId": "cuff_left:shell",
+              "ratio": 1.0000158613195393,
+              "restLengthMm": 52.00000000000002,
+              "touchesPin": false,
+              "vertices": [
+                10,
+                11
+              ]
+            }
+          ]
+        },
+        "exactContactLeaves": 200139,
+        "exactTriangleLeaves": 24672,
+        "finalAnglesDegrees": [
+          67.99565442412003,
+          68.38790297125118,
+          68.37833095897061,
+          67.94346020259076,
+          67.94223083787803,
+          67.88277840474656,
+          67.50258846947207,
+          67.9386152866912,
+          67.9396437990163,
+          68.40908117464953,
+          67.95329495205557,
+          67.95512166578655,
+          67.94967585241767,
+          68.37928868556845,
+          68.36179436965288,
+          67.94237984793611,
+          67.94097228138025,
+          67.92798260375726,
+          67.52359792459643,
+          67.93676897537186,
+          67.93747296386853,
+          68.40897281893595,
+          67.95736071895699,
+          67.96186967554172
+        ],
+        "finalContactEnergyJ": 0.0,
+        "finalLayerAnglesDegrees": {
+          "facing": {
+            "maximum": 68.40897281893595,
+            "mean": 68.01901139316534,
+            "minimum": 67.52359792459643
+          },
+          "shell": {
+            "maximum": 68.40908117464953,
+            "mean": 68.01905859560236,
+            "minimum": 67.50258846947207
+          }
+        },
+        "finalMaximumSeamTargetErrorMm": 4.429766476736677e-05,
+        "finalMaximumSpeedMps": 0.017650947275434977,
+        "finalPeakContactForceN": 0.0,
+        "finalState": {
+          "path": "state.json",
+          "sha256": "518ecdb48bdc5de1861f0d5799ff556ca97d053f0a59db8337d5ff1861ce5605"
+        },
+        "lastAcceptedState": {
+          "path": "accepted-0257.json",
+          "sha256": "dfe8add812f171293703cb9a21bf083d403a533da7def214514b858bd8cc4bf2"
+        },
+        "maximumReconstructedResidualN": 7.487526282887527e-07,
+        "placementSha256": "634f50445909e2f0a58a6b5a178728ea54da3ee6df66a389f5255ee80d3fbd2d",
+        "rejectedAttempts": 1,
+        "replayBudget": {
+          "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+          "recordedCpuLimitSeconds": 600,
+          "recordedCpuSeconds": 128.410623
+        },
+        "replaySha256": "8d9a43e38497efb60c0bbbe40f01cbab7d465b21d4d4a4256843199955f874fe",
+        "reportSha256": "87af488d925ec439b36a02d411418714b898e579e738ac4dbc5fb38513849ff5",
+        "runDirectory": "cuff-linux-body-frame-activation005-hold-v1",
+        "seamTargetErrorDefinition": "Norm of anchor-displacement minus the prescribed material-normal offset vector.",
+        "sewingFrameRecipe": "explicit-facing-source-parent-region-v2",
+        "sewingMode": "normal-offset",
+        "sourceDigests": {
+          "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+          "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+          "solver_adaptive_contact.py": "840a55bee7a668abf450d3cbc6155267cbb0bc44e63a19a46349d890f74ed5d2",
+          "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+          "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+          "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+          "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+          "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+          "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+          "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+          "solver_cuff_sequence.py": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044",
+          "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+          "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+          "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+          "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+          "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+          "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+          "solver_global_sewing.py": "ec79f238045fda558ce9120a0b0a913607e5c94dfa6821686e0b177d20a3a663",
+          "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+          "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+          "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+          "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+          "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+          "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+          "solver_normal_sewing.py": "0c97bb3f92a4c47b078aef53dd75b122681ddaa7e1f81cc3cfad770fdcc9badb",
+          "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+          "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+          "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+          "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+          "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+          "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+          "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+          "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+          "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+          "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e",
+          "spike-contact-continuation.py": "748b2bd3c2ea05863056bdce892dd161e7e8fc8fc481f592e39506bea5154ed1"
+        },
+        "sourceProvenance": {
+          "accepted": false,
+          "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+          "holdControl": {
+            "baselineCanonicalSha256": "2c7ec32249490e6eecc0f87be8e9e356b2e7ede977f1df9b1f869129b297d8e3",
+            "changedPhysics": "explicit body-side seam reference triangles at seven crease registrations; source metrics, anchors and targets unchanged",
+            "durationSeconds": 0.256,
+            "holdSeconds": 0.192,
+            "rampSeconds": 0.064
+          },
+          "inputSha256": {
+            "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+            "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+          },
+          "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+          "subdivision": {
+            "classification": "straight-line subdivision, not physical assembly",
+            "creaseEdges": [
+              [
+                20,
+                21
+              ],
+              [
+                21,
+                24
+              ],
+              [
+                22,
+                23
+              ],
+              [
+                23,
+                32
+              ],
+              [
+                24,
+                25
+              ],
+              [
+                25,
+                26
+              ],
+              [
+                26,
+                27
+              ],
+              [
+                27,
+                28
+              ],
+              [
+                28,
+                29
+              ],
+              [
+                29,
+                30
+              ],
+              [
+                30,
+                31
+              ],
+              [
+                31,
+                32
+              ]
+            ],
+            "creaseVertices": [
+              22,
+              23,
+              32,
+              31,
+              30,
+              29,
+              28,
+              27,
+              26,
+              25,
+              24,
+              21,
+              20
+            ],
+            "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+            "parentTriangles": [
+              0,
+              1,
+              1,
+              1,
+              2,
+              3,
+              3,
+              3,
+              4,
+              5,
+              6,
+              7,
+              7,
+              7,
+              8,
+              9,
+              9,
+              9,
+              10,
+              10,
+              10,
+              11,
+              11,
+              11,
+              12,
+              12,
+              12,
+              13,
+              14,
+              14,
+              14,
+              15,
+              16,
+              16,
+              16,
+              17,
+              18,
+              18,
+              18,
+              19,
+              20,
+              20,
+              20,
+              21,
+              21,
+              21,
+              22,
+              23
+            ],
+            "sourceStitchPath": {
+              "lengthMm": 240.0,
+              "name": "outer",
+              "samples": [
+                {
+                  "arcMm": 0.0,
+                  "restPosition": [
+                    240.0,
+                    55.0
+                  ],
+                  "sourceFraction": 0.0,
+                  "sourceSegment": 3,
+                  "triangle": 14,
+                  "weights": [
+                    0.0018315018315018523,
+                    0.26666666666666666,
+                    0.7315018315018316
+                  ]
+                },
+                {
+                  "arcMm": 38.038095238095224,
+                  "restPosition": [
+                    201.96190476190478,
+                    55.0
+                  ],
+                  "sourceFraction": 0.15849206349206343,
+                  "sourceSegment": 3,
+                  "triangle": 16,
+                  "weights": [
+                    0.26666666666666694,
+                    0.7333333333333331,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 47.94285714285715,
+                  "restPosition": [
+                    192.05714285714285,
+                    55.0
+                  ],
+                  "sourceFraction": 0.19976190476190478,
+                  "sourceSegment": 3,
+                  "triangle": 12,
+                  "weights": [
+                    0.26666666666666666,
+                    0.7333333333333331,
+                    3.3306690738754696e-16
+                  ]
+                },
+                {
+                  "arcMm": 86.07619047619048,
+                  "restPosition": [
+                    153.92380952380952,
+                    55.0
+                  ],
+                  "sourceFraction": 0.35865079365079366,
+                  "sourceSegment": 3,
+                  "triangle": 7,
+                  "weights": [
+                    4.0810659694939096e-17,
+                    0.2666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 95.98095238095237,
+                  "restPosition": [
+                    144.01904761904763,
+                    55.0
+                  ],
+                  "sourceFraction": 0.3999206349206349,
+                  "sourceSegment": 3,
+                  "triangle": 20,
+                  "weights": [
+                    0.0,
+                    0.26666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 134.1142857142857,
+                  "restPosition": [
+                    105.8857142857143,
+                    55.0
+                  ],
+                  "sourceFraction": 0.5588095238095238,
+                  "sourceSegment": 3,
+                  "triangle": 20,
+                  "weights": [
+                    0.7333333333333331,
+                    0.26666666666666666,
+                    2.7755575615628914e-16
+                  ]
+                },
+                {
+                  "arcMm": 144.01904761904763,
+                  "restPosition": [
+                    95.98095238095237,
+                    55.0
+                  ],
+                  "sourceFraction": 0.6000793650793651,
+                  "sourceSegment": 3,
+                  "triangle": 3,
+                  "weights": [
+                    0.7333333333333334,
+                    2.0405329847469546e-16,
+                    0.2666666666666664
+                  ]
+                },
+                {
+                  "arcMm": 153.92380952380952,
+                  "restPosition": [
+                    86.07619047619048,
+                    55.0
+                  ],
+                  "sourceFraction": 0.6413492063492063,
+                  "sourceSegment": 3,
+                  "triangle": 10,
+                  "weights": [
+                    2.9150471210670777e-17,
+                    0.26666666666666666,
+                    0.7333333333333334
+                  ]
+                },
+                {
+                  "arcMm": 192.05714285714285,
+                  "restPosition": [
+                    47.94285714285715,
+                    55.0
+                  ],
+                  "sourceFraction": 0.8002380952380952,
+                  "sourceSegment": 3,
+                  "triangle": 9,
+                  "weights": [
+                    0.2666666666666667,
+                    0.7333333333333333,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 201.96190476190475,
+                  "restPosition": [
+                    38.03809523809525,
+                    55.0
+                  ],
+                  "sourceFraction": 0.8415079365079364,
+                  "sourceSegment": 3,
+                  "triangle": 11,
+                  "weights": [
+                    0.2666666666666666,
+                    0.7333333333333335,
+                    0.0
+                  ]
+                },
+                {
+                  "arcMm": 240.0,
+                  "restPosition": [
+                    0.0,
+                    55.0
+                  ],
+                  "sourceFraction": 1.0,
+                  "sourceSegment": 3,
+                  "triangle": 11,
+                  "weights": [
+                    0.26666666666666666,
+                    0.0018315018315018233,
+                    0.7315018315018316
+                  ]
+                }
+              ],
+              "segments": [
+                {
+                  "samples": [
+                    0,
+                    1
+                  ],
+                  "triangle": 14
+                },
+                {
+                  "samples": [
+                    1,
+                    2
+                  ],
+                  "triangle": 16
+                },
+                {
+                  "samples": [
+                    2,
+                    3
+                  ],
+                  "triangle": 12
+                },
+                {
+                  "samples": [
+                    3,
+                    4
+                  ],
+                  "triangle": 7
+                },
+                {
+                  "samples": [
+                    4,
+                    5
+                  ],
+                  "triangle": 20
+                },
+                {
+                  "samples": [
+                    5,
+                    6
+                  ],
+                  "triangle": 21
+                },
+                {
+                  "samples": [
+                    6,
+                    7
+                  ],
+                  "triangle": 3
+                },
+                {
+                  "samples": [
+                    7,
+                    8
+                  ],
+                  "triangle": 10
+                },
+                {
+                  "samples": [
+                    8,
+                    9
+                  ],
+                  "triangle": 9
+                },
+                {
+                  "samples": [
+                    9,
+                    10
+                  ],
+                  "triangle": 11
+                }
+              ],
+              "sourceEnd": 4,
+              "sourceStart": 3
+            },
+            "sourceWeights": [
+              {
+                "0": 1.0
+              },
+              {
+                "1": 1.0
+              },
+              {
+                "2": 1.0
+              },
+              {
+                "3": 1.0
+              },
+              {
+                "4": 1.0
+              },
+              {
+                "5": 1.0
+              },
+              {
+                "6": 1.0
+              },
+              {
+                "7": 1.0
+              },
+              {
+                "8": 1.0
+              },
+              {
+                "9": 1.0
+              },
+              {
+                "10": 1.0
+              },
+              {
+                "11": 1.0
+              },
+              {
+                "12": 1.0
+              },
+              {
+                "13": 1.0
+              },
+              {
+                "14": 1.0
+              },
+              {
+                "15": 1.0
+              },
+              {
+                "16": 1.0
+              },
+              {
+                "17": 1.0
+              },
+              {
+                "18": 1.0
+              },
+              {
+                "19": 1.0
+              },
+              {
+                "1": 0.7333333333333334,
+                "4": 0.26666666666666666
+              },
+              {
+                "1": 0.7333333333333334,
+                "14": 0.26666666666666666
+              },
+              {
+                "2": 0.7333333333333334,
+                "9": 0.26666666666666666
+              },
+              {
+                "19": 0.26666666666666666,
+                "2": 0.7333333333333334
+              },
+              {
+                "14": 0.26666666666666666,
+                "5": 0.7333333333333334
+              },
+              {
+                "15": 0.26666666666666666,
+                "5": 0.7333333333333334
+              },
+              {
+                "15": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "16": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "17": 0.26666666666666666,
+                "6": 0.7333333333333334
+              },
+              {
+                "17": 0.26666666666666666,
+                "7": 0.7333333333333334
+              },
+              {
+                "18": 0.26666666666666666,
+                "7": 0.7333333333333334
+              },
+              {
+                "18": 0.26666666666666666,
+                "8": 0.7333333333333334
+              },
+              {
+                "19": 0.26666666666666666,
+                "8": 0.7333333333333334
+              }
+            ],
+            "triangles": [
+              [
+                14,
+                4,
+                0
+              ],
+              [
+                21,
+                1,
+                20
+              ],
+              [
+                4,
+                14,
+                21
+              ],
+              [
+                4,
+                21,
+                20
+              ],
+              [
+                13,
+                14,
+                0
+              ],
+              [
+                6,
+                26,
+                27
+              ],
+              [
+                26,
+                15,
+                16
+              ],
+              [
+                26,
+                16,
+                27
+              ],
+              [
+                13,
+                15,
+                14
+              ],
+              [
+                15,
+                12,
+                16
+              ],
+              [
+                12,
+                15,
+                13
+              ],
+              [
+                30,
+                7,
+                29
+              ],
+              [
+                17,
+                18,
+                30
+              ],
+              [
+                17,
+                30,
+                29
+              ],
+              [
+                18,
+                17,
+                11
+              ],
+              [
+                25,
+                5,
+                24
+              ],
+              [
+                15,
+                25,
+                24
+              ],
+              [
+                15,
+                24,
+                14
+              ],
+              [
+                5,
+                25,
+                26
+              ],
+              [
+                5,
+                26,
+                6
+              ],
+              [
+                25,
+                15,
+                26
+              ],
+              [
+                24,
+                5,
+                1
+              ],
+              [
+                24,
+                1,
+                21
+              ],
+              [
+                14,
+                24,
+                21
+              ],
+              [
+                31,
+                8,
+                7
+              ],
+              [
+                31,
+                7,
+                30
+              ],
+              [
+                18,
+                31,
+                30
+              ],
+              [
+                10,
+                18,
+                11
+              ],
+              [
+                8,
+                32,
+                23
+              ],
+              [
+                8,
+                23,
+                2
+              ],
+              [
+                32,
+                19,
+                23
+              ],
+              [
+                19,
+                10,
+                3
+              ],
+              [
+                32,
+                8,
+                31
+              ],
+              [
+                19,
+                32,
+                31
+              ],
+              [
+                19,
+                31,
+                18
+              ],
+              [
+                10,
+                19,
+                18
+              ],
+              [
+                22,
+                2,
+                23
+              ],
+              [
+                19,
+                9,
+                22
+              ],
+              [
+                19,
+                22,
+                23
+              ],
+              [
+                9,
+                19,
+                3
+              ],
+              [
+                6,
+                28,
+                29
+              ],
+              [
+                6,
+                29,
+                7
+              ],
+              [
+                28,
+                17,
+                29
+              ],
+              [
+                28,
+                6,
+                27
+              ],
+              [
+                17,
+                28,
+                27
+              ],
+              [
+                17,
+                27,
+                16
+              ],
+              [
+                12,
+                17,
+                16
+              ],
+              [
+                17,
+                12,
+                11
+              ]
+            ],
+            "vertices": [
+              [
+                -0.01,
+                -0.01
+              ],
+              [
+                -0.01,
+                0.065
+              ],
+              [
+                0.25,
+                0.065
+              ],
+              [
+                0.25,
+                -0.01
+              ],
+              [
+                -0.01,
+                0.0275
+              ],
+              [
+                0.042,
+                0.065
+              ],
+              [
+                0.094,
+                0.065
+              ],
+              [
+                0.146,
+                0.065
+              ],
+              [
+                0.198,
+                0.065
+              ],
+              [
+                0.25,
+                0.0275
+              ],
+              [
+                0.198,
+                -0.01
+              ],
+              [
+                0.146,
+                -0.01
+              ],
+              [
+                0.094,
+                -0.01
+              ],
+              [
+                0.042,
+                -0.01
+              ],
+              [
+                0.027142857142857146,
+                0.0275
+              ],
+              [
+                0.0642857142857143,
+                0.0275
+              ],
+              [
+                0.10142857142857144,
+                0.0275
+              ],
+              [
+                0.1385714285714286,
+                0.0275
+              ],
+              [
+                0.17571428571428574,
+                0.0275
+              ],
+              [
+                0.21285714285714286,
+                0.0275
+              ],
+              [
+                -0.01,
+                0.055
+              ],
+              [
+                -9.523809523809528e-05,
+                0.055
+              ],
+              [
+                0.25,
+                0.055
+              ],
+              [
+                0.2400952380952381,
+                0.055
+              ],
+              [
+                0.038038095238095246,
+                0.055
+              ],
+              [
+                0.04794285714285715,
+                0.055
+              ],
+              [
+                0.08607619047619047,
+                0.055
+              ],
+              [
+                0.09598095238095239,
+                0.055
+              ],
+              [
+                0.10588571428571429,
+                0.055
+              ],
+              [
+                0.14401904761904763,
+                0.055
+              ],
+              [
+                0.15392380952380952,
+                0.055
+              ],
+              [
+                0.19205714285714287,
+                0.055
+              ],
+              [
+                0.2019619047619048,
+                0.055
+              ]
+            ]
+          }
+        },
+        "supervisedCpuSeconds": 58.433561,
+        "verificationDigests": {
+          "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+          "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+          "replayScriptSha256": "c6fc6a2434c11d1e8df4e6d08540696c4cd5503ac30fd8162467c65041f6e96a",
+          "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+        },
+        "workerReportedCpuSeconds": 57.589463825
+      }
+    ],
+    "historicalHold": {
+      "accepted": false,
+      "acceptedSteps": 306,
+      "acceptedTimePartition": {
+        "endTimesSha256": "2fa37260782d0331bcb0dcd684a98f583ea1f1e319a99ba2ee8b7184ba725212",
+        "initialStepSeconds": 0.001,
+        "maximumStepSeconds": 0.0010000000000000009,
+        "minimumStepSeconds": 0.0002500000000000002
+      },
+      "arguments": {
+        "activation_distance_m": 0.001,
+        "assembly_schedule": true,
+        "ccd_profile": "temporal-separation-tight-inclusion",
+        "contact_model": "rest-filtered",
+        "cpu_limit_seconds": 900,
+        "fold_actuation": true,
+        "max_attempts": 1024,
+        "max_depth": 8,
+        "max_evaluations": 100,
+        "minimum_distance_m": 0.0001,
+        "pressure_pa": 10000.0,
+        "sewing_mode": "normal-offset",
+        "step_seconds": 0.256,
+        "subdivisions": 256,
+        "target_fraction": 0.25,
+        "wall_limit_seconds": 1440
+      },
+      "assemblySchedule": {
+        "knots": [
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.0,
+            "sewingProgress": 0.0
+          },
+          {
+            "foldProgress": 0.0,
+            "fraction": 0.0625,
+            "sewingProgress": 1.0
+          },
+          {
+            "foldProgress": 1.0,
+            "fraction": 0.25,
+            "sewingProgress": 1.0
+          },
+          {
+            "foldProgress": 1.0,
+            "fraction": 1.0,
+            "sewingProgress": 1.0
+          }
+        ],
+        "profile": "sewing-fold-progress-v1"
+      },
+      "canonicalSha256": "40ca533388186d6d6654005930e69f3538f8d17b86f64af1f858c3b3aa269301",
+      "completed": true,
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v2",
+        "broadPhase": "ipctk-HashGrid-explicit-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation derive from each primitive pair's own rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationRangeM": null,
+        "localMinimumRangeM": null,
+        "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+        "maxCandidates": 100000,
+        "parameterBuckets": 1,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "coverageComparisons": 1056255,
+      "coveredCandidateOccurrences": 100817,
+      "edgeStrain": {
+        "edgeCount": 160,
+        "max": 1.0267800685118726,
+        "min": 0.9837130613770722,
+        "p95": 1.0091944970935554,
+        "p99": 1.0195477107167559,
+        "perInstance": {
+          "cuff_left:facing": {
+            "edgeCount": 80,
+            "max": 1.0267800685118726,
+            "min": 0.9916141867878016,
+            "p95": 1.0109900280833295
+          },
+          "cuff_left:shell": {
+            "edgeCount": 80,
+            "max": 1.0102713387865254,
+            "min": 0.9837130613770722,
+            "p95": 1.0066216251615936
+          }
+        },
+        "scope": "Unique cloth edges relative to unchanged rest positions; diagnostic only, not acceptance",
+        "worstEdges": [
+          {
+            "currentLengthMm": 10.267800685118727,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0267800685118726,
+            "restLengthMm": 10.000000000000002,
+            "touchesPin": false,
+            "vertices": [
+              34,
+              53
+            ]
+          },
+          {
+            "currentLengthMm": 10.452726466554013,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0253480231531664,
+            "restLengthMm": 10.194320592153309,
+            "touchesPin": false,
+            "vertices": [
+              39,
+              60
+            ]
+          },
+          {
+            "currentLengthMm": 10.155169851253524,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.015516985125352,
+            "restLengthMm": 10.000000000000002,
+            "touchesPin": false,
+            "vertices": [
+              35,
+              55
+            ]
+          },
+          {
+            "currentLengthMm": 40.93510986762925,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0148555397322654,
+            "restLengthMm": 40.33589832739009,
+            "touchesPin": false,
+            "vertices": [
+              43,
+              52
+            ]
+          },
+          {
+            "currentLengthMm": 53.35040189673017,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0107865801018066,
+            "restLengthMm": 52.78107460761569,
+            "touchesPin": false,
+            "vertices": [
+              36,
+              52
+            ]
+          },
+          {
+            "currentLengthMm": 39.109601725549275,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0104241999006096,
+            "restLengthMm": 38.70612137891817,
+            "touchesPin": false,
+            "vertices": [
+              47,
+              54
+            ]
+          },
+          {
+            "currentLengthMm": 35.447063422279115,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0102713387865254,
+            "restLengthMm": 35.0866762832804,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              30
+            ]
+          },
+          {
+            "currentLengthMm": 10.865951199808217,
+            "instanceId": "cuff_left:facing",
+            "ratio": 1.0101998142833308,
+            "restLengthMm": 10.7562395539707,
+            "touchesPin": false,
+            "vertices": [
+              41,
+              65
+            ]
+          },
+          {
+            "currentLengthMm": 37.48240175317909,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0091415856625146,
+            "restLengthMm": 37.14285714285712,
+            "touchesPin": false,
+            "vertices": [
+              18,
+              19
+            ]
+          },
+          {
+            "currentLengthMm": 53.216950533540064,
+            "instanceId": "cuff_left:shell",
+            "ratio": 1.0082581858964554,
+            "restLengthMm": 52.78107460761569,
+            "touchesPin": false,
+            "vertices": [
+              0,
+              14
+            ]
+          }
+        ]
+      },
+      "exactContactLeaves": 101246,
+      "exactTriangleLeaves": 29376,
+      "finalAnglesDegrees": [
+        66.48489335693658,
+        73.64195340449908,
+        78.35863270028126,
+        71.31819238651975,
+        71.52209146075165,
+        65.87075985468013,
+        55.666897170152865,
+        70.93607956522153,
+        70.99930138197377,
+        69.71435172484168,
+        70.4447598149269,
+        70.60132549418546,
+        24.210680194837582,
+        31.805888124582943,
+        14.415289522410198,
+        21.749997203682742,
+        21.72693881018159,
+        0.09381376726472519,
+        11.340944926897025,
+        35.50019190503362,
+        35.310478350013526,
+        25.92944586760283,
+        39.06621819357195,
+        38.59501185213236
+      ],
+      "finalContactEnergyJ": 0.26206604648804704,
+      "finalLayerAnglesDegrees": {
+        "facing": {
+          "maximum": 39.06621819357195,
+          "mean": 24.97874155985092,
+          "minimum": 0.09381376726472519
+        },
+        "shell": {
+          "maximum": 78.35863270028126,
+          "mean": 69.62993652624755,
+          "minimum": 55.666897170152865
+        }
+      },
+      "finalMaximumSeamTargetErrorMm": 0.0026415684444589527,
+      "finalMaximumSpeedMps": 0.01936169604751357,
+      "finalPeakContactForceN": 160.33889199560878,
+      "finalState": {
+        "path": "state.json",
+        "sha256": "aae3fad553f3d2e1a4b833cb13e6f7e7892bb660556101411230525f4220facb"
+      },
+      "lastAcceptedState": {
+        "path": "accepted-0306.json",
+        "sha256": "e43ce383b1e0737a6a33dd2641899c2b95509c4eb6a6e89dbd50d838dd477eec"
+      },
+      "maximumReconstructedResidualN": 9.99342590346508e-07,
+      "placementSha256": "1521126ae668751aa4b482d8a6516c8135bbca89dfd6661a824f03458e20f4a3",
+      "rejectedAttempts": 50,
+      "replayBudget": {
+        "interpretation": "Null means the historical replay artifact did not record this quantity; it is not zero. Replay verification budgets are separate from captured simulation budgets.",
+        "recordedCpuLimitSeconds": null,
+        "recordedCpuSeconds": null
+      },
+      "replaySha256": "bc7941aa96cc75773acfa74e0f1799120cc0203beb87c6d002ace6510ceea0db",
+      "reportSha256": "77b1df0a90fd46262d368a3fd73213ddfa8dc5c686f39a0696771e795ce5a034",
+      "runDirectory": "cuff-linux-normal-hold-hashgrid-v2",
+      "seamTargetErrorDefinition": "Norm of anchor-displacement minus the prescribed material-normal offset vector.",
+      "sewingFrameRecipe": "remapped-facing-source-parent-v1",
+      "sewingMode": "normal-offset",
+      "sourceDigests": {
+        "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+        "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+        "solver_adaptive_contact.py": "840a55bee7a668abf450d3cbc6155267cbb0bc44e63a19a46349d890f74ed5d2",
+        "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+        "solver_attempt_journal.py": "4458a94cd8e76bbc17f547d6ac27149208b141651e00a3958d1cab1d1d65f513",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+        "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+        "solver_cuff_sequence.py": "5132d08a7d11857e60a866eb441a00d585f75f39337b8725b25a4a7335cf98af",
+        "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "474b26f8b8bc9eb935a9e42cf6c56d7b6e88bff126c29310df8fae362d4338a0",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+        "solver_global_sewing.py": "ec79f238045fda558ce9120a0b0a913607e5c94dfa6821686e0b177d20a3a663",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_normal_sewing.py": "0c97bb3f92a4c47b078aef53dd75b122681ddaa7e1f81cc3cfad770fdcc9badb",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "8564ae8a24796c0ee915e9b01f7cefe5f73a27c01c1ff213533792371acb40b0",
+        "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+        "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e",
+        "spike-contact-continuation.py": "748b2bd3c2ea05863056bdce892dd161e7e8fc8fc481f592e39506bea5154ed1"
+      },
+      "sourceProvenance": {
+        "accepted": false,
+        "classification": "sequential cuff closure and two-layer allowance fold diagnostic; no turning",
+        "holdDiagnostic": {
+          "accepted": false,
+          "durationSeconds": 0.256,
+          "initialSubdivisions": 256,
+          "limitations": "No added material damping; target hold is not settled garment acceptance.",
+          "originalDurationSeconds": 0.064,
+          "parentCanonicalSha256": "918a64a58403a69a5767efaf20f8095c735fe3448f763580c910b4fe1e5283ce",
+          "rampPreservation": "sewing0-.016s; fold.016-.064s; both targets held.064-.256s"
+        },
+        "inputSha256": {
+          "fold": "1af8d74f33eeb6d5d3b6a9d35db0a81b8f55f053ad197b6f0e9d3d732b993b41",
+          "sewing": "458fdad427fd7610f1d31451f93f8e00f5cf08f6648885f51d6d897e734bb268"
+        },
+        "sourceSha256": "f312fc14ca6a49f3ebf2268f45b32cfd1ce8e1eb4b13ab57c2720d3251e7665c",
+        "subdivision": {
+          "classification": "straight-line subdivision, not physical assembly",
+          "creaseEdges": [
+            [
+              20,
+              21
+            ],
+            [
+              21,
+              24
+            ],
+            [
+              22,
+              23
+            ],
+            [
+              23,
+              32
+            ],
+            [
+              24,
+              25
+            ],
+            [
+              25,
+              26
+            ],
+            [
+              26,
+              27
+            ],
+            [
+              27,
+              28
+            ],
+            [
+              28,
+              29
+            ],
+            [
+              29,
+              30
+            ],
+            [
+              30,
+              31
+            ],
+            [
+              31,
+              32
+            ]
+          ],
+          "creaseVertices": [
+            22,
+            23,
+            32,
+            31,
+            30,
+            29,
+            28,
+            27,
+            26,
+            25,
+            24,
+            21,
+            20
+          ],
+          "extensionPolicy": "Extend the outer stitch line through both side allowances to the cut boundary",
+          "parentTriangles": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            3,
+            3,
+            3,
+            4,
+            5,
+            6,
+            7,
+            7,
+            7,
+            8,
+            9,
+            9,
+            9,
+            10,
+            10,
+            10,
+            11,
+            11,
+            11,
+            12,
+            12,
+            12,
+            13,
+            14,
+            14,
+            14,
+            15,
+            16,
+            16,
+            16,
+            17,
+            18,
+            18,
+            18,
+            19,
+            20,
+            20,
+            20,
+            21,
+            21,
+            21,
+            22,
+            23
+          ],
+          "sourceStitchPath": {
+            "lengthMm": 240.0,
+            "name": "outer",
+            "samples": [
+              {
+                "arcMm": 0.0,
+                "restPosition": [
+                  240.0,
+                  55.0
+                ],
+                "sourceFraction": 0.0,
+                "sourceSegment": 3,
+                "triangle": 14,
+                "weights": [
+                  0.0018315018315018523,
+                  0.26666666666666666,
+                  0.7315018315018316
+                ]
+              },
+              {
+                "arcMm": 38.038095238095224,
+                "restPosition": [
+                  201.96190476190478,
+                  55.0
+                ],
+                "sourceFraction": 0.15849206349206343,
+                "sourceSegment": 3,
+                "triangle": 16,
+                "weights": [
+                  0.26666666666666694,
+                  0.7333333333333331,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 47.94285714285715,
+                "restPosition": [
+                  192.05714285714285,
+                  55.0
+                ],
+                "sourceFraction": 0.19976190476190478,
+                "sourceSegment": 3,
+                "triangle": 12,
+                "weights": [
+                  0.26666666666666666,
+                  0.7333333333333331,
+                  3.3306690738754696e-16
+                ]
+              },
+              {
+                "arcMm": 86.07619047619048,
+                "restPosition": [
+                  153.92380952380952,
+                  55.0
+                ],
+                "sourceFraction": 0.35865079365079366,
+                "sourceSegment": 3,
+                "triangle": 7,
+                "weights": [
+                  4.0810659694939096e-17,
+                  0.2666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 95.98095238095237,
+                "restPosition": [
+                  144.01904761904763,
+                  55.0
+                ],
+                "sourceFraction": 0.3999206349206349,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.0,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 134.1142857142857,
+                "restPosition": [
+                  105.8857142857143,
+                  55.0
+                ],
+                "sourceFraction": 0.5588095238095238,
+                "sourceSegment": 3,
+                "triangle": 20,
+                "weights": [
+                  0.7333333333333331,
+                  0.26666666666666666,
+                  2.7755575615628914e-16
+                ]
+              },
+              {
+                "arcMm": 144.01904761904763,
+                "restPosition": [
+                  95.98095238095237,
+                  55.0
+                ],
+                "sourceFraction": 0.6000793650793651,
+                "sourceSegment": 3,
+                "triangle": 3,
+                "weights": [
+                  0.7333333333333334,
+                  2.0405329847469546e-16,
+                  0.2666666666666664
+                ]
+              },
+              {
+                "arcMm": 153.92380952380952,
+                "restPosition": [
+                  86.07619047619048,
+                  55.0
+                ],
+                "sourceFraction": 0.6413492063492063,
+                "sourceSegment": 3,
+                "triangle": 10,
+                "weights": [
+                  2.9150471210670777e-17,
+                  0.26666666666666666,
+                  0.7333333333333334
+                ]
+              },
+              {
+                "arcMm": 192.05714285714285,
+                "restPosition": [
+                  47.94285714285715,
+                  55.0
+                ],
+                "sourceFraction": 0.8002380952380952,
+                "sourceSegment": 3,
+                "triangle": 9,
+                "weights": [
+                  0.2666666666666667,
+                  0.7333333333333333,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 201.96190476190475,
+                "restPosition": [
+                  38.03809523809525,
+                  55.0
+                ],
+                "sourceFraction": 0.8415079365079364,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.2666666666666666,
+                  0.7333333333333335,
+                  0.0
+                ]
+              },
+              {
+                "arcMm": 240.0,
+                "restPosition": [
+                  0.0,
+                  55.0
+                ],
+                "sourceFraction": 1.0,
+                "sourceSegment": 3,
+                "triangle": 11,
+                "weights": [
+                  0.26666666666666666,
+                  0.0018315018315018233,
+                  0.7315018315018316
+                ]
+              }
+            ],
+            "segments": [
+              {
+                "samples": [
+                  0,
+                  1
+                ],
+                "triangle": 14
+              },
+              {
+                "samples": [
+                  1,
+                  2
+                ],
+                "triangle": 16
+              },
+              {
+                "samples": [
+                  2,
+                  3
+                ],
+                "triangle": 12
+              },
+              {
+                "samples": [
+                  3,
+                  4
+                ],
+                "triangle": 7
+              },
+              {
+                "samples": [
+                  4,
+                  5
+                ],
+                "triangle": 20
+              },
+              {
+                "samples": [
+                  5,
+                  6
+                ],
+                "triangle": 21
+              },
+              {
+                "samples": [
+                  6,
+                  7
+                ],
+                "triangle": 3
+              },
+              {
+                "samples": [
+                  7,
+                  8
+                ],
+                "triangle": 10
+              },
+              {
+                "samples": [
+                  8,
+                  9
+                ],
+                "triangle": 9
+              },
+              {
+                "samples": [
+                  9,
+                  10
+                ],
+                "triangle": 11
+              }
+            ],
+            "sourceEnd": 4,
+            "sourceStart": 3
+          },
+          "sourceWeights": [
+            {
+              "0": 1.0
+            },
+            {
+              "1": 1.0
+            },
+            {
+              "2": 1.0
+            },
+            {
+              "3": 1.0
+            },
+            {
+              "4": 1.0
+            },
+            {
+              "5": 1.0
+            },
+            {
+              "6": 1.0
+            },
+            {
+              "7": 1.0
+            },
+            {
+              "8": 1.0
+            },
+            {
+              "9": 1.0
+            },
+            {
+              "10": 1.0
+            },
+            {
+              "11": 1.0
+            },
+            {
+              "12": 1.0
+            },
+            {
+              "13": 1.0
+            },
+            {
+              "14": 1.0
+            },
+            {
+              "15": 1.0
+            },
+            {
+              "16": 1.0
+            },
+            {
+              "17": 1.0
+            },
+            {
+              "18": 1.0
+            },
+            {
+              "19": 1.0
+            },
+            {
+              "1": 0.7333333333333334,
+              "4": 0.26666666666666666
+            },
+            {
+              "1": 0.7333333333333334,
+              "14": 0.26666666666666666
+            },
+            {
+              "2": 0.7333333333333334,
+              "9": 0.26666666666666666
+            },
+            {
+              "19": 0.26666666666666666,
+              "2": 0.7333333333333334
+            },
+            {
+              "14": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "5": 0.7333333333333334
+            },
+            {
+              "15": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "16": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "6": 0.7333333333333334
+            },
+            {
+              "17": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "7": 0.7333333333333334
+            },
+            {
+              "18": 0.26666666666666666,
+              "8": 0.7333333333333334
+            },
+            {
+              "19": 0.26666666666666666,
+              "8": 0.7333333333333334
+            }
+          ],
+          "triangles": [
+            [
+              14,
+              4,
+              0
+            ],
+            [
+              21,
+              1,
+              20
+            ],
+            [
+              4,
+              14,
+              21
+            ],
+            [
+              4,
+              21,
+              20
+            ],
+            [
+              13,
+              14,
+              0
+            ],
+            [
+              6,
+              26,
+              27
+            ],
+            [
+              26,
+              15,
+              16
+            ],
+            [
+              26,
+              16,
+              27
+            ],
+            [
+              13,
+              15,
+              14
+            ],
+            [
+              15,
+              12,
+              16
+            ],
+            [
+              12,
+              15,
+              13
+            ],
+            [
+              30,
+              7,
+              29
+            ],
+            [
+              17,
+              18,
+              30
+            ],
+            [
+              17,
+              30,
+              29
+            ],
+            [
+              18,
+              17,
+              11
+            ],
+            [
+              25,
+              5,
+              24
+            ],
+            [
+              15,
+              25,
+              24
+            ],
+            [
+              15,
+              24,
+              14
+            ],
+            [
+              5,
+              25,
+              26
+            ],
+            [
+              5,
+              26,
+              6
+            ],
+            [
+              25,
+              15,
+              26
+            ],
+            [
+              24,
+              5,
+              1
+            ],
+            [
+              24,
+              1,
+              21
+            ],
+            [
+              14,
+              24,
+              21
+            ],
+            [
+              31,
+              8,
+              7
+            ],
+            [
+              31,
+              7,
+              30
+            ],
+            [
+              18,
+              31,
+              30
+            ],
+            [
+              10,
+              18,
+              11
+            ],
+            [
+              8,
+              32,
+              23
+            ],
+            [
+              8,
+              23,
+              2
+            ],
+            [
+              32,
+              19,
+              23
+            ],
+            [
+              19,
+              10,
+              3
+            ],
+            [
+              32,
+              8,
+              31
+            ],
+            [
+              19,
+              32,
+              31
+            ],
+            [
+              19,
+              31,
+              18
+            ],
+            [
+              10,
+              19,
+              18
+            ],
+            [
+              22,
+              2,
+              23
+            ],
+            [
+              19,
+              9,
+              22
+            ],
+            [
+              19,
+              22,
+              23
+            ],
+            [
+              9,
+              19,
+              3
+            ],
+            [
+              6,
+              28,
+              29
+            ],
+            [
+              6,
+              29,
+              7
+            ],
+            [
+              28,
+              17,
+              29
+            ],
+            [
+              28,
+              6,
+              27
+            ],
+            [
+              17,
+              28,
+              27
+            ],
+            [
+              17,
+              27,
+              16
+            ],
+            [
+              12,
+              17,
+              16
+            ],
+            [
+              17,
+              12,
+              11
+            ]
+          ],
+          "vertices": [
+            [
+              -0.01,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.065
+            ],
+            [
+              0.25,
+              0.065
+            ],
+            [
+              0.25,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.0275
+            ],
+            [
+              0.042,
+              0.065
+            ],
+            [
+              0.094,
+              0.065
+            ],
+            [
+              0.146,
+              0.065
+            ],
+            [
+              0.198,
+              0.065
+            ],
+            [
+              0.25,
+              0.0275
+            ],
+            [
+              0.198,
+              -0.01
+            ],
+            [
+              0.146,
+              -0.01
+            ],
+            [
+              0.094,
+              -0.01
+            ],
+            [
+              0.042,
+              -0.01
+            ],
+            [
+              0.027142857142857146,
+              0.0275
+            ],
+            [
+              0.0642857142857143,
+              0.0275
+            ],
+            [
+              0.10142857142857144,
+              0.0275
+            ],
+            [
+              0.1385714285714286,
+              0.0275
+            ],
+            [
+              0.17571428571428574,
+              0.0275
+            ],
+            [
+              0.21285714285714286,
+              0.0275
+            ],
+            [
+              -0.01,
+              0.055
+            ],
+            [
+              -9.523809523809528e-05,
+              0.055
+            ],
+            [
+              0.25,
+              0.055
+            ],
+            [
+              0.2400952380952381,
+              0.055
+            ],
+            [
+              0.038038095238095246,
+              0.055
+            ],
+            [
+              0.04794285714285715,
+              0.055
+            ],
+            [
+              0.08607619047619047,
+              0.055
+            ],
+            [
+              0.09598095238095239,
+              0.055
+            ],
+            [
+              0.10588571428571429,
+              0.055
+            ],
+            [
+              0.14401904761904763,
+              0.055
+            ],
+            [
+              0.15392380952380952,
+              0.055
+            ],
+            [
+              0.19205714285714287,
+              0.055
+            ],
+            [
+              0.2019619047619048,
+              0.055
+            ]
+          ]
+        }
+      },
+      "supervisedCpuSeconds": 351.71508700000004,
+      "verificationDigests": {
+        "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+        "replayScriptSha256": "cf51e0cd2dd7027c753728c65bd4da1fcc2ad8f147c1e7f98efc3cbd242dd48a",
+        "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "workerReportedCpuSeconds": 350.596330016
+    }
+  },
+  "runtime": {
+    "ipctkSource": {
+      "url": "https://github.com/ipc-sim/ipc-toolkit.git",
+      "vcs_info": {
+        "commit_id": "478876f30bf8ea768772dd8983c26a1a801ad976",
+        "requested_revision": "478876f30bf8ea768772dd8983c26a1a801ad976",
+        "vcs": "git"
+      }
+    },
+    "longdoubleMantissaBits": 112,
+    "machine": "aarch64",
+    "packages": {
+      "ipctk": "1.6.0",
+      "newton": "1.6.0",
+      "numpy": "2.5.3",
+      "scipy": "1.17.0",
+      "shapely": "2.1.2",
+      "warp-lang": "1.17.0"
+    },
+    "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+    "python": "3.13.15"
+  },
+  "runtimeEvidence": "Separately captured runtime metadata; run reports do not cryptographically bind this manifest.",
+  "runtimeManifestSha256": "43a5e3bc6cd1b78960d2648bdb0cf8aebc47376143b9d0e67403371045f0e1e8",
+  "verificationScope": "Checks captured source, input, state and replay hashes, completed replay proofs and source-frame metadata. Does not re-execute numerical or exact path proofs."
+}
