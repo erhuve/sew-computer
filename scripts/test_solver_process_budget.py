@@ -175,11 +175,13 @@ class ProcessBudgetTests(unittest.TestCase):
 
     def test_interrupted_capture_drops_cached_gripper_work_summary(self):
         self.initial["gripperWorkSummary"] = {"acceptedSteps": 2, "gripperParameterWorkJoules": .125}
+        self.initial["sewingWorkSummary"] = {"acceptedSteps": 2, "sewingParameterWorkJoules": .25}
         ProgressStore(self.directory).save(self.initial, "synthetic-worker-aggregate")
         report = self.run_worker("signal")
         self.assert_uncompleted(report)
         self.assertEqual(len(report["acceptedStateArtifacts"]), 1)
         self.assertNotIn("gripperWorkSummary", report)
+        self.assertNotIn("sewingWorkSummary", report)
 
     def test_normal_failure_exit(self):
         report = self.run_worker("failure")
@@ -401,6 +403,7 @@ class ProcessBudgetTests(unittest.TestCase):
 
     def test_interrupt_during_terminal_publication_cannot_complete(self):
         self.initial["gripperWorkSummary"] = {"acceptedSteps": 1, "gripperParameterWorkJoules": .125}
+        self.initial["sewingWorkSummary"] = {"acceptedSteps": 1, "sewingParameterWorkJoules": .25}
         ProgressStore(self.directory).save(self.initial, "synthetic-worker-aggregate")
         original = atomic_json
         injected = False
@@ -418,6 +421,7 @@ class ProcessBudgetTests(unittest.TestCase):
         self.assert_uncompleted(report)
         self.assertEqual(report["supervision"]["reason"], "supervisor-interrupted")
         self.assertNotIn("gripperWorkSummary", report)
+        self.assertNotIn("sewingWorkSummary", report)
 
     def test_proc_failure_still_kills_and_reaps_worker(self):
         with mock.patch("solver_process_budget.group_members", side_effect=OSError("synthetic proc failure")):

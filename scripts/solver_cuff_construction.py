@@ -8,9 +8,9 @@ without modifying that graph or claiming its prose uniquely fixes layer order.
 import copy
 import hashlib
 import json
-from pathlib import Path
 import re
-import sys
+
+from solver_engine_source_namespace import load_engine_modules
 
 PROFILE = "sew-cuff-construction-phases/1"
 POLICY = "inner-facing-first-outer-shell-last-v1"
@@ -35,10 +35,8 @@ def _validated_sources(pattern, inventory, assembly):
         raise ValueError("Pattern, inventory and assembly objects required")
     for value in (pattern, inventory, assembly):
         _encoded(value)
-    engine = str(Path(__file__).resolve().parents[1] / "services/engine")
-    if engine not in sys.path:
-        sys.path.insert(0, engine)
-    from assembly import compile_assembly, compile_inventory
+    assembly_module, = load_engine_modules(__file__, "assembly")
+    compile_assembly, compile_inventory = assembly_module.compile_assembly, assembly_module.compile_inventory
 
     try:
         templates = {panel["id"] for panel in pattern["panels"]}

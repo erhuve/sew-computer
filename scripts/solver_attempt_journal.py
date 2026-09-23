@@ -383,8 +383,11 @@ def recover_attempt_journal(directory, report, *, interruption=None):
     arguments = report.get("arguments", {})
     if arguments.get("assembly_schedule") is True:
         adaptive["targetInterpolation"] = "captured piecewise-linear sewing/fold progress"
-    elif arguments.get("material_grippers") is True:
+    elif arguments.get("material_grippers") is True or arguments.get("sewing_activation") is True:
         adaptive["targetInterpolation"] = "linear sewing progress over the original physical interval"
+    if arguments.get("sewing_activation") is True:
+        adaptive["sewingActivationInterpolation"] = (
+            "captured monotone piecewise-linear canonical-row activation over the original physical interval")
     if arguments.get("material_grippers") is True:
         adaptive["gripperInterpolation"] = (
             "captured piecewise-linear material-point targets and activation over the original physical interval")

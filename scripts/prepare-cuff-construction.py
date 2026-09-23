@@ -41,7 +41,7 @@ def generate(source_path, output, *, side, policy, max_edge_mm=60.):
         raise ValueError("Cuff unit mesh edge length must be finite and within 10..120 mm")
     paths = [Path(__file__), *(ROOT / "services/engine" / name for name in ENGINE_FILES),
              *(ROOT / "scripts" / name for name in (
-                 "solver_cuff_construction.py", "spike-full-shirt.py", "solver_attempt_journal.py",
+                 "solver_cuff_construction.py", "solver_engine_source_namespace.py", "spike-full-shirt.py", "solver_attempt_journal.py",
                  "solver_process_budget.py", "solver-spike.requirements.txt"))]
     captured = {str(path.relative_to(ROOT)): path.read_bytes() for path in paths}
     source_bytes = read_regular(source_path, 8 * 1024 ** 2)

@@ -10,7 +10,7 @@ from solver_assembly_schedule import AssemblySchedule
 def adaptive_contact_step(solver, positions, velocities, initial_targets, targets, dt, *,
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
-                          assembly_schedule=None, gripper_schedule=None, **step_options):
+                          assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None, **step_options):
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
     if "sewing_activation" in step_options:
@@ -63,6 +63,18 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         from solver_material_grippers import MaterialGripperSchedule
         gripper_controls = MaterialGripperSchedule(gripper_schedule, initial_subdivisions,
                                                  gripper_ids=gripper_recipe.gripper_ids)
+    sewing_controls = None
+    if (sewing_schedule is None) != (sewing_row_ids is None):
+        raise ValueError("Captured sewing schedule and bound ordered row identities must be supplied together")
+    if sewing_schedule is not None:
+        if int(initial_subdivisions).bit_length() - 1 + max_depth > 40:
+            raise ValueError("Sewing subdivision fractions must remain within the 2^40 dyadic bound")
+        from solver_sewing_activation_schedule import SewingActivationSchedule
+        sewing_controls = SewingActivationSchedule(sewing_schedule, initial_subdivisions, row_ids=sewing_row_ids)
+        if len(sewing_controls.row_ids) != solver.sewing.shape[0] or targets.shape[0] != solver.sewing.shape[0]:
+            raise ValueError("Captured sewing schedule must retain every canonical solver row")
+        if step_options.get("linear_solver", "direct") != "direct":
+            raise ValueError("Captured sewing activation requires guarded direct search")
     attempts, accepted, rejected = [], [], []
     completed_fraction = 0.
     reason = "attempt-budget-exhausted"
@@ -99,6 +111,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     initial_fold_targets + fold_progress * (fold_targets - initial_fold_targets))
             if gripper_controls is not None:
                 options["gripper_targets"], options["gripper_activation"] = gripper_controls.parameters(end_fraction)
+            if sewing_controls is not None:
+                options["sewing_activation"] = sewing_controls.parameters(end_fraction)
             candidate_positions, candidate_velocities, step_report = solver.step(
                 current_positions.copy(), current_velocities.copy(), substep_targets, duration, **options)
             if not isinstance(step_report, dict):
@@ -121,7 +135,27 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                      and not isinstance(residual, (bool, np.bool_))
                      and np.isfinite(residual) and 0 <= residual <= 1e-6
                      and step_report.get("converged") is True)
-            if valid and gripper_controls is not None:
+            if valid and sewing_controls is not None:
+                from solver_sewing_activation import validate_sewing_activation
+                expected_activation = sewing_controls.parameters(end_fraction)
+                expected_targets = (targets.copy() if sewing_progress == 1 else
+                                    initial_targets + sewing_progress * (targets - initial_targets))
+                reported_activation = step_report.get("sewingActivation")
+                if reported_activation is None:
+                    raise ValueError("Step sewing activation diagnostics are required")
+                reported_activation = validate_sewing_activation(reported_activation, len(expected_activation))
+                active_rows = np.flatnonzero(expected_activation > 0).tolist()
+                pending_rows = np.flatnonzero(expected_activation == 0).tolist()
+                reported_active, reported_pending = step_report.get("activeSewingRows"), step_report.get("pendingSewingRows")
+                if (not np.array_equal(options["sewing_activation"], expected_activation)
+                        or not np.array_equal(substep_targets, expected_targets)
+                        or step_report.get("sewingActivationExplicit") is not True
+                        or not np.array_equal(reported_activation, expected_activation)
+                        or type(reported_active) is not list or type(reported_pending) is not list
+                        or any(type(row) is not int for row in [*reported_active, *reported_pending])
+                        or reported_active != active_rows or reported_pending != pending_rows):
+                    raise ValueError("Step sewing controls or row diagnostics differ from the captured schedule")
+            if valid and (gripper_controls is not None or sewing_controls is not None):
                 # Work belongs to the accepted transition and must be checked
                 # before its immutable journal outcome is written. Trial
                 # controls always use original fractions; retries do not
@@ -131,11 +165,16 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                                                           (start_fraction, start_fraction))
                 old_targets = (targets.copy() if old_sewing_progress == 1 else
                                initial_targets + old_sewing_progress * (targets - initial_targets))
-                old_grip_targets, old_grip_activation = gripper_controls.parameters(start_fraction)
-                energy_options = {"previous_gripper_targets": old_grip_targets,
-                                  "previous_gripper_activation": old_grip_activation,
-                                  "gripper_targets": options["gripper_targets"],
-                                  "gripper_activation": options["gripper_activation"]}
+                energy_options = {}
+                if gripper_controls is not None:
+                    old_grip_targets, old_grip_activation = gripper_controls.parameters(start_fraction)
+                    energy_options.update(previous_gripper_targets=old_grip_targets,
+                                          previous_gripper_activation=old_grip_activation,
+                                          gripper_targets=options["gripper_targets"],
+                                          gripper_activation=options["gripper_activation"])
+                if sewing_controls is not None:
+                    energy_options.update(previous_sewing_activation=sewing_controls.parameters(start_fraction),
+                                          sewing_activation=sewing_controls.parameters(end_fraction))
                 if fold_recipe is not None:
                     old_fold = (fold_targets.copy() if old_fold_progress == 1 else
                                 initial_fold_targets + old_fold_progress * (fold_targets - initial_fold_targets))
@@ -144,30 +183,32 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 energy = global_energy_transition(solver, current_positions, candidate_positions,
                     current_velocities, candidate_velocities, old_targets, substep_targets, duration,
                     **energy_options)
-                potential = gripper_recipe.potential(options["gripper_targets"], options["gripper_activation"])
-                momentum_exact = [sum((Fraction(float(mass)) * (Fraction(float(new[axis])) - Fraction(float(old[axis])))
-                                      for mass, new, old in zip(solver.mass, candidate_velocities, current_velocities)),
-                                     Fraction()) for axis in range(3)]
-                # The potential's aggregate retains cancellation across
-                # anchors before individual force reports are rounded.
-                total_force = potential.diagnostics(candidate_positions)["totalClothForceNewtons"]
-                impulse_exact = [Fraction(duration) * Fraction(float(force)) for force in total_force]
-                momentum, impulse = [np.array([float(value) for value in vector])
-                                     for vector in (momentum_exact, impulse_exact)]
-                error = np.array([float(change - applied) for change, applied in zip(momentum_exact, impulse_exact)])
-                tolerance = len(solver.mass) * duration * 1e-6 + 64 * np.finfo(float).eps * max(
-                    1., float(np.max(np.abs(momentum))), float(np.max(np.abs(impulse))))
-                if (not np.all(solver.active) or not np.isfinite(error).all()
-                        or np.max(np.abs(error)) > tolerance):
-                    raise ValueError("Material-gripper transition fails free-cloth linear momentum accounting")
-                step_report = dict(step_report, energyBalance=energy, gripperMomentum={
-                    "changeKgMPerS": momentum.tolist(), "externalImpulseNs": impulse.tolist(),
-                    "residualNs": error.tolist(), "toleranceNs": float(tolerance),
-                    "scope": "Backward-Euler force at the new state on free cloth; virtual gripper impulse, not isolated-cloth momentum conservation"})
+                step_report = dict(step_report, energyBalance=energy)
+                if gripper_controls is not None:
+                    potential = gripper_recipe.potential(options["gripper_targets"], options["gripper_activation"])
+                    momentum_exact = [sum((Fraction(float(mass)) * (Fraction(float(new[axis])) - Fraction(float(old[axis])))
+                                          for mass, new, old in zip(solver.mass, candidate_velocities, current_velocities)),
+                                         Fraction()) for axis in range(3)]
+                    # The potential's aggregate retains cancellation across
+                    # anchors before individual force reports are rounded.
+                    total_force = potential.diagnostics(candidate_positions)["totalClothForceNewtons"]
+                    impulse_exact = [Fraction(duration) * Fraction(float(force)) for force in total_force]
+                    momentum, impulse = [np.array([float(value) for value in vector])
+                                         for vector in (momentum_exact, impulse_exact)]
+                    error = np.array([float(change - applied) for change, applied in zip(momentum_exact, impulse_exact)])
+                    tolerance = len(solver.mass) * duration * 1e-6 + 64 * np.finfo(float).eps * max(
+                        1., float(np.max(np.abs(momentum))), float(np.max(np.abs(impulse))))
+                    if (not np.all(solver.active) or not np.isfinite(error).all()
+                            or np.max(np.abs(error)) > tolerance):
+                        raise ValueError("Material-gripper transition fails free-cloth linear momentum accounting")
+                    step_report = dict(step_report, gripperMomentum={
+                        "changeKgMPerS": momentum.tolist(), "externalImpulseNs": impulse.tolist(),
+                        "residualNs": error.tolist(), "toleranceNs": float(tolerance),
+                        "scope": "Backward-Euler force at the new state on free cloth; virtual gripper impulse, not isolated-cloth momentum conservation"})
                 record["step"], nonfinite = diagnostic_json(step_report)
                 record["nonfiniteDiagnostics"] = nonfinite
                 if nonfinite:
-                    raise ValueError("Material-gripper transition has nonfinite work or momentum diagnostics")
+                    raise ValueError("Controlled transition has nonfinite work or momentum diagnostics")
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
@@ -218,8 +259,10 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         "maxAttempts": int(max_attempts), "stationarityToleranceN": 1e-6,
         "attempts": attempts, "acceptedSteps": accepted, "rejectedSteps": rejected, "interruptedSteps": [],
         "targetInterpolation": ("captured piecewise-linear sewing/fold progress" if schedule else
-                                "linear sewing progress over the original physical interval" if gripper_controls is not None else
+                                "linear sewing progress over the original physical interval" if (gripper_controls is not None or sewing_controls is not None) else
                                 "linear over the original physical interval"),
+        **({"sewingActivationInterpolation": "captured monotone piecewise-linear canonical-row activation over the original physical interval"}
+           if sewing_controls is not None else {}),
         **({"gripperInterpolation": "captured piecewise-linear material-point targets and activation over the original physical interval"}
            if gripper_controls is not None else {}),
     }

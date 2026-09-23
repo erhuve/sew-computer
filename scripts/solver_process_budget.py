@@ -154,17 +154,35 @@ def recover_progress(directory, *, expected_report=None):
     raise ValueError(f"No intact progress checkpoint: {errors}")
 
 
+def captured_source_path(directory, name):
+    """Resolve only flat research files or the captured engine dependency subtree."""
+    if not isinstance(name, str):
+        raise ValueError("Invalid captured source path")
+    parts = name.split("/")
+    python_name = re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_.-]*\.py", parts[-1]) is not None
+    flat = len(parts) == 1 and (python_name or name in
+        ("solver-contact.requirements.txt", "solver-spike.requirements.txt"))
+    engine = len(parts) == 3 and parts[:2] == ["services", "engine"] and python_name
+    if not (flat or engine):
+        raise ValueError("Invalid captured source path")
+    root = Path(directory) / "source-snapshot"
+    path = root
+    for part in parts[:-1]:
+        if path.is_symlink():
+            raise ValueError("Captured source directories cannot be symbolic links")
+        path /= part
+    if path.is_symlink():
+        raise ValueError("Captured source directories cannot be symbolic links")
+    return path / parts[-1]
+
+
 def verify_capture(directory, report):
     directory = Path(directory)
     for name, key in (("canonical.json", "canonicalSha256"), ("placement.json", "placementSha256")):
         if sha256(read_regular(directory / name)) != report[key]:
             raise ValueError(f"Captured input hash mismatch: {name}")
     for name, digest in report["sourceDigests"].items():
-        if (not isinstance(name, str) or Path(name).name != name
-                or not (name.endswith(".py") or name in
-                        ("solver-contact.requirements.txt", "solver-spike.requirements.txt"))):
-            raise ValueError("Invalid captured source path")
-        if sha256(read_regular(directory / "source-snapshot" / name)) != digest:
+        if sha256(read_regular(captured_source_path(directory, name))) != digest:
             raise ValueError(f"Captured source hash mismatch: {name}")
 
 
@@ -456,10 +474,11 @@ def _supervise(command, directory, initial_report, *, cpu_limit_seconds, wall_li
                 report["adaptive"] = dict(report["adaptive"], complete=False,
                                           reason="supervision-interrupted-or-invalid")
         # Recovery or a late publication signal can shorten/invalidate the
-        # durable prefix. Publish no cached worker gripper aggregate for an
+        # durable prefix. Publish no cached worker control aggregate for an
         # incomplete run; replay derives its totals from accepted transitions.
         if not report["completed"]:
             report.pop("gripperWorkSummary", None)
+            report.pop("sewingWorkSummary", None)
         atomic_json(directory / "report.json", report, replace=True)
         if publication_signal == received_signal:
             break

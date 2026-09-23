@@ -9,7 +9,8 @@ import sys
 import time
 
 from solver_process_budget import (ProgressStore, arm_parent_death, atomic_bytes, atomic_json,
-                                   prepare_worker, read_regular, recover_progress, supervise)
+                                   captured_source_path, prepare_worker, read_regular, recover_progress, supervise)
+from solver_attempt_journal import strict_loads
 
 
 def parse_arguments():
@@ -32,6 +33,8 @@ def parse_arguments():
                         help="Execute the explicit captured source-hinge angle schedule alongside sewing")
     parser.add_argument("--assembly-schedule", action="store_true",
                         help="Execute captured piecewise sewing/fold progress without resetting cloth state")
+    parser.add_argument("--sewing-activation", action="store_true",
+                        help="Execute explicit source-bound per-row seam engagement and target controls")
     parser.add_argument("--material-grippers", action="store_true",
                         help="Execute captured compliant material-point targets with engagement/release work accounting")
     parser.add_argument("--contact-model", choices=("area-improved-max", "rest-filtered"),
@@ -52,8 +55,10 @@ def parse_arguments():
             or not 1 <= args.subdivisions <= args.max_attempts
             or args.subdivisions & (args.subdivisions - 1)):
         parser.error("Bounded evaluation, attempt, CPU, wall and depth budgets and dyadic subdivisions required")
-    if args.material_grippers and args.subdivisions.bit_length() - 1 + args.max_depth > 40:
-        parser.error("Material-gripper subdivision fractions must remain within the 2^40 dyadic bound")
+    if (args.material_grippers or args.sewing_activation) and args.subdivisions.bit_length() - 1 + args.max_depth > 40:
+        parser.error("Captured control subdivision fractions must remain within the 2^40 dyadic bound")
+    if args.sewing_activation and args.target_fraction != 1:
+        parser.error("Explicit sewing controls require target-fraction 1; targets come from the captured recipe")
     return args
 
 
@@ -79,7 +84,7 @@ def run_worker(output, parent_pid):
     signal.signal(signal.SIGXCPU, cpu_timeout)
     try:
         for name, digest in report["sourceDigests"].items():
-            if hashlib.sha256(read_regular(output / "source-snapshot" / name)).hexdigest() != digest:
+            if hashlib.sha256(read_regular(captured_source_path(output, name))).hexdigest() != digest:
                 raise ValueError(f"Captured source hash mismatch: {name}")
         canonical_bytes = bounded_input(output / "canonical.json")
         placement_bytes = bounded_input(output / "placement.json")
@@ -88,13 +93,16 @@ def run_worker(output, parent_pid):
                 or hashlib.sha256(placement_bytes).hexdigest() != report["placementSha256"]):
             raise ValueError("Captured input hash mismatch")
         progress.save(report, "validating-inputs")
-        source, placement = json.loads(canonical_bytes), json.loads(placement_bytes)
+        source, placement = strict_loads(canonical_bytes), strict_loads(placement_bytes)
         fold_recipe = source.get("foldActuation")
         if args.fold_actuation != isinstance(fold_recipe, dict):
             raise ValueError("Fold actuation requires both explicit opt-in and a captured recipe")
         gripper_input = source.get("gripperActuation")
         if args.material_grippers != ("gripperActuation" in source):
             raise ValueError("Material grippers require both explicit opt-in and a captured recipe")
+        sewing_input = source.get("sewingActuation")
+        if args.sewing_activation != ("sewingActuation" in source):
+            raise ValueError("Sewing activation requires both explicit opt-in and a captured recipe")
         schedule_recipe = source.get("assemblySchedule")
         if args.assembly_schedule != isinstance(schedule_recipe, dict):
             raise ValueError("Assembly schedule requires both explicit opt-in and a captured recipe")
@@ -212,7 +220,15 @@ def run_worker(output, parent_pid):
             report["initialGripperEnergyJoules"] = start_grippers.energy(positions)
             report["initialGripperTargetsMeters"] = start_targets.tolist()
             report["initialGripperActivation"] = start_activation.tolist()
-        solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5,
+        sewing_controls = None
+        if args.sewing_activation:
+            from solver_sewing_input import bind_sewing_activation
+            sewing_controls, binding = bind_sewing_activation(source, args.subdivisions, sewing_mode=args.sewing_mode)
+            if rows != sewing_controls.rows:
+                raise ValueError("Bound sewing rows must match every captured canonical row")
+            report["sewingActuation"] = sewing_input
+            report["sewingBinding"] = binding
+        solver = GlobalSewingSolver(model, rows, sewing_controls.compliance if sewing_controls else 1e-8, contact=contact, fold_barrier_joules=1e-5,
                                    sewing_mode=args.sewing_mode,
                                    sewing_frame_faces=source.get("sewingFrames", {}).get("faces") if args.sewing_mode == "normal-offset" else None,
                                    sewing_sides=source.get("sewingFrames", {}).get("sides") if args.sewing_mode == "normal-offset" else None,
@@ -230,13 +246,42 @@ def run_worker(output, parent_pid):
             fold_options = {"initial_fold_targets": initial_fold.rest_angles,
                             "fold_targets": final_fold.rest_angles}
             report["foldActuation"] = fold_recipe
-        initial_targets = solver.sewing @ positions
-        if args.sewing_mode in ("distance", "normal-offset"):
-            initial_targets = np.linalg.norm(initial_targets, axis=1)
-        if args.sewing_mode == "normal-offset":
-            initial_error = solver.sewing_potential(initial_targets).residual(positions) * np.sqrt(solver.compliance)
-            if np.max(np.abs(initial_error), initial=0) > 1e-10:
-                raise ValueError("Initial anchors must match the declared material-normal sides and offsets")
+        if sewing_controls is not None:
+            initial_targets, final_targets = sewing_controls.initial_targets, sewing_controls.final_targets
+            initial_activation = sewing_controls.parameters(0.)
+            active = initial_activation > 0
+            if args.sewing_mode in ("distance", "normal-offset"):
+                potential = solver.sewing_potential(initial_targets, activation=initial_activation)
+                initial_sewing_residual = potential.residual(positions)
+                geometry = potential.geometry(positions)
+                initial_errors = (np.abs(geometry[1][active] - initial_targets[active])
+                    if args.sewing_mode == "distance" else
+                    np.max(np.abs(solver.sewing[active] @ positions - (initial_targets[active]
+                        * solver.sewing_sides[active])[:, None] * geometry[2][active]), axis=1))
+            else:
+                initial_error_vectors = solver.sewing[active] @ positions - initial_targets[active]
+                initial_errors = np.max(np.abs(initial_error_vectors), axis=1)
+                initial_sewing_residual = (initial_error_vectors
+                    * np.sqrt(initial_activation[active, None] / solver.compliance)).ravel()
+            report["initialSewingEnergyJoules"] = float(.5 * np.sum(initial_sewing_residual ** 2))
+            if not math.isfinite(report["initialSewingEnergyJoules"]):
+                raise ValueError("Finite initial activated sewing energy required")
+            report["initialSewingTargetsMeters"] = initial_targets.tolist()
+            report["initialSewingActivation"] = initial_activation.tolist()
+            initial_row_errors = [None] * len(initial_activation)
+            for index, error in zip(np.flatnonzero(active), initial_errors):
+                initial_row_errors[index] = float(error)
+            report["initialSewingRowTargetErrorsM"] = initial_row_errors
+            report["initialSewingTargetErrorMetric"] = "Unweighted maximum absolute Cartesian component per active vector/normal row; absolute scalar-distance error in distance mode; pending rows excluded"
+        else:
+            initial_targets = solver.sewing @ positions
+            if args.sewing_mode in ("distance", "normal-offset"):
+                initial_targets = np.linalg.norm(initial_targets, axis=1)
+            if args.sewing_mode == "normal-offset":
+                initial_error = solver.sewing_potential(initial_targets).residual(positions) * np.sqrt(solver.compliance)
+                if np.max(np.abs(initial_error), initial=0) > 1e-10:
+                    raise ValueError("Initial anchors must match the declared material-normal sides and offsets")
+            final_targets = args.target_fraction * initial_targets
         report["sewingMode"] = args.sewing_mode
         report["attemptJournalRequired"] = True
         progress.save(report, "adaptive-journal-initializing")
@@ -246,10 +291,12 @@ def run_worker(output, parent_pid):
         progress.save(report, "adaptive-journal-ready")
 
         final, velocity, report["adaptive"] = adaptive_contact_step(
-            solver, positions, np.zeros_like(positions), initial_targets, args.target_fraction * initial_targets,
+            solver, positions, np.zeros_like(positions), initial_targets, final_targets,
             args.step_seconds, initial_subdivisions=args.subdivisions, max_attempts=args.max_attempts,
             max_depth=args.max_depth, max_evaluations=args.max_evaluations, attempt_journal=journal,
             assembly_schedule=schedule_recipe,
+            sewing_schedule=sewing_controls.schedule_recipe if sewing_controls else None,
+            sewing_row_ids=sewing_controls.row_ids if sewing_controls else None,
             gripper_schedule=gripper_input["schedule"] if args.material_grippers else None, **fold_options)
         recovered = recover_attempt_journal(output, report)
         if recovered["attemptJournal"]["errors"]:
@@ -266,6 +313,18 @@ def run_worker(output, parent_pid):
                     "externalParameterWorkJoules", "mechanicalChangeJoules",
                     "mechanicalChangeMinusParameterWorkJoules")},
                 "scope": "Sum over accepted transitions only; discrete target-first parameter changes at prior positions, not continuous tool work or physical release dissipation"}
+        if sewing_controls is not None:
+            accepted_steps = report["adaptive"]["acceptedSteps"]
+            energies = [record["step"]["energyBalance"] for record in accepted_steps]
+            report["sewingWorkSummary"] = {
+                "acceptedSteps": len(accepted_steps),
+                **{key: math.fsum(energy[key] for energy in energies) for key in (
+                    "sewingParameterWorkJoules", "sewingTargetParameterWorkJoules",
+                    "sewingActivationParameterWorkJoules", "sewingActivationIncreaseWorkJoules",
+                    "sewingReleaseEnergyRemovedJoules", "sewingFixedParameterChangeJoules",
+                    "externalParameterWorkJoules", "mechanicalChangeJoules",
+                    "mechanicalChangeMinusParameterWorkJoules")},
+                "scope": "Accepted transitions only; target changes at old weights then activation at new targets, at prior positions. Numerical controls do not complete construction phases."}
         report["stateArtifact"] = atomic_json(args.output / "state.json", {"positionsMeters": final.tolist(),
             "velocitiesMetersPerSecond": velocity.tolist(),
             "completedDurationSeconds": report["adaptive"]["completedDurationSeconds"], "accepted": False})
@@ -281,16 +340,35 @@ def run_worker(output, parent_pid):
         completed_fraction = report["adaptive"]["completedFraction"]
         sewing_progress, fold_progress = (schedule.progress(completed_fraction) if schedule else
                                           (completed_fraction, completed_fraction))
-        final_targets = args.target_fraction * initial_targets
         completed_targets = (final_targets if sewing_progress == 1 else
                              initial_targets + sewing_progress * (final_targets - initial_targets))
-        target_errors = (np.abs(np.linalg.norm(final_anchors, axis=1) - completed_targets)
-                         if args.sewing_mode == "distance" else
-                         np.linalg.norm(solver.sewing_potential(completed_targets).residual(final).reshape((-1, 3)), axis=1) * np.sqrt(solver.compliance)
-                         if args.sewing_mode == "normal-offset" else
-                         np.linalg.norm(final_anchors - completed_targets, axis=1))
-        report["finalMaximumAnchorGapM"] = float(np.linalg.norm(final_anchors, axis=1).max()) if len(rows) else None
-        report["finalMaximumCompletedTargetErrorM"] = float(target_errors.max()) if len(rows) else None
+        if sewing_controls is not None:
+            completed_activation = sewing_controls.parameters(completed_fraction)
+            active = completed_activation > 0
+            active_anchors = solver.sewing[active] @ final
+            if args.sewing_mode == "distance":
+                target_errors = np.abs(np.linalg.norm(active_anchors, axis=1) - completed_targets[active])
+            elif args.sewing_mode == "normal-offset":
+                potential = solver.sewing_potential(completed_targets, activation=active.astype(float))
+                normals = potential.geometry(final)[2][active]
+                target_errors = np.max(np.abs(active_anchors - (completed_targets[active]
+                    * solver.sewing_sides[active])[:, None] * normals), axis=1)
+            else:
+                target_errors = np.max(np.abs(active_anchors - completed_targets[active]), axis=1)
+            report["finalSewingActivation"] = completed_activation.tolist()
+            report["finalActiveSewingRows"] = np.flatnonzero(active).tolist()
+            report["finalPendingSewingRows"] = np.flatnonzero(~active).tolist()
+            report["finalSewingTargetErrorMetric"] = "Unweighted active rows only; maximum absolute Cartesian component for vector/normal, absolute length error for distance"
+            report["finalMaximumAnchorGapM"] = float(np.max(np.linalg.norm(final_anchors, axis=1), initial=0))
+            report["finalMaximumCompletedTargetErrorM"] = float(np.max(target_errors, initial=0))
+        else:
+            target_errors = (np.abs(np.linalg.norm(final_anchors, axis=1) - completed_targets)
+                             if args.sewing_mode == "distance" else
+                             np.linalg.norm(solver.sewing_potential(completed_targets).residual(final).reshape((-1, 3)), axis=1) * np.sqrt(solver.compliance)
+                             if args.sewing_mode == "normal-offset" else
+                             np.linalg.norm(final_anchors - completed_targets, axis=1))
+            report["finalMaximumAnchorGapM"] = float(np.linalg.norm(final_anchors, axis=1).max()) if len(rows) else None
+            report["finalMaximumCompletedTargetErrorM"] = float(target_errors.max()) if len(rows) else None
         if args.fold_actuation:
             completed_fold_targets = (final_fold.rest_angles if fold_progress == 1 else
                 initial_fold.rest_angles + fold_progress * (final_fold.rest_angles - initial_fold.rest_angles))
@@ -323,7 +401,8 @@ def main():
     args.output = args.output.absolute()
     args.output.mkdir(mode=0o700, parents=False, exist_ok=False)
     started = time.monotonic()
-    report = {"profile": ("experimental-material-gripper-contact-continuation-v1" if args.material_grippers else
+    report = {"profile": ("experimental-sewing-activation-contact-continuation-v1" if args.sewing_activation else
+                          "experimental-material-gripper-contact-continuation-v1" if args.material_grippers else
                           "experimental-inactive-reference-contact-continuation-v1"), "accepted": False,
               "terminal": False, "completed": False, "acceptedStateArtifacts": [], "sourceDigests": {},
               "arguments": {key: str(value) if isinstance(value, Path) else value
@@ -334,7 +413,8 @@ def main():
               "limitations": ["Trusted saved-source research CLI; not an untrusted-input service boundary.",
                   "Completing one physical interval is not assembled garment or drape acceptance.",
                   "Adaptive subdivisions alter time discretization, not total duration, target ramp or tolerances.",
-                  "Fraction-scaled diagnostic seam targets; no layer-side, turning or binding execution.",
+                  ("Explicit captured seam targets/activation; source phase declarations are not executed construction." if args.sewing_activation else
+                   "Fraction-scaled diagnostic seam targets; no layer-side, turning or binding execution."),
                   "No body contact, damping or calibrated material model.",
                   "Linux same-process-group supervision; not a sandbox for escaping descendants.",
                   "Supervisor SIGKILL or host loss cannot publish a terminal report; progress remains incomplete.",
@@ -343,12 +423,24 @@ def main():
     try:
         snapshot = args.output / "source-snapshot"
         snapshot.mkdir(mode=0o700)
-        sources = [*sorted(Path(__file__).parent.glob("solver_*.py")), Path(__file__),
+        sources = {path.name: path for path in [*sorted(Path(__file__).parent.glob("solver_*.py")), Path(__file__),
                    Path(__file__).with_name("solver-contact.requirements.txt"),
-                   Path(__file__).with_name("solver-spike.requirements.txt")]
-        for source_path in sources:
+                   Path(__file__).with_name("solver-spike.requirements.txt")]}
+        if args.sewing_activation:
+            from solver_engine_source_namespace import ENGINE_FILES, engine_source_root
+            engine_root = engine_source_root(__file__)
+            sources.update({"services/engine/" + name: engine_root / name for name in ENGINE_FILES})
+            # Registration construction is captured even for a generic control,
+            # so a cuff input can never import this helper from a live checkout.
+            sources["spike-full-shirt.py"] = Path(__file__).with_name("spike-full-shirt.py")
+        for name, source_path in sources.items():
             content = read_regular(source_path)
-            report["sourceDigests"][source_path.name] = atomic_bytes(snapshot / source_path.name, content)["sha256"]
+            destination = snapshot / name
+            destination.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+            report["sourceDigests"][name] = atomic_bytes(destination, content)["sha256"]
+        if (snapshot / "services").exists():
+            (snapshot / "services/engine").chmod(0o500)
+            (snapshot / "services").chmod(0o500)
         snapshot.chmod(0o500)
         for name, source_path, digest_key in (("canonical.json", args.canonical, "canonicalSha256"),
                                               ("placement.json", args.placement, "placementSha256")):
