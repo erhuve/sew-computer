@@ -4,9 +4,11 @@
 
 ## Execution status
 
+First source binding motion, 2026-09-23: matched zero/3° controls retain the complete five-fabric unit, hold five original sampled rows, leave thirty-five pending and execute tool motion, hold, release and passive continuation. Both replay all 64 steps. The measured relative turn overshoots to 4.485° and ends moving; no binding phase or settled pose is accepted. The [ledger and remaining gates](../research/3d-solver-feasibility.md#first-source-binding-motion--2026-09-23) separate exact path evidence from source-frame motion, full-surface separation and uncalibrated material diagnostics. Next resolve tracking/settling before extending the motion into a source-preserving wrap with explicit allowance and apex handling.
+
 Sampled seam paths, 2026-09-23: an opt-in [exact replay gate](../research/3d-solver-feasibility.md#sampled-sewing-path-bounds--2026-09-23) bounds scalar-distance error throughout each affine saved-state path using a declared tolerance and endpoint-target reference. Pending rows retain identity; positive weights cannot hide geometric error. This closes a temporal gap for sampled rows, while spatial stitch coverage and construction semantics remain unfinished.
 
-The final numerical/supervision regression run passes **660 tests in 315.871 seconds** on pinned Linux ARM. This verifies the offline checkpoint, not garment construction or an application release.
+The final numerical/supervision regression run passes **697 tests in 325.495 seconds** on pinned Linux ARM. This verifies the offline checkpoint, not garment construction or an application release.
 
 Captured seam controls, 2026-09-23: explicit targets and monotone activation now bind to the complete source JSON and all ordered sewing rows. The cuff path additionally rederives the five-fabric source unit, its complete embedded registrations and phase-row partition using captured engine dependencies. Adaptive retries preserve original control fractions, record engagement work before acceptance and retain unweighted active errors. Current independent replay reconstructs controls, sewing forces, normal-frame reactions and discrete work. See the [captured-control scope](../research/3d-solver-feasibility.md#captured-seam-controls--2026-09-23). This connects numerical controls; the phase plan remains unexecuted. Construction-specific binding/turning paths and witnesses, continuous seam coverage, material-side/interfacing decisions, refinement/material/body validation and full-shirt application integration remain open.
 

@@ -6,6 +6,8 @@ Current continuation: the [numerical adversarial review](../reviews/3d-cloth-con
 
 ## Repository and scope
 
+The [first five-fabric binding motion](3d-solver-feasibility.md#first-source-binding-motion--2026-09-23) now has matched zero/3° controls, complete independent replay and source-frame/surface observations. Both complete 64 steps without rejection. The driven run overshoots to 4.485° and ends with 0.01787 m/s maximum speed, so tracking and settling remain unresolved. Five sampled attachments stay held; wrapping, stitch-down, apex securing and source phase completion remain open. The [ledger](3d-binding-first-turn-results.json) and [figure](3d-binding-first-turn.png) preserve the outcome rather than promoting numerical completion into garment acceptance.
+
 The [two-timestep ledger](3d-cuff-temporal-results.json) and [figure](3d-cuff-temporal-results.png) now preserve the half-step comparison and independent review. The older hold and frame/contact artifacts remain unchanged. Reproduction and scope are in [solver evidence](3d-solver-feasibility.md#two-timestep-sensitivity).
 
 The next construction input is now [explicitly phased](3d-solver-feasibility.md#source-cuff-construction-phases--2026-09-23): five fabric instances, both binding prerequisites, 40 sampled source constraints and a reserved shell attachment opening. The phase plan records its research layer-order policy and source dependency refinements; nothing has executed. Eighteen focused tests pass on macOS and Linux ARM. The fresh ignored input `.planning/solver/reviewed-cuff-construction-left-v1/unit.json` contains 227 vertices and 366 triangles, with captured generating source.
