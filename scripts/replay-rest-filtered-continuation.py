@@ -2,6 +2,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import math
 from pathlib import Path
 import resource
 import sys
@@ -22,6 +23,7 @@ def load_verifier(filename, alias):
 triangle_verifier, triangle_verifier_digest = load_verifier("solver_triangle_sweep.py", "replay_triangle_verifier")
 broad_phase_verifier, broad_phase_verifier_digest = load_verifier("solver_ipc_broad_phase.py", "replay_broad_phase_verifier")
 coverage_verifier, coverage_verifier_digest = load_verifier("solver_candidate_coverage.py", "replay_coverage_verifier")
+gripper_verifier, gripper_verifier_digest = load_verifier("solver_gripper_replay.py", "replay_material_gripper_verifier")
 
 if not __debug__:
     raise RuntimeError("Replay requires enabled verification assertions")
@@ -68,6 +70,18 @@ rest = np.asarray(source["restMeters"])
 faces = np.asarray(source["triangles"]).reshape((-1, 3))
 initial = np.asarray(placement["placedMeters"])
 arguments = report["arguments"]
+gripper_enabled = arguments.get("material_grippers", False)
+assert type(gripper_enabled) is bool
+assert gripper_enabled == ("gripperActuation" in source)
+material_grippers, gripper_controls, gripper_record = None, None, None
+initial_gripper_verification = None
+if gripper_enabled:
+    assert arguments["subdivisions"].bit_length() - 1 + arguments["max_depth"] <= 40
+    from solver_gripper_input import bind_material_grippers
+    material_grippers, gripper_controls, binding = bind_material_grippers(source, arguments["subdivisions"])
+    assert report["gripperBinding"] == binding
+    gripper_record = gripper_verifier.derive_grippers(source, arguments["subdivisions"])
+    initial_gripper_verification = gripper_verifier.verify_initial(gripper_record, initial, report)
 schedule_knots = None
 if arguments.get("assembly_schedule"):
     from solver_assembly_schedule import AssemblySchedule
@@ -111,7 +125,8 @@ solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_jou
                            sewing_frame_faces=source.get("sewingFrames", {}).get("faces") if arguments.get("sewing_mode") == "normal-offset" else None,
                            sewing_sides=source.get("sewingFrames", {}).get("sides") if arguments.get("sewing_mode") == "normal-offset" else None,
                            fold_hinges=fold_recipe["hinges"] if fold_recipe else None,
-                           fold_stiffness_joules=fold_recipe["stiffnessJoules"] if fold_recipe else None)
+                           fold_stiffness_joules=fold_recipe["stiffnessJoules"] if fold_recipe else None,
+                           **({"material_grippers": material_grippers} if gripper_enabled else {}))
 if fold_recipe:
     initial_fold = solver.fold_actuation.potential(fold_recipe["initialAnglesRadians"])
     final_fold = solver.fold_actuation.potential(fold_recipe["targetAnglesRadians"])
@@ -123,6 +138,7 @@ previous, previous_velocity = initial.copy(), np.zeros_like(initial)
 previous_fraction = 0.
 results = []
 total_leaves = 0
+verified_energy_balances = []
 
 
 def verify_certificate(start, end, proof):
@@ -260,6 +276,38 @@ for artifact in report["acceptedStateArtifacts"]:
         np.testing.assert_array_equal(record["step"]["foldAnglesRadians"], actuator.angles(positions))
         fold_diagnostics = {"foldAnglesRadians": actuator.angles(positions).tolist(),
                             "foldTargetErrorRadians": float(np.max(np.abs(actuator.angles(positions) - fold_targets)))}
+    gripper_diagnostics = {}
+    if gripper_enabled:
+        grip_gradient, grip_evidence = gripper_verifier.verify_gripper_step(
+            gripper_record, previous, positions, previous_velocity, velocity, solver.mass,
+            record["startFraction"], record["endFraction"], duration, record["step"])
+        gradient += grip_gradient
+        old_grip_targets, old_grip_activation = gripper_verifier.parameters(gripper_record, previous_fraction)
+        grip_targets, grip_activation = gripper_verifier.parameters(gripper_record, record["endFraction"])
+        old_sewing_progress = operation_progress(previous_fraction, "sewingProgress")
+        old_targets = (final_targets if old_sewing_progress == 1 else
+                       initial_targets + old_sewing_progress * (final_targets - initial_targets))
+        energy_options = {"previous_gripper_targets": old_grip_targets, "gripper_targets": grip_targets,
+                          "previous_gripper_activation": old_grip_activation, "gripper_activation": grip_activation}
+        if fold_recipe:
+            old_fold_progress = operation_progress(previous_fraction, "foldProgress")
+            old_fold_targets = (final_fold.rest_angles if old_fold_progress == 1 else
+                initial_fold.rest_angles + old_fold_progress * (final_fold.rest_angles - initial_fold.rest_angles))
+            energy_options.update(previous_fold_targets=old_fold_targets, fold_targets=fold_targets)
+        from solver_energy_balance import global_energy_transition
+        energy = global_energy_transition(solver, previous, positions, previous_velocity, velocity,
+                                          old_targets, targets, duration, **energy_options)
+        recorded_energy = record["step"]["energyBalance"]
+        assert set(energy) == set(recorded_energy)
+        for key, expected in energy.items():
+            if type(expected) in (float, int):
+                assert type(recorded_energy[key]) in (float, int) and math.isfinite(recorded_energy[key])
+                np.testing.assert_allclose(recorded_energy[key], expected, rtol=1e-12, atol=1e-14)
+            else:
+                assert type(recorded_energy[key]) is type(expected) and recorded_energy[key] == expected
+        verified_energy_balances.append(energy)
+        gripper_diagnostics = {"gripperVerification": grip_evidence,
+                               "energyBalanceVerification": "Captured energy helper reconstructed from adjacent states; gripper force/work/reaction independently checked by current verifier"}
     residual = float(np.max(np.abs(gradient.ravel()[solver.free])))
     assert residual <= 1e-6
     assert surface_intersections(positions, faces)["intersectingPairCount"] == 0
@@ -279,7 +327,7 @@ for artifact in report["acceptedStateArtifacts"]:
         "physicalPathPass": True, "pathCertificate": proof, "contactEnergyJ": contact.energy(positions),
         "trianglePathVerification": triangle_proof,
         "candidateCoverageVerification": candidate_coverage,
-        **fold_diagnostics})
+        **fold_diagnostics, **gripper_diagnostics})
     previous, previous_velocity, previous_fraction = positions, velocity, record["endFraction"]
 assert report["adaptive"]["completedFraction"] == previous_fraction
 assert report["adaptive"]["completedDurationSeconds"] == previous_fraction * arguments["step_seconds"]
@@ -292,6 +340,28 @@ if report.get("stateArtifact"):
     assert final_state["completedDurationSeconds"] == previous_fraction * arguments["step_seconds"]
 else:
     assert not report["completed"]
+verified_gripper_summary = None
+if gripper_enabled:
+    verified_gripper_summary = {"acceptedSteps": len(results),
+        **{key: math.fsum(item["gripperVerification"][key] for item in results) for key in (
+            "gripperParameterWorkJoules", "gripperTargetParameterWorkJoules",
+            "gripperActivationParameterWorkJoules", "gripperReleaseEnergyRemovedJoules")},
+        **{key: math.fsum(energy[key] for energy in verified_energy_balances) for key in (
+            "externalParameterWorkJoules", "mechanicalChangeJoules", "mechanicalChangeMinusParameterWorkJoules")},
+        "scope": "Recovered accepted prefix only; gripper parameter work independently reconstructed, other terms from captured energy helper"}
+if gripper_enabled and report.get("gripperWorkSummary") is not None:
+    work_summary = report["gripperWorkSummary"]
+    assert type(work_summary["acceptedSteps"]) is int and work_summary["acceptedSteps"] == len(results)
+    for key in ("gripperParameterWorkJoules", "gripperTargetParameterWorkJoules",
+                "gripperActivationParameterWorkJoules", "gripperReleaseEnergyRemovedJoules",
+                "externalParameterWorkJoules", "mechanicalChangeJoules", "mechanicalChangeMinusParameterWorkJoules"):
+        assert type(work_summary[key]) in (int, float) and math.isfinite(work_summary[key])
+        if key.startswith("gripper"):
+            assert work_summary[key] == verified_gripper_summary[key]
+        else:
+            np.testing.assert_allclose(work_summary[key], verified_gripper_summary[key], rtol=1e-12, atol=1e-14)
+elif gripper_enabled and report["completed"]:
+    raise ValueError("Completed material-gripper run requires accepted-only work summary")
 result = {"accepted": False, "states": results, "contactProfile": contact.profile(),
           "completed": report["completed"], "completedFraction": previous_fraction,
           "finalStateVerified": bool(report.get("stateArtifact")),
@@ -302,6 +372,9 @@ result = {"accepted": False, "states": results, "contactProfile": contact.profil
           "triangleVerifierSha256": triangle_verifier_digest,
           "broadPhaseVerifierSha256": broad_phase_verifier_digest,
           "candidateCoverageVerifierSha256": coverage_verifier_digest,
+          "gripperVerifierSha256": gripper_verifier_digest if gripper_enabled else None,
+          "initialGripperVerification": initial_gripper_verification,
+          "verifiedGripperWorkSummary": verified_gripper_summary,
           "verificationBroadPhase": broad_phase_verifier.CONTACT_BROAD_PHASE_PROFILE,
           "verificationCpuLimitSeconds": replay_arguments.cpu_limit_seconds,
           "verificationCpuSeconds": (resource.getrusage(resource.RUSAGE_SELF).ru_utime

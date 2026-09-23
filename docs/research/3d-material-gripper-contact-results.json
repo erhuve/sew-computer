@@ -1,0 +1,429 @@
+{
+  "profile": "synthetic-material-gripper-contact-evidence-v1",
+  "date": "2026-09-23",
+  "accepted": false,
+  "scope": "Synthetic two-triangle free-cloth contact/control diagnostic, not a garment pattern or cuff construction.",
+  "runtime": {
+    "python": "3.13.15",
+    "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+    "machine": "aarch64",
+    "packages": {
+      "newton": "1.6.0",
+      "warp-lang": "1.17.0",
+      "numpy": "2.5.3",
+      "scipy": "1.17.0",
+      "shapely": "2.1.2",
+      "ipctk": "1.6.0"
+    },
+    "longdoubleMantissaBits": 112,
+    "ipctkSource": {
+      "url": "https://github.com/ipc-sim/ipc-toolkit.git",
+      "vcs_info": {
+        "commit_id": "478876f30bf8ea768772dd8983c26a1a801ad976",
+        "requested_revision": "478876f30bf8ea768772dd8983c26a1a801ad976",
+        "vcs": "git"
+      }
+    }
+  },
+  "fixture": {
+    "profile": "synthetic-two-layer-gripper-fixture-v1",
+    "accepted": false,
+    "generator": "scripts/test_solver_gripper_continuation_cli.py",
+    "function": "GripperContinuationCliTests.contact_fixture",
+    "generatorSha256": "cfc8546e4eabd2916fa51d7f9bb915bc8ceba816f5f39ba5b860e4d0a97f312a",
+    "canonicalSha256": "868ba44dfb723d943563d353009d80dfe8ac69661d591cb84961a632e8226c1f",
+    "placementSha256": "01b029728bd7c11c73a8f6b7193ecf0a699d74c156185a036baf2a7aa0b0b5a1",
+    "scope": "Synthetic two-triangle control, not garment pattern, turning, material calibration or garment acceptance."
+  },
+  "fixtureGeometry": {
+    "physicalInstances": 2,
+    "vertices": 6,
+    "triangles": 2,
+    "grippers": 6,
+    "triangleLegLengthMm": 31.25,
+    "initialLayerGapMm": 1.953125,
+    "finalTargetGapMm": 0.453125,
+    "gripperStiffnessNPerM": 0.5,
+    "initialStoredEnergyJoules": 0.0
+  },
+  "arguments": {
+    "activation_distance_m": 0.001,
+    "assembly_schedule": false,
+    "canonical": ".planning/solver/material-gripper-contact-source-v1/canonical.json",
+    "ccd_profile": "temporal-separation-tight-inclusion",
+    "contact_model": "rest-filtered",
+    "cpu_limit_seconds": 20,
+    "fold_actuation": false,
+    "material_grippers": true,
+    "max_attempts": 64,
+    "max_depth": 8,
+    "max_evaluations": 100,
+    "minimum_distance_m": 0.0001,
+    "output": "/work/.planning/solver/material-gripper-contact-linux-v1",
+    "placement": ".planning/solver/material-gripper-contact-source-v1/placement.json",
+    "pressure_pa": 10000.0,
+    "sewing_mode": "vector",
+    "step_seconds": 0.08,
+    "subdivisions": 8,
+    "target_fraction": 1.0,
+    "wall_limit_seconds": 30
+  },
+  "contactProfile": {
+    "accepted": false,
+    "adapter": "experimental-rest-filtered-contact-v2",
+    "broadPhase": "ipctk-HashGrid-explicit-v1",
+    "collisionSet": "area-weighted IPC; not improved-max",
+    "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "filteredPrimitivePairs": 0,
+    "fullActivationM": 0.001,
+    "fullMinimumM": 0.0001,
+    "ipctk": "1.6.0",
+    "limitations": [
+      "Changed contact model, not a tolerance fix or paper reproduction.",
+      "Local positive core and activation derive from each primitive pair's own rest distance.",
+      "Planar connected rest components only; no sewing or layer operations.",
+      "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+      "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+      "Native broad-phase allocation and CCD require external process budgets."
+    ],
+    "localActivationRangeM": null,
+    "localMinimumRangeM": null,
+    "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+    "maxCandidates": 100000,
+    "parameterBuckets": 1,
+    "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+    "pressurePa": 10000.0,
+    "stiffnessUnits": "Pa"
+  },
+  "sourceDigests": {
+    "solver-contact.requirements.txt": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e",
+    "solver-spike.requirements.txt": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea",
+    "solver_adaptive_contact.py": "e0d368c13552e10dcdef73f8309247852d607a5a57a005ef79ebb6ebe0d0d112",
+    "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+    "solver_attempt_journal.py": "07a85b0cea0e19472b395496f37ef16674584fb91e312f5db7532764e5db0443",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+    "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+    "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+    "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+    "solver_cuff_construction.py": "31dada588478139e65478dafcd993ce54aed705518d6815583abc99459d06792",
+    "solver_cuff_sequence.py": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044",
+    "solver_distance_sewing.py": "903936125b2752f3b48f8634dee8f52741722fb37e593cb1bea676d80064c9bf",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "216567eba2a717586ed1384525b1f7854c18276d38f134752321bd1c417712f5",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+    "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+    "solver_global_sewing.py": "85ecbec2ae2ae2151b58de0624df8b3c65152870fb043d69efcdaef75ef5a6c3",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_gripper_input.py": "743e0f822c94a0d14a31e955c7a4368bbef9388b60d4c66510600c4f2ccb7873",
+    "solver_gripper_replay.py": "e7d5929adba375d2e8f78f978d380d1b0b905ba5a813cd74f00a0aa6ac16c7a1",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+    "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+    "solver_material_grippers.py": "c586c9d9198ac941a7dadbda8fc57c9cc33d17aa3676d6851378926e4fb9b0d8",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_normal_sewing.py": "0c97bb3f92a4c47b078aef53dd75b122681ddaa7e1f81cc3cfad770fdcc9badb",
+    "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+    "solver_process_budget.py": "c6b7f61d1fbf1109b1ff43b9008a2ab397552707ee81397ef7c64127a621586b",
+    "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+    "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+    "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+    "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+    "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+    "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e",
+    "spike-contact-continuation.py": "76b8f1a89929e8a5e2aaf7ccea80f72da01abc728b76ad98e872547f25ea09e1"
+  },
+  "artifacts": {
+    "runDirectory": ".planning/solver/material-gripper-contact-linux-v1",
+    "reportSha256": "c3a603073d1ca93bf430ac16c2011efe26718b1deb9e68107fbaf4dd3ffe3a59",
+    "replaySha256": "0c38e6d3284f57762d2c9ecdb71de7d1d7fbfc6cf66aca1efa0530a34714fd9a",
+    "runtimeSha256": "43a5e3bc6cd1b78960d2648bdb0cf8aebc47376143b9d0e67403371045f0e1e8",
+    "replayLogSha256": "fedc1ea23734070aeda096ffd948b733d74cf744fe4ed4871a91e59ec504e43b"
+  },
+  "verification": {
+    "replayScriptSha256": "bed5a8c882a24ad472355ae2833977a1e0d658285f4226e15c778a5adb642818",
+    "triangleVerifierSha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e",
+    "broadPhaseVerifierSha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+    "candidateCoverageVerifierSha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+    "gripperVerifierSha256": "e7d5929adba375d2e8f78f978d380d1b0b905ba5a813cd74f00a0aa6ac16c7a1",
+    "verificationBroadPhase": "ipctk-HashGrid-explicit-v1",
+    "verificationCpuLimitSeconds": 30,
+    "verificationCpuSeconds": 1.91818
+  },
+  "result": {
+    "completed": true,
+    "acceptedStates": 8,
+    "rejectedAttempts": 0,
+    "interruptedAttempts": 0,
+    "minimumSavedVerticalGapMm": 1.0979114392857205,
+    "maximumSavedContactEnergyJoules": 4.1079150249139733e-10,
+    "maximumReconstructedResidualN": 8.612702256312771e-07,
+    "finalMaximumSpeedMPerS": 4.127390695637771e-05,
+    "finalEdgeLengthRatioRange": [
+      1.0,
+      1.0
+    ],
+    "workerCpuSeconds": 2.849217,
+    "supervisedWallSeconds": 3.0190131260000044,
+    "candidateComparisons": 216,
+    "requiredCandidates": 0,
+    "contactProofLeaves": 0,
+    "triangleProofLeaves": 16
+  },
+  "work": {
+    "acceptedSteps": 8,
+    "gripperParameterWorkJoules": 2.93747799971872e-07,
+    "gripperTargetParameterWorkJoules": 4.4996086231188853e-07,
+    "gripperActivationParameterWorkJoules": -1.5621306234001653e-07,
+    "gripperReleaseEnergyRemovedJoules": 1.5621306234001653e-07,
+    "externalParameterWorkJoules": 2.93747799971872e-07,
+    "mechanicalChangeJoules": 2.49050326412895e-13,
+    "mechanicalChangeMinusParameterWorkJoules": -2.937475509215456e-07,
+    "scope": "Recovered accepted prefix only; gripper parameter work independently reconstructed, other terms from captured energy helper"
+  },
+  "savedSteps": [
+    {
+      "endFraction": 0.125,
+      "timeMs": 10.0,
+      "verticalLayerGapMm": 1.6200019784596686,
+      "maximumSpeedMPerS": 0.016656151077016575,
+      "contactEnergyJoules": 0.0,
+      "gripperEnergyJoules": 1.763835891967334e-08,
+      "activation": 1.0,
+      "recomputedResidualN": 4.743384504624082e-20,
+      "gripperParameterWorkJoules": 1.1343750000000004e-07,
+      "gripperReleaseEnergyRemovedJoules": 0.0,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        1.5585406406183969e-21
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0001.json",
+        "sha256": "3d24b4cc55e30bff9b22e3a755d6bfe4c00eb76d05848db3461d83933e2afa23"
+      }
+    },
+    {
+      "endFraction": 0.25,
+      "timeMs": 20.0,
+      "verticalLayerGapMm": 1.099165952029447,
+      "maximumSpeedMPerS": 0.026041801321511075,
+      "contactEnergyJoules": 2.6175608746369188e-11,
+      "gripperEnergyJoules": 2.2701056278333796e-08,
+      "activation": 1.0,
+      "recomputedResidualN": 4.2192703487712777e-07,
+      "gripperParameterWorkJoules": 2.0289925361461337e-07,
+      "gripperReleaseEnergyRemovedJoules": 0.0,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        -5.421011569246894e-22
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0002.json",
+        "sha256": "c4e100916d9ba563694e3f1c4b1a3d49e5b3f078cb52a8a50f2084aa8042ea16"
+      }
+    },
+    {
+      "endFraction": 0.375,
+      "timeMs": 30.0,
+      "verticalLayerGapMm": 1.0979114392857205,
+      "maximumSpeedMPerS": 6.272563718634147e-05,
+      "contactEnergyJoules": 4.1079150249139733e-10,
+      "gripperEnergyJoules": 7.418811621467617e-08,
+      "activation": 1.0,
+      "recomputedResidualN": 8.612702256312771e-07,
+      "gripperParameterWorkJoules": 5.190614280441701e-08,
+      "gripperReleaseEnergyRemovedJoules": 0.0,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        -2.4818065376639104e-21
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0003.json",
+        "sha256": "4370dab2f1fad3e4a2bb78dd6985dcea2d4bd7982abc919695c3d5b1e474d0e8"
+      }
+    },
+    {
+      "endFraction": 0.5,
+      "timeMs": 40.0,
+      "verticalLayerGapMm": 1.0981073565074104,
+      "maximumSpeedMPerS": 9.795861084511796e-06,
+      "contactEnergyJoules": 3.0572054459372435e-10,
+      "gripperEnergyJoules": 1.5600084007719466e-07,
+      "activation": 1.0,
+      "recomputedResidualN": 3.751718650617285e-09,
+      "gripperParameterWorkJoules": 8.17179658928581e-08,
+      "gripperReleaseEnergyRemovedJoules": 0.0,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        2.646978098220347e-21
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0004.json",
+        "sha256": "879f3886d02191c84376e6dedd0a3a8356d6771f345c53a610f8eb93cbabd15c"
+      }
+    },
+    {
+      "endFraction": 0.625,
+      "timeMs": 50.0,
+      "verticalLayerGapMm": 1.098361789286244,
+      "maximumSpeedMPerS": 1.2721638941674135e-05,
+      "contactEnergyJoules": 1.9827906501114138e-10,
+      "gripperEnergyJoules": 1.1709295713236833e-07,
+      "activation": 0.75,
+      "recomputedResidualN": 1.2951057781600012e-08,
+      "gripperParameterWorkJoules": -3.900021001929866e-08,
+      "gripperReleaseEnergyRemovedJoules": 3.900021001929866e-08,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        -4.489275172650426e-22
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0005.json",
+        "sha256": "c71d510274eb80e664b1860203560f3d8bcab68937f4b1301ca196ec907f980b"
+      }
+    },
+    {
+      "endFraction": 0.75,
+      "timeMs": 60.0,
+      "verticalLayerGapMm": 1.0986620016838773,
+      "maximumSpeedMPerS": 1.5010619881664425e-05,
+      "contactEnergyJoules": 1.0804198725568177e-10,
+      "gripperEnergyJoules": 7.813462885181439e-08,
+      "activation": 0.5,
+      "recomputedResidualN": 3.329500425388568e-08,
+      "gripperParameterWorkJoules": -3.9030985710789444e-08,
+      "gripperReleaseEnergyRemovedJoules": 3.9030985710789444e-08,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        -1.2281980496200522e-22
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0006.json",
+        "sha256": "61930494f9095c58de8910b13b084e1734b2bfb39df37c16c6389edcc345c721"
+      }
+    },
+    {
+      "endFraction": 0.875,
+      "timeMs": 70.0,
+      "verticalLayerGapMm": 1.0990521553069224,
+      "maximumSpeedMPerS": 1.9507681152261752e-05,
+      "contactEnergyJoules": 3.841608972504223e-11,
+      "gripperEnergyJoules": 3.911455218402122e-08,
+      "activation": 0.25,
+      "recomputedResidualN": 1.3913092407676916e-07,
+      "gripperParameterWorkJoules": -3.90673144259072e-08,
+      "gripperReleaseEnergyRemovedJoules": 3.90673144259072e-08,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        -5.293956196440694e-22
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0007.json",
+        "sha256": "a0cbaddc48eb4da9bc01558a77e755909e3dfb2e02402868fa01aaf7ab2d128a"
+      }
+    },
+    {
+      "endFraction": 1.0,
+      "timeMs": 80.0,
+      "verticalLayerGapMm": 1.0998776334460498,
+      "maximumSpeedMPerS": 4.127390695637771e-05,
+      "contactEnergyJoules": 8.268943923882694e-14,
+      "gripperEnergyJoules": 0.0,
+      "activation": 0.0,
+      "recomputedResidualN": 6.048860412600472e-07,
+      "gripperParameterWorkJoules": -3.911455218402122e-08,
+      "gripperReleaseEnergyRemovedJoules": 3.911455218402122e-08,
+      "momentumResidualNs": [
+        0.0,
+        0.0,
+        5.293956196440694e-22
+      ],
+      "candidateComparisons": 27,
+      "requiredCandidates": 0,
+      "triangleProofLeaves": 2,
+      "stateArtifact": {
+        "path": "accepted-0008.json",
+        "sha256": "6c6d7fc05bef743c727aa4bbe00ebb8b14c4ad69c8178abaaf82f552c0396b85"
+      }
+    }
+  ],
+  "limitations": [
+    "The controls stay near the contact activation boundary. Independent swept bounds exclude all primitive pairs at the smaller collision core; there are zero narrow contact-proof leaves in this run.",
+    "Vertical layer gap is a saved-state diagnostic for this parallel triangular fixture, not a general surface-distance measurement.",
+    "Release removes stored control potential. Reported discrete target-first parameter work is not continuous actuator work or physical release dissipation.",
+    "No seam, bending hinge, fold, pin, body, friction, material calibration, mesh refinement or temporal convergence is exercised by this tiny fixture.",
+    "No binding or turning phase is executed. The five-fabric cuff and full-shirt acceptance gates remain open.",
+    "Raw run/state/source artifacts remain ignored local research data; this ledger alone cannot replay the trajectory."
+  ],
+  "independentReview": {
+    "status": "no-scoped-blocker",
+    "reviewer": "Separate adversarial agent",
+    "checks": [
+      "All generator/runtime/canonical/placement/report/replay/state/journal/current-verifier hashes and journal recovery",
+      "Every saved layer gap and speed recomputed from geometry",
+      "Original-input 150-digit Decimal target, activation and release work and accepted totals",
+      "Independent Fraction swept-AABB enumeration: 216 comparisons, zero required collision-core candidates",
+      "Sixteen exact triangle-path leaves and zero narrow contact-proof leaves",
+      "Endpoint kinetic/contact change agrees with summed mechanical change to 3.64e-23 joules"
+    ],
+    "scope": "Numerical synthetic fixture and ledger only; no physical construction, material or garment acceptance."
+  },
+  "regressionVerification": {
+    "profile": "Linux ARM pinned offline research runtime",
+    "tests": 514,
+    "seconds": 203.919,
+    "result": "pass",
+    "command": "python -m unittest discover -s scripts -p 'test_solver_*.py'",
+    "logs": [
+      {
+        "path": ".planning/solver/gripper-full-numerical-sep23-v1.log",
+        "sha256": "56582e6a85136f804461eb642a4add1315c81cecb5e41a0c9d28abcd753d63ab",
+        "status": "initial failure: two stale unrestricted mock fixtures"
+      },
+      {
+        "path": ".planning/solver/gripper-journal-regression-sep23-v2.log",
+        "sha256": "ff69f695210eaf0cd2c91d84daab2ac5bfa6664c6875941918ec110a25e7d544",
+        "status": "pass: 24 journal cases"
+      },
+      {
+        "path": ".planning/solver/gripper-full-numerical-sep23-v2.log",
+        "sha256": "e854f550b6f0eaba3e4bb3e94bfebdb8a9b5d44f5aa3f3b5574285698e5c219e",
+        "status": "pass: 514 complete numerical/supervision cases"
+      }
+    ],
+    "scope": "Numerical/supervision research only; application, browser, production engine and build suites not rerun."
+  }
+}

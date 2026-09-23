@@ -1,10 +1,22 @@
+import math
+
 import numpy as np
 
 from solver_energy_change import membrane_energy_change
 
 
 def global_energy_transition(solver, previous, positions, previous_velocities, velocities,
-                             previous_targets, targets, dt, *, previous_fold_targets=None, fold_targets=None):
+                             previous_targets, targets, dt, *, previous_fold_targets=None, fold_targets=None,
+                             previous_gripper_targets=None, gripper_targets=None,
+                             previous_gripper_activation=None, gripper_activation=None):
+    gripper_recipe = getattr(solver, "material_grippers", None)
+    gripper_parameters = (previous_gripper_targets, gripper_targets,
+                          previous_gripper_activation, gripper_activation)
+    if gripper_recipe is None:
+        if any(value is not None for value in gripper_parameters):
+            raise ValueError("Gripper energy parameters require a material gripper recipe")
+    elif any(value is None for value in gripper_parameters):
+        raise ValueError("Both endpoint gripper targets and activation are required for energy accounting")
     previous, positions, previous_velocities, velocities, previous_targets, targets = [
         np.asarray(value, dtype=float) for value in
         (previous, positions, previous_velocities, velocities, previous_targets, targets)]
@@ -76,6 +88,46 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         fold_fixed_change = new_fold.energy_change(previous, positions)
         fold_change = fold_work + fold_fixed_change
         fold_before, fold_after = old_fold.energy(previous), new_fold.energy(positions)
+    gripper_before, gripper_after, gripper_fixed_position_after, gripper_fixed_change = 0., 0., 0., 0.
+    gripper_work, gripper_target_work, gripper_activation_work = 0., 0., 0.
+    gripper_activation_increase, gripper_release, gripper_rounding_bound = 0., 0., 0.
+    if gripper_recipe is not None:
+        old_gripper = gripper_recipe.potential(previous_gripper_targets, previous_gripper_activation)
+        new_gripper = gripper_recipe.potential(gripper_targets, gripper_activation)
+        gripper_before = old_gripper.energy(previous)
+        gripper_after = new_gripper.energy(positions)
+        gripper_fixed_position_after = new_gripper.energy(previous)
+        gripper_fixed_change = new_gripper.energy_change(previous, positions)
+        work = gripper_recipe.parameter_energy_change(previous, previous_gripper_targets,
+            previous_gripper_activation, gripper_targets, gripper_activation)
+        try:
+            if work["parameterOrder"] != "target-first-at-old-activation-then-activation-at-new-target":
+                raise ValueError("Gripper energy accounting requires target-first parameter work")
+            (gripper_work, gripper_target_work, gripper_activation_work,
+             gripper_activation_increase, gripper_release, gripper_rounding_bound) = [float(work[key]) for key in (
+                "totalParameterWorkJoules", "targetParameterWorkJoules", "activationParameterWorkJoules",
+                "activationIncreaseWorkJoules", "releaseEnergyRemovedJoules", "roundedComponentSumErrorBoundJoules")]
+        except (KeyError, TypeError, OverflowError) as error:
+            raise ValueError("Complete finite gripper parameter-work accounting required") from error
+        if (not all(np.isfinite(value) for value in (gripper_work, gripper_target_work, gripper_activation_work,
+                gripper_activation_increase, gripper_release, gripper_rounding_bound))
+                or min(gripper_activation_increase, gripper_release, gripper_rounding_bound) < 0):
+            raise ValueError("Finite gripper parameter work and nonnegative release/rounding quantities required")
+    gripper_change = math.fsum((gripper_work, gripper_fixed_change))
+    original_mechanical_change = membrane_change + bending_change + barrier_change + contact_change + kinetic_change + sewing_change + fold_change
+    original_fixed_target_change = membrane_change + bending_change + barrier_change + contact_change + kinetic_change + fixed_target_change + fold_fixed_change
+    # Preserve the previous no-gripper values. With grippers, sum independent
+    # changes instead of subtracting potentially huge rounded endpoint energies.
+    mechanical_change = (math.fsum((original_mechanical_change, gripper_work, gripper_fixed_change))
+                         if gripper_recipe is not None else original_mechanical_change)
+    target_parameter_work = (math.fsum((target_work, fold_work, gripper_target_work))
+                             if gripper_recipe is not None else target_work + fold_work)
+    external_parameter_work = (math.fsum((target_work, fold_work, gripper_work))
+                               if gripper_recipe is not None else target_work + fold_work)
+    minus_target_work = (math.fsum((original_fixed_target_change, gripper_fixed_change, gripper_activation_work))
+                         if gripper_recipe is not None else original_fixed_target_change)
+    minus_parameter_work = (math.fsum((original_fixed_target_change, gripper_fixed_change))
+                            if gripper_recipe is not None else original_fixed_target_change)
     report = {
         "membraneChangeJoules": membrane_change,
         "bendingChangeJoules": bending_change,
@@ -95,14 +147,27 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         "foldActuationBeforeJoules": fold_before,
         "foldActuationAfterJoules": fold_after,
         "foldTargetParameterWorkJoules": fold_work,
-        "targetParameterWorkJoules": target_work + fold_work,
-        "mechanicalChangeJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + sewing_change + fold_change,
-        "mechanicalChangeMinusTargetWorkJoules": membrane_change + bending_change + barrier_change + contact_change + kinetic_change + fixed_target_change + fold_fixed_change,
+        "gripperBeforeJoules": gripper_before,
+        "gripperAfterJoules": gripper_after,
+        "gripperFixedPositionAfterJoules": gripper_fixed_position_after,
+        "gripperFixedParameterChangeJoules": gripper_fixed_change,
+        "gripperChangeJoules": gripper_change,
+        "gripperParameterWorkJoules": gripper_work,
+        "gripperTargetParameterWorkJoules": gripper_target_work,
+        "gripperActivationParameterWorkJoules": gripper_activation_work,
+        "gripperActivationIncreaseWorkJoules": gripper_activation_increase,
+        "gripperReleaseEnergyRemovedJoules": gripper_release,
+        "gripperParameterWorkComponentSumErrorBoundJoules": gripper_rounding_bound,
+        "targetParameterWorkJoules": target_parameter_work,
+        "externalParameterWorkJoules": external_parameter_work,
+        "mechanicalChangeJoules": mechanical_change,
+        "mechanicalChangeMinusTargetWorkJoules": minus_target_work,
+        "mechanicalChangeMinusParameterWorkJoules": minus_parameter_work,
     }
     if not all(np.isfinite(value) for value in report.values()):
         raise ValueError("Finite energy balance required")
     return {
         **report,
         "accepted": False,
-        "scope": ("Global membrane/elastic-bending/sewing dynamics with experimental frictionless surface contact. " if contact is not None else "Contact-disabled global membrane/elastic-bending/sewing dynamics. ") + "Includes optional local angular fold barriers and prescribed fold actuation. Target work is the discrete potential change at the previous positions; it is not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
+        "scope": ("Global membrane/elastic-bending/sewing dynamics with experimental frictionless surface contact. " if contact is not None else "Contact-disabled global membrane/elastic-bending/sewing dynamics. ") + "Includes optional local angular fold barriers, prescribed fold actuation and compliant material grippers. Target work counts target changes only. External parameter work also includes gripper activation/release at the previous positions, with target changes first at old activation and then activation changes at new targets. Release energy removed is a nonnegative discrete potential reduction, not claimed physical dissipation. Fixed-parameter changes use the new parameters during motion. Rounded parameter-work components may differ from the directly evaluated total within the reported component-sum error bound. These are discrete potential changes, not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance.",
     }

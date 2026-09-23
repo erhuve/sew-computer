@@ -1,4 +1,5 @@
 import copy
+from fractions import Fraction
 
 import numpy as np
 
@@ -9,7 +10,7 @@ from solver_assembly_schedule import AssemblySchedule
 def adaptive_contact_step(solver, positions, velocities, initial_targets, targets, dt, *,
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
-                          assembly_schedule=None, **step_options):
+                          assembly_schedule=None, gripper_schedule=None, **step_options):
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
     positions = np.asarray(positions, dtype=float)
@@ -48,6 +49,18 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         if fold_recipe is None:
             raise ValueError("Assembly schedule requires explicit fold actuation")
         schedule = AssemblySchedule(assembly_schedule, initial_subdivisions)
+    gripper_recipe = getattr(solver, "material_grippers", None)
+    if any(key in step_options for key in ("gripper_targets", "gripper_activation")):
+        raise ValueError("Adaptive gripper targets must come from the captured schedule")
+    if (gripper_recipe is None) != (gripper_schedule is None):
+        raise ValueError("Material-gripper recipe and captured schedule must be supplied together")
+    gripper_controls = None
+    if gripper_recipe is not None:
+        if int(initial_subdivisions).bit_length() - 1 + max_depth > 40:
+            raise ValueError("Material-gripper subdivision fractions must remain within the 2^40 dyadic bound")
+        from solver_material_grippers import MaterialGripperSchedule
+        gripper_controls = MaterialGripperSchedule(gripper_schedule, initial_subdivisions,
+                                                 gripper_ids=gripper_recipe.gripper_ids)
     attempts, accepted, rejected = [], [], []
     completed_fraction = 0.
     reason = "attempt-budget-exhausted"
@@ -82,6 +95,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             if fold_recipe is not None:
                 options["fold_targets"] = (fold_targets.copy() if fold_progress == 1 else
                     initial_fold_targets + fold_progress * (fold_targets - initial_fold_targets))
+            if gripper_controls is not None:
+                options["gripper_targets"], options["gripper_activation"] = gripper_controls.parameters(end_fraction)
             candidate_positions, candidate_velocities, step_report = solver.step(
                 current_positions.copy(), current_velocities.copy(), substep_targets, duration, **options)
             if not isinstance(step_report, dict):
@@ -104,6 +119,53 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                      and not isinstance(residual, (bool, np.bool_))
                      and np.isfinite(residual) and 0 <= residual <= 1e-6
                      and step_report.get("converged") is True)
+            if valid and gripper_controls is not None:
+                # Work belongs to the accepted transition and must be checked
+                # before its immutable journal outcome is written. Trial
+                # controls always use original fractions; retries do not
+                # advance the state or accumulate rejected work.
+                from solver_energy_balance import global_energy_transition
+                old_sewing_progress, old_fold_progress = (schedule.progress(start_fraction) if schedule else
+                                                          (start_fraction, start_fraction))
+                old_targets = (targets.copy() if old_sewing_progress == 1 else
+                               initial_targets + old_sewing_progress * (targets - initial_targets))
+                old_grip_targets, old_grip_activation = gripper_controls.parameters(start_fraction)
+                energy_options = {"previous_gripper_targets": old_grip_targets,
+                                  "previous_gripper_activation": old_grip_activation,
+                                  "gripper_targets": options["gripper_targets"],
+                                  "gripper_activation": options["gripper_activation"]}
+                if fold_recipe is not None:
+                    old_fold = (fold_targets.copy() if old_fold_progress == 1 else
+                                initial_fold_targets + old_fold_progress * (fold_targets - initial_fold_targets))
+                    energy_options.update(previous_fold_targets=old_fold,
+                                          fold_targets=options["fold_targets"])
+                energy = global_energy_transition(solver, current_positions, candidate_positions,
+                    current_velocities, candidate_velocities, old_targets, substep_targets, duration,
+                    **energy_options)
+                potential = gripper_recipe.potential(options["gripper_targets"], options["gripper_activation"])
+                momentum_exact = [sum((Fraction(float(mass)) * (Fraction(float(new[axis])) - Fraction(float(old[axis])))
+                                      for mass, new, old in zip(solver.mass, candidate_velocities, current_velocities)),
+                                     Fraction()) for axis in range(3)]
+                # The potential's aggregate retains cancellation across
+                # anchors before individual force reports are rounded.
+                total_force = potential.diagnostics(candidate_positions)["totalClothForceNewtons"]
+                impulse_exact = [Fraction(duration) * Fraction(float(force)) for force in total_force]
+                momentum, impulse = [np.array([float(value) for value in vector])
+                                     for vector in (momentum_exact, impulse_exact)]
+                error = np.array([float(change - applied) for change, applied in zip(momentum_exact, impulse_exact)])
+                tolerance = len(solver.mass) * duration * 1e-6 + 64 * np.finfo(float).eps * max(
+                    1., float(np.max(np.abs(momentum))), float(np.max(np.abs(impulse))))
+                if (not np.all(solver.active) or not np.isfinite(error).all()
+                        or np.max(np.abs(error)) > tolerance):
+                    raise ValueError("Material-gripper transition fails free-cloth linear momentum accounting")
+                step_report = dict(step_report, energyBalance=energy, gripperMomentum={
+                    "changeKgMPerS": momentum.tolist(), "externalImpulseNs": impulse.tolist(),
+                    "residualNs": error.tolist(), "toleranceNs": float(tolerance),
+                    "scope": "Backward-Euler force at the new state on free cloth; virtual gripper impulse, not isolated-cloth momentum conservation"})
+                record["step"], nonfinite = diagnostic_json(step_report)
+                record["nonfiniteDiagnostics"] = nonfinite
+                if nonfinite:
+                    raise ValueError("Material-gripper transition has nonfinite work or momentum diagnostics")
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
@@ -154,5 +216,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         "maxAttempts": int(max_attempts), "stationarityToleranceN": 1e-6,
         "attempts": attempts, "acceptedSteps": accepted, "rejectedSteps": rejected, "interruptedSteps": [],
         "targetInterpolation": ("captured piecewise-linear sewing/fold progress" if schedule else
+                                "linear sewing progress over the original physical interval" if gripper_controls is not None else
                                 "linear over the original physical interval"),
+        **({"gripperInterpolation": "captured piecewise-linear material-point targets and activation over the original physical interval"}
+           if gripper_controls is not None else {}),
     }

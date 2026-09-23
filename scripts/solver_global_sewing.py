@@ -126,7 +126,7 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
 class GlobalSewingSolver:
     def __init__(self, model, rows, compliance, *, fold_barrier_joules=None, fold_activation_angle=np.pi / 2,
                  contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None,
-                 fold_hinges=None, fold_stiffness_joules=None):
+                 fold_hinges=None, fold_stiffness_joules=None, material_grippers=None):
         if sewing_mode not in ("vector", "distance", "normal-offset"):
             raise ValueError("Unsupported sewing mode")
         if sewing_mode != "normal-offset" and (sewing_frame_faces is not None or sewing_sides is not None):
@@ -135,6 +135,15 @@ class GlobalSewingSolver:
         self.mass = model.particle_mass.numpy().astype(float)
         self.active = (self.mass > 0) & ((model.particle_flags.numpy() & 1) != 0)
         self.faces = model.tri_indices.numpy().astype(int) if model.tri_indices is not None else np.empty((0, 3), dtype=int)
+        self.material_grippers = material_grippers
+        if material_grippers is not None:
+            from solver_material_grippers import MaterialGrippers
+            if (not isinstance(material_grippers, MaterialGrippers)
+                    or material_grippers.vertex_count != len(self.mass)
+                    or not np.array_equal(material_grippers.faces, self.faces)):
+                raise ValueError("Material grippers must match the solver's canonical vertex count and ordered faces")
+            if not np.all(self.active):
+                raise ValueError("Material-gripper reference currently requires free positive-mass cloth; fixed reactions are not implemented")
         self.contact = contact
         self.poses = model.tri_poses.numpy().astype(float) if model.tri_poses is not None else np.empty((0, 2, 2))
         self.areas = model.tri_areas.numpy().astype(float) if model.tri_areas is not None else np.empty(0)
@@ -186,7 +195,8 @@ class GlobalSewingSolver:
         if model.spring_count or model.tet_count:
             raise ValueError("Global reference does not implement springs or volumetric elements")
         from solver_embedded_sewing import validate_rows
-        if not (self.fold_actuation is not None and isinstance(rows, list) and not rows):
+        if not ((self.fold_actuation is not None or self.material_grippers is not None)
+                and isinstance(rows, list) and not rows):
             rows = validate_rows(rows, len(self.mass), model.particle_colors.numpy())
         if any(abs(sum(row.values())) > 1e-12 for row in rows):
             raise ValueError("Global sewing rows must preserve translation to float64 precision")
@@ -219,13 +229,23 @@ class GlobalSewingSolver:
         return DistanceSewing(self.sewing, targets, self.compliance)
 
     def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct",
-             *, fold_targets=None):
+             *, fold_targets=None, gripper_targets=None, gripper_activation=None):
         previous = np.asarray(previous_positions, dtype=float)
         velocities = np.asarray(previous_velocities, dtype=float)
         targets = np.asarray(targets, dtype=float)
         if (self.fold_actuation is None) != (fold_targets is None):
             raise ValueError("Fold recipe and explicit step targets must be supplied together")
         actuator = self.fold_actuation.potential(fold_targets) if self.fold_actuation is not None else None
+        if self.material_grippers is None:
+            if gripper_targets is not None or gripper_activation is not None:
+                raise ValueError("Explicit gripper parameters require a material-gripper recipe")
+            grippers = None
+        else:
+            if gripper_targets is None or gripper_activation is None:
+                raise ValueError("Material-gripper recipe requires explicit targets and activation")
+            grippers = self.material_grippers.potential(gripper_targets, gripper_activation)
+            if linear_solver != "direct":
+                raise ValueError("Material grippers require guarded direct search")
         if actuator is not None and linear_solver != "direct":
             raise ValueError("Fold actuation requires guarded direct search")
         distance_sewing = None
@@ -253,6 +273,8 @@ class GlobalSewingSolver:
         self.bending.energy(previous)
         if actuator is not None:
             actuator.energy(previous)
+        if grippers is not None:
+            grippers.energy(previous)
         predicted[~self.active] = previous[~self.active]
         inertia_weights = np.repeat(np.sqrt(self.mass) / dt, 3)
         linear_jacobian = diags(inertia_weights, format="csr")
@@ -279,6 +301,8 @@ class GlobalSewingSolver:
             residual_count += len(self.fold_barrier.indices)
         if actuator is not None:
             residual_count += len(actuator.indices)
+        if grippers is not None:
+            residual_count += 3 * len(self.material_grippers.gripper_ids)
 
         def evaluate(free_positions, jacobian=False):
             flat = fixed.copy()
@@ -301,11 +325,12 @@ class GlobalSewingSolver:
                     barrier = self.fold_barrier.residual(positions) if self.fold_barrier is not None else np.empty(0)
                     sewing = sewing_residual(positions)
                     fold = actuator.residual(positions) if actuator is not None else np.empty(0)
+                    grip = grippers.residual(positions) if grippers is not None else np.empty(0)
                 except ValueError:
                     return np.full(residual_count, np.inf)
                 return np.concatenate((inertia_weights * (flat - predicted.ravel()),
                                        sewing,
-                                       membrane.ravel(), bending, barrier, fold))
+                                       membrane.ravel(), bending, barrier, fold, grip))
             from scipy.sparse import vstack
             row_indices, column_indices, values = [], [], []
             gradients = np.stack((np.cross(second, area_vectors), np.cross(area_vectors, first)), axis=1)
@@ -326,10 +351,12 @@ class GlobalSewingSolver:
             sewing_jacobian = (distance_sewing.jacobian(positions) if distance_sewing is not None
                                else sewn_jacobian)
             blocks = [linear_jacobian, sewing_jacobian, membrane_jacobian, self.bending.jacobian(positions)]
-            if actuator is not None:
-                blocks.append(actuator.jacobian(positions))
             if self.fold_barrier is not None:
                 blocks.append(self.fold_barrier.jacobian(positions))
+            if actuator is not None:
+                blocks.append(actuator.jacobian(positions))
+            if grippers is not None:
+                blocks.append(grippers.jacobian(positions))
             return vstack(blocks, format="csr")[:, self.free]
 
         def objective(free_positions):
@@ -355,10 +382,11 @@ class GlobalSewingSolver:
                 barrier_energy = self.fold_barrier.energy(positions) if self.fold_barrier is not None else 0.
                 contact_energy = self.contact.energy(positions) if self.contact is not None else 0.
                 fold_energy = actuator.energy(positions) if actuator is not None else 0.
+                gripper_energy = grippers.energy(positions) if grippers is not None else 0.
             except ValueError:
                 return float("inf")
             return float((inertial @ inertial + sewing @ sewing) / 2 + membrane_energy.sum()
-                         + bending_energy + barrier_energy + contact_energy + fold_energy)
+                         + bending_energy + barrier_energy + contact_energy + fold_energy + gripper_energy)
 
         def gradient_function(free_positions):
             flat = fixed.copy()
@@ -382,6 +410,8 @@ class GlobalSewingSolver:
             gradient += self.bending.gradient(positions).ravel()
             if actuator is not None:
                 gradient += actuator.gradient(positions).ravel()
+            if grippers is not None:
+                gradient += grippers.gradient(positions).ravel()
             if self.fold_barrier is not None:
                 gradient += self.fold_barrier.gradient(positions).ravel()
             if self.contact is not None:
@@ -409,6 +439,7 @@ class GlobalSewingSolver:
                 barrier_change = 0.
                 contact_change = 0.
                 fold_change = 0.
+                gripper_change = grippers.energy_change(positions, positions + displacement) if grippers is not None else 0.
                 if actuator is not None:
                     from solver_hinge_sweep import hinge_sweep_safe
                     if (not hinge_sweep_safe(positions, positions + displacement, actuator.indices)
@@ -437,7 +468,7 @@ class GlobalSewingSolver:
                 sewing_change = (sewing + .5 * delta_sewing) @ delta_sewing
             return float((inertial + .5 * delta_inertial) @ delta_inertial
                          + sewing_change + membrane_change
-                         + bending_change + barrier_change + contact_change + fold_change)
+                         + bending_change + barrier_change + contact_change + fold_change + gripper_change)
 
         def step_limiter(start_positions, end_positions):
             start_flat, end_flat = fixed.copy(), fixed.copy()
@@ -447,6 +478,8 @@ class GlobalSewingSolver:
         linear_hessian = linear_jacobian.T @ linear_jacobian
         if distance_sewing is None:
             linear_hessian += sewn_jacobian.T @ sewn_jacobian
+        if grippers is not None:
+            linear_hessian += grippers.hessian()
         element_dofs = (self.faces[:, :, None] * 3 + np.arange(3)).reshape((-1, 9))
         cached_positions, cached_elements = None, None
 
@@ -492,7 +525,7 @@ class GlobalSewingSolver:
         linear_start = spsolve(matrix[active_indices][:, active_indices].tocsc(), rhs).reshape((-1, 3)).ravel()
         predicted_start = predicted.ravel()[self.free]
         guarded = (self.has_bending or self.fold_barrier is not None or self.contact is not None
-                   or distance_sewing is not None or actuator is not None)
+                   or distance_sewing is not None or actuator is not None or grippers is not None)
         start = (previous.ravel()[self.free].copy() if guarded or len(self.faces) else
                  min((linear_start, predicted_start, previous.ravel()[self.free]), key=objective))
         initial_energy = objective(start)
@@ -538,6 +571,12 @@ class GlobalSewingSolver:
             "foldTargetsRadians": actuator.rest_angles.tolist() if actuator is not None else None,
             "foldAnglesRadians": actuator.angles(final).tolist() if actuator is not None else None,
             "foldActuationLimitations": "External angle penalty, not a change of cloth rest shape or a turning/binding recipe; Gauss-Newton search" if actuator is not None else None,
+            "materialGrippers": grippers is not None,
+            "gripperDiagnostics": grippers.diagnostics(final) if grippers is not None else None,
+            "gripperEnergyJoules": grippers.energy(final) if grippers is not None else 0.,
+            "gripperTargetsMeters": grippers.targets.tolist() if grippers is not None else None,
+            "gripperActivation": grippers.activation.tolist() if grippers is not None else None,
+            "gripperLimitations": "Prescribed compliant source-material anchors on free cloth; targets are not collision geometry or a verified binding/turning recipe. Parameter work requires adjacent states." if grippers is not None else None,
             "sewingJoules": float(.5 * np.sum(sewing_residual(final) ** 2)),
             "sewingTargetErrorM": float(np.max(np.abs(sewing_residual(final)), initial=0)
                                          * np.sqrt(self.compliance)),
@@ -562,7 +601,9 @@ class GlobalSewingSolver:
             "status": int(result.status), "message": result.message,
             "evaluations": int(result.nfev), "initialEnergy": initial_energy, "finalEnergy": objective(result.x),
             "gradientInfinityNorm": gradient_norm,
-            "limitations": ["Experimental frictionless surface contact; no body contact, seam exclusions, external forces or material damping. Diagnostic reference only." if self.contact is not None else "No contact, external forces or material damping; diagnostic reference only.",
+            "limitations": [("Experimental frictionless surface contact; no body contact or seam exclusions. " if self.contact is not None else "No contact. ")
+                            + ("Prescribed compliant material grippers provide external forces. " if grippers is not None else "No external translational forces. ")
+                            + "No material damping; diagnostic reference only.",
                             "Optional local angular fold barrier changes the energy model; it is not finite-thickness or nonadjacent cloth contact.",
                             "Elastic bending is uncalibrated; the numerical triangle guard requires independent saved-path verification.",
                             "Stationarity does not certify a local energy minimum or dynamic stability."],

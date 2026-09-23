@@ -380,6 +380,14 @@ def recover_attempt_journal(directory, report, *, interruption=None):
                     rejectedSteps=[entry for entry in attempts if entry["outcome"] == "rejected"],
                     interruptedSteps=[entry for entry in attempts if entry["outcome"] == "interrupted"],
                     targetInterpolation="linear over the original physical interval")
+    arguments = report.get("arguments", {})
+    if arguments.get("assembly_schedule") is True:
+        adaptive["targetInterpolation"] = "captured piecewise-linear sewing/fold progress"
+    elif arguments.get("material_grippers") is True:
+        adaptive["targetInterpolation"] = "linear sewing progress over the original physical interval"
+    if arguments.get("material_grippers") is True:
+        adaptive["gripperInterpolation"] = (
+            "captured piecewise-linear material-point targets and activation over the original physical interval")
     return {"adaptive": adaptive, "acceptedStateArtifacts": artifacts,
             "attemptJournal": {"profile": PROFILE, "events": events, "initialState": initial,
                                "lastAcceptedState": last_state, "finished": finished is not None,

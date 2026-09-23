@@ -32,6 +32,8 @@ def parse_arguments():
                         help="Execute the explicit captured source-hinge angle schedule alongside sewing")
     parser.add_argument("--assembly-schedule", action="store_true",
                         help="Execute captured piecewise sewing/fold progress without resetting cloth state")
+    parser.add_argument("--material-grippers", action="store_true",
+                        help="Execute captured compliant material-point targets with engagement/release work accounting")
     parser.add_argument("--contact-model", choices=("area-improved-max", "rest-filtered"),
                         default="area-improved-max")
     parser.add_argument("--ccd-profile", choices=("tight-inclusion", "swept-plane-tight-inclusion",
@@ -50,6 +52,8 @@ def parse_arguments():
             or not 1 <= args.subdivisions <= args.max_attempts
             or args.subdivisions & (args.subdivisions - 1)):
         parser.error("Bounded evaluation, attempt, CPU, wall and depth budgets and dyadic subdivisions required")
+    if args.material_grippers and args.subdivisions.bit_length() - 1 + args.max_depth > 40:
+        parser.error("Material-gripper subdivision fractions must remain within the 2^40 dyadic bound")
     return args
 
 
@@ -88,6 +92,9 @@ def run_worker(output, parent_pid):
         fold_recipe = source.get("foldActuation")
         if args.fold_actuation != isinstance(fold_recipe, dict):
             raise ValueError("Fold actuation requires both explicit opt-in and a captured recipe")
+        gripper_input = source.get("gripperActuation")
+        if args.material_grippers != ("gripperActuation" in source):
+            raise ValueError("Material grippers require both explicit opt-in and a captured recipe")
         schedule_recipe = source.get("assemblySchedule")
         if args.assembly_schedule != isinstance(schedule_recipe, dict):
             raise ValueError("Assembly schedule requires both explicit opt-in and a captured recipe")
@@ -135,7 +142,7 @@ def run_worker(output, parent_pid):
             contact = IpcSurfaceContact(rest, faces, **contact_parameters,
                                        energy_profile="area-improved-max", ccd_profile=args.ccd_profile)
         offsets = source["instanceOffsets"]
-        if (not isinstance(offsets, dict) or not (1 if args.fold_actuation else 2) <= len(offsets) <= 64
+        if (not isinstance(offsets, dict) or not (1 if args.fold_actuation or args.material_grippers else 2) <= len(offsets) <= 64
                 or any(not isinstance(identity, str) or not identity or type(offset) is not int
                        or not 0 <= offset < len(rest) for identity, offset in offsets.items())):
             raise ValueError("Bounded physical instance offsets required")
@@ -164,7 +171,7 @@ def run_worker(output, parent_pid):
         if original_positions.shape != rest.shape or not np.isfinite(original_positions).all():
             raise ValueError("Matching finite original placement required")
         report["seamGapsMm"] = staging_seam_gaps(source, original_positions, positions)
-        if report["seamGapsMm"] is None and not (args.fold_actuation
+        if report["seamGapsMm"] is None and not ((args.fold_actuation or args.material_grippers)
                 and source.get("embeddedConstraints", {}).get("constraints") == []):
             raise ValueError("Nonempty source-validated embedded sewing constraints required")
         report["contactProfile"] = contact.profile()
@@ -194,12 +201,24 @@ def run_worker(output, parent_pid):
         np.testing.assert_array_equal(faces, model.tri_indices.numpy())
         rows = [{offsets[term["instanceId"]] + term["vertex"]: term["coefficient"]
                  for term in constraint["terms"]} for constraint in source["embeddedConstraints"]["constraints"]]
+        material_grippers, gripper_controls = None, None
+        if args.material_grippers:
+            from solver_gripper_input import bind_material_grippers
+            material_grippers, gripper_controls, binding = bind_material_grippers(source, args.subdivisions)
+            report["gripperActuation"] = gripper_input
+            report["gripperBinding"] = binding
+            start_targets, start_activation = gripper_controls.parameters(0.)
+            start_grippers = material_grippers.potential(start_targets, start_activation)
+            report["initialGripperEnergyJoules"] = start_grippers.energy(positions)
+            report["initialGripperTargetsMeters"] = start_targets.tolist()
+            report["initialGripperActivation"] = start_activation.tolist()
         solver = GlobalSewingSolver(model, rows, 1e-8, contact=contact, fold_barrier_joules=1e-5,
                                    sewing_mode=args.sewing_mode,
                                    sewing_frame_faces=source.get("sewingFrames", {}).get("faces") if args.sewing_mode == "normal-offset" else None,
                                    sewing_sides=source.get("sewingFrames", {}).get("sides") if args.sewing_mode == "normal-offset" else None,
                                    fold_hinges=fold_recipe.get("hinges") if fold_recipe else None,
-                                   fold_stiffness_joules=fold_recipe.get("stiffnessJoules") if fold_recipe else None)
+                                   fold_stiffness_joules=fold_recipe.get("stiffnessJoules") if fold_recipe else None,
+                                   material_grippers=material_grippers)
         fold_options = {}
         if args.fold_actuation:
             if solver.fold_actuation is None:
@@ -230,11 +249,23 @@ def run_worker(output, parent_pid):
             solver, positions, np.zeros_like(positions), initial_targets, args.target_fraction * initial_targets,
             args.step_seconds, initial_subdivisions=args.subdivisions, max_attempts=args.max_attempts,
             max_depth=args.max_depth, max_evaluations=args.max_evaluations, attempt_journal=journal,
-            assembly_schedule=schedule_recipe, **fold_options)
+            assembly_schedule=schedule_recipe,
+            gripper_schedule=gripper_input["schedule"] if args.material_grippers else None, **fold_options)
         recovered = recover_attempt_journal(output, report)
         if recovered["attemptJournal"]["errors"]:
             raise ValueError("Attempt journal verification failed")
         report.update(recovered)
+        if args.material_grippers:
+            accepted_steps = report["adaptive"]["acceptedSteps"]
+            energies = [record["step"]["energyBalance"] for record in accepted_steps]
+            report["gripperWorkSummary"] = {
+                "acceptedSteps": len(accepted_steps),
+                **{key: math.fsum(energy[key] for energy in energies) for key in (
+                    "gripperParameterWorkJoules", "gripperTargetParameterWorkJoules",
+                    "gripperActivationParameterWorkJoules", "gripperReleaseEnergyRemovedJoules",
+                    "externalParameterWorkJoules", "mechanicalChangeJoules",
+                    "mechanicalChangeMinusParameterWorkJoules")},
+                "scope": "Sum over accepted transitions only; discrete target-first parameter changes at prior positions, not continuous tool work or physical release dissipation"}
         report["stateArtifact"] = atomic_json(args.output / "state.json", {"positionsMeters": final.tolist(),
             "velocitiesMetersPerSecond": velocity.tolist(),
             "completedDurationSeconds": report["adaptive"]["completedDurationSeconds"], "accepted": False})
@@ -292,7 +323,8 @@ def main():
     args.output = args.output.absolute()
     args.output.mkdir(mode=0o700, parents=False, exist_ok=False)
     started = time.monotonic()
-    report = {"profile": "experimental-inactive-reference-contact-continuation-v1", "accepted": False,
+    report = {"profile": ("experimental-material-gripper-contact-continuation-v1" if args.material_grippers else
+                          "experimental-inactive-reference-contact-continuation-v1"), "accepted": False,
               "terminal": False, "completed": False, "acceptedStateArtifacts": [], "sourceDigests": {},
               "arguments": {key: str(value) if isinstance(value, Path) else value
                             for key, value in vars(args).items()},

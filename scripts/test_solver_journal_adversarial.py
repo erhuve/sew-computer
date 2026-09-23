@@ -386,7 +386,7 @@ class JournalAdversarialTests(unittest.TestCase):
         self.report["arguments"]["step_seconds"] = tiny
         journal = AttemptJournal(self.directory, self.report, self.positions, self.velocities,
                                  dt=tiny, initial_subdivisions=2, max_depth=3, max_attempts=8)
-        solver = mock.Mock()
+        solver = mock.Mock(sewing_mode="vector", fold_actuation=None, material_grippers=None)
         adaptive_contact_step(solver, self.positions, self.velocities, self.targets, self.targets,
                               tiny, initial_subdivisions=2, max_depth=3, max_attempts=8,
                               attempt_journal=journal)
@@ -517,7 +517,7 @@ class JournalAdversarialTests(unittest.TestCase):
     def test_journal_reserves_outcome_bytes_before_executing_solver(self):
         from solver_attempt_journal import MAX_RECORD_BYTES, RECOVERY_RESERVE_BYTES
         journal = self.journal()
-        solver = mock.Mock()
+        solver = mock.Mock(sewing_mode="vector", fold_actuation=None, material_grippers=None)
         limit = journal.byte_count + MAX_RECORD_BYTES + RECOVERY_RESERVE_BYTES
         with mock.patch("solver_attempt_journal.MAX_JOURNAL_BYTES", limit):
             with self.assertRaisesRegex(ValueError, "byte budget"):

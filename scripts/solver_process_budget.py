@@ -455,6 +455,11 @@ def _supervise(command, directory, initial_report, *, cpu_limit_seconds, wall_li
             if "adaptive" in report:
                 report["adaptive"] = dict(report["adaptive"], complete=False,
                                           reason="supervision-interrupted-or-invalid")
+        # Recovery or a late publication signal can shorten/invalidate the
+        # durable prefix. Publish no cached worker gripper aggregate for an
+        # incomplete run; replay derives its totals from accepted transitions.
+        if not report["completed"]:
+            report.pop("gripperWorkSummary", None)
         atomic_json(directory / "report.json", report, replace=True)
         if publication_signal == received_signal:
             break
