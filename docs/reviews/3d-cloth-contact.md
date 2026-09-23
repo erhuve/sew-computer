@@ -8,6 +8,16 @@ Reviewed `services/engine/cloth_domain.py`, `scripts/solver_contact_filters.py`,
 
 This continuation found defects beyond the earlier review scopes. Historical test counts below remain historical; neither those results nor the fixes here establish accepted cuff construction, full-shirt assembly or deployment readiness.
 
+### Binding hold, refinement and velocity observations
+
+The [longer-hold comparison](../research/3d-solver-feasibility.md#extended-binding-hold--2026-09-23) retains a negative result after all four runs pass independent replay. Complete numerical snapshot identity and every saved position/velocity through 384 ms match. The additional hold leaves final speed near 0.478 mm/s and increases the released-tail angle range; small sampled seam errors do not establish settled construction. Sixteen focused tests attack policy fields, changed source/settings, Boolean times, release activation and prefix artifacts including repaired hashes.
+
+Independent review of the non-executable [binding crease descriptor](../research/3d-solver-feasibility.md#binding-crease-preprocessing--2026-09-23) confirms its two full-allowance crease chains, unchanged original vertex prefix, original-parent support and strict whole-descriptor rederivation. Eight focused tests pass on both platforms; thirty-four additional mutations reject. Exact binary-input area checks retain tiny nonzero residuals, so this does not certify exact-real domain equality. Remapped seams, frames, grippers, capture and numerical execution remain pending.
+
+The separate rigid-velocity primitive initially passed thirteen tests while admitting two numerical counterexamples: about 35% kinetic underreporting under extreme mass/velocity scales and false zero speed from norm underflow. The repaired helper explicitly rejects subnormal normalized masses, uses compensated original weighted sums and stable speed norms. Sixteen tests pass on both platforms, including the retained failures, and independent rational-oracle checks confirm nearby admitted ranges. Its measured reconstruction/orthogonality residuals are observations, not dissipation, continuous rigid-motion or acceptance certificates. No material or simulation policy changes are introduced.
+
+Final complete pinned Linux numerical/supervision discovery passes **756 tests in 347.358 seconds** after the fixes. Independent comparison review also reconstructs all 192 prefix states per role from raw artifacts and verifies the current reporter digests. The previous 753-test pass preceded the last three velocity regressions and does not substitute for this final run. Documentation and whitespace checks pass; the application remains placement inspection.
+
 ### Contact locality and native parameter identity
 
 The experimental rest-filtered v1 implementation selected one reduced activation/minimum scale from the smallest within-panel rest separation in the entire input. Adding a distant, stationary refined panel could therefore erase the original panel's contact response. This violates locality even when the broad phase supplies a complete candidate set; the rest-filtering partition itself does not drop candidates. Historical v1 refined-mesh controls must not be promoted to model acceptance.

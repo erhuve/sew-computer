@@ -1,0 +1,3913 @@
+{
+  "profile": "binding-refinement-descriptor-capture-v1",
+  "accepted": false,
+  "descriptor": {
+    "accepted": false,
+    "binaryInputReconstruction": {
+      "maximumAbsoluteCoordinateResidualMeters": {
+        "denominator": "72057594037927936",
+        "numerator": "1",
+        "roundedBinary64": 1.3877787807814457e-17
+      },
+      "vertices": [
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 0,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 1,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 2,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 3,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 4,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 5,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 6,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 7,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 8,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 9,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 10,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "5192296858534827628530496329220096",
+              "numerator": "1711367858400789",
+              "roundedBinary64": 3.2959746043559345e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 11,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "5192296858534827628530496329220096",
+              "numerator": "1711367858400789",
+              "roundedBinary64": 3.2959746043559345e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 12,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 13,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 14,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "288230376151711744",
+              "numerator": "1",
+              "roundedBinary64": 3.469446951953614e-18
+            }
+          ],
+          "vertex": 15,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "144115188075855872",
+              "numerator": "-1",
+              "roundedBinary64": -6.938893903907228e-18
+            }
+          ],
+          "vertex": 16,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 17,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "288230376151711744",
+              "numerator": "1",
+              "roundedBinary64": 3.469446951953614e-18
+            }
+          ],
+          "vertex": 18,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 19,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "23384026197294446691258957323460528314494920687616",
+              "numerator": "-13115958210361406244987826158087",
+              "roundedBinary64": -5.608939238991673e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 20,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "9487583214993845",
+              "roundedBinary64": 9.136210306811183e-19
+            },
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "3210289993643415",
+              "roundedBinary64": 3.091396814462281e-19
+            }
+          ],
+          "vertex": 21,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 22,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "23384026197294446691258957323460528314494920687616",
+              "numerator": "-13115958210361406244987826158087",
+              "roundedBinary64": -5.608939238991673e-19
+            },
+            {
+              "denominator": "72057594037927936",
+              "numerator": "-1",
+              "roundedBinary64": -1.3877787807814457e-17
+            }
+          ],
+          "vertex": 23,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "9487583214993845",
+              "roundedBinary64": 9.136210306811183e-19
+            },
+            {
+              "denominator": "162259276829213363391578010288128",
+              "numerator": "-660023230690433",
+              "roundedBinary64": -4.06770721272931e-18
+            }
+          ],
+          "vertex": 24,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 25,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "288230376151711744",
+              "numerator": "-1",
+              "roundedBinary64": -3.469446951953614e-18
+            }
+          ],
+          "vertex": 26,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "288230376151711744",
+              "numerator": "-1",
+              "roundedBinary64": -3.469446951953614e-18
+            }
+          ],
+          "vertex": 27,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        {
+          "storedMinusReconstructedMeters": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "vertex": 28,
+          "weightSumMinusOne": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        }
+      ]
+    },
+    "composedVertexWeights": [
+      {
+        "vertex": 0,
+        "weights": [
+          {
+            "sourceVertex": 0,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 1,
+        "weights": [
+          {
+            "sourceVertex": 1,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 2,
+        "weights": [
+          {
+            "sourceVertex": 2,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 3,
+        "weights": [
+          {
+            "sourceVertex": 3,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 4,
+        "weights": [
+          {
+            "sourceVertex": 4,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 5,
+        "weights": [
+          {
+            "sourceVertex": 5,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 6,
+        "weights": [
+          {
+            "sourceVertex": 6,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 7,
+        "weights": [
+          {
+            "sourceVertex": 7,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 8,
+        "weights": [
+          {
+            "sourceVertex": 8,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 9,
+        "weights": [
+          {
+            "sourceVertex": 9,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 10,
+        "weights": [
+          {
+            "sourceVertex": 10,
+            "weight": {
+              "denominator": "1",
+              "numerator": "1",
+              "roundedBinary64": 1.0
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 11,
+        "weights": [
+          {
+            "sourceVertex": 0,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "2251799813685247",
+              "roundedBinary64": 0.2499999999999999
+            }
+          },
+          {
+            "sourceVertex": 3,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "6755399441055745",
+              "roundedBinary64": 0.7500000000000001
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 12,
+        "weights": [
+          {
+            "sourceVertex": 1,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "2251799813685247",
+              "roundedBinary64": 0.2499999999999999
+            }
+          },
+          {
+            "sourceVertex": 2,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "6755399441055745",
+              "roundedBinary64": 0.7500000000000001
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 13,
+        "weights": [
+          {
+            "sourceVertex": 2,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 10,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 14,
+        "weights": [
+          {
+            "sourceVertex": 3,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 8,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 15,
+        "weights": [
+          {
+            "sourceVertex": 6,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 9,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 16,
+        "weights": [
+          {
+            "sourceVertex": 6,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 10,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 17,
+        "weights": [
+          {
+            "sourceVertex": 7,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 8,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 18,
+        "weights": [
+          {
+            "sourceVertex": 7,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 9,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 19,
+        "weights": [
+          {
+            "sourceVertex": 0,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 8,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 20,
+        "weights": [
+          {
+            "sourceVertex": 0,
+            "weight": {
+              "denominator": "40564819207303340847894502572032",
+              "numerator": "30423614405477506386520814824107",
+              "roundedBinary64": 0.75
+            }
+          },
+          {
+            "sourceVertex": 3,
+            "weight": {
+              "denominator": "40564819207303340847894502572032",
+              "numerator": "10141204801825834461373687747925",
+              "roundedBinary64": 0.24999999999999997
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 21,
+        "weights": [
+          {
+            "sourceVertex": 0,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "6004799503160661",
+              "roundedBinary64": 0.6666666666666666
+            }
+          },
+          {
+            "sourceVertex": 3,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "3002399751580331",
+              "roundedBinary64": 0.16666666666666669
+            }
+          },
+          {
+            "sourceVertex": 8,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "3002399751580331",
+              "roundedBinary64": 0.16666666666666669
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 22,
+        "weights": [
+          {
+            "sourceVertex": 1,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 10,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 23,
+        "weights": [
+          {
+            "sourceVertex": 1,
+            "weight": {
+              "denominator": "40564819207303340847894502572032",
+              "numerator": "30423614405477506386520814824107",
+              "roundedBinary64": 0.75
+            }
+          },
+          {
+            "sourceVertex": 2,
+            "weight": {
+              "denominator": "40564819207303340847894502572032",
+              "numerator": "10141204801825834461373687747925",
+              "roundedBinary64": 0.24999999999999997
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 24,
+        "weights": [
+          {
+            "sourceVertex": 1,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "6004799503160661",
+              "roundedBinary64": 0.6666666666666666
+            }
+          },
+          {
+            "sourceVertex": 2,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "3002399751580331",
+              "roundedBinary64": 0.16666666666666669
+            }
+          },
+          {
+            "sourceVertex": 10,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "3002399751580331",
+              "roundedBinary64": 0.16666666666666669
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 25,
+        "weights": [
+          {
+            "sourceVertex": 4,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 8,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 26,
+        "weights": [
+          {
+            "sourceVertex": 4,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 9,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 27,
+        "weights": [
+          {
+            "sourceVertex": 5,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 9,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "vertex": 28,
+        "weights": [
+          {
+            "sourceVertex": 5,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          },
+          {
+            "sourceVertex": 10,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "fabricInstances": 5,
+      "originalStripTriangles": 12,
+      "originalStripVertices": 11,
+      "prospectiveUnitTriangles": 398,
+      "prospectiveUnitVertices": 245,
+      "refinedStripTriangles": 44,
+      "refinedStripVertices": 29,
+      "unchangedSourceRows": 40
+    },
+    "cutPolicy": {
+      "extension": "Extend each named straight source path as an infinite line through the full existing cut domain, including end allowances; no trimming or new boundary.",
+      "id": "named-right-then-left-infinite-source-lines-v1",
+      "sourcePathOrder": [
+        "right",
+        "left"
+      ],
+      "status": "Explicit research crease choice, not an executed fold or an inferred source construction milestone."
+    },
+    "executable": false,
+    "finalCreases": [
+      {
+        "cutBoundaryEndpointsMeters": [
+          [
+            0.020000000000000004,
+            -0.01
+          ],
+          [
+            0.020000000000000004,
+            0.11067241500000001
+          ]
+        ],
+        "edges": [
+          [
+            11,
+            14
+          ],
+          [
+            12,
+            13
+          ],
+          [
+            13,
+            16
+          ],
+          [
+            14,
+            17
+          ],
+          [
+            15,
+            16
+          ],
+          [
+            15,
+            18
+          ],
+          [
+            17,
+            18
+          ]
+        ],
+        "sourceLineEndpointsMeters": [
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.02,
+            0.100672415
+          ]
+        ],
+        "sourcePathName": "right",
+        "vertices": [
+          11,
+          14,
+          17,
+          18,
+          15,
+          16,
+          13,
+          12
+        ]
+      },
+      {
+        "cutBoundaryEndpointsMeters": [
+          [
+            -1.734723475976807e-18,
+            0.110672415
+          ],
+          [
+            -1.734723475976807e-18,
+            -0.01
+          ]
+        ],
+        "edges": [
+          [
+            19,
+            21
+          ],
+          [
+            19,
+            25
+          ],
+          [
+            20,
+            21
+          ],
+          [
+            22,
+            24
+          ],
+          [
+            22,
+            28
+          ],
+          [
+            23,
+            24
+          ],
+          [
+            25,
+            26
+          ],
+          [
+            26,
+            27
+          ],
+          [
+            27,
+            28
+          ]
+        ],
+        "sourceLineEndpointsMeters": [
+          [
+            0.0,
+            0.100672415
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "sourcePathName": "left",
+        "vertices": [
+          23,
+          24,
+          22,
+          28,
+          27,
+          26,
+          25,
+          19,
+          21,
+          20
+        ]
+      }
+    ],
+    "finalLocalMesh": {
+      "triangles": [
+        [
+          13,
+          2,
+          12
+        ],
+        [
+          1,
+          22,
+          24
+        ],
+        [
+          22,
+          10,
+          13
+        ],
+        [
+          22,
+          13,
+          24
+        ],
+        [
+          1,
+          24,
+          23
+        ],
+        [
+          24,
+          13,
+          12
+        ],
+        [
+          24,
+          12,
+          23
+        ],
+        [
+          5,
+          28,
+          22
+        ],
+        [
+          5,
+          22,
+          1
+        ],
+        [
+          28,
+          10,
+          22
+        ],
+        [
+          28,
+          5,
+          27
+        ],
+        [
+          10,
+          28,
+          27
+        ],
+        [
+          10,
+          27,
+          9
+        ],
+        [
+          16,
+          6,
+          2
+        ],
+        [
+          16,
+          2,
+          13
+        ],
+        [
+          10,
+          16,
+          13
+        ],
+        [
+          6,
+          16,
+          15
+        ],
+        [
+          16,
+          10,
+          9
+        ],
+        [
+          16,
+          9,
+          15
+        ],
+        [
+          3,
+          14,
+          11
+        ],
+        [
+          19,
+          0,
+          21
+        ],
+        [
+          14,
+          8,
+          19
+        ],
+        [
+          14,
+          19,
+          21
+        ],
+        [
+          21,
+          0,
+          20
+        ],
+        [
+          14,
+          21,
+          20
+        ],
+        [
+          14,
+          20,
+          11
+        ],
+        [
+          25,
+          4,
+          0
+        ],
+        [
+          25,
+          0,
+          19
+        ],
+        [
+          8,
+          25,
+          19
+        ],
+        [
+          5,
+          4,
+          26
+        ],
+        [
+          5,
+          26,
+          27
+        ],
+        [
+          26,
+          9,
+          27
+        ],
+        [
+          4,
+          25,
+          26
+        ],
+        [
+          25,
+          8,
+          9
+        ],
+        [
+          25,
+          9,
+          26
+        ],
+        [
+          7,
+          17,
+          14
+        ],
+        [
+          7,
+          14,
+          3
+        ],
+        [
+          17,
+          8,
+          14
+        ],
+        [
+          7,
+          6,
+          15
+        ],
+        [
+          7,
+          15,
+          18
+        ],
+        [
+          15,
+          9,
+          18
+        ],
+        [
+          17,
+          7,
+          18
+        ],
+        [
+          8,
+          17,
+          18
+        ],
+        [
+          8,
+          18,
+          9
+        ]
+      ],
+      "verticesMeters": [
+        [
+          -0.01,
+          -0.01
+        ],
+        [
+          -0.01,
+          0.11067241500000001
+        ],
+        [
+          0.03,
+          0.11067241500000001
+        ],
+        [
+          0.03,
+          -0.01
+        ],
+        [
+          -0.01,
+          0.03022413833333333
+        ],
+        [
+          -0.01,
+          0.07044827666666666
+        ],
+        [
+          0.03,
+          0.07044827666666667
+        ],
+        [
+          0.03,
+          0.030224138333333345
+        ],
+        [
+          0.01,
+          0.02016810375
+        ],
+        [
+          0.01,
+          0.0503362075
+        ],
+        [
+          0.01,
+          0.08050431125
+        ],
+        [
+          0.020000000000000004,
+          -0.01
+        ],
+        [
+          0.020000000000000004,
+          0.11067241500000001
+        ],
+        [
+          0.02,
+          0.095588363125
+        ],
+        [
+          0.02,
+          0.0050840518749999996
+        ],
+        [
+          0.02,
+          0.06039224208333334
+        ],
+        [
+          0.02,
+          0.07547629395833333
+        ],
+        [
+          0.02,
+          0.025196121041666672
+        ],
+        [
+          0.02,
+          0.040280172916666676
+        ],
+        [
+          0.0,
+          0.0050840518749999996
+        ],
+        [
+          -1.734723475976807e-18,
+          -0.01
+        ],
+        [
+          1.734723475976807e-18,
+          -0.004971982708333333
+        ],
+        [
+          0.0,
+          0.095588363125
+        ],
+        [
+          -1.734723475976807e-18,
+          0.110672415
+        ],
+        [
+          1.734723475976807e-18,
+          0.10564439770833334
+        ],
+        [
+          0.0,
+          0.025196121041666665
+        ],
+        [
+          0.0,
+          0.04028017291666666
+        ],
+        [
+          0.0,
+          0.060392242083333325
+        ],
+        [
+          0.0,
+          0.07547629395833333
+        ]
+      ]
+    },
+    "instanceId": "opening_binding_left_left:shell",
+    "originalEmbeddedConstraintsSha256": "d2a4ec1a8d10e86c17e742571b61dccb380ee2f6082ab8cb707ce49d54612633",
+    "originalLocalMesh": {
+      "triangles": [
+        [
+          1,
+          10,
+          2
+        ],
+        [
+          5,
+          10,
+          1
+        ],
+        [
+          10,
+          5,
+          9
+        ],
+        [
+          10,
+          6,
+          2
+        ],
+        [
+          6,
+          10,
+          9
+        ],
+        [
+          3,
+          8,
+          0
+        ],
+        [
+          8,
+          4,
+          0
+        ],
+        [
+          5,
+          4,
+          9
+        ],
+        [
+          4,
+          8,
+          9
+        ],
+        [
+          7,
+          8,
+          3
+        ],
+        [
+          7,
+          6,
+          9
+        ],
+        [
+          8,
+          7,
+          9
+        ]
+      ],
+      "verticesMeters": [
+        [
+          -0.01,
+          -0.01
+        ],
+        [
+          -0.01,
+          0.11067241500000001
+        ],
+        [
+          0.03,
+          0.11067241500000001
+        ],
+        [
+          0.03,
+          -0.01
+        ],
+        [
+          -0.01,
+          0.03022413833333333
+        ],
+        [
+          -0.01,
+          0.07044827666666666
+        ],
+        [
+          0.03,
+          0.07044827666666667
+        ],
+        [
+          0.03,
+          0.030224138333333345
+        ],
+        [
+          0.01,
+          0.02016810375
+        ],
+        [
+          0.01,
+          0.0503362075
+        ],
+        [
+          0.01,
+          0.08050431125
+        ]
+      ]
+    },
+    "originalTemplateSha256": "7ea763a637cf57bed0ff4689315b1af39efb8ad0bb18dc0daf738d6bed71a733",
+    "pending": [
+      "Source-anchor numerical remapping with coefficient-pullback audit for the five binding-side rows.",
+      "Explicit crease-side source-frame selection and independent gripper material-point rebinding.",
+      "Global instance/index rebuilding, executable source-profile validation, source capture and replay integration.",
+      "Mechanical/contact validation of the refined discretization; no phase, fold, wrap, stitch-down or apex completion."
+    ],
+    "profile": "source-left-binding-refinement-descriptor-v1",
+    "reconstructionPolicy": {
+      "admission": "Rederive both deterministic split stages and every lineage/residual field from the validated base; require strict canonical JSON equality. Residual metadata is not an independently adjustable acceptance tolerance.",
+      "arithmetic": "Fractions compose the actual binary64 stage weights without clamping or normalization; rational residuals compare stored binary64 coordinates with that exact binary-input interpolation. Rounded values are reporting only.",
+      "domainScope": "The existing splitter uses tolerance-based line classification and Shapely parent-union checks. This descriptor does not prove exact-real domain preservation or supply an exact geometric predicate.",
+      "id": "exact-binary-input-composition-no-renormalization-v1"
+    },
+    "scope": "Unaccepted deterministic preprocessing lineage only; original source rows, frames, grippers and numerical integration remain unmodified and unimplemented here.",
+    "solverReady": false,
+    "sourceBinding": {
+      "accepted": false,
+      "assemblySha256": "81a66013d2687b88c486486b03e05a3bb57779ca75d3ceb89d5f4298d1ddacbf",
+      "checkedSourceDigests": {
+        "scripts/spike-full-shirt.py": "2f4287225a25e7a4e8f87c0f1284aabe7684ece781947ba860b3ae2e43e07dc4",
+        "services/engine/assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+        "services/engine/cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+        "services/engine/embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+        "services/engine/inspection_gltf.py": "336e50a04cc85930ed65bd87c9dc8df0ed5d8c39788ddab584c7f89e4520378e",
+        "services/engine/meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+        "services/engine/quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4",
+        "services/engine/shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+        "services/engine/simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460"
+      },
+      "constructionSha256": "e654d840cd4c11bf16d4e090ff9f76b9815f476061524f0cc429dbd6b46090bb",
+      "counts": {
+        "constraints": 40,
+        "fabricInstances": 5,
+        "phases": 10,
+        "sourceOperations": 7,
+        "starRowSelectors": 8,
+        "triangles": 366,
+        "vertices": 227
+      },
+      "embeddedConstraintsSha256": "d2a4ec1a8d10e86c17e742571b61dccb380ee2f6082ab8cb707ce49d54612633",
+      "patternSha256": "1bf1ec0869e707802c8228261f108f82679e2b93e2fe5828a77744f8beda27d4",
+      "phaseConstraintRows": {
+        "cuff:left:attach-facing": [
+          11,
+          13,
+          15,
+          17,
+          19
+        ],
+        "cuff:left:bind-opening-left": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "cuff:left:bind-opening-right": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "cuff:left:close-shell": [
+          10,
+          12,
+          14,
+          16,
+          18
+        ],
+        "cuff:left:stitch-end": [
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "cuff:left:stitch-extension": [
+          20,
+          21,
+          22,
+          23,
+          24
+        ],
+        "cuff:left:stitch-outer": [
+          30,
+          31,
+          32,
+          33,
+          34
+        ],
+        "cuff:left:stitch-start": [
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        "cuff:left:turn": [],
+        "cuff:left:turn-under-shell-attachment": []
+      },
+      "phasePlanSha256": "89c5abd46b840e1afc261816bdc656e81d363ad4c057795559fefbe3455e4d02",
+      "profile": "cuff-source-binding-v1",
+      "provenanceLimitations": [
+        "The parent input byte digest, other historical generator/phase-helper digests and runtime are captured metadata; the parent bytes are not provided to this validator.",
+        "Engine and registration-helper bytes are checked against captured digests. Geometry is checked by the source cloth-domain validator; no remeshing or new exact-real geometry proof is claimed.",
+        "Exact embedded coefficient rederivation requires a compatible numerical runtime. A different BLAS/platform may reject a valid capture; coefficient differences are never silently tolerated or rewritten.",
+        "An activation schedule and numerical phase completion require separate validation; this declaration does not provide either."
+      ],
+      "rowGroups": [
+        {
+          "memberIndex": 1,
+          "registrationId": "bind_opening_left_left",
+          "rowIndices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "memberIndex": 1,
+          "registrationId": "bind_opening_left_right",
+          "rowIndices": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "memberIndex": 1,
+          "registrationId": "cuff_gather_left",
+          "rowIndices": [
+            10,
+            12,
+            14,
+            16,
+            18
+          ]
+        },
+        {
+          "memberIndex": 2,
+          "registrationId": "cuff_gather_left",
+          "rowIndices": [
+            11,
+            13,
+            15,
+            17,
+            19
+          ]
+        },
+        {
+          "memberIndex": 1,
+          "registrationId": "perimeter:cuff_left:extension",
+          "rowIndices": [
+            20,
+            21,
+            22,
+            23,
+            24
+          ]
+        },
+        {
+          "memberIndex": 1,
+          "registrationId": "perimeter:cuff_left:end",
+          "rowIndices": [
+            25,
+            26,
+            27,
+            28,
+            29
+          ]
+        },
+        {
+          "memberIndex": 1,
+          "registrationId": "perimeter:cuff_left:outer",
+          "rowIndices": [
+            30,
+            31,
+            32,
+            33,
+            34
+          ]
+        },
+        {
+          "memberIndex": 1,
+          "registrationId": "perimeter:cuff_left:start",
+          "rowIndices": [
+            35,
+            36,
+            37,
+            38,
+            39
+          ]
+        }
+      ],
+      "scope": "Source geometry, unchanged registrations and declarative phase-row correspondence only; no executed phases, gate witnesses, placement or physical acceptance.",
+      "side": "left",
+      "solverReady": false,
+      "sourceCorrespondenceValidated": true,
+      "sourceProfile": "source-cuff-construction-unit-v1"
+    },
+    "sourceTemplateId": "opening_binding_left_left",
+    "sourceUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "stages": [
+      {
+        "binaryInputReconstruction": {
+          "maximumAbsoluteCoordinateResidualMeters": {
+            "denominator": "144115188075855872",
+            "numerator": "1",
+            "roundedBinary64": 6.938893903907228e-18
+          },
+          "vertices": [
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 0,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 1,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 2,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 3,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 4,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 5,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 6,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 7,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 8,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 9,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 10,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "5192296858534827628530496329220096",
+                  "numerator": "1711367858400789",
+                  "roundedBinary64": 3.2959746043559345e-19
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 11,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "5192296858534827628530496329220096",
+                  "numerator": "1711367858400789",
+                  "roundedBinary64": 3.2959746043559345e-19
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 12,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1152921504606846976",
+                  "numerator": "1",
+                  "roundedBinary64": 8.673617379884035e-19
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 13,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1152921504606846976",
+                  "numerator": "1",
+                  "roundedBinary64": 8.673617379884035e-19
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 14,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1152921504606846976",
+                  "numerator": "1",
+                  "roundedBinary64": 8.673617379884035e-19
+                },
+                {
+                  "denominator": "288230376151711744",
+                  "numerator": "1",
+                  "roundedBinary64": 3.469446951953614e-18
+                }
+              ],
+              "vertex": 15,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1152921504606846976",
+                  "numerator": "1",
+                  "roundedBinary64": 8.673617379884035e-19
+                },
+                {
+                  "denominator": "144115188075855872",
+                  "numerator": "-1",
+                  "roundedBinary64": -6.938893903907228e-18
+                }
+              ],
+              "vertex": 16,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1152921504606846976",
+                  "numerator": "1",
+                  "roundedBinary64": 8.673617379884035e-19
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 17,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1152921504606846976",
+                  "numerator": "1",
+                  "roundedBinary64": 8.673617379884035e-19
+                },
+                {
+                  "denominator": "288230376151711744",
+                  "numerator": "1",
+                  "roundedBinary64": 3.469446951953614e-18
+                }
+              ],
+              "vertex": 18,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            }
+          ]
+        },
+        "inputMeshSha256": "0fa6db6e0a3fe440c165ba7466efc95918cc657f06cf51b5522afe275c51458b",
+        "output": {
+          "classification": "straight-line subdivision, not physical assembly",
+          "creaseEdges": [
+            [
+              11,
+              14
+            ],
+            [
+              12,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              14,
+              17
+            ],
+            [
+              15,
+              16
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              17,
+              18
+            ]
+          ],
+          "creaseVertices": [
+            11,
+            14,
+            17,
+            18,
+            15,
+            16,
+            13,
+            12
+          ],
+          "parentTriangles": [
+            0,
+            0,
+            0,
+            1,
+            2,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            5,
+            5,
+            6,
+            7,
+            8,
+            9,
+            9,
+            9,
+            10,
+            10,
+            10,
+            11,
+            11,
+            11
+          ],
+          "sourceWeights": [
+            {
+              "0": 1.0
+            },
+            {
+              "1": 1.0
+            },
+            {
+              "2": 1.0
+            },
+            {
+              "3": 1.0
+            },
+            {
+              "4": 1.0
+            },
+            {
+              "5": 1.0
+            },
+            {
+              "6": 1.0
+            },
+            {
+              "7": 1.0
+            },
+            {
+              "8": 1.0
+            },
+            {
+              "9": 1.0
+            },
+            {
+              "10": 1.0
+            },
+            {
+              "0": 0.2499999999999999,
+              "3": 0.7500000000000001
+            },
+            {
+              "1": 0.2499999999999999,
+              "2": 0.7500000000000001
+            },
+            {
+              "10": 0.5,
+              "2": 0.5
+            },
+            {
+              "3": 0.5,
+              "8": 0.5
+            },
+            {
+              "6": 0.5,
+              "9": 0.5
+            },
+            {
+              "10": 0.5,
+              "6": 0.5
+            },
+            {
+              "7": 0.5,
+              "8": 0.5
+            },
+            {
+              "7": 0.5,
+              "9": 0.5
+            }
+          ],
+          "triangles": [
+            [
+              13,
+              2,
+              12
+            ],
+            [
+              1,
+              10,
+              13
+            ],
+            [
+              1,
+              13,
+              12
+            ],
+            [
+              5,
+              10,
+              1
+            ],
+            [
+              10,
+              5,
+              9
+            ],
+            [
+              16,
+              6,
+              2
+            ],
+            [
+              16,
+              2,
+              13
+            ],
+            [
+              10,
+              16,
+              13
+            ],
+            [
+              6,
+              16,
+              15
+            ],
+            [
+              16,
+              10,
+              9
+            ],
+            [
+              16,
+              9,
+              15
+            ],
+            [
+              3,
+              14,
+              11
+            ],
+            [
+              14,
+              8,
+              0
+            ],
+            [
+              14,
+              0,
+              11
+            ],
+            [
+              8,
+              4,
+              0
+            ],
+            [
+              5,
+              4,
+              9
+            ],
+            [
+              4,
+              8,
+              9
+            ],
+            [
+              7,
+              17,
+              14
+            ],
+            [
+              7,
+              14,
+              3
+            ],
+            [
+              17,
+              8,
+              14
+            ],
+            [
+              7,
+              6,
+              15
+            ],
+            [
+              7,
+              15,
+              18
+            ],
+            [
+              15,
+              9,
+              18
+            ],
+            [
+              17,
+              7,
+              18
+            ],
+            [
+              8,
+              17,
+              18
+            ],
+            [
+              8,
+              18,
+              9
+            ]
+          ],
+          "vertices": [
+            [
+              -0.01,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.11067241500000001
+            ],
+            [
+              0.03,
+              0.11067241500000001
+            ],
+            [
+              0.03,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.03022413833333333
+            ],
+            [
+              -0.01,
+              0.07044827666666666
+            ],
+            [
+              0.03,
+              0.07044827666666667
+            ],
+            [
+              0.03,
+              0.030224138333333345
+            ],
+            [
+              0.01,
+              0.02016810375
+            ],
+            [
+              0.01,
+              0.0503362075
+            ],
+            [
+              0.01,
+              0.08050431125
+            ],
+            [
+              0.020000000000000004,
+              -0.01
+            ],
+            [
+              0.020000000000000004,
+              0.11067241500000001
+            ],
+            [
+              0.02,
+              0.095588363125
+            ],
+            [
+              0.02,
+              0.0050840518749999996
+            ],
+            [
+              0.02,
+              0.06039224208333334
+            ],
+            [
+              0.02,
+              0.07547629395833333
+            ],
+            [
+              0.02,
+              0.025196121041666672
+            ],
+            [
+              0.02,
+              0.040280172916666676
+            ]
+          ]
+        },
+        "sourceEnd": 2,
+        "sourceLineEndpointsMeters": [
+          [
+            0.02,
+            0.0
+          ],
+          [
+            0.02,
+            0.100672415
+          ]
+        ],
+        "sourcePathName": "right",
+        "sourcePathSha256": "721922877e2f0a87ebe2ff20805dffae51c1939d8bb82d1cd317da0277cf150c",
+        "sourceStart": 1
+      },
+      {
+        "binaryInputReconstruction": {
+          "maximumAbsoluteCoordinateResidualMeters": {
+            "denominator": "72057594037927936",
+            "numerator": "1",
+            "roundedBinary64": 1.3877787807814457e-17
+          },
+          "vertices": [
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 0,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 1,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 2,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 3,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 4,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 5,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 6,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 7,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 8,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 9,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 10,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 11,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 12,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 13,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 14,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 15,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 16,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 17,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 18,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 19,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "2596148429267413814265248164610048",
+                  "numerator": "-1741391855916591",
+                  "roundedBinary64": -6.707597440443651e-19
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 20,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "5192296858534827628530496329220096",
+                  "numerator": "3242591731706757",
+                  "roundedBinary64": 6.245004513516505e-19
+                },
+                {
+                  "denominator": "10384593717069655257060992658440192",
+                  "numerator": "3210289993643415",
+                  "roundedBinary64": 3.091396814462281e-19
+                }
+              ],
+              "vertex": 21,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 22,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "2596148429267413814265248164610048",
+                  "numerator": "-1741391855916591",
+                  "roundedBinary64": -6.707597440443651e-19
+                },
+                {
+                  "denominator": "72057594037927936",
+                  "numerator": "-1",
+                  "roundedBinary64": -1.3877787807814457e-17
+                }
+              ],
+              "vertex": 23,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "5192296858534827628530496329220096",
+                  "numerator": "3242591731706757",
+                  "roundedBinary64": 6.245004513516505e-19
+                },
+                {
+                  "denominator": "162259276829213363391578010288128",
+                  "numerator": "-660023230690433",
+                  "roundedBinary64": -4.06770721272931e-18
+                }
+              ],
+              "vertex": 24,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 25,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "288230376151711744",
+                  "numerator": "-1",
+                  "roundedBinary64": -3.469446951953614e-18
+                }
+              ],
+              "vertex": 26,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "288230376151711744",
+                  "numerator": "-1",
+                  "roundedBinary64": -3.469446951953614e-18
+                }
+              ],
+              "vertex": 27,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            },
+            {
+              "storedMinusReconstructedMeters": [
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                },
+                {
+                  "denominator": "1",
+                  "numerator": "0",
+                  "roundedBinary64": 0.0
+                }
+              ],
+              "vertex": 28,
+              "weightSumMinusOne": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              }
+            }
+          ]
+        },
+        "inputMeshSha256": "423409982462d9033c9bf9f02970bdc0dede3940ec58cbe7616bd2004ea36308",
+        "output": {
+          "classification": "straight-line subdivision, not physical assembly",
+          "creaseEdges": [
+            [
+              19,
+              21
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              20,
+              21
+            ],
+            [
+              22,
+              24
+            ],
+            [
+              22,
+              28
+            ],
+            [
+              23,
+              24
+            ],
+            [
+              25,
+              26
+            ],
+            [
+              26,
+              27
+            ],
+            [
+              27,
+              28
+            ]
+          ],
+          "creaseVertices": [
+            23,
+            24,
+            22,
+            28,
+            27,
+            26,
+            25,
+            19,
+            21,
+            20
+          ],
+          "parentTriangles": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            12,
+            12,
+            13,
+            13,
+            13,
+            14,
+            14,
+            14,
+            15,
+            15,
+            15,
+            16,
+            16,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "sourceWeights": [
+            {
+              "0": 1.0
+            },
+            {
+              "1": 1.0
+            },
+            {
+              "2": 1.0
+            },
+            {
+              "3": 1.0
+            },
+            {
+              "4": 1.0
+            },
+            {
+              "5": 1.0
+            },
+            {
+              "6": 1.0
+            },
+            {
+              "7": 1.0
+            },
+            {
+              "8": 1.0
+            },
+            {
+              "9": 1.0
+            },
+            {
+              "10": 1.0
+            },
+            {
+              "11": 1.0
+            },
+            {
+              "12": 1.0
+            },
+            {
+              "13": 1.0
+            },
+            {
+              "14": 1.0
+            },
+            {
+              "15": 1.0
+            },
+            {
+              "16": 1.0
+            },
+            {
+              "17": 1.0
+            },
+            {
+              "18": 1.0
+            },
+            {
+              "0": 0.5,
+              "8": 0.5
+            },
+            {
+              "0": 0.6666666666666667,
+              "11": 0.33333333333333326
+            },
+            {
+              "0": 0.6666666666666666,
+              "14": 0.33333333333333337
+            },
+            {
+              "1": 0.5,
+              "10": 0.5
+            },
+            {
+              "1": 0.6666666666666667,
+              "12": 0.33333333333333326
+            },
+            {
+              "1": 0.6666666666666666,
+              "13": 0.33333333333333337
+            },
+            {
+              "4": 0.5,
+              "8": 0.5
+            },
+            {
+              "4": 0.5,
+              "9": 0.5
+            },
+            {
+              "5": 0.5,
+              "9": 0.5
+            },
+            {
+              "10": 0.5,
+              "5": 0.5
+            }
+          ],
+          "triangles": [
+            [
+              13,
+              2,
+              12
+            ],
+            [
+              1,
+              22,
+              24
+            ],
+            [
+              22,
+              10,
+              13
+            ],
+            [
+              22,
+              13,
+              24
+            ],
+            [
+              1,
+              24,
+              23
+            ],
+            [
+              24,
+              13,
+              12
+            ],
+            [
+              24,
+              12,
+              23
+            ],
+            [
+              5,
+              28,
+              22
+            ],
+            [
+              5,
+              22,
+              1
+            ],
+            [
+              28,
+              10,
+              22
+            ],
+            [
+              28,
+              5,
+              27
+            ],
+            [
+              10,
+              28,
+              27
+            ],
+            [
+              10,
+              27,
+              9
+            ],
+            [
+              16,
+              6,
+              2
+            ],
+            [
+              16,
+              2,
+              13
+            ],
+            [
+              10,
+              16,
+              13
+            ],
+            [
+              6,
+              16,
+              15
+            ],
+            [
+              16,
+              10,
+              9
+            ],
+            [
+              16,
+              9,
+              15
+            ],
+            [
+              3,
+              14,
+              11
+            ],
+            [
+              19,
+              0,
+              21
+            ],
+            [
+              14,
+              8,
+              19
+            ],
+            [
+              14,
+              19,
+              21
+            ],
+            [
+              21,
+              0,
+              20
+            ],
+            [
+              14,
+              21,
+              20
+            ],
+            [
+              14,
+              20,
+              11
+            ],
+            [
+              25,
+              4,
+              0
+            ],
+            [
+              25,
+              0,
+              19
+            ],
+            [
+              8,
+              25,
+              19
+            ],
+            [
+              5,
+              4,
+              26
+            ],
+            [
+              5,
+              26,
+              27
+            ],
+            [
+              26,
+              9,
+              27
+            ],
+            [
+              4,
+              25,
+              26
+            ],
+            [
+              25,
+              8,
+              9
+            ],
+            [
+              25,
+              9,
+              26
+            ],
+            [
+              7,
+              17,
+              14
+            ],
+            [
+              7,
+              14,
+              3
+            ],
+            [
+              17,
+              8,
+              14
+            ],
+            [
+              7,
+              6,
+              15
+            ],
+            [
+              7,
+              15,
+              18
+            ],
+            [
+              15,
+              9,
+              18
+            ],
+            [
+              17,
+              7,
+              18
+            ],
+            [
+              8,
+              17,
+              18
+            ],
+            [
+              8,
+              18,
+              9
+            ]
+          ],
+          "vertices": [
+            [
+              -0.01,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.11067241500000001
+            ],
+            [
+              0.03,
+              0.11067241500000001
+            ],
+            [
+              0.03,
+              -0.01
+            ],
+            [
+              -0.01,
+              0.03022413833333333
+            ],
+            [
+              -0.01,
+              0.07044827666666666
+            ],
+            [
+              0.03,
+              0.07044827666666667
+            ],
+            [
+              0.03,
+              0.030224138333333345
+            ],
+            [
+              0.01,
+              0.02016810375
+            ],
+            [
+              0.01,
+              0.0503362075
+            ],
+            [
+              0.01,
+              0.08050431125
+            ],
+            [
+              0.020000000000000004,
+              -0.01
+            ],
+            [
+              0.020000000000000004,
+              0.11067241500000001
+            ],
+            [
+              0.02,
+              0.095588363125
+            ],
+            [
+              0.02,
+              0.0050840518749999996
+            ],
+            [
+              0.02,
+              0.06039224208333334
+            ],
+            [
+              0.02,
+              0.07547629395833333
+            ],
+            [
+              0.02,
+              0.025196121041666672
+            ],
+            [
+              0.02,
+              0.040280172916666676
+            ],
+            [
+              0.0,
+              0.0050840518749999996
+            ],
+            [
+              -1.734723475976807e-18,
+              -0.01
+            ],
+            [
+              1.734723475976807e-18,
+              -0.004971982708333333
+            ],
+            [
+              0.0,
+              0.095588363125
+            ],
+            [
+              -1.734723475976807e-18,
+              0.110672415
+            ],
+            [
+              1.734723475976807e-18,
+              0.10564439770833334
+            ],
+            [
+              0.0,
+              0.025196121041666665
+            ],
+            [
+              0.0,
+              0.04028017291666666
+            ],
+            [
+              0.0,
+              0.060392242083333325
+            ],
+            [
+              0.0,
+              0.07547629395833333
+            ]
+          ]
+        },
+        "sourceEnd": 4,
+        "sourceLineEndpointsMeters": [
+          [
+            0.0,
+            0.100672415
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "sourcePathName": "left",
+        "sourcePathSha256": "e156df1c6fe0faf36835e0da099072a109c6fa1ee32d091b556ff9c0ee503ebb",
+        "sourceStart": 3
+      }
+    ],
+    "ultimateOriginalTriangleIndices": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      4,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6,
+      7,
+      7,
+      7,
+      8,
+      8,
+      8,
+      9,
+      9,
+      9,
+      10,
+      10,
+      10,
+      11,
+      11,
+      11
+    ],
+    "unchangedOtherInstanceLocalMeshSha256": {
+      "cuff_left:facing": "1e108f66a0f3e563fe5b5901076bd18549f9d444fac9725213f679826fb42f33",
+      "cuff_left:shell": "1e108f66a0f3e563fe5b5901076bd18549f9d444fac9725213f679826fb42f33",
+      "opening_binding_left_right:shell": "1e6e5217b99d717b9601fa61cb38af7baa6642702c90320a01e6ef637c7f0095",
+      "sleeve_left:shell": "8dab96925fa2e039c8b33c8d2fb18cb9393f19cb140011dccfdd281fdc8817fd"
+    },
+    "units": "m"
+  },
+  "codeDigests": {
+    "solver_binding_refinement.py": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb",
+    "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+    "solver_cuff_source_binding.py": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f"
+  }
+}

@@ -78,7 +78,7 @@ def validate_time_pair(original, slower, original_source, slower_source):
         "scope": "Only declared duration/subdivision and explicitly reported supervision/generator identity may differ; actual source geometry, placements, 12-knot control recipes and other numerical settings match."}
 
 
-def summarize(record):
+def summarize(record, *, hold_fractions=(Fraction(1, 2), Fraction(3, 4)), passive_start=Fraction(7, 8)):
     """Saved-state metrics with a fixed observation horizon, never a stop rule."""
     states = record["states"]
     command = record["angleDegrees"]
@@ -103,7 +103,7 @@ def summarize(record):
 
     duration = record["timePolicy"]["durationSeconds"]
     last_window_start = 1 - Fraction(.016) / Fraction(duration)
-    require(last_window_start in (Fraction(7, 8), Fraction(31, 32)), "Declared fixed sixteen-millisecond window required")
+    require(last_window_start in (Fraction(7, 8), Fraction(31, 32), Fraction(63, 64)), "Declared fixed sixteen-millisecond window required")
     rows = [row for state in states for row in state["bindingGeometry"]["rows"]]
     strains = [item["current"] for state in states for item in state["bindingGeometry"]["strainByInstance"].values()]
     peak = max((value, state["fraction"], row) for state in states for row, value in enumerate(angles(state)))
@@ -130,8 +130,8 @@ def summarize(record):
         "maximumSleeveFitTranslationMeters": max(math.hypot(*fit["translationMeters"]) for fit in sleeve_fits),
         "maximumSleeveFitResidualMeters": max(fit["maximumResidualMeters"] for fit in sleeve_fits),
         "maximumSavedContactEnergyJoules": max(state.get("contactEnergyJoules", 0.) for state in states),
-        "allTime": window(Fraction(0), Fraction(1)), "hold": window(Fraction(1, 2), Fraction(3, 4)),
-        "passiveTail": window(Fraction(7, 8), Fraction(1)),
+        "allTime": window(Fraction(0), Fraction(1)), "hold": window(*hold_fractions),
+        "passiveTail": window(passive_start, Fraction(1)),
         "finalSixteenMilliseconds": window(last_window_start, Fraction(1)),
         "sewingWorkSummary": record["sewingWorkSummary"], "gripperWorkSummary": record["gripperWorkSummary"],
         "scope": "Saved-state ranges and exact saved window endpoints; no continuous motion extrema or settled-pose threshold."}

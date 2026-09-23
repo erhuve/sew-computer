@@ -39,7 +39,8 @@ from solver_sewing_input import PROFILE as SEWING_PROFILE, bind_sewing_activatio
 
 ACTIVE_INSTANCE = "opening_binding_left_left:shell"
 SLEEVE_INSTANCE = "sleeve_left:shell"
-TIME_POLICIES = {"original-128ms-v1": (.128, 64), "fourfold-512ms-v1": (.512, 256)}
+TIME_POLICIES = {"original-128ms-v1": (.128, 64), "fourfold-512ms-v1": (.512, 256),
+                 "extended-hold-1024ms-v1": (1.024, 512)}
 GAP_M = .001
 EXPECTED_FACES = [[1, 10, 2], [5, 10, 1], [10, 5, 9], [10, 6, 2],
                   [6, 10, 9], [3, 8, 0], [8, 4, 0], [5, 4, 9],
@@ -82,6 +83,9 @@ def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1
     duration, subdivisions = TIME_POLICIES[time_policy]
     time_declaration = {"profile": "binding-first-turn-time-v1", "id": time_policy,
                         "durationSeconds": duration, "nominalStepSeconds": duration / subdivisions}
+    extended_hold = time_policy == "extended-hold-1024ms-v1"
+    turn_end, hold_end, release_end = (.25, .875, .9375) if extended_hold else (.5, .75, .875)
+    angular_fractions = [index * turn_end / 8 for index in range(9)]
     if (type(angle_degrees) not in (int, float) or not math.isfinite(angle_degrees)
             or not 0 <= angle_degrees <= 3
             or type(gripper_stiffness_n_per_m) not in (int, float)
@@ -238,11 +242,11 @@ def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1
     initial_anchors = sampled_anchors(placed, faces, anchors)
     if np.linalg.norm(np.cross(initial_anchors[1] - initial_anchors[0], initial_anchors[2] - initial_anchors[0])) <= 1e-10:
         raise ValueError("Three noncollinear source-barycentric grippers required")
-    knots = [{"fraction": index / 16, "targetsMeters": sampled_anchors(pose(theta * index / 8), faces, anchors).tolist(),
+    knots = [{"fraction": angular_fractions[index], "targetsMeters": sampled_anchors(pose(theta * index / 8), faces, anchors).tolist(),
               "activation": [1., 1., 1.]} for index in range(9)]
     final_targets = knots[-1]["targetsMeters"]
     knots.extend({"fraction": fraction, "targetsMeters": copy.deepcopy(final_targets), "activation": [active] * 3}
-                 for fraction, active in ((.75, 1.), (.875, 0.), (1., 0.)))
+                 for fraction, active in ((hold_end, 1.), (release_end, 0.), (1., 0.)))
     source = copy.deepcopy(unit)
     source["placedMeters"] = placed.tolist()
     source["gripperActuation"] = {"profile": GRIPPER_PROFILE, "accepted": False, "meshSha256": mesh_identity(source),
@@ -287,8 +291,8 @@ def generate(unit_path, output, *, angle_degrees=3., gripper_stiffness_n_per_m=1
         "gripperSourceSupports": supports, "gripperStiffnessNPerM": float(gripper_stiffness_n_per_m),
         "initialGripperTargetPolicy": "Correctly rounded exact binary source-barycentric positions; no cloth vertex adjustment. Any unavoidable initial binary64 rounding energy is retained.",
         "initialGripperEnergyJoules": initial_gripper_energy,
-        "schedule": {"turnFractions": [0., .5], "angularSampleFractions": [index / 16 for index in range(9)],
-            "holdFractions": [.5, .75], "releaseFractions": [.75, .875], "passiveTailFractions": [.875, 1.],
+        "schedule": {"turnFractions": [0., turn_end], "angularSampleFractions": angular_fractions,
+            "holdFractions": [turn_end, hold_end], "releaseFractions": [hold_end, release_end], "passiveTailFractions": [release_end, 1.],
             "betweenKnotTargetMotion": "Piecewise linear material-point target chords; not a continuous rigid rotation.",
             "maximumChordRelativeContraction": 1 - math.cos(theta / 16)},
         "rigidReferenceClearanceMeters": {"minimumToSleevePlane": lower_gap,

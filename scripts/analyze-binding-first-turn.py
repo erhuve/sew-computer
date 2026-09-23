@@ -28,7 +28,8 @@ SCRIPTS = Path(__file__).resolve().parent
 
 def validate_time_policy(metadata, arguments=None):
     """Admit only declared fixed-duration controls, including historical v1."""
-    policies = {"original-128ms-v1": (.128, 64), "fourfold-512ms-v1": (.512, 256)}
+    policies = {"original-128ms-v1": (.128, 64), "fourfold-512ms-v1": (.512, 256),
+                "extended-hold-1024ms-v1": (1.024, 512)}
     if "timePolicy" in metadata:
         declaration = metadata["timePolicy"]
         require(type(declaration) is dict and type(declaration.get("id")) is str
@@ -73,7 +74,9 @@ def require(condition, message):
         raise ValueError(message)
 
 
-def grip_observations(record, positions, fraction):
+def grip_observations(record, positions, fraction, *, release_fraction=.875):
+    require(type(release_fraction) in (int, float) and release_fraction in (.875, .9375),
+            "Explicit supported release fraction required")
     targets, activation = gripper_parameters(record, fraction)
     observations, energy = [], Fraction()
     total_force = [Fraction()] * 3
@@ -90,7 +93,7 @@ def grip_observations(record, positions, fraction):
             "positionMeters": [float(value) for value in anchor], "targetMeters": targets[index].tolist(),
             "activation": float(activation[index]), "trackingErrorMeters": math.hypot(*(float(value) for value in error)),
             "forceNewtons": [float(value) for value in force]})
-    if fraction >= .875:
+    if fraction >= release_fraction:
         require(not np.any(activation) and energy == 0 and all(value == 0 for value in total_force),
                 "Released grippers must have exactly zero activation, force and stored energy")
     return {"grippers": observations, "energyJoules": float(energy),
@@ -101,7 +104,7 @@ def grip_observations(record, positions, fraction):
 def validate_reference(source, initial, sewing, grippers):
     """Check the declared reference against source paths and actual controls."""
     metadata = source["bindingFirstTurnDiagnostic"]
-    validate_time_policy(metadata)
+    time_policy = validate_time_policy(metadata)
     require(metadata.get("profile") == "source-left-binding-first-turn-v1"
             and metadata["bindingInstanceId"] == "opening_binding_left_left:shell"
             and metadata["sleeveInstanceId"] == "sleeve_left:shell", "Bounded left-binding reference required")
@@ -137,7 +140,15 @@ def validate_reference(source, initial, sewing, grippers):
     require(list(grippers.ids) == metadata["gripperIds"], "Declared gripper identities differ")
     require(all(anchor[-1] == metadata["gripperStiffnessNPerM"] for anchor in grippers.anchors),
             "Declared tool stiffness differs from actual anchors")
-    fractions = [index / 16 for index in range(9)] + [.75, .875, 1.]
+    extended_hold = time_policy["id"] == "extended-hold-1024ms-v1"
+    turn_end, hold_end, release_end = (.25, .875, .9375) if extended_hold else (.5, .75, .875)
+    angular_fractions = [index * turn_end / 8 for index in range(9)]
+    phases = {"turnFractions": [0., turn_end], "angularSampleFractions": angular_fractions,
+              "holdFractions": [turn_end, hold_end], "releaseFractions": [hold_end, release_end],
+              "passiveTailFractions": [release_end, 1.]}
+    require(all(encoded(metadata["schedule"][key]) == encoded(value) for key, value in phases.items()),
+            "Declared phase boundaries differ from time policy")
+    fractions = angular_fractions + [hold_end, release_end, 1.]
     knots = source["gripperActuation"]["schedule"]["knots"]
     require([knot["fraction"] for knot in knots] == fractions, "Eight angular samples, hold, release and passive tail required")
     angle = metadata["angleDegrees"]
@@ -165,7 +176,7 @@ def validate_reference(source, initial, sewing, grippers):
                      for axis in range(3)] for _, _, triangle, weights, _ in grippers.anchors]
         require(encoded(knot["targetsMeters"]) == encoded(expected),
                 "Actual gripper target differs from declared source-axis rotation reference")
-        require(knot["activation"] == [0. if knot["fraction"] >= .875 else 1.] * 3,
+        require(knot["activation"] == [0. if knot["fraction"] >= release_end else 1.] * 3,
                 "Actual gripper knot activation differs from hold/release policy")
     # Compare every actual source/control/declaration field except precisely
     # these rederived angle-dependent values and the resulting source hash.
@@ -257,7 +268,8 @@ def load_control(directory):
             "maximumSpeedMetersPerSecond": speed,
             "bindingGeometry": analyze_binding_diagnostic(rest, initial, positions, faces, **options),
             "surfaceSeparation": minimum_surface_distance(positions, faces, *groups),
-            "gripperGeometry": grip_observations(grippers, positions, fraction)}
+            "gripperGeometry": grip_observations(grippers, positions, fraction,
+                release_fraction=metadata["schedule"]["releaseFractions"][-1])}
 
     states = [observe(initial, 0., 0.)]
     artifacts, proofs = report["acceptedStateArtifacts"], replay["states"]
