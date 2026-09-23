@@ -62,7 +62,10 @@ class CuffCompatibilityTests(unittest.TestCase):
                 raise RuntimeError(result.stderr)
             fold = json.loads((output / "canonical.json").read_text())
         sewing = {**source, "provenance": {"sourceSha256": fold["provenance"]["sourceSha256"]}}
-        cls.control = combine_cuff_controls(sewing, fold)
+        cls.sewing_source, cls.fold_source = sewing, fold
+        # These historical incompatibility bounds explicitly use allowance
+        # frames at crease anchors, rather than an implicit first child.
+        cls.control = combine_cuff_controls(sewing, fold, crease_frame_region="allowance")
         cls.panel = np.asarray(fold["restMeters"])
         cls.faces = np.asarray(fold["triangles"]).reshape((-1, 3))
         cls.crease_y = fold["provenance"]["subdivision"]["sourceStitchPath"]["samples"][0]["restPosition"][1] * .001

@@ -11,9 +11,12 @@ parser = argparse.ArgumentParser(description="Combine source cuff closure and al
 parser.add_argument("--sewing-input", type=Path, required=True)
 parser.add_argument("--fold-input", type=Path, required=True)
 parser.add_argument("--output", type=Path, required=True)
+parser.add_argument("--crease-frame-region", choices=("body", "allowance"),
+                    help="Explicit facing material-frame side at outer-crease anchors; required when both sides contain the anchor")
 args = parser.parse_args()
 inputs = [read_regular(path, 50 * 1024 ** 2) for path in (args.sewing_input, args.fold_input)]
-control = combine_cuff_controls(*(json.loads(content) for content in inputs))
+control = combine_cuff_controls(*(json.loads(content) for content in inputs),
+                                crease_frame_region=args.crease_frame_region)
 control["provenance"]["inputSha256"] = {name: hashlib.sha256(content).hexdigest()
     for name, content in zip(("sewing", "fold"), inputs)}
 encoded = (json.dumps(control, indent=2, allow_nan=False) + "\n").encode()

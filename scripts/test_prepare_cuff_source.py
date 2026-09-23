@@ -143,8 +143,14 @@ class PrepareCuffSourceTests(unittest.TestCase):
                      "--normal-offset-frames")
         self.run_cli("spike-cuff-fold-input.py", "--canonical", self.canonical_path, "--output", fold,
                      "--crease", "outer-allowance")
+        missing_choice = self.run_cli("spike-cuff-sequence-input.py", "--sewing-input", sewing / "canonical.json",
+                                     "--fold-input", fold / "canonical.json", "--output", combined, success=False)
+        self.assertNotEqual(missing_choice.returncode, 0)
+        self.assertIn("Ambiguous crease frame", missing_choice.stderr)
+        self.assertFalse(combined.exists())
         self.run_cli("spike-cuff-sequence-input.py", "--sewing-input", sewing / "canonical.json",
-                     "--fold-input", fold / "canonical.json", "--output", combined)
+                     "--fold-input", fold / "canonical.json", "--output", combined,
+                     "--crease-frame-region", "body")
         for directory in (sewing, fold, combined):
             content = (directory / "canonical.json").read_bytes()
             control = json.loads(content)
