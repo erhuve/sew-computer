@@ -8,6 +8,55 @@ from solver_fold_barrier import LocalAngularFoldBarrier
 from solver_hinge_sweep import hinge_sweep_safe
 
 
+def decimal_atan(value):
+    """Independent high-precision arctangent using half-angle reduction."""
+    reduced = value
+    for _ in range(8):
+        reduced /= 1 + (1 + reduced * reduced).sqrt()
+    squared, term, total = -reduced * reduced, reduced, reduced
+    for index in range(1, 100):
+        term *= squared
+        following = total + term / (2 * index + 1)
+        if following == total:
+            return total * 256
+        total = following
+    raise AssertionError("Decimal arctangent did not converge")
+
+
+def decimal_atan2(y, x):
+    # Mathematical pi is required by atan2. The barrier separately uses its
+    # declared binary64 np.pi constant, preserving the production energy law.
+    pi = 16 * decimal_atan(Decimal(1) / 5) - 4 * decimal_atan(Decimal(1) / 239)
+    if x == 0:
+        return pi / 2 if y > 0 else -pi / 2
+    angle = decimal_atan(y / x)
+    if x < 0:
+        angle += pi if y >= 0 else -pi
+    return angle
+
+
+def decimal_hinge_energy(points, activation, stiffness):
+    points = [[Decimal.from_float(float(value)) for value in point] for point in points]
+    subtract = lambda first, second: [a - b for a, b in zip(first, second)]
+    dot = lambda first, second: sum(a * b for a, b in zip(first, second))
+
+    def cross(first, second):
+        return [first[1] * second[2] - first[2] * second[1],
+                first[2] * second[0] - first[0] * second[2],
+                first[0] * second[1] - first[1] * second[0]]
+
+    first = cross(subtract(points[2], points[0]), subtract(points[3], points[0]))
+    second = cross(subtract(points[3], points[1]), subtract(points[2], points[1]))
+    edge = subtract(points[3], points[2])
+    angle = abs(decimal_atan2(dot(cross(first, second), edge) / dot(edge, edge).sqrt(), dot(first, second)))
+    activation = Decimal.from_float(float(activation))
+    if angle <= activation:
+        return Decimal(0)
+    pi = Decimal.from_float(float(np.pi))
+    gap = (pi - angle) / (pi - activation)
+    return -Decimal.from_float(float(stiffness)) * (gap - 1) ** 2 * gap.ln()
+
+
 class FoldBarrierAdversarialTests(unittest.TestCase):
     def points(self, angle):
         return np.array([[0.25, 1., 0.], [0.75, -np.cos(angle), np.sin(angle)],
@@ -41,11 +90,27 @@ class FoldBarrierAdversarialTests(unittest.TestCase):
                 stiffness = Decimal.from_float(0.7)
                 energies = []
                 for points in (start, end):
-                    scalar_angle = np.arctan2(np.longdouble(points[1, 2]), -np.longdouble(points[1, 1]))
-                    gap = (pi - Decimal(str(scalar_angle))) / (pi - activation)
+                    scalar_angle = decimal_atan2(Decimal.from_float(float(points[1, 2])),
+                                                -Decimal.from_float(float(points[1, 1])))
+                    gap = (pi - scalar_angle) / (pi - activation)
                     energies.append(-stiffness * (gap - 1) ** 2 * gap.ln())
                 expected = float(energies[1] - energies[0])
             assert_allclose(barrier.energy_change(start, end), expected, rtol=2e-6, atol=1e-25)
+
+    def test_tiny_general_hinge_changes_match_decimal_geometry(self):
+        barrier = LocalAngularFoldBarrier(4, [[0, 1, 2, 3]], 1.4, 0.7)
+        generator = np.random.default_rng(3201)
+        for angle in (-2.7, -1.6, 1.6, 2.7):
+            start = self.points(angle) + generator.normal(size=(4, 3)) * .03
+            for magnitude in (1e-8, 1e-10, 1e-12):
+                end = start + magnitude * generator.normal(size=(4, 3))
+                with localcontext() as context:
+                    context.prec = 65
+                    expected = float(decimal_hinge_energy(end, 1.4, .7)
+                                     - decimal_hinge_energy(start, 1.4, .7))
+                observed = barrier.energy_change(start, end)
+                assert_allclose(observed, expected, rtol=2e-6, atol=1e-25)
+                assert_allclose(barrier.energy_change(end, start), -expected, rtol=2e-6, atol=1e-25)
 
     def test_batch_energy_and_shared_vertex_scatter(self):
         points = np.concatenate((self.points(2.4), self.points(-2.1)[:2]))

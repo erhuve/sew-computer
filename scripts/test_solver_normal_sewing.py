@@ -140,7 +140,7 @@ class NormalSewingTests(unittest.TestCase):
             self.assertAlmostEqual(energy["sewingChangeJoules"],
                                    energy["sewingAfterJoules"] - energy["sewingBeforeJoules"], places=12)
             self.assertTrue(contact.path_safe(previous, positions))
-            self.assertFalse(ipctk.has_intersections(contact.mesh, positions))
+            self.assertFalse(ipctk.has_intersections(contact.mesh, positions, broad_phase=ipctk.BruteForce()))
             self.assertEqual(surface_intersections(positions, solver.faces)["intersectingPairCount"], 0)
             np.testing.assert_allclose(solver.mass @ positions, solver.mass @ start, atol=1e-12)
             previous, previous_velocity, previous_targets = positions, velocities, targets

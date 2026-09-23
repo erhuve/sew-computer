@@ -113,7 +113,7 @@ class DistanceSewingTests(unittest.TestCase):
             self.assertTrue(report["converged"], report)
             self.assertTrue(contact.path_safe(previous, positions))
             self.assertEqual(surface_intersections(positions, solver.faces)["intersectingPairCount"], 0)
-            self.assertFalse(ipctk.has_intersections(contact.mesh, positions))
+            self.assertFalse(ipctk.has_intersections(contact.mesh, positions, broad_phase=ipctk.BruteForce()))
             np.testing.assert_allclose(solver.mass @ positions, solver.mass @ start, atol=1e-12)
         self.assertGreater(contact.energy(positions), 0.)
         lengths = np.linalg.norm(solver.sewing @ positions, axis=1)

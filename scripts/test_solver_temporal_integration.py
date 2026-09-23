@@ -71,7 +71,7 @@ class TemporalIntegrationTests(unittest.TestCase):
         contact = IpcSurfaceContact(positions, np.array([[0, 1, 2], [3, 4, 5]]),
             activation_distance_m=.02, minimum_distance_m=.01, stiffness=1.,
             ccd_profile="temporal-separation-tight-inclusion")
-        self.assertTrue(ipctk.has_intersections(contact.mesh, positions))
+        self.assertTrue(ipctk.has_intersections(contact.mesh, positions, broad_phase=ipctk.BruteForce()))
         self.assertTrue(certify_linear_path(contact.mesh, positions, positions, .01)["safe"])
         with self.assertRaisesRegex(ValueError, "Intersecting contact surface"):
             contact.path_safe(positions, positions)

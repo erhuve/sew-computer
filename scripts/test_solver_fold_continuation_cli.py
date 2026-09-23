@@ -54,6 +54,20 @@ class FoldContinuationCliTests(unittest.TestCase):
             self.assertEqual(len(verified["states"]), len(report["acceptedStateArtifacts"]))
             self.assertTrue(verified["finalStateVerified"])
             self.assertGreater(verified["exactCertificateLeaves"], 0)
+            self.assertEqual(verified["triangleVerifierSha256"], hashlib.sha256(
+                Path(__file__).with_name("solver_triangle_sweep.py").read_bytes()).hexdigest())
+            self.assertEqual(verified["candidateCoverageVerifierSha256"], hashlib.sha256(
+                Path(__file__).with_name("solver_candidate_coverage.py").read_bytes()).hexdigest())
+            self.assertEqual(verified["verificationBroadPhase"], "ipctk-HashGrid-explicit-v1")
+            for checked in verified["states"]:
+                triangle_proof = checked["trianglePathVerification"]
+                self.assertEqual(triangle_proof["profile"], "exact-rational-affine-triangle-nondegeneracy-v1")
+                self.assertEqual(triangle_proof["triangles"], len(self.fixture()["triangles"]) // 3)
+                self.assertGreaterEqual(triangle_proof["verifiedLeaves"], triangle_proof["triangles"])
+                coverage = checked["candidateCoverageVerification"]
+                self.assertTrue(coverage["verified"])
+                self.assertEqual(coverage["status"], "complete")
+                self.assertEqual(coverage["profile"], "exact-rational-swept-aabb-v1")
             state = output / report["acceptedStateArtifacts"][-1]["path"]
             data = json.loads(state.read_text())
             data["record"]["step"]["foldTargetsRadians"][0] *= -1

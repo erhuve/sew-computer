@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 from numpy.testing import assert_allclose
@@ -118,6 +119,15 @@ class LocalFoldBarrierTests(unittest.TestCase):
             barrier.energy(points)
         with self.assertRaises(ValueError):
             barrier.stiffness_joules[0] = 7.
+
+    def test_tiny_updates_without_extended_precision(self):
+        barrier = self.barrier()
+        for angle in (-2.7, -2.3, 2.3, 2.7):
+            start, end = self.points(angle), self.points(angle + 1e-10)
+            with patch("solver_fold_barrier.np.longdouble", np.float64):
+                observed = barrier.energy_change(start, end)
+            expected = np.sum(barrier.gradient(start) * (end - start))
+            assert_allclose(observed, expected, rtol=1e-8, atol=1e-18)
 
     def test_empty_and_zero_stiffness(self):
         empty = LocalAngularFoldBarrier(4, np.empty((0, 4), dtype=int))

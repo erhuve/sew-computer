@@ -45,7 +45,9 @@ class GlobalAdversarialTests(unittest.TestCase):
         model = self.make_model()
         solver = GlobalSewingSolver(model, [{vertex: 1, vertex + 3: -1} for vertex in range(3)], 1e-8)
         original = model.particle_q.numpy().astype(float)
-        for method in ("direct", "lsmr"):
+        # Only guarded search methods may traverse cloth states. The legacy
+        # unconstrained least-squares diagnostic cannot certify its iterates.
+        for method in ("direct", "shifted"):
             actual, _, report = solver.step(original, -original * 480, np.zeros((3, 3)), 1 / 480,
                                             linear_solver=method)
             self.assertTrue(np.isfinite(actual).all())
@@ -54,6 +56,9 @@ class GlobalAdversarialTests(unittest.TestCase):
             area = np.linalg.norm(np.cross(triangles[:, 1] - triangles[:, 0],
                                            triangles[:, 2] - triangles[:, 0]), axis=1)
             self.assertTrue(np.all(area > 1e-8))
+        with self.assertRaisesRegex(ValueError, "swept nondegeneracy"):
+            solver.step(original, -original * 480, np.zeros((3, 3)), 1 / 480,
+                        linear_solver="lsmr")
 
     def test_float32_tolerance_does_not_admit_unbalanced_global_rows(self):
         with self.assertRaisesRegex(ValueError, "preserve translation"):

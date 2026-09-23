@@ -9,6 +9,7 @@ import time
 import numpy as np
 
 from solver_ipc_contact import IpcSurfaceContact
+from solver_ipc_broad_phase import contact_broad_phase
 from solver_spike_geometry import surface_intersections
 
 
@@ -76,9 +77,10 @@ def inspect_contact_placement(canonical, *, activation_distance_m, minimum_dista
                                 minimum_distance_m=minimum_distance_m, stiffness=stiffness)
     placed = contact._positions(placed)
     oracle = surface_intersections(placed, contact.faces)
-    intersections = bool(ipctk.has_intersections(contact.mesh, placed))
+    intersections = bool(ipctk.has_intersections(contact.mesh, placed, broad_phase=contact_broad_phase()))
     collisions = ipctk.NormalCollisions()
-    collisions.build(contact.mesh, placed, activation_distance_m, minimum_distance_m)
+    collisions.build(contact.mesh, placed, activation_distance_m, minimum_distance_m,
+                     broad_phase=contact_broad_phase())
     distance_squared = float(collisions.compute_minimum_distance(contact.mesh, placed))
     if np.isnan(distance_squared) or distance_squared < 0:
         raise ValueError("Invalid toolkit candidate distance")
@@ -116,7 +118,7 @@ def main():
         parser.error("Canonical geometry exceeds 50 MiB")
     captured = args.canonical.read_bytes()
     sources = {name: Path(__file__).with_name(name).read_bytes() for name in
-               ("solver_contact_preflight.py", "solver_ipc_contact.py", "solver_spike_geometry.py",
+               ("solver_contact_preflight.py", "solver_ipc_contact.py", "solver_ipc_broad_phase.py", "solver_spike_geometry.py",
                 "solver-contact.requirements.txt", "solver-spike.requirements.txt")}
     if args.rigid_clearance_m is not None:
         sources["solver_rigid_staging.py"] = Path(__file__).with_name("solver_rigid_staging.py").read_bytes()

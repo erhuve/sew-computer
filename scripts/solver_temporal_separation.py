@@ -2,6 +2,8 @@ from numbers import Real
 
 import numpy as np
 
+from solver_ipc_broad_phase import CONTACT_BROAD_PHASE_PROFILE, contact_broad_phase
+
 
 _GROUPS = ("vv_candidates", "ev_candidates", "ee_candidates", "fv_candidates")
 
@@ -90,10 +92,12 @@ def certify_linear_path(mesh, start, end, minimum_distance, *, max_depth=12,
             or not 1 <= max_nodes <= 1000000 or not isinstance(keep_leaves, bool)):
         raise ValueError("Bounded integer temporal depth/node budgets required")
     candidates = ipctk.Candidates()
-    candidates.build(mesh, start, end, inflation_radius=np.nextafter(minimum_distance / 2, np.inf))
+    candidates.build(mesh, start, end, inflation_radius=np.nextafter(minimum_distance / 2, np.inf),
+                     broad_phase=contact_broad_phase())
     edges, faces = np.asarray(mesh.edges), np.asarray(mesh.faces)
     total = len(candidates)
     report = {"method": "outward-rounded-temporal-separation-v1", "safe": False,
+              "broadPhase": CONTACT_BROAD_PHASE_PROFILE,
               "candidateCount": total, "certifiedCount": 0, "unresolvedCount": total,
               "nodeCount": 0, "leafCount": 0, "deepest": 0, "lowerBoundM": None,
               "maxDepth": int(max_depth), "maxNodes": int(max_nodes),

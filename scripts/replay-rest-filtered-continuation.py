@@ -1,10 +1,27 @@
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import resource
 import sys
 from fractions import Fraction
+
+# Keep current verification outside the captured numerical module namespace.
+# An unlisted snapshot file cannot replace it, and loading must not cache
+# current hinge/contact implementations used by historical solver replay.
+def load_verifier(filename, alias):
+    path = Path(__file__).with_name(filename)
+    content = path.read_bytes()
+    spec = importlib.util.spec_from_file_location(alias, path)
+    module = importlib.util.module_from_spec(spec)
+    exec(compile(content, str(path), "exec"), module.__dict__)
+    return module, hashlib.sha256(content).hexdigest()
+
+
+triangle_verifier, triangle_verifier_digest = load_verifier("solver_triangle_sweep.py", "replay_triangle_verifier")
+broad_phase_verifier, broad_phase_verifier_digest = load_verifier("solver_ipc_broad_phase.py", "replay_broad_phase_verifier")
+coverage_verifier, coverage_verifier_digest = load_verifier("solver_candidate_coverage.py", "replay_coverage_verifier")
 
 if not __debug__:
     raise RuntimeError("Replay requires enabled verification assertions")
@@ -104,21 +121,49 @@ total_leaves = 0
 
 def verify_certificate(start, end, proof):
     from solver_temporal_separation import _GROUPS, _primitive_ids
+
+    def identity(group, first, second):
+        first, second = tuple(sorted(first)), tuple(sorted(second))
+        if group in ("vv_candidates", "ee_candidates") and first > second:
+            first, second = second, first
+        return group, first, second
+
     candidates = ipctk.Candidates()
     candidates.build(contact.mesh, start, end,
-                     inflation_radius=np.nextafter(contact.minimum_distance_m / 2, np.inf))
+                     inflation_radius=np.nextafter(contact.minimum_distance_m / 2, np.inf),
+                     broad_phase=broad_phase_verifier.contact_broad_phase())
+    observed = [("fv", int(candidate.face_id), int(candidate.vertex_id)) for candidate in candidates.fv_candidates]
+    observed += [("ee", int(candidate.edge0_id), int(candidate.edge1_id)) for candidate in candidates.ee_candidates]
+    coverage = coverage_verifier.verify_candidate_coverage(start, end, contact._edges, faces,
+        float(np.nextafter(contact.minimum_distance_m / 2, np.inf)), observed)
+    assert coverage["verified"], coverage
+    assert len(observed) == len(candidates)  # This replay's cloth has no isolated edges or vertices.
     expected = {}
     for group in _GROUPS:
         for index, candidate in enumerate(getattr(candidates, group)):
-            expected[group, index] = (_primitive_ids(group, candidate, contact._edges, contact.faces),
-                contact._local_minimum if contact._key(group, candidate) in contact._filtered
-                else contact.minimum_distance_m)
+            minimum = contact.minimum_distance_m
+            if contact._key(group, candidate) in contact._filtered:
+                if contact.profile()["adapter"] == "experimental-rest-filtered-contact-v2":
+                    # Independently reconstruct the fixed primitive-pair core
+                    # from source coordinates, rather than reuse assignment.
+                    rest_distance = float(np.sqrt(candidate.compute_distance(
+                        candidate.dof(rest, contact._edges, contact.faces))))
+                    minimum = min(contact.minimum_distance_m, rest_distance / 4)
+                else:
+                    minimum = contact._local_minimum
+            first, second = _primitive_ids(group, candidate, contact._edges, contact.faces)
+            key = identity(group, first, second)
+            assert key not in expected
+            expected[key] = minimum
     assert len(expected) == len(candidates) == proof["candidateCount"]
-    intervals = {}
+    intervals, indexed_identities = {}, {}
     for leaf in proof["certificateLeaves"]:
-        identity = leaf["group"], leaf["candidate"]
-        (first, second), minimum = expected[identity]
-        assert list(first) == leaf["first"] and list(second) == leaf["second"]
+        key = identity(leaf["group"], leaf["first"], leaf["second"])
+        minimum = expected[key]
+        index_key = leaf["group"], leaf["candidate"]
+        assert type(leaf["candidate"]) is int and 0 <= leaf["candidate"] < len(getattr(candidates, leaf["group"]))
+        assert indexed_identities.setdefault(index_key, key) == key
+        first, second = leaf["first"], leaf["second"]
         assert minimum == leaf["minimumDistanceM"]
         normal = [Fraction(value) for value in leaf["normal"]]
         projections = []
@@ -134,14 +179,16 @@ def verify_certificate(start, end, proof):
         gap = max(min(projections), -max(projections))
         assert gap > 0 and gap ** 2 > Fraction(minimum) ** 2 * sum(value ** 2 for value in normal)
         assert Fraction(leaf["lowerBoundM"]) ** 2 * sum(value ** 2 for value in normal) <= gap ** 2
-        intervals.setdefault(identity, []).append((leaf["t0"], leaf["t1"]))
+        intervals.setdefault(key, []).append((leaf["t0"], leaf["t1"]))
     assert set(intervals) == set(expected)
+    assert len(indexed_identities) == len(expected)
     for spans in intervals.values():
         cursor = 0.
         for lower, upper in sorted(spans):
             assert lower == cursor and upper > lower
             cursor = upper
         assert cursor == 1.
+    return coverage
 
 
 for artifact in report["acceptedStateArtifacts"]:
@@ -210,18 +257,22 @@ for artifact in report["acceptedStateArtifacts"]:
     residual = float(np.max(np.abs(gradient.ravel()[solver.free])))
     assert residual <= 1e-6
     assert surface_intersections(positions, faces)["intersectingPairCount"] == 0
-    assert not ipctk.has_intersections(contact.mesh, positions)
+    assert not ipctk.has_intersections(contact.mesh, positions,
+                                     broad_phase=broad_phase_verifier.contact_broad_phase())
+    triangle_proof = triangle_verifier.verify_triangle_sweep_exact(previous, positions, faces)
     assert contact.path_safe(previous, positions)
     from solver_hinge_sweep import hinge_sweep_safe
     assert hinge_sweep_safe(previous, positions, solver.fold_barrier.indices)
     proof = contact.path_certificate(previous, positions, keep_leaves=True)
     assert proof["safe"]
-    verify_certificate(previous, positions, proof)
+    candidate_coverage = verify_certificate(previous, positions, proof)
     total_leaves += len(proof.pop("certificateLeaves"))
     np.testing.assert_array_equal(contact.rest_positions, rest)
     results.append({"endFraction": record["endFraction"], "recomputedResidualN": residual,
         "recordedResidualN": record["step"]["gradientInfinityNorm"], "endpointIntersections": 0,
         "physicalPathPass": True, "pathCertificate": proof, "contactEnergyJ": contact.energy(positions),
+        "trianglePathVerification": triangle_proof,
+        "candidateCoverageVerification": candidate_coverage,
         **fold_diagnostics})
     previous, previous_velocity, previous_fraction = positions, velocity, record["endFraction"]
 assert report["adaptive"]["completedFraction"] == previous_fraction
@@ -242,6 +293,10 @@ result = {"accepted": False, "states": results, "contactProfile": contact.profil
           "foldActuation": fold_recipe,
           "assemblySchedule": source.get("assemblySchedule") if arguments.get("assembly_schedule") else None,
           "replayScriptSha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+          "triangleVerifierSha256": triangle_verifier_digest,
+          "broadPhaseVerifierSha256": broad_phase_verifier_digest,
+          "candidateCoverageVerifierSha256": coverage_verifier_digest,
+          "verificationBroadPhase": broad_phase_verifier.CONTACT_BROAD_PHASE_PROFILE,
           "sourceDigests": report["sourceDigests"], "reportSha256": hashlib.sha256((run / "report.json").read_bytes()).hexdigest(),
           "seamGaps": staging_seam_gaps(source, initial, previous),
           "edgeStrain": edge_strain_report(rest, previous, faces, identities),

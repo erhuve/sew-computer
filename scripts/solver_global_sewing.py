@@ -239,6 +239,8 @@ class GlobalSewingSolver:
             raise ValueError("Bending reference requires direct search with branch-aware line search")
         if self.contact is not None and linear_solver != "direct":
             raise ValueError("Contact requires direct search with continuous collision guards")
+        if len(self.faces) and linear_solver == "lsmr":
+            raise ValueError("Cloth triangles require a search with swept nondegeneracy guards")
         if (previous.shape != (len(self.mass), 3) or velocities.shape != previous.shape
                 or targets.shape != ((self.sewing.shape[0],) if distance_sewing is not None
                                      else (self.sewing.shape[0], 3))
@@ -388,11 +390,15 @@ class GlobalSewingSolver:
 
         def energy_change_function(start_positions, end_positions):
             from solver_energy_change import membrane_energy_change
+            from solver_triangle_sweep import triangle_sweep_safe
             flat = fixed.copy()
             flat[self.free] = start_positions
             delta = np.zeros_like(flat)
             delta[self.free] = end_positions - start_positions
             positions, displacement = flat.reshape((-1, 3)), delta.reshape((-1, 3))
+            if (not triangle_sweep_safe(positions, positions + displacement, self.faces)
+                    or not triangle_sweep_safe(previous, positions + displacement, self.faces)):
+                return float("inf")
             deformation = np.einsum("fvc,fva->fca", coefficients, positions[self.faces])
             delta_deformation = np.einsum("fvc,fva->fca", coefficients, displacement[self.faces])
             try:
@@ -487,7 +493,7 @@ class GlobalSewingSolver:
         predicted_start = predicted.ravel()[self.free]
         guarded = (self.has_bending or self.fold_barrier is not None or self.contact is not None
                    or distance_sewing is not None or actuator is not None)
-        start = (previous.ravel()[self.free].copy() if guarded else
+        start = (previous.ravel()[self.free].copy() if guarded or len(self.faces) else
                  min((linear_start, predicted_start, previous.ravel()[self.free]), key=objective))
         initial_energy = objective(start)
         guard_assembled_metrics = bool(getattr(self.contact, "requires_guarded_metric", False))
@@ -506,6 +512,9 @@ class GlobalSewingSolver:
         final = fixed.copy()
         final[self.free] = result.x
         final = final.reshape((-1, 3))
+        from solver_triangle_sweep import triangle_sweep_safe
+        if not triangle_sweep_safe(previous, final, self.faces):
+            raise ValueError("Physical cloth step crosses a degenerate or unresolved triangle path")
         if actuator is not None:
             from solver_hinge_sweep import hinge_sweep_safe
             if not hinge_sweep_safe(previous, final, actuator.indices):
@@ -523,6 +532,7 @@ class GlobalSewingSolver:
             "profile": "experimental-global-ipc-guarded-contact-reference-v1" if guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
             "sewingMode": self.sewing_mode,
+            "triangleSweep": "all source faces; numerical Bernstein guard on optimizer and physical affine paths; v1",
             "foldActuation": actuator is not None,
             "foldActuationJoules": actuator.energy(final) if actuator is not None else 0.,
             "foldTargetsRadians": actuator.rest_angles.tolist() if actuator is not None else None,
@@ -531,7 +541,7 @@ class GlobalSewingSolver:
             "sewingJoules": float(.5 * np.sum(sewing_residual(final) ** 2)),
             "sewingTargetErrorM": float(np.max(np.abs(sewing_residual(final)), initial=0)
                                          * np.sqrt(self.compliance)),
-            "sewingLimitations": ("Source-normal offset with full frame reactions and exact sewing curvature; Gauss-Newton fallback; no swept frame nondegeneracy, turning or seam tangent alignment"
+            "sewingLimitations": ("Source-normal offset with full frame reactions and exact sewing curvature; Gauss-Newton fallback; swept triangles guarded, no turning or seam tangent alignment"
                                   if self.sewing_mode == "normal-offset" else
                                   "Scalar anchor distance does not prescribe layer side, seam tangent or turning"
                                   if distance_sewing is not None else "World-space vector registration"),
@@ -554,6 +564,6 @@ class GlobalSewingSolver:
             "gradientInfinityNorm": gradient_norm,
             "limitations": ["Experimental frictionless surface contact; no body contact, seam exclusions, external forces or material damping. Diagnostic reference only." if self.contact is not None else "No contact, external forces or material damping; diagnostic reference only.",
                             "Optional local angular fold barrier changes the energy model; it is not finite-thickness or nonadjacent cloth contact.",
-                            "Elastic bending is uncalibrated; endpoint/branch guards do not certify swept nondegeneracy.",
+                            "Elastic bending is uncalibrated; the numerical triangle guard requires independent saved-path verification.",
                             "Stationarity does not certify a local energy minimum or dynamic stability."],
         }

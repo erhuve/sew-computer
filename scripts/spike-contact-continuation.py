@@ -109,6 +109,7 @@ def run_worker(output, parent_pid):
         from solver_contact_preflight import staging_seam_gaps
         from solver_global_sewing import GlobalSewingSolver
         from solver_ipc_contact import IpcSurfaceContact
+        from solver_ipc_broad_phase import contact_broad_phase
         from solver_spike_geometry import surface_intersections
         from solver_strain_diagnostics import edge_strain_report, mass_motion_report
 
@@ -175,7 +176,8 @@ def run_worker(output, parent_pid):
         if not report["inactiveReferenceGatePassed"]:
             raise ValueError("Inactive-reference diagnostic rejects nonzero initial contact energy or force")
         report["initialIndependentSurfaceOracle"] = surface_intersections(positions, faces)
-        report["initialToolkitHasIntersections"] = bool(ipctk.has_intersections(contact.mesh, positions))
+        report["initialToolkitHasIntersections"] = bool(ipctk.has_intersections(
+            contact.mesh, positions, broad_phase=contact_broad_phase()))
         if (report["initialIndependentSurfaceOracle"]["intersectingPairCount"] != 0
                 or report["initialToolkitHasIntersections"]):
             raise ValueError("Initial placement fails an intersection oracle")
@@ -240,7 +242,8 @@ def run_worker(output, parent_pid):
         report["edgeStrain"] = edge_strain_report(rest, final, faces, identities)
         report["massMotion"] = mass_motion_report(positions, final, velocity, solver.mass)
         report["finalIndependentSurfaceOracle"] = surface_intersections(final, faces)
-        report["finalToolkitHasIntersections"] = bool(ipctk.has_intersections(contact.mesh, final))
+        report["finalToolkitHasIntersections"] = bool(ipctk.has_intersections(
+            contact.mesh, final, broad_phase=contact_broad_phase()))
         report["finalContactEnergyJ"] = contact.energy(final)
         report["finalPeakContactForceN"] = float(np.max(np.abs(contact.gradient(final))))
         final_anchors = solver.sewing @ final

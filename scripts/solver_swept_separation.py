@@ -1,5 +1,7 @@
 import numpy as np
 
+from solver_ipc_broad_phase import CONTACT_BROAD_PHASE_PROFILE, contact_broad_phase
+
 
 def swept_plane_separated(first, second, normals, minimum_distance):
     first, second, normals = (np.asarray(value, dtype=float) for value in (first, second, normals))
@@ -47,7 +49,8 @@ def certified_candidates(mesh, start, end, minimum_distance):
             or not np.isfinite(minimum_distance) or minimum_distance <= 0):
         raise ValueError("Finite matching linear motion and positive separation required")
     candidates = ipctk.Candidates()
-    candidates.build(mesh, start, end, inflation_radius=np.nextafter(minimum_distance / 2, np.inf))
+    candidates.build(mesh, start, end, inflation_radius=np.nextafter(minimum_distance / 2, np.inf),
+                     broad_phase=contact_broad_phase())
     total, certified = len(candidates), 0
     edges, faces = np.asarray(mesh.edges), np.asarray(mesh.faces)
     for name in ("vv_candidates", "ev_candidates", "ee_candidates", "fv_candidates"):
@@ -76,4 +79,5 @@ def certified_candidates(mesh, start, end, minimum_distance):
         certified += int(separated.sum())
         setattr(candidates, name, [candidate for candidate, safe in zip(group, separated) if not safe])
     return candidates, {"candidateCount": total, "certifiedCount": certified,
-                        "remainingCount": len(candidates), "accepted": False}
+                        "remainingCount": len(candidates), "accepted": False,
+                        "broadPhase": CONTACT_BROAD_PHASE_PROFILE}

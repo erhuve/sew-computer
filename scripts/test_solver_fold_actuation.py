@@ -107,7 +107,7 @@ class FoldActuationTests(unittest.TestCase):
             self.assertLess(np.max(np.abs(gradient)), 1e-6)
             self.assertTrue(hinge_sweep_safe(previous, positions, potential.indices))
             self.assertTrue(solver.contact.path_safe(previous, positions))
-            self.assertFalse(ipctk.has_intersections(solver.contact.mesh, positions))
+            self.assertFalse(ipctk.has_intersections(solver.contact.mesh, positions, broad_phase=ipctk.BruteForce()))
             self.assertEqual(surface_intersections(positions, solver.faces)["intersectingPairCount"], 0)
             accounting = global_energy_transition(solver, previous, positions, previous_velocity, velocities,
                 np.empty((0, 3)), np.empty((0, 3)), timestep,

@@ -96,17 +96,28 @@ class TemporalPathTests(unittest.TestCase):
         return ipctk.CollisionMesh(start,np.array([[0,1]])),start,end
 
     def verify(self,mesh,start,end,minimum,report):
+        from solver_temporal_separation import _GROUPS, _primitive_ids
+
+        def identity(group, first, second):
+            first, second = tuple(sorted(first)), tuple(sorted(second))
+            if group in ("vv_candidates", "ee_candidates") and first > second:
+                first, second = second, first
+            return group, first, second
+
         self.assertTrue(report['safe'],report)
         intervals = {}
         for leaf in report['certificateLeaves']:
             verify_leaf(start,end,leaf,minimum)
-            key = leaf['group'],leaf['candidate']
+            key = identity(leaf['group'], leaf['first'], leaf['second'])
             intervals.setdefault(key,[]).append((leaf['t0'],leaf['t1']))
         candidates = ipctk.Candidates()
-        candidates.build(mesh,start,end,inflation_radius=np.nextafter(minimum/2,np.inf))
-        expected = {(group,i) for group in ('vv_candidates','ev_candidates','ee_candidates','fv_candidates')
-                    for i,_ in enumerate(getattr(candidates,group))}
+        candidates.build(mesh,start,end,inflation_radius=np.nextafter(minimum/2,np.inf),
+                         broad_phase=ipctk.BruteForce())
+        expected = {identity(group, *_primitive_ids(group, candidate, np.asarray(mesh.edges), np.asarray(mesh.faces)))
+                    for group in _GROUPS for candidate in getattr(candidates, group)}
         self.assertEqual(set(intervals),expected)
+        self.assertEqual(len(expected), len(candidates))
+        self.assertEqual(len(expected), report['candidateCount'])
         for spans in intervals.values():
             cursor=0.
             for lo,hi in sorted(spans):

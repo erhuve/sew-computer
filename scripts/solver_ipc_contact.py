@@ -2,6 +2,8 @@ import importlib.metadata
 
 import numpy as np
 
+from solver_ipc_broad_phase import CONTACT_BROAD_PHASE_PROFILE, contact_broad_phase
+
 
 class IpcSurfaceContact:
     def __init__(self, rest_positions, faces, *, activation_distance_m, minimum_distance_m, stiffness,
@@ -122,7 +124,8 @@ class IpcSurfaceContact:
             if self.requires_guarded_metric:
                 collisions.use_area_weighting = True
                 collisions.collision_set_type = ipctk.NormalCollisions.IMPROVED_MAX_APPROX
-            collisions.build(self.mesh, positions, self.activation_distance_m, self.minimum_distance_m)
+            collisions.build(self.mesh, positions, self.activation_distance_m, self.minimum_distance_m,
+                             broad_phase=contact_broad_phase())
             distance_squared = collisions.compute_minimum_distance(self.mesh, positions)
             if np.isnan(distance_squared) or distance_squared <= self.minimum_distance_m ** 2:
                 raise ValueError("Contact state violates minimum surface separation")
@@ -134,7 +137,7 @@ class IpcSurfaceContact:
         import ipctk
 
         positions, _ = self._collisions(positions)
-        if ipctk.has_intersections(self.mesh, positions):
+        if ipctk.has_intersections(self.mesh, positions, broad_phase=contact_broad_phase()):
             raise ValueError("Intersecting contact surface cannot initialize the solver")
 
     def energy(self, positions):
@@ -181,6 +184,7 @@ class IpcSurfaceContact:
         else:
             limit = float(ipctk.compute_collision_free_stepsize(self.mesh, start, end,
                                                                min_distance=self.minimum_distance_m,
+                                                               broad_phase=contact_broad_phase(),
                                                                narrow_phase_ccd=self.ccd))
         if not np.isfinite(limit) or not 0 <= limit <= 1:
             raise ValueError("Invalid continuous contact step bound")
@@ -196,7 +200,8 @@ class IpcSurfaceContact:
         return self.step_limit(start, end) == 1.
 
     def profile(self):
-        return {"adapter": "experimental-ipc-area-contact-v1" if self.requires_guarded_metric else "experimental-ipc-surface-contact-v2", "ipctk": "1.6.0",
+        return {"adapter": "experimental-ipc-area-contact-v2" if self.requires_guarded_metric else "experimental-ipc-surface-contact-v3", "ipctk": "1.6.0",
+                "broadPhase": CONTACT_BROAD_PHASE_PROFILE,
                 "activationDistanceM": self.activation_distance_m,
                 "minimumDistanceM": self.minimum_distance_m, "stiffness": self.stiffness,
                 "physicalBarrier": self.requires_guarded_metric,

@@ -60,6 +60,9 @@ class RestFilteredContactTests(unittest.TestCase):
         contact = filtered(rest, faces, activation=.01)
         positions = rest * .4
         positions[4, 2] = .000015
+        # Closest-feature ties are only piecewise C2; the transition case is
+        # covered separately without asserting a nonexistent unique Hessian.
+        positions += np.random.default_rng(83).normal(size=positions.shape) * 1e-6
         direction = np.random.default_rng(712).normal(size=positions.shape)
         direction /= np.linalg.norm(direction)
         epsilon = 1e-9
@@ -153,7 +156,7 @@ class RestFilteredContactTests(unittest.TestCase):
         from test_solver_temporal_separation import verify_leaf
         from solver_temporal_separation import _GROUPS
 
-        panel, faces = square_grid(4)
+        panel, faces = square_grid(2, width=.0003)
         rest = np.vstack((panel, panel))
         contact = filtered(rest, np.vstack((faces, faces + len(panel))),
                            ccd_profile="temporal-separation-tight-inclusion")
@@ -167,20 +170,26 @@ class RestFilteredContactTests(unittest.TestCase):
         self.assertEqual(report["filteredPairsSha256"], contact.profile()["filteredPairsSha256"])
         candidates = ipctk.Candidates()
         candidates.build(contact.mesh, start, end,
-                         inflation_radius=np.nextafter(contact.minimum_distance_m / 2, np.inf))
+                         inflation_radius=np.nextafter(contact.minimum_distance_m / 2, np.inf),
+                         broad_phase=ipctk.BruteForce())
         expected = {}
         for group in _GROUPS:
-            for index, candidate in enumerate(getattr(candidates, group)):
-                expected[group, index] = (contact._local_minimum
+            for candidate in getattr(candidates, group):
+                distance = float(np.sqrt(candidate.compute_distance(candidate.dof(rest, contact._edges, contact.faces))))
+                expected[contact._key(group, candidate)] = (min(contact.minimum_distance_m, distance / 4)
                     if contact._key(group, candidate) in contact._filtered else contact.minimum_distance_m)
         intervals = {}
         for leaf in report["certificateLeaves"]:
-            identity = leaf["group"], leaf["candidate"]
+            identity = contact._ids_key(leaf["group"], leaf["first"], leaf["second"])
             self.assertEqual(leaf["minimumDistanceM"], expected[identity])
             verify_leaf(start, end, leaf, expected[identity])
             intervals.setdefault(identity, []).append((leaf["t0"], leaf["t1"]))
         self.assertEqual(set(intervals), set(expected))
-        self.assertEqual(set(expected.values()), {contact._local_minimum, contact.minimum_distance_m})
+        self.assertEqual(len(expected), len(candidates))
+        self.assertEqual(len(expected), report["candidateCount"])
+        self.assertIn(contact.minimum_distance_m, expected.values())
+        self.assertTrue(any(value < contact.minimum_distance_m for value in expected.values()))
+        self.assertEqual(report["filteredParametersSha256"], contact.profile()["filteredParametersSha256"])
         for spans in intervals.values():
             cursor = 0.
             for lower, upper in sorted(spans):
