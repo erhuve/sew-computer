@@ -619,7 +619,26 @@ The primary coupled search metric now includes the exact Hessian of the source-n
 
 Verification covers every Hessian column against gradient differences, symmetry, rigid covariance, shared-frame accumulation, both layer sides, zero residual and degenerate frames. The numerical suite passes **386 tests**, with the later seven-test normal-sewing run additionally covering shared-frame and zero-residual cases. The latter count overlaps the suite. On the 0.5 mm offset / 1.2 rad allowance control, the new metric completes in **39.01 CPU seconds**, with 67 accepted states and three rejected attempts. Replay verifies all states and **28,598 exact-rational path-proof leaves**, with zero detected endpoint intersections and maximum residual 9.992192e-7 N.
 
-Schedule completion is not fold-quality acceptance: final hinge angles range from about **0.08° to 84.33°** against a 68.75° target, and the largest edge stretch is **3.66%**. The facing underfolds substantially. The maximum anchor gap is **0.502480 mm** against a 0.5 mm target, with **0.002801 mm** maximum vector target error. This wider-gap diagnostic is distinct from the existing 0.11 mm closure target. Baseline, tighter-offset and stronger-actuation controls must retain their separate outcomes; none constitutes turned cuff or garment acceptance.
+Schedule completion is not fold-quality acceptance: final hinge angles range from about **0.08° to 84.33°** against a 68.75° target, and the largest edge stretch is **3.66%**. The facing underfolds substantially. The maximum anchor gap is **0.502480 mm** against a 0.5 mm target, with **0.002801 mm** maximum vector target error. This wider-gap diagnostic is distinct from the existing 0.11 mm closure target. Baseline, tighter-offset and stronger-actuation controls retain their separate outcomes; none constitutes turned cuff or garment acceptance.
+
+### Combined cuff sequence outcomes
+
+All six controls use the same source geometry, 64 ms physical interval, 64 initial substeps, 100 evaluations per attempt, 1e-6 N stationarity tolerance, 0.1 mm contact minimum, 1 mm activation range and 10,000 Pa contact pressure. Sewing reaches its final prescribed offset at 16 ms, then holds while the fold target advances to 1.2 rad. The source attachment path remains outside the twenty shell/facing perimeter registrations; no turning motion through that opening is executed.
+
+| Search / offset / actuator stiffness | Schedule fraction | Terminal result | CPU evidence | Verified states / exact proof leaves |
+| --- | --- | --- | --- | --- |
+| Prior metric / 0.11 mm / 0.02 J/rad² | 26.5625% | CPU budget exhausted | 600 s cap | 32 / 18,116 |
+| Prior metric / 0.5 mm / 0.02 J/rad² | 100% | Schedule complete; facing underfolds | 398.86 s | 139 / 52,266 |
+| Exact sewing curvature / 0.5 mm / 0.02 J/rad² | 100% | Schedule complete; facing underfolds | 39.01 s | 67 / 28,598 |
+| Exact sewing curvature / 0.11 mm / 0.02 J/rad² | 37.5% | CPU budget exhausted | 600 s cap | 33 / 33,585 |
+| Exact sewing curvature / 0.11 mm / 2 J/rad² | 35.15625% | CPU budget exhausted | 600 s cap | 33 / 33,196 |
+| Exact sewing curvature / 0.5 mm / 2 J/rad² | 94.140625% | 256-attempt budget exhausted | 416.70 s | 157 / 85,345 |
+
+Replay verifies **461 saved states and 251,106 exact-rational continuous-contact proof leaves**, including accepted prefixes of unsuccessful runs. Every saved endpoint passes both intersection oracles; maximum independently reconstructed residual is 9.996320e-7 N. Stronger actuation improves some angle tracking but the last wide-gap state still spans **39.23–66.11°**, with maximum error **24.15°** against its completed target. It also stretches an edge by **12.29%** and compresses another by **4.51%**. Increasing actuator strength is not a demonstrated physically acceptable fix.
+
+The completed wider-gap comparison changes only the normal-sewing search curvature in the physical solve, but its adaptive histories differ: **75 versus three rejected attempts**, and 139 versus 67 accepted states. Maximum final vertex displacement between runs is **33.265 mm**, or **32.925 mm** after rigid alignment. Therefore the measured runtime reduction does not establish equivalent geometry, timestep convergence or a generally faster accepted garment. A fixed-discretization comparison and better coupled fold tracking remain necessary before advancing to a turned cuff.
+
+The [source-bound six-control ledger](3d-cuff-sequence-results.json) retains inputs, numerical sources, report/replay hashes, budgets, outcomes, final strain and sampled layer-offset diagnostics. The [geometry and target-tracking figure](3d-cuff-sequence.png) shows the completed 0.5 mm / 0.02 J/rad² exact-curvature control, including the facing's underfold. An additional finite-difference check on its actual deformed mesh tests twelve Hessian directions with maximum relative error 1.283e-8. Eleven full-shirt/global harness tests pass separately from the numerical suite. Nothing is deployed; coupled target fidelity, temporal/refinement stability, turning, binding, full-shirt acceptance and independent model review remain open.
 
 ## Source-cuff allowance crease · 2026-09-22
 
