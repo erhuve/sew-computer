@@ -18,6 +18,7 @@ from solver_sewing_activation_schedule import MAX_ROWS, SewingActivationSchedule
 
 PROFILE = "captured-sewing-activation-v1"
 CUFF_PROFILE = "source-cuff-construction-unit-v1"
+REFINED_PROFILE = "source-left-binding-refined-unit-v1"
 MAX_SOURCE_BYTES = 8 * 1024 ** 2
 _CUFF_FIELDS = {"sourcePattern", "sourceConstruction", "sourceInventory", "sourceAssembly",
                 "phasePlan", "phaseConstraintRows", "selectedOperationIds", "excludedOperationIds",
@@ -331,13 +332,21 @@ class CapturedSewingControls:
 
 def bind_sewing_activation(source, subdivisions, *, sewing_mode):
     source_digest = sewing_source_identity(source)
-    cuff = source.get("profile") == CUFF_PROFILE
+    profile = source.get("profile")
+    refined_claim = (type(profile) is str and profile.startswith("source-left-binding-")
+                     or bool({"baseUnit", "bindingRefinement", "bindingSeamRemap"}.intersection(source)))
+    refined = profile == REFINED_PROFILE
+    if refined_claim and not refined:
+        raise ValueError("Refined cuff source cannot downgrade to another source profile")
+    cuff = profile == CUFF_PROFILE or refined
     provenance = source.get("provenance")
     cuff_provenance = type(provenance) is dict and "phasePlanSha256" in provenance
     if not cuff and (_CUFF_FIELDS.intersection(source) or cuff_provenance):
         raise ValueError("Cuff construction source cannot downgrade to generic sewing binding")
     if type(sewing_mode) is not str or sewing_mode not in ("vector", "distance", "normal-offset"):
         raise ValueError("Explicit supported sewing mode required")
+    if refined and sewing_mode == "normal-offset":
+        raise ValueError("Refined cuff normal-offset sewing requires an unimplemented explicit crease-side frame policy")
     recipe = source.get("sewingActuation")
     if (type(recipe) is not dict or set(recipe) != {"profile", "accepted", "sourceSha256", "mode",
                                                   "initialTargetsMeters", "finalTargetsMeters", "schedule"}
@@ -351,11 +360,17 @@ def bind_sewing_activation(source, subdivisions, *, sewing_mode):
     schedule = SewingActivationSchedule(recipe["schedule"], subdivisions, row_ids=row_ids)
     cuff_binding = None
     if cuff:
-        from solver_cuff_source_binding import validate_cuff_source_binding
-        cuff_binding = validate_cuff_source_binding(source)
+        if refined:
+            from solver_binding_source import validate_binding_source
+            cuff_binding = validate_binding_source(source)
+        else:
+            from solver_cuff_source_binding import validate_cuff_source_binding
+            cuff_binding = validate_cuff_source_binding(source)
         selectors = {}
         for index, row in enumerate(row_bindings):
             selectors.setdefault((row["registrationId"], row["memberIndex"]), []).append(index)
+        if len(row_bindings) != 40 or len(selectors) != 8:
+            raise ValueError("Cuff controls must retain all 40 rows and eight selectors")
         for indices in selectors.values():
             if (len(indices) != 5 or [Fraction(row_bindings[index]["fractionNumerator"],
                                              row_bindings[index]["fractionDenominator"]) for index in indices]
@@ -382,7 +397,8 @@ def bind_sewing_activation(source, subdivisions, *, sewing_mode):
                 "mode": sewing_mode, "rowIds": list(row_ids), "rowBindings": row_bindings,
                 "complianceMPerN": compliance, "sourceBundleSha256": hashlib.sha256(_encoded(source["embeddedConstraints"])).hexdigest(),
                 "frameBindings": frame_bindings, "sourceFrameMetadataUsed": sewing_mode == "normal-offset",
-                "sourceBindingScope": "rederived cuff construction source" if cuff else "captured canonical JSON only; no pattern-source proof",
+                "sourceBindingScope": ("rederived refined cuff source with recorded coefficient approximation" if refined else
+                                       "rederived cuff construction source" if cuff else "captured canonical JSON only; no pattern-source proof"),
                 "cuffSourceBinding": cuff_binding,
                 "constructionStatus": "Source phase plan remains declarative and unexecuted; numerical knot times do not establish binding, turning, gate completion or any construction milestone.",
                 "scope": "Explicit virtual seam controls preserve all canonical source rows. Activation is force weighting, not executed construction or completed seam evidence. Normal sides are declared mechanical frame offsets, not textile right-side assignments."}

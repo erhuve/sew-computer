@@ -1,0 +1,3463 @@
+{
+  "profile": "source-binding-coefficient-remap-evidence-v1",
+  "accepted": false,
+  "date": "2026-09-23",
+  "scope": "Synthetic source derivation and independent arithmetic audit only; no numerical trajectory, captured solver replay or construction phase.",
+  "baseArtifact": {
+    "path": ".planning/solver/binding-first-turn-unit-sep23-v1/unit.json",
+    "fileSha256": "cf5a0bab226b9aa287b7d93b3f099ddd6fe06739378f0e1794d31ad61dde3567",
+    "canonicalSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c"
+  },
+  "derivedArtifact": {
+    "path": ".planning/solver/binding-refined-unit-sep23-v1/unit.json",
+    "fileSha256": "f1add81d9d9b6152abf8d975728750f7788bc5ad05931802259b942d230329a1",
+    "bytes": 439145
+  },
+  "sourceBinding": {
+    "profile": "binding-refined-source-binding-v1",
+    "sourceProfile": "source-left-binding-refined-unit-v1",
+    "accepted": false,
+    "solverReady": false,
+    "sourceCorrespondenceValidated": true,
+    "sourceUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "refinementDescriptorSha256": "7652f0ffef44d83e72d43654589dd9d589b9151fabbaaa91d132f342fc649665",
+    "seamRemapDescriptorSha256": "0163315ce7fc39091c425aa521633b2dc0d9a915a49da8f0222919962c11f6bf",
+    "numericalSourceCoreSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+    "originalEmbeddedConstraintsSha256": "d2a4ec1a8d10e86c17e742571b61dccb380ee2f6082ab8cb707ce49d54612633",
+    "numericalEmbeddedConstraintsSha256": "c473c0e39c8f957c56032c9b0d98be305a2185818451abc19609796561f4125a",
+    "rowGroups": [
+      {
+        "memberIndex": 1,
+        "registrationId": "bind_opening_left_left",
+        "rowIndices": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "bind_opening_left_right",
+        "rowIndices": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "cuff_gather_left",
+        "rowIndices": [
+          10,
+          12,
+          14,
+          16,
+          18
+        ]
+      },
+      {
+        "memberIndex": 2,
+        "registrationId": "cuff_gather_left",
+        "rowIndices": [
+          11,
+          13,
+          15,
+          17,
+          19
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:extension",
+        "rowIndices": [
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:end",
+        "rowIndices": [
+          25,
+          26,
+          27,
+          28,
+          29
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:outer",
+        "rowIndices": [
+          30,
+          31,
+          32,
+          33,
+          34
+        ]
+      },
+      {
+        "memberIndex": 1,
+        "registrationId": "perimeter:cuff_left:start",
+        "rowIndices": [
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      }
+    ],
+    "phaseConstraintRows": {
+      "cuff:left:attach-facing": [
+        11,
+        13,
+        15,
+        17,
+        19
+      ],
+      "cuff:left:bind-opening-left": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "cuff:left:bind-opening-right": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "cuff:left:close-shell": [
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "cuff:left:stitch-end": [
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "cuff:left:stitch-extension": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "cuff:left:stitch-outer": [
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "cuff:left:stitch-start": [
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "cuff:left:turn": [],
+      "cuff:left:turn-under-shell-attachment": []
+    },
+    "counts": {
+      "constraints": 40,
+      "fabricInstances": 5,
+      "phases": 10,
+      "sourceOperations": 7,
+      "starRowSelectors": 8,
+      "triangles": 398,
+      "vertices": 245,
+      "remappedBindingAnchors": 5,
+      "unchangedLocalRows": 35
+    },
+    "checkedSourceDigests": {
+      "services/engine/assembly.py": "a1b3db678c8ab583fb9040c40c1da4c87e2eda1323d14b5483fd656361790cdd",
+      "services/engine/cloth_domain.py": "ebfa6a4a6cfb79ef18fcbbbbfd3195e24bf6d66d70a6f21bb00a0147761198be",
+      "services/engine/embedded_constraints.py": "bf4d1aae05f58478d730efcd51758700151c546d8118946a5f6fc9c3ce62bac2",
+      "services/engine/inspection_gltf.py": "336e50a04cc85930ed65bd87c9dc8df0ed5d8c39788ddab584c7f89e4520378e",
+      "services/engine/meshing.py": "1b00ebc4f4859cb38922a4ad8378c057baa719401c2061d50c185d47bf2b2a4e",
+      "services/engine/quality_meshing.py": "8c14ef4af944f41f0d4bf93a3e8813416ac5a8f4e58a5d206e11c8e0ffb943c4",
+      "services/engine/shirt.py": "7434ae7caa3518dcad62bc144fc4475188b5ab0fa1db71a82ac852a3b71684b9",
+      "services/engine/simulation_validation.py": "8d7dc2b107e85ec79703cce2ac35d36acc46e15d36fa8d747798bfcad5e8b460",
+      "solver_attempt_journal.py": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c",
+      "solver_binding_refinement.py": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb",
+      "solver_binding_remap.py": "904894294afb8666115b29d4ef468a53dcaa00f932caa348f6672544ac2413fb",
+      "solver_binding_source.py": "51561505f8e490e54444d07873dd9a72386acf837a9ca65eb5d89316bbf64ff8",
+      "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+      "solver_cuff_construction.py": "f76e642a3201d4fd9de76cc77b6048334d2cf5046d80c8dffa01c6dee43bef0f",
+      "solver_cuff_source_binding.py": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f",
+      "solver_engine_source_namespace.py": "2a08d3703380981ad186427482bb9b6c4a5016044e910efea3bd03d01ee51108",
+      "solver_process_budget.py": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766",
+      "solver_sewing_activation_schedule.py": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48",
+      "solver_sewing_input.py": "cd21a37cc3baf30c00c79d0b83d35b70e1ec562a138d94ea66147d13b7fe433f",
+      "spike-full-shirt.py": "2f4287225a25e7a4e8f87c0f1284aabe7684ece781947ba860b3ae2e43e07dc4"
+    },
+    "scope": "Strict original source and declared numerical-refinement rederivation with recorded coefficient approximation; source phases remain declarative and unexecuted.",
+    "limitations": [
+      "Explicit derived numerical research source; no construction phase or garment acceptance.",
+      "Original templates, cut boundaries, source annotations and all forty original rows are retained only in immutable baseUnit.",
+      "Refinement retains the original vertex prefix and full cut domain under the separately recorded splitter and binary64 limits.",
+      "Five numerical anchors use prescribed nearest-binary64 conversion; thirty-five local rows remain byte-identical by canonical JSON.",
+      "Crease-side material frames and original-gripper migration are not supplied by this profile; normal-offset sewing is unsupported.",
+      "Placement and numerical controls require separate captured input validation; no material calibration, settling or convergence is implied."
+    ]
+  },
+  "independentArithmeticAudit": {
+    "profile": "independent-binding-remap-verification-v1",
+    "verified": true,
+    "accepted": false,
+    "sourceProfile": "source-left-binding-refined-unit-v1",
+    "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+    "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "refinementSha256": "7652f0ffef44d83e72d43654589dd9d589b9151fabbaaa91d132f342fc649665",
+    "remapSha256": "0163315ce7fc39091c425aa521633b2dc0d9a915a49da8f0222919962c11f6bf",
+    "rowCount": 40,
+    "remappedRows": 5,
+    "unchangedRows": 35,
+    "enumeratedCandidateCount": 23,
+    "selectedChildTriangleIndices": [
+      25,
+      35,
+      40,
+      14,
+      5
+    ],
+    "scope": "Independent raw-stage exact coefficient composition, complete original-parent child enumeration, nonnegativity, nearest-even binary64 conversion, residual bounds and derived mesh/row consistency. Pattern and split-geometry rederivation require the separately captured source validator; no frame-side, independent refined-motion, construction or physical acceptance proof."
+  },
+  "independentVerifierSha256": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f",
+  "seamRemap": {
+    "accepted": false,
+    "arithmeticScope": "Ideal rational anchors pull back exactly under the recorded coarse-to-refined lineage for arbitrary original nodal values. Binary64 anchors incur the reported coefficient residuals. Neither equality extends to arbitrary independent refined nodal values. Stored-coordinate residuals also include subdivision reconstruction error.",
+    "conversionPolicy": "Once-round each nonnegative rational weight to nearest binary64, ties to even. No clamping or normalization; preserve positive support and existing finite [0,1], normalized-row admission bounds. Numerical weights are approximations with exactly rederived residuals, not adjustable tolerances.",
+    "executable": false,
+    "instanceId": "opening_binding_left_left:shell",
+    "localRefinedVertexCount": 29,
+    "originalEmbeddedConstraintsSha256": "d2a4ec1a8d10e86c17e742571b61dccb380ee2f6082ab8cb707ce49d54612633",
+    "pending": [
+      "Versioned derived source unit, global index rebuilding and unchanged opposite-side/other-row binding.",
+      "Separate explicit crease-side frame selection and captured original gripper rebinding.",
+      "Independent derived-profile capture/replay validation and mechanical/contact checks before numerical execution."
+    ],
+    "policy": "exact-coefficient-nearest-binary64-v1",
+    "profile": "source-left-binding-seam-remap-descriptor-v1",
+    "refinementDescriptorSha256": "7652f0ffef44d83e72d43654589dd9d589b9151fabbaaa91d132f342fc649665",
+    "refinementProfile": "source-left-binding-refinement-descriptor-v1",
+    "rows": [
+      {
+        "anchorInstanceId": "opening_binding_left_left:shell",
+        "anchorSign": -1,
+        "candidates": [
+          {
+            "childTriangleIndex": 19,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "40564819207303322833495993090048",
+                "numerator": "-8323519619351131",
+                "roundedBinary64": -2.0519060067331837e-16
+              },
+              {
+                "denominator": "4503599627370496",
+                "numerator": "2985669675954025",
+                "roundedBinary64": 0.6629518436338577
+              },
+              {
+                "denominator": "4503599627370494",
+                "numerator": "1517929951416471",
+                "roundedBinary64": 0.33704815636614244
+              }
+            ],
+            "orientedVertices": [
+              3,
+              14,
+              11
+            ],
+            "sourceParentTriangle": 5
+          },
+          {
+            "childTriangleIndex": 20,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "2251799813685248",
+                "numerator": "-1138447463562353",
+                "roundedBinary64": -0.5055722345492133
+              },
+              {
+                "denominator": "54086425609737793801992173256704",
+                "numerator": "-108172851219475557546526679457491",
+                "roundedBinary64": -1.9999999999999993
+              },
+              {
+                "denominator": "3002399751580331",
+                "numerator": "10525129206157462",
+                "roundedBinary64": 3.505572234549213
+              }
+            ],
+            "orientedVertices": [
+              19,
+              0,
+              21
+            ],
+            "sourceParentTriangle": 5
+          },
+          {
+            "childTriangleIndex": 21,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "4503599627370496",
+                "numerator": "5262564603078731",
+                "roundedBinary64": 1.168524078183071
+              },
+              {
+                "denominator": "18014398509481984",
+                "numerator": "-6071719805665883",
+                "roundedBinary64": -0.3370481563661422
+              },
+              {
+                "denominator": "9007199254740992",
+                "numerator": "1517929951416471",
+                "roundedBinary64": 0.16852407818307114
+              }
+            ],
+            "orientedVertices": [
+              14,
+              8,
+              19
+            ],
+            "sourceParentTriangle": 5
+          },
+          {
+            "childTriangleIndex": 22,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "108172851219475569589585837031424",
+                "numerator": "108172851219475557546526679457491",
+                "roundedBinary64": 0.9999999999999999
+              },
+              {
+                "denominator": "2251799813685248",
+                "numerator": "-1138447463562353",
+                "roundedBinary64": -0.5055722345492133
+              },
+              {
+                "denominator": "12009599006321322",
+                "numerator": "6071719805665883",
+                "roundedBinary64": 0.5055722345492134
+              }
+            ],
+            "orientedVertices": [
+              14,
+              19,
+              21
+            ],
+            "sourceParentTriangle": 5
+          },
+          {
+            "childTriangleIndex": 23,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "3002399751580331",
+                "numerator": "5971339351908050",
+                "roundedBinary64": 1.988855530901573
+              },
+              {
+                "denominator": "548501519107068701016956912670523718479197241079318130668339200",
+                "numerator": "-1097003038214137230626613573396586022740775428350248265654759879",
+                "roundedBinary64": -1.9999999999999998
+              },
+              {
+                "denominator": "10141204801825834461373687747925",
+                "numerator": "10254223145360598587004657074176",
+                "roundedBinary64": 1.0111444690984266
+              }
+            ],
+            "orientedVertices": [
+              21,
+              0,
+              20
+            ],
+            "sourceParentTriangle": 5
+          },
+          {
+            "childTriangleIndex": 24,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "365667679404712406448736386326065394368064275692070967338598400",
+                "numerator": "365667679404712410208871191132195340913591809450082755218253293",
+                "roundedBinary64": 1.0
+              },
+              {
+                "denominator": "40597267703636186913922088850943991552362918950",
+                "numerator": "-41049702699039917934916454796282107988515700803",
+                "roundedBinary64": -1.0111444690984268
+              },
+              {
+                "denominator": "10141204801825834461373687747925",
+                "numerator": "10254223145360598587004657074176",
+                "roundedBinary64": 1.0111444690984266
+              }
+            ],
+            "orientedVertices": [
+              14,
+              21,
+              20
+            ],
+            "sourceParentTriangle": 5
+          },
+          {
+            "childTriangleIndex": 25,
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "denominator": "4503599627370496",
+                "numerator": "2985669675954025",
+                "roundedBinary64": 0.6629518436338577
+              },
+              {
+                "denominator": "81129638414606702712587266206380",
+                "numerator": "8323519619351131",
+                "roundedBinary64": 1.0259530033665911e-16
+              },
+              {
+                "denominator": "365375409332725824202166025220205404800658964480",
+                "numerator": "123149108097119753804749364388846323965547102409",
+                "roundedBinary64": 0.3370481563661421
+              }
+            ],
+            "orientedVertices": [
+              14,
+              20,
+              11
+            ],
+            "sourceParentTriangle": 5
+          }
+        ],
+        "equivalentChildTriangleIndices": [
+          25
+        ],
+        "exactSelectedWeights": [
+          {
+            "vertex": 11,
+            "weight": {
+              "denominator": "365375409332725824202166025220205404800658964480",
+              "numerator": "123149108097119753804749364388846323965547102409",
+              "roundedBinary64": 0.3370481563661421
+            }
+          },
+          {
+            "vertex": 14,
+            "weight": {
+              "denominator": "4503599627370496",
+              "numerator": "2985669675954025",
+              "roundedBinary64": 0.6629518436338577
+            }
+          },
+          {
+            "vertex": 20,
+            "weight": {
+              "denominator": "81129638414606702712587266206380",
+              "numerator": "8323519619351131",
+              "roundedBinary64": 1.0259530033665911e-16
+            }
+          }
+        ],
+        "memberIndex": 1,
+        "originalParentTriangles": [
+          5
+        ],
+        "originalRow": {
+          "complianceMPerN": 1e-08,
+          "fraction": 0.0,
+          "memberIndex": 1,
+          "registrationId": "bind_opening_left_left",
+          "sourceSamples": [
+            {
+              "arcMm": 0.0,
+              "instanceId": "sleeve_left:shell",
+              "pathName": "opening_left",
+              "restPositionMm": [
+                57.5,
+                495.0
+              ],
+              "weights": [
+                {
+                  "vertex": 152,
+                  "weight": 0.2718446601941749
+                },
+                {
+                  "vertex": 13,
+                  "weight": 0.10452135527194269
+                },
+                {
+                  "vertex": 2,
+                  "weight": 0.6236339845338824
+                }
+              ]
+            },
+            {
+              "arcMm": 0.0,
+              "instanceId": "opening_binding_left_left:shell",
+              "pathName": "right",
+              "restPositionMm": [
+                20.0,
+                0.0
+              ],
+              "weights": [
+                {
+                  "vertex": 3,
+                  "weight": 0.5842620390915355
+                },
+                {
+                  "vertex": 8,
+                  "weight": 0.33147592181692886
+                },
+                {
+                  "vertex": 0,
+                  "weight": 0.08426203909153557
+                }
+              ]
+            }
+          ],
+          "terms": [
+            {
+              "coefficient": -0.08426203909153557,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 0
+            },
+            {
+              "coefficient": -0.5842620390915355,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 3
+            },
+            {
+              "coefficient": -0.33147592181692886,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 8
+            },
+            {
+              "coefficient": 0.6236339845338824,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 2
+            },
+            {
+              "coefficient": 0.10452135527194269,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 13
+            },
+            {
+              "coefficient": 0.2718446601941749,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 152
+            }
+          ]
+        },
+        "originalRowSha256": "886b077e14f4fead0be13b6352684f9be3070e36cf230048628fefc2fcd6378c",
+        "originalWeights": [
+          {
+            "vertex": 0,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "1517929951416471",
+              "roundedBinary64": 0.08426203909153557
+            }
+          },
+          {
+            "vertex": 3,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "5262564603078731",
+              "roundedBinary64": 0.5842620390915355
+            }
+          },
+          {
+            "vertex": 8,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "2985669675954025",
+              "roundedBinary64": 0.33147592181692886
+            }
+          }
+        ],
+        "pullback": {
+          "coefficients": [
+            {
+              "absoluteRoundingBound": {
+                "denominator": "66749594872528457366463087757018117170973158425067741795284465213771918146887984756487157186560",
+                "numerator": "140624744472715110999850155255729150891933430407390068527034202883842687116241",
+                "roundedBinary64": 2.1067505314641364e-18
+              },
+              "binary64MinusSource": {
+                "denominator": "3291009114642412084309938365114701009965471731267159726697218048",
+                "numerator": "-6933335201326208631313192249021703629600429197",
+                "roundedBinary64": -2.1067505314641333e-18
+              },
+              "sourceVertex": 0
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 1
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 2
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "9880924948250983106481095601545396240125160396368331453190957591061829295013888",
+                "numerator": "62449931658255003590465402315648122803693152627402780550618159",
+                "roundedBinary64": 6.320251594392409e-18
+              },
+              "binary64MinusSource": {
+                "denominator": "3291009114642412084309938365114701009965471731267159726697218048",
+                "numerator": "-20800005603978650884472814160914389794959682419",
+                "roundedBinary64": -6.320251594392407e-18
+              },
+              "sourceVertex": 3
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 4
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 5
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 6
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 7
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 8
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 9
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 10
+            }
+          ],
+          "residualL1": {
+            "denominator": "81129638414606681695789005144064",
+            "numerator": "683679635389863",
+            "roundedBinary64": 8.427002125856541e-18
+          },
+          "residualLInfinity": {
+            "denominator": "3291009114642412084309938365114701009965471731267159726697218048",
+            "numerator": "20800005603978650884472814160914389794959682419",
+            "roundedBinary64": 6.320251594392407e-18
+          },
+          "residualSum": {
+            "denominator": "81129638414606681695789005144064",
+            "numerator": "-683679635389863",
+            "roundedBinary64": -8.427002125856541e-18
+          },
+          "roundingBoundL1": {
+            "denominator": "1645504557321206468426280070737395357603616943443359192663982080",
+            "numerator": "13866670402652439687310162593073266913151314803",
+            "roundedBinary64": 8.427002125856544e-18
+          },
+          "roundingBoundLInfinity": {
+            "denominator": "9880924948250983106481095601545396240125160396368331453190957591061829295013888",
+            "numerator": "62449931658255003590465402315648122803693152627402780550618159",
+            "roundedBinary64": 6.320251594392409e-18
+          }
+        },
+        "registrationId": "bind_opening_left_left",
+        "rowId": "row:ebb650cbabb5fe12d86d1054684ed1997984dfd3079eb38f162ff1c86733214f",
+        "rowIndex": 0,
+        "selectedChildTriangleIndex": 25,
+        "selectedNumericalWeights": [
+          {
+            "vertex": 11,
+            "weight": 0.3370481563661421
+          },
+          {
+            "vertex": 14,
+            "weight": 0.6629518436338577
+          },
+          {
+            "vertex": 20,
+            "weight": 1.0259530033665911e-16
+          }
+        ],
+        "sourceFraction": 0.0,
+        "storedCoordinateResidualsMeters": {
+          "binary64MinusExactWeights": [
+            {
+              "denominator": "948568795032094518638574069157955892293517172576397084004674769826293614683095040",
+              "numerator": "-159871825045132828075722557960768174808610832333799520201632627",
+              "roundedBinary64": -1.685400425171309e-19
+            },
+            {
+              "denominator": "46768052394588893382517914646921056628989841375232",
+              "numerator": "3941144769513707060056920959805",
+              "roundedBinary64": 8.427002125856541e-20
+            }
+          ],
+          "binary64WeightsMinusSource": [
+            {
+              "denominator": "46768052394588893382517914646921056628989841375232",
+              "numerator": "24205705201444489982751005392295",
+              "roundedBinary64": 5.175692371625275e-19
+            },
+            {
+              "denominator": "46768052394588893382517914646921056628989841375232",
+              "numerator": "3941144769513707060056920959805",
+              "roundedBinary64": 8.427002125856541e-20
+            }
+          ],
+          "exactWeightsMinusSource": [
+            {
+              "denominator": "210624583337114427958563849054386605773262968760749976660989706240",
+              "numerator": "144511481156255754526692073734313430576077753837",
+              "roundedBinary64": 6.8610927967965835e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ]
+        },
+        "weightRoundingErrors": [
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 14
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "1645504557321206468426280070737395357603616943443359192663982080",
+              "numerator": "3168613958170878743152035916659",
+              "roundedBinary64": 1.9256184639981873e-33
+            },
+            "vertex": 20
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "182687704666362912101083012610102702400329482240",
+              "numerator": "-1539509675591292538887189736107",
+              "roundedBinary64": -8.427002125856543e-18
+            },
+            "vertex": 11
+          }
+        ],
+        "weightSums": {
+          "binary64Derived": {
+            "denominator": "81129638414606681695789005144064",
+            "numerator": "81129638414606676508509742383705",
+            "roundedBinary64": 0.9999999999999999
+          },
+          "binary64DerivedMinusSource": {
+            "denominator": "81129638414606681695789005144064",
+            "numerator": "-683679635389863",
+            "roundedBinary64": -8.427002125856541e-18
+          },
+          "exactDerived": {
+            "denominator": "18014398509481984",
+            "numerator": "18014398509481983",
+            "roundedBinary64": 1.0
+          },
+          "exactDerivedMinusSource": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "source": {
+            "denominator": "18014398509481984",
+            "numerator": "18014398509481983",
+            "roundedBinary64": 1.0
+          }
+        }
+      },
+      {
+        "anchorInstanceId": "opening_binding_left_left:shell",
+        "anchorSign": -1,
+        "candidates": [
+          {
+            "childTriangleIndex": 35,
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "denominator": "9223372036854775808",
+                "numerator": "109",
+                "roundedBinary64": 1.1817803680091998e-17
+              },
+              {
+                "denominator": "4611686018427387904",
+                "numerator": "4605261669386885523",
+                "roundedBinary64": 0.9986069413626965
+              },
+              {
+                "denominator": "4611686018427387904",
+                "numerator": "6424349040502381",
+                "roundedBinary64": 0.0013930586373035695
+              }
+            ],
+            "orientedVertices": [
+              7,
+              17,
+              14
+            ],
+            "sourceParentTriangle": 9
+          },
+          {
+            "childTriangleIndex": 36,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "18014398509481984",
+                "numerator": "8994651698021261",
+                "roundedBinary64": 0.4993034706813482
+              },
+              {
+                "denominator": "1",
+                "numerator": "1",
+                "roundedBinary64": 1.0
+              },
+              {
+                "denominator": "9223372036854775808",
+                "numerator": "-4605261669386885523",
+                "roundedBinary64": -0.4993034706813482
+              }
+            ],
+            "orientedVertices": [
+              7,
+              14,
+              3
+            ],
+            "sourceParentTriangle": 9
+          },
+          {
+            "childTriangleIndex": 37,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "9007199254740992",
+                "numerator": "8994651698021261",
+                "roundedBinary64": 0.9986069413626965
+              },
+              {
+                "denominator": "9223372036854775808",
+                "numerator": "-109",
+                "roundedBinary64": -1.1817803680091998e-17
+              },
+              {
+                "denominator": "4611686018427387904",
+                "numerator": "6424349040502381",
+                "roundedBinary64": 0.0013930586373035695
+              }
+            ],
+            "orientedVertices": [
+              17,
+              8,
+              14
+            ],
+            "sourceParentTriangle": 9
+          }
+        ],
+        "equivalentChildTriangleIndices": [
+          35
+        ],
+        "exactSelectedWeights": [
+          {
+            "vertex": 7,
+            "weight": {
+              "denominator": "9223372036854775808",
+              "numerator": "109",
+              "roundedBinary64": 1.1817803680091998e-17
+            }
+          },
+          {
+            "vertex": 14,
+            "weight": {
+              "denominator": "4611686018427387904",
+              "numerator": "6424349040502381",
+              "roundedBinary64": 0.0013930586373035695
+            }
+          },
+          {
+            "vertex": 17,
+            "weight": {
+              "denominator": "4611686018427387904",
+              "numerator": "4605261669386885523",
+              "roundedBinary64": 0.9986069413626965
+            }
+          }
+        ],
+        "memberIndex": 1,
+        "originalParentTriangles": [
+          9
+        ],
+        "originalRow": {
+          "complianceMPerN": 1e-08,
+          "fraction": 0.25,
+          "memberIndex": 1,
+          "registrationId": "bind_opening_left_left",
+          "sourceSamples": [
+            {
+              "arcMm": 25.168103846448986,
+              "instanceId": "sleeve_left:shell",
+              "pathName": "opening_left",
+              "restPositionMm": [
+                54.595959500000006,
+                470.0
+              ],
+              "weights": [
+                {
+                  "vertex": 12,
+                  "weight": 0.23949898627367164
+                },
+                {
+                  "vertex": 152,
+                  "weight": 0.5971266284308859
+                },
+                {
+                  "vertex": 2,
+                  "weight": 0.16337438529544243
+                }
+              ]
+            },
+            {
+              "arcMm": 25.16810375,
+              "instanceId": "opening_binding_left_left:shell",
+              "pathName": "right",
+              "restPositionMm": [
+                20.0,
+                25.16810375
+              ],
+              "weights": [
+                {
+                  "vertex": 7,
+                  "weight": 0.4993034706813482
+                },
+                {
+                  "vertex": 8,
+                  "weight": 0.5
+                },
+                {
+                  "vertex": 3,
+                  "weight": 0.0006965293186517847
+                }
+              ]
+            }
+          ],
+          "terms": [
+            {
+              "coefficient": -0.0006965293186517847,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 3
+            },
+            {
+              "coefficient": -0.4993034706813482,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 7
+            },
+            {
+              "coefficient": -0.5,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 8
+            },
+            {
+              "coefficient": 0.16337438529544243,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 2
+            },
+            {
+              "coefficient": 0.23949898627367164,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 12
+            },
+            {
+              "coefficient": 0.5971266284308859,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 152
+            }
+          ]
+        },
+        "originalRowSha256": "85c109819fe84c26b3a2e448a385c534e100774a1609ad6337dfe02f2c8be325",
+        "originalWeights": [
+          {
+            "vertex": 3,
+            "weight": {
+              "denominator": "9223372036854775808",
+              "numerator": "6424349040502381",
+              "roundedBinary64": 0.0006965293186517847
+            }
+          },
+          {
+            "vertex": 7,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "8994651698021261",
+              "roundedBinary64": 0.4993034706813482
+            }
+          },
+          {
+            "vertex": 8,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ],
+        "pullback": {
+          "coefficients": [
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 0
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 1
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 2
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 3
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 4
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 5
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 6
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "9223372036854775808",
+                "numerator": "109",
+                "roundedBinary64": 1.1817803680091998e-17
+              },
+              "binary64MinusSource": {
+                "denominator": "9223372036854775808",
+                "numerator": "109",
+                "roundedBinary64": 1.1817803680091998e-17
+              },
+              "sourceVertex": 7
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "9223372036854775808",
+                "numerator": "109",
+                "roundedBinary64": 1.1817803680091998e-17
+              },
+              "binary64MinusSource": {
+                "denominator": "9223372036854775808",
+                "numerator": "109",
+                "roundedBinary64": 1.1817803680091998e-17
+              },
+              "sourceVertex": 8
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 9
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 10
+            }
+          ],
+          "residualL1": {
+            "denominator": "4611686018427387904",
+            "numerator": "109",
+            "roundedBinary64": 2.3635607360183997e-17
+          },
+          "residualLInfinity": {
+            "denominator": "9223372036854775808",
+            "numerator": "109",
+            "roundedBinary64": 1.1817803680091998e-17
+          },
+          "residualSum": {
+            "denominator": "4611686018427387904",
+            "numerator": "109",
+            "roundedBinary64": 2.3635607360183997e-17
+          },
+          "roundingBoundL1": {
+            "denominator": "4611686018427387904",
+            "numerator": "109",
+            "roundedBinary64": 2.3635607360183997e-17
+          },
+          "roundingBoundLInfinity": {
+            "denominator": "9223372036854775808",
+            "numerator": "109",
+            "roundedBinary64": 1.1817803680091998e-17
+          }
+        },
+        "registrationId": "bind_opening_left_left",
+        "rowId": "row:2398836424f08c7f149ecfb882a09cbfdbf82cfa2742629d0c57cc9884532241",
+        "rowIndex": 1,
+        "selectedChildTriangleIndex": 35,
+        "selectedNumericalWeights": [
+          {
+            "vertex": 7,
+            "weight": 1.1817803680091998e-17
+          },
+          {
+            "vertex": 14,
+            "weight": 0.0013930586373035695
+          },
+          {
+            "vertex": 17,
+            "weight": 0.9986069413626965
+          }
+        ],
+        "sourceFraction": 0.25,
+        "storedCoordinateResidualsMeters": {
+          "binary64MinusExactWeights": [
+            {
+              "denominator": "1329227995784915872903807060280344576",
+              "numerator": "628342220010731615",
+              "roundedBinary64": 4.7271214720368e-19
+            },
+            {
+              "denominator": "332306998946228968225951765070086144",
+              "numerator": "197897332887249299",
+              "roundedBinary64": 5.955256239405037e-19
+            }
+          ],
+          "binary64WeightsMinusSource": [
+            {
+              "denominator": "1329227995784915872903807060280344576",
+              "numerator": "1781263724617578591",
+              "roundedBinary64": 1.3400738851920834e-18
+            },
+            {
+              "denominator": "332306998946228968225951765070086144",
+              "numerator": "197897332887249299",
+              "roundedBinary64": 5.955256239405037e-19
+            }
+          ],
+          "exactWeightsMinusSource": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ]
+        },
+        "weightRoundingErrors": [
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 7
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "4611686018427387904",
+              "numerator": "109",
+              "roundedBinary64": 2.3635607360183997e-17
+            },
+            "vertex": 17
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 14
+          }
+        ],
+        "weightSums": {
+          "binary64Derived": {
+            "denominator": "9223372036854775808",
+            "numerator": "9223372036854776135",
+            "roundedBinary64": 1.0
+          },
+          "binary64DerivedMinusSource": {
+            "denominator": "4611686018427387904",
+            "numerator": "109",
+            "roundedBinary64": 2.3635607360183997e-17
+          },
+          "exactDerived": {
+            "denominator": "9223372036854775808",
+            "numerator": "9223372036854775917",
+            "roundedBinary64": 1.0
+          },
+          "exactDerivedMinusSource": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "source": {
+            "denominator": "9223372036854775808",
+            "numerator": "9223372036854775917",
+            "roundedBinary64": 1.0
+          }
+        }
+      },
+      {
+        "anchorInstanceId": "opening_binding_left_left:shell",
+        "anchorSign": -1,
+        "candidates": [
+          {
+            "childTriangleIndex": 38,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "18014398509481984",
+                "numerator": "4503599627370497",
+                "roundedBinary64": 0.25000000000000006
+              },
+              {
+                "denominator": "18014398509481984",
+                "numerator": "-4503599627370501",
+                "roundedBinary64": -0.2500000000000003
+              },
+              {
+                "denominator": "4503599627370496",
+                "numerator": "4503599627370497",
+                "roundedBinary64": 1.0000000000000002
+              }
+            ],
+            "orientedVertices": [
+              7,
+              6,
+              15
+            ],
+            "sourceParentTriangle": 10
+          },
+          {
+            "childTriangleIndex": 39,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "4503599627370496",
+                "numerator": "-1",
+                "roundedBinary64": -2.220446049250313e-16
+              },
+              {
+                "denominator": "9007199254740992",
+                "numerator": "4503599627370493",
+                "roundedBinary64": 0.49999999999999967
+              },
+              {
+                "denominator": "9007199254740992",
+                "numerator": "4503599627370501",
+                "roundedBinary64": 0.5000000000000006
+              }
+            ],
+            "orientedVertices": [
+              7,
+              15,
+              18
+            ],
+            "sourceParentTriangle": 10
+          },
+          {
+            "childTriangleIndex": 40,
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "denominator": "9007199254740992",
+                "numerator": "4503599627370493",
+                "roundedBinary64": 0.49999999999999967
+              },
+              {
+                "denominator": "4503599627370496",
+                "numerator": "1",
+                "roundedBinary64": 2.220446049250313e-16
+              },
+              {
+                "denominator": "9007199254740992",
+                "numerator": "4503599627370497",
+                "roundedBinary64": 0.5000000000000001
+              }
+            ],
+            "orientedVertices": [
+              15,
+              9,
+              18
+            ],
+            "sourceParentTriangle": 10
+          }
+        ],
+        "equivalentChildTriangleIndices": [
+          40
+        ],
+        "exactSelectedWeights": [
+          {
+            "vertex": 9,
+            "weight": {
+              "denominator": "4503599627370496",
+              "numerator": "1",
+              "roundedBinary64": 2.220446049250313e-16
+            }
+          },
+          {
+            "vertex": 15,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "4503599627370493",
+              "roundedBinary64": 0.49999999999999967
+            }
+          },
+          {
+            "vertex": 18,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "4503599627370497",
+              "roundedBinary64": 0.5000000000000001
+            }
+          }
+        ],
+        "memberIndex": 1,
+        "originalParentTriangles": [
+          10
+        ],
+        "originalRow": {
+          "complianceMPerN": 1e-08,
+          "fraction": 0.5,
+          "memberIndex": 1,
+          "registrationId": "bind_opening_left_left",
+          "sourceSamples": [
+            {
+              "arcMm": 50.33620769289797,
+              "instanceId": "sleeve_left:shell",
+              "pathName": "opening_left",
+              "restPositionMm": [
+                51.691919,
+                445.0
+              ],
+              "weights": [
+                {
+                  "vertex": 152,
+                  "weight": 0.10770746620307166
+                },
+                {
+                  "vertex": 12,
+                  "weight": 0.5018358733022742
+                },
+                {
+                  "vertex": 143,
+                  "weight": 0.3904566604946541
+                }
+              ]
+            },
+            {
+              "arcMm": 50.3362075,
+              "instanceId": "opening_binding_left_left:shell",
+              "pathName": "right",
+              "restPositionMm": [
+                20.0,
+                50.3362075
+              ],
+              "weights": [
+                {
+                  "vertex": 7,
+                  "weight": 0.25000000000000006
+                },
+                {
+                  "vertex": 6,
+                  "weight": 0.24999999999999983
+                },
+                {
+                  "vertex": 9,
+                  "weight": 0.5000000000000001
+                }
+              ]
+            }
+          ],
+          "terms": [
+            {
+              "coefficient": -0.24999999999999983,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 6
+            },
+            {
+              "coefficient": -0.25000000000000006,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 7
+            },
+            {
+              "coefficient": -0.5000000000000001,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 9
+            },
+            {
+              "coefficient": 0.5018358733022742,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 12
+            },
+            {
+              "coefficient": 0.3904566604946541,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 143
+            },
+            {
+              "coefficient": 0.10770746620307166,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 152
+            }
+          ]
+        },
+        "originalRowSha256": "e23723f0ef6e3e0fb29c18218cb6497ef64f6fa42356852259948b5d96a4af75",
+        "originalWeights": [
+          {
+            "vertex": 6,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "4503599627370493",
+              "roundedBinary64": 0.24999999999999983
+            }
+          },
+          {
+            "vertex": 7,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "4503599627370497",
+              "roundedBinary64": 0.25000000000000006
+            }
+          },
+          {
+            "vertex": 9,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "4503599627370497",
+              "roundedBinary64": 0.5000000000000001
+            }
+          }
+        ],
+        "pullback": {
+          "coefficients": [
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 0
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 1
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 2
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 3
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 4
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 5
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 6
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 7
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 8
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 9
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 10
+            }
+          ],
+          "residualL1": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "residualLInfinity": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "residualSum": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "roundingBoundL1": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "roundingBoundLInfinity": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        "registrationId": "bind_opening_left_left",
+        "rowId": "row:988798989ceb0ef5c87209d2d68e3023bc45ffea8fe1cf105cb3a88324ecd946",
+        "rowIndex": 2,
+        "selectedChildTriangleIndex": 40,
+        "selectedNumericalWeights": [
+          {
+            "vertex": 9,
+            "weight": 2.220446049250313e-16
+          },
+          {
+            "vertex": 15,
+            "weight": 0.49999999999999967
+          },
+          {
+            "vertex": 18,
+            "weight": 0.5000000000000001
+          }
+        ],
+        "sourceFraction": 0.5,
+        "storedCoordinateResidualsMeters": {
+          "binary64MinusExactWeights": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "binary64WeightsMinusSource": [
+            {
+              "denominator": "5192296858534827628530496329220096",
+              "numerator": "4503599627370495",
+              "roundedBinary64": 8.673617379884034e-19
+            },
+            {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "4503599627370495",
+              "roundedBinary64": 3.4694469519536134e-18
+            }
+          ],
+          "exactWeightsMinusSource": [
+            {
+              "denominator": "5192296858534827628530496329220096",
+              "numerator": "4503599627370495",
+              "roundedBinary64": 8.673617379884034e-19
+            },
+            {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "4503599627370495",
+              "roundedBinary64": 3.4694469519536134e-18
+            }
+          ]
+        },
+        "weightRoundingErrors": [
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 15
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 9
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 18
+          }
+        ],
+        "weightSums": {
+          "binary64Derived": {
+            "denominator": "1",
+            "numerator": "1",
+            "roundedBinary64": 1.0
+          },
+          "binary64DerivedMinusSource": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "exactDerived": {
+            "denominator": "1",
+            "numerator": "1",
+            "roundedBinary64": 1.0
+          },
+          "exactDerivedMinusSource": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "source": {
+            "denominator": "1",
+            "numerator": "1",
+            "roundedBinary64": 1.0
+          }
+        }
+      },
+      {
+        "anchorInstanceId": "opening_binding_left_left:shell",
+        "anchorSign": -1,
+        "candidates": [
+          {
+            "childTriangleIndex": 13,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "1",
+                "numerator": "1",
+                "roundedBinary64": 1.0
+              },
+              {
+                "denominator": "18014398509481984",
+                "numerator": "-12547556719727",
+                "roundedBinary64": -0.0006965293186515509
+              },
+              {
+                "denominator": "2305843009213693952",
+                "numerator": "1606087260125287",
+                "roundedBinary64": 0.0006965293186516511
+              }
+            ],
+            "orientedVertices": [
+              16,
+              6,
+              2
+            ],
+            "sourceParentTriangle": 3
+          },
+          {
+            "childTriangleIndex": 14,
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "denominator": "9007199254740992",
+                "numerator": "8994651698021265",
+                "roundedBinary64": 0.9986069413626969
+              },
+              {
+                "denominator": "2305843009213693952",
+                "numerator": "231",
+                "roundedBinary64": 1.0018028073766061e-16
+              },
+              {
+                "denominator": "9007199254740992",
+                "numerator": "12547556719727",
+                "roundedBinary64": 0.0013930586373031018
+              }
+            ],
+            "orientedVertices": [
+              16,
+              2,
+              13
+            ],
+            "sourceParentTriangle": 3
+          },
+          {
+            "childTriangleIndex": 15,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "2305843009213693952",
+                "numerator": "-231",
+                "roundedBinary64": -1.0018028073766061e-16
+              },
+              {
+                "denominator": "9007199254740992",
+                "numerator": "8994651698021265",
+                "roundedBinary64": 0.9986069413626969
+              },
+              {
+                "denominator": "1152921504606846976",
+                "numerator": "1606087260125287",
+                "roundedBinary64": 0.0013930586373033021
+              }
+            ],
+            "orientedVertices": [
+              10,
+              16,
+              13
+            ],
+            "sourceParentTriangle": 3
+          }
+        ],
+        "equivalentChildTriangleIndices": [
+          14
+        ],
+        "exactSelectedWeights": [
+          {
+            "vertex": 2,
+            "weight": {
+              "denominator": "2305843009213693952",
+              "numerator": "231",
+              "roundedBinary64": 1.0018028073766061e-16
+            }
+          },
+          {
+            "vertex": 13,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "12547556719727",
+              "roundedBinary64": 0.0013930586373031018
+            }
+          },
+          {
+            "vertex": 16,
+            "weight": {
+              "denominator": "9007199254740992",
+              "numerator": "8994651698021265",
+              "roundedBinary64": 0.9986069413626969
+            }
+          }
+        ],
+        "memberIndex": 1,
+        "originalParentTriangles": [
+          3
+        ],
+        "originalRow": {
+          "complianceMPerN": 1e-08,
+          "fraction": 0.75,
+          "memberIndex": 1,
+          "registrationId": "bind_opening_left_left",
+          "sourceSamples": [
+            {
+              "arcMm": 75.50431153934696,
+              "instanceId": "sleeve_left:shell",
+              "pathName": "opening_left",
+              "restPositionMm": [
+                48.7878785,
+                420.0
+              ],
+              "weights": [
+                {
+                  "vertex": 12,
+                  "weight": 0.12938978445158625
+                },
+                {
+                  "vertex": 1,
+                  "weight": 0.39422496958280046
+                },
+                {
+                  "vertex": 143,
+                  "weight": 0.47638524596561344
+                }
+              ]
+            },
+            {
+              "arcMm": 75.50431125,
+              "instanceId": "opening_binding_left_left:shell",
+              "pathName": "right",
+              "restPositionMm": [
+                20.0,
+                75.50431125
+              ],
+              "weights": [
+                {
+                  "vertex": 10,
+                  "weight": 0.5
+                },
+                {
+                  "vertex": 6,
+                  "weight": 0.49930347068134845
+                },
+                {
+                  "vertex": 2,
+                  "weight": 0.0006965293186516511
+                }
+              ]
+            }
+          ],
+          "terms": [
+            {
+              "coefficient": -0.0006965293186516511,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 2
+            },
+            {
+              "coefficient": -0.49930347068134845,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 6
+            },
+            {
+              "coefficient": -0.5,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 10
+            },
+            {
+              "coefficient": 0.39422496958280046,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 1
+            },
+            {
+              "coefficient": 0.12938978445158625,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 12
+            },
+            {
+              "coefficient": 0.47638524596561344,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 143
+            }
+          ]
+        },
+        "originalRowSha256": "7594a90d9347e6b9f0cf6db706a82c518991aa3cf8f2095d2b1cda916027fdfc",
+        "originalWeights": [
+          {
+            "vertex": 2,
+            "weight": {
+              "denominator": "2305843009213693952",
+              "numerator": "1606087260125287",
+              "roundedBinary64": 0.0006965293186516511
+            }
+          },
+          {
+            "vertex": 6,
+            "weight": {
+              "denominator": "18014398509481984",
+              "numerator": "8994651698021265",
+              "roundedBinary64": 0.49930347068134845
+            }
+          },
+          {
+            "vertex": 10,
+            "weight": {
+              "denominator": "2",
+              "numerator": "1",
+              "roundedBinary64": 0.5
+            }
+          }
+        ],
+        "pullback": {
+          "coefficients": [
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 0
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 1
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 2
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 3
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 4
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 5
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 6
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 7
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 8
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 9
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 10
+            }
+          ],
+          "residualL1": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "residualLInfinity": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "residualSum": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "roundingBoundL1": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "roundingBoundLInfinity": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          }
+        },
+        "registrationId": "bind_opening_left_left",
+        "rowId": "row:83f718266ca016b0bb805519df9e4b761a9eb4ec17fcc29452aee530d883357c",
+        "rowIndex": 3,
+        "selectedChildTriangleIndex": 14,
+        "selectedNumericalWeights": [
+          {
+            "vertex": 2,
+            "weight": 1.0018028073766061e-16
+          },
+          {
+            "vertex": 13,
+            "weight": 0.0013930586373031018
+          },
+          {
+            "vertex": 16,
+            "weight": 0.9986069413626969
+          }
+        ],
+        "sourceFraction": 0.75,
+        "storedCoordinateResidualsMeters": {
+          "binary64MinusExactWeights": [
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            }
+          ],
+          "binary64WeightsMinusSource": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "-8994651698021265",
+              "roundedBinary64": -6.9292276178210606e-18
+            }
+          ],
+          "exactWeightsMinusSource": [
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "1",
+              "roundedBinary64": 8.673617379884035e-19
+            },
+            {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "-8994651698021265",
+              "roundedBinary64": -6.9292276178210606e-18
+            }
+          ]
+        },
+        "weightRoundingErrors": [
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 16
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 2
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "1",
+              "numerator": "0",
+              "roundedBinary64": 0.0
+            },
+            "vertex": 13
+          }
+        ],
+        "weightSums": {
+          "binary64Derived": {
+            "denominator": "2305843009213693952",
+            "numerator": "2305843009213694183",
+            "roundedBinary64": 1.0
+          },
+          "binary64DerivedMinusSource": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "exactDerived": {
+            "denominator": "2305843009213693952",
+            "numerator": "2305843009213694183",
+            "roundedBinary64": 1.0
+          },
+          "exactDerivedMinusSource": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "source": {
+            "denominator": "2305843009213693952",
+            "numerator": "2305843009213694183",
+            "roundedBinary64": 1.0
+          }
+        }
+      },
+      {
+        "anchorInstanceId": "opening_binding_left_left:shell",
+        "anchorSign": -1,
+        "candidates": [
+          {
+            "childTriangleIndex": 0,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "562949953421312",
+                "numerator": "373208709494253",
+                "roundedBinary64": 0.6629518436338575
+              },
+              {
+                "denominator": "162259276829213291333983972360192",
+                "numerator": "-17531479781607807",
+                "roundedBinary64": -1.0804608601861724e-16
+              },
+              {
+                "denominator": "18014398509481976",
+                "numerator": "6071719805665887",
+                "roundedBinary64": 0.3370481563661426
+              }
+            ],
+            "orientedVertices": [
+              13,
+              2,
+              12
+            ],
+            "sourceParentTriangle": 0
+          },
+          {
+            "childTriangleIndex": 1,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "216345702438951175207968693026816",
+                "numerator": "-432691404877902269217303488374251",
+                "roundedBinary64": -1.9999999999999996
+              },
+              {
+                "denominator": "1125899906842624",
+                "numerator": "-569223731781177",
+                "roundedBinary64": -0.5055722345492137
+              },
+              {
+                "denominator": "3002399751580331",
+                "numerator": "10525129206157464",
+                "roundedBinary64": 3.5055722345492133
+              }
+            ],
+            "orientedVertices": [
+              1,
+              22,
+              24
+            ],
+            "sourceParentTriangle": 0
+          },
+          {
+            "childTriangleIndex": 2,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "36028797018963968",
+                "numerator": "6071719805665887",
+                "roundedBinary64": 0.16852407818307122
+              },
+              {
+                "denominator": "72057594037927936",
+                "numerator": "-24286879222663551",
+                "roundedBinary64": -0.3370481563661425
+              },
+              {
+                "denominator": "1125899906842624",
+                "numerator": "1315641150769683",
+                "roundedBinary64": 1.1685240781830712
+              }
+            ],
+            "orientedVertices": [
+              22,
+              10,
+              13
+            ],
+            "sourceParentTriangle": 0
+          },
+          {
+            "childTriangleIndex": 3,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "1125899906842624",
+                "numerator": "-569223731781177",
+                "roundedBinary64": -0.5055722345492137
+              },
+              {
+                "denominator": "144230468292634092786114449375232",
+                "numerator": "144230468292634089739101162791417",
+                "roundedBinary64": 1.0
+              },
+              {
+                "denominator": "16012798675095096",
+                "numerator": "8095626407554517",
+                "roundedBinary64": 0.5055722345492137
+              }
+            ],
+            "orientedVertices": [
+              22,
+              13,
+              24
+            ],
+            "sourceParentTriangle": 0
+          },
+          {
+            "childTriangleIndex": 4,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "2194006076428274804067827650682094873916788964317272522673356800",
+                "numerator": "-4388012152856549318329814404039538909279801725561148113294225863",
+                "roundedBinary64": -1.9999999999999998
+              },
+              {
+                "denominator": "3002399751580331",
+                "numerator": "5971339351908048",
+                "roundedBinary64": 1.9888555309015723
+              },
+              {
+                "denominator": "10141204801825834461373687747925",
+                "numerator": "10254223145360607594203911815168",
+                "roundedBinary64": 1.0111444690984275
+              }
+            ],
+            "orientedVertices": [
+              1,
+              24,
+              23
+            ],
+            "sourceParentTriangle": 0
+          },
+          {
+            "childTriangleIndex": 5,
+            "coefficientNonnegative": true,
+            "exactWeights": [
+              {
+                "denominator": "36057617073158528534128170708840",
+                "numerator": "1947942197956423",
+                "roundedBinary64": 5.4023043009308595e-17
+              },
+              {
+                "denominator": "324778141629089567426610857124609000675244769280",
+                "numerator": "215312267764983008516642176512491504985738828307",
+                "roundedBinary64": 0.6629518436338575
+              },
+              {
+                "denominator": "6755399441055745",
+                "numerator": "2276894927124708",
+                "roundedBinary64": 0.33704815636614244
+              }
+            ],
+            "orientedVertices": [
+              24,
+              13,
+              12
+            ],
+            "sourceParentTriangle": 0
+          },
+          {
+            "childTriangleIndex": 6,
+            "coefficientNonnegative": false,
+            "exactWeights": [
+              {
+                "denominator": "3002399751580331",
+                "numerator": "5971339351908048",
+                "roundedBinary64": 1.9888555309015723
+              },
+              {
+                "denominator": "4388012152856551069637292632267486556497678809456164247982571520",
+                "numerator": "4388012152856549318329814404039538909279801725561148113294225863",
+                "roundedBinary64": 0.9999999999999996
+              },
+              {
+                "denominator": "974334424887268972711960620062818029584778847120",
+                "numerator": "-1937810409884847076649779588612423544871649454763",
+                "roundedBinary64": -1.9888555309015719
+              }
+            ],
+            "orientedVertices": [
+              24,
+              12,
+              23
+            ],
+            "sourceParentTriangle": 0
+          }
+        ],
+        "equivalentChildTriangleIndices": [
+          5
+        ],
+        "exactSelectedWeights": [
+          {
+            "vertex": 12,
+            "weight": {
+              "denominator": "6755399441055745",
+              "numerator": "2276894927124708",
+              "roundedBinary64": 0.33704815636614244
+            }
+          },
+          {
+            "vertex": 13,
+            "weight": {
+              "denominator": "324778141629089567426610857124609000675244769280",
+              "numerator": "215312267764983008516642176512491504985738828307",
+              "roundedBinary64": 0.6629518436338575
+            }
+          },
+          {
+            "vertex": 24,
+            "weight": {
+              "denominator": "36057617073158528534128170708840",
+              "numerator": "1947942197956423",
+              "roundedBinary64": 5.4023043009308595e-17
+            }
+          }
+        ],
+        "memberIndex": 1,
+        "originalParentTriangles": [
+          0
+        ],
+        "originalRow": {
+          "complianceMPerN": 1e-08,
+          "fraction": 1.0,
+          "memberIndex": 1,
+          "registrationId": "bind_opening_left_left",
+          "sourceSamples": [
+            {
+              "arcMm": 100.67241538579594,
+              "instanceId": "sleeve_left:shell",
+              "pathName": "opening_left",
+              "restPositionMm": [
+                45.883838,
+                395.0
+              ],
+              "weights": [
+                {
+                  "vertex": 134,
+                  "weight": 0.37850884598952406
+                },
+                {
+                  "vertex": 1,
+                  "weight": 0.6062958506846663
+                },
+                {
+                  "vertex": 125,
+                  "weight": 0.01519530332580969
+                }
+              ]
+            },
+            {
+              "arcMm": 100.672415,
+              "instanceId": "opening_binding_left_left:shell",
+              "pathName": "right",
+              "restPositionMm": [
+                20.0,
+                100.672415
+              ],
+              "weights": [
+                {
+                  "vertex": 1,
+                  "weight": 0.08426203909153561
+                },
+                {
+                  "vertex": 10,
+                  "weight": 0.33147592181692875
+                },
+                {
+                  "vertex": 2,
+                  "weight": 0.5842620390915356
+                }
+              ]
+            }
+          ],
+          "terms": [
+            {
+              "coefficient": -0.08426203909153561,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 1
+            },
+            {
+              "coefficient": -0.5842620390915356,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 2
+            },
+            {
+              "coefficient": -0.33147592181692875,
+              "instanceId": "opening_binding_left_left:shell",
+              "vertex": 10
+            },
+            {
+              "coefficient": 0.6062958506846663,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 1
+            },
+            {
+              "coefficient": 0.01519530332580969,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 125
+            },
+            {
+              "coefficient": 0.37850884598952406,
+              "instanceId": "sleeve_left:shell",
+              "vertex": 134
+            }
+          ]
+        },
+        "originalRowSha256": "862b1636beec59daf41d5946d842943453e7c9226dfe036e3b994e3c686cf32c",
+        "originalWeights": [
+          {
+            "vertex": 1,
+            "weight": {
+              "denominator": "72057594037927936",
+              "numerator": "6071719805665887",
+              "roundedBinary64": 0.08426203909153561
+            }
+          },
+          {
+            "vertex": 2,
+            "weight": {
+              "denominator": "2251799813685248",
+              "numerator": "1315641150769683",
+              "roundedBinary64": 0.5842620390915356
+            }
+          },
+          {
+            "vertex": 10,
+            "weight": {
+              "denominator": "1125899906842624",
+              "numerator": "373208709494253",
+              "roundedBinary64": 0.33147592181692875
+            }
+          }
+        ],
+        "pullback": {
+          "coefficients": [
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 0
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "9873027343927237714431452426247021233581247910084498836024197120",
+                "numerator": "13866670402652314520806163487450586820965072491",
+                "roundedBinary64": 1.4045003543094116e-18
+              },
+              "binary64MinusSource": {
+                "denominator": "1461501637330902918203684832716283019655932542976",
+                "numerator": "-2052679567455034620431620080021",
+                "roundedBinary64": -1.404500354309409e-18
+              },
+              "sourceVertex": 1
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "2923003274661805836407369665432566039311865085952",
+                "numerator": "38634332675297662373505230668181",
+                "roundedBinary64": 1.3217341564479666e-17
+              },
+              "binary64MinusSource": {
+                "denominator": "2923003274661805836407369665432566039311865085952",
+                "numerator": "14002177865837209933691314995605",
+                "roundedBinary64": 4.7903394386232e-18
+              },
+              "sourceVertex": 2
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 3
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 4
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 5
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 6
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 7
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 8
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "binary64MinusSource": {
+                "denominator": "1",
+                "numerator": "0",
+                "roundedBinary64": 0.0
+              },
+              "sourceVertex": 9
+            },
+            {
+              "absoluteRoundingBound": {
+                "denominator": "2923003274661805836407369665432566039311865085952",
+                "numerator": "26318255270567436153598272831893",
+                "roundedBinary64": 9.003840501551433e-18
+              },
+              "binary64MinusSource": {
+                "denominator": "2923003274661805836407369665432566039311865085952",
+                "numerator": "26318255270567436153598272831893",
+                "roundedBinary64": 9.003840501551433e-18
+              },
+              "sourceVertex": 10
+            }
+          ],
+          "residualL1": {
+            "denominator": "730750818665451459101842416358141509827966271488",
+            "numerator": "11106448067828678832038206996885",
+            "roundedBinary64": 1.5198680294484044e-17
+          },
+          "residualLInfinity": {
+            "denominator": "2923003274661805836407369665432566039311865085952",
+            "numerator": "26318255270567436153598272831893",
+            "roundedBinary64": 9.003840501551433e-18
+          },
+          "residualSum": {
+            "denominator": "162259276829213363391578010288128",
+            "numerator": "2010340449748159",
+            "roundedBinary64": 1.2389679585865224e-17
+          },
+          "roundingBoundL1": {
+            "denominator": "1096126227998177350912040453750575656319959695360",
+            "numerator": "25896730155290694547657287959743",
+            "roundedBinary64": 2.362568242034051e-17
+          },
+          "roundingBoundLInfinity": {
+            "denominator": "2923003274661805836407369665432566039311865085952",
+            "numerator": "38634332675297662373505230668181",
+            "roundedBinary64": 1.3217341564479666e-17
+          }
+        },
+        "registrationId": "bind_opening_left_left",
+        "rowId": "row:b1b8806ca48f276a8884a668a6efea58d5e37382188592cfbda73bc3b9a29901",
+        "rowIndex": 4,
+        "selectedChildTriangleIndex": 5,
+        "selectedNumericalWeights": [
+          {
+            "vertex": 12,
+            "weight": 0.33704815636614244
+          },
+          {
+            "vertex": 13,
+            "weight": 0.6629518436338575
+          },
+          {
+            "vertex": 24,
+            "weight": 5.4023043009308595e-17
+          }
+        ],
+        "sourceFraction": 1.0,
+        "storedCoordinateResidualsMeters": {
+          "binary64MinusExactWeights": [
+            {
+              "denominator": "28105742075025018093929972335471184041193432670342439902361724695535177430990848",
+              "numerator": "6964422776650614008897900229709529328156777057832003625779197",
+              "roundedBinary64": 2.4779359171730443e-19
+            },
+            {
+              "denominator": "6587283298833988615764837266126058759654710782111509352116029225516057210388480",
+              "numerator": "7243159114010386517874127994071257145112823896204649696061751",
+              "roundedBinary64": 1.0995669664446486e-18
+            }
+          ],
+          "binary64WeightsMinusSource": [
+            {
+              "denominator": "93536104789177786765035829293842113257979682750464",
+              "numerator": "87353636841900339503697362060479",
+              "roundedBinary64": 9.339028713969628e-19
+            },
+            {
+              "denominator": "1461501637330902918203684832716283019655932542976",
+              "numerator": "1607018921813827600314028418867",
+              "roundedBinary64": 1.0995669664446484e-18
+            }
+          ],
+          "exactWeightsMinusSource": [
+            {
+              "denominator": "12481456790347519578223677221494007501509241406952828113912856576",
+              "numerator": "8563643327778117454764844061074196244554361997",
+              "roundedBinary64": 6.8610927967965835e-19
+            },
+            {
+              "denominator": "5850682870475399802292348697575316016332456909509138178396651520",
+              "numerator": "-1285687102693421283267937001159",
+              "roundedBinary64": -2.1974992170255027e-34
+            }
+          ]
+        },
+        "weightRoundingErrors": [
+          {
+            "binary64MinusExact": {
+              "denominator": "731335358809424975286543587196914502041557113688642272299581440",
+              "numerator": "1401712164950846465971741294547",
+              "roundedBinary64": 1.916647606417881e-33
+            },
+            "vertex": 24
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "324778141629089567426610857124609000675244769280",
+              "numerator": "5848501171237208367732921916013",
+              "roundedBinary64": 1.8007681003102866e-17
+            },
+            "vertex": 13
+          },
+          {
+            "binary64MinusExact": {
+              "denominator": "121694457621910040558082017198080",
+              "numerator": "-683679635389857",
+              "roundedBinary64": -5.618001417237644e-18
+            },
+            "vertex": 12
+          }
+        ],
+        "weightSums": {
+          "binary64Derived": {
+            "denominator": "162259276829213363391578010288128",
+            "numerator": "162259276829213363150118646351039",
+            "roundedBinary64": 1.0
+          },
+          "binary64DerivedMinusSource": {
+            "denominator": "162259276829213363391578010288128",
+            "numerator": "2010340449748159",
+            "roundedBinary64": 1.2389679585865224e-17
+          },
+          "exactDerived": {
+            "denominator": "72057594037927936",
+            "numerator": "72057594037927935",
+            "roundedBinary64": 1.0
+          },
+          "exactDerivedMinusSource": {
+            "denominator": "1",
+            "numerator": "0",
+            "roundedBinary64": 0.0
+          },
+          "source": {
+            "denominator": "72057594037927936",
+            "numerator": "72057594037927935",
+            "roundedBinary64": 1.0
+          }
+        }
+      }
+    ],
+    "scope": "Five source-bound approximate binding-side seam anchors only; original seam rows remain immutable. No canonical mesh, executable source profile, normal frame, gripper, placement, control or construction completion is supplied.",
+    "selectionPolicy": "Exhaust original-parent children in exact source coefficient space; exclude every negative weight. Multiple candidates must have identical exact sparse refined-vertex operators. The least equivalent child index is an anchor identity only, never a frame-side choice.",
+    "solverReady": false,
+    "sourceProfile": "source-cuff-construction-unit-v1",
+    "sourceUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c"
+  },
+  "globalIndices": {
+    "cuff_left:facing": {
+      "vertexOffset": 20,
+      "triangleOffset": 24,
+      "vertices": 20,
+      "triangles": 24
+    },
+    "cuff_left:shell": {
+      "vertexOffset": 0,
+      "triangleOffset": 0,
+      "vertices": 20,
+      "triangles": 24
+    },
+    "opening_binding_left_left:shell": {
+      "vertexOffset": 40,
+      "triangleOffset": 48,
+      "vertices": 29,
+      "triangles": 44
+    },
+    "opening_binding_left_right:shell": {
+      "vertexOffset": 69,
+      "triangleOffset": 92,
+      "vertices": 11,
+      "triangles": 12
+    },
+    "sleeve_left:shell": {
+      "vertexOffset": 80,
+      "triangleOffset": 104,
+      "vertices": 165,
+      "triangles": 294
+    }
+  },
+  "sourceRowCorrespondence": [
+    {
+      "bindingAnchorRemapped": true,
+      "fraction": 0.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "9b5f5b81cbe6dddf54dc7858acde1b8eb6e65d910cb45fa169c51afb8f697e93",
+      "originalRowSha256": "886b077e14f4fead0be13b6352684f9be3070e36cf230048628fefc2fcd6378c",
+      "registrationId": "bind_opening_left_left",
+      "rowIndex": 0
+    },
+    {
+      "bindingAnchorRemapped": true,
+      "fraction": 0.25,
+      "memberIndex": 1,
+      "numericalRowSha256": "32d80f7c939f1c9886e1fe4d8f0b97fe9a6c14beabaef9a0d43e16fa6a1e878f",
+      "originalRowSha256": "85c109819fe84c26b3a2e448a385c534e100774a1609ad6337dfe02f2c8be325",
+      "registrationId": "bind_opening_left_left",
+      "rowIndex": 1
+    },
+    {
+      "bindingAnchorRemapped": true,
+      "fraction": 0.5,
+      "memberIndex": 1,
+      "numericalRowSha256": "43bc543d7792dd3bac01ba69d739b8901aa2ab8395a7019c2654b15507bbbd78",
+      "originalRowSha256": "e23723f0ef6e3e0fb29c18218cb6497ef64f6fa42356852259948b5d96a4af75",
+      "registrationId": "bind_opening_left_left",
+      "rowIndex": 2
+    },
+    {
+      "bindingAnchorRemapped": true,
+      "fraction": 0.75,
+      "memberIndex": 1,
+      "numericalRowSha256": "6c417e46dac6ee3458ad80e2e13bf518721dffaaa21bd664e72f31967e7ad481",
+      "originalRowSha256": "7594a90d9347e6b9f0cf6db706a82c518991aa3cf8f2095d2b1cda916027fdfc",
+      "registrationId": "bind_opening_left_left",
+      "rowIndex": 3
+    },
+    {
+      "bindingAnchorRemapped": true,
+      "fraction": 1.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "0902fd0596daa3a63c274c40e5bb9d2cccb7c2b9a8387dd5d4680332998a170f",
+      "originalRowSha256": "862b1636beec59daf41d5946d842943453e7c9226dfe036e3b994e3c686cf32c",
+      "registrationId": "bind_opening_left_left",
+      "rowIndex": 4
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "f46deb5e47edbc71a314959d1be15dee20aad2c7f5e1a4f824192d838f1d550e",
+      "originalRowSha256": "f46deb5e47edbc71a314959d1be15dee20aad2c7f5e1a4f824192d838f1d550e",
+      "registrationId": "bind_opening_left_right",
+      "rowIndex": 5
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.25,
+      "memberIndex": 1,
+      "numericalRowSha256": "4c9c09178943f8a598eeb58a8d108f6baba68deaaa4e193107a52477a8f534da",
+      "originalRowSha256": "4c9c09178943f8a598eeb58a8d108f6baba68deaaa4e193107a52477a8f534da",
+      "registrationId": "bind_opening_left_right",
+      "rowIndex": 6
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.5,
+      "memberIndex": 1,
+      "numericalRowSha256": "91d7037920e16f604e1a3b6aa3950441e454351fad84713e56f9afebbbe5416b",
+      "originalRowSha256": "91d7037920e16f604e1a3b6aa3950441e454351fad84713e56f9afebbbe5416b",
+      "registrationId": "bind_opening_left_right",
+      "rowIndex": 7
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.75,
+      "memberIndex": 1,
+      "numericalRowSha256": "366a8474bb5a2a11e899985352ce7312d5c5659dd872353543de7e9c57c1061b",
+      "originalRowSha256": "366a8474bb5a2a11e899985352ce7312d5c5659dd872353543de7e9c57c1061b",
+      "registrationId": "bind_opening_left_right",
+      "rowIndex": 8
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 1.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "81e53be5e1c8ac8dd14d36f401ec2c3f543767f581b0e13143ac82dedc8260a5",
+      "originalRowSha256": "81e53be5e1c8ac8dd14d36f401ec2c3f543767f581b0e13143ac82dedc8260a5",
+      "registrationId": "bind_opening_left_right",
+      "rowIndex": 9
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "f537627bf3cae771c3e50a20968a2e5c0edbf6e8f9b6e9bc762192b7f8a09923",
+      "originalRowSha256": "f537627bf3cae771c3e50a20968a2e5c0edbf6e8f9b6e9bc762192b7f8a09923",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 10
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.0,
+      "memberIndex": 2,
+      "numericalRowSha256": "5252fca92a398d9f55e84677cae3c302fcfc3fbdb74057db660c842e5c405dfc",
+      "originalRowSha256": "5252fca92a398d9f55e84677cae3c302fcfc3fbdb74057db660c842e5c405dfc",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 11
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.25,
+      "memberIndex": 1,
+      "numericalRowSha256": "4e02fbeed078477fd982034a31ccd688db7dcd88a0499834cd4231b4e946cc3b",
+      "originalRowSha256": "4e02fbeed078477fd982034a31ccd688db7dcd88a0499834cd4231b4e946cc3b",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 12
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.25,
+      "memberIndex": 2,
+      "numericalRowSha256": "812704e36a350e4b42c9c1791cc6ae34feb8e4de6d3ed110a01465eb6bd832e5",
+      "originalRowSha256": "812704e36a350e4b42c9c1791cc6ae34feb8e4de6d3ed110a01465eb6bd832e5",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 13
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.5,
+      "memberIndex": 1,
+      "numericalRowSha256": "d84cf1f424a976c46c97651b394613614b10f314b5bf7567608fde3273422744",
+      "originalRowSha256": "d84cf1f424a976c46c97651b394613614b10f314b5bf7567608fde3273422744",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 14
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.5,
+      "memberIndex": 2,
+      "numericalRowSha256": "0ba93ddf27afc4382e830f344c0dcac49a2977e67767e33a32e4969417acb265",
+      "originalRowSha256": "0ba93ddf27afc4382e830f344c0dcac49a2977e67767e33a32e4969417acb265",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 15
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.75,
+      "memberIndex": 1,
+      "numericalRowSha256": "f5bf73b6f462aa208d1208a6ba782f756041c11fe3c779585de517d1d9599815",
+      "originalRowSha256": "f5bf73b6f462aa208d1208a6ba782f756041c11fe3c779585de517d1d9599815",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 16
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.75,
+      "memberIndex": 2,
+      "numericalRowSha256": "f93a9a4c0c242312e1d14f049d42687d362f0caefb13c4ac84f22e9bd85cb679",
+      "originalRowSha256": "f93a9a4c0c242312e1d14f049d42687d362f0caefb13c4ac84f22e9bd85cb679",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 17
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 1.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "53a95240727c5b0914e8c6cd5d43f5face0c05c001dea26345cce0ce9baa7eb8",
+      "originalRowSha256": "53a95240727c5b0914e8c6cd5d43f5face0c05c001dea26345cce0ce9baa7eb8",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 18
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 1.0,
+      "memberIndex": 2,
+      "numericalRowSha256": "9cdc49f1f07eed229589f375b9b1bd74b9c7a451fdf0f9732f9255eecbab2d9a",
+      "originalRowSha256": "9cdc49f1f07eed229589f375b9b1bd74b9c7a451fdf0f9732f9255eecbab2d9a",
+      "registrationId": "cuff_gather_left",
+      "rowIndex": 19
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "a2e98cbc4e0acec4ff3ff44231c47aa12ee3713b5ab00f69ee33dca855c9bba7",
+      "originalRowSha256": "a2e98cbc4e0acec4ff3ff44231c47aa12ee3713b5ab00f69ee33dca855c9bba7",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowIndex": 20
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.25,
+      "memberIndex": 1,
+      "numericalRowSha256": "1dc2ae20b953e45427549ddb8b06a35ffa5e042a9ff2cb3f5c918a6e2d0bc82b",
+      "originalRowSha256": "1dc2ae20b953e45427549ddb8b06a35ffa5e042a9ff2cb3f5c918a6e2d0bc82b",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowIndex": 21
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.5,
+      "memberIndex": 1,
+      "numericalRowSha256": "0d9c9a9c25aec90037df2174e95148ca69e3c0272055c0887a1791324e872082",
+      "originalRowSha256": "0d9c9a9c25aec90037df2174e95148ca69e3c0272055c0887a1791324e872082",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowIndex": 22
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.75,
+      "memberIndex": 1,
+      "numericalRowSha256": "fac179d32bb6e576bad681c5210011cbb104677a12723d2eda8be1fc527c1740",
+      "originalRowSha256": "fac179d32bb6e576bad681c5210011cbb104677a12723d2eda8be1fc527c1740",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowIndex": 23
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 1.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "635a7ae1567b169d303b307ac4bdbc52e583d0816e722f72356b19b13a927bcf",
+      "originalRowSha256": "635a7ae1567b169d303b307ac4bdbc52e583d0816e722f72356b19b13a927bcf",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowIndex": 24
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "57ed687988c125924332a2272dcde15117f7ce7a97a96bce9324acab33b4aab6",
+      "originalRowSha256": "57ed687988c125924332a2272dcde15117f7ce7a97a96bce9324acab33b4aab6",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowIndex": 25
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.25,
+      "memberIndex": 1,
+      "numericalRowSha256": "2a0c647e19abbe4ce559b2c62e268bbb823246f5f7fa6b56950fba2aadb9ab6c",
+      "originalRowSha256": "2a0c647e19abbe4ce559b2c62e268bbb823246f5f7fa6b56950fba2aadb9ab6c",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowIndex": 26
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.5,
+      "memberIndex": 1,
+      "numericalRowSha256": "75be8a77c477fadd44bdc80a68e73531e96ad9c46c4889e80c73b26be4d9eedc",
+      "originalRowSha256": "75be8a77c477fadd44bdc80a68e73531e96ad9c46c4889e80c73b26be4d9eedc",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowIndex": 27
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.75,
+      "memberIndex": 1,
+      "numericalRowSha256": "b0b0ecdc7e6741ae403f852d2ba4c0c85165377251566ff1a7121bd8f124f9af",
+      "originalRowSha256": "b0b0ecdc7e6741ae403f852d2ba4c0c85165377251566ff1a7121bd8f124f9af",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowIndex": 28
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 1.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "bce76d907dbb76ab7ec7a90c34d25d4e1291846e93ab713947d61c1a42d3f8de",
+      "originalRowSha256": "bce76d907dbb76ab7ec7a90c34d25d4e1291846e93ab713947d61c1a42d3f8de",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowIndex": 29
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "11f30079602cbbffd837e950448fa4c652b16200cbd92c8766476c1228d66407",
+      "originalRowSha256": "11f30079602cbbffd837e950448fa4c652b16200cbd92c8766476c1228d66407",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowIndex": 30
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.25,
+      "memberIndex": 1,
+      "numericalRowSha256": "ac7b6acaf526f2c22692fe50b12eea3e0fa864f5aa6c0a814bf6c0493ac6a32f",
+      "originalRowSha256": "ac7b6acaf526f2c22692fe50b12eea3e0fa864f5aa6c0a814bf6c0493ac6a32f",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowIndex": 31
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.5,
+      "memberIndex": 1,
+      "numericalRowSha256": "0e96650e9ec8a45690ae296ee29d86a50c129b94066eb5abe981d1eb2c48c06d",
+      "originalRowSha256": "0e96650e9ec8a45690ae296ee29d86a50c129b94066eb5abe981d1eb2c48c06d",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowIndex": 32
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.75,
+      "memberIndex": 1,
+      "numericalRowSha256": "c8145be9b9978dd3652cb610e9453924e330af9b0f13402b8e3aee141ae226fb",
+      "originalRowSha256": "c8145be9b9978dd3652cb610e9453924e330af9b0f13402b8e3aee141ae226fb",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowIndex": 33
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 1.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "85d6c5d8d32c6410e2a19628d4c70852c6406543d05a20ea1924404cac3ef78a",
+      "originalRowSha256": "85d6c5d8d32c6410e2a19628d4c70852c6406543d05a20ea1924404cac3ef78a",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowIndex": 34
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "42c86c7dddeb1aabecb4f03b04f9769a6453a5802e152de133ca3864f0c652ca",
+      "originalRowSha256": "42c86c7dddeb1aabecb4f03b04f9769a6453a5802e152de133ca3864f0c652ca",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowIndex": 35
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.25,
+      "memberIndex": 1,
+      "numericalRowSha256": "b9a6b985017affe9f0bb1bb4adc48012a7aa38609ffcbf3e9152ef7831fdcd15",
+      "originalRowSha256": "b9a6b985017affe9f0bb1bb4adc48012a7aa38609ffcbf3e9152ef7831fdcd15",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowIndex": 36
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.5,
+      "memberIndex": 1,
+      "numericalRowSha256": "c9a80e35427c0a59aa68a6aa63b282ba0ad81abe482e5ebadc7b7a592a02e15e",
+      "originalRowSha256": "c9a80e35427c0a59aa68a6aa63b282ba0ad81abe482e5ebadc7b7a592a02e15e",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowIndex": 37
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 0.75,
+      "memberIndex": 1,
+      "numericalRowSha256": "1c80993a5b075727c933a97c06ebd7d18f5f9b6cd0532394419c1e5925ceba54",
+      "originalRowSha256": "1c80993a5b075727c933a97c06ebd7d18f5f9b6cd0532394419c1e5925ceba54",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowIndex": 38
+    },
+    {
+      "bindingAnchorRemapped": false,
+      "fraction": 1.0,
+      "memberIndex": 1,
+      "numericalRowSha256": "4388f838c21859b866f21f62964e4feb5fe3b3378787cb12a975cdb82a2a3e78",
+      "originalRowSha256": "4388f838c21859b866f21f62964e4feb5fe3b3378787cb12a975cdb82a2a3e78",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowIndex": 39
+    }
+  ],
+  "entrypointStatus": "Runner/main-replay proposal remains unapplied after automatic approval rejection; explicit authorization and integration verification are still required.",
+  "limitations": [
+    "The exact original source rows are immutable; derived binary64 coefficients are explicitly measured approximations.",
+    "Child identity is selected by source-coefficient correspondence, not flat point containment, and does not infer a crease-side normal frame.",
+    "Actual compatible platform source coefficients can differ; this retained evidence uses pinned Linux and is not a cross-platform coefficient relaxation.",
+    "Refinement geometry uses the existing tolerance-based splitter; this is not an exact-real cut-domain proof.",
+    "Independent arithmetic audit does not rederive source pattern or split geometry; the separate strict source binder does.",
+    "Raw synthetic unit and local source snapshots remain ignored artifacts; this ledger cannot reconstruct a simulation or its trajectory."
+  ]
+}

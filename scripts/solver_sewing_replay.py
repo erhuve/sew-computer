@@ -16,6 +16,7 @@ import numpy as np
 
 PROFILE = "independent-captured-sewing-replay-v1"
 INPUT_PROFILE = "captured-sewing-activation-v1"
+REFINED_PROFILE = "source-left-binding-refined-unit-v1"
 GEOMETRY_SAMPLER = "binary64 sorted CSR fused-multiply-add sampled anchors; verified on pinned macOS ARM and Linux ARM, not a universal sparse-backend guarantee"
 METRIC = "Unweighted maximum absolute Cartesian component per active vector/normal row; absolute scalar-distance error in distance mode; pending rows excluded"
 LIMITATIONS = "Per-row energy weights, not completed construction phases or continuous seam coverage; parameter work requires adjacent controls"
@@ -116,7 +117,7 @@ def _fraction(value):
 class SewingRecord:
     __slots__ = ("vertex_count", "faces", "rows", "row_ids", "mode", "compliance", "initial_targets",
                  "final_targets", "fractions", "activation", "frames", "sides", "source_sha256",
-                 "recipe_json", "binding_json", "cuff")
+                 "recipe_json", "binding_json", "cuff", "refined_verification_json")
 
     def __setattr__(self, name, value):
         raise AttributeError("Independent sewing bindings are immutable")
@@ -125,19 +126,38 @@ class SewingRecord:
         raise AttributeError("Independent sewing bindings are immutable")
 
 
-def derive_sewing(source, subdivisions, *, sewing_mode):
+def derive_sewing(source, subdivisions, *, sewing_mode, refined_source_verifier=None):
     """Independently bind complete source JSON, ordered rows and all controls."""
     if (type(source) is not dict or type(subdivisions) is not int or not 1 <= subdivisions <= 4096
             or subdivisions & (subdivisions - 1) or sewing_mode not in ("vector", "distance", "normal-offset")):
         raise ValueError("Canonical sewing source, mode and bounded subdivisions required")
-    _source_json(source)
+    source_json = _source_json(source)
     digest = _sha({key: value for key, value in source.items() if key != "sewingActuation"})
     recipe = source.get("sewingActuation")
     if (type(recipe) is not dict or set(recipe) != {"profile", "accepted", "sourceSha256", "mode",
             "initialTargetsMeters", "finalTargetsMeters", "schedule"} or recipe["profile"] != INPUT_PROFILE
             or recipe["accepted"] is not False or recipe["sourceSha256"] != digest or recipe["mode"] != sewing_mode):
         raise ValueError("Sewing recipe differs from full captured source identity")
-    cuff = source.get("profile") == "source-cuff-construction-unit-v1"
+    profile = source.get("profile")
+    refined_claim = (type(profile) is str and profile.startswith("source-left-binding-")
+                     or bool({"baseUnit", "bindingRefinement", "bindingSeamRemap"}.intersection(source)))
+    refined = profile == REFINED_PROFILE
+    if refined_claim and not refined:
+        raise ValueError("Refined cuff source cannot downgrade to another source profile")
+    if refined and sewing_mode == "normal-offset":
+        raise ValueError("Refined cuff normal-offset sewing has no declared crease-side frame policy")
+    refined_evidence = None
+    if refined:
+        if not callable(refined_source_verifier):
+            raise ValueError("Current independent refined-source remap verifier required")
+        refined_evidence = refined_source_verifier(source)
+        if _source_json(source) != source_json:
+            raise ValueError("Independent refined-source audit changed its input")
+        if (type(refined_evidence) is not dict or refined_evidence.get("verified") is not True
+                or refined_evidence.get("accepted") is not False or refined_evidence.get("sourceSha256") != digest):
+            raise ValueError("Independent refined-source evidence must bind this complete source")
+        _source_json(refined_evidence)
+    cuff = profile == "source-cuff-construction-unit-v1" or refined
     cuff_keys = {"sourcePattern", "sourceConstruction", "sourceInventory", "sourceAssembly", "phasePlan",
                  "phaseConstraintRows", "selectedOperationIds", "excludedOperationIds",
                  "unexecutedOtherOperationsTouchingUnit", "unexecutedClosuresTouchingUnit"}
@@ -341,7 +361,8 @@ def derive_sewing(source, subdivisions, *, sewing_mode):
         "mode": sewing_mode, "rowIds": ids, "rowBindings": bindings, "complianceMPerN": compliance,
         "sourceBundleSha256": _sha(bundle), "frameBindings": frame_bindings,
         "sourceFrameMetadataUsed": sewing_mode == "normal-offset",
-        "sourceBindingScope": "rederived cuff construction source" if cuff else "captured canonical JSON only; no pattern-source proof",
+        "sourceBindingScope": ("rederived refined cuff source with recorded coefficient approximation" if refined else
+                               "rederived cuff construction source" if cuff else "captured canonical JSON only; no pattern-source proof"),
         "constructionStatus": CONSTRUCTION, "scope": BINDING_SCOPE}
     record = SewingRecord()
     freeze_target = lambda values: tuple(tuple(row) for row in values) if values.ndim == 2 else tuple(values)
@@ -349,7 +370,7 @@ def derive_sewing(source, subdivisions, *, sewing_mode):
             row_ids=tuple(ids), mode=sewing_mode, compliance=compliance, initial_targets=freeze_target(initial),
             final_targets=freeze_target(final), fractions=tuple(fractions), activation=tuple(activation),
             frames=tuple(frame_faces), sides=tuple(frame_sides), source_sha256=digest, recipe_json=_json(recipe),
-            binding_json=_json(expected_binding), cuff=cuff).items():
+            binding_json=_json(expected_binding), cuff=cuff, refined_verification_json=_json(refined_evidence)).items():
         object.__setattr__(record, key, value)
     return record
 
@@ -521,10 +542,13 @@ def verify_initial(record, initial, report):
     _reported_errors(report.get("initialSewingRowTargetErrorsM"), errors, scales, "initial active error")
     if report.get("initialSewingTargetErrorMetric") != METRIC:
         raise ValueError("Initial sewing errors require unweighted active-row metric")
-    return {"profile": PROFILE, "accepted": False, "verified": True, "sourceSha256": record.source_sha256,
+    evidence = {"profile": PROFILE, "accepted": False, "verified": True, "sourceSha256": record.source_sha256,
         "rowCount": len(record.rows), "initialEnergyJoules": sampled_energy,
         "initialOriginalInputEnergyJoules": energy, "geometrySampler": GEOMETRY_SAMPLER,
         "sourceScope": "Canonical JSON/source rows independently bound; cuff pattern/engine rederivation is checked separately by the captured source binder"}
+    if record.refined_verification_json != "null":
+        evidence["refinedSourceVerification"] = json.loads(record.refined_verification_json)
+    return evidence
 
 
 def verify_sewing_step(record, previous, positions, start_fraction, end_fraction, old_targets, new_targets, step):
