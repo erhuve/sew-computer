@@ -16,6 +16,204 @@ _CABLE_SCOPE = (
     "Existing non-cable constitutive, geometric and work errors are not certified by these bounds. "
     "No continuous work, path, physical damping, source admission or garment acceptance is certified."
 )
+_VARYING_SCALARS = {
+    "cableTargetParameterWorkJoules": "targetWorkJoules",
+    "cableActivationParameterWorkJoules": "activationWorkJoules",
+    "cableParameterWorkJoules": "totalWorkJoules",
+    "cableActivationIncreaseWorkJoules": "activationIncreaseWorkJoules",
+    "cableReleaseEnergyRemovedJoules": "releaseEnergyRemovedJoules",
+}
+_VARYING_SUMS = _CABLE_SUMS + ("targetParameterWorkJoules", "externalParameterWorkJoules", "cableChangeJoules")
+# Public scalar fields emitted for every global energy transition. Internal
+# fixed-motion/activation summands remain conditional on their older route.
+# This completeness gate applies only to the new varying-cable publication.
+_VARYING_BASE_SCALARS = (
+    "membraneChangeJoules", "bendingChangeJoules", "bendingBeforeJoules", "bendingAfterJoules",
+    "foldBarrierChangeJoules", "foldBarrierBeforeJoules", "foldBarrierAfterJoules",
+    "contactChangeJoules", "contactBeforeJoules", "contactAfterJoules", "kineticChangeJoules",
+    "sewingChangeJoules", "sewingBeforeJoules", "sewingAfterJoules",
+    "foldActuationChangeJoules", "foldActuationBeforeJoules", "foldActuationAfterJoules",
+    "foldTargetParameterWorkJoules", "gripperBeforeJoules", "gripperAfterJoules",
+    "gripperFixedPositionAfterJoules", "gripperFixedParameterChangeJoules", "gripperChangeJoules",
+    "gripperParameterWorkJoules", "gripperTargetParameterWorkJoules", "gripperActivationParameterWorkJoules",
+    "gripperActivationIncreaseWorkJoules", "gripperReleaseEnergyRemovedJoules",
+    "gripperParameterWorkComponentSumErrorBoundJoules", "targetParameterWorkJoules", "externalParameterWorkJoules",
+    "mechanicalChangeJoules", "mechanicalChangeMinusTargetWorkJoules", "mechanicalChangeMinusParameterWorkJoules",
+)
+_VARYING_SCOPE = (
+    "Varying cable work changes targets first at old activation, then activation at the new targets, "
+    "at the previous positions; fixed motion uses the new parameters. Direct total parameter work "
+    "is retained independently of rounded components. Mechanical change uses parameter plus motion "
+    "work; the target-work remainder uses activation plus motion work and the parameter-work "
+    "remainder uses motion work alone. Bounds include only the applicable certified cable errors "
+    "and final binary64 assembly rounding. Existing non-cable constitutive, geometric and work "
+    "errors remain conditional numerical inputs. Release removal is a discrete potential reduction, "
+    "not physical heat. No continuous actuator work, path, material damping, source admission or "
+    "garment acceptance is certified."
+)
+
+
+def _varying_term_keys():
+    common = {"membraneChangeJoules", "bendingChangeJoules", "foldBarrierChangeJoules",
+              "contactChangeJoules", "kineticChangeJoules", "gripperFixedParameterChangeJoules",
+              "cableFixedParameterChangeJoules"}
+    return {
+        "mechanicalChangeJoules": common | {"sewingChangeJoules", "foldActuationChangeJoules",
+            "gripperParameterWorkJoules", "cableParameterWorkJoules"},
+        "mechanicalChangeMinusTargetWorkJoules": common | {"sewingMotionAndActivationJoules",
+            "foldFixedParameterChangeJoules", "foldActivationParameterWorkJoules",
+            "gripperActivationParameterWorkJoules", "cableActivationParameterWorkJoules"},
+        "mechanicalChangeMinusParameterWorkJoules": common | {"sewingFixedParameterChangeJoules",
+            "foldFixedParameterChangeJoules"},
+        "targetParameterWorkJoules": {"sewingTargetParameterWorkJoules", "foldTargetParameterWorkJoules",
+            "gripperTargetParameterWorkJoules", "cableTargetParameterWorkJoules"},
+        "externalParameterWorkJoules": {"sewingParameterWorkJoules", "foldParameterWorkJoules",
+            "gripperParameterWorkJoules", "cableParameterWorkJoules"},
+        "cableChangeJoules": {"cableParameterWorkJoules", "cableFixedParameterChangeJoules"},
+    }
+
+
+def _varying_error_bases(record):
+    from solver_continuous_normal_sewing import _rational
+    errors = {name: _rational(record[endpoint]["certificate"]["energyErrorBoundJoules"])
+              for name, endpoint in (("cableBeforeJoules", "before"), ("cableAfterJoules", "after"))}
+    errors.update({name: _rational(record["parameterWork"]["certificate"]["errorsJoules"][field])
+                   for name, field in _VARYING_SCALARS.items()})
+    motion = _rational(record["motionWork"]["certificate"]["changeErrorBoundJoules"])
+    errors["cableFixedParameterChangeJoules"] = motion
+    parameter, target, activation = (errors[name] for name in
+        ("cableParameterWorkJoules", "cableTargetParameterWorkJoules", "cableActivationParameterWorkJoules"))
+    aggregate = dict(zip(_VARYING_SUMS,
+        (parameter+motion, activation+motion, motion, target, parameter, parameter+motion)))
+    return errors, aggregate
+
+
+def _varying_cable_energy_record(control, previous, positions, d0, a0, d1, a1):
+    """Isolated evaluations; validators and identity checks run after each call."""
+    from solver_cable_integration import CableControl
+    from solver_cable_varying import VaryingCableControl
+    from solver_continuous_normal_sewing import _capture
+    definition = control.description()
+    identity = _capture(definition)
+
+    def invoke(function, *arrays):
+        inputs = [value.copy() for value in arrays]
+        snapshots = [(value.shape, value.strides, value.dtype.str, value.tobytes()) for value in inputs]
+        try:
+            result = function(*inputs)
+        finally:
+            if any((value.shape, value.strides, value.dtype.str, value.tobytes()) != snapshot
+                   for value, snapshot in zip(inputs, snapshots)):
+                raise ValueError("Varying cable energy helper mutated an isolated input")
+            if _capture(control.description()) != identity:
+                raise ValueError("Varying cable recipe or precision changed during energy evaluation")
+        return result
+
+    old = invoke(control.effective, d0, a0)
+    new = invoke(control.effective, d1, a1)
+    if type(old) is not CableControl or type(new) is not CableControl:
+        raise ValueError("Matching fixed effective cable controls required")
+    endpoints = []
+    for effective, q in ((old, previous), (new, positions)):
+        response = invoke(effective.evaluate, q)
+        response = invoke(lambda state: CableControl.validate_response(effective, state, response), q)
+        endpoints.append({"definition": effective.description(), "energyJoules": response["energy"],
+                          "certificate": response["certificate"]})
+    parameter = invoke(control.parameter_work, previous, d0, a0, d1, a1)
+    parameter = invoke(lambda *values: VaryingCableControl.validate_parameter_work(control, *values, parameter),
+                       previous, d0, a0, d1, a1)
+    motion = invoke(new.energy_change, previous, positions)
+    motion = invoke(lambda first, last: CableControl.validate_change(new, first, last, motion), previous, positions)
+    return {"profile": "varying-cable-energy-accounting-v1", "definition": copy.deepcopy(definition),
+            "beforeParameters": invoke(control.parameter_record, d0, a0),
+            "afterParameters": invoke(control.parameter_record, d1, a1),
+            "before": endpoints[0], "after": endpoints[1],
+            "parameterWork": parameter, "motionWork": motion,
+            "aggregationTermsJoules": {}, "errorBoundsJoules": {},
+            "assemblyRoundingBoundsJoules": {}, "scope": _VARYING_SCOPE}
+
+
+def validate_varying_cable_energy(control, previous, positions, d0, a0, d1, a1, report):
+    """Check identities and exact conditional assembly, not fresh work numerics.
+
+    Publication must additionally recompute endpoint diagnostics, parameter
+    work and motion work and compare complete records on isolated inputs.
+    Non-cable summands are existing numerical values, not independently proved.
+    """
+    from solver_cable_integration import CableControl, round_sum
+    from solver_cable_varying import VaryingCableControl
+    from solver_continuous_normal_sewing import _capture, _rat, _rational
+    if type(control) is not VaryingCableControl or type(report) is not dict or report.get("accepted") is not False:
+        raise ValueError("Explicit varying cable control and nonaccepted complete energy report required")
+    previous, positions = control.positions(previous), control.positions(positions)
+    d0, a0 = control.parameters(d0, a0)
+    d1, a1 = control.parameters(d1, a1)
+    value = report.get("varyingCableEnergy")
+    keys = {"profile", "definition", "beforeParameters", "afterParameters", "before", "after",
+            "parameterWork", "motionWork", "aggregationTermsJoules", "errorBoundsJoules",
+            "assemblyRoundingBoundsJoules", "scope"}
+    if type(value) is not dict or set(value) != keys or "continuousCableEnergy" in report:
+        raise ValueError("Complete exclusive varying cable energy record required")
+    _capture(value)
+    if (value["profile"] != "varying-cable-energy-accounting-v1" or value["scope"] != _VARYING_SCOPE
+            or _capture(value["definition"]) != _capture(control.description())
+            or _capture(value["beforeParameters"]) != _capture(control.parameter_record(d0, a0))
+            or _capture(value["afterParameters"]) != _capture(control.parameter_record(d1, a1))):
+        raise ValueError("Varying cable geometry, parameters or precision identity mismatch")
+    old, new = control.effective(d0, a0), control.effective(d1, a1)
+    if type(old) is not CableControl or type(new) is not CableControl:
+        raise ValueError("Varying cable requires exact effective fixed controls")
+    before = CableControl.validate_diagnostics(old, previous, value["before"])
+    after = CableControl.validate_diagnostics(new, positions, value["after"])
+    parameter = VaryingCableControl.validate_parameter_work(control, previous, d0, a0, d1, a1, value["parameterWork"])
+    motion = CableControl.validate_change(new, previous, positions, value["motionWork"])
+
+    def scalar(name, expected=None):
+        result = report.get(name)
+        if type(result) is not float or not math.isfinite(result):
+            raise ValueError("Finite binary64 varying cable energy scalar required: "+name)
+        if expected is not None and _capture(result) != _capture(expected):
+            raise ValueError("Varying cable energy scalar mismatch: "+name)
+        return result
+
+    for name in _VARYING_BASE_SCALARS: scalar(name)
+    for name, field in _VARYING_SCALARS.items(): scalar(name, parameter[field])
+    scalar("cableBeforeJoules", before["energyJoules"])
+    scalar("cableAfterJoules", after["energyJoules"])
+    scalar("cableFixedParameterChangeJoules", motion["changeJoules"])
+    errors, bases = _varying_error_bases(value)
+    endpoint_difference = Fraction(after["energyJoules"])-Fraction(before["energyJoules"])
+    direct_change = Fraction(parameter["totalWorkJoules"])+Fraction(motion["changeJoules"])
+    if abs(endpoint_difference-direct_change) > (errors["cableBeforeJoules"]+errors["cableAfterJoules"]
+                                               +bases["cableChangeJoules"]):
+        raise ValueError("Varying cable endpoint and work intervals are inconsistent")
+    bounds, rounding, sums = (value[name] for name in
+        ("errorBoundsJoules", "assemblyRoundingBoundsJoules", "aggregationTermsJoules"))
+    if (type(bounds) is not dict or set(bounds) != set(errors) | set(_VARYING_SUMS)
+            or type(rounding) is not dict or set(rounding) != set(_VARYING_SUMS)
+            or type(sums) is not dict or set(sums) != set(_VARYING_SUMS)):
+        raise ValueError("Complete varying cable uncertainty and exact assembly records required")
+    expected_keys = _varying_term_keys()
+    shared = {}
+    for name in _VARYING_SUMS:
+        terms = sums[name]
+        if type(terms) is not dict or set(terms) != expected_keys[name]:
+            raise ValueError("Complete varying cable mechanical and work summands required")
+        for field, term in terms.items():
+            if type(term) is not float or not math.isfinite(term):
+                raise ValueError("Finite binary64 varying cable summands required")
+            if field in report: scalar(field, term)
+            if field in shared and _capture(shared[field]) != _capture(term):
+                raise ValueError("A shared energy summand changed between varying cable aggregates")
+            shared[field] = term
+        expected, bound = round_sum(terms.values(), bases[name])
+        scalar(name, expected)
+        errors[name] = bound
+        if _rational(rounding[name]) != bound-bases[name]:
+            raise ValueError("Varying cable assembly rounding bound mismatch")
+    if _capture(bounds) != _capture({name: _rat(value) for name, value in errors.items()}):
+        raise ValueError("Varying cable propagated uncertainty mismatch")
+    return copy.deepcopy(value)
 
 
 def _cable_energy_record(control, previous, positions):
@@ -274,8 +472,33 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                              previous_gripper_targets=None, gripper_targets=None,
                              previous_gripper_activation=None, gripper_activation=None,
                              previous_sewing_activation=None, sewing_activation=None,
-                             previous_fold_activation=None, fold_activation=None):
+                             previous_fold_activation=None, fold_activation=None,
+                             previous_cable_targets=None, previous_cable_activation=None,
+                             cable_targets=None, cable_activation=None):
     cable_control = getattr(solver, "continuous_cable", None)
+    varying_control = getattr(solver, "cable_parameter_control", None)
+    varying_record = None
+    varying_parameters = (previous_cable_targets, previous_cable_activation, cable_targets, cable_activation)
+    if varying_control is not None:
+        from solver_cable_varying import VaryingCableControl
+        from solver_cable_integration import round_sum
+        from solver_continuous_normal_sewing import _capture, _rat, _rational
+        from solver_controlled_fold import _binary64
+        if (type(varying_control) is not VaryingCableControl or cable_control is not None
+                or varying_control.vertex_count != len(solver.mass)
+                or not np.all(solver.active) or not np.isfinite(solver.mass).all() or np.any(solver.mass <= 0)):
+            raise ValueError("One varying cable control matching free positive-mass model vertices required")
+        if any(value is None for value in varying_parameters):
+            raise ValueError("Both endpoint cable targets and activations are mandatory")
+        varying_identity = _capture(varying_control.description())
+        previous, positions = varying_control.positions(previous), varying_control.positions(positions)
+        previous_velocities, velocities = (varying_control.positions(previous_velocities),
+                                          varying_control.positions(velocities))
+        dt = _binary64(dt)
+        cable_d0, cable_a0 = varying_control.parameters(previous_cable_targets, previous_cable_activation)
+        cable_d1, cable_a1 = varying_control.parameters(cable_targets, cable_activation)
+    elif any(value is not None for value in varying_parameters):
+        raise ValueError("Endpoint cable parameters require an explicit varying cable control")
     cable_accounting = {}
     cable_record = None
     if cable_control is not None:
@@ -466,7 +689,58 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                 or min(gripper_activation_increase, gripper_release, gripper_rounding_bound) < 0):
             raise ValueError("Finite gripper parameter work and nonnegative release/rounding quantities required")
     gripper_change = math.fsum((gripper_work, gripper_fixed_change))
-    if cable_control is not None:
+    if varying_control is not None:
+        varying_record = _varying_cable_energy_record(varying_control, previous, positions,
+                                                     cable_d0, cable_a0, cable_d1, cable_a1)
+        cable_accounting = {name: varying_record["parameterWork"][field]
+                            for name, field in _VARYING_SCALARS.items()}
+        cable_accounting.update({"cableBeforeJoules": varying_record["before"]["energyJoules"],
+                                "cableAfterJoules": varying_record["after"]["energyJoules"],
+                                "cableFixedParameterChangeJoules": varying_record["motionWork"]["changeJoules"]})
+        common = {
+            "membraneChangeJoules": float(membrane_change), "bendingChangeJoules": float(bending_change),
+            "foldBarrierChangeJoules": float(barrier_change), "contactChangeJoules": float(contact_change),
+            "kineticChangeJoules": float(kinetic_change),
+            "gripperFixedParameterChangeJoules": float(gripper_fixed_change),
+            "cableFixedParameterChangeJoules": cable_accounting["cableFixedParameterChangeJoules"],
+        }
+        varying_record["aggregationTermsJoules"] = {
+            _CABLE_SUMS[0]: {**common, "sewingChangeJoules": float(sewing_change),
+                "foldActuationChangeJoules": float(fold_change), "gripperParameterWorkJoules": float(gripper_work),
+                "cableParameterWorkJoules": cable_accounting["cableParameterWorkJoules"]},
+            _CABLE_SUMS[1]: {**common,
+                "sewingMotionAndActivationJoules": float(sewing_fixed_plus_activation if weighted_sewing else fixed_target_change),
+                "foldFixedParameterChangeJoules": float(fold_fixed_change),
+                "foldActivationParameterWorkJoules": float(fold_activation_work),
+                "gripperActivationParameterWorkJoules": float(gripper_activation_work),
+                "cableActivationParameterWorkJoules": cable_accounting["cableActivationParameterWorkJoules"]},
+            _CABLE_SUMS[2]: {**common, "sewingFixedParameterChangeJoules": float(fixed_target_change),
+                "foldFixedParameterChangeJoules": float(fold_fixed_change)},
+            "targetParameterWorkJoules": {"sewingTargetParameterWorkJoules": float(target_work),
+                "foldTargetParameterWorkJoules": float(fold_work), "gripperTargetParameterWorkJoules": float(gripper_target_work),
+                "cableTargetParameterWorkJoules": cable_accounting["cableTargetParameterWorkJoules"]},
+            "externalParameterWorkJoules": {
+                "sewingParameterWorkJoules": float(sewing_accounting["sewingParameterWorkJoules"] if weighted_sewing else target_work),
+                "foldParameterWorkJoules": float(fold_parameter_work if controlled_fold_recipe is not None else fold_work),
+                "gripperParameterWorkJoules": float(gripper_work), "cableParameterWorkJoules": cable_accounting["cableParameterWorkJoules"]},
+            "cableChangeJoules": {"cableParameterWorkJoules": cable_accounting["cableParameterWorkJoules"],
+                "cableFixedParameterChangeJoules": cable_accounting["cableFixedParameterChangeJoules"]},
+        }
+        errors, error_bases = _varying_error_bases(varying_record)
+        summed = {}
+        for name in _VARYING_SUMS:
+            summed[name], errors[name] = round_sum(varying_record["aggregationTermsJoules"][name].values(), error_bases[name])
+            varying_record["assemblyRoundingBoundsJoules"][name] = _rat(errors[name]-error_bases[name])
+        varying_record["errorBoundsJoules"] = {name: _rat(value) for name, value in errors.items()}
+        cable_accounting["cableChangeJoules"] = summed["cableChangeJoules"]
+        mechanical_change, minus_target_work, minus_parameter_work = (summed[name] for name in _CABLE_SUMS)
+        target_parameter_work, external_parameter_work = (summed[name] for name in
+            ("targetParameterWorkJoules", "externalParameterWorkJoules"))
+        if (getattr(solver, "cable_parameter_control", None) is not varying_control
+                or getattr(solver, "continuous_cable", None) is not None
+                or _capture(varying_control.description()) != varying_identity):
+            raise ValueError("Varying cable energy control identity or precision changed")
+    elif cable_control is not None:
         cable_record = _cable_energy_record(cable_control, previous, positions)
         cable_change = cable_record["work"]["changeJoules"]
         cable_error = _rational(cable_record["work"]["certificate"]["changeErrorBoundJoules"])
@@ -598,11 +872,21 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         report["continuousCableEnergy"] = cable_record
         report["accepted"] = False
         validate_continuous_cable_energy(cable_control, previous, positions, report)
+    if varying_record is not None:
+        report["varyingCableEnergy"] = varying_record
+        report["accepted"] = False
+        validate_varying_cable_energy(varying_control, previous, positions,
+                                     cable_d0, cable_a0, cable_d1, cable_a1, report)
+        if (getattr(solver, "cable_parameter_control", None) is not varying_control
+                or getattr(solver, "continuous_cable", None) is not None
+                or _capture(varying_control.description()) != varying_identity):
+            raise ValueError("Varying cable control identity changed before energy publication")
     return {
         **report,
         "accepted": False,
         "scope": ("Global membrane/elastic-bending/sewing dynamics with experimental frictionless surface contact. " if contact is not None else "Contact-disabled global membrane/elastic-bending/sewing dynamics. ") + "Includes optional local angular fold barriers, prescribed fold actuation and compliant material grippers. Target work counts target changes only. External parameter work also includes gripper activation/release at the previous positions, with target changes first at old activation and then activation changes at new targets. Release energy removed is a nonnegative discrete potential reduction, not claimed physical dissipation. Fixed-parameter changes use the new parameters during motion. Rounded parameter-work components may differ from the directly evaluated total within the reported component-sum error bound. These are discrete potential changes, not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance."
                  + (" Sewing target-first parameter work also includes signed sewing activation and release at the previous positions; pending rows are skipped. Rational work accumulation is conditional on the existing sampled binary64 distance lengths and frame normals, not an exact real-geometry proof. The source construction schedule may forbid release even though this mathematical accounting supports it." if weighted_sewing else "")
                  + (" Controlled-fold external parameter work uses the same rounded binary64 stiffness-times-activation coefficient as its potential: target changes first at the old coefficient, then activation changes at the new target. It includes signed engagement/release work; target work alone excludes it. Inactive hinges skip actuator angle evaluation without waiving any independent cloth, triangle, contact or hinge-path guard. Parameter work is exact quadratic arithmetic conditional on sampled binary64 angles; stable fixed-parameter angle increments and endpoint diagnostics have distinct rounding. No continuous work, calibrated damping, phase completion or refined-source execution is certified." if controlled_fold_recipe is not None else "")
-                 + (" "+_CABLE_SCOPE if cable_control is not None else ""),
+                 + (" "+_CABLE_SCOPE if cable_control is not None else "")
+                 + (" "+_VARYING_SCOPE if varying_control is not None else ""),
     }

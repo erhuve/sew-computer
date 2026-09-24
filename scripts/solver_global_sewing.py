@@ -172,7 +172,8 @@ class GlobalSewingSolver:
     def __init__(self, model, rows, compliance, *, fold_barrier_joules=None, fold_activation_angle=np.pi / 2,
                  contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None,
                  fold_hinges=None, fold_stiffness_joules=None, material_grippers=None,
-                 controlled_fold_actuation=None, continuous_cable=None, cable_precision=None):
+                 controlled_fold_actuation=None, continuous_cable=None, cable_precision=None,
+                 cable_parameter_recipe=None, cable_parameter_work_precision=None):
         if sewing_mode not in ("vector", "distance", "normal-offset"):
             raise ValueError("Unsupported sewing mode")
         if sewing_mode != "normal-offset" and (sewing_frame_faces is not None or sewing_sides is not None):
@@ -181,14 +182,26 @@ class GlobalSewingSolver:
         self.mass = model.particle_mass.numpy().astype(float)
         self.active = (self.mass > 0) & ((model.particle_flags.numpy() & 1) != 0)
         self.continuous_cable = None
-        if (continuous_cable is None) != (cable_precision is None):
-            raise ValueError("Continuous cable recipe and explicit precision must be supplied together")
+        self.cable_parameter_control = None
+        if continuous_cable is not None and cable_parameter_recipe is not None:
+            raise ValueError("Fixed and varying cable recipes are mutually exclusive")
+        if ((continuous_cable is not None or cable_parameter_recipe is not None)
+                != (cable_precision is not None)):
+            raise ValueError("A cable recipe and explicit response precision must be supplied together")
+        if (cable_parameter_recipe is None) != (cable_parameter_work_precision is None):
+            raise ValueError("Varying cable recipe and explicit parameter-work precision must be supplied together")
         if continuous_cable is not None:
             from solver_cable_integration import CableControl
             control = CableControl(continuous_cable, cable_precision)
             if control.vertex_count != len(self.mass) or not np.all(self.active):
                 raise ValueError("Continuous cable integration requires matching free positive-mass cloth")
             self.continuous_cable = control
+        if cable_parameter_recipe is not None:
+            from solver_cable_varying import VaryingCableControl
+            control = VaryingCableControl(cable_parameter_recipe, cable_precision, cable_parameter_work_precision)
+            if control.vertex_count != len(self.mass) or not np.all(self.active):
+                raise ValueError("Varying cable integration requires matching free positive-mass cloth")
+            self.cable_parameter_control = control
         self.faces = model.tri_indices.numpy().astype(int) if model.tri_indices is not None else np.empty((0, 3), dtype=int)
         self.material_grippers = material_grippers
         if material_grippers is not None:
@@ -263,7 +276,8 @@ class GlobalSewingSolver:
             raise ValueError("Global reference does not implement springs or volumetric elements")
         from solver_embedded_sewing import validate_rows
         if not ((self.fold_actuation is not None or self.controlled_fold_actuation is not None
-                 or self.material_grippers is not None or self.continuous_cable is not None)
+                 or self.material_grippers is not None or self.continuous_cable is not None
+                 or self.cable_parameter_control is not None)
                 and isinstance(rows, list) and not rows):
             rows = validate_rows(rows, len(self.mass), model.particle_colors.numpy())
         if any(abs(sum(row.values())) > 1e-12 for row in rows):
@@ -297,8 +311,26 @@ class GlobalSewingSolver:
         return DistanceSewing(self.sewing, targets, self.compliance, activation=activation)
 
     def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct",
-             *, fold_targets=None, fold_activation=None, gripper_targets=None, gripper_activation=None, sewing_activation=None):
-        cable = self.continuous_cable
+             *, fold_targets=None, fold_activation=None, gripper_targets=None, gripper_activation=None, sewing_activation=None,
+             cable_targets=None, cable_activation=None):
+        fixed_cable = self.continuous_cable
+        varying_cable = self.cable_parameter_control
+        cable = fixed_cable
+        if varying_cable is not None:
+            from solver_cable_varying import VaryingCableControl, _array_state
+            from solver_continuous_normal_sewing import _encoded
+            if type(varying_cable) is not VaryingCableControl or fixed_cable is not None:
+                raise ValueError('An exclusive admitted varying cable control is required')
+            if cable_targets is None or cable_activation is None:
+                raise ValueError('Both explicit cable targets and activation are required per varying trial')
+            end_targets, end_activation = varying_cable.parameters(cable_targets, cable_activation)
+            end_snapshots = _array_state(end_targets), _array_state(end_activation)
+            varying_definition = _encoded(varying_cable.description())
+            parameter_record = varying_cable.parameter_record(end_targets, end_activation)
+            parameter_record_bytes = _encoded(parameter_record)
+            cable = varying_cable.effective(end_targets, end_activation)
+        elif cable_targets is not None or cable_activation is not None:
+            raise ValueError('Explicit cable parameters require a varying cable recipe')
         if cable is not None:
             from fractions import Fraction as F
             from solver_cable_integration import CableControl, assemble_gradient, round_sum, stationarity, _encoded, _rational
@@ -313,8 +345,14 @@ class GlobalSewingSolver:
             cable_failures = {'count': 0, 'lastReason': None}
 
             def cable_identity():
-                if self.continuous_cable is not cable or _encoded(cable.description()) != cable_definition:
+                if (self.continuous_cable is not fixed_cable
+                        or self.cable_parameter_control is not varying_cable
+                        or _encoded(cable.description()) != cable_definition):
                     raise ValueError('Continuous cable identity or precision changed during the step')
+                if varying_cable is not None and (
+                        _encoded(varying_cable.description()) != varying_definition
+                        or end_snapshots != (_array_state(end_targets), _array_state(end_activation))):
+                    raise ValueError('Varying cable definition or trial parameters changed during the step')
 
             def cable_response(positions):
                 nonlocal cable_cached_positions, cable_cached_response
@@ -779,7 +817,7 @@ class GlobalSewingSolver:
             row_errors = np.max(np.abs(vector_sewing_error(final)), axis=1)
         controlled_diagnostic = actuator.diagnostics(final) if controlled_fold is not None else None
         report = {
-            "profile": "experimental-global-fixed-cable-reference-v1" if cable is not None else "experimental-global-ipc-guarded-contact-reference-v1" if contact_guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
+            "profile": "experimental-global-varying-cable-reference-v1" if varying_cable is not None else "experimental-global-fixed-cable-reference-v1" if cable is not None else "experimental-global-ipc-guarded-contact-reference-v1" if contact_guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
             "sewingMode": self.sewing_mode,
             "sewingActivationExplicit": sewing_activation is not None,
@@ -829,6 +867,9 @@ class GlobalSewingSolver:
             "status": int(result.status), "message": result.message,
             "evaluations": int(result.nfev), "initialEnergy": initial_energy, "finalEnergy": objective(result.x),
             "gradientInfinityNorm": gradient_norm,
+            **({'varyingCable': parameter_record,
+                'cableParameterScope': 'Explicit controls frozen within this trial; adjacent-state parameter work is a separate required publication step; no schedule or source construction is inferred'}
+               if varying_cable is not None else {}),
             **({'continuousCable': cable_report, 'cableStationarity': cable_stationarity,
                 'cableEvaluationFailures': dict(cable_failures),
                 'cableSearchMetric': 'Additive slack-sided generalized cable curvature; rounded PSD not certified; both assembled metrics guarded with physical-inertia fallback',
@@ -845,4 +886,10 @@ class GlobalSewingSolver:
         if cable is not None:
             cable_identity()
             cable.validate_diagnostics(final, report['continuousCable'])
+            if varying_cable is not None:
+                expected_parameters = varying_cable.parameter_record(end_targets, end_activation)
+                if (_encoded(expected_parameters) != parameter_record_bytes
+                        or _encoded(report['varyingCable']) != parameter_record_bytes):
+                    raise ValueError('Varying cable parameter identity changed before trial return')
+                cable_identity()
         return final, (final - previous) / dt, report

@@ -121,6 +121,7 @@ def _validate_sewing_energy(energy):
 
 def _validate_cable_identity(solver, control, definition):
     if (getattr(solver, "continuous_cable", None) is not control
+            or getattr(solver, "cable_parameter_control", None) is not None
             or not same(control.description(), definition)):
         raise ValueError("Fixed cable control identity or precision changed during the adaptive transition")
 
@@ -177,16 +178,118 @@ def _validate_cable_energy(control, previous, positions, report, after):
         raise ValueError("Cable energy report changed during fresh numerical validation")
 
 
+def _validate_varying_identity(solver, control, definition, schedule, schedule_definition):
+    if (getattr(solver, "cable_parameter_control", None) is not control
+            or getattr(solver, "continuous_cable", None) is not None
+            or not same(control.description(), definition)
+            or not same(schedule.description(), schedule_definition)):
+        raise ValueError("Varying cable recipe, schedule or precision changed during the adaptive transition")
+
+
+def _isolated_cable_call(function, *arrays):
+    """Keep helper mutation separate from accepted/candidate states and controls."""
+    copies = [value.copy() for value in arrays]
+    result = function(*copies)
+    if any(not _same_control_array(actual, expected) for actual, expected in zip(copies, arrays)):
+        raise ValueError("Varying cable helper mutated isolated state or control inputs")
+    return result
+
+
+def _varying_cable_step(control, schedule, fraction, options, positions, report):
+    from solver_cable_integration import CableControl, _rational, stationarity
+    values, weights = schedule.parameters(fraction)
+    if (not _same_control_array(options["cable_targets"], values)
+            or not _same_control_array(options["cable_activation"], weights)):
+        raise ValueError("Step mutated original-fraction varying cable controls")
+    expected_record = _isolated_cable_call(control.parameter_record, values, weights)
+    if (report.get("profile") != "experimental-global-varying-cable-reference-v1"
+            or not same(report.get("varyingCable"), expected_record)):
+        raise ValueError("Step varying cable parameter record differs from original-fraction controls")
+    effective = _isolated_cable_call(control.effective, values, weights)
+    if type(effective) is not CableControl:
+        raise ValueError("An admitted immutable effective cable control is required")
+    diagnostic = _isolated_cable_call(effective.diagnostics, positions)
+    diagnostic = _isolated_cable_call(
+        lambda q: CableControl.validate_diagnostics(effective, q, diagnostic), positions)
+    if not same(report.get("continuousCable"), diagnostic):
+        raise ValueError("Varying cable response differs from fresh end-control evaluation")
+    bounds, norm = report.get("cableStationarity"), report.get("gradientInfinityNorm")
+    if (type(bounds) is not dict or type(norm) not in (int, float)
+            or not np.isfinite(norm) or norm < 0 or "assemblyRoundingBoundNewtons" not in bounds):
+        raise ValueError("Complete finite varying cable stationarity diagnostics required")
+    cable_error = _rational(diagnostic["certificate"]["gradientMaxAbsoluteErrorBoundNewtons"])
+    assembly_error = _rational(bounds["assemblyRoundingBoundNewtons"])
+    expected = stationarity(np.array([norm]), cable_error+assembly_error, cable_error, assembly_error)
+    if (not same(bounds, expected) or report.get("converged") is not True
+            or _rational(expected["stationarityUpperBoundNewtons"]) > Fraction(1e-6)):
+        raise ValueError("Varying cable uncertainty-aware stationarity is unresolved or inconsistent")
+    return diagnostic
+
+
+def _validate_varying_cable_energy(control, schedule, start, end, previous, positions, report, after):
+    from solver_cable_integration import CableControl
+    from solver_cable_varying import VaryingCableControl
+    from solver_energy_balance import validate_varying_cable_energy
+    if type(report) is not dict or report.get("accepted") is not False:
+        raise ValueError("Complete unaccepted varying cable energy accounting required")
+    original = copy.deepcopy(report)
+    d0, a0 = schedule.parameters(start)
+    d1, a1 = schedule.parameters(end)
+    payload = _isolated_cable_call(
+        lambda q0, q1, t0, w0, t1, w1: validate_varying_cable_energy(control, q0, q1, t0, w0, t1, w1, report),
+        previous, positions, d0, a0, d1, a1)
+    old = _isolated_cable_call(control.effective, d0, a0)
+    new = _isolated_cable_call(control.effective, d1, a1)
+    if type(old) is not CableControl or type(new) is not CableControl:
+        raise ValueError("Admitted immutable old and new effective cable controls required")
+    before = _isolated_cable_call(old.diagnostics, previous)
+    before = _isolated_cable_call(lambda q: CableControl.validate_diagnostics(old, q, before), previous)
+    parameter_work = _isolated_cable_call(control.parameter_work, previous, d0, a0, d1, a1)
+    parameter_work = _isolated_cable_call(
+        lambda q, t0, w0, t1, w1: VaryingCableControl.validate_parameter_work(control, q, t0, w0, t1, w1, parameter_work),
+        previous, d0, a0, d1, a1)
+    motion_work = _isolated_cable_call(new.energy_change, previous, positions)
+    motion_work = _isolated_cable_call(
+        lambda q0, q1: CableControl.validate_change(new, q0, q1, motion_work), previous, positions)
+    for key, expected in (("before", before), ("after", after),
+                          ("parameterWork", parameter_work), ("motionWork", motion_work),
+                          ("beforeParameters", _isolated_cable_call(control.parameter_record, d0, a0)),
+                          ("afterParameters", _isolated_cable_call(control.parameter_record, d1, a1))):
+        if not same(payload[key], expected):
+            raise ValueError("Varying cable accounting differs from fresh numerical evaluation: " + key)
+    if not same(report, original):
+        raise ValueError("Varying cable energy report changed during final numerical validation")
+
+
 def _step_core(report, *, grippers):
     authored = {"energyBalance", "gripperMomentum"} if grippers else {"energyBalance"}
     return {key: value for key, value in report.items() if key not in authored}
+
+
+def _varying_cable_totals(accepted):
+    from solver_cable_integration import _rat, _rational, round_sum
+    fields = ("cableTargetParameterWorkJoules", "cableActivationParameterWorkJoules",
+              "cableParameterWorkJoules", "cableActivationIncreaseWorkJoules",
+              "cableReleaseEnergyRemovedJoules", "cableFixedParameterChangeJoules", "cableChangeJoules",
+              "targetParameterWorkJoules", "externalParameterWorkJoules", "mechanicalChangeJoules",
+              "mechanicalChangeMinusTargetWorkJoules", "mechanicalChangeMinusParameterWorkJoules")
+    values, bounds, rounding = {}, {}, {}
+    for field in fields:
+        reports = [row["step"]["energyBalance"] for row in accepted]
+        radius = sum((_rational(report["varyingCableEnergy"]["errorBoundsJoules"][field])
+                      for report in reports), Fraction())
+        value, bound = round_sum((report[field] for report in reports), radius)
+        values[field], bounds[field], rounding[field] = value, _rat(bound), _rat(bound-radius)
+    return {"valuesJoules": values, "errorBoundsJoules": bounds, "assemblyRoundingBoundsJoules": rounding,
+            "acceptedStepCount": len(accepted),
+            "scope": "One rounding of exact sums of accepted-step binary64 work and mechanical values, with summed certified cable/assembly bounds plus final rounding. Rejected and interrupted attempts and endpoint energy diagnostics are excluded. Non-cable constitutive errors remain uncertified; no continuous actuator-work, physical dissipation or source acceptance claim."}
 
 
 def adaptive_contact_step(solver, positions, velocities, initial_targets, targets, dt, *,
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
                           assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None,
-                          fold_control_schedule=None, **step_options):
+                          fold_control_schedule=None, cable_parameter_schedule=None, **step_options):
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
     if "sewing_activation" in step_options:
@@ -195,6 +298,25 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         raise ValueError("Adaptive fold activation requires an explicit per-hinge control schedule")
     cable_control = getattr(solver, "continuous_cable", None)
     cable_definition = None
+    varying_control = getattr(solver, "cable_parameter_control", None)
+    varying_definition = cable_schedule_definition = cable_preflight = cable_controls = None
+    if (varying_control is None) != (cable_parameter_schedule is None):
+        raise ValueError("Varying cable control and explicit parameter schedule must be supplied together")
+    if any(key in step_options for key in ("cable_targets", "cable_activation")):
+        raise ValueError("Adaptive cable parameters must come from the original captured schedule")
+    if varying_control is not None:
+        from solver_cable_varying import VaryingCableControl
+        from solver_controlled_fold import _binary64
+        if (type(varying_control) is not VaryingCableControl or cable_control is not None
+                or varying_control.vertex_count != len(solver.mass)):
+            raise ValueError("An exclusive admitted immutable varying cable control is required")
+        varying_definition = copy.deepcopy(varying_control.description())
+        positions, velocities = varying_control.positions(positions), varying_control.positions(velocities)
+        dt = _binary64(dt)
+        if step_options.get("linear_solver", "direct") != "direct":
+            raise ValueError("Varying cable controls require guarded direct search")
+        if any(key == "continuous_cable" or key.startswith("cable_") for key in step_options):
+            raise ValueError("Varying cable controls and precision cannot be overridden per adaptive step")
     if cable_control is not None:
         from solver_cable_integration import CableControl
         from solver_controlled_fold import _binary64
@@ -244,6 +366,16 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         raise ValueError("Bounded depth, positive attempt budget and dyadic initial subdivisions required")
     current_positions, current_velocities = positions.copy(), velocities.copy()
     initial_targets, targets = initial_targets.copy(), targets.copy()
+    if varying_control is not None:
+        from solver_cable_parameter_schedule import CableParameterSchedule
+        cable_controls = CableParameterSchedule(cable_parameter_schedule, int(initial_subdivisions),
+                                                cable_recipe=varying_control.recipe)
+        cable_schedule_definition = copy.deepcopy(cable_controls.description())
+        cable_preflight = cable_controls.preflight(int(max_depth))
+        initial_parameters = cable_controls.parameters(0)
+        if varying_control.parameter_sha256(*initial_parameters) != varying_control.parameter_sha256(*varying_control.recipe.initial_parameters):
+            raise ValueError("Initial cable schedule parameters must exactly match the declared base parameters")
+        _validate_varying_identity(solver, varying_control, varying_definition, cable_controls, cable_schedule_definition)
     fold_recipe = getattr(solver, "fold_actuation", None)
     if fold_recipe is not None and controlled_fold_recipe is not None:
         raise ValueError("Legacy and explicit controlled fold actuation cannot be combined")
@@ -295,6 +427,9 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         if step_options.get("linear_solver", "direct") != "direct":
             raise ValueError("Captured sewing activation requires guarded direct search")
         sewing_model_identity = _sewing_model_identity(solver)
+    if varying_control is not None:
+        varying_sewing_identity = _sewing_model_identity(solver)
+        varying_other_controls = (fold_recipe, controlled_fold_recipe, gripper_recipe)
     attempts, accepted, rejected = [], [], []
     completed_fraction = 0.
     reason = "attempt-budget-exhausted"
@@ -321,13 +456,26 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                   "initialInterval": initial_interval, "startFraction": start_fraction,
                   "endFraction": end_fraction, "durationSeconds": duration, "depth": depth, "converged": False}
         if attempt_journal is not None:
-            attempt_journal.start(record)
+            attempt_journal.start(copy.deepcopy(record) if varying_control is not None else record)
         fatal = False
         propagate = None
         try:
             options = dict(step_options)
             if cable_control is not None:
                 _validate_cable_identity(solver, cable_control, cable_definition)
+            if varying_control is not None:
+                _validate_varying_identity(solver, varying_control, varying_definition, cable_controls, cable_schedule_definition)
+                if (_sewing_model_identity(solver) != varying_sewing_identity
+                        or any(getattr(solver, field, None) is not expected for field, expected in zip(
+                            ("fold_actuation", "controlled_fold_actuation", "material_grippers"), varying_other_controls))):
+                    raise ValueError("Existing sewing or controller identity changed during varying cable continuation")
+                options["cable_targets"], options["cable_activation"] = cable_controls.parameters(end_fraction)
+                before_values, before_weights = cable_controls.parameters(start_fraction)
+                record["cableParameterInterval"] = {
+                    "before": _isolated_cable_call(varying_control.parameter_record, before_values, before_weights),
+                    "after": _isolated_cable_call(varying_control.parameter_record,
+                                                 options["cable_targets"], options["cable_activation"])}
+                varying_interval_snapshot = copy.deepcopy(record["cableParameterInterval"])
             if fold_recipe is not None:
                 options["fold_targets"] = (fold_targets.copy() if fold_progress == 1 else
                     initial_fold_targets + fold_progress * (fold_targets - initial_fold_targets))
@@ -339,8 +487,15 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 options["sewing_activation"] = sewing_controls.parameters(end_fraction)
                 if _sewing_model_identity(solver) != sewing_model_identity:
                     raise ValueError("Sewing model identity changed before the adaptive step")
+            step_positions, step_velocities = current_positions.copy(), current_velocities.copy()
+            if varying_control is not None:
+                # Retain every live state/control passed through publication;
+                # late callbacks in a helper must not defeat an earlier check.
+                varying_arrays = [current_positions, current_velocities, step_positions, step_velocities,
+                                  substep_targets, *(value for value in options.values() if type(value) is np.ndarray)]
+                varying_snapshots = [array.copy() for array in varying_arrays]
             candidate_positions, candidate_velocities, step_report = solver.step(
-                current_positions.copy(), current_velocities.copy(), substep_targets, duration, **options)
+                step_positions, step_velocities, substep_targets, duration, **options)
             if not isinstance(step_report, dict):
                 raise ValueError("Solver diagnostic report must be an object")
             record["step"], nonfinite = diagnostic_json(step_report)
@@ -351,6 +506,9 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             if cable_control is not None:
                 candidate_positions = cable_control.positions(candidate_positions)
                 candidate_velocities = cable_control.positions(candidate_velocities)
+            if varying_control is not None:
+                candidate_positions = varying_control.positions(candidate_positions)
+                candidate_velocities = varying_control.positions(candidate_velocities)
             candidate_positions = np.asarray(candidate_positions, dtype=float)
             candidate_velocities = np.asarray(candidate_velocities, dtype=float)
             for label, array in (("candidatePositions", candidate_positions), ("candidateVelocities", candidate_velocities)):
@@ -387,8 +545,16 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     raise ValueError("Cable step mutated the original sewing target interpolation")
                 _validate_cable_step(solver, cable_control, cable_definition, candidate_positions, record["step"])
                 original_step_core = copy.deepcopy(_step_core(record["step"], grippers=gripper_controls is not None))
+            if valid and varying_control is not None:
+                varying_arrays.extend((candidate_positions, candidate_velocities))
+                varying_snapshots.extend((candidate_positions.copy(), candidate_velocities.copy()))
+                original_step_core = copy.deepcopy(_step_core(record["step"], grippers=gripper_controls is not None))
+                if any(not _same_control_array(actual, expected) for actual, expected in zip(varying_arrays, varying_snapshots)):
+                    raise ValueError("Varying cable solver mutated supplied transition inputs")
+                _varying_cable_step(varying_control, cable_controls, end_fraction, options, candidate_positions, record["step"])
+                _validate_varying_identity(solver, varying_control, varying_definition, cable_controls, cable_schedule_definition)
             if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None
-                          or cable_control is not None):
+                          or cable_control is not None or varying_control is not None):
                 # Work belongs to the accepted transition and must be checked
                 # before its immutable journal outcome is written. Trial
                 # controls always use original fractions; retries do not
@@ -399,6 +565,12 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 old_targets = (targets.copy() if old_sewing_progress == 1 else
                                initial_targets + old_sewing_progress * (targets - initial_targets))
                 energy_options = {}
+                if varying_control is not None:
+                    old_cable_targets, old_cable_activation = cable_controls.parameters(start_fraction)
+                    new_cable_targets, new_cable_activation = cable_controls.parameters(end_fraction)
+                    energy_options.update(previous_cable_targets=old_cable_targets,
+                                          previous_cable_activation=old_cable_activation,
+                                          cable_targets=new_cable_targets, cable_activation=new_cable_activation)
                 if gripper_controls is not None:
                     old_grip_targets, old_grip_activation = gripper_controls.parameters(start_fraction)
                     energy_options.update(previous_gripper_targets=old_grip_targets,
@@ -418,7 +590,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     new_fold, new_activation = fold_controls.parameters(end_fraction)
                     energy_options.update(previous_fold_targets=old_fold, previous_fold_activation=old_activation,
                                           fold_targets=new_fold, fold_activation=new_activation)
-                if fold_controls is not None or sewing_controls is not None or cable_control is not None:
+                if (fold_controls is not None or sewing_controls is not None
+                        or cable_control is not None or varying_control is not None):
                     # Work is computed before publication. Isolated inputs
                     # preserve the last accepted state even if a helper fails
                     # after mutation; successful mutation also rejects.
@@ -427,6 +600,9 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     work_options = {key: value.copy() for key, value in energy_options.items()}
                     observed_arrays = [*work_states, *work_options.values()]
                     snapshots = [array.copy() for array in observed_arrays]
+                    if varying_control is not None:
+                        varying_arrays.extend(observed_arrays)
+                        varying_snapshots.extend(snapshots)
                     energy = global_energy_transition(solver, *work_states, duration, **work_options)
                     if any(not _same_control_array(actual, expected) for actual, expected in zip(observed_arrays, snapshots)):
                         raise ValueError("Controlled work helper mutated transition inputs")
@@ -464,6 +640,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     raise ValueError("Controlled transition has nonfinite work or momentum diagnostics")
                 if cable_control is not None:
                     cable_publication_snapshot = copy.deepcopy(record["step"])
+                if varying_control is not None:
+                    varying_publication_snapshot = copy.deepcopy(record["step"])
                 if fold_controls is not None:
                     _validate_fold_step(solver, controlled_fold_recipe, fold_controls, end_fraction, options,
                                         candidate_positions, record["step"])
@@ -488,6 +666,24 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     if not same(_step_core(record["step"], grippers=gripper_controls is not None), original_step_core):
                         raise ValueError("Cable step diagnostics changed during work before publication")
                     _validate_cable_identity(solver, cable_control, cable_definition)
+                if varying_control is not None:
+                    fresh_after = _varying_cable_step(varying_control, cable_controls, end_fraction,
+                                                     options, candidate_positions, record["step"])
+                    _validate_varying_cable_energy(varying_control, cable_controls, start_fraction, end_fraction,
+                        current_positions, candidate_positions, record["step"].get("energyBalance"), fresh_after)
+                    final_targets, final_activation = cable_controls.parameters(end_fraction)
+                    _validate_varying_identity(solver, varying_control, varying_definition, cable_controls, cable_schedule_definition)
+                    if any(not _same_control_array(actual, expected) for actual, expected in zip(varying_arrays, varying_snapshots)):
+                        raise ValueError("Varying cable transition state or controls changed before publication")
+                    if (_sewing_model_identity(solver) != varying_sewing_identity
+                            or any(getattr(solver, field, None) is not expected for field, expected in zip(
+                                ("fold_actuation", "controlled_fold_actuation", "material_grippers"), varying_other_controls))
+                            or not _same_control_array(options["cable_targets"], final_targets)
+                            or not _same_control_array(options["cable_activation"], final_activation)
+                            or not same(record.get("cableParameterInterval"), varying_interval_snapshot)
+                            or not same(record["step"], varying_publication_snapshot)
+                            or not same(_step_core(record["step"], grippers=gripper_controls is not None), original_step_core)):
+                        raise ValueError("Varying cable step or accounting changed during final numerical validation")
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
@@ -503,8 +699,12 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         if valid:
             record["completedDurationSeconds"] = float(dt * end_fraction)
         if attempt_journal is not None:
-            attempt_journal.outcome(record, candidate_positions if valid else None,
-                                    candidate_velocities if valid else None)
+            if varying_control is not None:
+                attempt_journal.outcome(copy.deepcopy(record), candidate_positions.copy() if valid else None,
+                                        candidate_velocities.copy() if valid else None)
+            else:
+                attempt_journal.outcome(record, candidate_positions if valid else None,
+                                        candidate_velocities if valid else None)
         if propagate is not None:
             raise propagate
         attempts.append(record)
@@ -547,6 +747,14 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         **({"continuousCable": copy.deepcopy(cable_definition),
             "continuousCableScope": "Fixed supplied-cell control; cable uncertainty is checked before publication. Other numerical terms and their assembly diagnostics remain trusted global-solver terms; no independent non-cable error certificate, source admission or construction acceptance."}
            if cable_control is not None else {}),
+        **({"varyingCableControl": copy.deepcopy(varying_definition),
+            "cableParameterSchedule": copy.deepcopy(cable_schedule_definition),
+            "cableParameterPreflight": copy.deepcopy(cable_preflight),
+            "finalCableParameters": varying_control.parameter_record(*cable_controls.parameters(completed_fraction)),
+            "varyingCableAcceptedWorkTotals": _varying_cable_totals(accepted),
+            "cableParameterInterpolation": "Original dyadic fractions with exact binary64-endpoint interpolation and one rounding; rejected attempts advance neither state nor controls",
+            "varyingCableScope": "Generic supplied-cell controls with fixed precision policies; parameter work and new-control motion work are freshly checked before publication. Other numerical terms remain trusted global-solver terms. No captured source admission, continuous actuator-work certificate, construction acceptance or resume-at-fraction API."}
+           if varying_control is not None else {}),
         **({"foldControlInterpolation": "explicit per-hinge targets and activation sampled by exact interpolation at original dyadic fractions; no captured source or construction admission"}
            if fold_controls is not None else {}),
     }
