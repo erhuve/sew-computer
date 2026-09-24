@@ -201,7 +201,38 @@ def energy_defect(mass, before, after, energy, allocation):
 
 
 def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_depth,
-               max_attempts, initial_subdivisions, evaluation_limit):
+               max_attempts, initial_subdivisions, evaluation_limit, execution=None, retained_context=None):
+    """Run unchanged mechanics with optional, single-use in-memory retention."""
+    options = dict(declaration=declaration, max_depth=max_depth, max_attempts=max_attempts,
+                   initial_subdivisions=initial_subdivisions, evaluation_limit=evaluation_limit)
+    if execution is None:
+        if retained_context is not None:
+            raise ValueError("Retained context requires a temporal execution handle")
+        return _run_trials(evaluate, positions, velocities, mass, dt, **options)
+    from solver_temporal_execution import TemporalStopRequested, require_execution
+    require_execution(execution)
+    execution._claim()
+    try:
+        result = _run_trials(evaluate, positions, velocities, mass, dt, execution=execution,
+                             retained_context=retained_context, **options)
+        try:
+            execution._check_stop()
+        except BaseException as error:
+            error.temporal_result = result
+            raise
+        return result
+    except BaseException as error:
+        execution._failure(error, "controller-or-report")
+        if execution.stop_requested and not isinstance(error, TemporalStopRequested):
+            stop = TemporalStopRequested(execution.stop_reason)
+            if hasattr(error, "temporal_result"):
+                stop.temporal_result = error.temporal_result
+            raise stop from error
+        raise
+
+
+def _run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_depth,
+                max_attempts, initial_subdivisions, evaluation_limit, execution=None, retained_context=None):
     """Private orchestration. No external callbacks or persistent transaction API.
 
     Each solve reserves its entire unchanged nonlinear evaluation allowance,
@@ -215,13 +246,26 @@ def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_de
     attempts, assessments = [], []
     # One immutable-prefix reference is replaced only after constructing a pair.
     committed = (positions, velocities, 0., (), (), F())
+    if execution is not None:
+        execution._initialize({"initialState": state_record(positions, velocities), "massKg": mass.tolist(),
+            "requestedDurationSeconds": float(dt), "policy": declaration, "maxDepth": max_depth,
+            "maxAttempts": max_attempts, "initialSubdivisions": initial_subdivisions,
+            "evaluationLimit": evaluation_limit, "adaptiveContext": retained_context}, committed)
     charged = 0
     pending, next_initial = [], 0
     reason = "complete"
     propagated = None
 
+    def prefix():
+        return committed if execution is None else execution._capsule.committed
+
+    def check_stop():
+        if execution is not None:
+            execution._check_stop()
+
     def trial(q, v, a, b, depth, parent, initial, role):
         nonlocal charged, reason, propagated
+        check_stop()
         if len(attempts) >= max_attempts:
             reason = "attempt-budget-exhausted"
             return None
@@ -239,10 +283,26 @@ def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_de
                   "startFraction": a, "endFraction": b, "durationSeconds": duration, "depth": depth,
                   "role": role, "converged": False, "evaluationAllowanceCharged": evaluation_limit}
         record["startStateSha256"] = state_record(q, v)["sha256"]
-        charged += evaluation_limit
+        if execution is None:
+            charged += evaluation_limit
+        else:
+            execution._reserve(record)
+            charged = sum(item["trial"]["evaluationAllowanceCharged"]
+                          for item in execution._capsule.reservations)
         output = None
         try:
+            if execution is not None:
+                execution._observe("dispatch-authorized")
+            check_stop()
             nq, nv, valid, fatal, propagate = evaluate(q.copy(), v.copy(), a, b, duration, record)
+            if execution is not None:
+                execution._observe("return-observed")
+                if propagate is not None:
+                    execution._failure(propagate, "trial-propagated")
+                elif "error" in record:
+                    # validated_interval may have caught a cleanup replacement.
+                    execution._failure_record(record["error"], "trial-returned-error")
+            check_stop()
             record["numericallyValid"], record["fatal"] = bool(valid), bool(fatal)
             record["outcome"] = "provisional" if valid else "interrupted" if propagate else "numerically-rejected"
             if valid:
@@ -255,22 +315,32 @@ def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_de
                 propagated = propagate
                 reason = "interrupted"
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
+            if execution is not None:
+                execution._failure(error, "trial")
             record.update(numericallyValid=False, outcome="numerically-rejected", fatal=False,
                           error={"type": type(error).__name__, "message": str(error)})
         except (TimeoutError, RuntimeError, MemoryError) as error:
+            if execution is not None:
+                execution._failure(error, "trial")
             record.update(numericallyValid=False, outcome="interrupted", fatal=True,
                           error={"type": type(error).__name__, "message": str(error)})
             reason = "solver-resource-or-runtime-failure"
         except BaseException as error:
+            if execution is not None:
+                execution._failure(error, "trial")
             record.update(numericallyValid=False, outcome="interrupted", fatal=True,
                           error={"type": type(error).__name__, "message": str(error)})
             reason = "interrupted"
             propagated = error
+        if execution is not None:
+            execution._record_trial(record)
         attempts.append(copy.deepcopy(record))
+        check_stop()
         return output
 
     try:
         while True:
+            check_stop()
             if not pending:
                 if next_initial == initial_subdivisions:
                     break
@@ -281,7 +351,7 @@ def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_de
             if depth >= max_depth:
                 reason = "temporal-depth-exhausted"
                 break
-            q, v = committed[:2]
+            q, v = prefix()[:2]
             midpoint = (a+b)/2
             ids_before = len(attempts)
             row = {"assessmentId": len(assessments)+1, "startFraction": a, "endFraction": b,
@@ -311,6 +381,9 @@ def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_de
             elif reason == "complete":
                 row["outcome"] = "numerically-rejected"
             assessments.append(row)
+            if execution is not None:
+                execution._record_assessment(row)
+            check_stop()
             if reason != "complete":
                 break
             if valid:
@@ -321,14 +394,20 @@ def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_de
                                   completedDurationSeconds=float(dt*record["endFraction"]))
                     fine.append(record)
                 increment = sum((_fraction(part["absoluteUpperBoundJoules"]) for part in row["fineEnergy"]), F())
-                total = committed[5] + increment
+                previous = prefix()
+                total = previous[5] + increment
                 if total > F(declaration["numericalEnergyBudgetJ"])*F(b):
                     raise RuntimeError("Committed conditional energy budget failed exact prefix accounting")
                 transaction = {"transactionId": row["assessmentId"], "fineTrialIds": [item["attemptId"] for item in fine],
                                "startFraction": a, "endFraction": b}
-                committed = (half2[0], half2[1], b, committed[3]+tuple(fine),
-                             committed[4]+(transaction,), total)
+                candidate = (half2[0], half2[1], b, previous[3]+tuple(fine),
+                             previous[4]+(transaction,), total)
+                if execution is None:
+                    committed = candidate
+                else:
+                    execution._commit(candidate)
             else:
+                check_stop()
                 if depth+1 >= max_depth:
                     reason = "temporal-depth-exhausted"
                     break
@@ -337,35 +416,75 @@ def run_trials(evaluate, positions, velocities, mass, dt, *, declaration, max_de
     except BaseException as error:
         # Preserve the prior atomic prefix for exceptions outside a solve too.
         # Hard process termination/OOM cannot promise an allocated report.
-        propagated = error
+        if execution is not None and propagated is not None:
+            execution._failure(error, "controller-secondary")
+        else:
+            propagated = error
         reason = "interrupted"
-    q, v, fraction, accepted, transactions, total = committed
-    complete = fraction == 1.
-    committed_transactions = {item["transactionId"] for item in transactions}
-    for assessment in assessments:
-        if assessment["assessmentId"] in committed_transactions:
-            assessment["outcome"] = "committed"
-        elif assessment["outcome"] == "committed":
-            assessment["outcome"] = "interrupted-before-commit"
-    committed_ids = {record["attemptId"] for record in accepted}
-    for record in attempts:
-        if record["outcome"] == "provisional":
-            record["outcome"] = "committed" if record["attemptId"] in committed_ids else "discarded"
-    observed = [record.get("step", {}).get("evaluations") for record in attempts]
-    known = [value for value in observed if type(value) is int and 0 <= value <= evaluation_limit]
-    report = {"profile": PROFILE, "accepted": False, "complete": complete,
-              "reason": "complete" if complete else reason, "policy": declaration,
-              "requestedDurationSeconds": float(dt), "completedDurationSeconds": float(dt*fraction),
-              "completedFraction": fraction, "initialSubdivisions": initial_subdivisions,
-              "initialState": state_record(positions, velocities),
-              "maxDepth": max_depth, "maxAttempts": max_attempts, "attempts": attempts,
-              "acceptedSteps": list(accepted), "temporalAssessments": assessments,
-              "transactions": list(transactions), "conditionalAbsoluteEnergyBoundJoules": rational(total),
-              "resources": {"mechanicalTrials": len(attempts), "chargedEvaluationAllowance": charged,
-                            "reportedOptimizerEvaluations": sum(known), "trialsWithoutEvaluationCount": len(observed)-len(known),
-                            "energyTransitionCalls": sum(record.get("energyTransitionCalls", 0) for record in attempts)},
-              "scope": "Conditional local maximum-vertex state indicators and absolute per-fine-interval numerical mechanical-energy budget. Exact reductions of stored values; non-cable work remains numerical. No global error, phase accuracy, continuous actuator work, calibrated damping, source admission, garment acceptance, persistent journal or resume API. Pair commitment is synchronous and in memory. External process limits and fixed per-trial primitive limits remain required."}
-    result = (q.copy(), v.copy(), report)
+    def build_report():
+        if execution is not None:
+            execution._finished(reason)
+        q, v, fraction, accepted, transactions, total = prefix()
+        if execution is not None:
+            accepted, transactions = copy.deepcopy((accepted, transactions))
+        report_attempts, report_assessments = attempts, assessments
+        if execution is not None:
+            report_attempts = copy.deepcopy(list(execution._capsule.attempts))
+            report_assessments = copy.deepcopy(list(execution._capsule.assessments))
+        complete = fraction == 1.
+        committed_transactions = {item["transactionId"] for item in transactions}
+        for assessment in report_assessments:
+            if assessment["assessmentId"] in committed_transactions:
+                assessment["outcome"] = "committed"
+            elif assessment["outcome"] in ("committed", "indicators-passed-awaiting-commit"):
+                assessment["outcome"] = "interrupted-before-commit"
+        committed_ids = {record["attemptId"] for record in accepted}
+        for record in report_attempts:
+            if record["outcome"] == "provisional":
+                record["outcome"] = "committed" if record["attemptId"] in committed_ids else "discarded"
+        observed = [record.get("step", {}).get("evaluations") for record in report_attempts]
+        known = [value for value in observed if type(value) is int and 0 <= value <= evaluation_limit]
+        report = {"profile": PROFILE, "accepted": False, "complete": complete,
+                  "reason": "complete" if complete else reason, "policy": declaration,
+                  "requestedDurationSeconds": float(dt), "completedDurationSeconds": float(dt*fraction),
+                  "completedFraction": fraction, "initialSubdivisions": initial_subdivisions,
+                  "initialState": state_record(positions, velocities),
+                  "maxDepth": max_depth, "maxAttempts": max_attempts, "attempts": report_attempts,
+                  "acceptedSteps": list(accepted), "temporalAssessments": report_assessments,
+                  "transactions": list(transactions), "conditionalAbsoluteEnergyBoundJoules": rational(total),
+                  "resources": {"mechanicalTrials": len(report_attempts), "chargedEvaluationAllowance": charged,
+                                "reportedOptimizerEvaluations": sum(known), "trialsWithoutEvaluationCount": len(observed)-len(known),
+                                "energyTransitionCalls": sum(record.get("energyTransitionCalls", 0) for record in report_attempts)},
+                  "scope": "Conditional local maximum-vertex state indicators and absolute per-fine-interval numerical mechanical-energy budget. Exact reductions of stored values; non-cable work remains numerical. No global error, phase accuracy, continuous actuator work, calibrated damping, source admission, garment acceptance, persistent journal or resume API. Pair commitment is synchronous and in memory. External process limits and fixed per-trial primitive limits remain required."}
+        result = (q.copy(), v.copy(), report)
+        if execution is not None:
+            # Old auditors must not treat incomplete reservations as ordinary trials.
+            from solver_temporal_execution import PROFILE as EXECUTION_PROFILE
+            report["profile"] = EXECUTION_PROFILE
+            report["controllerProfile"] = PROFILE
+            report["reason"] = "stop-requested" if execution.stop_requested else reason
+            report["execution"] = {"stopRequested": execution.stop_requested, "stopReason": execution.stop_reason,
+                "reservedTrials": len(execution._capsule.reservations),
+                "reservations": copy.deepcopy(list(execution._capsule.reservations))}
+            report["resources"]["chargedEvaluationAllowance"] = sum(
+                item["trial"]["evaluationAllowanceCharged"] for item in execution._capsule.reservations)
+            report["resources"]["recordedTrials"] = report["resources"].pop("mechanicalTrials")
+            report["resources"]["reservedTrials"] = len(execution._capsule.reservations)
+            execution._report_ready()
+        return result
+
+    if execution is None:
+        result = build_report()
+    else:
+        if propagated is not None:
+            execution._failure(propagated, "controller")
+        try:
+            result = build_report()
+        except BaseException as error:
+            execution._failure(error, "report")
+            if propagated is not None:
+                raise propagated from error
+            raise
     if propagated is not None:
         propagated.temporal_result = result
         raise propagated

@@ -293,7 +293,13 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
                           assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None,
                           fold_control_schedule=None, cable_parameter_schedule=None,
-                          stationarity_tolerance_newtons=1e-6, temporal_policy=None, **step_options):
+                          stationarity_tolerance_newtons=1e-6, temporal_policy=None,
+                          temporal_execution=None, **step_options):
+    if temporal_execution is not None:
+        from solver_temporal_execution import require_execution, context_value, schedule_context, enrich_result
+        require_execution(temporal_execution)
+        if temporal_policy is None:
+            raise ValueError("Temporal execution requires an explicit temporal policy")
     contact_control = getattr(solver,'contact_work_control',None)
     if contact_control is not None:
         from solver_contact_work_control import ContactWorkControl, validate_contact_energy
@@ -514,6 +520,27 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         temporal_controls = (schedule, gripper_controls, sewing_controls, fold_controls, cable_controls,
                              initial_targets, targets, initial_fold_targets, fold_targets, step_options)
         temporal_problem = problem_identity(solver, temporal_controls)
+        retained_context = None
+        if temporal_execution is not None:
+            # This is admitted control context, not a portable model identity.
+            # The experiment must independently bind model inputs and sources.
+            retained_context = {
+                "stationarityToleranceN": tolerance,
+                "sewingMode": getattr(solver, "sewing_mode", "vector"),
+                "initialTargets": context_value(initial_targets), "targets": context_value(targets),
+                "initialFoldTargets": context_value(initial_fold_targets), "foldTargets": context_value(fold_targets),
+                "assemblySchedule": schedule_context(schedule, "assembly"),
+                "defaultProgress": "original-fraction-linear" if schedule is None else None,
+                "sewingSchedule": schedule_context(sewing_controls, "sewing"),
+                "gripperSchedule": schedule_context(gripper_controls, "gripper"),
+                "foldSchedule": schedule_context(fold_controls, "fold"),
+                "fixedCableControl": context_value(cable_definition),
+                "varyingCableControl": context_value(varying_definition),
+                "cableParameterSchedule": context_value(cable_schedule_definition),
+                "cableParameterPreflight": context_value(cable_preflight),
+                "boundedContactControl": context_value(contact_definition) if contact_control is not None else None,
+                "temporalSchedulePreflight": context_value(temporal_preflight),
+                "stepOptions": context_value(step_options)}
     def validated_interval(current_positions, current_velocities, start_fraction, end_fraction,
                            duration, sewing_progress, fold_progress, substep_targets, record):
         """Evaluate one guarded interval without journaling or publishing state.
@@ -834,6 +861,19 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                               cableParameterSchedule=copy.deepcopy(cable_schedule_definition),
                               cableParameterPreflight=copy.deepcopy(cable_preflight),
                               varyingCableAcceptedWorkTotals=_varying_cable_totals(report["acceptedSteps"]))
+
+        if temporal_execution is not None:
+            try:
+                result = run_trials(temporal_trial, current_positions, current_velocities, temporal_mass, dt,
+                    declaration=temporal_policy, max_depth=int(max_depth), max_attempts=int(max_attempts),
+                    initial_subdivisions=int(initial_subdivisions), evaluation_limit=temporal_evaluations,
+                    execution=temporal_execution, retained_context=retained_context)
+            except BaseException as error:
+                if hasattr(error, "temporal_result"):
+                    error.temporal_result = enrich_result(temporal_execution, error.temporal_result,
+                                                           finish_temporal, primary=error)
+                raise
+            return enrich_result(temporal_execution, result, finish_temporal)
 
         try:
             q, v, report = run_trials(temporal_trial, current_positions, current_velocities, temporal_mass, dt,

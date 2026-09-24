@@ -34,6 +34,141 @@ def solve(solver, q, *, dt=.125, thresholds=None, **options):
 
 
 class TemporalGlobalTests(unittest.TestCase):
+    def test_execution_handle_requires_temporal_mode_before_any_solver_call(self):
+        from solver_temporal_execution import TemporalExecution
+        solver, q = oscillator()
+        target = np.zeros((1, 3))
+        with patch.object(solver, "step", side_effect=AssertionError("must not solve")):
+            with self.assertRaisesRegex(ValueError, "explicit temporal policy"):
+                adaptive_contact_step(solver, q, q*0, target, target, .125,
+                                      temporal_execution=TemporalExecution())
+
+    def test_retained_adaptive_context_and_unused_handle_preserve_real_mechanics(self):
+        from solver_temporal_execution import TemporalExecution
+        solver, q = oscillator()
+        baseline = solve(solver, q)
+        handle = TemporalExecution()
+        result = solve(solver, q, temporal_execution=handle)
+        for a, b in zip(baseline[:2], result[:2]): self.assertEqual(a.tobytes(), b.tobytes())
+        self.assertEqual(result[2]["acceptedSteps"], baseline[2]["acceptedSteps"])
+        snapshot = handle.snapshot()
+        context = snapshot["context"]["adaptiveContext"]
+        self.assertEqual(context["stationarityToleranceN"], 1e-6)
+        self.assertEqual(context["initialTargets"]["shape"], [1, 3])
+        self.assertEqual(context["defaultProgress"], "original-fraction-linear")
+        self.assertEqual(snapshot["enrichment"], "ready")
+        self.assertTrue(snapshot["complete"])
+
+    def test_returned_cleanup_error_cannot_mask_stop_in_adaptive_wrapper(self):
+        from solver_temporal_execution import TemporalExecution, TemporalStopRequested
+        for replacement in (ValueError, RuntimeError, MemoryError):
+            solver, q = oscillator()
+            handle = TemporalExecution("resource-stop")
+            original, count = solver.step, 0
+            def step(*args, **kwargs):
+                nonlocal count
+                count += 1
+                if count == 4:
+                    handle.request_stop()
+                    try: raise TemporalStopRequested("first")
+                    finally: raise replacement("cleanup")
+                return original(*args, **kwargs)
+            with self.subTest(replacement=replacement), patch.object(solver, "step", side_effect=step):
+                with self.assertRaises(TemporalStopRequested):
+                    solve(solver, q, temporal_execution=handle, initial_subdivisions=2)
+            snapshot = handle.snapshot()
+            self.assertEqual(count, 4)
+            self.assertEqual(snapshot["completedFraction"], .5)
+            self.assertEqual(snapshot["enrichment"], "ready")
+            self.assertTrue(any(row["type"] == replacement.__name__ for row in snapshot["failures"]))
+
+    def test_pre_requested_handle_captures_admitted_sewing_gripper_and_assembly_knots(self):
+        from solver_temporal_execution import TemporalExecution, TemporalStopRequested
+        from test_solver_sewing_activation_adaptive import SewingActivationAdaptiveTests, gripper_schedule
+        fixture = SewingActivationAdaptiveTests()
+        solver, q, v = fixture.fixture(coupled=True)
+        handle = TemporalExecution(); handle.request_stop()
+        assembly = {"profile": "sewing-fold-progress-v1", "knots": [
+            {"fraction": 0., "sewingProgress": 0., "foldProgress": 0.},
+            {"fraction": .5, "sewingProgress": 1., "foldProgress": .25},
+            {"fraction": 1., "sewingProgress": 1., "foldProgress": 1.}]}
+        with patch.object(solver, "step", side_effect=AssertionError("must not solve")), self.assertRaises(TemporalStopRequested):
+            fixture.run_schedule(solver, q, v, temporal_policy=declaration(), temporal_execution=handle,
+                initial_fold_targets=[-.0], fold_targets=[.1], gripper_schedule=gripper_schedule(),
+                assembly_schedule=assembly, max_depth=2)
+        context = handle.snapshot()["context"]["adaptiveContext"]
+        self.assertEqual(context["assemblySchedule"]["knots"]["knots"][1], [.5, 1., .25])
+        self.assertEqual(context["sewingSchedule"]["knots"]["rowIds"],
+                         ["synthetic:row:first", "synthetic:row:second"])
+        self.assertEqual(context["gripperSchedule"]["knots"]["activation"]["values"], [[1.], [0.]])
+        self.assertEqual(context["initialFoldTargets"]["values"][0].hex(), "-0x0.0p+0")
+        assembly["knots"][1]["foldProgress"] = .99
+        self.assertEqual(handle.snapshot()["context"]["adaptiveContext"], context)
+
+    def test_pre_requested_handle_captures_controlled_fold_fixed_cable_and_bounded_contact(self):
+        from dataclasses import asdict
+        from solver_temporal_execution import TemporalExecution, TemporalStopRequested
+        from solver_contact_work import WorkPolicy
+        from solver_contact_work_control import ContactWorkControl
+        from test_solver_cable_global import fixture as cable_fixture
+        from test_solver_controlled_fold_integration import fixture as fold_fixture
+        from test_solver_controlled_fold_adaptive import schedule
+        for kind in ("fold", "cable"):
+            if kind == "fold":
+                _, solver, q = fold_fixture(contact_enabled=True)
+                raw = schedule(solver.controlled_fold_actuation.hinges)
+                options = {"fold_control_schedule": raw}
+            else:
+                _, solver, q, _ = cable_fixture()
+                options = {}
+            solver.contact_work_control = ContactWorkControl(solver.contact, asdict(WorkPolicy()))
+            handle = TemporalExecution(); handle.request_stop()
+            with self.subTest(kind=kind), patch.object(solver, "step", side_effect=AssertionError("must not solve")), \
+                 self.assertRaises(TemporalStopRequested):
+                adaptive_contact_step(solver, q, np.zeros_like(q), EMPTY, EMPTY, .0008,
+                    temporal_policy=declaration(), temporal_execution=handle,
+                    initial_subdivisions=4, max_depth=2, **options)
+            context = handle.snapshot()["context"]["adaptiveContext"]
+            self.assertEqual(context["boundedContactControl"], solver.contact_work_control.description())
+            if kind == "fold":
+                self.assertEqual(context["foldSchedule"]["knots"]["hinges"], raw["hinges"])
+                self.assertIn("fold", context["temporalSchedulePreflight"])
+            else:
+                self.assertEqual(context["fixedCableControl"], solver.continuous_cable.description())
+
+    def test_varying_cable_enrichment_failure_keeps_raw_context_and_primary_stop(self):
+        from solver_temporal_execution import TemporalExecution, TemporalStopRequested
+        from test_solver_cable_varying_global import particle_fixture
+        for stopped in (False, True):
+            _, solver, q, recipe = particle_fixture(activation=0.)
+            raw = {"profile": "cable-target-activation-v1", "geometrySha256": recipe.geometry_sha256,
+                   "cellIds": list(recipe.cell_ids), "knots": [
+                {"fraction": 0., "targetsMeters": [[1., 1.]], "activation": [0.]},
+                {"fraction": .5, "targetsMeters": [[1., 1.]], "activation": [1.]},
+                {"fraction": 1., "targetsMeters": [[1., 1.]], "activation": [0.]}]}
+            handle, original, count = TemporalExecution(), solver.step, 0
+            def step(*args, **kwargs):
+                nonlocal count
+                count += 1
+                if count == 4 and stopped:
+                    handle.request_stop(); raise TemporalStopRequested("trial stop")
+                return original(*args, **kwargs)
+            with self.subTest(stopped=stopped), patch.object(solver, "step", side_effect=step), \
+                 patch("solver_adaptive_contact._varying_cable_totals", side_effect=ValueError("totals fail")):
+                with self.assertRaises(TemporalStopRequested if stopped else ValueError):
+                    adaptive_contact_step(solver, q, np.zeros_like(q), EMPTY, EMPTY, .125,
+                        temporal_policy=declaration(), temporal_execution=handle,
+                        initial_subdivisions=2, max_depth=2, max_evaluations=32, cable_parameter_schedule=raw)
+            snapshot = handle.snapshot()
+            self.assertEqual(snapshot["completedFraction"], .5 if stopped else 1.)
+            self.assertEqual(count, 4 if stopped else 6)
+            self.assertEqual(snapshot["enrichment"], "failed")
+            context = snapshot["context"]["adaptiveContext"]
+            self.assertIsNotNone(context["cableParameterPreflight"])
+            self.assertEqual(context["varyingCableControl"], solver.cable_parameter_control.description())
+            self.assertTrue(any(row["stage"] == "enrichment" and row["type"] == "ValueError"
+                                for row in snapshot["failures"]))
+
     def test_smooth_oscillator_refines_and_matches_independent_discrete_recurrence(self):
         solver, q = oscillator()
         original = problem_identity(solver)
