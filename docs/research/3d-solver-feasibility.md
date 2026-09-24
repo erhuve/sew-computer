@@ -4,6 +4,31 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Source-bound temporal fold declarations · 2026-09-23
+
+A separate static declaration binds the complete source, immutable base, native hinge order, audited fold descriptor and audited placement to an explicit temporal request. It expands both source rails into all sixteen native controls without changing stiffness, rest geometry or placement. The earlier static fold targets remain reference metadata, not a trajectory envelope or proof of the newly requested angles. No sewing or gripper control is installed.
+
+The declaration retains exact physical-time witnesses and a lower bound on positive actuator coefficients over its finite dyadic retry grid. The smallest positive activation occurs at an interval endpoint or the grid neighbor of a zero endpoint; the bound uses the solver's rounded stiffness-times-activation law. Boolean, nonfinite, unordered, stale, underflowing and unsupported controls reject. The independent standard-library auditor uses integer grid bounds and the independent fold/placement auditors; it imports no producer, generic scheduler, force model or engine. Positive represented time alone does not certify solver timestep admissibility.
+
+The retained [request and verification ledger](3d-binding-fold-schedule-results.json) specifies 512 ms, 256 initial intervals and depth six. Both rails engage flat; attachment precedes finish, and finish releases before attachment. Right/body +3° maps to seven native −3° targets; left/allowance −3° maps to nine native −3° targets. Relative angles follow the deformed hinges, so the finish axis is never fixed in world space. Balanced torques do not hold either region or the sleeve fixed.
+
+| Time | Attachment source angle | Finish source angle | Attachment activation | Finish activation |
+| --- | --- | --- | --- | --- |
+| 0 ms | 0° | 0° | 0 | 0 |
+| 64 ms | 0° | 0° | 1 | 1 |
+| 192 ms | +3° | 0° | 1 | 1 |
+| 320 ms | +3° | −3° | 1 | 1 |
+| 384 ms | +3° | −3° | 1 | 1 |
+| 416 ms | +3° | −3° | 1 | 0 |
+| 448 ms | +3° | −3° | 0 | 0 |
+| 512 ms | +3° | −3° | 0 | 0 |
+
+A separate static compatibility probe explains why historical whole-strip grippers cannot be copied into this request. Two anchors lie on the finish rail; the third commands the opposite attachment allowance. Its historical held target differs from the constructed internal-fold reference by **0.261769 mm**, with hypothetical spring energy **3.42616e-8 J** at unchanged stiffness. Fixed-complement +3° attachment/−3° finish reference poses have 1 mm binding-to-sleeve clearance; reversing attachment in that same reference construction produces an exact binary-input surface intersection. These endpoint comparisons reuse the existing surface-distance oracle and do not predict free coupled trajectories or certify this schedule.
+
+Verification: **963 full pinned Linux numerical/supervision tests pass in 487.079 seconds**, including **25 new cases** (twelve producer and thirteen independent-auditor tests). The new cases also pass on macOS using freshly generated native fixtures; this does not establish cross-runtime source bit identity. The retained Linux request matches independent parameter calculations at all **16,385 grid fractions across sixteen hinges**. Separate review passes 220 small-grid comparisons and retains fifteen activation-underflow rejections. The saved audit reproduces in a standard-library-only process. Log: `.planning/solver/binding-fold-schedule-full-numerical-sep23-v1.log`. These checks execute no refined motion and do not certify an application release.
+
+Zero motion steps execute, and both capture/main-replay entrypoints remain unchanged. Starting hinge angles are observed separately from zero requested targets and inactive controls. A future combined recipe must explicitly bind five held scalar seam rows and thirty-five pending rows, compliance and any new material anchors; the presence of all forty source rows does not mean they are active. Captured integration still needs the pending authorization. Actual wrapping, stitch-down receiver/material-side decisions, apex treatment, cuff turning, spatial seam coverage, settling/material/refinement validation and full-shirt/body/application acceptance remain open.
+
 ## Guarded fold activation and release · 2026-09-23
 
 The generic global solver now accepts a separate immutable controlled-fold recipe, rebinds every ordered hinge to its actual native model and requires explicit target/activation values on every step. It rejects simultaneous legacy fold parameters and requires guarded direct search even when all actuators are released. Active contributions supply the objective, force and search metric; complete declared hinge identities supply the initial, optimizer and physical-path checks. Full source-face triangle guards and configured contact checks remain mandatory. This is numerical model membership, not refined-source profile admission.
