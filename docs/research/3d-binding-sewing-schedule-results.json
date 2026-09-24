@@ -1,0 +1,2342 @@
+{
+  "accepted": false,
+  "adversarialReview": {
+    "accepted": false,
+    "alternateValidReference": {
+      "integerTargetAndSignedZeroControlsRetained": true,
+      "minimumSubnormalTargetRetainedExactly": true,
+      "notAnInitialForceOrGeometryAdmissionClaim": true,
+      "provenanceExtrasOmitted": true
+    },
+    "dynamicsExecuted": false,
+    "exactHeldWitnesses": [
+      {
+        "numericalMinusOriginalSquaredGapMetersSquared": {
+          "denominator": "8749002899132047697490008908470485461412677723572849745703082425639811996797503692894052708092215296",
+          "numerator": "-147564786029102256435375460771086534908405450409993144911903074038322131540239"
+        },
+        "numericalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "8749002899132047697490008908470485461412677723572849745703082425639811996797503692894052708092215296",
+            "numerator": "8749002899132372490059193787994136162874578715953868357223811587062228836266007262459590174449"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "8749002899132047697490008908470485461412677723572849745703082425639811996797503692894052708092215296",
+            "numerator": "-1879346723456279765459846400278515401332087434638647164490045280592833657870607"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "5846006549323611672814739330865132078623730171904",
+              "numerator": "130118564920531282891347071975111596915"
+            },
+            {
+              "denominator": "5708990770823839524233143877797980545530986496",
+              "numerator": "1093897151697182476083506642517488327"
+            },
+            {
+              "denominator": "93536104789177786765035829293842113257979682750464",
+              "numerator": "-93536104789177782731621338806833325328644228135"
+            }
+          ]
+        },
+        "originalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "431359146674410236714672241392314090778194310760649159697657763987456",
+            "numerator": "431359146674426257500186424381561906395665840958890630307369793"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "431359146674410236714672241392314090778194310760649159697657763987456",
+            "numerator": "-85383441675262554620930716393154273362050297023"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "2596148429267413814265248164610048",
+              "numerator": "57784247187394481170793"
+            },
+            {
+              "denominator": "649037107316853453566312041152512",
+              "numerator": "124361729181459093718563"
+            },
+            {
+              "denominator": "20769187434139310514121985316880384",
+              "numerator": "-20769187434139309793546044937601"
+            }
+          ]
+        },
+        "rowIndex": 0,
+        "targetSquaredMetersSquared": {
+          "denominator": "5316911983139663491615228241121378304",
+          "numerator": "5316911983139862015474949505169"
+        }
+      },
+      {
+        "numericalMinusOriginalSquaredGapMetersSquared": {
+          "denominator": "14134776518227074636666380005943348126619871175004951664972849610340958208",
+          "numerator": "668137460491740248773197550574556359894898971158985"
+        },
+        "numericalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+            "numerator": "113078212145817661718891508511977501913525104018709945448340575244465"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+            "numerator": "30080730705044741082240180374867009881278554888229041"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "332306998946228968225951765070086144",
+              "numerator": "3698194106771403865668899"
+            },
+            {
+              "denominator": "166153499473114484112975882535043072",
+              "numerator": "15918300617661081977444261"
+            },
+            {
+              "denominator": "10633823966279326983230456482242756608",
+              "numerator": "-10633823966279327581596717373196345"
+            }
+          ]
+        },
+        "originalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+            "numerator": "113078212145817656373791824578055511727944699422259066289148805972585"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+            "numerator": "24735631021110819092054599970270559002119363118957161"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "664613997892457936451903530140172288",
+              "numerator": "7396389071115684894624985"
+            },
+            {
+              "denominator": "20769187434139310514121985316880384",
+              "numerator": "1989787808716426128772781"
+            },
+            {
+              "denominator": "10633823966279326983230456482242756608",
+              "numerator": "-10633823966279327330259829368903699"
+            }
+          ]
+        },
+        "rowIndex": 1,
+        "targetSquaredMetersSquared": {
+          "denominator": "21267647932558653966460912964485513216",
+          "numerator": "21267647932558848542717402453281"
+        }
+      },
+      {
+        "numericalMinusOriginalSquaredGapMetersSquared": {
+          "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+          "numerator": "2319247321463093"
+        },
+        "numericalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+            "numerator": "107839786668602563668401090488819551233039394401832374177769161"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+            "numerator": "260207217086099283793799991095862985"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "2319247321463101"
+            },
+            {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "-63762478947502059"
+            },
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "-1152921504606847"
+            }
+          ]
+        },
+        "originalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+            "numerator": "107839786668602563668401090488819551233039394327616459890950185"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+            "numerator": "260207217086099283719584076809044009"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "2319247321463085"
+            },
+            {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "-63762478947502059"
+            },
+            {
+              "denominator": "1152921504606846976",
+              "numerator": "-1152921504606847"
+            }
+          ]
+        },
+        "rowIndex": 2,
+        "targetSquaredMetersSquared": {
+          "denominator": "1329227995784915872903807060280344576",
+          "numerator": "1329227995784915928244039281409"
+        }
+      },
+      {
+        "numericalMinusOriginalSquaredGapMetersSquared": {
+          "denominator": "431359146674410236714672241392314090778194310760649159697657763987456",
+          "numerator": "-2290918495037188760759134293739120570853569"
+        },
+        "numericalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+            "numerator": "7067388259113604772249895083326531771519288054623870623420864119729"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+            "numerator": "2794864844866624255541935242482642616612809258681265"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "332306998946228968225951765070086144",
+              "numerator": "-3698185744795933055019279"
+            },
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "-994893200396571105490767"
+            },
+            {
+              "denominator": "2658455991569831745807614120560689152",
+              "numerator": "-2658455991569832067472713905871001"
+            }
+          ]
+        },
+        "originalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+            "numerator": "7067388259113604772287429491949221072175565710892492374853728994225"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+            "numerator": "2794902379275246944842591520138911238364242123555761"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "332306998946228968225951765070086144",
+              "numerator": "-3698185746402020315144335"
+            },
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "-994893488225425442171247"
+            },
+            {
+              "denominator": "2658455991569831745807614120560689152",
+              "numerator": "-2658455991569832067472713905871001"
+            }
+          ]
+        },
+        "rowIndex": 3,
+        "targetSquaredMetersSquared": {
+          "denominator": "21267647932558653966460912964485513216",
+          "numerator": "21267647932558848542717402453281"
+        }
+      },
+      {
+        "numericalMinusOriginalSquaredGapMetersSquared": {
+          "denominator": "34996011596528190789960035633881941845650710894291398982812329702559247987190014771576210832368861184",
+          "numerator": "867176386360193880240074102510235707695618435534452858484323464156532076004737"
+        },
+        "numericalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "34996011596528190789960035633881941845650710894291398982812329702559247987190014771576210832368861184",
+            "numerator": "34996011596529494331308981858960666338761427403867789629572068360592069885703310510646817015169"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "34996011596528190789960035633881941845650710894291398982812329702559247987190014771576210832368861184",
+            "numerator": "-3146314687118134940152122488574009289127672916542245503419541840910526175165055"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "5846006549323611672814739330865132078623730171904",
+              "numerator": "-130118437989479628521594695912412730999"
+            },
+            {
+              "denominator": "2923003274661805836407369665432566039311865085952",
+              "numerator": "-560075363687506772593268270132930487931"
+            },
+            {
+              "denominator": "187072209578355573530071658587684226515959365500928",
+              "numerator": "-187072209578355577145910609317044046024844964033"
+            }
+          ]
+        },
+        "originalOperator": {
+          "squaredGapMetersSquared": {
+            "denominator": "3450873173395281893717377931138512726225554486085193277581262111899648",
+            "numerator": "3450873173395410347308249632082322306676975345713498406317832929"
+          },
+          "squaredGapMinusTargetSquaredMetersSquared": {
+            "denominator": "3450873173395281893717377931138512726225554486085193277581262111899648",
+            "numerator": "-395760775165070609911934082527191813532543501599"
+          },
+          "vectorMeters": [
+            {
+              "denominator": "83076749736557242056487941267521536",
+              "numerator": "-1849094479826788220447297"
+            },
+            {
+              "denominator": "10384593717069655257060992658440192",
+              "numerator": "-1989787403753742847093179"
+            },
+            {
+              "denominator": "83076749736557242056487941267521536",
+              "numerator": "-83076749736557242632948693570945"
+            }
+          ]
+        },
+        "rowIndex": 4,
+        "targetSquaredMetersSquared": {
+          "denominator": "5316911983139663491615228241121378304",
+          "numerator": "5316911983139862015474949505169"
+        }
+      }
+    ],
+    "forceModelConstructed": false,
+    "forgedDescriptorsRejected": [
+      "erase_sub_float_original_numerical_vector_difference",
+      "erase_tiny_squared_gap_difference",
+      "forge_pending_original_row_hash_while_identity_unchanged",
+      "erase_pending_negative_zero_representation"
+    ],
+    "inputFiles": [
+      {
+        "path": ".planning/solver/binding-placement-sep23-v2/source.json",
+        "sha256": "f1add81d9d9b6152abf8d975728750f7788bc5ad05931802259b942d230329a1"
+      },
+      {
+        "path": ".planning/solver/binding-fold-control-sep23-v1/descriptor.json",
+        "sha256": "54e40818f38af3e7e38ce319a1bb7006603ed5001fa4b063cdb14757ba92bef4"
+      },
+      {
+        "path": ".planning/solver/binding-placement-sep23-v2/descriptor.json",
+        "sha256": "e75a397a9af408403cd9243957dd19d54cbf7f651d375b366d9fbd0cf0c1871d"
+      },
+      {
+        "path": ".planning/solver/binding-fold-schedule-sep23-v1/descriptor.json",
+        "sha256": "151ea537e0f76d27b64d0f247c1e377bba0665b77eec0914e900ffa7c5994234"
+      },
+      {
+        "path": ".planning/solver/binding-fourfold-three-input-sep23-v1/canonical.json",
+        "sha256": "05e70cc9b2adcad1038f5aaf7b2c0694ba7c229984e30a66ddc575fc11aa4b6e"
+      }
+    ],
+    "inputsUnchangedAndOutputIndependent": true,
+    "limitations": [
+      "Static producer admission and independent exact arithmetic only; no force or motion.",
+      "Pattern/source prerequisite validation is shared with the existing producer.",
+      "Exact squared-gap witnesses do not independently establish square roots or CSR one-ULP arithmetic."
+    ],
+    "originalAndNumericalRowHashesChecked": 40,
+    "producerSha256": "3d956fb5984cc9248cfa19273515d3a78ca766de54d76676f609663f2c8e0218",
+    "profile": "independent-static-combined-binding-review-v1",
+    "runtimePython": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]",
+    "scriptSha256": "f4d64fd5b921758e596dc3cefcb772b95ffe5136b958a5451e11ef4aac57732e",
+    "verified": true
+  },
+  "artifacts": [
+    {
+      "bytes": 52659,
+      "path": ".planning/solver/binding-sewing-schedule-sep23-v1/descriptor.json",
+      "sha256": "d66925e21755ea63dd5d3926dc536e3743da01819eaf82cd1826d392d8d24dd7"
+    },
+    {
+      "bytes": 7069,
+      "path": ".planning/solver/binding-sewing-schedule-sep23-v1/audit.json",
+      "sha256": "4c630b33c4fe5d71bee6b38914a9ddf890dd622e7e2da1379e3d44ce439dce78"
+    },
+    {
+      "bytes": 6243,
+      "path": ".planning/solver/binding-sewing-schedule-sep23-v1/observations.json",
+      "sha256": "53b540bc85ab4587cb2006ff1da9b40483642085d5bf830cc6d0fbb68478606c"
+    }
+  ],
+  "baseCommit": "32b8eab",
+  "bindings": {
+    "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "foldDescriptorSha256": "b5aafa7b2f8f655a618bba9ad040cf3240dc2400ba3fef12a07be3e2680f5d86",
+    "foldScheduleDescriptorSha256": "c55f1a8431e274ef37a7a77c8f5cf9cf8f2d807e3a4b87d7bd9d47aeb7208437",
+    "nativeTopologySha256": "b23cc6fe2b407fdcf5d2eef0f40968b39b76f826b627b3799212cd3e020fc993",
+    "numericalBundleSha256": "c473c0e39c8f957c56032c9b0d98be305a2185818451abc19609796561f4125a",
+    "originalBundleSha256": "d2a4ec1a8d10e86c17e742571b61dccb380ee2f6082ab8cb707ce49d54612633",
+    "placementDescriptorSha256": "8d0cceef4fe052fcf0d6d898414b5a0013df7dd5e2e22eecbf680054db0c6dc7",
+    "referenceSewingActuationSha256": "dca6281997cb01b07f417b75ef9377cf5b88276d86c61ae0df5702419518ac0f",
+    "referenceSourceSha256": "aa2db98db73b49d538dcd12715a4151884f532d2c5db8990de60b9c416524129",
+    "sourcePhaseConstraintRowsSha256": "e97c313b60882c53543cc31ddde54be19c61b0f8f6d4e852387b7c861032becb",
+    "sourcePhasePlanSha256": "89c5abd46b840e1afc261816bdc656e81d363ad4c057795559fefbe3455e4d02",
+    "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694"
+  },
+  "controls": {
+    "complianceMPerN": 1e-08,
+    "durationSeconds": 0.512,
+    "finalTargetsMeters": [
+      0.0010000000000000187,
+      0.0010000000000000046,
+      0.001,
+      0.0010000000000000046,
+      0.0010000000000000187,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "foldControlSchedule": {
+      "hinges": [
+        [
+          43,
+          60,
+          54,
+          51
+        ],
+        [
+          47,
+          48,
+          57,
+          54
+        ],
+        [
+          47,
+          48,
+          58,
+          57
+        ],
+        [
+          47,
+          49,
+          55,
+          58
+        ],
+        [
+          46,
+          49,
+          56,
+          55
+        ],
+        [
+          42,
+          50,
+          53,
+          56
+        ],
+        [
+          42,
+          64,
+          52,
+          53
+        ],
+        [
+          41,
+          52,
+          64,
+          63
+        ],
+        [
+          41,
+          53,
+          62,
+          64
+        ],
+        [
+          45,
+          50,
+          68,
+          62
+        ],
+        [
+          45,
+          50,
+          67,
+          68
+        ],
+        [
+          45,
+          49,
+          66,
+          67
+        ],
+        [
+          44,
+          49,
+          65,
+          66
+        ],
+        [
+          40,
+          48,
+          59,
+          65
+        ],
+        [
+          40,
+          54,
+          61,
+          59
+        ],
+        [
+          40,
+          54,
+          60,
+          61
+        ]
+      ],
+      "knots": [
+        {
+          "activation": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fraction": 0.0,
+          "targetsRadians": [
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "fraction": 0.125,
+          "targetsRadians": [
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            -0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "fraction": 0.375,
+          "targetsRadians": [
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "fraction": 0.625,
+          "targetsRadians": [
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "fraction": 0.75,
+          "targetsRadians": [
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fraction": 0.8125,
+          "targetsRadians": [
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989
+          ]
+        },
+        {
+          "activation": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fraction": 0.875,
+          "targetsRadians": [
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989
+          ]
+        },
+        {
+          "activation": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fraction": 1.0,
+          "targetsRadians": [
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989,
+            -0.05235987755982989
+          ]
+        }
+      ],
+      "profile": "fold-angle-activation-v1"
+    },
+    "foldStiffnessJoules": [
+      0.0015084051875,
+      0.0020112069166666672,
+      0.0015084051875000005,
+      0.0020112069166666664,
+      0.001508405187499999,
+      0.0020112069166666677,
+      0.0015084051875000005,
+      0.0005028017291666659,
+      0.0010056034583333332,
+      0.0020112069166666677,
+      0.0015084051875000005,
+      0.0020112069166666664,
+      0.0015084051874999999,
+      0.002011206916666667,
+      0.0010056034583333334,
+      0.0005028017291666668
+    ],
+    "heldRowIndices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "heldSelector": {
+      "memberIndex": 1,
+      "registrationId": "bind_opening_left_left"
+    },
+    "initialSubdivisions": 256,
+    "initialTargetsMeters": [
+      0.0010000000000000187,
+      0.0010000000000000046,
+      0.001,
+      0.0010000000000000046,
+      0.0010000000000000187,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001,
+      0.001
+    ],
+    "maxDepth": 6,
+    "minimumStepSeconds": {
+      "denominator": "36893488147419103232",
+      "numerator": "1152921504606847",
+      "roundedBinary64": 3.125e-05
+    },
+    "pendingRowIndices": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "releasedFoldTailPolicy": "sewing-remains-held-when-folds-release",
+    "retryGridDenominator": 16384,
+    "sewingControlSchedule": {
+      "knots": [
+        {
+          "activation": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fraction": 0.0
+        },
+        {
+          "activation": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "fraction": 1.0
+        }
+      ],
+      "profile": "sewing-row-activation-v1",
+      "rowIds": [
+        "row:ebb650cbabb5fe12d86d1054684ed1997984dfd3079eb38f162ff1c86733214f",
+        "row:2398836424f08c7f149ecfb882a09cbfdbf82cfa2742629d0c57cc9884532241",
+        "row:988798989ceb0ef5c87209d2d68e3023bc45ffea8fe1cf105cb3a88324ecd946",
+        "row:83f718266ca016b0bb805519df9e4b761a9eb4ec17fcc29452aee530d883357c",
+        "row:b1b8806ca48f276a8884a668a6efea58d5e37382188592cfbda73bc3b9a29901",
+        "row:9a1f3c5426c11a75fd1e79bee1d1c9edf37c7af3bc3bbe7f06bca3ce33230396",
+        "row:1555e7cfe1695a5ba339bc393c5855dc4e115c2d602cf6cd0e2f339d17fd52b5",
+        "row:ea6466a22796c40b733bebefefe6cf2a7b7d22eb9d6ce5367bf2231bc431c0ec",
+        "row:51fd7ff516937275b84e1b18a94b6d20d7c4f9517f99a65001a41ec4ba1b3fd9",
+        "row:eddc2e424907e582a97684a12bd93bac5a145f312ec14fc14ec75fc01d9b7531",
+        "row:5f6b12523e6ec66cba347461bf3510b75fda7a299122fce4a7a9dcdfc046f2c4",
+        "row:d6f8af862ccd1b8f092fdfbb2ee455b54bf575d02639df64a7ab958e64a82c15",
+        "row:93ca40d37ad16b7e5cb7340bdf23482984ffce71a09d8023a35181ed2dd3f2b4",
+        "row:0030e6366fae8b42af284aec142585b1f9cbd230ca04eaeac7376062904f7005",
+        "row:76771cb7f9118b8234b3e82f97ad9e416d5e7ffce0a2aa6157f612840335a4be",
+        "row:eeaed242c99fc056e0a09aeab0b6c525d5629266e76a16b9a6757956c8db7c98",
+        "row:4210000510bfe4af68b6f3ee2364807584bb318cc2c87c606cd4f2ec69502bbb",
+        "row:37988135910d28f1d87dc7d1362f3e16960c02adb71ce7f57deab3d586dc234e",
+        "row:92f58e772a857863c8395924660436eee2f78badd45594bf2fe75c40ae61f39b",
+        "row:fb53372fc3ddf431f801a8316b5812334ecbed942120b0263f6b94d8f4bc9cd3",
+        "row:57d5e72eee7ff56aab41ad91792ae691205e5984b088f6d121404a85c46d536e",
+        "row:ace8316b249160cf3b7760882848f72a1856d03d69b38f18ddf51e3f914f7252",
+        "row:39dff7eda7e474bcc7c6a78bfa34c47a3aae4875664b896f8a3597032eea45c9",
+        "row:e184089935f62f4c91286032fce732f636e82137caaebb24641a93a83aaa652b",
+        "row:d2921db6b38eaeefba845a5dc6792252e178717d4fbd66dda06a5882b2ce5a2e",
+        "row:cd77ae849326486c54ed5aa929eeb0bd39c1f9a881ef32ab6684f8715484e03c",
+        "row:630bb69537efb636c9e41fbdb3551677103821bfa316bf80904be36292f363ee",
+        "row:13ca802a004c33aadf5a732bf2908beee2ca03b564514ee42b256f37e9657e02",
+        "row:070fe0970ee2301696e33e81c6d1989277e8ee9e19622cd61ab1865d0b6a3a1f",
+        "row:7b61eb9c871a8693f1d30bc60287d2993addfb531d7b0c1dacbe2a54194c571f",
+        "row:2a8f52df3c400f27999a0196d438ed4ef3391cb25dc54873b9c3d9a3cf151755",
+        "row:e910c6dc673ebdd745418846d6503ca5fdbed002d74e873c8db406ec2708a570",
+        "row:c349f452599fa8ea525761178b6d71a669ae1bcb4d04205317fcabc107f31b74",
+        "row:c4d75a6134eef7dd16ee2f05283f1774210a79df42ab146608862df840f00c92",
+        "row:d42884b8eb130293373a93404890928f90b51a83c8bfadbc314255065410cff8",
+        "row:f932477c4d04c40676fa114e7378dc20aa2224f0daf484cc030d4d5aea69eca5",
+        "row:f2a43c4c4eef23702b8697b6740f259e879c09a6acd2858e88e8c1aba5428d66",
+        "row:a6a44f11f06330436da5b20ba0d9ecbc8e7c140beaec19045cef462f77cb4264",
+        "row:daa06455b8df136b91cd8b67b22f2050b5eeeb8b0cdc664f5330b9aac418f612",
+        "row:a4b241f14690fcacabee3218ab6442debfd3460b54dfce3a9bd7e29c96536a4b"
+      ]
+    },
+    "sewingMode": "distance",
+    "timePolicy": "one-original-fraction-grid-for-all-controls-v1"
+  },
+  "date": "2026-09-23",
+  "dynamicsExecuted": false,
+  "exactInitialObservations": {
+    "allFiveExactOperatorVectorsDiffer": true,
+    "exactNumericalMinusOriginalSquaredGapSigns": [
+      -1,
+      1,
+      1,
+      -1,
+      1
+    ],
+    "exactSquaredGapMinusTargetSquaredSigns": {
+      "numericalOperator": [
+        -1,
+        1,
+        1,
+        1,
+        -1
+      ],
+      "originalOperator": [
+        -1,
+        1,
+        1,
+        1,
+        -1
+      ]
+    },
+    "smallestNonzeroVectorDifferenceMeters": {
+      "denominator": "649037107316853453566312041152512",
+      "numerator": "1"
+    }
+  },
+  "executable": false,
+  "generator": {
+    "bytes": 8849,
+    "path": ".planning/solver/make-binding-sewing-schedule-ledger.py",
+    "sha256": "4a89432b041d4d0d02c9011128f69b30285d78cfb6ffc00795a860fb7bbc390c"
+  },
+  "independentAudit": {
+    "accepted": false,
+    "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+    "descriptorSha256": "04049116b3519a1b1f97635f41ad7e0b7f712968512be3feb083549f20df7415",
+    "foldScheduleAudit": {
+      "accepted": false,
+      "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+      "coefficientWitnessesSha256": "1a8e8ba830535524cbacb1c25c81bcaac2502fceeddad87bdebb3df9d99f5df4",
+      "descriptorSha256": "c55f1a8431e274ef37a7a77c8f5cf9cf8f2d807e3a4b87d7bd9d47aeb7208437",
+      "everActiveHingeCount": 16,
+      "foldAudit": {
+        "accepted": false,
+        "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+        "descriptorSha256": "b5aafa7b2f8f655a618bba9ad040cf3240dc2400ba3fef12a07be3e2680f5d86",
+        "foldActuationSha256": "3f5c32189ea2515e01e416dded34ea16daef6018d87209a1102d352c36ebe20e",
+        "hingeCount": 16,
+        "nativeEdgeCount": 638,
+        "nativeTopologySha256": "b23cc6fe2b407fdcf5d2eef0f40968b39b76f826b627b3799212cd3e020fc993",
+        "profile": "independent-binding-fold-verification-v1",
+        "railCount": 2,
+        "railNames": [
+          "right",
+          "left"
+        ],
+        "requestSha256": "4126332f18da53ae0c6561cfd5bb795e5a6cedf77e7136fe23ff15b7496274d8",
+        "sourceScope": "Independent supplied-source topology, full native edge incidence, oriented dual-graph region partition, relative-angle signs, exact squared lengths and prescribed nearest binary64 length/stiffness arithmetic. Pattern and split-geometry validity require the separately captured source validator. Textual limitations are not mathematical evidence. No fixed-region motion, textile-side assignment, material calibration, stability, trajectory, wrap or construction acceptance.",
+        "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+        "sourceTriangleCount": 398,
+        "sourceVertexCount": 245,
+        "verified": true
+      },
+      "foldDescriptorSha256": "b5aafa7b2f8f655a618bba9ad040cf3240dc2400ba3fef12a07be3e2680f5d86",
+      "hingeCount": 16,
+      "knotCount": 8,
+      "minimumStepSeconds": {
+        "denominator": "36893488147419103232",
+        "numerator": "1152921504606847",
+        "roundedBinary64": 3.125e-05
+      },
+      "nativeTopologySha256": "b23cc6fe2b407fdcf5d2eef0f40968b39b76f826b627b3799212cd3e020fc993",
+      "placementAudit": {
+        "accepted": false,
+        "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+        "bindingLineageVertexCount": 29,
+        "descriptorSha256": "8d0cceef4fe052fcf0d6d898414b5a0013df7dd5e2e22eecbf680054db0c6dc7",
+        "edgeCount": 638,
+        "instanceCount": 5,
+        "minimumCertifiedGapMeters": {
+          "denominator": "1152921504606846976",
+          "numerator": "1152921504606847",
+          "roundedBinary64": 0.001
+        },
+        "placedMetersSha256": "2b1315b3ae56c7190445ba97c238373f7845f24465032fe07a194a01a90f1ea9",
+        "profile": "independent-binding-placement-verification-v1",
+        "requestSha256": "8b9e7705bc4df36c8da34b6d7ecb5f0ee1dbcf0d7d9f9a82200ab7683e5eff0f",
+        "separatingPlaneCount": 10,
+        "sourceScope": "Independent supplied canonical mesh and raw two-stage lineage, complete exact pose/metric/rounding/commutation witnesses and all ten static cross-instance coordinate-plane gaps. Pattern and split geometry require the separately captured source validator. Textual limitations are not evidence. No within-instance contact, staging path, dynamics, material calibration, textile-side, sewing frame or construction acceptance.",
+        "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+        "triangleCount": 398,
+        "verified": true,
+        "vertexCount": 245
+      },
+      "placementDescriptorSha256": "8d0cceef4fe052fcf0d6d898414b5a0013df7dd5e2e22eecbf680054db0c6dc7",
+      "profile": "independent-binding-fold-schedule-verification-v1",
+      "railCount": 2,
+      "requestSha256": "13f02c92615c4e63555774b3fe64cd19a6196c237358f4c32cb0ef884e4b90cf",
+      "retryGridDenominator": 16384,
+      "sourceScope": "Independent complete source-rail/native/placement/request binding and exact physical-time witnesses. Minimum positive activation and RN(k*RN(alpha)) coefficients cover only the declared finite dyadic retry grid, using integer-interval extrema; no grid enumeration. Prerequisite audit scopes remain in foldAudit and placementAudit. Pattern/split validity requires the separate source validator. No controls installed, motion, captured admission, sewing/gripper recipe, continuous work, contact/hinge path, settling, material or construction acceptance.",
+      "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+      "verified": true
+    },
+    "geometryWitnessesSha256": "3547908605a32b6793901831f9744e301fd314f1f6562ec9413a3e05777845f2",
+    "heldRowCount": 5,
+    "pendingRowCount": 35,
+    "profile": "independent-binding-sewing-fold-schedule-verification-v1",
+    "referenceSourceSha256": "aa2db98db73b49d538dcd12715a4151884f532d2c5db8990de60b9c416524129",
+    "remapAudit": {
+      "accepted": false,
+      "baseUnitSha256": "078d240eacb41336c8e50d5f6c0c68a53729c4a25b93e7efdc2dfee01a75f14c",
+      "enumeratedCandidateCount": 23,
+      "profile": "independent-binding-remap-verification-v1",
+      "refinementSha256": "7652f0ffef44d83e72d43654589dd9d589b9151fabbaaa91d132f342fc649665",
+      "remapSha256": "0163315ce7fc39091c425aa521633b2dc0d9a915a49da8f0222919962c11f6bf",
+      "remappedRows": 5,
+      "rowCount": 40,
+      "scope": "Independent raw-stage exact coefficient composition, complete original-parent child enumeration, nonnegativity, nearest-even binary64 conversion, residual bounds and derived mesh/row consistency. Pattern and split-geometry rederivation require the separately captured source validator; no frame-side, independent refined-motion, construction or physical acceptance proof.",
+      "selectedChildTriangleIndices": [
+        25,
+        35,
+        40,
+        14,
+        5
+      ],
+      "sourceProfile": "source-left-binding-refined-unit-v1",
+      "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+      "unchangedRows": 35,
+      "verified": true
+    },
+    "rowCount": 40,
+    "selectorCount": 8,
+    "sourceScope": "Independent supplied-source combined declaration: every original/numerical row, reference target and compliance, held/pending activation, unique phase-row membership and exact coefficient vectors/squared gaps at CURRENT placement. Original local prefixes use current canonical offsets; no square root, normalization or target reseeding. Fold/remap prerequisite scopes remain in their audit summaries; pattern and split-geometry rederivation require the separate strict source validator. Historical extras are hashed provenance only. No controls installed, source admission, numerical motion, continuous spatial seam, frame/material side, contact path, all-controls-free tail, settling or construction acceptance.",
+    "sourceSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+    "verified": true
+  },
+  "initialHeldGeometryWitnesses": [
+    {
+      "numericalMinusOriginalSquaredGapMetersSquared": {
+        "denominator": "8749002899132047697490008908470485461412677723572849745703082425639811996797503692894052708092215296",
+        "numerator": "-147564786029102256435375460771086534908405450409993144911903074038322131540239"
+      },
+      "numericalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "8749002899132047697490008908470485461412677723572849745703082425639811996797503692894052708092215296",
+          "numerator": "8749002899132372490059193787994136162874578715953868357223811587062228836266007262459590174449"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "8749002899132047697490008908470485461412677723572849745703082425639811996797503692894052708092215296",
+          "numerator": "-1879346723456279765459846400278515401332087434638647164490045280592833657870607"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "5846006549323611672814739330865132078623730171904",
+            "numerator": "130118564920531282891347071975111596915"
+          },
+          {
+            "denominator": "5708990770823839524233143877797980545530986496",
+            "numerator": "1093897151697182476083506642517488327"
+          },
+          {
+            "denominator": "93536104789177786765035829293842113257979682750464",
+            "numerator": "-93536104789177782731621338806833325328644228135"
+          }
+        ]
+      },
+      "originalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "431359146674410236714672241392314090778194310760649159697657763987456",
+          "numerator": "431359146674426257500186424381561906395665840958890630307369793"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "431359146674410236714672241392314090778194310760649159697657763987456",
+          "numerator": "-85383441675262554620930716393154273362050297023"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "2596148429267413814265248164610048",
+            "numerator": "57784247187394481170793"
+          },
+          {
+            "denominator": "649037107316853453566312041152512",
+            "numerator": "124361729181459093718563"
+          },
+          {
+            "denominator": "20769187434139310514121985316880384",
+            "numerator": "-20769187434139309793546044937601"
+          }
+        ]
+      },
+      "rowIndex": 0,
+      "targetSquaredMetersSquared": {
+        "denominator": "5316911983139663491615228241121378304",
+        "numerator": "5316911983139862015474949505169"
+      }
+    },
+    {
+      "numericalMinusOriginalSquaredGapMetersSquared": {
+        "denominator": "14134776518227074636666380005943348126619871175004951664972849610340958208",
+        "numerator": "668137460491740248773197550574556359894898971158985"
+      },
+      "numericalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+          "numerator": "113078212145817661718891508511977501913525104018709945448340575244465"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+          "numerator": "30080730705044741082240180374867009881278554888229041"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "332306998946228968225951765070086144",
+            "numerator": "3698194106771403865668899"
+          },
+          {
+            "denominator": "166153499473114484112975882535043072",
+            "numerator": "15918300617661081977444261"
+          },
+          {
+            "denominator": "10633823966279326983230456482242756608",
+            "numerator": "-10633823966279327581596717373196345"
+          }
+        ]
+      },
+      "originalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+          "numerator": "113078212145817656373791824578055511727944699422259066289148805972585"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "113078212145816597093331040047546785012958969400039613319782796882727665664",
+          "numerator": "24735631021110819092054599970270559002119363118957161"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "664613997892457936451903530140172288",
+            "numerator": "7396389071115684894624985"
+          },
+          {
+            "denominator": "20769187434139310514121985316880384",
+            "numerator": "1989787808716426128772781"
+          },
+          {
+            "denominator": "10633823966279326983230456482242756608",
+            "numerator": "-10633823966279327330259829368903699"
+          }
+        ]
+      },
+      "rowIndex": 1,
+      "targetSquaredMetersSquared": {
+        "denominator": "21267647932558653966460912964485513216",
+        "numerator": "21267647932558848542717402453281"
+      }
+    },
+    {
+      "numericalMinusOriginalSquaredGapMetersSquared": {
+        "denominator": "3369993333393829974333376885877453834204643052817571560137951281152",
+        "numerator": "2319247321463093"
+      },
+      "numericalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+          "numerator": "107839786668602563668401090488819551233039394401832374177769161"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+          "numerator": "260207217086099283793799991095862985"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "10384593717069655257060992658440192",
+            "numerator": "2319247321463101"
+          },
+          {
+            "denominator": "1298074214633706907132624082305024",
+            "numerator": "-63762478947502059"
+          },
+          {
+            "denominator": "1152921504606846976",
+            "numerator": "-1152921504606847"
+          }
+        ]
+      },
+      "originalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+          "numerator": "107839786668602563668401090488819551233039394327616459890950185"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "107839786668602559178668060348078522694548577690162289924414440996864",
+          "numerator": "260207217086099283719584076809044009"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "10384593717069655257060992658440192",
+            "numerator": "2319247321463085"
+          },
+          {
+            "denominator": "1298074214633706907132624082305024",
+            "numerator": "-63762478947502059"
+          },
+          {
+            "denominator": "1152921504606846976",
+            "numerator": "-1152921504606847"
+          }
+        ]
+      },
+      "rowIndex": 2,
+      "targetSquaredMetersSquared": {
+        "denominator": "1329227995784915872903807060280344576",
+        "numerator": "1329227995784915928244039281409"
+      }
+    },
+    {
+      "numericalMinusOriginalSquaredGapMetersSquared": {
+        "denominator": "431359146674410236714672241392314090778194310760649159697657763987456",
+        "numerator": "-2290918495037188760759134293739120570853569"
+      },
+      "numericalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+          "numerator": "7067388259113604772249895083326531771519288054623870623420864119729"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+          "numerator": "2794864844866624255541935242482642616612809258681265"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "332306998946228968225951765070086144",
+            "numerator": "-3698185744795933055019279"
+          },
+          {
+            "denominator": "10384593717069655257060992658440192",
+            "numerator": "-994893200396571105490767"
+          },
+          {
+            "denominator": "2658455991569831745807614120560689152",
+            "numerator": "-2658455991569832067472713905871001"
+          }
+        ]
+      },
+      "originalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+          "numerator": "7067388259113604772287429491949221072175565710892492374853728994225"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "7067388259113537318333190002971674063309935587502475832486424805170479104",
+          "numerator": "2794902379275246944842591520138911238364242123555761"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "332306998946228968225951765070086144",
+            "numerator": "-3698185746402020315144335"
+          },
+          {
+            "denominator": "10384593717069655257060992658440192",
+            "numerator": "-994893488225425442171247"
+          },
+          {
+            "denominator": "2658455991569831745807614120560689152",
+            "numerator": "-2658455991569832067472713905871001"
+          }
+        ]
+      },
+      "rowIndex": 3,
+      "targetSquaredMetersSquared": {
+        "denominator": "21267647932558653966460912964485513216",
+        "numerator": "21267647932558848542717402453281"
+      }
+    },
+    {
+      "numericalMinusOriginalSquaredGapMetersSquared": {
+        "denominator": "34996011596528190789960035633881941845650710894291398982812329702559247987190014771576210832368861184",
+        "numerator": "867176386360193880240074102510235707695618435534452858484323464156532076004737"
+      },
+      "numericalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "34996011596528190789960035633881941845650710894291398982812329702559247987190014771576210832368861184",
+          "numerator": "34996011596529494331308981858960666338761427403867789629572068360592069885703310510646817015169"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "34996011596528190789960035633881941845650710894291398982812329702559247987190014771576210832368861184",
+          "numerator": "-3146314687118134940152122488574009289127672916542245503419541840910526175165055"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "5846006549323611672814739330865132078623730171904",
+            "numerator": "-130118437989479628521594695912412730999"
+          },
+          {
+            "denominator": "2923003274661805836407369665432566039311865085952",
+            "numerator": "-560075363687506772593268270132930487931"
+          },
+          {
+            "denominator": "187072209578355573530071658587684226515959365500928",
+            "numerator": "-187072209578355577145910609317044046024844964033"
+          }
+        ]
+      },
+      "originalOperator": {
+        "squaredGapMetersSquared": {
+          "denominator": "3450873173395281893717377931138512726225554486085193277581262111899648",
+          "numerator": "3450873173395410347308249632082322306676975345713498406317832929"
+        },
+        "squaredGapMinusTargetSquaredMetersSquared": {
+          "denominator": "3450873173395281893717377931138512726225554486085193277581262111899648",
+          "numerator": "-395760775165070609911934082527191813532543501599"
+        },
+        "vectorMeters": [
+          {
+            "denominator": "83076749736557242056487941267521536",
+            "numerator": "-1849094479826788220447297"
+          },
+          {
+            "denominator": "10384593717069655257060992658440192",
+            "numerator": "-1989787403753742847093179"
+          },
+          {
+            "denominator": "83076749736557242056487941267521536",
+            "numerator": "-83076749736557242632948693570945"
+          }
+        ]
+      },
+      "rowIndex": 4,
+      "targetSquaredMetersSquared": {
+        "denominator": "5316911983139663491615228241121378304",
+        "numerator": "5316911983139862015474949505169"
+      }
+    }
+  ],
+  "inputs": {
+    "fold": {
+      "bytes": 47600,
+      "path": ".planning/solver/binding-fold-control-sep23-v1/descriptor.json",
+      "sha256": "54e40818f38af3e7e38ce319a1bb7006603ed5001fa4b063cdb14757ba92bef4"
+    },
+    "foldSchedule": {
+      "bytes": 29299,
+      "path": ".planning/solver/binding-fold-schedule-sep23-v1/descriptor.json",
+      "sha256": "151ea537e0f76d27b64d0f247c1e377bba0665b77eec0914e900ffa7c5994234"
+    },
+    "placement": {
+      "bytes": 777679,
+      "path": ".planning/solver/binding-placement-sep23-v2/descriptor.json",
+      "sha256": "e75a397a9af408403cd9243957dd19d54cbf7f651d375b366d9fbd0cf0c1871d"
+    },
+    "reference": {
+      "bytes": 294293,
+      "path": ".planning/solver/binding-fourfold-three-input-sep23-v1/canonical.json",
+      "sha256": "05e70cc9b2adcad1038f5aaf7b2c0694ba7c229984e30a66ddc575fc11aa4b6e"
+    },
+    "source": {
+      "bytes": 439145,
+      "path": ".planning/solver/binding-placement-sep23-v2/source.json",
+      "sha256": "f1add81d9d9b6152abf8d975728750f7788bc5ad05931802259b942d230329a1"
+    }
+  },
+  "isolatedAuditReproduction": {
+    "accepted": false,
+    "auditCanonicalSha256": "065636c4a5a6097eaf699d0e341421bb604613daaf038c2b51736a4558921f1f",
+    "copiedHelperCount": 5,
+    "helperSha256": {
+      "solver_binding_control_schedule_replay.py": "3266a2d1d688336b10113d1ff0a488ee8fd4b8ea03244c04bed8a0c0937784b4",
+      "solver_binding_fold_replay.py": "b1391bee4eeda899b48ebdff2506bb32d1cdf854e2f541b0cb33f113d7cb11f9",
+      "solver_binding_placement_replay.py": "bf7295b46f20ab48637b9b25ebb5de4f97d78d9f051b98d1e48ea067b885ae05",
+      "solver_binding_remap_replay.py": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f",
+      "solver_binding_sewing_schedule_replay.py": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84"
+    },
+    "isolatedFlags": [
+      "-I",
+      "-S"
+    ],
+    "motionSteps": 0,
+    "profile": "isolated-stdlib-combined-audit-reproduction-v1",
+    "python": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "scope": "Retained static audit reproduced byte-identically with only five independent helper modules and the standard library; no producer, sampler, numerical/force model or engine imports.",
+    "scriptSha256": "179819423bf0f24f7b9459ea2d4b14a25c31cad70c052b086aa706c54c521d6b",
+    "verified": true
+  },
+  "jointGridComparison": {
+    "completeDeclaredGridEnumerated": true,
+    "foldHingesPerSample": 16,
+    "heldRowsPerSample": 5,
+    "jointParameterComparison": "Generic parameter samplers compared with independent Fraction fold interpolation and constant full-row sewing values at every shared original fraction; no mechanical evaluation.",
+    "pendingRowsPerSample": 35,
+    "sampleCount": 16385,
+    "sampleSha256": "4bcf1b10f876b84cdb5805090066d47cdde7db328fb408aeaefe3f9a1d7ddc54",
+    "sewingRowsPerSample": 40
+  },
+  "limitations": [
+    "Static composition only; no controls installed, motion executed, captured source admitted or construction phase completed.",
+    "All forty source rows, targets and compliance remain explicit. Five held samples are an initial numerical condition; thirty-five pending rows remain inactive.",
+    "Original and refined coefficient operators remain distinct. Exact initial squared-gap witnesses retain their differences without retargeting or coefficient normalization.",
+    "One original fraction and retry grid serves both controls. Positive parameter timesteps do not establish executable solver timesteps or continuous actuator work.",
+    "Reference placement, grippers and textile-side declarations are provenance only and are not inherited. Scalar distance controls supply no material-normal frame or rotational joint.",
+    "Releasing fold actuation leaves five sewing samples held; it is not an all-controls-free tail or a settling certificate.",
+    "Continuous spatial seams, binding wrap/stitch-down/apex, open-edge and turning gates, material calibration, contact paths and garment acceptance remain unresolved.",
+    "Source pattern and split rederivation use the strict producer prerequisites; independent static auditors document their narrower arithmetic/source-binding scope.",
+    "Fresh native fixtures and pinned Linux retained input remain distinct; no cross-runtime source bit identity is asserted.",
+    "The earlier one-ULP CSR residual is separate native arithmetic evidence, not an exact square-root certificate or part of these rational squared-gap calculations.",
+    "Both capture/main-replay entrypoints remain unchanged after automatic approval rejection; the prepared proposal awaits specific authorization.",
+    "A Git clone carries this compact ledger and tests, not ignored raw source, descriptors, scripts, logs or runtimes."
+  ],
+  "loadedHelpers": {
+    "solver_binding_control_schedule.py": "8d773fcfffbeb3a12b8682cfc2af78ba0c0738e847439da3777eb07886347dac",
+    "solver_binding_control_schedule_replay.py": "3266a2d1d688336b10113d1ff0a488ee8fd4b8ea03244c04bed8a0c0937784b4",
+    "solver_binding_fold.py": "ca440dc52b50962ae2e8f5747ba10bf438b9367546cc6aeef451fa295230a543",
+    "solver_binding_fold_replay.py": "b1391bee4eeda899b48ebdff2506bb32d1cdf854e2f541b0cb33f113d7cb11f9",
+    "solver_binding_placement.py": "a8db85ad76d6bf8bcb72c14b6c37c467833f96eb5e5a3a63cc73293af0b47f2a",
+    "solver_binding_placement_replay.py": "bf7295b46f20ab48637b9b25ebb5de4f97d78d9f051b98d1e48ea067b885ae05",
+    "solver_binding_refinement.py": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb",
+    "solver_binding_remap.py": "904894294afb8666115b29d4ef468a53dcaa00f932caa348f6672544ac2413fb",
+    "solver_binding_remap_replay.py": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f",
+    "solver_binding_sewing_schedule.py": "3d956fb5984cc9248cfa19273515d3a78ca766de54d76676f609663f2c8e0218",
+    "solver_binding_sewing_schedule_replay.py": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84",
+    "solver_binding_source.py": "51561505f8e490e54444d07873dd9a72386acf837a9ca65eb5d89316bbf64ff8",
+    "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+    "solver_cuff_construction.py": "f76e642a3201d4fd9de76cc77b6048334d2cf5046d80c8dffa01c6dee43bef0f",
+    "solver_cuff_source_binding.py": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f",
+    "solver_engine_source_namespace.py": "2a08d3703380981ad186427482bb9b6c4a5016044e910efea3bd03d01ee51108",
+    "solver_fold_control_schedule.py": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e",
+    "solver_sewing_activation_schedule.py": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48",
+    "solver_sewing_input.py": "cd21a37cc3baf30c00c79d0b83d35b70e1ec562a138d94ea66147d13b7fe433f"
+  },
+  "profile": "source-bound-sewing-fold-static-evidence-v1",
+  "rawReviewArtifacts": [
+    {
+      "bytes": 6664,
+      "path": ".planning/solver/prepare-binding-sewing-schedule-sep23-v1.py",
+      "sha256": "b7cb79424db0f72f7e9e9a42959f4f621e79e1f8ce6bcb3693a0fab36bb67ebb"
+    },
+    {
+      "bytes": 157,
+      "path": ".planning/solver/binding-sewing-schedule-preparation-sep23-v1.log",
+      "sha256": "aa1c753a4a23bdceb4b07d18502395f5ed2529a2c242aa4dec3d0e75f8334dcb"
+    },
+    {
+      "bytes": 7800,
+      "path": ".planning/solver/review-binding-sewing-schedule-sep23-v1.py",
+      "sha256": "f4d64fd5b921758e596dc3cefcb772b95ffe5136b958a5451e11ef4aac57732e"
+    },
+    {
+      "bytes": 11351,
+      "path": ".planning/solver/review-binding-sewing-schedule-sep23-v1.json",
+      "sha256": "f64c0b957aec0fe378d8de273bfce24f76a3c3e01f37863acb036144d59dee08"
+    },
+    {
+      "bytes": 2695,
+      "path": ".planning/solver/audit-binding-sewing-standalone-sep23-v1.py",
+      "sha256": "179819423bf0f24f7b9459ea2d4b14a25c31cad70c052b086aa706c54c521d6b"
+    },
+    {
+      "bytes": 1238,
+      "path": ".planning/solver/binding-sewing-standalone-audit-sep23-v1.json",
+      "sha256": "12bb54c48f5999ef34ce8fc6f362d1b5356ee978689f0c8abdce7770179a12ed"
+    },
+    {
+      "bytes": 1178,
+      "path": ".planning/solver/binding-sewing-standalone-audit-sep23-v1.log",
+      "sha256": "11932a7bed92080ffedef70998590c8c2738bfc711698a54034992fded7e0bb0"
+    }
+  ],
+  "rowBindings": [
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": true,
+      "memberIndex": 1,
+      "numericalRowSha256": "9b5f5b81cbe6dddf54dc7858acde1b8eb6e65d910cb45fa169c51afb8f697e93",
+      "originalRowSha256": "886b077e14f4fead0be13b6352684f9be3070e36cf230048628fefc2fcd6378c",
+      "phaseId": "cuff:left:bind-opening-left",
+      "registrationId": "bind_opening_left_left",
+      "rowId": "row:ebb650cbabb5fe12d86d1054684ed1997984dfd3079eb38f162ff1c86733214f",
+      "rowIndex": 0,
+      "targetMeters": 0.0010000000000000187
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": true,
+      "memberIndex": 1,
+      "numericalRowSha256": "32d80f7c939f1c9886e1fe4d8f0b97fe9a6c14beabaef9a0d43e16fa6a1e878f",
+      "originalRowSha256": "85c109819fe84c26b3a2e448a385c534e100774a1609ad6337dfe02f2c8be325",
+      "phaseId": "cuff:left:bind-opening-left",
+      "registrationId": "bind_opening_left_left",
+      "rowId": "row:2398836424f08c7f149ecfb882a09cbfdbf82cfa2742629d0c57cc9884532241",
+      "rowIndex": 1,
+      "targetMeters": 0.0010000000000000046
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": true,
+      "memberIndex": 1,
+      "numericalRowSha256": "43bc543d7792dd3bac01ba69d739b8901aa2ab8395a7019c2654b15507bbbd78",
+      "originalRowSha256": "e23723f0ef6e3e0fb29c18218cb6497ef64f6fa42356852259948b5d96a4af75",
+      "phaseId": "cuff:left:bind-opening-left",
+      "registrationId": "bind_opening_left_left",
+      "rowId": "row:988798989ceb0ef5c87209d2d68e3023bc45ffea8fe1cf105cb3a88324ecd946",
+      "rowIndex": 2,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": true,
+      "memberIndex": 1,
+      "numericalRowSha256": "6c417e46dac6ee3458ad80e2e13bf518721dffaaa21bd664e72f31967e7ad481",
+      "originalRowSha256": "7594a90d9347e6b9f0cf6db706a82c518991aa3cf8f2095d2b1cda916027fdfc",
+      "phaseId": "cuff:left:bind-opening-left",
+      "registrationId": "bind_opening_left_left",
+      "rowId": "row:83f718266ca016b0bb805519df9e4b761a9eb4ec17fcc29452aee530d883357c",
+      "rowIndex": 3,
+      "targetMeters": 0.0010000000000000046
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": true,
+      "memberIndex": 1,
+      "numericalRowSha256": "0902fd0596daa3a63c274c40e5bb9d2cccb7c2b9a8387dd5d4680332998a170f",
+      "originalRowSha256": "862b1636beec59daf41d5946d842943453e7c9226dfe036e3b994e3c686cf32c",
+      "phaseId": "cuff:left:bind-opening-left",
+      "registrationId": "bind_opening_left_left",
+      "rowId": "row:b1b8806ca48f276a8884a668a6efea58d5e37382188592cfbda73bc3b9a29901",
+      "rowIndex": 4,
+      "targetMeters": 0.0010000000000000187
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "f46deb5e47edbc71a314959d1be15dee20aad2c7f5e1a4f824192d838f1d550e",
+      "originalRowSha256": "f46deb5e47edbc71a314959d1be15dee20aad2c7f5e1a4f824192d838f1d550e",
+      "phaseId": "cuff:left:bind-opening-right",
+      "registrationId": "bind_opening_left_right",
+      "rowId": "row:9a1f3c5426c11a75fd1e79bee1d1c9edf37c7af3bc3bbe7f06bca3ce33230396",
+      "rowIndex": 5,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "4c9c09178943f8a598eeb58a8d108f6baba68deaaa4e193107a52477a8f534da",
+      "originalRowSha256": "4c9c09178943f8a598eeb58a8d108f6baba68deaaa4e193107a52477a8f534da",
+      "phaseId": "cuff:left:bind-opening-right",
+      "registrationId": "bind_opening_left_right",
+      "rowId": "row:1555e7cfe1695a5ba339bc393c5855dc4e115c2d602cf6cd0e2f339d17fd52b5",
+      "rowIndex": 6,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "91d7037920e16f604e1a3b6aa3950441e454351fad84713e56f9afebbbe5416b",
+      "originalRowSha256": "91d7037920e16f604e1a3b6aa3950441e454351fad84713e56f9afebbbe5416b",
+      "phaseId": "cuff:left:bind-opening-right",
+      "registrationId": "bind_opening_left_right",
+      "rowId": "row:ea6466a22796c40b733bebefefe6cf2a7b7d22eb9d6ce5367bf2231bc431c0ec",
+      "rowIndex": 7,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "366a8474bb5a2a11e899985352ce7312d5c5659dd872353543de7e9c57c1061b",
+      "originalRowSha256": "366a8474bb5a2a11e899985352ce7312d5c5659dd872353543de7e9c57c1061b",
+      "phaseId": "cuff:left:bind-opening-right",
+      "registrationId": "bind_opening_left_right",
+      "rowId": "row:51fd7ff516937275b84e1b18a94b6d20d7c4f9517f99a65001a41ec4ba1b3fd9",
+      "rowIndex": 8,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "81e53be5e1c8ac8dd14d36f401ec2c3f543767f581b0e13143ac82dedc8260a5",
+      "originalRowSha256": "81e53be5e1c8ac8dd14d36f401ec2c3f543767f581b0e13143ac82dedc8260a5",
+      "phaseId": "cuff:left:bind-opening-right",
+      "registrationId": "bind_opening_left_right",
+      "rowId": "row:eddc2e424907e582a97684a12bd93bac5a145f312ec14fc14ec75fc01d9b7531",
+      "rowIndex": 9,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "f537627bf3cae771c3e50a20968a2e5c0edbf6e8f9b6e9bc762192b7f8a09923",
+      "originalRowSha256": "f537627bf3cae771c3e50a20968a2e5c0edbf6e8f9b6e9bc762192b7f8a09923",
+      "phaseId": "cuff:left:close-shell",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:5f6b12523e6ec66cba347461bf3510b75fda7a299122fce4a7a9dcdfc046f2c4",
+      "rowIndex": 10,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": false,
+      "memberIndex": 2,
+      "numericalRowSha256": "5252fca92a398d9f55e84677cae3c302fcfc3fbdb74057db660c842e5c405dfc",
+      "originalRowSha256": "5252fca92a398d9f55e84677cae3c302fcfc3fbdb74057db660c842e5c405dfc",
+      "phaseId": "cuff:left:attach-facing",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:d6f8af862ccd1b8f092fdfbb2ee455b54bf575d02639df64a7ab958e64a82c15",
+      "rowIndex": 11,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "4e02fbeed078477fd982034a31ccd688db7dcd88a0499834cd4231b4e946cc3b",
+      "originalRowSha256": "4e02fbeed078477fd982034a31ccd688db7dcd88a0499834cd4231b4e946cc3b",
+      "phaseId": "cuff:left:close-shell",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:93ca40d37ad16b7e5cb7340bdf23482984ffce71a09d8023a35181ed2dd3f2b4",
+      "rowIndex": 12,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 2,
+      "numericalRowSha256": "812704e36a350e4b42c9c1791cc6ae34feb8e4de6d3ed110a01465eb6bd832e5",
+      "originalRowSha256": "812704e36a350e4b42c9c1791cc6ae34feb8e4de6d3ed110a01465eb6bd832e5",
+      "phaseId": "cuff:left:attach-facing",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:0030e6366fae8b42af284aec142585b1f9cbd230ca04eaeac7376062904f7005",
+      "rowIndex": 13,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "d84cf1f424a976c46c97651b394613614b10f314b5bf7567608fde3273422744",
+      "originalRowSha256": "d84cf1f424a976c46c97651b394613614b10f314b5bf7567608fde3273422744",
+      "phaseId": "cuff:left:close-shell",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:76771cb7f9118b8234b3e82f97ad9e416d5e7ffce0a2aa6157f612840335a4be",
+      "rowIndex": 14,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 2,
+      "numericalRowSha256": "0ba93ddf27afc4382e830f344c0dcac49a2977e67767e33a32e4969417acb265",
+      "originalRowSha256": "0ba93ddf27afc4382e830f344c0dcac49a2977e67767e33a32e4969417acb265",
+      "phaseId": "cuff:left:attach-facing",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:eeaed242c99fc056e0a09aeab0b6c525d5629266e76a16b9a6757956c8db7c98",
+      "rowIndex": 15,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "f5bf73b6f462aa208d1208a6ba782f756041c11fe3c779585de517d1d9599815",
+      "originalRowSha256": "f5bf73b6f462aa208d1208a6ba782f756041c11fe3c779585de517d1d9599815",
+      "phaseId": "cuff:left:close-shell",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:4210000510bfe4af68b6f3ee2364807584bb318cc2c87c606cd4f2ec69502bbb",
+      "rowIndex": 16,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": false,
+      "memberIndex": 2,
+      "numericalRowSha256": "f93a9a4c0c242312e1d14f049d42687d362f0caefb13c4ac84f22e9bd85cb679",
+      "originalRowSha256": "f93a9a4c0c242312e1d14f049d42687d362f0caefb13c4ac84f22e9bd85cb679",
+      "phaseId": "cuff:left:attach-facing",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:37988135910d28f1d87dc7d1362f3e16960c02adb71ce7f57deab3d586dc234e",
+      "rowIndex": 17,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "53a95240727c5b0914e8c6cd5d43f5face0c05c001dea26345cce0ce9baa7eb8",
+      "originalRowSha256": "53a95240727c5b0914e8c6cd5d43f5face0c05c001dea26345cce0ce9baa7eb8",
+      "phaseId": "cuff:left:close-shell",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:92f58e772a857863c8395924660436eee2f78badd45594bf2fe75c40ae61f39b",
+      "rowIndex": 18,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 2,
+      "numericalRowSha256": "9cdc49f1f07eed229589f375b9b1bd74b9c7a451fdf0f9732f9255eecbab2d9a",
+      "originalRowSha256": "9cdc49f1f07eed229589f375b9b1bd74b9c7a451fdf0f9732f9255eecbab2d9a",
+      "phaseId": "cuff:left:attach-facing",
+      "registrationId": "cuff_gather_left",
+      "rowId": "row:fb53372fc3ddf431f801a8316b5812334ecbed942120b0263f6b94d8f4bc9cd3",
+      "rowIndex": 19,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "a2e98cbc4e0acec4ff3ff44231c47aa12ee3713b5ab00f69ee33dca855c9bba7",
+      "originalRowSha256": "a2e98cbc4e0acec4ff3ff44231c47aa12ee3713b5ab00f69ee33dca855c9bba7",
+      "phaseId": "cuff:left:stitch-extension",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowId": "row:57d5e72eee7ff56aab41ad91792ae691205e5984b088f6d121404a85c46d536e",
+      "rowIndex": 20,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "1dc2ae20b953e45427549ddb8b06a35ffa5e042a9ff2cb3f5c918a6e2d0bc82b",
+      "originalRowSha256": "1dc2ae20b953e45427549ddb8b06a35ffa5e042a9ff2cb3f5c918a6e2d0bc82b",
+      "phaseId": "cuff:left:stitch-extension",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowId": "row:ace8316b249160cf3b7760882848f72a1856d03d69b38f18ddf51e3f914f7252",
+      "rowIndex": 21,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "0d9c9a9c25aec90037df2174e95148ca69e3c0272055c0887a1791324e872082",
+      "originalRowSha256": "0d9c9a9c25aec90037df2174e95148ca69e3c0272055c0887a1791324e872082",
+      "phaseId": "cuff:left:stitch-extension",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowId": "row:39dff7eda7e474bcc7c6a78bfa34c47a3aae4875664b896f8a3597032eea45c9",
+      "rowIndex": 22,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "fac179d32bb6e576bad681c5210011cbb104677a12723d2eda8be1fc527c1740",
+      "originalRowSha256": "fac179d32bb6e576bad681c5210011cbb104677a12723d2eda8be1fc527c1740",
+      "phaseId": "cuff:left:stitch-extension",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowId": "row:e184089935f62f4c91286032fce732f636e82137caaebb24641a93a83aaa652b",
+      "rowIndex": 23,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "635a7ae1567b169d303b307ac4bdbc52e583d0816e722f72356b19b13a927bcf",
+      "originalRowSha256": "635a7ae1567b169d303b307ac4bdbc52e583d0816e722f72356b19b13a927bcf",
+      "phaseId": "cuff:left:stitch-extension",
+      "registrationId": "perimeter:cuff_left:extension",
+      "rowId": "row:d2921db6b38eaeefba845a5dc6792252e178717d4fbd66dda06a5882b2ce5a2e",
+      "rowIndex": 24,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "57ed687988c125924332a2272dcde15117f7ce7a97a96bce9324acab33b4aab6",
+      "originalRowSha256": "57ed687988c125924332a2272dcde15117f7ce7a97a96bce9324acab33b4aab6",
+      "phaseId": "cuff:left:stitch-end",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowId": "row:cd77ae849326486c54ed5aa929eeb0bd39c1f9a881ef32ab6684f8715484e03c",
+      "rowIndex": 25,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "2a0c647e19abbe4ce559b2c62e268bbb823246f5f7fa6b56950fba2aadb9ab6c",
+      "originalRowSha256": "2a0c647e19abbe4ce559b2c62e268bbb823246f5f7fa6b56950fba2aadb9ab6c",
+      "phaseId": "cuff:left:stitch-end",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowId": "row:630bb69537efb636c9e41fbdb3551677103821bfa316bf80904be36292f363ee",
+      "rowIndex": 26,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "75be8a77c477fadd44bdc80a68e73531e96ad9c46c4889e80c73b26be4d9eedc",
+      "originalRowSha256": "75be8a77c477fadd44bdc80a68e73531e96ad9c46c4889e80c73b26be4d9eedc",
+      "phaseId": "cuff:left:stitch-end",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowId": "row:13ca802a004c33aadf5a732bf2908beee2ca03b564514ee42b256f37e9657e02",
+      "rowIndex": 27,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "b0b0ecdc7e6741ae403f852d2ba4c0c85165377251566ff1a7121bd8f124f9af",
+      "originalRowSha256": "b0b0ecdc7e6741ae403f852d2ba4c0c85165377251566ff1a7121bd8f124f9af",
+      "phaseId": "cuff:left:stitch-end",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowId": "row:070fe0970ee2301696e33e81c6d1989277e8ee9e19622cd61ab1865d0b6a3a1f",
+      "rowIndex": 28,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "bce76d907dbb76ab7ec7a90c34d25d4e1291846e93ab713947d61c1a42d3f8de",
+      "originalRowSha256": "bce76d907dbb76ab7ec7a90c34d25d4e1291846e93ab713947d61c1a42d3f8de",
+      "phaseId": "cuff:left:stitch-end",
+      "registrationId": "perimeter:cuff_left:end",
+      "rowId": "row:7b61eb9c871a8693f1d30bc60287d2993addfb531d7b0c1dacbe2a54194c571f",
+      "rowIndex": 29,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "11f30079602cbbffd837e950448fa4c652b16200cbd92c8766476c1228d66407",
+      "originalRowSha256": "11f30079602cbbffd837e950448fa4c652b16200cbd92c8766476c1228d66407",
+      "phaseId": "cuff:left:stitch-outer",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowId": "row:2a8f52df3c400f27999a0196d438ed4ef3391cb25dc54873b9c3d9a3cf151755",
+      "rowIndex": 30,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "ac7b6acaf526f2c22692fe50b12eea3e0fa864f5aa6c0a814bf6c0493ac6a32f",
+      "originalRowSha256": "ac7b6acaf526f2c22692fe50b12eea3e0fa864f5aa6c0a814bf6c0493ac6a32f",
+      "phaseId": "cuff:left:stitch-outer",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowId": "row:e910c6dc673ebdd745418846d6503ca5fdbed002d74e873c8db406ec2708a570",
+      "rowIndex": 31,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "0e96650e9ec8a45690ae296ee29d86a50c129b94066eb5abe981d1eb2c48c06d",
+      "originalRowSha256": "0e96650e9ec8a45690ae296ee29d86a50c129b94066eb5abe981d1eb2c48c06d",
+      "phaseId": "cuff:left:stitch-outer",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowId": "row:c349f452599fa8ea525761178b6d71a669ae1bcb4d04205317fcabc107f31b74",
+      "rowIndex": 32,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "c8145be9b9978dd3652cb610e9453924e330af9b0f13402b8e3aee141ae226fb",
+      "originalRowSha256": "c8145be9b9978dd3652cb610e9453924e330af9b0f13402b8e3aee141ae226fb",
+      "phaseId": "cuff:left:stitch-outer",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowId": "row:c4d75a6134eef7dd16ee2f05283f1774210a79df42ab146608862df840f00c92",
+      "rowIndex": 33,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "85d6c5d8d32c6410e2a19628d4c70852c6406543d05a20ea1924404cac3ef78a",
+      "originalRowSha256": "85d6c5d8d32c6410e2a19628d4c70852c6406543d05a20ea1924404cac3ef78a",
+      "phaseId": "cuff:left:stitch-outer",
+      "registrationId": "perimeter:cuff_left:outer",
+      "rowId": "row:d42884b8eb130293373a93404890928f90b51a83c8bfadbc314255065410cff8",
+      "rowIndex": 34,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 0,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "42c86c7dddeb1aabecb4f03b04f9769a6453a5802e152de133ca3864f0c652ca",
+      "originalRowSha256": "42c86c7dddeb1aabecb4f03b04f9769a6453a5802e152de133ca3864f0c652ca",
+      "phaseId": "cuff:left:stitch-start",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowId": "row:f932477c4d04c40676fa114e7378dc20aa2224f0daf484cc030d4d5aea69eca5",
+      "rowIndex": 35,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "b9a6b985017affe9f0bb1bb4adc48012a7aa38609ffcbf3e9152ef7831fdcd15",
+      "originalRowSha256": "b9a6b985017affe9f0bb1bb4adc48012a7aa38609ffcbf3e9152ef7831fdcd15",
+      "phaseId": "cuff:left:stitch-start",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowId": "row:f2a43c4c4eef23702b8697b6740f259e879c09a6acd2858e88e8c1aba5428d66",
+      "rowIndex": 36,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 2,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "c9a80e35427c0a59aa68a6aa63b282ba0ad81abe482e5ebadc7b7a592a02e15e",
+      "originalRowSha256": "c9a80e35427c0a59aa68a6aa63b282ba0ad81abe482e5ebadc7b7a592a02e15e",
+      "phaseId": "cuff:left:stitch-start",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowId": "row:a6a44f11f06330436da5b20ba0d9ecbc8e7c140beaec19045cef462f77cb4264",
+      "rowIndex": 37,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 4,
+      "fractionNumerator": 3,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "1c80993a5b075727c933a97c06ebd7d18f5f9b6cd0532394419c1e5925ceba54",
+      "originalRowSha256": "1c80993a5b075727c933a97c06ebd7d18f5f9b6cd0532394419c1e5925ceba54",
+      "phaseId": "cuff:left:stitch-start",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowId": "row:daa06455b8df136b91cd8b67b22f2050b5eeeb8b0cdc664f5330b9aac418f612",
+      "rowIndex": 38,
+      "targetMeters": 0.001
+    },
+    {
+      "complianceMPerN": 1e-08,
+      "fractionDenominator": 1,
+      "fractionNumerator": 1,
+      "held": false,
+      "memberIndex": 1,
+      "numericalRowSha256": "4388f838c21859b866f21f62964e4feb5fe3b3378787cb12a975cdb82a2a3e78",
+      "originalRowSha256": "4388f838c21859b866f21f62964e4feb5fe3b3378787cb12a975cdb82a2a3e78",
+      "phaseId": "cuff:left:stitch-start",
+      "registrationId": "perimeter:cuff_left:start",
+      "rowId": "row:a4b241f14690fcacabee3218ab6442debfd3460b54dfce3a9bd7e29c96536a4b",
+      "rowIndex": 39,
+      "targetMeters": 0.001
+    }
+  ],
+  "runtime": {
+    "image": "sew-engine-research:sep23-arm",
+    "imageId": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.17.0",
+      "shapely": "2.1.2"
+    },
+    "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+    "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]"
+  },
+  "scope": "Static composition of source/placement-bound fold controls with preserved original distance sewing; complete shared-grid parameter verification only.",
+  "sourceAdmissionChanged": false,
+  "sourceControlsInstalled": false,
+  "sourceIdentity": [
+    {
+      "bytes": 11762,
+      "path": "scripts/solver_binding_sewing_schedule.py",
+      "sha256": "3d956fb5984cc9248cfa19273515d3a78ca766de54d76676f609663f2c8e0218"
+    },
+    {
+      "bytes": 16698,
+      "path": "scripts/solver_binding_sewing_schedule_replay.py",
+      "sha256": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84"
+    },
+    {
+      "bytes": 19141,
+      "path": "scripts/test_solver_binding_sewing_schedule.py",
+      "sha256": "bdd2c27af6bdcbcab3fd948e377afe0d7d7cdcdd69a9b4386c919d7e521cc5f4"
+    },
+    {
+      "bytes": 18849,
+      "path": "scripts/test_solver_binding_sewing_schedule_replay.py",
+      "sha256": "10e4c18b1a4052a927ba78acda8ceef812b466b1aa1e1200db0258dc253bf1a4"
+    }
+  ],
+  "unchangedExecutionSources": [
+    {
+      "bytes": 32674,
+      "path": "scripts/spike-contact-continuation.py",
+      "sha256": "ab9f17fb1dee9a2e43e87fb32795e39382530fdf5de91d3b04966a4ac080a26c"
+    },
+    {
+      "bytes": 31616,
+      "path": "scripts/replay-rest-filtered-continuation.py",
+      "sha256": "a323cd47c6d00748e82d5dd023be807e47cfd56a157e5f08b09d1d1fdafd2c24"
+    },
+    {
+      "bytes": 47901,
+      "path": "scripts/solver_global_sewing.py",
+      "sha256": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336"
+    },
+    {
+      "bytes": 27464,
+      "path": "scripts/solver_adaptive_contact.py",
+      "sha256": "db9beda8f7695a6ddbdb001d9f9df0441f3b5659f42dba84a982dd89fd224d6e"
+    },
+    {
+      "bytes": 29784,
+      "path": "scripts/solver_energy_balance.py",
+      "sha256": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313"
+    }
+  ],
+  "verification": {
+    "auditorLinux": {
+      "bytes": 3155,
+      "passed": true,
+      "path": ".planning/solver/binding-sewing-schedule-replay-linux-sep23-v1.log",
+      "seconds": 49.38,
+      "sha256": "e22e4d7e737f4c5710f880265255ee27b7007ebca4ad9437f8723e9f8911f67e",
+      "tests": 12
+    },
+    "auditorNative": {
+      "bytes": 3029,
+      "passed": true,
+      "path": ".planning/solver/binding-sewing-schedule-replay-native-sep23-v1.log",
+      "seconds": 52.621,
+      "sha256": "66c22abade272edd226c4f88e68afd5492facc2a3c4c6551b2dfad3861e12289",
+      "tests": 12
+    },
+    "countsOverlap": true,
+    "fullPinnedLinux": {
+      "bytes": 6576,
+      "passed": true,
+      "path": ".planning/solver/binding-sewing-schedule-full-numerical-sep23-v1.log",
+      "seconds": 601.119,
+      "sha256": "856c8868af8218248b2db5b9268b98dd506fa115861d3d53037689a562d2c69a",
+      "tests": 987
+    },
+    "logScope": "Complete command output retained for every listed run.",
+    "newTests": 24,
+    "producerLinux": {
+      "bytes": 3216,
+      "passed": true,
+      "path": ".planning/solver/binding-sewing-schedule-producer-linux-sep23-v1.log",
+      "seconds": 59.652,
+      "sha256": "b3b392bb9eee3c137c195ac9d63e0c4eda1f5cffd64bbeea09392d88787dc99f",
+      "tests": 12
+    },
+    "producerNative": {
+      "bytes": 3088,
+      "passed": true,
+      "path": ".planning/solver/binding-sewing-schedule-producer-native-sep23-v1.log",
+      "seconds": 60.449,
+      "sha256": "bcfd7c772cd01f5ca4827aead6f20ffc64ad7a876d60167d83593a3aca8e6ab1",
+      "tests": 12
+    },
+    "reproduce": "python -m unittest discover -s scripts -p 'test_solver_*.py'"
+  }
+}
