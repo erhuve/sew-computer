@@ -1,0 +1,3116 @@
+{
+  "accepted": false,
+  "artifacts": [
+    {
+      "bytes": 1741,
+      "path": ".planning/solver/execute-temporal-accuracy-study-sep24-v1.py",
+      "sha256": "774a30b078dc4c711ff7aec823f50dcd5525a0f4bf66f42e2d52718408f575fd"
+    },
+    {
+      "bytes": 1122,
+      "path": ".planning/solver/execute-temporal-failed-trial-trace-sep24-v1.py",
+      "sha256": "47f73882859967512eda75a70dbbf73692f2941b164205bb012593b66a7b630a"
+    },
+    {
+      "bytes": 4043,
+      "path": ".planning/solver/plot-temporal-accuracy-study-sep24-v1.py",
+      "sha256": "f1219cd373f65c2ca4b239657aa237a5e17d9605f62d8f2632bd8e58d64ca1db"
+    },
+    {
+      "bytes": 11816,
+      "path": ".planning/solver/reduce-temporal-accuracy-study-sep24-v1.py",
+      "sha256": "57cdbd791e02650250e0e18a3931e9489b18a14e3d2c401be10ea003ae78bcbd"
+    },
+    {
+      "bytes": 559,
+      "path": ".planning/solver/review-temporal-accuracy-study-final-check-sep24-v1.log",
+      "sha256": "2043c066e3c93200e0a5913f3e9f538aacebcbcd67c3082a4494d1afe4381b76"
+    },
+    {
+      "bytes": 39079,
+      "path": ".planning/solver/review-temporal-accuracy-study-final-sep24-v1.json",
+      "sha256": "c3b916d6619d7e53c9a6b3e527f0acd1e00aac6497c614b42a813b80d48c3df3"
+    },
+    {
+      "bytes": 559,
+      "path": ".planning/solver/review-temporal-accuracy-study-final-sep24-v1.log",
+      "sha256": "2043c066e3c93200e0a5913f3e9f538aacebcbcd67c3082a4494d1afe4381b76"
+    },
+    {
+      "bytes": 13497,
+      "path": ".planning/solver/review-temporal-accuracy-study-final-sep24-v1.py",
+      "sha256": "b4bdff635ad944b95259f8cd3c10ba2ef51a7ab118d1e2dd2835615423373c1b"
+    },
+    {
+      "bytes": 38894,
+      "path": ".planning/solver/review-temporal-accuracy-study-provisional-sep24-v1.json",
+      "sha256": "86f9d3251d9af5023bacc4e2e46f76a4a028f395ceadfce747bac7c271468ad8"
+    },
+    {
+      "bytes": 566,
+      "path": ".planning/solver/review-temporal-accuracy-study-provisional-sep24-v1.log",
+      "sha256": "f465d596e752d2883860d129360628e2fb78cc2d3b405a18b5f31edf19e46be7"
+    },
+    {
+      "bytes": 1846598,
+      "path": ".planning/solver/temporal-accuracy-study-comparison-sep24-v1.json",
+      "sha256": "846af83057cb058913a4a2cd08773167ac5c0c5d846369e2bb23e87e8c6d8a43"
+    },
+    {
+      "bytes": 9470,
+      "path": ".planning/solver/temporal-accuracy-study-contact-work-next-design-sep24-v1.md",
+      "sha256": "11ca6e8fedd9ec40805a682398ea0ff6b88db5ca8cd6dae1017a833235f696ef"
+    },
+    {
+      "bytes": 46539,
+      "path": ".planning/solver/temporal-accuracy-study-declaration-sep24-v1.json",
+      "sha256": "3a747622e6c6be7f733a28fc07c38ec0960792da14bd474ade9905f480fdce0c"
+    },
+    {
+      "bytes": 5549,
+      "path": ".planning/solver/temporal-accuracy-study-design-sep24-v1.md",
+      "sha256": "e47a6b87161184c5756391a6ca5cade829f07e34b57c7bbb4cfdeb4b83d9b554"
+    },
+    {
+      "bytes": 1971,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessment-mutations-sep24-v1.json",
+      "sha256": "8f6f52ef7578f739e19d7367d2820f66fed86bc78249bf70c219e49927f2e502"
+    },
+    {
+      "bytes": 248,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessment-mutations-sep24-v1.log",
+      "sha256": "f47052d83e38e24fbd27d4099e0dc54f9db47c7a9641965ca634344bf1ef70a4"
+    },
+    {
+      "bytes": 3261,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessment-mutations-sep24-v1.py",
+      "sha256": "cd1a2b31943782a7fc29ba71d111aaa29022d6a78675dd0a4812e46584209243"
+    },
+    {
+      "bytes": 397972,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-adaptive-a-sep24-v1.json",
+      "sha256": "654ec0eb20641d666d938907a809c76f7586f341b91fbecafc89ecf8f390d2bd"
+    },
+    {
+      "bytes": 527,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-adaptive-a-sep24-v1.log",
+      "sha256": "3350b8611e48668b29e7d90cf1b064f3a5bf89a8ddd9a600fb390aba5dfbb650"
+    },
+    {
+      "bytes": 806,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-check-sep24-v2.log",
+      "sha256": "e0fceae96134c0dc72916b17ccb97186cfa90d699adac9df186f9c518ad090fa"
+    },
+    {
+      "bytes": 830804,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-sep24-v1.json",
+      "sha256": "718a364deb5e0aeae0056728a9b360ceaf85e3bca2ea84960d622521e4dbeb4c"
+    },
+    {
+      "bytes": 806,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-sep24-v1.log",
+      "sha256": "3c44e6f1e20ee7073cbdfecdc8fdfc3b8823cbbf27eb09b839dbe187f2db47bd"
+    },
+    {
+      "bytes": 19773,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-sep24-v1.py",
+      "sha256": "566144be8409f2cfcd0125eb4abff3d4922b204024937b077051416eeb39c8f8"
+    },
+    {
+      "bytes": 830804,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-sep24-v2.json",
+      "sha256": "03b0c39814663413e04731d46434a50be7e52d5e2a2dc0e7a6f87c2d1c5b3e09"
+    },
+    {
+      "bytes": 806,
+      "path": ".planning/solver/temporal-accuracy-study-independent-assessments-sep24-v2.log",
+      "sha256": "e0fceae96134c0dc72916b17ccb97186cfa90d699adac9df186f9c518ad090fa"
+    },
+    {
+      "bytes": 11477,
+      "path": ".planning/solver/temporal-accuracy-study-independent-design-sep24-v1.md",
+      "sha256": "7e09aae7cce2950743be94ed056b72736bf5f842721568a45fc0342d62ad803c"
+    },
+    {
+      "bytes": 69,
+      "path": ".planning/solver/temporal-accuracy-study-independent-oracle-check-sep24-v1.log",
+      "sha256": "ec87d19fb41e54386c8f519c514c5d1d09d55ba6310922f7757b944b4b2bc5d1"
+    },
+    {
+      "bytes": 14033,
+      "path": ".planning/solver/temporal-accuracy-study-independent-oracle-sep24-v1.json",
+      "sha256": "c22a4a2bd10d00b2ee59629e958bff67d42b0aaa8c3f29975297ca657ea5f0d5"
+    },
+    {
+      "bytes": 180,
+      "path": ".planning/solver/temporal-accuracy-study-independent-oracle-sep24-v1.log",
+      "sha256": "b3baaefe9bb86dcccbaad5c1c6f0948bd99d5d4f79fbc785bbc9f6fc3ae7762f"
+    },
+    {
+      "bytes": 7919,
+      "path": ".planning/solver/temporal-accuracy-study-independent-oracle-sep24-v1.py",
+      "sha256": "31f9e5970b572296da9603060f5c3593fed3b0cf7041682a7b2c4f35df27736f"
+    },
+    {
+      "bytes": 257,
+      "path": ".planning/solver/temporal-accuracy-study-independent-trace-check-sep24-v1.log",
+      "sha256": "1ade81274db4cee3d585c0318b324a57e80cdf47e16e54de21473cd30fddec8a"
+    },
+    {
+      "bytes": 15484,
+      "path": ".planning/solver/temporal-accuracy-study-independent-trace-sep24-v1.json",
+      "sha256": "458de6c8523ececf8a26344ba08b93426c47532be1430f48a2ca028c5ee234ab"
+    },
+    {
+      "bytes": 257,
+      "path": ".planning/solver/temporal-accuracy-study-independent-trace-sep24-v1.log",
+      "sha256": "1ade81274db4cee3d585c0318b324a57e80cdf47e16e54de21473cd30fddec8a"
+    },
+    {
+      "bytes": 5770,
+      "path": ".planning/solver/temporal-accuracy-study-independent-trace-sep24-v1.py",
+      "sha256": "93816771ffcce883b9674ae9bd985bfeb5caaac07a2cfbac0e7048338fe1a474"
+    },
+    {
+      "bytes": 14928,
+      "path": ".planning/solver/temporal-accuracy-study-sep24-v1.py",
+      "sha256": "889e0a29b16f39e053e7c3c885f94dd58bc2760f432672de2144e1b03bb4bcc1"
+    },
+    {
+      "bytes": 41698,
+      "path": ".planning/solver/temporal-failed-trial-trace-declaration-sep24-v1.json",
+      "sha256": "11853fe642b8a7c5d6429cdc75b00808bef52130e72ea1618ade1eb3d7e6b15f"
+    },
+    {
+      "bytes": 23812,
+      "path": ".planning/solver/temporal-failed-trial-trace-sep24-v1/replayed-trial.json",
+      "sha256": "b348f543568168e3ea5d14dfbc4b17edd040d0c7b0111f0e8ffbe40bb12477c9"
+    },
+    {
+      "bytes": 217369,
+      "path": ".planning/solver/temporal-failed-trial-trace-sep24-v1/trace.json",
+      "sha256": "dd8c1fc863d0e1af930f19b9cc7ac30a6ebbbad39f677189b0f26c901a7f90c4"
+    },
+    {
+      "bytes": 1270,
+      "path": ".planning/solver/temporal-failed-trial-trace-sep24-v1-execution.json",
+      "sha256": "ffe14555d6631f57347244041b3e6eb9ad150e6f6d6370b5d64652e1c3c3931c"
+    },
+    {
+      "bytes": 554,
+      "path": ".planning/solver/temporal-failed-trial-trace-sep24-v1.log",
+      "sha256": "24ed4c3a8620a33845b8a2c906204c4bc5da466e73c27b804a19abeb101a92b7"
+    },
+    {
+      "bytes": 6501,
+      "path": ".planning/solver/trace-temporal-failed-trial-sep24-v1.py",
+      "sha256": "c744c01f4a097b326ccb7ad2feb7e2ab60927866dc6c90a777716a50ebcde1be"
+    },
+    {
+      "bytes": 287375,
+      "path": "docs/research/3d-temporal-accuracy-study.png",
+      "sha256": "d237da2679137f9b4afd7f2149d6dedded03263f1a130c5349732c2d50357096"
+    }
+  ],
+  "baseCommit": "9728c3687e91f79e80d1dcdc035e07d9956d2a08",
+  "failedTrialTrace": {
+    "accepted": false,
+    "nativeRejectedButDiagnosticQuadraturePasses": 16,
+    "newSyntheticTrialCount": 1,
+    "recordedWorkCalls": 54,
+    "reproducedFields": [
+      "converged",
+      "gradientInfinityNorm",
+      "evaluations",
+      "status",
+      "message",
+      "coupledSteps",
+      "exactSteps",
+      "projectedSteps",
+      "shiftedSteps",
+      "directionHistory"
+    ],
+    "scope": "Passive recording of one unchanged failed generic synthetic solve. Native work versus endpoint/midpoint contact-gradient quadrature is a floating-point diagnostic, not an independent rigorous contact-work bound or an admitted replacement. No state from this failed replay is accepted.",
+    "selectedCalls": [
+      {
+        "actualWorkIntervalJoules": [
+          {
+            "denominator": "42535295865117307932921825928971026432",
+            "numerator": "6284591008110141"
+          },
+          {
+            "denominator": "42535295865117307932921825928971026432",
+            "numerator": "7312200311712195"
+          }
+        ],
+        "baselineNonCableWorkJoules": -1.5516664398054916e-17,
+        "call": 2,
+        "contactGradientDotFirstJoules": {
+          "denominator": "25108406941546723055343157692830665664409421777856138051584",
+          "numerator": "-2112560323167148661132623264960292302501113"
+        },
+        "contactGradientDotLastJoules": {
+          "denominator": "12554203470773361527671578846415332832204710888928069025792",
+          "numerator": "-1056280157466596645581443820276349999194997"
+        },
+        "contactNativeMinusSimpsonJoules": {
+          "denominator": "50216813883093446110686315385661331328818843555712276103168",
+          "numerator": "21576883472595156896874597209934704361"
+        },
+        "contactSimpsonJoules": {
+          "denominator": "50216813883093446110686315385661331328818843555712276103168",
+          "numerator": "-4225120638100358769072508164233741357854441"
+        },
+        "contactTrapezoidJoules": {
+          "denominator": "50216813883093446110686315385661331328818843555712276103168",
+          "numerator": "-4225120638100341952295510905512992300891107"
+        },
+        "endPositionsMeters": [
+          [
+            0.004999999832672335,
+            0.009999985483160074,
+            3.2403102962010954e-07
+          ],
+          [
+            0.00500000010226325,
+            -0.009999985531984385,
+            3.240310016569366e-07
+          ],
+          [
+            -3.102059687029941e-10,
+            8.570576694047296e-11,
+            1.7398104322196666e-05
+          ],
+          [
+            0.019999999783944747,
+            -6.129367574008237e-11,
+            1.745081870608135e-05
+          ],
+          [
+            0.004999999832672386,
+            0.009999985483160142,
+            0.0021217463764653475
+          ],
+          [
+            0.005000000102263243,
+            -0.009999985531984334,
+            0.0021217463764932115
+          ],
+          [
+            -3.102059393772461e-10,
+            8.570583949424524e-11,
+            0.002104672303172682
+          ],
+          [
+            0.019999999783944764,
+            -6.129366674384364e-11,
+            0.0021046195887888352
+          ]
+        ],
+        "gradientInfinityNormNewtons": 1.175183031952836e-08,
+        "maximumCoordinateDisplacementM": 1.3440637491868301e-14,
+        "nativeArmijoPass": false,
+        "nativeContactDifferenceJoules": -8.413713922697424e-17,
+        "simpsonDiagnosticArmijoPass": true,
+        "slopeIntervalJoules": [
+          {
+            "denominator": "51422017416287688817342786954917203280710495801049370729644032",
+            "numerator": "-27747317462771606460691000252470359820257"
+          },
+          {
+            "denominator": "51422017416287688817342786954917203280710495801049370729644032",
+            "numerator": "-27747317462705082416631646434469139118111"
+          }
+        ],
+        "startPositionsMeters": [
+          [
+            0.004999999832672354,
+            0.00999998548316066,
+            3.2403102956582076e-07
+          ],
+          [
+            0.005000000102263268,
+            -0.009999985531984971,
+            3.2403100160264796e-07
+          ],
+          [
+            -3.1020608123835107e-10,
+            8.570576686399228e-11,
+            1.739810433563719e-05
+          ],
+          [
+            0.01999999978394484,
+            -6.129367576124712e-11,
+            1.745081871737421e-05
+          ],
+          [
+            0.004999999832672404,
+            0.009999985483160726,
+            0.0021217463764654017
+          ],
+          [
+            0.005000000102263261,
+            -0.00999998553198492,
+            0.0021217463764932657
+          ],
+          [
+            -3.1020605191875114e-10,
+            8.570583946467873e-11,
+            0.0021046723031592413
+          ],
+          [
+            0.019999999783944858,
+            -6.129366674998044e-11,
+            0.0021046195887775426
+          ]
+        ]
+      },
+      {
+        "actualWorkIntervalJoules": [
+          {
+            "denominator": "85070591730234615865843651857942052864",
+            "numerator": "37378698496310089"
+          },
+          {
+            "denominator": "85070591730234615865843651857942052864",
+            "numerator": "39433917113959607"
+          }
+        ],
+        "baselineNonCableWorkJoules": -1.4546631232972055e-17,
+        "call": 7,
+        "contactGradientDotFirstJoules": {
+          "denominator": "50216813883093446110686315385661331328818843555712276103168",
+          "numerator": "-3961067055770989543418707103996902092016071"
+        },
+        "contactGradientDotLastJoules": {
+          "denominator": "6277101735386680763835789423207666416102355444464034512896",
+          "numerator": "-495133380162145372724778801419903142481187"
+        },
+        "contactNativeMinusSimpsonJoules": {
+          "denominator": "100433627766186892221372630771322662657637687111424552206336",
+          "numerator": "69161910550893442647590826037581130285"
+        },
+        "contactSimpsonJoules": {
+          "denominator": "100433627766186892221372630771322662657637687111424552206336",
+          "numerator": "-7922134097068074165675142611535568009374253"
+        },
+        "contactTrapezoidJoules": {
+          "denominator": "100433627766186892221372630771322662657637687111424552206336",
+          "numerator": "-7922134097068152525216937515356127231865567"
+        },
+        "endPositionsMeters": [
+          [
+            0.004999999832672335,
+            0.009999985483160074,
+            3.2403102962010954e-07
+          ],
+          [
+            0.00500000010226325,
+            -0.009999985531984385,
+            3.240310016569366e-07
+          ],
+          [
+            -3.102059686913942e-10,
+            8.57057669243569e-11,
+            1.7398104322196666e-05
+          ],
+          [
+            0.019999999783944747,
+            -6.129367574806119e-11,
+            1.745081870608135e-05
+          ],
+          [
+            0.004999999832672386,
+            0.009999985483160142,
+            0.0021217463764653475
+          ],
+          [
+            0.005000000102263243,
+            -0.009999985531984334,
+            0.0021217463764932115
+          ],
+          [
+            -3.1020593938531533e-10,
+            8.570583945954415e-11,
+            0.002104672303172682
+          ],
+          [
+            0.019999999783944764,
+            -6.129366674685999e-11,
+            0.0021046195887888352
+          ]
+        ],
+        "gradientInfinityNormNewtons": 1.1017341775703977e-08,
+        "maximumCoordinateDisplacementM": 1.2600597648626533e-14,
+        "nativeArmijoPass": false,
+        "nativeContactDifferenceJoules": -7.887860979790928e-17,
+        "simpsonDiagnosticArmijoPass": true,
+        "slopeIntervalJoules": [
+          {
+            "denominator": "3213876088517980551083924184682325205044405987565585670602752",
+            "numerator": "-1524217374134413026727736714718688836321"
+          },
+          {
+            "denominator": "3213876088517980551083924184682325205044405987565585670602752",
+            "numerator": "-1524217374126106038571011914109176317215"
+          }
+        ],
+        "startPositionsMeters": [
+          [
+            0.004999999832672353,
+            0.009999985483160624,
+            3.240310295692138e-07
+          ],
+          [
+            0.005000000102263267,
+            -0.009999985531984935,
+            3.24031001606041e-07
+          ],
+          [
+            -3.1020607420489124e-10,
+            8.570576686877232e-11,
+            1.7398104334797158e-05
+          ],
+          [
+            0.019999999783944834,
+            -6.129367575992433e-11,
+            1.745081871666841e-05
+          ],
+          [
+            0.004999999832672403,
+            0.00999998548316069,
+            0.0021217463764653982
+          ],
+          [
+            0.0050000001022632605,
+            -0.009999985531984884,
+            0.0021217463764932622
+          ],
+          [
+            -3.102060448849071e-10,
+            8.570583946652664e-11,
+            0.0021046723031600814
+          ],
+          [
+            0.01999999978394485,
+            -6.129366674959689e-11,
+            0.0021046195887782482
+          ]
+        ]
+      }
+    ]
+  },
+  "garmentAccepted": false,
+  "independentReview": {
+    "bytes": 39079,
+    "path": ".planning/solver/review-temporal-accuracy-study-final-sep24-v1.json",
+    "sha256": "c3b916d6619d7e53c9a6b3e527f0acd1e00aac6497c614b42a813b80d48c3df3"
+  },
+  "limits": [
+    "Neither adaptive policy completes the requested64ms. Their agreement on a short prefix cannot validate the released tail.",
+    "Uniform reference self-agreement is necessary numerical evidence, not ground truth, global/phase error bounds or physical calibration.",
+    "Contact-gradient Simpson quadrature is a floating-point diagnostic only; it was never used to accept a step.",
+    "Non-cable work remains trusted numerical. Cable precision and source/model inputs were unchanged.",
+    "Temporal pair commitment remains synchronous/in memory; a hard termination may leave no saved numerical prefix.",
+    "No refined garment capture/replay expansion, remote publication, production change or deployment."
+  ],
+  "nextWork": [
+    "Independently enclose or high-precision-reference contact work for the retained tiny-update failures, then implement source-consistent stable contact-work differences without weakening Armijo or force criteria.",
+    "Repeat newly declared same-input temporal policies after a verified arithmetic repair; evaluate feasible depth/trial budgets while preserving thresholds and all failed results.",
+    "Establish temporal resolution, including original preloaded-case regression and released motion, then spatial and construction-specific joint verification.",
+    "Complete cuff/binding/collar/interfacing and full-shirt assembly acceptance, then private worker/viewer and release gates."
+  ],
+  "numericalSourcesChanged": false,
+  "profile": "same-input-temporal-resolution-evidence-v1",
+  "regressionBaseline": {
+    "commit": "9728c3687e91f79e80d1dcdc035e07d9956d2a08",
+    "numericalTests": 1331,
+    "receipt": {
+      "bytes": 1275,
+      "path": ".planning/solver/temporal-controller-full-numerical-linux-execution-sep24-v1.json",
+      "sha256": "1b44e87f1e425b248d4b92b9de1c55103db041c7d09e76b3124f57a3b9210226"
+    },
+    "rerunForThisEvidenceOnlyIncrement": false,
+    "scope": "Prior unchanged numerical/supervision source baseline; no new application/build/browser checks and no saved-state audit counted as a unit test.",
+    "seconds": 845.829
+  },
+  "sourceAdmissionGranted": false,
+  "study": {
+    "cases": [
+      {
+        "acceptedStateCount": 104,
+        "actualUniformInitialGrid": false,
+        "assessmentOutcomes": {
+          "committed": 52,
+          "numerically-rejected": 2,
+          "temporally-rejected": 52
+        },
+        "attemptOutcomes": {
+          "committed": 104,
+          "discarded": 209,
+          "numerically-rejected": 2
+        },
+        "auditCounts": {
+          "contactLeaves": 2957,
+          "maxResidualInfinityNewtons": 9.473416877442123e-09,
+          "releasedIntervals": 0,
+          "scope": "Primary adaptation of retained independently authored arithmetic/path helpers; no new independent second-author motion audit or physical-law certificate.",
+          "triangleLeaves": 416,
+          "verifiedSavedPrefix": true
+        },
+        "case": "adaptive-a",
+        "complete": false,
+        "completedFraction": 0.0333251953125,
+        "conditionalAbsoluteDefectUpperBoundJoules": {
+          "denominator": "3138550867693340381917894711603833208051177722232017256448",
+          "numerator": "2687237807729987170525885337119870399812219326121"
+        },
+        "conditionalSignedDefectJoules": {
+          "denominator": "3138550867693340381917894711603833208051177722232017256448",
+          "numerator": "-2687237807592664707373516583410450378817114623657"
+        },
+        "energyAssessmentFailures": 44,
+        "evidence": {
+          "input": {
+            "bytes": 17317,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1/input.json",
+            "sha256": "98afc787939fe1315b2a7b8df9cb9e999b34ff190538b784aa758bf6b5e795c7"
+          },
+          "inventory": {
+            "bytes": 44172,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-inventory-sep24-v1.json",
+            "sha256": "73440a5cf4d715f5e5aebe2ecef7bdb7a4f6bf6e2090e9e258f251c874e9754a"
+          },
+          "log": {
+            "bytes": 701,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1.log",
+            "sha256": "fe22f7a87207792a70a6849ce0cbf084906bf0ecd3e4a85e67e9ae5c5603bcc6"
+          },
+          "receipt": {
+            "bytes": 1345,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1-execution.json",
+            "sha256": "a894ed21ad594733b37236bc105c559d831a9745f7c18824a2b31290c704216a"
+          },
+          "report": {
+            "bytes": 35692506,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1/report.json",
+            "sha256": "4ca3de5414e8190480a87c487c6662c56888f0f1c4f3ac9079d1103e77d948da"
+          },
+          "runtime": {
+            "bytes": 269,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1/runtime.json",
+            "sha256": "c29152c513b92bb608597c3dedb3182e9d20d6839a3ab2da151b2f9529fd6700"
+          },
+          "summary": {
+            "bytes": 24705,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1/summary.json",
+            "sha256": "31c4ec89958d112052b6194dc99e8c84202b8e0efcd268e39c714a0550724656"
+          },
+          "terminal": {
+            "bytes": 179,
+            "path": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1/terminal.json",
+            "sha256": "de8c89c8227b37c826b7e4f923db63134e48af593a925918f32319b0e936d40f"
+          }
+        },
+        "finalMaximumSpeedMPerS": 0.004705147159306009,
+        "integratedConditionalResidualBoundNSeconds": {
+          "denominator": "12855504354071922204335696738729300820177623950262342682411008",
+          "numerator": "15635408951478431266900032573220015009437113019297"
+        },
+        "maximumStepSeconds": 6.25e-05,
+        "mechanicalTrials": 315,
+        "minimumStepSeconds": 3.90625e-06,
+        "numericallyInvalidTrials": 2,
+        "observedProcessSeconds": 117.68403308396228,
+        "positionIndicatorFailures": 17,
+        "reason": "temporal-depth-exhausted",
+        "residualIntegralScope": "Sum of duration times the saved conditional stationarity upper bound; not measured vector impulse or a perturbed trajectory bound.",
+        "resources": {
+          "chargedEvaluationAllowance": 94500,
+          "energyTransitionCalls": 313,
+          "mechanicalTrials": 315,
+          "reportedOptimizerEvaluations": 1059,
+          "trialsWithoutEvaluationCount": 0
+        },
+        "sharedInputSha256": "8b9eb4a02c0a1d2d7d9657bda9df3dac9fb2297cfc2079184b137f76c3d4533d",
+        "solverSeconds": 89.13707945700001,
+        "terminalFailure": false,
+        "velocityIndicatorFailures": 25
+      },
+      {
+        "acceptedStateCount": 114,
+        "actualUniformInitialGrid": false,
+        "assessmentOutcomes": {
+          "committed": 57,
+          "temporally-rejected": 57
+        },
+        "attemptOutcomes": {
+          "committed": 114,
+          "discarded": 228
+        },
+        "auditCounts": {
+          "contactLeaves": 2337,
+          "maxResidualInfinityNewtons": 8.299755374847457e-09,
+          "releasedIntervals": 0,
+          "scope": "Primary adaptation of retained independently authored arithmetic/path helpers; no new independent second-author motion audit or physical-law certificate.",
+          "triangleLeaves": 456,
+          "verifiedSavedPrefix": true
+        },
+        "case": "adaptive-b",
+        "complete": false,
+        "completedFraction": 0.02996826171875,
+        "conditionalAbsoluteDefectUpperBoundJoules": {
+          "denominator": "784637716923335095479473677900958302012794430558004314112",
+          "numerator": "195254248726785518494632343586914802575362160181"
+        },
+        "conditionalSignedDefectJoules": {
+          "denominator": "784637716923335095479473677900958302012794430558004314112",
+          "numerator": "-195254248668501074251808203837175763090947110453"
+        },
+        "energyAssessmentFailures": 43,
+        "evidence": {
+          "input": {
+            "bytes": 17322,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1/input.json",
+            "sha256": "6e8315265e93a39a2cd2a3637bd0d9b94d3e691086bb4b6991b0ef7a47e107db"
+          },
+          "inventory": {
+            "bytes": 48292,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-inventory-sep24-v1.json",
+            "sha256": "f9fad899462e514584c0c1455ed0f78ed6eb06701dc68aec43274b349d95ad9f"
+          },
+          "log": {
+            "bytes": 696,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1.log",
+            "sha256": "e141435409f0e26cfb115e68bd06b42659b07e6b06b48f6f203155d8dcb6e032"
+          },
+          "receipt": {
+            "bytes": 1345,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1-execution.json",
+            "sha256": "68829b5cfb00549f00b7c06f6d7e2ae10e0b8a6a2c63f59491275dcf458cef95"
+          },
+          "report": {
+            "bytes": 38901118,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1/report.json",
+            "sha256": "369ad3e3687ba72aafe18cca521edf56d2a09720650e153523571cbff96e224e"
+          },
+          "runtime": {
+            "bytes": 269,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1/runtime.json",
+            "sha256": "c29152c513b92bb608597c3dedb3182e9d20d6839a3ab2da151b2f9529fd6700"
+          },
+          "summary": {
+            "bytes": 26984,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1/summary.json",
+            "sha256": "3c6ce8bdff3702a3603a79b6726a1c19ad8743f38697219855453aa0b046cc49"
+          },
+          "terminal": {
+            "bytes": 179,
+            "path": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1/terminal.json",
+            "sha256": "8a698b5428bf74eea35860f3162ce2ecc94c2c726e160cd6b90e0e829cc9034e"
+          }
+        },
+        "finalMaximumSpeedMPerS": 0.019703196538841006,
+        "integratedConditionalResidualBoundNSeconds": {
+          "denominator": "1645504557321206042154969182557350504982735865633579863348609024",
+          "numerator": "1974099639849736276774752708086649824958134991549597"
+        },
+        "maximumStepSeconds": 3.125e-05,
+        "mechanicalTrials": 342,
+        "minimumStepSeconds": 1.953125e-06,
+        "numericallyInvalidTrials": 0,
+        "observedProcessSeconds": 119.34076758299489,
+        "positionIndicatorFailures": 26,
+        "reason": "temporal-depth-exhausted",
+        "residualIntegralScope": "Sum of duration times the saved conditional stationarity upper bound; not measured vector impulse or a perturbed trajectory bound.",
+        "resources": {
+          "chargedEvaluationAllowance": 102600,
+          "energyTransitionCalls": 342,
+          "mechanicalTrials": 342,
+          "reportedOptimizerEvaluations": 1005,
+          "trialsWithoutEvaluationCount": 0
+        },
+        "sharedInputSha256": "8b9eb4a02c0a1d2d7d9657bda9df3dac9fb2297cfc2079184b137f76c3d4533d",
+        "solverSeconds": 93.508621043,
+        "terminalFailure": false,
+        "velocityIndicatorFailures": 35
+      },
+      {
+        "acceptedStateCount": 1024,
+        "actualUniformInitialGrid": true,
+        "assessmentOutcomes": {},
+        "attemptOutcomes": {
+          "accepted": 1024
+        },
+        "auditCounts": {
+          "contactLeaves": 22177,
+          "maxResidualInfinityNewtons": 9.995305001395785e-09,
+          "releasedIntervals": 512,
+          "scope": "Primary adaptation of retained independently authored arithmetic/path helpers; no new independent second-author motion audit or physical-law certificate.",
+          "triangleLeaves": 4096,
+          "verifiedSavedPrefix": true
+        },
+        "case": "uniform1024",
+        "complete": true,
+        "completedFraction": 1.0,
+        "conditionalAbsoluteDefectUpperBoundJoules": {
+          "denominator": "200867255532373784442745261542645325315275374222849104412672",
+          "numerator": "2369943572085912039766415579027197341026312572528961"
+        },
+        "conditionalSignedDefectJoules": {
+          "denominator": "200867255532373784442745261542645325315275374222849104412672",
+          "numerator": "-2369943572042983743082877816499824614259027228387649"
+        },
+        "energyAssessmentFailures": 0,
+        "evidence": {
+          "input": {
+            "bytes": 17121,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1/input.json",
+            "sha256": "ae643d9d8106216335c76ce63caa56f2778fb6c5a0a358b82f187481fe4afc2b"
+          },
+          "inventory": {
+            "bytes": 424795,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-inventory-sep24-v1.json",
+            "sha256": "a8cf6ad8f6dc712698704404343c2e756ec8b3f67382d80c3b39d8163442ad63"
+          },
+          "log": {
+            "bytes": 667,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1.log",
+            "sha256": "31226078439b0df9f5704df7d8506d6af9e8700d9b0bc276479d0a95502607b6"
+          },
+          "receipt": {
+            "bytes": 1348,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1-execution.json",
+            "sha256": "4a6e4806f9a691b8682fa34987b1cdb3dc314685327124d3ace59f862bab8e06"
+          },
+          "report": {
+            "bytes": 164995717,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1/report.json",
+            "sha256": "36c82ebf89915eafdb141c25346a9d4a661c5aa5e688375700986959d20759eb"
+          },
+          "runtime": {
+            "bytes": 269,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1/runtime.json",
+            "sha256": "c29152c513b92bb608597c3dedb3182e9d20d6839a3ab2da151b2f9529fd6700"
+          },
+          "summary": {
+            "bytes": 226042,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1/summary.json",
+            "sha256": "fdf6ab1ecf0b6a7b4564f85493e01f3713e2cfba975ca8d5de4384a884257ce7"
+          },
+          "terminal": {
+            "bytes": 157,
+            "path": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1/terminal.json",
+            "sha256": "b71fde8d69fcc864a7f2f33e5e42fc463f447c62879ff635bf5f121287bf3c83"
+          }
+        },
+        "finalMaximumSpeedMPerS": 0.002093531275254658,
+        "integratedConditionalResidualBoundNSeconds": {
+          "denominator": "12855504354071922204335696738729300820177623950262342682411008",
+          "numerator": "2136144733664221713634178139926592658427021488456609"
+        },
+        "maximumStepSeconds": 6.25e-05,
+        "mechanicalTrials": 1024,
+        "minimumStepSeconds": 6.25e-05,
+        "numericallyInvalidTrials": 0,
+        "observedProcessSeconds": 404.8979756250046,
+        "positionIndicatorFailures": 0,
+        "reason": "complete",
+        "residualIntegralScope": "Sum of duration times the saved conditional stationarity upper bound; not measured vector impulse or a perturbed trajectory bound.",
+        "resources": null,
+        "sharedInputSha256": "8b9eb4a02c0a1d2d7d9657bda9df3dac9fb2297cfc2079184b137f76c3d4533d",
+        "solverSeconds": 199.7228258,
+        "terminalFailure": false,
+        "velocityIndicatorFailures": 0
+      },
+      {
+        "acceptedStateCount": 2048,
+        "actualUniformInitialGrid": true,
+        "assessmentOutcomes": {},
+        "attemptOutcomes": {
+          "accepted": 2048
+        },
+        "auditCounts": {
+          "contactLeaves": 43755,
+          "maxResidualInfinityNewtons": 9.980473473751995e-09,
+          "releasedIntervals": 1024,
+          "scope": "Primary adaptation of retained independently authored arithmetic/path helpers; no new independent second-author motion audit or physical-law certificate.",
+          "triangleLeaves": 8192,
+          "verifiedSavedPrefix": true
+        },
+        "case": "uniform2048",
+        "complete": true,
+        "completedFraction": 1.0,
+        "conditionalAbsoluteDefectUpperBoundJoules": {
+          "denominator": "25108406941546723055343157692830665664409421777856138051584",
+          "numerator": "318617254033006946686391320978809767522613584007523"
+        },
+        "conditionalSignedDefectJoules": {
+          "denominator": "25108406941546723055343157692830665664409421777856138051584",
+          "numerator": "-318617254021654674749010439226126624280675017363811"
+        },
+        "energyAssessmentFailures": 0,
+        "evidence": {
+          "input": {
+            "bytes": 17121,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1/input.json",
+            "sha256": "2100e1a76ccb8b9f4c9e3b207fc3a06b52aab6c87f464f7de0179b9ada3ed11e"
+          },
+          "inventory": {
+            "bytes": 848262,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-inventory-sep24-v1.json",
+            "sha256": "522260323762e9d5f5d1fb89fd5b91b981dd7107098fe6cef4cd11b709ef158e"
+          },
+          "log": {
+            "bytes": 669,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1.log",
+            "sha256": "a5d294b94398a440b13a7dd61b461594c7c8a82bfde477d9b23c0a4c99a0a731"
+          },
+          "receipt": {
+            "bytes": 1348,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1-execution.json",
+            "sha256": "f5d49f6cc53fb01049177b66d59240cf892a149ff0dfbc89214be4501d15fc81"
+          },
+          "report": {
+            "bytes": 329275902,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1/report.json",
+            "sha256": "c878d5a248b6ec3b8ac29060fa50d7bfd0c4036246f6619d5e064d8a409b2eda"
+          },
+          "runtime": {
+            "bytes": 269,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1/runtime.json",
+            "sha256": "c29152c513b92bb608597c3dedb3182e9d20d6839a3ab2da151b2f9529fd6700"
+          },
+          "summary": {
+            "bytes": 454952,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1/summary.json",
+            "sha256": "a7dc2e544a2a874a61b65c2730664b4bc7bba5c6341f1f668043dd139390cb41"
+          },
+          "terminal": {
+            "bytes": 157,
+            "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1/terminal.json",
+            "sha256": "f9965d5498d62fb3dff40302cc2ed09f36b374c36367d83d8576b59c07eb3f88"
+          }
+        },
+        "finalMaximumSpeedMPerS": 0.002195855054731499,
+        "integratedConditionalResidualBoundNSeconds": {
+          "denominator": "1645504557321206042154969182557350504982735865633579863348609024",
+          "numerator": "182799280390110670215405070763875104502852988679845021"
+        },
+        "maximumStepSeconds": 3.125e-05,
+        "mechanicalTrials": 2048,
+        "minimumStepSeconds": 3.125e-05,
+        "numericallyInvalidTrials": 0,
+        "observedProcessSeconds": 767.8321590829873,
+        "positionIndicatorFailures": 0,
+        "reason": "complete",
+        "residualIntegralScope": "Sum of duration times the saved conditional stationarity upper bound; not measured vector impulse or a perturbed trajectory bound.",
+        "resources": null,
+        "sharedInputSha256": "8b9eb4a02c0a1d2d7d9657bda9df3dac9fb2297cfc2079184b137f76c3d4533d",
+        "solverSeconds": 382.072437213,
+        "terminalFailure": false,
+        "velocityIndicatorFailures": 0
+      }
+    ],
+    "comparisons": [
+      {
+        "bothComplete": false,
+        "commonHalfMillisecondGrid": {
+          "observations": 4,
+          "position": {
+            "maximumM": 4.167999778127626e-07,
+            "maximumSquared": {
+              "denominator": "1496577676626844588240573268701473812127674924007424",
+              "numerator": "259988798637987072512105169678981268865"
+            },
+            "timeSeconds": 0.0015,
+            "vertex": 7,
+            "withinProspectiveGoal": true
+          },
+          "velocity": {
+            "maximumMPerS": 0.0002523319274037811,
+            "maximumSquared": {
+              "denominator": "365375409332725729550921208179070754913983135744",
+              "numerator": "23263964417750675266956749431784266140625"
+            },
+            "timeSeconds": 0.0015,
+            "vertex": 7,
+            "withinProspectiveGoal": false
+          },
+          "withinProspectiveGoals": false
+        },
+        "first": "adaptive-a",
+        "fullCommonGridCovered": false,
+        "prospectiveResolutionGoalsMet": false,
+        "second": "adaptive-b",
+        "sharedStoredEndpoints": {
+          "allShared": {
+            "observations": 50,
+            "position": {
+              "maximumM": 5.701989126633614e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "1946310043827327304912847602360325058361"
+              },
+              "timeSeconds": 0.0018203125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0008758487246322262,
+              "maximumSquared": {
+                "denominator": "1427247692705959881058285969449495136382746624",
+                "numerator": "1094857388300231774774808169796719390625"
+              },
+              "timeSeconds": 0.00191796875,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "earlyContact": {
+            "observations": 50,
+            "position": {
+              "maximumM": 5.701989126633614e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "1946310043827327304912847602360325058361"
+              },
+              "timeSeconds": 0.0018203125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0008758487246322262,
+              "maximumSquared": {
+                "denominator": "1427247692705959881058285969449495136382746624",
+                "numerator": "1094857388300231774774808169796719390625"
+              },
+              "timeSeconds": 0.00191796875,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "loaded": {
+            "observations": 50,
+            "position": {
+              "maximumM": 5.701989126633614e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "1946310043827327304912847602360325058361"
+              },
+              "timeSeconds": 0.0018203125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0008758487246322262,
+              "maximumSquared": {
+                "denominator": "1427247692705959881058285969449495136382746624",
+                "numerator": "1094857388300231774774808169796719390625"
+              },
+              "timeSeconds": 0.00191796875,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          }
+        }
+      },
+      {
+        "bothComplete": false,
+        "commonHalfMillisecondGrid": {
+          "observations": 5,
+          "position": {
+            "maximumM": 3.1818869042830367e-07,
+            "maximumSquared": {
+              "denominator": "5986310706507378352962293074805895248510699696029696",
+              "numerator": "606078296883747818390892835614948156081"
+            },
+            "timeSeconds": 0.002,
+            "vertex": 3,
+            "withinProspectiveGoal": true
+          },
+          "velocity": {
+            "maximumMPerS": 0.0014386703182807463,
+            "maximumSquared": {
+              "denominator": "365375409332725729550921208179070754913983135744",
+              "numerator": "756243895748532879076177048867328698045281"
+            },
+            "timeSeconds": 0.002,
+            "vertex": 3,
+            "withinProspectiveGoal": false
+          },
+          "withinProspectiveGoals": false
+        },
+        "first": "adaptive-a",
+        "fullCommonGridCovered": false,
+        "prospectiveResolutionGoalsMet": false,
+        "second": "uniform1024",
+        "sharedStoredEndpoints": {
+          "allShared": {
+            "observations": 35,
+            "position": {
+              "maximumM": 7.016493859665354e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "2947131763410534662360577189278959332081"
+              },
+              "timeSeconds": 0.002125,
+              "vertex": 3,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0014386703182807463,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "756243895748532879076177048867328698045281"
+              },
+              "timeSeconds": 0.002,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "earlyContact": {
+            "observations": 35,
+            "position": {
+              "maximumM": 7.016493859665354e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "2947131763410534662360577189278959332081"
+              },
+              "timeSeconds": 0.002125,
+              "vertex": 3,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0014386703182807463,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "756243895748532879076177048867328698045281"
+              },
+              "timeSeconds": 0.002,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "loaded": {
+            "observations": 35,
+            "position": {
+              "maximumM": 7.016493859665354e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "2947131763410534662360577189278959332081"
+              },
+              "timeSeconds": 0.002125,
+              "vertex": 3,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0014386703182807463,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "756243895748532879076177048867328698045281"
+              },
+              "timeSeconds": 0.002,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          }
+        }
+      },
+      {
+        "bothComplete": false,
+        "commonHalfMillisecondGrid": {
+          "observations": 5,
+          "position": {
+            "maximumM": 5.14525975716398e-07,
+            "maximumSquared": {
+              "denominator": "5986310706507378352962293074805895248510699696029696",
+              "numerator": "1584797815908184264749361486249663897073"
+            },
+            "timeSeconds": 0.002,
+            "vertex": 7,
+            "withinProspectiveGoal": true
+          },
+          "velocity": {
+            "maximumMPerS": 0.0010833559384313567,
+            "maximumSquared": {
+              "denominator": "1427247692705959881058285969449495136382746624",
+              "numerator": "1675103654523715075529334132233796890625"
+            },
+            "timeSeconds": 0.002,
+            "vertex": 7,
+            "withinProspectiveGoal": false
+          },
+          "withinProspectiveGoals": false
+        },
+        "first": "adaptive-a",
+        "fullCommonGridCovered": false,
+        "prospectiveResolutionGoalsMet": false,
+        "second": "uniform2048",
+        "sharedStoredEndpoints": {
+          "allShared": {
+            "observations": 41,
+            "position": {
+              "maximumM": 5.57474568286632e-07,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "465103258978073803556606320399790286625"
+              },
+              "timeSeconds": 0.00178125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.002537635492475376,
+              "maximumSquared": {
+                "denominator": "91343852333181432387730302044767688728495783936",
+                "numerator": "588217313617773326672593588230565827640625"
+              },
+              "timeSeconds": 0.002125,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "earlyContact": {
+            "observations": 41,
+            "position": {
+              "maximumM": 5.57474568286632e-07,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "465103258978073803556606320399790286625"
+              },
+              "timeSeconds": 0.00178125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.002537635492475376,
+              "maximumSquared": {
+                "denominator": "91343852333181432387730302044767688728495783936",
+                "numerator": "588217313617773326672593588230565827640625"
+              },
+              "timeSeconds": 0.002125,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "loaded": {
+            "observations": 41,
+            "position": {
+              "maximumM": 5.57474568286632e-07,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "465103258978073803556606320399790286625"
+              },
+              "timeSeconds": 0.00178125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.002537635492475376,
+              "maximumSquared": {
+                "denominator": "91343852333181432387730302044767688728495783936",
+                "numerator": "588217313617773326672593588230565827640625"
+              },
+              "timeSeconds": 0.002125,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          }
+        }
+      },
+      {
+        "bothComplete": false,
+        "commonHalfMillisecondGrid": {
+          "observations": 4,
+          "position": {
+            "maximumM": 4.167999778127626e-07,
+            "maximumSquared": {
+              "denominator": "1496577676626844588240573268701473812127674924007424",
+              "numerator": "259988798637987072512105169678981268865"
+            },
+            "timeSeconds": 0.0015,
+            "vertex": 7,
+            "withinProspectiveGoal": true
+          },
+          "velocity": {
+            "maximumMPerS": 0.0002523319274037811,
+            "maximumSquared": {
+              "denominator": "365375409332725729550921208179070754913983135744",
+              "numerator": "23263964417750675266956749431784266140625"
+            },
+            "timeSeconds": 0.0015,
+            "vertex": 7,
+            "withinProspectiveGoal": false
+          },
+          "withinProspectiveGoals": false
+        },
+        "first": "adaptive-b",
+        "fullCommonGridCovered": false,
+        "prospectiveResolutionGoalsMet": false,
+        "second": "uniform1024",
+        "sharedStoredEndpoints": {
+          "allShared": {
+            "observations": 31,
+            "position": {
+              "maximumM": 5.777788005863943e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "1998400180286949174144092351660342923257"
+              },
+              "timeSeconds": 0.0018125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0010662205624876852,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "415368370271272771916862944207570380265625"
+              },
+              "timeSeconds": 0.001875,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "earlyContact": {
+            "observations": 31,
+            "position": {
+              "maximumM": 5.777788005863943e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "1998400180286949174144092351660342923257"
+              },
+              "timeSeconds": 0.0018125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0010662205624876852,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "415368370271272771916862944207570380265625"
+              },
+              "timeSeconds": 0.001875,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "loaded": {
+            "observations": 31,
+            "position": {
+              "maximumM": 5.777788005863943e-07,
+              "maximumSquared": {
+                "denominator": "5986310706507378352962293074805895248510699696029696",
+                "numerator": "1998400180286949174144092351660342923257"
+              },
+              "timeSeconds": 0.0018125,
+              "vertex": 7,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0010662205624876852,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "415368370271272771916862944207570380265625"
+              },
+              "timeSeconds": 0.001875,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          }
+        }
+      },
+      {
+        "bothComplete": false,
+        "commonHalfMillisecondGrid": {
+          "observations": 4,
+          "position": {
+            "maximumM": 0.0,
+            "maximumSquared": {
+              "denominator": "1",
+              "numerator": "0"
+            },
+            "timeSeconds": 0.0,
+            "vertex": 0,
+            "withinProspectiveGoal": true
+          },
+          "velocity": {
+            "maximumMPerS": 0.0,
+            "maximumSquared": {
+              "denominator": "1",
+              "numerator": "0"
+            },
+            "timeSeconds": 0.0,
+            "vertex": 0,
+            "withinProspectiveGoal": true
+          },
+          "withinProspectiveGoals": true
+        },
+        "first": "adaptive-b",
+        "fullCommonGridCovered": false,
+        "prospectiveResolutionGoalsMet": false,
+        "second": "uniform2048",
+        "sharedStoredEndpoints": {
+          "allShared": {
+            "observations": 62,
+            "position": {
+              "maximumM": 1.5379666363112498e-08,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "353991709853868671604052223060627357"
+              },
+              "timeSeconds": 0.0018437500000000001,
+              "vertex": 6,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0003771746377202434,
+              "maximumSquared": {
+                "denominator": "91343852333181432387730302044767688728495783936",
+                "numerator": "12994641044023806222959625534026014856569"
+              },
+              "timeSeconds": 0.00190625,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "earlyContact": {
+            "observations": 62,
+            "position": {
+              "maximumM": 1.5379666363112498e-08,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "353991709853868671604052223060627357"
+              },
+              "timeSeconds": 0.0018437500000000001,
+              "vertex": 6,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0003771746377202434,
+              "maximumSquared": {
+                "denominator": "91343852333181432387730302044767688728495783936",
+                "numerator": "12994641044023806222959625534026014856569"
+              },
+              "timeSeconds": 0.00190625,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "loaded": {
+            "observations": 62,
+            "position": {
+              "maximumM": 1.5379666363112498e-08,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "353991709853868671604052223060627357"
+              },
+              "timeSeconds": 0.0018437500000000001,
+              "vertex": 6,
+              "withinProspectiveGoal": true
+            },
+            "velocity": {
+              "maximumMPerS": 0.0003771746377202434,
+              "maximumSquared": {
+                "denominator": "91343852333181432387730302044767688728495783936",
+                "numerator": "12994641044023806222959625534026014856569"
+              },
+              "timeSeconds": 0.00190625,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          }
+        }
+      },
+      {
+        "bothComplete": true,
+        "commonHalfMillisecondGrid": {
+          "observations": 129,
+          "position": {
+            "maximumM": 2.5953411163419654e-06,
+            "maximumSquared": {
+              "denominator": "93536104789177786765035829293842113257979682750464",
+              "numerator": "630040074678216888204642669065345615117"
+            },
+            "timeSeconds": 0.064,
+            "vertex": 6,
+            "withinProspectiveGoal": false
+          },
+          "velocity": {
+            "maximumMPerS": 0.007647137995817414,
+            "maximumSquared": {
+              "denominator": "365375409332725729550921208179070754913983135744",
+              "numerator": "21366686084458459929675879799497487710820225"
+            },
+            "timeSeconds": 0.0035,
+            "vertex": 3,
+            "withinProspectiveGoal": false
+          },
+          "withinProspectiveGoals": false
+        },
+        "first": "uniform1024",
+        "fullCommonGridCovered": true,
+        "prospectiveResolutionGoalsMet": false,
+        "second": "uniform2048",
+        "sharedStoredEndpoints": {
+          "allShared": {
+            "observations": 1025,
+            "position": {
+              "maximumM": 2.5953411163419654e-06,
+              "maximumSquared": {
+                "denominator": "93536104789177786765035829293842113257979682750464",
+                "numerator": "630040074678216888204642669065345615117"
+              },
+              "timeSeconds": 0.064,
+              "vertex": 6,
+              "withinProspectiveGoal": false
+            },
+            "velocity": {
+              "maximumMPerS": 0.009209448854618892,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "30988931042833834576104644105475045889640625"
+              },
+              "timeSeconds": 0.003625,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "earlyContact": {
+            "observations": 65,
+            "position": {
+              "maximumM": 2.1939133816051623e-06,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "7203411370722816566939975442004986145737"
+              },
+              "timeSeconds": 0.0032500000000000003,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "velocity": {
+              "maximumMPerS": 0.009209448854618892,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "30988931042833834576104644105475045889640625"
+              },
+              "timeSeconds": 0.003625,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "loaded": {
+            "observations": 513,
+            "position": {
+              "maximumM": 2.1939133816051623e-06,
+              "maximumSquared": {
+                "denominator": "1496577676626844588240573268701473812127674924007424",
+                "numerator": "7203411370722816566939975442004986145737"
+              },
+              "timeSeconds": 0.0032500000000000003,
+              "vertex": 7,
+              "withinProspectiveGoal": false
+            },
+            "velocity": {
+              "maximumMPerS": 0.009209448854618892,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "30988931042833834576104644105475045889640625"
+              },
+              "timeSeconds": 0.003625,
+              "vertex": 3,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          },
+          "released": {
+            "observations": 513,
+            "position": {
+              "maximumM": 2.5953411163419654e-06,
+              "maximumSquared": {
+                "denominator": "93536104789177786765035829293842113257979682750464",
+                "numerator": "630040074678216888204642669065345615117"
+              },
+              "timeSeconds": 0.064,
+              "vertex": 6,
+              "withinProspectiveGoal": false
+            },
+            "velocity": {
+              "maximumMPerS": 0.00035793768766145297,
+              "maximumSquared": {
+                "denominator": "365375409332725729550921208179070754913983135744",
+                "numerator": "46811673924727731390618140056485330993689"
+              },
+              "timeSeconds": 0.03325,
+              "vertex": 6,
+              "withinProspectiveGoal": false
+            },
+            "withinProspectiveGoals": false
+          }
+        }
+      }
+    ],
+    "declaration": {
+      "bytes": 46539,
+      "path": ".planning/solver/temporal-accuracy-study-declaration-sep24-v1.json",
+      "sha256": "3a747622e6c6be7f733a28fc07c38ec0960792da14bd474ade9905f480fdce0c"
+    },
+    "executionCases": [
+      {
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "sew-temporal-accuracy-adaptive-a-sep24-v1",
+          "--platform",
+          "linux/arm64",
+          "--memory",
+          "3g",
+          "--cpus",
+          "1",
+          "--pids-limit",
+          "256",
+          "--network",
+          "none",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "WARP_CACHE_PATH=/work/.planning/solver/warp-cache",
+          "--mount",
+          "type=bind,src=/private/tmp/sew-computer-3d-engine,dst=/work",
+          "--workdir",
+          "/work",
+          "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+          "timeout",
+          "--signal=TERM",
+          "--kill-after=5s",
+          "2400s",
+          "python",
+          ".planning/solver/temporal-accuracy-study-sep24-v1.py",
+          "--case",
+          "adaptive-a"
+        ],
+        "cpuHardSeconds": 1205,
+        "cpuSoftSeconds": 1200,
+        "id": "adaptive-a",
+        "log": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1.log",
+        "maxAttempts": 4096,
+        "maxDepth": 8,
+        "maxEvaluations": 300,
+        "output": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1",
+        "receipt": ".planning/solver/temporal-accuracy-adaptive-a-sep24-v1-execution.json",
+        "subdivisions": 128,
+        "temporalPolicy": {
+          "maxEvaluationBudget": 1228800,
+          "numericalEnergyBudgetJ": 1e-07,
+          "positionToleranceM": 1e-07,
+          "profile": "conditional-step-doubling-v1",
+          "velocityToleranceMPerS": 0.0001
+        },
+        "wallSeconds": 2400
+      },
+      {
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "sew-temporal-accuracy-adaptive-b-sep24-v1",
+          "--platform",
+          "linux/arm64",
+          "--memory",
+          "3g",
+          "--cpus",
+          "1",
+          "--pids-limit",
+          "256",
+          "--network",
+          "none",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "WARP_CACHE_PATH=/work/.planning/solver/warp-cache",
+          "--mount",
+          "type=bind,src=/private/tmp/sew-computer-3d-engine,dst=/work",
+          "--workdir",
+          "/work",
+          "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+          "timeout",
+          "--signal=TERM",
+          "--kill-after=5s",
+          "2400s",
+          "python",
+          ".planning/solver/temporal-accuracy-study-sep24-v1.py",
+          "--case",
+          "adaptive-b"
+        ],
+        "cpuHardSeconds": 1205,
+        "cpuSoftSeconds": 1200,
+        "id": "adaptive-b",
+        "log": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1.log",
+        "maxAttempts": 4096,
+        "maxDepth": 8,
+        "maxEvaluations": 300,
+        "output": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1",
+        "receipt": ".planning/solver/temporal-accuracy-adaptive-b-sep24-v1-execution.json",
+        "subdivisions": 128,
+        "temporalPolicy": {
+          "maxEvaluationBudget": 1228800,
+          "numericalEnergyBudgetJ": 2.5e-08,
+          "positionToleranceM": 2.5e-08,
+          "profile": "conditional-step-doubling-v1",
+          "velocityToleranceMPerS": 2.5e-05
+        },
+        "wallSeconds": 2400
+      },
+      {
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "sew-temporal-accuracy-uniform1024-sep24-v1",
+          "--platform",
+          "linux/arm64",
+          "--memory",
+          "3g",
+          "--cpus",
+          "1",
+          "--pids-limit",
+          "256",
+          "--network",
+          "none",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "WARP_CACHE_PATH=/work/.planning/solver/warp-cache",
+          "--mount",
+          "type=bind,src=/private/tmp/sew-computer-3d-engine,dst=/work",
+          "--workdir",
+          "/work",
+          "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+          "timeout",
+          "--signal=TERM",
+          "--kill-after=5s",
+          "2400s",
+          "python",
+          ".planning/solver/temporal-accuracy-study-sep24-v1.py",
+          "--case",
+          "uniform1024"
+        ],
+        "cpuHardSeconds": 1205,
+        "cpuSoftSeconds": 1200,
+        "id": "uniform1024",
+        "log": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1.log",
+        "maxAttempts": 4096,
+        "maxDepth": 8,
+        "maxEvaluations": 300,
+        "output": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1",
+        "receipt": ".planning/solver/temporal-accuracy-uniform1024-sep24-v1-execution.json",
+        "subdivisions": 1024,
+        "temporalPolicy": null,
+        "wallSeconds": 2400
+      },
+      {
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--name",
+          "sew-temporal-accuracy-uniform2048-sep24-v1",
+          "--platform",
+          "linux/arm64",
+          "--memory",
+          "3g",
+          "--cpus",
+          "1",
+          "--pids-limit",
+          "256",
+          "--network",
+          "none",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "WARP_CACHE_PATH=/work/.planning/solver/warp-cache",
+          "--mount",
+          "type=bind,src=/private/tmp/sew-computer-3d-engine,dst=/work",
+          "--workdir",
+          "/work",
+          "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+          "timeout",
+          "--signal=TERM",
+          "--kill-after=5s",
+          "2400s",
+          "python",
+          ".planning/solver/temporal-accuracy-study-sep24-v1.py",
+          "--case",
+          "uniform2048"
+        ],
+        "cpuHardSeconds": 1205,
+        "cpuSoftSeconds": 1200,
+        "id": "uniform2048",
+        "log": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1.log",
+        "maxAttempts": 4096,
+        "maxDepth": 8,
+        "maxEvaluations": 300,
+        "output": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1",
+        "receipt": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1-execution.json",
+        "subdivisions": 2048,
+        "temporalPolicy": null,
+        "wallSeconds": 2400
+      }
+    ],
+    "finalAdaptiveFailures": [
+      {
+        "case": "adaptive-a",
+        "lastAssessment": {
+          "assessmentId": 106,
+          "depth": 7,
+          "endFraction": 0.03338623046875,
+          "outcome": "numerically-rejected",
+          "startFraction": 0.0333251953125,
+          "trialIds": [
+            315
+          ]
+        },
+        "lastTrials": [
+          {
+            "attemptId": 315,
+            "durationSeconds": 3.90625e-06,
+            "outcome": "numerically-rejected",
+            "role": "coarse",
+            "step": {
+              "cableEvaluationFailures": {
+                "count": 0,
+                "lastReason": null
+              },
+              "converged": false,
+              "evaluations": 55,
+              "gradientInfinityNorm": 1.1017341775703977e-08,
+              "message": "Line search failed or evaluation budget exhausted",
+              "status": -2
+            }
+          }
+        ]
+      },
+      {
+        "case": "adaptive-b",
+        "lastAssessment": {
+          "assessmentId": 114,
+          "depth": 7,
+          "endFraction": 0.030029296875,
+          "fineEnergy": [
+            {
+              "absoluteUpperBoundJoules": {
+                "denominator": "784637716923335095479473677900958302012794430558004314112",
+                "numerator": "595024481067852453227262583318561226060840293"
+              },
+              "allocationJoules": {
+                "denominator": "1237940039285380274899124224",
+                "numerator": "944473296573929"
+              },
+              "exactStoredKineticChangeJoules": {
+                "denominator": "784637716923335095479473677900958302012794430558004314112",
+                "numerator": "-13327517851639871244271353770536776856001953125"
+              },
+              "knownErrorBoundJoules": {
+                "denominator": "85070591730234615865843651857942052864",
+                "numerator": "4987777392879801"
+              },
+              "nominalDefectJoules": {
+                "denominator": "784637716923335095479473677900958302012794430558004314112",
+                "numerator": "-595024481021848326695718609814793424714186085"
+              },
+              "outcome": "within-budget"
+            },
+            {
+              "absoluteUpperBoundJoules": {
+                "denominator": "784637716923335095479473677900958302012794430558004314112",
+                "numerator": "602320593997923639549047884252429942765606809"
+              },
+              "allocationJoules": {
+                "denominator": "1237940039285380274899124224",
+                "numerator": "944473296573929"
+              },
+              "exactStoredKineticChangeJoules": {
+                "denominator": "784637716923335095479473677900958302012794430558004314112",
+                "numerator": "-14470632605375278501707420565881437984232265625"
+              },
+              "knownErrorBoundJoules": {
+                "denominator": "85070591730234615865843651857942052864",
+                "numerator": "5041093068944365"
+              },
+              "nominalDefectJoules": {
+                "denominator": "784637716923335095479473677900958302012794430558004314112",
+                "numerator": "-602320593951427762701764003670442683465684889"
+              },
+              "outcome": "exceeds-budget"
+            }
+          ],
+          "outcome": "temporally-rejected",
+          "position": {
+            "maximumApproximate": 4.2116430665760684e-11,
+            "maximumSquared": {
+              "denominator": "5986310706507378352962293074805895248510699696029696",
+              "numerator": "10618480409149913118282856151681"
+            },
+            "maximumVertex": 3,
+            "toleranceSquared": {
+              "denominator": "1427247692705959881058285969449495136382746624",
+              "numerator": "892029807941224844929362497041"
+            },
+            "withinThreshold": true
+          },
+          "startFraction": 0.02996826171875,
+          "trialIds": [
+            340,
+            341,
+            342
+          ],
+          "velocity": {
+            "maximumApproximate": 1.4227490674483785e-06,
+            "maximumSquared": {
+              "denominator": "1427247692705959881058285969449495136382746624",
+              "numerator": "2889056058304540903202002218265625"
+            },
+            "maximumVertex": 7,
+            "toleranceSquared": {
+              "denominator": "87112285931760246646623899502532662132736",
+              "numerator": "54445178707350159372354900760041"
+            },
+            "withinThreshold": true
+          }
+        },
+        "lastTrials": [
+          {
+            "attemptId": 340,
+            "durationSeconds": 3.90625e-06,
+            "outcome": "discarded",
+            "role": "coarse",
+            "step": {
+              "cableEvaluationFailures": {
+                "count": 0,
+                "lastReason": null
+              },
+              "converged": true,
+              "evaluations": 3,
+              "gradientInfinityNorm": 1.5321316404851864e-12,
+              "message": "Stationarity tolerance satisfied",
+              "status": 1
+            }
+          },
+          {
+            "attemptId": 341,
+            "durationSeconds": 1.953125e-06,
+            "outcome": "discarded",
+            "role": "fine-first",
+            "step": {
+              "cableEvaluationFailures": {
+                "count": 0,
+                "lastReason": null
+              },
+              "converged": true,
+              "evaluations": 3,
+              "gradientInfinityNorm": 1.4367852988362854e-12,
+              "message": "Stationarity tolerance satisfied",
+              "status": 1
+            }
+          },
+          {
+            "attemptId": 342,
+            "durationSeconds": 1.953125e-06,
+            "outcome": "discarded",
+            "role": "fine-second",
+            "step": {
+              "cableEvaluationFailures": {
+                "count": 0,
+                "lastReason": null
+              },
+              "converged": true,
+              "evaluations": 3,
+              "gradientInfinityNorm": 1.7728372357317938e-12,
+              "message": "Stationarity tolerance satisfied",
+              "status": 1
+            }
+          }
+        ]
+      }
+    ],
+    "fullyReleasedIntervals": 1536,
+    "newAcceptedNumericalStateCount": 3290,
+    "newMechanicalTrialCount": 3729,
+    "prospectiveGoals": {
+      "commonGridIntervalSeconds": 0.0005,
+      "maximumNativeVelocityDifferenceMPerS": 0.00025,
+      "maximumPositionDifferenceM": 1e-06,
+      "notRigorousGlobalErrorBounds": true,
+      "requiresAdaptiveSelfAgreement": true,
+      "requiresAllAdaptiveReferencePairs": true,
+      "requiresCompleteRuns": true,
+      "requiresReferenceSelfAgreement": true
+    },
+    "prospectiveResolutionGoalsMet": false,
+    "sources": [
+      {
+        "bytes": 24404,
+        "path": ".planning/solver/cable-contact-motion-sep24-v1.py",
+        "sha256": "7469998b21871c2c301fab112ee97b70e63810736fe578ad00533ed7d961f62b"
+      },
+      {
+        "bytes": 20996,
+        "path": ".planning/solver/cable-tight-stationarity-motion-sep24-v1.py",
+        "sha256": "65681abe74fb967b30684e9719ee46b52c0f52c98ecc637f9de730cca9ef13c1"
+      },
+      {
+        "bytes": 14367,
+        "path": ".planning/solver/cable-tight-stationarity-runs-sep24-v1/separated-scheduled-n512-tight/input.json",
+        "sha256": "4c1c1e7882bac458f5f0857550b4a8715392a8a3cdfce78cab0f9d2cfca9afae"
+      },
+      {
+        "bytes": 18246,
+        "path": ".planning/solver/cable-varying-contact-motion-sep24-v1.py",
+        "sha256": "acd8039983dc2ff46540e1357c801ca600c8c61884619121a8f36702e189bdf2"
+      },
+      {
+        "bytes": 1741,
+        "path": ".planning/solver/execute-temporal-accuracy-study-sep24-v1.py",
+        "sha256": "774a30b078dc4c711ff7aec823f50dcd5525a0f4bf66f42e2d52718408f575fd"
+      },
+      {
+        "bytes": 9668,
+        "path": ".planning/solver/review-continuous-cable-source-sep24-v1.py",
+        "sha256": "73aff217aa477d2d1f224ee50eb1fee4f02f7d50b1b2bf19e1deffdadfa6ff19"
+      },
+      {
+        "bytes": 5549,
+        "path": ".planning/solver/temporal-accuracy-study-design-sep24-v1.md",
+        "sha256": "e47a6b87161184c5756391a6ca5cade829f07e34b57c7bbb4cfdeb4b83d9b554"
+      },
+      {
+        "bytes": 14928,
+        "path": ".planning/solver/temporal-accuracy-study-sep24-v1.py",
+        "sha256": "889e0a29b16f39e053e7c3c885f94dd58bc2760f432672de2144e1b03bb4bcc1"
+      },
+      {
+        "bytes": 46,
+        "path": "scripts/solver-contact.requirements.txt",
+        "sha256": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e"
+      },
+      {
+        "bytes": 74,
+        "path": "scripts/solver-spike.requirements.txt",
+        "sha256": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea"
+      },
+      {
+        "bytes": 64684,
+        "path": "scripts/solver_adaptive_contact.py",
+        "sha256": "571b73b27d0499a932714ba2b1504fa99a2bfb84e9b2c5cf0e39b2a1711affba"
+      },
+      {
+        "bytes": 2265,
+        "path": "scripts/solver_assembly_schedule.py",
+        "sha256": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9"
+      },
+      {
+        "bytes": 22208,
+        "path": "scripts/solver_attempt_journal.py",
+        "sha256": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c"
+      },
+      {
+        "bytes": 9847,
+        "path": "scripts/solver_bending.py",
+        "sha256": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b"
+      },
+      {
+        "bytes": 13235,
+        "path": "scripts/solver_binding_control_schedule.py",
+        "sha256": "8d773fcfffbeb3a12b8682cfc2af78ba0c0738e847439da3777eb07886347dac"
+      },
+      {
+        "bytes": 16859,
+        "path": "scripts/solver_binding_control_schedule_replay.py",
+        "sha256": "3266a2d1d688336b10113d1ff0a488ee8fd4b8ea03244c04bed8a0c0937784b4"
+      },
+      {
+        "bytes": 18919,
+        "path": "scripts/solver_binding_diagnostics.py",
+        "sha256": "0016c0f403ab39419183e9184f3a3f1d0c53e65472afdfd0ae8366c478c3570f"
+      },
+      {
+        "bytes": 18590,
+        "path": "scripts/solver_binding_fold.py",
+        "sha256": "ca440dc52b50962ae2e8f5747ba10bf438b9367546cc6aeef451fa295230a543"
+      },
+      {
+        "bytes": 27892,
+        "path": "scripts/solver_binding_fold_replay.py",
+        "sha256": "b1391bee4eeda899b48ebdff2506bb32d1cdf854e2f541b0cb33f113d7cb11f9"
+      },
+      {
+        "bytes": 16762,
+        "path": "scripts/solver_binding_frames.py",
+        "sha256": "665e8175e8cee040fcfd5f6664be0b91580b1d685cad58c57f299bc3d76fbef4"
+      },
+      {
+        "bytes": 26414,
+        "path": "scripts/solver_binding_frames_replay.py",
+        "sha256": "35b7a59f598b4d0c9d4699c2c99086ca2ed9ffb7a9cef65d3f52732b88c533e3"
+      },
+      {
+        "bytes": 9934,
+        "path": "scripts/solver_binding_gripper_remap.py",
+        "sha256": "27159d748cc26323ba359395324c11427531342075310c10fba3bda1e570aab8"
+      },
+      {
+        "bytes": 31703,
+        "path": "scripts/solver_binding_gripper_remap_replay.py",
+        "sha256": "eb7552dfbbecf50d7976279507e6e1a47482bde7cf00fa9814eaa1ca09abc42e"
+      },
+      {
+        "bytes": 14088,
+        "path": "scripts/solver_binding_placement.py",
+        "sha256": "a8db85ad76d6bf8bcb72c14b6c37c467833f96eb5e5a3a63cc73293af0b47f2a"
+      },
+      {
+        "bytes": 31770,
+        "path": "scripts/solver_binding_placement_replay.py",
+        "sha256": "bf7295b46f20ab48637b9b25ebb5de4f97d78d9f051b98d1e48ea067b885ae05"
+      },
+      {
+        "bytes": 11206,
+        "path": "scripts/solver_binding_refinement.py",
+        "sha256": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb"
+      },
+      {
+        "bytes": 17528,
+        "path": "scripts/solver_binding_remap.py",
+        "sha256": "904894294afb8666115b29d4ef468a53dcaa00f932caa348f6672544ac2413fb"
+      },
+      {
+        "bytes": 28614,
+        "path": "scripts/solver_binding_remap_replay.py",
+        "sha256": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f"
+      },
+      {
+        "bytes": 11762,
+        "path": "scripts/solver_binding_sewing_schedule.py",
+        "sha256": "3d956fb5984cc9248cfa19273515d3a78ca766de54d76676f609663f2c8e0218"
+      },
+      {
+        "bytes": 16698,
+        "path": "scripts/solver_binding_sewing_schedule_replay.py",
+        "sha256": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84"
+      },
+      {
+        "bytes": 14827,
+        "path": "scripts/solver_binding_source.py",
+        "sha256": "51561505f8e490e54444d07873dd9a72386acf837a9ca65eb5d89316bbf64ff8"
+      },
+      {
+        "bytes": 27887,
+        "path": "scripts/solver_binding_spatial_seams.py",
+        "sha256": "48ad418b072de1c2507ae0c07b0799b5b07a4ed94a4d16a48391899871a0e5c1"
+      },
+      {
+        "bytes": 31318,
+        "path": "scripts/solver_binding_spatial_seams_replay.py",
+        "sha256": "629797a4839271bf76b3c5f489bc81caff637ca22b8372007e64e55b2cea5521"
+      },
+      {
+        "bytes": 12242,
+        "path": "scripts/solver_cable_integration.py",
+        "sha256": "57ff2d81babd0e7261db4ca42a31939e9c41e0bfca1a5f7f2d0a044a6fe6426f"
+      },
+      {
+        "bytes": 14383,
+        "path": "scripts/solver_cable_parameter_schedule.py",
+        "sha256": "4c7998809e44a4745df99d53b4d9ba5a62c31445f61cef9dc859a0b46ff42720"
+      },
+      {
+        "bytes": 16454,
+        "path": "scripts/solver_cable_parameters.py",
+        "sha256": "3cf68017988dc30771542e18440e1cee2612b50a0d12f86454bc05470a37d33c"
+      },
+      {
+        "bytes": 11009,
+        "path": "scripts/solver_cable_varying.py",
+        "sha256": "060e7901c34a2ea4392cc21cc72a2b260bc7e08cde3308c7271b397b126708ad"
+      },
+      {
+        "bytes": 9782,
+        "path": "scripts/solver_candidate_coverage.py",
+        "sha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947"
+      },
+      {
+        "bytes": 6462,
+        "path": "scripts/solver_contact_filters.py",
+        "sha256": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab"
+      },
+      {
+        "bytes": 11318,
+        "path": "scripts/solver_contact_preflight.py",
+        "sha256": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a"
+      },
+      {
+        "bytes": 26060,
+        "path": "scripts/solver_continuous_cable_sewing.py",
+        "sha256": "5d3e384695e547f909efd55fac490e7887870c8ffba5cb879850166f920db6f4"
+      },
+      {
+        "bytes": 29926,
+        "path": "scripts/solver_continuous_normal_sewing.py",
+        "sha256": "55b58055b15a760f027b99f8d5476a4d58f3b6ac6063d3991236c35311bbd1db"
+      },
+      {
+        "bytes": 19109,
+        "path": "scripts/solver_controlled_fold.py",
+        "sha256": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69"
+      },
+      {
+        "bytes": 6404,
+        "path": "scripts/solver_crease_mesh.py",
+        "sha256": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2"
+      },
+      {
+        "bytes": 17444,
+        "path": "scripts/solver_cuff_construction.py",
+        "sha256": "f76e642a3201d4fd9de76cc77b6048334d2cf5046d80c8dffa01c6dee43bef0f"
+      },
+      {
+        "bytes": 12358,
+        "path": "scripts/solver_cuff_sequence.py",
+        "sha256": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044"
+      },
+      {
+        "bytes": 12672,
+        "path": "scripts/solver_cuff_source_binding.py",
+        "sha256": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f"
+      },
+      {
+        "bytes": 11427,
+        "path": "scripts/solver_dihedral_increment.py",
+        "sha256": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464"
+      },
+      {
+        "bytes": 5214,
+        "path": "scripts/solver_distance_sewing.py",
+        "sha256": "c380810325805feaf7f5b3c3cba437e2164a05c39b1bb047e0a42447bdf7dde0"
+      },
+      {
+        "bytes": 13556,
+        "path": "scripts/solver_embedded_sewing.py",
+        "sha256": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44"
+      },
+      {
+        "bytes": 64663,
+        "path": "scripts/solver_energy_balance.py",
+        "sha256": "a7bf1d6d5bed5d0f0ff57082a10959c46ef0c01a86b671fe844f9c71c01b9fc2"
+      },
+      {
+        "bytes": 2093,
+        "path": "scripts/solver_energy_change.py",
+        "sha256": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83"
+      },
+      {
+        "bytes": 2779,
+        "path": "scripts/solver_engine_source_namespace.py",
+        "sha256": "2a08d3703380981ad186427482bb9b6c4a5016044e910efea3bd03d01ee51108"
+      },
+      {
+        "bytes": 1631,
+        "path": "scripts/solver_fold_actuation.py",
+        "sha256": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41"
+      },
+      {
+        "bytes": 10612,
+        "path": "scripts/solver_fold_barrier.py",
+        "sha256": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a"
+      },
+      {
+        "bytes": 7617,
+        "path": "scripts/solver_fold_control_schedule.py",
+        "sha256": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e"
+      },
+      {
+        "bytes": 62358,
+        "path": "scripts/solver_global_sewing.py",
+        "sha256": "e180cd17b4f10165e8a041d8cbc3c9148baad4c8bca35d3ed5d4b01f3178ae35"
+      },
+      {
+        "bytes": 1574,
+        "path": "scripts/solver_global_shift.py",
+        "sha256": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3"
+      },
+      {
+        "bytes": 4837,
+        "path": "scripts/solver_gripper_input.py",
+        "sha256": "743e0f822c94a0d14a31e955c7a4368bbef9388b60d4c66510600c4f2ccb7873"
+      },
+      {
+        "bytes": 28246,
+        "path": "scripts/solver_gripper_replay.py",
+        "sha256": "e7d5929adba375d2e8f78f978d380d1b0b905ba5a813cd74f00a0aa6ac16c7a1"
+      },
+      {
+        "bytes": 4914,
+        "path": "scripts/solver_hinge_sweep.py",
+        "sha256": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35"
+      },
+      {
+        "bytes": 532,
+        "path": "scripts/solver_ipc_broad_phase.py",
+        "sha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8"
+      },
+      {
+        "bytes": 12494,
+        "path": "scripts/solver_ipc_contact.py",
+        "sha256": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4"
+      },
+      {
+        "bytes": 30552,
+        "path": "scripts/solver_material_grippers.py",
+        "sha256": "c586c9d9198ac941a7dadbda8fc57c9cc33d17aa3676d6851378926e4fb9b0d8"
+      },
+      {
+        "bytes": 3270,
+        "path": "scripts/solver_membrane_hessian.py",
+        "sha256": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86"
+      },
+      {
+        "bytes": 5100,
+        "path": "scripts/solver_membrane_stability.py",
+        "sha256": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20"
+      },
+      {
+        "bytes": 8652,
+        "path": "scripts/solver_normal_sewing.py",
+        "sha256": "d658cbcd1ab624271a183e98352c78b8731bba09446ebb6a6da850884f38a5d0"
+      },
+      {
+        "bytes": 19620,
+        "path": "scripts/solver_point_contact.py",
+        "sha256": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+      },
+      {
+        "bytes": 24651,
+        "path": "scripts/solver_process_budget.py",
+        "sha256": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766"
+      },
+      {
+        "bytes": 12493,
+        "path": "scripts/solver_radial_moments.py",
+        "sha256": "571197ec8ba36ae2612046fe509d5c01ef5d5b79cdd6aeac39b60b12e8ea150e"
+      },
+      {
+        "bytes": 17400,
+        "path": "scripts/solver_rest_filtered_contact.py",
+        "sha256": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef"
+      },
+      {
+        "bytes": 6764,
+        "path": "scripts/solver_rigid_staging.py",
+        "sha256": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a"
+      },
+      {
+        "bytes": 12525,
+        "path": "scripts/solver_rigid_velocity_diagnostics.py",
+        "sha256": "067a81b92f64da43ed8296243cb20bbc5645b4f38aa6c913634f7b18c0913805"
+      },
+      {
+        "bytes": 2018,
+        "path": "scripts/solver_sewing_activation.py",
+        "sha256": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561"
+      },
+      {
+        "bytes": 6925,
+        "path": "scripts/solver_sewing_activation_schedule.py",
+        "sha256": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48"
+      },
+      {
+        "bytes": 24087,
+        "path": "scripts/solver_sewing_input.py",
+        "sha256": "cd21a37cc3baf30c00c79d0b83d35b70e1ec562a138d94ea66147d13b7fe433f"
+      },
+      {
+        "bytes": 39313,
+        "path": "scripts/solver_sewing_replay.py",
+        "sha256": "4defdd239b88ca35e3d7de55cdd482b83a9282dd15ee7d2003858ea39e37cdfc"
+      },
+      {
+        "bytes": 12264,
+        "path": "scripts/solver_sewing_sweep.py",
+        "sha256": "fee7aa9fcfbf0a30b365faac9da134b80a866e11d8de6e5bf5004b66f3a53f92"
+      },
+      {
+        "bytes": 12540,
+        "path": "scripts/solver_spatial_sewing.py",
+        "sha256": "9cc86d5082b02a910e04616c57199a141fd9170814e164850b348f01efe5c5e3"
+      },
+      {
+        "bytes": 9306,
+        "path": "scripts/solver_spike_geometry.py",
+        "sha256": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e"
+      },
+      {
+        "bytes": 2528,
+        "path": "scripts/solver_stationarity.py",
+        "sha256": "6f37d173a32adb5e2c2f9c5d0bc9013d282199e5a1db91f1717dd57cc279ab38"
+      },
+      {
+        "bytes": 6306,
+        "path": "scripts/solver_strain_diagnostics.py",
+        "sha256": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3"
+      },
+      {
+        "bytes": 11747,
+        "path": "scripts/solver_surface_distance_diagnostics.py",
+        "sha256": "c41fabaf149fb02c9c2dad08980ffaf1a4b02f7fef70efac15061a10daf286dc"
+      },
+      {
+        "bytes": 4952,
+        "path": "scripts/solver_swept_separation.py",
+        "sha256": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064"
+      },
+      {
+        "bytes": 21783,
+        "path": "scripts/solver_temporal_control.py",
+        "sha256": "b3449de560b5cd3aea1d26baa8d476dbcf2ad1d4b0b023ad753b18020287d776"
+      },
+      {
+        "bytes": 10205,
+        "path": "scripts/solver_temporal_separation.py",
+        "sha256": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a"
+      },
+      {
+        "bytes": 3588,
+        "path": "scripts/solver_torso_control.py",
+        "sha256": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80"
+      },
+      {
+        "bytes": 5133,
+        "path": "scripts/solver_triangle_sweep.py",
+        "sha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      {
+        "bytes": 6583,
+        "path": "scripts/test_solver_adaptive_contact.py",
+        "sha256": "6d8b2787cf310ab2169b3e426491e385fec0556f93748b0fff4f0da34500c4a7"
+      },
+      {
+        "bytes": 3339,
+        "path": "scripts/test_solver_assembly_schedule.py",
+        "sha256": "4cdec2e5e3b96dda9de0f4d9e512af09e95f2eac88b782f4ac711354283942a0"
+      },
+      {
+        "bytes": 7601,
+        "path": "scripts/test_solver_bending.py",
+        "sha256": "6795060570d3fcf4f9dfed670d95e62afb7c14f497828c9d0849883577406315"
+      },
+      {
+        "bytes": 5756,
+        "path": "scripts/test_solver_bending_adversarial.py",
+        "sha256": "443c0920c8b89f1b88a472643684c5e06fe845243b0906dda4132319c8c0afae"
+      },
+      {
+        "bytes": 4599,
+        "path": "scripts/test_solver_bending_integration.py",
+        "sha256": "e11b192808a9d7a3366088420ca1f56c1868d0e9b08f3f1430e0eb6514fe5b5a"
+      },
+      {
+        "bytes": 3148,
+        "path": "scripts/test_solver_bending_search.py",
+        "sha256": "532a012b86adc409dcfd44f56e2e2c960c6d77313e1a1d58100d438662a6060f"
+      },
+      {
+        "bytes": 18910,
+        "path": "scripts/test_solver_binding_control_schedule.py",
+        "sha256": "a1917a373cee160e99802ec53db004eb6555714d3814aadac178b324040c35b7"
+      },
+      {
+        "bytes": 18067,
+        "path": "scripts/test_solver_binding_control_schedule_replay.py",
+        "sha256": "0de40286cfbfd4d70fa41092ea48d7628981e59a06ce7d9833cc9057dd12244c"
+      },
+      {
+        "bytes": 12247,
+        "path": "scripts/test_solver_binding_diagnostics.py",
+        "sha256": "9e46c85e21991bcc40d237cb4172fe67192e6a616493305bab05fc041742f278"
+      },
+      {
+        "bytes": 34493,
+        "path": "scripts/test_solver_binding_extended_hold.py",
+        "sha256": "6286d3e0ed6479647bdad835a44b53e4282cb4ad218abbc530bd70d8ff23a87e"
+      },
+      {
+        "bytes": 25155,
+        "path": "scripts/test_solver_binding_first_turn_input.py",
+        "sha256": "08d1010d4e382c0440c319f727835135444232bb12720077298dc74341ab54dc"
+      },
+      {
+        "bytes": 20879,
+        "path": "scripts/test_solver_binding_first_turn_report.py",
+        "sha256": "24b6f4bad9f81f855885ab1b07ef928c75f631c92031951d3dca28d0f02d0153"
+      },
+      {
+        "bytes": 17935,
+        "path": "scripts/test_solver_binding_fold.py",
+        "sha256": "dba2a3fa9dbc5b55fe5c10cf5100c960539f9b7662f73294fa4c8a4941731709"
+      },
+      {
+        "bytes": 22553,
+        "path": "scripts/test_solver_binding_fold_replay.py",
+        "sha256": "b4439d9aa49469a07efbebcdfc8296e90990cf830290d3e072bf822123aa4307"
+      },
+      {
+        "bytes": 26439,
+        "path": "scripts/test_solver_binding_frames.py",
+        "sha256": "9589a3b16ca241197005d1caa5fe0f911646260b94707688dca6d0e4c989e7f9"
+      },
+      {
+        "bytes": 19382,
+        "path": "scripts/test_solver_binding_frames_replay.py",
+        "sha256": "22320ec2fbd52af2cdf1fd70899018b11cb02ad9c2e3b06febb132f52bbc804b"
+      },
+      {
+        "bytes": 13806,
+        "path": "scripts/test_solver_binding_gripper_remap.py",
+        "sha256": "65699c55edb3c328b7b009ad0fd5d24f13a235c9fdfbab2e21582da80cb2f6b1"
+      },
+      {
+        "bytes": 25130,
+        "path": "scripts/test_solver_binding_gripper_remap_replay.py",
+        "sha256": "8833477341c2caf6da4e9b39e4458bc2326831afbf8424eb90fa65ee1eda2551"
+      },
+      {
+        "bytes": 12929,
+        "path": "scripts/test_solver_binding_placement.py",
+        "sha256": "ca07c5cd91667cab624fd736d9628317394ce3188bdf30e04cc8f1f337d474c4"
+      },
+      {
+        "bytes": 21575,
+        "path": "scripts/test_solver_binding_placement_replay.py",
+        "sha256": "ae7479d9b3507c25103a4a3f4a40ef72d7c5ff3cdacf72a6c8b2b413f7e09e82"
+      },
+      {
+        "bytes": 15920,
+        "path": "scripts/test_solver_binding_refinement.py",
+        "sha256": "6bc228a240442c1b369a657cb066441e74fd6df089c721e0b1735753457ec274"
+      },
+      {
+        "bytes": 24583,
+        "path": "scripts/test_solver_binding_remap.py",
+        "sha256": "432e512b952bc784c6c47b3a9574110cdc46d80dcb3b5ca02ac09b1849ed6050"
+      },
+      {
+        "bytes": 17698,
+        "path": "scripts/test_solver_binding_remap_replay.py",
+        "sha256": "2e9c56535e1534c8bf13dfa33118eb1d786791603d25e51d6e6cd863e5b37196"
+      },
+      {
+        "bytes": 19141,
+        "path": "scripts/test_solver_binding_sewing_schedule.py",
+        "sha256": "bdd2c27af6bdcbcab3fd948e377afe0d7d7cdcdd69a9b4386c919d7e521cc5f4"
+      },
+      {
+        "bytes": 18849,
+        "path": "scripts/test_solver_binding_sewing_schedule_replay.py",
+        "sha256": "10e4c18b1a4052a927ba78acda8ceef812b466b1aa1e1200db0258dc253bf1a4"
+      },
+      {
+        "bytes": 12810,
+        "path": "scripts/test_solver_binding_source.py",
+        "sha256": "a2cb4f037997844a9a95fe065fd438144e686a2016330feacbe6e67499ff4b34"
+      },
+      {
+        "bytes": 12152,
+        "path": "scripts/test_solver_binding_source_integration.py",
+        "sha256": "8b5d8c15d7447d2b08f9cd1e823759f328a0d9d1fd3b223662b721d427d15dcc"
+      },
+      {
+        "bytes": 33834,
+        "path": "scripts/test_solver_binding_spatial_seams.py",
+        "sha256": "d477fd2929c785f6c975ed43442c826c24f1c50996f36eca102120d6a1ddafc3"
+      },
+      {
+        "bytes": 17895,
+        "path": "scripts/test_solver_binding_spatial_seams_replay.py",
+        "sha256": "3fdc16a0bd35a4c5e8b86d0658ea3a3085bee8c7706d42bd07abaedd3d3f1502"
+      },
+      {
+        "bytes": 14654,
+        "path": "scripts/test_solver_binding_time_comparison.py",
+        "sha256": "74940da8d85f52e8c6cc86565c1e9b613d0f91fe34b29bc452c1afd4d9780791"
+      },
+      {
+        "bytes": 29784,
+        "path": "scripts/test_solver_cable_adaptive.py",
+        "sha256": "d2c717768f0b75d80f5f914a5c7ea5419c279b1a3fac77585125f5fc5801b631"
+      },
+      {
+        "bytes": 17640,
+        "path": "scripts/test_solver_cable_energy.py",
+        "sha256": "dd61bc9a9110409e83ebe4a00b42c0af29c199d386f03fde9543b8c20f061512"
+      },
+      {
+        "bytes": 23586,
+        "path": "scripts/test_solver_cable_global.py",
+        "sha256": "4a10e6da25d3c15a090a820356e5d67db2ae1b80fccca06ac95dafb58c513d8d"
+      },
+      {
+        "bytes": 9141,
+        "path": "scripts/test_solver_cable_integration.py",
+        "sha256": "8e0a01d4f81d1ce04bde93b5b0e429646341755f363ffa5d6d17d7cdaca9c673"
+      },
+      {
+        "bytes": 25578,
+        "path": "scripts/test_solver_cable_parameter_schedule.py",
+        "sha256": "d2c06a306bb5468a02384a65ee207fdae936636be51c238480ea97b21da72667"
+      },
+      {
+        "bytes": 26694,
+        "path": "scripts/test_solver_cable_parameters.py",
+        "sha256": "3b7204a93e2dfa57982969d40717466f697eaea01a259da3de63a5911881df49"
+      },
+      {
+        "bytes": 34813,
+        "path": "scripts/test_solver_cable_varying_adaptive.py",
+        "sha256": "219d13439225326d571bd1987b04088532e02c082596536f63c367121dd42f49"
+      },
+      {
+        "bytes": 15296,
+        "path": "scripts/test_solver_cable_varying_control.py",
+        "sha256": "98a47abe6ed0e1f40bc3d1eb2ee5d65e9f7d026392c9bc435df9055e168194fb"
+      },
+      {
+        "bytes": 24468,
+        "path": "scripts/test_solver_cable_varying_energy.py",
+        "sha256": "02096b3d413768a9ffcba6bccc69945f84d90c13197484c35991d8c698b42e4c"
+      },
+      {
+        "bytes": 19385,
+        "path": "scripts/test_solver_cable_varying_global.py",
+        "sha256": "5460a3d16dfc19c0c425eb58269d3956ad9d61071ddb0fe9c2bcf70a5e9c3256"
+      },
+      {
+        "bytes": 7939,
+        "path": "scripts/test_solver_candidate_coverage.py",
+        "sha256": "b9567f4552abb22f11a750531f3821a78c56e6699c53490e892f7a38466ad5f5"
+      },
+      {
+        "bytes": 10497,
+        "path": "scripts/test_solver_candidate_coverage_review.py",
+        "sha256": "26156f52118bcbb5fab55d105eebc488bc1286d07232cd1b1260bd9207a39782"
+      },
+      {
+        "bytes": 2129,
+        "path": "scripts/test_solver_constraint_coloring.py",
+        "sha256": "5523903ee5c2b549c52a5949473a0faaa319061d8b5aec384f7beb5457ce30c6"
+      },
+      {
+        "bytes": 12439,
+        "path": "scripts/test_solver_contact_continuation_cli.py",
+        "sha256": "e481d0df197be38029153f12d689ce17e22fa11465b97416f5bc03e343a223bc"
+      },
+      {
+        "bytes": 7241,
+        "path": "scripts/test_solver_contact_filters.py",
+        "sha256": "6b472308fc057cf3f1107c590a9530ae9b07a23b31ca0bd2c1645dcc67c95458"
+      },
+      {
+        "bytes": 5867,
+        "path": "scripts/test_solver_contact_preflight.py",
+        "sha256": "59f3c3e9ba0a54485ae2bad01b9522d91db2ec17caebf10fa81aa3747926c81f"
+      },
+      {
+        "bytes": 6584,
+        "path": "scripts/test_solver_contact_range_adversarial.py",
+        "sha256": "3969c83b5423212a290457135f69e5de945476df269255e56eca86f77d7d23f3"
+      },
+      {
+        "bytes": 29443,
+        "path": "scripts/test_solver_continuous_cable_sewing.py",
+        "sha256": "363f66fa25b114ef4b69990ad8be2a05a2315bd81a67daa48408291a9bbdeaba"
+      },
+      {
+        "bytes": 44956,
+        "path": "scripts/test_solver_continuous_normal_sewing.py",
+        "sha256": "0992569c65f995cb0310a849aa553c360e25884a0d1862531de565c022630ed3"
+      },
+      {
+        "bytes": 17104,
+        "path": "scripts/test_solver_controlled_fold.py",
+        "sha256": "c324e4d43bbff09346f0a68b5c7c58c9e6bf144a40322e72fbcdb465b07e7280"
+      },
+      {
+        "bytes": 20481,
+        "path": "scripts/test_solver_controlled_fold_adaptive.py",
+        "sha256": "aed12ecb51469c2ad183c56737d6b74b1b943836dc348735b532c55486c1095a"
+      },
+      {
+        "bytes": 16906,
+        "path": "scripts/test_solver_controlled_fold_energy.py",
+        "sha256": "4184bf40d59fc908934387b763a91687eafe0335ca5b7dc6cde4e794a52f1cb0"
+      },
+      {
+        "bytes": 12775,
+        "path": "scripts/test_solver_controlled_fold_integration.py",
+        "sha256": "89baa4e290efc6a78ae67ac74394d04bc20fba5b05a2d4017d4e5a3b3377d5df"
+      },
+      {
+        "bytes": 2893,
+        "path": "scripts/test_solver_crease_mesh.py",
+        "sha256": "3b3345b738d6e64f68d23c99a13e4e76216fdda3cc92a2085f7a6c3e0836aa68"
+      },
+      {
+        "bytes": 10029,
+        "path": "scripts/test_solver_cuff_compatibility.py",
+        "sha256": "fe8de3caf186aaaeb06595d37504f2078bef79ca3022677066f1db19035f3d14"
+      },
+      {
+        "bytes": 18076,
+        "path": "scripts/test_solver_cuff_construction.py",
+        "sha256": "4a923d3d6fcddfcc1304f36c69d8177bac74d68299f112d4e2ce4414d24bc873"
+      },
+      {
+        "bytes": 3849,
+        "path": "scripts/test_solver_cuff_crease_cli.py",
+        "sha256": "863e9137cfbeed6ff44aef190bfec104f7e743ecb9e1357ecf4ca734e6182ca3"
+      },
+      {
+        "bytes": 6433,
+        "path": "scripts/test_solver_cuff_frame_semantics.py",
+        "sha256": "55b038088bbf2b9459dfdf2a7af85aa5d6ad7297f5bb4f87fcd1ed5e27d97abb"
+      },
+      {
+        "bytes": 10892,
+        "path": "scripts/test_solver_cuff_sequence.py",
+        "sha256": "ec77452e3b92ab831d6222ddc9772cfbf097ffdee28eda94a11ebf1354c576a5"
+      },
+      {
+        "bytes": 15421,
+        "path": "scripts/test_solver_cuff_sewing_capture.py",
+        "sha256": "1f1316102cf8db42843bcb602ec6ea3746debf8014a5abbd0cdcc74089f7e6f5"
+      },
+      {
+        "bytes": 16758,
+        "path": "scripts/test_solver_cuff_source_binding.py",
+        "sha256": "c8c5469f10f30882e8b0c46aeab689f4acdd7d6af290649a394a5c9c5c679aac"
+      },
+      {
+        "bytes": 11361,
+        "path": "scripts/test_solver_dihedral_increment.py",
+        "sha256": "599a7bae9ac6e9f8642a9f71217cc5cce8666c4b02786e80ba0f9c3275c956e0"
+      },
+      {
+        "bytes": 10123,
+        "path": "scripts/test_solver_distance_sewing.py",
+        "sha256": "25c3240f55fda952c3ec67cf17cb178c65f8dc88e650e17c484992d9b108c835"
+      },
+      {
+        "bytes": 15056,
+        "path": "scripts/test_solver_embedded_sewing.py",
+        "sha256": "812ab951472a797b56e6e6dfaa9b79ade7a2b42e58b90f8556b04b931727bf19"
+      },
+      {
+        "bytes": 9325,
+        "path": "scripts/test_solver_energy_balance_adversarial.py",
+        "sha256": "64d64227e715bfb0ad6055768d1155191d2e07676de9d11e1b10524967d4bbc8"
+      },
+      {
+        "bytes": 4760,
+        "path": "scripts/test_solver_energy_change.py",
+        "sha256": "7aa1312ee49b6a03a2853c45f2d6023e81205306c8585f746ed7d61f588c5ebc"
+      },
+      {
+        "bytes": 5215,
+        "path": "scripts/test_solver_energy_diagnostics.py",
+        "sha256": "d4857054c4ad016519af2fd3648dfdde0475674dda93f1b9f7e890f3bf33d3e0"
+      },
+      {
+        "bytes": 10341,
+        "path": "scripts/test_solver_fold_actuation.py",
+        "sha256": "440bbd3c981394a425141f7d7b70db4d1c6ef70e004695a412fe976dd078d8d7"
+      },
+      {
+        "bytes": 7360,
+        "path": "scripts/test_solver_fold_adversarial.py",
+        "sha256": "fb984c85df30f8401c1e9309e1f5a87f1f142aa658438c874eb3d2f936817747"
+      },
+      {
+        "bytes": 7575,
+        "path": "scripts/test_solver_fold_barrier.py",
+        "sha256": "b55a0ca3bf4a91f59f222859122935573a2c7c6f2b66d699b3555b86b3219456"
+      },
+      {
+        "bytes": 7773,
+        "path": "scripts/test_solver_fold_continuation_cli.py",
+        "sha256": "32a8ca879d18614f5d45d8174138604be5f840209e31867de69d6a9e458fd034"
+      },
+      {
+        "bytes": 15476,
+        "path": "scripts/test_solver_fold_control_schedule.py",
+        "sha256": "ade1c84ec7695ebf036162dc7baed7fece87f95663a6ec66ff89d6c90da36ac5"
+      },
+      {
+        "bytes": 4594,
+        "path": "scripts/test_solver_fold_energy_review.py",
+        "sha256": "e129d471d7ae8fcf540e0651d300ec4a8367c9f74db846a4fb21bd878c5fdda1"
+      },
+      {
+        "bytes": 1700,
+        "path": "scripts/test_solver_fold_input_adversarial.py",
+        "sha256": "e1b5d6a41bea9fc8e27636f2b30181f5616e193e582e56ef0a15f9b8570eb4d2"
+      },
+      {
+        "bytes": 8322,
+        "path": "scripts/test_solver_fold_integration.py",
+        "sha256": "91082869c594b774d99c4ffc8101ee82f4135dc29c7ba218e51b947cfd60f1da"
+      },
+      {
+        "bytes": 5260,
+        "path": "scripts/test_solver_global_adversarial.py",
+        "sha256": "fc917bccd499078558201bd956f91c9ba817d1bb08f41d4ebd8ee8f931956037"
+      },
+      {
+        "bytes": 9817,
+        "path": "scripts/test_solver_global_direction.py",
+        "sha256": "9853022931c8047109c910174864cb1da8cbda3968713a15cd76b8d6621b3d8d"
+      },
+      {
+        "bytes": 5737,
+        "path": "scripts/test_solver_global_sewing.py",
+        "sha256": "616afb1c733b6db5cbe3d5e0ce25715ce92019c4320442eb0d4ca8f962d15a31"
+      },
+      {
+        "bytes": 4171,
+        "path": "scripts/test_solver_global_shift.py",
+        "sha256": "657704cbd0ac5513fd5a051b6e1405ee20262b0570c2c8e1bb97f98a05239de6"
+      },
+      {
+        "bytes": 7638,
+        "path": "scripts/test_solver_global_shift_integration.py",
+        "sha256": "7d875d2932831189f412cd78a67e9afed5a77ebfc4a01192ac2da6a7e92a1118"
+      },
+      {
+        "bytes": 12705,
+        "path": "scripts/test_solver_gripper_continuation.py",
+        "sha256": "cccebc24a97a4a55d50fe36edaad23d9540ecd7743bbf58f65909c9ea6e9a629"
+      },
+      {
+        "bytes": 22112,
+        "path": "scripts/test_solver_gripper_continuation_cli.py",
+        "sha256": "cfc8546e4eabd2916fa51d7f9bb915bc8ceba816f5f39ba5b860e4d0a97f312a"
+      },
+      {
+        "bytes": 17464,
+        "path": "scripts/test_solver_gripper_energy_balance.py",
+        "sha256": "8e9c85e061a0f98385423d4f7abd494bf46a11100ebb0f975c947fbb3320e83a"
+      },
+      {
+        "bytes": 17167,
+        "path": "scripts/test_solver_gripper_integration.py",
+        "sha256": "92ba6c56784b12384f555c694f9452fe5a6fea26b15769ccf9c0672bedb45480"
+      },
+      {
+        "bytes": 6129,
+        "path": "scripts/test_solver_gripper_precision_review.py",
+        "sha256": "eb15ee168b62b68ac1f46cf4247f105bb292ed4888d6643aff3065b306a7517f"
+      },
+      {
+        "bytes": 20548,
+        "path": "scripts/test_solver_gripper_replay.py",
+        "sha256": "83e67a70b74b7603cf9d3aeac905afc439eca83e92f8790178a50c448fa67784"
+      },
+      {
+        "bytes": 4894,
+        "path": "scripts/test_solver_guarded_contact_metric.py",
+        "sha256": "75ab9d3afa4f5370e2d30ecc959193464a7ef21fde27ca86f4d5a3c2099bbcae"
+      },
+      {
+        "bytes": 5356,
+        "path": "scripts/test_solver_hinge_sweep.py",
+        "sha256": "136c324f243493f314816671040ac7e789a77058d5dbbb253de22a13e002e0da"
+      },
+      {
+        "bytes": 5562,
+        "path": "scripts/test_solver_hinge_sweep_adversarial.py",
+        "sha256": "9db863dbba8ab759bfff8e61e089510cefdb114925db7ba6196520f03447791b"
+      },
+      {
+        "bytes": 6435,
+        "path": "scripts/test_solver_ipc_adversarial.py",
+        "sha256": "68ea23ddf866b0c545d731a14d398cb71b06a4ca940d186383c4916329adec17"
+      },
+      {
+        "bytes": 5537,
+        "path": "scripts/test_solver_ipc_area.py",
+        "sha256": "2aef9282034ecb58d56d85cb68b1a0db985ae3346bb4f9b8ee45a0f48f6484cc"
+      },
+      {
+        "bytes": 3612,
+        "path": "scripts/test_solver_ipc_coupling_adversarial.py",
+        "sha256": "f173081204dbcbfb28a21561abc56a93499d8781b3de3d29aaeaef9fe99fc232"
+      },
+      {
+        "bytes": 7452,
+        "path": "scripts/test_solver_ipc_integration.py",
+        "sha256": "44b764e00a6ead15fec4e3f4f8a69f071e500eaaf0f93721c39ae1c35afa33ec"
+      },
+      {
+        "bytes": 32216,
+        "path": "scripts/test_solver_journal_adversarial.py",
+        "sha256": "b42eaeda6cb65c0b345d80cc17ce6a7117300715e61c3261e4bab73c7e0f17cb"
+      },
+      {
+        "bytes": 27641,
+        "path": "scripts/test_solver_material_grippers.py",
+        "sha256": "f19fa66e14d7c4c0185b21ddda9833047e49e6092c3806d05f05f8a919b9708b"
+      },
+      {
+        "bytes": 4443,
+        "path": "scripts/test_solver_membrane_adversarial.py",
+        "sha256": "80afdb8a9d85131b70d37d193a90f2c3d744e9f354dff544a66ce26ecc4747e4"
+      },
+      {
+        "bytes": 3016,
+        "path": "scripts/test_solver_membrane_hessian.py",
+        "sha256": "026850b09778e7d980588c051c62d4725082eafd2eb8da6eba829daa69e308f6"
+      },
+      {
+        "bytes": 11775,
+        "path": "scripts/test_solver_membrane_stability.py",
+        "sha256": "a454e1da36d7bbfea626dc62983bff13e6c7e40890f462af9a570ff6971bed4e"
+      },
+      {
+        "bytes": 17399,
+        "path": "scripts/test_solver_mixed_control_integration.py",
+        "sha256": "a29c84027a51c28bed526acd658988c01d24540130f2a3abc43d84901555895a"
+      },
+      {
+        "bytes": 14789,
+        "path": "scripts/test_solver_mixed_control_publication.py",
+        "sha256": "cfd43c7b54c9e18da49543f7535b2b2214bd1cc9b9e58e25c2471d5ae6982d3e"
+      },
+      {
+        "bytes": 7870,
+        "path": "scripts/test_solver_native_candidate_coverage.py",
+        "sha256": "723d34eb1ce4bfe0de7376b11fbc7215ed43cb29e767b4473a88497e876ef6fd"
+      },
+      {
+        "bytes": 10210,
+        "path": "scripts/test_solver_normal_sewing.py",
+        "sha256": "6516ecb7316d202273bdbc91c97c399fa7ef95c705af1c3e556dc7c2bd501bd7"
+      },
+      {
+        "bytes": 11164,
+        "path": "scripts/test_solver_point_contact.py",
+        "sha256": "7eefa8deb26be1ec46dc4f03a1cde2ee7b90efdcd57bff12939223a7c57bfb7d"
+      },
+      {
+        "bytes": 29544,
+        "path": "scripts/test_solver_process_budget.py",
+        "sha256": "5a4b05f159fac93f93f1fa8fe480ba05102363e0b87761c899ac946f871f5841"
+      },
+      {
+        "bytes": 13457,
+        "path": "scripts/test_solver_radial_moments.py",
+        "sha256": "f9a039e1e180dcd1f58a1986800ca854beb0d28e878af64a864382629e1ba674"
+      },
+      {
+        "bytes": 3443,
+        "path": "scripts/test_solver_replay_budget.py",
+        "sha256": "68d9a8509e5f74ce74579d74725630b11a4d3db751abd9acb3a87593937a3fee"
+      },
+      {
+        "bytes": 14525,
+        "path": "scripts/test_solver_rest_filtered_contact.py",
+        "sha256": "8329a307c38fdfe86739e0e369baaa4596c6b7665e82cc495098421582ec2020"
+      },
+      {
+        "bytes": 6647,
+        "path": "scripts/test_solver_rest_filtered_locality.py",
+        "sha256": "7f9b2039a0165b4c41535a393f775384e20a71631b36afbcfe12a3f588e86ca1"
+      },
+      {
+        "bytes": 7415,
+        "path": "scripts/test_solver_rest_filtered_partition_adversarial.py",
+        "sha256": "dd459f168a83edf654a1602fb97f2a6cd24591a41dba0af2e0bdd02bf582ecee"
+      },
+      {
+        "bytes": 4226,
+        "path": "scripts/test_solver_rigid_staging.py",
+        "sha256": "18df5e8f401d6acaef0a48dd3460db2af0bfc0ec4aad14a53f11e0c131648a19"
+      },
+      {
+        "bytes": 17729,
+        "path": "scripts/test_solver_rigid_velocity_diagnostics.py",
+        "sha256": "143e6b2cfc4231a8df4dfdd8bef74fea373b5773a85f83367a14d7e6c2215442"
+      },
+      {
+        "bytes": 18602,
+        "path": "scripts/test_solver_sewing_activation.py",
+        "sha256": "315d32704e782b75a417e613c697d2aede1ddfaab657e750dcd9c7c71c771eb5"
+      },
+      {
+        "bytes": 20686,
+        "path": "scripts/test_solver_sewing_activation_adaptive.py",
+        "sha256": "4aefb6e8d462ec05df7c6e32b24a9567315dd1e48a9f5c91ec84afbbbb7612d3"
+      },
+      {
+        "bytes": 19750,
+        "path": "scripts/test_solver_sewing_activation_energy.py",
+        "sha256": "e4a50bea1cac083c37f4110715bc7ca7493a50d63e343c4a41845c41ff15b896"
+      },
+      {
+        "bytes": 10524,
+        "path": "scripts/test_solver_sewing_activation_energy_review.py",
+        "sha256": "192171d015d71a1318c4fe8c1861898aa7c15b2c6aefcc153e609ec0a1d3010a"
+      },
+      {
+        "bytes": 18014,
+        "path": "scripts/test_solver_sewing_activation_integration.py",
+        "sha256": "eae6f6c7510c3cf761c6d044015a88bdb9527270de981800d65373cc07f509dd"
+      },
+      {
+        "bytes": 10552,
+        "path": "scripts/test_solver_sewing_activation_schedule.py",
+        "sha256": "ec11c828cad4c838ce4cc0659ed840678fa93ce47a9f8b7d71f606af3cca34d6"
+      },
+      {
+        "bytes": 8860,
+        "path": "scripts/test_solver_sewing_continuation_cli.py",
+        "sha256": "7437759150a016aa42f56b56a8f92d498151e79f306d7586611f8f63d2285fa0"
+      },
+      {
+        "bytes": 16398,
+        "path": "scripts/test_solver_sewing_continuation_review.py",
+        "sha256": "35deae04ebd48ba91ad5430c8abe36e8dc2d3ada21386d68625430f187fbd09d"
+      },
+      {
+        "bytes": 24875,
+        "path": "scripts/test_solver_sewing_input.py",
+        "sha256": "14220fa6a2855d6afacfa4cf1420f220ad0a67695ecdf7deb59c1156f138b9ff"
+      },
+      {
+        "bytes": 5576,
+        "path": "scripts/test_solver_sewing_path_cli.py",
+        "sha256": "e8263082370577993301866c83af58d6b58cf3483b8187f237e2419a374565f8"
+      },
+      {
+        "bytes": 20843,
+        "path": "scripts/test_solver_sewing_replay.py",
+        "sha256": "229e40be45918d062538d0ca93624b8e1d8aa32c8bcf7cbc16597836e97fc85c"
+      },
+      {
+        "bytes": 11085,
+        "path": "scripts/test_solver_sewing_sweep.py",
+        "sha256": "a08a171c539c5edde8b103d02e48ee0f2f5c209a26528bbbfddef40463545ac4"
+      },
+      {
+        "bytes": 9378,
+        "path": "scripts/test_solver_sewing_sweep_review.py",
+        "sha256": "98614f664ac5b271d9fc624182aa141bda5f7413f8e4ab1f197ff76a6039d6e1"
+      },
+      {
+        "bytes": 2829,
+        "path": "scripts/test_solver_source_capture.py",
+        "sha256": "2f1e52428e3b4d696e1ba5dd15d10f50d4c18efc279610593aa4936b7d4a64a4"
+      },
+      {
+        "bytes": 17064,
+        "path": "scripts/test_solver_spatial_sewing.py",
+        "sha256": "44ad02a3de80fcad316622f071be2d9c68ea9321256ef4acc5a5509cd4d91bab"
+      },
+      {
+        "bytes": 6422,
+        "path": "scripts/test_solver_spike_geometry.py",
+        "sha256": "26dcedd6410628d94b12125d09d3c0b7f1b192cb4d7c87406799b5fa0a08aa47"
+      },
+      {
+        "bytes": 15913,
+        "path": "scripts/test_solver_stationarity.py",
+        "sha256": "2524eb563b9af7a7fed668beae849f2131e821142210988b27d4bec7ae98ab2d"
+      },
+      {
+        "bytes": 3708,
+        "path": "scripts/test_solver_strain_diagnostics.py",
+        "sha256": "fce8abe772fa490b155f8f63bc8fdd725e577139fbe1ce0c337d13248432ec1f"
+      },
+      {
+        "bytes": 8492,
+        "path": "scripts/test_solver_surface_distance_diagnostics.py",
+        "sha256": "dd6ab981c48edc4a507a5438394411dd0987d663d932fb5af947012dc1b7bfe2"
+      },
+      {
+        "bytes": 6096,
+        "path": "scripts/test_solver_swept_separation.py",
+        "sha256": "ad2775faa86786d1d613d595693984f5184aeca24ff27c92d762c8564af1b14d"
+      },
+      {
+        "bytes": 15189,
+        "path": "scripts/test_solver_temporal_control.py",
+        "sha256": "ce303620e254d9adc1d7f5b766775fb3a3ec092f96266be5efb99ee219897e03"
+      },
+      {
+        "bytes": 15718,
+        "path": "scripts/test_solver_temporal_global.py",
+        "sha256": "b5c3dea388e4964fbadf99446280b9c8f3dc21063092c291d2b56cbd468efee7"
+      },
+      {
+        "bytes": 3913,
+        "path": "scripts/test_solver_temporal_integration.py",
+        "sha256": "ca7ed6ff96efc72a33545a96330ce742830c87314fe97cd6020524b679e6aee8"
+      },
+      {
+        "bytes": 11915,
+        "path": "scripts/test_solver_temporal_separation.py",
+        "sha256": "c879a18ec8f37537dd843b493f7210a7db1748c55209d4e681b9adb83a60cc83"
+      },
+      {
+        "bytes": 5110,
+        "path": "scripts/test_solver_torso_control.py",
+        "sha256": "c8f82dc18153de6f5fd8930cffc77283fd715e8b2bb3930b33d4015bdd9ce839"
+      },
+      {
+        "bytes": 7889,
+        "path": "scripts/test_solver_triangle_sweep.py",
+        "sha256": "49afbb578fa93c972f51aefcecc9dfbb28c2055f218de302f3470628e7ed7306"
+      },
+      {
+        "bytes": 2793,
+        "path": "scripts/test_solver_triangle_sweep_adversarial.py",
+        "sha256": "543433c0c3b2aed760e5cd893230318e0cdee234665e1bae34f5b6e9d56383f4"
+      }
+    ],
+    "verifiedContactLeaves": 71226,
+    "verifiedTriangleLeaves": 13160
+  },
+  "verificationComplete": true
+}
