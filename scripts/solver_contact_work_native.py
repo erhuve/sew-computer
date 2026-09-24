@@ -1,8 +1,9 @@
-"""Complete native endpoint capture for the standalone bounded work primitive.
+"""Complete native endpoint capture for bounded contact scalar work.
 
-Only the existing area-weighted IPC rest-filtered adapter is admitted. This
-module is not called by the solver or temporal controller. It does not certify
-motion paths, native gradient errors, or native closest-feature predicates.
+Only the existing area-weighted IPC rest-filtered adapter is admitted. The
+explicit solver contact-work policy uses these captures for conditional work
+intervals. Motion paths, native gradient errors and source ownership are not
+certified here; exact geometry checks each selected native closest feature.
 """
 from dataclasses import dataclass
 from fractions import Fraction as F
@@ -102,7 +103,7 @@ def capture_endpoint(contact, positions, *, policy=None):
             terms.append(term)
             observations.append(NativeObservation(known,selected,native_distance,exact,native_mollifier))
         energies.append(float(potential(bucket,contact.mesh,q)))
-    energy = sum(energies)  # same bucket order as RestFilteredSurfaceContact.energy
+    energy = float(sum(energies))  # same bucket order; empty inventory is binary64 zero
     if not math.isfinite(energy) or energy < 0:
         raise ValueError("Invalid native contact energy observation")
     contact._check_native_parameters()

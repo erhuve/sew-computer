@@ -40,7 +40,7 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
                     inertia_diagonal=None, gradient_function=None, energy_change_function=None,
                     coupled_hessian=None, step_limiter=None, guard_assembled_metrics=False,
                     gradient_error_function=None, energy_change_interval_function=None,
-                    stationarity_tolerance_newtons=1e-6):
+                    stationarity_tolerance_newtons=1e-6, decision_record_key='cableAwareDecision'):
     tolerance = stationarity_tolerance(stationarity_tolerance_newtons)
     if exact_hessian is not None and coupled_hessian is not None:
         raise ValueError("Choose one safeguarded primary search metric")
@@ -50,6 +50,8 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
     if bounded != (energy_change_interval_function is not None) or bounded and gradient_function is None:
         raise ValueError("Bounded search requires gradient and fixed-work enclosures together")
     if bounded:
+        if decision_record_key not in ('cableAwareDecision','boundedWorkDecision'):
+            raise ValueError('Explicit bounded-work decision record key required')
         from fractions import Fraction as F
         from solver_cable_integration import directional_interval, _rat
 
@@ -152,7 +154,7 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
                     if guard_assembled_metrics:
                         direction_history[-1]["metric"] = metric_name
                     if bounded:
-                        direction_history[-1]['cableAwareDecision'] = decision
+                        direction_history[-1][decision_record_key] = decision
                     accepted = True
                     break
                 scale *= .5
@@ -176,7 +178,8 @@ class GlobalSewingSolver:
                  contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None,
                  fold_hinges=None, fold_stiffness_joules=None, material_grippers=None,
                  controlled_fold_actuation=None, continuous_cable=None, cable_precision=None,
-                 cable_parameter_recipe=None, cable_parameter_work_precision=None):
+                 cable_parameter_recipe=None, cable_parameter_work_precision=None,
+                 contact_work_policy=None):
         if sewing_mode not in ("vector", "distance", "normal-offset"):
             raise ValueError("Unsupported sewing mode")
         if sewing_mode != "normal-offset" and (sewing_frame_faces is not None or sewing_sides is not None):
@@ -216,6 +219,10 @@ class GlobalSewingSolver:
             if not np.all(self.active):
                 raise ValueError("Material-gripper reference currently requires free positive-mass cloth; fixed reactions are not implemented")
         self.contact = contact
+        self.contact_work_control = None
+        if contact_work_policy is not None:
+            from solver_contact_work_control import ContactWorkControl
+            self.contact_work_control = ContactWorkControl(contact,contact_work_policy)
         self.poses = model.tri_poses.numpy().astype(float) if model.tri_poses is not None else np.empty((0, 2, 2))
         self.areas = model.tri_areas.numpy().astype(float) if model.tri_areas is not None else np.empty(0)
         self.materials = model.tri_materials.numpy().astype(float) if model.tri_materials is not None else np.empty((0, 3))
@@ -280,7 +287,7 @@ class GlobalSewingSolver:
         from solver_embedded_sewing import validate_rows
         if not ((self.fold_actuation is not None or self.controlled_fold_actuation is not None
                  or self.material_grippers is not None or self.continuous_cable is not None
-                 or self.cable_parameter_control is not None)
+                 or self.cable_parameter_control is not None or self.contact_work_control is not None)
                 and isinstance(rows, list) and not rows):
             rows = validate_rows(rows, len(self.mass), model.particle_colors.numpy())
         if any(abs(sum(row.values())) > 1e-12 for row in rows):
@@ -319,6 +326,26 @@ class GlobalSewingSolver:
         tolerance = stationarity_tolerance(stationarity_tolerance_newtons)
         if tolerance != 1e-6 and linear_solver != "direct":
             raise ValueError("Tightened stationarity requires guarded direct search")
+        contact_work = self.contact_work_control
+        if contact_work is not None:
+            from fractions import Fraction as F
+            from solver_contact_work_control import ContactWorkControl, checked_change, encoded, validate_record
+            from solver_cable_integration import round_sum
+            from solver_controlled_fold import _binary64
+            if type(contact_work) is not ContactWorkControl or linear_solver != 'direct':
+                raise ValueError('Bounded contact work requires guarded direct search')
+            previous_positions,previous_velocities = map(contact_work.positions,(previous_positions,previous_velocities))
+            dt = _binary64(dt)
+            contact_work_definition = encoded(contact_work.description())
+            contact_work_failures = {'count':0,'lastReason':None}
+
+            def contact_work_identity():
+                if (self.contact_work_control is not contact_work
+                        or encoded(contact_work.description()) != contact_work_definition):
+                    raise ValueError('Bounded contact work policy changed during the step')
+                contact_work.check(self.contact)
+
+            contact_work_identity()
         fixed_cable = self.continuous_cable
         varying_cable = self.cable_parameter_control
         cable = fixed_cable
@@ -612,11 +639,13 @@ class GlobalSewingSolver:
             return gradient[self.free]
 
         def gradient_error_function(free_positions):
+            if cable is None:
+                return F()
             if cable_gradient_positions is None or cable_gradient_positions.tobytes() != free_positions.tobytes():
                 gradient_function(free_positions)
             return cable_gradient_error
 
-        def energy_change_function(start_positions, end_positions):
+        def energy_change_function(start_positions, end_positions, *, include_contact=True):
             from solver_energy_change import membrane_energy_change
             from solver_triangle_sweep import triangle_sweep_safe
             flat = fixed.copy()
@@ -624,7 +653,7 @@ class GlobalSewingSolver:
             delta = np.zeros_like(flat)
             delta[self.free] = end_positions - start_positions
             positions, displacement = flat.reshape((-1, 3)), delta.reshape((-1, 3))
-            if cable is not None:
+            if cable is not None or contact_work is not None:
                 end_flat = fixed.copy()
                 end_flat[self.free] = end_positions
                 next_positions = end_flat.reshape((-1, 3))
@@ -654,7 +683,8 @@ class GlobalSewingSolver:
                     if (not self.contact.path_safe(positions, next_positions)
                             or not self.contact.path_safe(previous, next_positions)):
                         return float("inf")
-                    contact_change = self.contact.energy_change(positions, next_positions)
+                    if include_contact:
+                        contact_change = self.contact.energy_change(positions, next_positions)
                 if self.fold_barrier is not None:
                     from solver_hinge_sweep import hinge_sweep_safe
                     if not hinge_sweep_safe(positions, next_positions, self.fold_barrier.indices):
@@ -678,25 +708,42 @@ class GlobalSewingSolver:
                          + bending_change + barrier_change + contact_change + fold_change + gripper_change)
 
         def energy_change_interval_function(start_positions, end_positions):
-            baseline = energy_change_function(start_positions, end_positions)
+            baseline = energy_change_function(start_positions, end_positions, include_contact=contact_work is None)
             if not np.isfinite(baseline):
                 return None
             first, last = fixed.copy(), fixed.copy()
             first[self.free], last[self.free] = start_positions, end_positions
             first, last = first.reshape((-1, 3)), last.reshape((-1, 3))
             snapshots = first.tobytes(), last.tobytes()
+            summands, error = [baseline], F()
+            if contact_work is not None:
+                try:
+                    contact_work_identity()
+                    work = checked_change(contact_work,self.contact,first,last)
+                    contact_work_identity()
+                    summands.append(work['changeJoules'])
+                    error += validate_record(work)
+                except ValueError as failure:
+                    contact_work_failures['count'] += 1
+                    contact_work_failures['lastReason'] = str(failure)
+                    return None
             try:
-                cable_identity()
-                work = cable.validate_change(first, last, cable.energy_change(first, last))
+                if cable is not None:
+                    cable_identity()
+                    work = cable.validate_change(first, last, cable.energy_change(first, last))
+                    summands.append(work['changeJoules'])
+                    error += _rational(work['certificate']['changeErrorBoundJoules'])
+                    cable_identity()
                 if (first.tobytes(), last.tobytes()) != snapshots:
-                    raise ValueError('Cable work helper mutated its supplied states')
-                cable_identity()
-                value, error = round_sum((baseline, work['changeJoules']),
-                                        _rational(work['certificate']['changeErrorBoundJoules']))
+                    raise ValueError('Bounded work helper mutated its supplied states')
+                if contact_work is not None:
+                    contact_work_identity()
+                value, error = round_sum(summands,error)
                 return F(value)-error, F(value)+error
             except ValueError as failure:
-                cable_failures['count'] += 1
-                cable_failures['lastReason'] = str(failure)
+                failures = cable_failures if cable is not None else contact_work_failures
+                failures['count'] += 1
+                failures['lastReason'] = str(failure)
                 return None
 
         def step_limiter(start_positions, end_positions):
@@ -773,9 +820,10 @@ class GlobalSewingSolver:
                                 energy_change_function=energy_change_function,
                                 step_limiter=step_limiter if self.contact is not None else None,
                                 stationarity_tolerance_newtons=tolerance,
+                                decision_record_key='boundedWorkDecision' if contact_work is not None else 'cableAwareDecision',
                                 **({'gradient_error_function': gradient_error_function,
                                     'energy_change_interval_function': energy_change_interval_function}
-                                   if cable is not None else {})) if linear_solver in ("direct", "shifted") else least_squares(evaluate, start, jac=lambda positions: evaluate(positions, True),
+                                   if cable is not None or contact_work is not None else {})) if linear_solver in ("direct", "shifted") else least_squares(evaluate, start, jac=lambda positions: evaluate(positions, True),
                                method="trf", tr_solver="lsmr", x_scale="jac", ftol=1e-12, xtol=1e-12,
                                gtol=1e-9, max_nfev=max_evaluations,
                                tr_options={"atol": 1e-12, "btol": 1e-12, "maxiter": max(100, 3 * len(self.free))})
@@ -789,7 +837,7 @@ class GlobalSewingSolver:
             from solver_hinge_sweep import hinge_sweep_safe
             if not hinge_sweep_safe(previous, final, fold_path_hinges):
                 raise ValueError("Physical fold step crosses an invalid hinge path")
-        if cable is not None and self.fold_barrier is not None:
+        if (cable is not None or contact_work is not None) and self.fold_barrier is not None:
             from solver_hinge_sweep import hinge_sweep_safe
             if not hinge_sweep_safe(previous, final, self.fold_barrier.indices):
                 raise ValueError('Physical cable step crosses a declared fold-barrier hinge path')
@@ -824,6 +872,11 @@ class GlobalSewingSolver:
         else:
             row_errors = np.max(np.abs(vector_sewing_error(final)), axis=1)
         controlled_diagnostic = actuator.diagnostics(final) if controlled_fold is not None else None
+        bounded_contact_report = None
+        if contact_work is not None:
+            contact_work_identity()
+            bounded_contact_report = checked_change(contact_work,self.contact,previous,final)
+            contact_work_identity()
         report = {
             "profile": "experimental-global-varying-cable-reference-v1" if varying_cable is not None else "experimental-global-fixed-cable-reference-v1" if cable is not None else "experimental-global-ipc-guarded-contact-reference-v1" if contact_guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
@@ -875,6 +928,10 @@ class GlobalSewingSolver:
             "status": int(result.status), "message": result.message,
             "evaluations": int(result.nfev), "initialEnergy": initial_energy, "finalEnergy": objective(result.x),
             "gradientInfinityNorm": gradient_norm,
+            **({'boundedContactWork':bounded_contact_report,
+                'contactWorkEvaluationFailures':dict(contact_work_failures),
+                'contactWorkLineSearchPolicy':'Conditional interval Armijo on actual endpoints, with bounded contact scalar work and optional cable uncertainty; native non-cable gradients and remaining work retain numerical scope'}
+               if contact_work is not None else {}),
             **({'varyingCable': parameter_record,
                 'cableParameterScope': 'Explicit controls frozen within this trial; adjacent-state parameter work is a separate required publication step; no schedule or source construction is inferred'}
                if varying_cable is not None else {}),
@@ -900,4 +957,8 @@ class GlobalSewingSolver:
                         or _encoded(report['varyingCable']) != parameter_record_bytes):
                     raise ValueError('Varying cable parameter identity changed before trial return')
                 cable_identity()
+        if contact_work is not None:
+            contact_work_identity()
+            ContactWorkControl.validate_change(contact_work,previous,final,report['boundedContactWork'])
+            contact_work_identity()
         return final, (final - previous) / dt, report

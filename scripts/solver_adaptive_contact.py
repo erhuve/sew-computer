@@ -294,6 +294,23 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                           assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None,
                           fold_control_schedule=None, cable_parameter_schedule=None,
                           stationarity_tolerance_newtons=1e-6, temporal_policy=None, **step_options):
+    contact_control = getattr(solver,'contact_work_control',None)
+    if contact_control is not None:
+        from solver_contact_work_control import ContactWorkControl, validate_contact_energy
+        from solver_energy_balance import validate_contact_mechanical
+        from solver_controlled_fold import _binary64
+        from solver_temporal_control import problem_identity
+        from solver_attempt_journal import AttemptJournal
+        if type(contact_control) is not ContactWorkControl:
+            raise ValueError('Explicit immutable bounded contact work control required')
+        if isinstance(attempt_journal,AttemptJournal):
+            raise ValueError('Legacy captured journals do not declare bounded contact work')
+        if step_options.get('linear_solver','direct')!='direct' or 'contact_work_policy' in step_options:
+            raise ValueError('Bounded contact work requires fixed-policy guarded direct search')
+        positions,velocities=map(contact_control.positions,(positions,velocities))
+        dt=_binary64(dt)
+        contact_definition=copy.deepcopy(contact_control.description())
+        contact_control.check(solver.contact)
     if temporal_policy is not None:
         from solver_temporal_control import policy, strict_array, problem_identity, run_trials
         from solver_controlled_fold import _binary64
@@ -465,6 +482,15 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
     if varying_control is not None:
         varying_sewing_identity = _sewing_model_identity(solver)
         varying_other_controls = (fold_recipe, controlled_fold_recipe, gripper_recipe)
+    if contact_control is not None:
+        contact_problem=problem_identity(solver)
+
+        def contact_identity():
+            if (getattr(solver,'contact_work_control',None) is not contact_control
+                    or not same(contact_control.description(),contact_definition)
+                    or problem_identity(solver)!=contact_problem):
+                raise ValueError('Bounded contact numerical problem changed during transition')
+            contact_control.check(solver.contact)
     if temporal_policy is not None:
         # Piecewise-linear nonnegative activation reaches its smallest
         # positive finite-grid sample at a knot or its nearest grid neighbor.
@@ -500,6 +526,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         propagate = None
         try:
             options = dict(step_options)
+            if contact_control is not None:
+                contact_identity()
             if cable_control is not None:
                 _validate_cable_identity(solver, cable_control, cable_definition)
             if varying_control is not None:
@@ -527,7 +555,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 if _sewing_model_identity(solver) != sewing_model_identity:
                     raise ValueError("Sewing model identity changed before the adaptive step")
             step_positions, step_velocities = current_positions.copy(), current_velocities.copy()
-            if varying_control is not None or temporal_policy is not None:
+            if varying_control is not None or temporal_policy is not None or contact_control is not None:
                 # Retain every live state/control passed through publication;
                 # late callbacks in a helper must not defeat an earlier check.
                 varying_arrays = [current_positions, current_velocities, step_positions, step_velocities,
@@ -537,6 +565,13 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 step_positions, step_velocities, substep_targets, duration, **options)
             if not isinstance(step_report, dict):
                 raise ValueError("Solver diagnostic report must be an object")
+            if contact_control is not None:
+                contact_control.positions(candidate_positions)
+                contact_control.positions(candidate_velocities)
+                contact_core=copy.deepcopy(_step_core(step_report,grippers=gripper_controls is not None))
+                if temporal_policy is None:
+                    varying_arrays.extend((candidate_positions,candidate_velocities))
+                    varying_snapshots.extend((candidate_positions.copy(),candidate_velocities.copy()))
             if temporal_policy is not None:
                 candidate_positions, candidate_velocities = map(strict_array, (candidate_positions, candidate_velocities))
                 temporal_core = copy.deepcopy(_step_core(step_report, grippers=gripper_controls is not None))
@@ -604,7 +639,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                                    tolerance_newtons=tolerance)
                 _validate_varying_identity(solver, varying_control, varying_definition, cable_controls, cable_schedule_definition)
             if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None
-                          or cable_control is not None or varying_control is not None or temporal_policy is not None):
+                          or cable_control is not None or varying_control is not None or temporal_policy is not None or contact_control is not None):
                 # Work belongs to the accepted transition and must be checked
                 # before its immutable journal outcome is written. Trial
                 # controls always use original fractions; retries do not
@@ -641,7 +676,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     energy_options.update(previous_fold_targets=old_fold, previous_fold_activation=old_activation,
                                           fold_targets=new_fold, fold_activation=new_activation)
                 if (fold_controls is not None or sewing_controls is not None
-                        or cable_control is not None or varying_control is not None or temporal_policy is not None):
+                        or cable_control is not None or varying_control is not None or temporal_policy is not None or contact_control is not None):
                     # Work is computed before publication. Isolated inputs
                     # preserve the last accepted state even if a helper fails
                     # after mutation; successful mutation also rejects.
@@ -650,7 +685,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     work_options = {key: value.copy() for key, value in energy_options.items()}
                     observed_arrays = [*work_states, *work_options.values()]
                     snapshots = [array.copy() for array in observed_arrays]
-                    if varying_control is not None or temporal_policy is not None:
+                    if varying_control is not None or temporal_policy is not None or contact_control is not None:
                         varying_arrays.extend(observed_arrays)
                         varying_snapshots.extend(snapshots)
                     if temporal_policy is not None:
@@ -667,6 +702,10 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     energy = global_energy_transition(solver, current_positions, candidate_positions,
                         current_velocities, candidate_velocities, old_targets, substep_targets, duration,
                         **energy_options)
+                if contact_control is not None:
+                    # Check raw types/completeness before diagnostic JSON can
+                    # narrow a malformed helper result into ordinary numbers.
+                    validate_contact_mechanical(energy)
                 step_report = dict(step_report, energyBalance=energy)
                 if gripper_controls is not None:
                     potential = gripper_recipe.potential(options["gripper_targets"], options["gripper_activation"])
@@ -694,6 +733,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 record["nonfiniteDiagnostics"] = nonfinite
                 if nonfinite:
                     raise ValueError("Controlled transition has nonfinite work or momentum diagnostics")
+                if contact_control is not None:
+                    contact_publication_snapshot=copy.deepcopy(record['step'])
                 if cable_control is not None:
                     cable_publication_snapshot = copy.deepcopy(record["step"])
                 if varying_control is not None:
@@ -742,6 +783,18 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                             or not same(_step_core(record["step"], grippers=gripper_controls is not None), original_step_core)):
                         raise ValueError("Varying cable step or accounting changed during final numerical validation")
             if valid:
+                if contact_control is not None:
+                    validate_contact_mechanical(record['step'].get('energyBalance',{}))
+                    _isolated_cable_call(lambda first,last: validate_contact_energy(
+                        contact_control,solver.contact,first,last,record['step'].get('energyBalance',{})),
+                        current_positions,candidate_positions)
+                    if (not same(record['step'].get('boundedContactWork'),
+                                 record['step']['energyBalance'].get('boundedContactWork'))
+                            or not same(record['step'],contact_publication_snapshot)
+                            or not same(_step_core(record['step'],grippers=gripper_controls is not None),contact_core)
+                            or any(not _same_control_array(a,b) for a,b in zip(varying_arrays,varying_snapshots))):
+                        raise ValueError('Bounded contact work, state or report changed before publication')
+                    contact_identity()
                 validate_tightened_report(record["step"], tolerance)
                 if temporal_policy is not None:
                     if (any(not _same_control_array(actual, expected) for actual, expected in zip(varying_arrays, varying_snapshots))
@@ -774,6 +827,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             report["stationarityToleranceN"] = tolerance
             report["massKg"] = temporal_mass.tolist()
             report["temporalSchedulePreflight"] = copy.deepcopy(temporal_preflight)
+            if contact_control is not None:
+                report['boundedContactControl']=copy.deepcopy(contact_definition)
             if varying_control is not None:
                 report.update(varyingCableControl=copy.deepcopy(varying_definition),
                               cableParameterSchedule=copy.deepcopy(cable_schedule_definition),
@@ -817,7 +872,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                   "initialInterval": initial_interval, "startFraction": start_fraction,
                   "endFraction": end_fraction, "durationSeconds": duration, "depth": depth, "converged": False}
         if attempt_journal is not None:
-            attempt_journal.start(copy.deepcopy(record) if varying_control is not None or tightened else record)
+            attempt_journal.start(copy.deepcopy(record) if varying_control is not None or tightened or contact_control is not None else record)
         candidate_positions, candidate_velocities, valid, fatal, propagate = validated_interval(
             current_positions, current_velocities, start_fraction, end_fraction,
             duration, sewing_progress, fold_progress, substep_targets, record)
@@ -826,7 +881,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         if valid:
             record["completedDurationSeconds"] = float(dt * end_fraction)
         if attempt_journal is not None:
-            if varying_control is not None or tightened:
+            if varying_control is not None or tightened or contact_control is not None:
                 attempt_journal.outcome(copy.deepcopy(record), candidate_positions.copy() if valid else None,
                                         candidate_velocities.copy() if valid else None)
             else:
@@ -864,6 +919,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         "initialSubdivisions": int(initial_subdivisions), "maxDepth": int(max_depth),
         "maxAttempts": int(max_attempts), "stationarityToleranceN": tolerance,
         "attempts": attempts, "acceptedSteps": accepted, "rejectedSteps": rejected, "interruptedSteps": [],
+        **({'boundedContactControl':copy.deepcopy(contact_definition)} if contact_control is not None else {}),
         "targetInterpolation": ("captured piecewise-linear sewing/fold progress" if schedule else
                                 "linear sewing progress over the original physical interval" if (gripper_controls is not None or sewing_controls is not None) else
                                 "linear over the original physical interval"),

@@ -82,7 +82,7 @@ def problem_identity(solver, controls=()):
               "contact_rest_metric_tolerance", "sewing", "sewing_xyz", "compliance", "sewing_mode",
               "sewing_frame_faces", "sewing_sides", "bending", "contact", "fold_barrier",
               "fold_actuation", "controlled_fold_actuation", "material_grippers",
-              "continuous_cable", "cable_parameter_control")
+              "continuous_cable", "cable_parameter_control", "contact_work_control")
     return tuple((name, capture(getattr(solver, name, None))) for name in fields) + (("controls", capture(controls)),)
 
 
@@ -175,11 +175,14 @@ def energy_defect(mass, before, after, energy, allocation):
     if any(type(energy.get(key)) is not float or energy[key].hex() != value.hex() for key, value in terms.items()):
         raise ValueError("Temporal motion terms differ from complete public fixed-motion accounting")
     cable = energy.get("varyingCableEnergy", energy.get("continuousCableEnergy"))
-    expected_radius = F()
+    from solver_contact_work_control import contact_error
+    from solver_energy_balance import validate_contact_mechanical
+    validate_contact_mechanical(energy)
+    expected_radius = contact_error(energy)
     if cable is not None:
         from solver_cable_integration import _rational
         work = cable["motionWork"] if "varyingCableEnergy" in energy else cable["work"]
-        expected_radius = _rational(work["certificate"]["changeErrorBoundJoules"])
+        expected_radius += _rational(work["certificate"]["changeErrorBoundJoules"])
         reference = cable["aggregationTermsJoules"]["mechanicalChangeMinusParameterWorkJoules"]
         if any(type(reference.get(key)) is not float or reference[key].hex() != value.hex() for key, value in terms.items()):
             raise ValueError("Temporal motion terms differ from validated cable accounting summands")
@@ -188,7 +191,7 @@ def energy_defect(mass, before, after, energy, allocation):
     nominal = delta + sum((F(value) for value in terms.values()), F())
     radius = _fraction(payload["knownErrorBoundJoules"])
     if radius != expected_radius:
-        raise ValueError("Temporal uncertainty differs from the cable fixed-motion certificate")
+        raise ValueError("Temporal uncertainty differs from validated contact and cable fixed-motion certificates")
     upper, lower = abs(nominal)+radius, max(F(), abs(nominal)-radius)
     outcome = "within-budget" if upper <= allocation else "exceeds-budget" if lower > allocation else "uncertainty-overlap"
     return {"exactStoredKineticChangeJoules": rational(delta), "nominalDefectJoules": rational(nominal),

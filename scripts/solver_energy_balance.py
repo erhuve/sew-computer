@@ -24,9 +24,10 @@ _VARYING_SCALARS = {
     "cableReleaseEnergyRemovedJoules": "releaseEnergyRemovedJoules",
 }
 _VARYING_SUMS = _CABLE_SUMS + ("targetParameterWorkJoules", "externalParameterWorkJoules", "cableChangeJoules")
+_CONTACT_SUMS = _VARYING_SUMS[:5]
 # Public scalar fields emitted for every global energy transition. Internal
 # fixed-motion/activation summands remain conditional on their older route.
-# This completeness gate applies only to the new varying-cable publication.
+# Varying-cable, bounded-contact and temporal publication require this envelope.
 _VARYING_BASE_SCALARS = (
     "membraneChangeJoules", "bendingChangeJoules", "bendingBeforeJoules", "bendingAfterJoules",
     "foldBarrierChangeJoules", "foldBarrierBeforeJoules", "foldBarrierAfterJoules",
@@ -51,6 +52,9 @@ _VARYING_SCOPE = (
     "not physical heat. No continuous actuator work, path, material damping, source admission or "
     "garment acceptance is certified."
 )
+_CONTACT_SUM_SCOPE = (' Optional bounded contact scalar work is included once in mechanical sum bounds; '
+                      'it adds no actuator parameter-work or pure cable-work uncertainty. '
+                      'Remaining non-contact work and native force arithmetic stay conditional.')
 
 
 def _varying_term_keys():
@@ -73,7 +77,7 @@ def _varying_term_keys():
     }
 
 
-def _varying_error_bases(record):
+def _varying_error_bases(record, contact_radius=None):
     from solver_continuous_normal_sewing import _rational
     errors = {name: _rational(record[endpoint]["certificate"]["energyErrorBoundJoules"])
               for name, endpoint in (("cableBeforeJoules", "before"), ("cableAfterJoules", "after"))}
@@ -85,6 +89,10 @@ def _varying_error_bases(record):
         ("cableParameterWorkJoules", "cableTargetParameterWorkJoules", "cableActivationParameterWorkJoules"))
     aggregate = dict(zip(_VARYING_SUMS,
         (parameter+motion, activation+motion, motion, target, parameter, parameter+motion)))
+    if contact_radius is not None:
+        errors['contactChangeJoules'] = contact_radius
+        for name in _CABLE_SUMS:
+            aggregate[name] += contact_radius
     return errors, aggregate
 
 
@@ -149,13 +157,17 @@ def validate_varying_cable_energy(control, previous, positions, d0, a0, d1, a1, 
     d0, a0 = control.parameters(d0, a0)
     d1, a1 = control.parameters(d1, a1)
     value = report.get("varyingCableEnergy")
+    from solver_contact_work_control import contact_error
+    contact_radius = contact_error(report) if 'boundedContactWork' in report else None
     keys = {"profile", "definition", "beforeParameters", "afterParameters", "before", "after",
             "parameterWork", "motionWork", "aggregationTermsJoules", "errorBoundsJoules",
             "assemblyRoundingBoundsJoules", "scope"}
     if type(value) is not dict or set(value) != keys or "continuousCableEnergy" in report:
         raise ValueError("Complete exclusive varying cable energy record required")
     _capture(value)
-    if (value["profile"] != "varying-cable-energy-accounting-v1" or value["scope"] != _VARYING_SCOPE
+    expected_profile = 'varying-cable-and-contact-energy-accounting-v1' if contact_radius is not None else 'varying-cable-energy-accounting-v1'
+    expected_scope = _VARYING_SCOPE + (_CONTACT_SUM_SCOPE if contact_radius is not None else '')
+    if (value["profile"] != expected_profile or value["scope"] != expected_scope
             or _capture(value["definition"]) != _capture(control.description())
             or _capture(value["beforeParameters"]) != _capture(control.parameter_record(d0, a0))
             or _capture(value["afterParameters"]) != _capture(control.parameter_record(d1, a1))):
@@ -181,7 +193,7 @@ def validate_varying_cable_energy(control, previous, positions, d0, a0, d1, a1, 
     scalar("cableBeforeJoules", before["energyJoules"])
     scalar("cableAfterJoules", after["energyJoules"])
     scalar("cableFixedParameterChangeJoules", motion["changeJoules"])
-    errors, bases = _varying_error_bases(value)
+    errors, bases = _varying_error_bases(value,contact_radius)
     endpoint_difference = Fraction(after["energyJoules"])-Fraction(before["energyJoules"])
     direct_change = Fraction(parameter["totalWorkJoules"])+Fraction(motion["changeJoules"])
     if abs(endpoint_difference-direct_change) > (errors["cableBeforeJoules"]+errors["cableAfterJoules"]
@@ -264,12 +276,16 @@ def validate_continuous_cable_energy(control, previous, positions, report):
         raise ValueError("Fixed cable energy accounting cannot grant physical acceptance")
     previous, positions = control.positions(previous), control.positions(positions)
     value = report.get("continuousCableEnergy")
+    from solver_contact_work_control import contact_error
+    contact_radius = contact_error(report) if 'boundedContactWork' in report else None
     keys = {"profile", "definition", "before", "after", "work", "aggregationTermsJoules",
             "errorBoundsJoules", "assemblyRoundingBoundsJoules", "scope"}
     if type(value) is not dict or set(value) != keys:
         raise ValueError("Complete structured continuous cable energy accounting required")
     _capture(value)
-    if (value["profile"] != "fixed-cable-energy-accounting-v1" or value["scope"] != _CABLE_SCOPE
+    expected_profile = 'fixed-cable-and-contact-energy-accounting-v1' if contact_radius is not None else 'fixed-cable-energy-accounting-v1'
+    expected_scope = _CABLE_SCOPE + (_CONTACT_SUM_SCOPE if contact_radius is not None else '')
+    if (value["profile"] != expected_profile or value["scope"] != expected_scope
             or _capture(value["definition"]) != _capture(control.description())):
         raise ValueError("Cable energy definition, precision or scope mismatch")
     before = CableControl.validate_diagnostics(control, previous, value["before"])
@@ -301,6 +317,9 @@ def validate_continuous_cable_energy(control, previous, positions, report):
     difference_error = sum(expected_bounds.values(), Fraction())
     if abs(Fraction(work["changeJoules"])-endpoint_change) > difference_error:
         raise ValueError("Cable work and endpoint energy enclosures are inconsistent")
+    if contact_radius is not None:
+        expected_bounds['contactChangeJoules'] = contact_radius
+    mechanical_radius = expected_bounds['cableFixedParameterChangeJoules'] + (contact_radius or Fraction())
     bounds, rounding, sums = (value[name] for name in
         ("errorBoundsJoules", "assemblyRoundingBoundsJoules", "aggregationTermsJoules"))
     if (type(bounds) is not dict or set(bounds) != set(expected_bounds) | set(_CABLE_SUMS)
@@ -327,10 +346,10 @@ def validate_continuous_cable_energy(control, previous, positions, report):
             # those retained summands remain conditional numerical inputs.
             if field in report:
                 scalar(field, term)
-        expected, error = round_sum(terms.values(), expected_bounds["cableFixedParameterChangeJoules"])
+        expected, error = round_sum(terms.values(), mechanical_radius)
         scalar(name, expected)
         expected_bounds[name] = error
-        if _rational(rounding[name]) != error-expected_bounds["cableFixedParameterChangeJoules"]:
+        if _rational(rounding[name]) != error-mechanical_radius:
             raise ValueError("Cable mechanical rounding bound mismatch")
     # The same hidden fixed-motion quantity must not drift between remainders.
     if (sums[_CABLE_SUMS[1]]["foldFixedParameterChangeJoules"] !=
@@ -339,6 +358,67 @@ def validate_continuous_cable_energy(control, previous, positions, report):
     if _capture(bounds) != _capture({key: _rat(bound) for key, bound in expected_bounds.items()}):
         raise ValueError("Cable propagated uncertainty mismatch")
     return copy.deepcopy(value)
+
+
+def validate_contact_mechanical(report):
+    """Validate complete publication and five sums; contact affects only motion."""
+    from solver_contact_work_control import contact_error
+    from solver_cable_integration import round_sum, _rational, _rat
+    if 'boundedContactWork' not in report and 'boundedContactMechanical' not in report:
+        return
+    if 'boundedContactWork' not in report:
+        raise ValueError('Missing contact work for bounded mechanical sums')
+    if (type(report) is not dict or report.get('accepted') is not False
+            or any(type(report.get(key)) is not float or not math.isfinite(report[key])
+                   for key in _VARYING_BASE_SCALARS)):
+        raise ValueError('Complete finite raw public contact energy accounting required')
+    radius=contact_error(report)
+    payload=report.get('boundedContactMechanical')
+    if (type(payload) is not dict or set(payload)!={'profile','aggregationTermsJoules','errorBoundsJoules','assemblyRoundingBoundsJoules'}
+            or payload['profile']!='bounded-contact-conditional-sums-v1'
+            or any(type(payload[name]) is not dict or set(payload[name])!=set(_CONTACT_SUMS)
+                   for name in ('aggregationTermsJoules','errorBoundsJoules','assemblyRoundingBoundsJoules'))):
+        raise ValueError('Complete bounded contact mechanical accounting required')
+    bases={name:radius if name in _CABLE_SUMS else Fraction() for name in _CONTACT_SUMS}
+    common={'membraneChangeJoules','bendingChangeJoules','foldBarrierChangeJoules',
+            'contactChangeJoules','kineticChangeJoules','gripperFixedParameterChangeJoules'}
+    keys={_CABLE_SUMS[0]:common|{'sewingChangeJoules','foldActuationChangeJoules','gripperParameterWorkJoules'},
+          _CABLE_SUMS[1]:common|{'sewingMotionAndActivationJoules','foldFixedParameterChangeJoules',
+                              'foldActivationParameterWorkJoules','gripperActivationParameterWorkJoules'},
+          _CABLE_SUMS[2]:common|{'sewingFixedParameterChangeJoules','foldFixedParameterChangeJoules'}}
+    keys.update({name:_varying_term_keys()[name]-{'cableTargetParameterWorkJoules','cableParameterWorkJoules'}
+                 for name in _CONTACT_SUMS[3:]})
+    try:
+        owner=None
+        if 'varyingCableEnergy' in report:
+            owner=report['varyingCableEnergy']
+            _, all_bases=_varying_error_bases(owner,radius)
+            bases={name:all_bases[name] for name in _CONTACT_SUMS}
+            keys={name:_varying_term_keys()[name] for name in _CONTACT_SUMS}
+        elif 'continuousCableEnergy' in report:
+            owner=report['continuousCableEnergy']
+            cable_radius=_rational(owner['work']['certificate']['changeErrorBoundJoules'])
+            bases.update({name:radius+cable_radius for name in _CABLE_SUMS})
+            keys.update({name:keys[name]|{'cableFixedParameterChangeJoules'} for name in _CABLE_SUMS})
+        for name in _CONTACT_SUMS:
+            terms=payload['aggregationTermsJoules'][name]
+            if type(terms) is not dict or set(terms)!=keys[name]:
+                raise ValueError('Complete bounded contact mechanical summands required')
+            for key,value in terms.items():
+                if (type(value) is not float or not math.isfinite(value) or type(report.get(key)) is not float
+                        or report[key].hex()!=value.hex()):
+                    raise ValueError('Bounded contact summands differ from public accounting')
+            value,error=round_sum(terms.values(),bases[name])
+            if (type(report.get(name)) is not float or report[name].hex()!=value.hex()
+                    or payload['errorBoundsJoules'][name]!=_rat(error)
+                    or payload['assemblyRoundingBoundsJoules'][name]!=_rat(error-bases[name])):
+                raise ValueError('Bounded contact mechanical value or radius mismatch')
+            if owner is not None and name in owner['aggregationTermsJoules'] and (terms!=owner['aggregationTermsJoules'][name]
+                    or payload['errorBoundsJoules'][name]!=owner['errorBoundsJoules'][name]
+                    or payload['assemblyRoundingBoundsJoules'][name]!=owner['assemblyRoundingBoundsJoules'][name]):
+                raise ValueError('Contact and cable mechanical accounting disagree')
+    except (KeyError,TypeError,OverflowError) as failure:
+        raise ValueError('Complete finite contact mechanical accounting required') from failure
 
 
 def _weighted_sewing_transition(solver, previous, positions, previous_targets, targets,
@@ -477,6 +557,19 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                              cable_targets=None, cable_activation=None, include_temporal_motion=False):
     if type(include_temporal_motion) is not bool:
         raise ValueError("Explicit Boolean temporal motion reporting flag required")
+    contact_control = getattr(solver,'contact_work_control',None)
+    contact_record = None
+    contact_radius = None
+    if contact_control is not None:
+        from solver_contact_work_control import ContactWorkControl, checked_change, encoded, validate_contact_energy
+        from solver_cable_integration import round_sum, _rat
+        from solver_controlled_fold import _binary64
+        if type(contact_control) is not ContactWorkControl:
+            raise ValueError('Explicit bounded contact energy control required')
+        contact_definition = encoded(contact_control.description())
+        previous,positions = map(contact_control.positions,(previous,positions))
+        previous_velocities,velocities = map(contact_control.positions,(previous_velocities,velocities))
+        dt = _binary64(dt)
     cable_control = getattr(solver, "continuous_cable", None)
     varying_control = getattr(solver, "cable_parameter_control", None)
     varying_record = None
@@ -576,7 +669,12 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
     barrier = getattr(solver, "fold_barrier", None)
     barrier_change = barrier.energy_change(previous, positions) if barrier is not None else 0.
     contact = getattr(solver, "contact", None)
-    contact_change = contact.energy_change(previous, positions) if contact is not None else 0.
+    if contact_control is not None:
+        contact_record = checked_change(contact_control,contact,previous,positions)
+        contact_change = contact_record['changeJoules']
+        contact_radius = Fraction(contact_record['changeErrorBoundJoules'])
+    else:
+        contact_change = contact.energy_change(previous, positions) if contact is not None else 0.
     velocity_change = velocities - previous_velocities
     kinetic_change = float(np.sum(solver.mass[:, None] *
                                  (previous_velocities + .5 * velocity_change) * velocity_change))
@@ -728,7 +826,10 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
             "cableChangeJoules": {"cableParameterWorkJoules": cable_accounting["cableParameterWorkJoules"],
                 "cableFixedParameterChangeJoules": cable_accounting["cableFixedParameterChangeJoules"]},
         }
-        errors, error_bases = _varying_error_bases(varying_record)
+        errors, error_bases = _varying_error_bases(varying_record,contact_radius)
+        if contact_radius is not None:
+            varying_record['profile'] = 'varying-cable-and-contact-energy-accounting-v1'
+            varying_record['scope'] += _CONTACT_SUM_SCOPE
         summed = {}
         for name in _VARYING_SUMS:
             summed[name], errors[name] = round_sum(varying_record["aggregationTermsJoules"][name].values(), error_bases[name])
@@ -746,6 +847,10 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         cable_record = _cable_energy_record(cable_control, previous, positions)
         cable_change = cable_record["work"]["changeJoules"]
         cable_error = _rational(cable_record["work"]["certificate"]["changeErrorBoundJoules"])
+        mechanical_radius = cable_error + (contact_radius or Fraction())
+        if contact_radius is not None:
+            cable_record['profile'] = 'fixed-cable-and-contact-energy-accounting-v1'
+            cable_record['scope'] += _CONTACT_SUM_SCOPE
         common = {
             "membraneChangeJoules": float(membrane_change), "bendingChangeJoules": float(bending_change),
             "foldBarrierChangeJoules": float(barrier_change), "contactChangeJoules": float(contact_change),
@@ -767,10 +872,10 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         }
         sums = []
         for name in _CABLE_SUMS:
-            value, error = round_sum(cable_record["aggregationTermsJoules"][name].values(), cable_error)
+            value, error = round_sum(cable_record["aggregationTermsJoules"][name].values(), mechanical_radius)
             sums.append(value)
             cable_record["errorBoundsJoules"][name] = _rat(error)
-            cable_record["assemblyRoundingBoundsJoules"][name] = _rat(error-cable_error)
+            cable_record["assemblyRoundingBoundsJoules"][name] = _rat(error-mechanical_radius)
         mechanical_change, minus_target_work, minus_parameter_work = sums
         # Cable parameters are fixed, so the existing target/activation work
         # definitions are unchanged. Only mechanical sums acquire cable work.
@@ -791,6 +896,8 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
             "cableAfterJoules": copy.deepcopy(cable_record["after"]["certificate"]["energyErrorBoundJoules"]),
             "cableFixedParameterChangeJoules": _rat(cable_error),
         })
+        if contact_radius is not None:
+            cable_record['errorBoundsJoules']['contactChangeJoules'] = _rat(contact_radius)
         if (getattr(solver, "continuous_cable", None) is not cable_control
                 or _capture(cable_control.description()) != cable_identity):
             raise ValueError("Cable energy control identity or precision changed")
@@ -870,6 +977,52 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
     }
     if not all(np.isfinite(value) for value in report.values()):
         raise ValueError("Finite energy balance required")
+    if contact_control is not None:
+        report['boundedContactWork'] = contact_record
+        report['accepted'] = False
+        owner = varying_record if varying_record is not None else cable_record
+        if owner is not None:
+            contact_terms = {name:copy.deepcopy(owner['aggregationTermsJoules'][name]) for name in _CABLE_SUMS}
+            from solver_cable_integration import _rational
+            contact_bases = {name:_rational(owner['errorBoundsJoules'][name])-
+                            _rational(owner['assemblyRoundingBoundsJoules'][name]) for name in _CABLE_SUMS}
+        else:
+            common = {name:float(report[name]) for name in ('membraneChangeJoules','bendingChangeJoules',
+                'foldBarrierChangeJoules','contactChangeJoules','kineticChangeJoules','gripperFixedParameterChangeJoules')}
+            contact_terms = {
+                _CABLE_SUMS[0]:{**common,'sewingChangeJoules':float(sewing_change),
+                    'foldActuationChangeJoules':float(fold_change),'gripperParameterWorkJoules':float(gripper_work)},
+                _CABLE_SUMS[1]:{**common,'sewingMotionAndActivationJoules':float(sewing_fixed_plus_activation if weighted_sewing else fixed_target_change),
+                    'foldFixedParameterChangeJoules':float(fold_fixed_change),'foldActivationParameterWorkJoules':float(fold_activation_work),
+                    'gripperActivationParameterWorkJoules':float(gripper_activation_work)},
+                _CABLE_SUMS[2]:{**common,'sewingFixedParameterChangeJoules':float(fixed_target_change),
+                    'foldFixedParameterChangeJoules':float(fold_fixed_change)}}
+            contact_bases = {name:contact_radius for name in _CABLE_SUMS}
+        if varying_record is not None:
+            for name in _CONTACT_SUMS[3:]:
+                contact_terms[name]=copy.deepcopy(varying_record['aggregationTermsJoules'][name])
+                contact_bases[name]=_rational(varying_record['errorBoundsJoules'][name])-_rational(
+                    varying_record['assemblyRoundingBoundsJoules'][name])
+        else:
+            contact_terms.update({
+                'targetParameterWorkJoules':{'sewingTargetParameterWorkJoules':float(target_work),
+                    'foldTargetParameterWorkJoules':float(fold_work),'gripperTargetParameterWorkJoules':float(gripper_target_work)},
+                'externalParameterWorkJoules':{
+                    'sewingParameterWorkJoules':float(sewing_accounting['sewingParameterWorkJoules'] if weighted_sewing else target_work),
+                    'foldParameterWorkJoules':float(fold_parameter_work if controlled_fold_recipe is not None else fold_work),
+                    'gripperParameterWorkJoules':float(gripper_work)}})
+            contact_bases.update({name:Fraction() for name in _CONTACT_SUMS[3:]})
+        aggregate = {'profile':'bounded-contact-conditional-sums-v1','aggregationTermsJoules':contact_terms,
+                     'errorBoundsJoules':{},'assemblyRoundingBoundsJoules':{}}
+        for name in _CONTACT_SUMS:
+            for field,value in contact_terms[name].items():
+                if field in report and (type(report[field]) is not float or report[field].hex()!=value.hex()):
+                    raise ValueError('Contradictory public contact mechanical summand')
+                report[field]=value
+            report[name],bound = round_sum(contact_terms[name].values(),contact_bases[name])
+            aggregate['errorBoundsJoules'][name] = _rat(bound)
+            aggregate['assemblyRoundingBoundsJoules'][name] = _rat(bound-contact_bases[name])
+        report['boundedContactMechanical'] = aggregate
     if cable_record is not None:
         report["continuousCableEnergy"] = cable_record
         report["accepted"] = False
@@ -888,13 +1041,13 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         # Keep fixed-control motion separate from parameter jumps and kinetic
         # change. The temporal reducer computes kinetic change exactly from
         # stored masses/velocities; no subtraction of rounded total work.
-        motion_error = Fraction()
+        motion_error = contact_radius or Fraction()
         if varying_record is not None:
             from solver_cable_integration import _rational
-            motion_error = _rational(varying_record["motionWork"]["certificate"]["changeErrorBoundJoules"])
+            motion_error += _rational(varying_record["motionWork"]["certificate"]["changeErrorBoundJoules"])
         elif cable_record is not None:
             from solver_cable_integration import _rational
-            motion_error = _rational(cable_record["work"]["certificate"]["changeErrorBoundJoules"])
+            motion_error += _rational(cable_record["work"]["certificate"]["changeErrorBoundJoules"])
         motion_terms = {
             "membraneChangeJoules": float(membrane_change), "bendingChangeJoules": float(bending_change),
             "foldBarrierChangeJoules": float(barrier_change), "contactChangeJoules": float(contact_change),
@@ -908,6 +1061,13 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         report.update(motion_terms)
         report["temporalMotion"] = {"termsJoules": motion_terms.copy(),
                                     "knownErrorBoundJoules": rational(motion_error)}
+    if contact_control is not None:
+        validate_contact_mechanical(report)
+        validate_contact_energy(contact_control,contact,previous,positions,report)
+        if (getattr(solver,'contact_work_control',None) is not contact_control
+                or solver.contact is not contact or encoded(contact_control.description())!=contact_definition):
+            raise ValueError('Contact work control identity changed before energy publication')
+        contact_control.check(contact)
     return {
         **report,
         "accepted": False,
@@ -915,5 +1075,6 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                  + (" Sewing target-first parameter work also includes signed sewing activation and release at the previous positions; pending rows are skipped. Rational work accumulation is conditional on the existing sampled binary64 distance lengths and frame normals, not an exact real-geometry proof. The source construction schedule may forbid release even though this mathematical accounting supports it." if weighted_sewing else "")
                  + (" Controlled-fold external parameter work uses the same rounded binary64 stiffness-times-activation coefficient as its potential: target changes first at the old coefficient, then activation changes at the new target. It includes signed engagement/release work; target work alone excludes it. Inactive hinges skip actuator angle evaluation without waiving any independent cloth, triangle, contact or hinge-path guard. Parameter work is exact quadratic arithmetic conditional on sampled binary64 angles; stable fixed-parameter angle increments and endpoint diagnostics have distinct rounding. No continuous work, calibrated damping, phase completion or refined-source execution is certified." if controlled_fold_recipe is not None else "")
                  + (" "+_CABLE_SCOPE if cable_control is not None else "")
-                 + (" "+_VARYING_SCOPE if varying_control is not None else ""),
+                 + (" "+_VARYING_SCOPE if varying_control is not None else "")
+                 + (_CONTACT_SUM_SCOPE if contact_control is not None else ""),
     }
