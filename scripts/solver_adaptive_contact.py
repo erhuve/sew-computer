@@ -48,6 +48,82 @@ def _validate_fold_energy(energy):
         raise ValueError("Complete finite unaccepted controlled-fold work accounting required")
 
 
+def _sewing_array_identity(value):
+    if value is None:
+        return None
+    array = np.asarray(value)
+    if array.dtype.kind not in "iuf" or not np.isfinite(array).all():
+        raise ValueError("Finite numeric sewing model identity required")
+    return type(value), array.dtype.str, array.shape, array.tobytes()
+
+
+def _sewing_model_identity(solver):
+    """Snapshot coefficient storage and caches without normalizing either."""
+    result = []
+    for field in ("sewing", "sewing_xyz"):
+        if not hasattr(solver, field):
+            result.append((field, False))
+            continue
+        matrix = getattr(solver, field)
+        if getattr(matrix, "format", None) != "csr":
+            raise ValueError("Stable CSR sewing operators required")
+        result.append((field, True, type(matrix), matrix.shape,
+                       *(_sewing_array_identity(getattr(matrix, key)) for key in ("data", "indices", "indptr"))))
+    result.append(("compliance", _sewing_array_identity(solver.compliance)))
+    mode = getattr(solver, "sewing_mode", "vector")
+    if type(mode) is not str or mode not in ("vector", "distance", "normal-offset"):
+        raise ValueError("Stable explicit sewing mode required")
+    result.append(("sewing_mode", mode))
+    for field in ("sewing_frame_faces", "sewing_frames", "sewing_sides"):
+        present = hasattr(solver, field)
+        result.append((field, present, _sewing_array_identity(getattr(solver, field)) if present else None))
+    return tuple(result)
+
+
+def _validate_sewing_step(solver, model_identity, controls, fraction, options,
+                          substep_targets, expected_targets, report):
+    from solver_sewing_activation import validate_sewing_activation
+    if _sewing_model_identity(solver) != model_identity:
+        raise ValueError("Sewing model identity changed during the adaptive transition")
+    expected_activation = controls.parameters(fraction)
+    if report.get("sewingActivation") is None:
+        raise ValueError("Step sewing activation diagnostics are required")
+    reported_activation = validate_sewing_activation(report["sewingActivation"], len(expected_activation))
+    active, pending = report.get("activeSewingRows"), report.get("pendingSewingRows")
+    if (not _same_control_array(options["sewing_activation"], expected_activation)
+            or not _same_control_array(substep_targets, expected_targets)
+            or report.get("sewingActivationExplicit") is not True
+            or not _same_control_array(reported_activation, expected_activation)
+            or type(active) is not list or type(pending) is not list
+            or any(type(row) is not int for row in [*active, *pending])
+            or active != np.flatnonzero(expected_activation > 0).tolist()
+            or pending != np.flatnonzero(expected_activation == 0).tolist()):
+        raise ValueError("Step sewing controls or row diagnostics differ from the captured schedule")
+
+
+def _validate_sewing_energy(energy):
+    fields = ("sewingBeforeJoules", "sewingAfterJoules", "sewingFixedPositionAfterJoules",
+              "sewingFixedParameterChangeJoules", "sewingChangeJoules", "sewingTargetParameterWorkJoules",
+              "sewingActivationParameterWorkJoules", "sewingParameterWorkJoules",
+              "sewingActivationIncreaseWorkJoules", "sewingReleaseEnergyRemovedJoules",
+              "sewingParameterWorkComponentSumErrorBoundJoules", "mechanicalChangeJoules",
+              "targetParameterWorkJoules", "externalParameterWorkJoules",
+              "mechanicalChangeMinusTargetWorkJoules", "mechanicalChangeMinusParameterWorkJoules")
+    if (type(energy) is not dict or energy.get("accepted") is not False
+            or any(isinstance(energy.get(field), (bool, np.bool_))
+                   or not isinstance(energy.get(field), (int, float, np.integer, np.floating))
+                   or not np.isfinite(energy[field]) for field in fields)
+            or any(energy[field] < 0 for field in ("sewingBeforeJoules", "sewingAfterJoules",
+                "sewingFixedPositionAfterJoules", "sewingActivationIncreaseWorkJoules",
+                "sewingReleaseEnergyRemovedJoules", "sewingParameterWorkComponentSumErrorBoundJoules"))):
+        raise ValueError("Complete finite unaccepted sewing work accounting required")
+
+
+def _step_core(report, *, grippers):
+    authored = {"energyBalance", "gripperMomentum"} if grippers else {"energyBalance"}
+    return {key: value for key, value in report.items() if key not in authored}
+
+
 def adaptive_contact_step(solver, positions, velocities, initial_targets, targets, dt, *,
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
@@ -133,7 +209,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         from solver_material_grippers import MaterialGripperSchedule
         gripper_controls = MaterialGripperSchedule(gripper_schedule, initial_subdivisions,
                                                  gripper_ids=gripper_recipe.gripper_ids)
-    sewing_controls = None
+    sewing_controls = sewing_model_identity = None
     if (sewing_schedule is None) != (sewing_row_ids is None):
         raise ValueError("Captured sewing schedule and bound ordered row identities must be supplied together")
     if sewing_schedule is not None:
@@ -145,6 +221,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             raise ValueError("Captured sewing schedule must retain every canonical solver row")
         if step_options.get("linear_solver", "direct") != "direct":
             raise ValueError("Captured sewing activation requires guarded direct search")
+        sewing_model_identity = _sewing_model_identity(solver)
     attempts, accepted, rejected = [], [], []
     completed_fraction = 0.
     reason = "attempt-budget-exhausted"
@@ -185,6 +262,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 options["gripper_targets"], options["gripper_activation"] = gripper_controls.parameters(end_fraction)
             if sewing_controls is not None:
                 options["sewing_activation"] = sewing_controls.parameters(end_fraction)
+                if _sewing_model_identity(solver) != sewing_model_identity:
+                    raise ValueError("Sewing model identity changed before the adaptive step")
             candidate_positions, candidate_velocities, step_report = solver.step(
                 current_positions.copy(), current_velocities.copy(), substep_targets, duration, **options)
             if not isinstance(step_report, dict):
@@ -218,25 +297,11 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 _validate_fold_step(solver, controlled_fold_recipe, fold_controls, end_fraction, options,
                                     candidate_positions, record["step"])
             if valid and sewing_controls is not None:
-                from solver_sewing_activation import validate_sewing_activation
-                expected_activation = sewing_controls.parameters(end_fraction)
                 expected_targets = (targets.copy() if sewing_progress == 1 else
                                     initial_targets + sewing_progress * (targets - initial_targets))
-                reported_activation = step_report.get("sewingActivation")
-                if reported_activation is None:
-                    raise ValueError("Step sewing activation diagnostics are required")
-                reported_activation = validate_sewing_activation(reported_activation, len(expected_activation))
-                active_rows = np.flatnonzero(expected_activation > 0).tolist()
-                pending_rows = np.flatnonzero(expected_activation == 0).tolist()
-                reported_active, reported_pending = step_report.get("activeSewingRows"), step_report.get("pendingSewingRows")
-                if (not np.array_equal(options["sewing_activation"], expected_activation)
-                        or not np.array_equal(substep_targets, expected_targets)
-                        or step_report.get("sewingActivationExplicit") is not True
-                        or not np.array_equal(reported_activation, expected_activation)
-                        or type(reported_active) is not list or type(reported_pending) is not list
-                        or any(type(row) is not int for row in [*reported_active, *reported_pending])
-                        or reported_active != active_rows or reported_pending != pending_rows):
-                    raise ValueError("Step sewing controls or row diagnostics differ from the captured schedule")
+                _validate_sewing_step(solver, sewing_model_identity, sewing_controls, end_fraction,
+                    options, substep_targets, expected_targets, record["step"])
+                original_step_core = copy.deepcopy(_step_core(record["step"], grippers=gripper_controls is not None))
             if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None):
                 # Work belongs to the accepted transition and must be checked
                 # before its immutable journal outcome is written. Trial
@@ -267,6 +332,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     new_fold, new_activation = fold_controls.parameters(end_fraction)
                     energy_options.update(previous_fold_targets=old_fold, previous_fold_activation=old_activation,
                                           fold_targets=new_fold, fold_activation=new_activation)
+                if fold_controls is not None or sewing_controls is not None:
                     # Work is computed before publication. Isolated inputs
                     # preserve the last accepted state even if a helper fails
                     # after mutation; successful mutation also rejects.
@@ -277,8 +343,9 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     snapshots = [array.copy() for array in observed_arrays]
                     energy = global_energy_transition(solver, *work_states, duration, **work_options)
                     if any(not _same_control_array(actual, expected) for actual, expected in zip(observed_arrays, snapshots)):
-                        raise ValueError("Controlled-fold work helper mutated transition inputs")
-                    _validate_fold_energy(energy)
+                        raise ValueError("Controlled work helper mutated transition inputs")
+                    if fold_controls is not None:
+                        _validate_fold_energy(energy)
                 else:
                     energy = global_energy_transition(solver, current_positions, candidate_positions,
                         current_velocities, candidate_velocities, old_targets, substep_targets, duration,
@@ -318,6 +385,12 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                             or not isinstance(final_residual, (int, float))
                             or not 0 <= final_residual <= 1e-6):
                         raise ValueError("Controlled-fold final convergence diagnostics changed before publication")
+                if sewing_controls is not None:
+                    _validate_sewing_step(solver, sewing_model_identity, sewing_controls, end_fraction,
+                        options, substep_targets, expected_targets, record["step"])
+                    if not same(_step_core(record["step"], grippers=gripper_controls is not None), original_step_core):
+                        raise ValueError("Sewing step diagnostics changed during work before publication")
+                    _validate_sewing_energy(record["step"].get("energyBalance"))
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}

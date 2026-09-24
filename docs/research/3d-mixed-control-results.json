@@ -1,0 +1,4670 @@
+{
+  "accepted": false,
+  "baseCommit": "da429a2",
+  "cases": [
+    {
+      "allSolverSourceDigests": {
+        "solver_adaptive_contact.py": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec",
+        "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+        "solver_attempt_journal.py": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_binding_control_schedule.py": "8d773fcfffbeb3a12b8682cfc2af78ba0c0738e847439da3777eb07886347dac",
+        "solver_binding_control_schedule_replay.py": "3266a2d1d688336b10113d1ff0a488ee8fd4b8ea03244c04bed8a0c0937784b4",
+        "solver_binding_diagnostics.py": "0016c0f403ab39419183e9184f3a3f1d0c53e65472afdfd0ae8366c478c3570f",
+        "solver_binding_fold.py": "ca440dc52b50962ae2e8f5747ba10bf438b9367546cc6aeef451fa295230a543",
+        "solver_binding_fold_replay.py": "b1391bee4eeda899b48ebdff2506bb32d1cdf854e2f541b0cb33f113d7cb11f9",
+        "solver_binding_gripper_remap.py": "27159d748cc26323ba359395324c11427531342075310c10fba3bda1e570aab8",
+        "solver_binding_gripper_remap_replay.py": "eb7552dfbbecf50d7976279507e6e1a47482bde7cf00fa9814eaa1ca09abc42e",
+        "solver_binding_placement.py": "a8db85ad76d6bf8bcb72c14b6c37c467833f96eb5e5a3a63cc73293af0b47f2a",
+        "solver_binding_placement_replay.py": "bf7295b46f20ab48637b9b25ebb5de4f97d78d9f051b98d1e48ea067b885ae05",
+        "solver_binding_refinement.py": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb",
+        "solver_binding_remap.py": "904894294afb8666115b29d4ef468a53dcaa00f932caa348f6672544ac2413fb",
+        "solver_binding_remap_replay.py": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f",
+        "solver_binding_sewing_schedule.py": "3d956fb5984cc9248cfa19273515d3a78ca766de54d76676f609663f2c8e0218",
+        "solver_binding_sewing_schedule_replay.py": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84",
+        "solver_binding_source.py": "51561505f8e490e54444d07873dd9a72386acf837a9ca65eb5d89316bbf64ff8",
+        "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+        "solver_controlled_fold.py": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69",
+        "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+        "solver_cuff_construction.py": "f76e642a3201d4fd9de76cc77b6048334d2cf5046d80c8dffa01c6dee43bef0f",
+        "solver_cuff_sequence.py": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044",
+        "solver_cuff_source_binding.py": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f",
+        "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+        "solver_distance_sewing.py": "c380810325805feaf7f5b3c3cba437e2164a05c39b1bb047e0a42447bdf7dde0",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_engine_source_namespace.py": "2a08d3703380981ad186427482bb9b6c4a5016044e910efea3bd03d01ee51108",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+        "solver_fold_control_schedule.py": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e",
+        "solver_global_sewing.py": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_gripper_input.py": "743e0f822c94a0d14a31e955c7a4368bbef9388b60d4c66510600c4f2ccb7873",
+        "solver_gripper_replay.py": "e7d5929adba375d2e8f78f978d380d1b0b905ba5a813cd74f00a0aa6ac16c7a1",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+        "solver_material_grippers.py": "c586c9d9198ac941a7dadbda8fc57c9cc33d17aa3676d6851378926e4fb9b0d8",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_normal_sewing.py": "d658cbcd1ab624271a183e98352c78b8731bba09446ebb6a6da850884f38a5d0",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766",
+        "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_rigid_velocity_diagnostics.py": "067a81b92f64da43ed8296243cb20bbc5645b4f38aa6c913634f7b18c0913805",
+        "solver_sewing_activation.py": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561",
+        "solver_sewing_activation_schedule.py": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48",
+        "solver_sewing_input.py": "cd21a37cc3baf30c00c79d0b83d35b70e1ec562a138d94ea66147d13b7fe433f",
+        "solver_sewing_replay.py": "4defdd239b88ca35e3d7de55cdd482b83a9282dd15ee7d2003858ea39e37cdfc",
+        "solver_sewing_sweep.py": "fee7aa9fcfbf0a30b365faac9da134b80a866e11d8de6e5bf5004b66f3a53f92",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_surface_distance_diagnostics.py": "c41fabaf149fb02c9c2dad08980ffaf1a4b02f7fef70efac15061a10daf286dc",
+        "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+        "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v2",
+        "broadPhase": "ipctk-HashGrid-explicit-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.001,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation derive from each primitive pair's own rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationRangeM": null,
+        "localMinimumRangeM": null,
+        "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+        "maxCandidates": 100000,
+        "parameterBuckets": 1,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "controls": {
+        "durationSeconds": 0.064,
+        "externalStiffnessJoules": [
+          0.02,
+          0.02
+        ],
+        "initialSubdivisions": 32,
+        "schedule": {
+          "hinges": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7
+            ]
+          ],
+          "knots": [
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 0.0,
+              "targetsRadians": [
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 0.25,
+              "targetsRadians": [
+                0.3,
+                0.0
+              ]
+            },
+            {
+              "activation": [
+                1.0,
+                1.0
+              ],
+              "fraction": 0.5,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                1.0,
+                1.0
+              ],
+              "fraction": 0.625,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                0.0,
+                1.0
+              ],
+              "fraction": 0.75,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                0.0,
+                0.0
+              ],
+              "fraction": 0.875,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                0.0,
+                0.0
+              ],
+              "fraction": 1.0,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            }
+          ],
+          "profile": "fold-angle-activation-v1"
+        },
+        "sewingComplianceMPerN": 1e-08,
+        "sewingRowIds": [
+          "synthetic:held-left-end",
+          "synthetic:pending-right-end"
+        ],
+        "sewingRows": [
+          {
+            "2": 1.0,
+            "6": -1.0
+          },
+          {
+            "3": 1.0,
+            "7": -1.0
+          }
+        ],
+        "sewingSchedule": {
+          "knots": [
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 0.0
+            },
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 1.0
+            }
+          ],
+          "profile": "sewing-row-activation-v1",
+          "rowIds": [
+            "synthetic:held-left-end",
+            "synthetic:pending-right-end"
+          ]
+        },
+        "sewingTargetsMeters": [
+          0.0020000000949949026,
+          0.003
+        ]
+      },
+      "generator": {
+        "bytes": 12018,
+        "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v1.py",
+        "sha256": "780f741b7f70318140aef1ce1d704f41038fc3c268fd10dbc263456948ca61c4"
+      },
+      "independentReview": {
+        "bytes": 320014,
+        "path": ".planning/solver/review-mixed-sewing-fold-motion-sep23-v2.json",
+        "sha256": "23bbd0f57a1e56f8fd39ba220526da54d6a3c97fec3bdc1483841c774f1e1239"
+      },
+      "input": {
+        "bytes": 13822,
+        "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/input.json",
+        "sha256": "8648d2309ed3f8164229e380faa4692b8130d9b58023bde9cbeb4b0bcce241d1"
+      },
+      "loadedHelpers": {
+        "solver_adaptive_contact.py": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec",
+        "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+        "solver_attempt_journal.py": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_controlled_fold.py": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69",
+        "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+        "solver_distance_sewing.py": "c380810325805feaf7f5b3c3cba437e2164a05c39b1bb047e0a42447bdf7dde0",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_control_schedule.py": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e",
+        "solver_global_sewing.py": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_process_budget.py": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766",
+        "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+        "solver_sewing_activation.py": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561",
+        "solver_sewing_activation_schedule.py": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+        "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+        "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "log": {
+        "bytes": 1312,
+        "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2.log",
+        "sha256": "3a0c3e08d3c85816fce9ffd6b5996413193db48851cf402ce3d9ff5bddb28567"
+      },
+      "maximumContactEnergyIncludingInitialJoules": 0.0,
+      "name": "mixed-sewing-fold-motion",
+      "observations": [
+        {
+          "anglesRadians": [
+            0.03734560367696721,
+            0.005973856204944971
+          ],
+          "centerOfMassShiftMeters": [
+            3.4209059737500957e-19,
+            -9.839293922478876e-20,
+            -2.659306768287891e-18
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.000000011789254,
+            1.0000000582980584
+          ],
+          "fraction": 0.03125,
+          "heldSeamErrorMeters": -1.8452617905895252e-12,
+          "heldSeamForceNormN": 0.0001845261790589525,
+          "maxSpeedMetersPerSecond": 0.07023180947577003,
+          "momentumKgMetersPerSecond": [
+            1.3683577816219237e-20,
+            -3.9358672044582174e-21,
+            -1.0631011559473636e-19
+          ],
+          "pendingRowErrorMeters": -0.001036905045907192,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.4037576202081872e-09,
+          "sewingGapMeters": [
+            0.002000000093149641,
+            0.001963094954092808
+          ],
+          "sewingJoules": 1.7024955379048305e-16
+        },
+        {
+          "anglesRadians": [
+            0.07492237439206899,
+            0.009166443000560848
+          ],
+          "centerOfMassShiftMeters": [
+            7.092907951987806e-19,
+            -3.112407234590574e-19,
+            -5.564508492355292e-18
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.000000012036684,
+            1.0000000741787725
+          ],
+          "fraction": 0.0625,
+          "heldSeamErrorMeters": -1.7638017782428683e-13,
+          "heldSeamForceNormN": 1.7638017782428683e-05,
+          "maxSpeedMetersPerSecond": 0.07183172012705683,
+          "momentumKgMetersPerSecond": [
+            1.4687987681028013e-20,
+            -8.514215703280714e-21,
+            -1.1646497287298193e-19
+          ],
+          "pendingRowErrorMeters": -0.0010773406304351823,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.1314844205486231e-09,
+          "sewingGapMeters": [
+            0.0020000000948185224,
+            0.0019226593695648177
+          ],
+          "sewingJoules": 1.5554983564663522e-18
+        },
+        {
+          "anglesRadians": [
+            0.11238591279492968,
+            0.00942374884760827
+          ],
+          "centerOfMassShiftMeters": [
+            1.4635131749631736e-18,
+            -5.283828801683675e-19,
+            -8.365085906647607e-18
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000124733557,
+            1.0000000735641879
+          ],
+          "fraction": 0.09375,
+          "heldSeamErrorMeters": -1.6442706571306864e-13,
+          "heldSeamForceNormN": 1.6442706571306864e-05,
+          "maxSpeedMetersPerSecond": 0.0728394539333478,
+          "momentumKgMetersPerSecond": [
+            3.01686624698593e-20,
+            -8.68380084277331e-21,
+            -1.120240785658389e-19
+          ],
+          "pendingRowErrorMeters": -0.001121066262868919,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.1178604511338428e-09,
+          "sewingGapMeters": [
+            0.0020000000948304755,
+            0.0018789337371310812
+          ],
+          "sewingJoules": 1.3518129969504897e-18
+        },
+        {
+          "anglesRadians": [
+            0.14984851463405996,
+            0.007392903100475282
+          ],
+          "centerOfMassShiftMeters": [
+            2.3697456594455518e-18,
+            -7.939342032960197e-19,
+            -1.1273125498664138e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.000000012922872,
+            1.0000000731078447
+          ],
+          "fraction": 0.125,
+          "heldSeamErrorMeters": -1.3222149070069023e-13,
+          "heldSeamForceNormN": 1.3222149070069024e-05,
+          "maxSpeedMetersPerSecond": 0.07381623089136387,
+          "momentumKgMetersPerSecond": [
+            3.6249271822793166e-20,
+            -1.0616961794820057e-20,
+            -1.1609317814033624e-19
+          ],
+          "pendingRowErrorMeters": -0.0011674356319328993,
+          "pendingRowForceN": 0.0,
+          "residualN": 8.527538626593205e-10,
+          "sewingGapMeters": [
+            0.002000000094862681,
+            0.0018325643680671007
+          ],
+          "sewingJoules": 8.741261301556355e-19
+        },
+        {
+          "anglesRadians": [
+            0.18731172352940112,
+            0.004090040435232944
+          ],
+          "centerOfMassShiftMeters": [
+            3.6658803387116496e-18,
+            -1.0726424866263671e-18,
+            -1.3815892380806438e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.000000013275974,
+            1.0000000731959815
+          ],
+          "fraction": 0.15625,
+          "heldSeamErrorMeters": -7.178199007418229e-14,
+          "heldSeamForceNormN": 7.178199007418228e-06,
+          "maxSpeedMetersPerSecond": 0.07439689148344372,
+          "momentumKgMetersPerSecond": [
+            5.1845015454706086e-20,
+            -1.1152362487373909e-20,
+            -1.0193856328765562e-19
+          ],
+          "pendingRowErrorMeters": -0.001215238757857867,
+          "pendingRowForceN": 0.0,
+          "residualN": 5.485470800381135e-10,
+          "sewingGapMeters": [
+            0.0020000000949231206,
+            0.0017847612421421331
+          ],
+          "sewingJoules": 2.5763270495050023e-19
+        },
+        {
+          "anglesRadians": [
+            0.2247749775029092,
+            0.0005911811134091097
+          ],
+          "centerOfMassShiftMeters": [
+            5.056000340336566e-18,
+            -1.3167830640094446e-18,
+            -1.652052105217607e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.000000013464531,
+            1.0000000737046435
+          ],
+          "fraction": 0.1875,
+          "heldSeamErrorMeters": -7.661406231651569e-15,
+          "heldSeamForceNormN": 7.661406231651569e-07,
+          "maxSpeedMetersPerSecond": 0.07455494907422973,
+          "momentumKgMetersPerSecond": [
+            5.560492917157876e-20,
+            -9.772243427370393e-21,
+            -1.0853214884861e-19
+          ],
+          "pendingRowErrorMeters": -0.0012631944958185393,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.3333444316364206e-10,
+          "sewingGapMeters": [
+            0.002000000094987241,
+            0.0017368055041814608
+          ],
+          "sewingJoules": 2.9348572723194744e-21
+        },
+        {
+          "anglesRadians": [
+            0.2622380878075912,
+            -0.002235107727225505
+          ],
+          "centerOfMassShiftMeters": [
+            6.266923329367773e-18,
+            -1.5376773711058742e-18,
+            -1.899965529014644e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000133741613,
+            1.0000000744212145
+          ],
+          "fraction": 0.21875,
+          "heldSeamErrorMeters": 4.42714441495351e-14,
+          "heldSeamForceNormN": 4.42714441495351e-06,
+          "maxSpeedMetersPerSecond": 0.07437800712087599,
+          "momentumKgMetersPerSecond": [
+            4.8437035761230456e-20,
+            -8.815095372088116e-21,
+            -9.885641730965777e-20
+          ],
+          "pendingRowErrorMeters": -0.0013102682084538066,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.1499824498840395e-10,
+          "sewingGapMeters": [
+            0.002000000095039174,
+            0.0016897317915461935
+          ],
+          "sewingJoules": 9.799803835427028e-20
+        },
+        {
+          "anglesRadians": [
+            0.2997009512824157,
+            -0.0038835364966922307
+          ],
+          "centerOfMassShiftMeters": [
+            7.342804493466005e-18,
+            -1.7611034574534604e-18,
+            -2.133733503068239e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000129297077,
+            1.0000000750811964
+          ],
+          "fraction": 0.25,
+          "heldSeamErrorMeters": 7.485028222231627e-14,
+          "heldSeamForceNormN": 7.485028222231626e-06,
+          "maxSpeedMetersPerSecond": 0.07401575942906871,
+          "momentumKgMetersPerSecond": [
+            4.3036409678012085e-20,
+            -8.946968610444718e-21,
+            -9.223374483232962e-20
+          ],
+          "pendingRowErrorMeters": -0.001355854022091251,
+          "pendingRowForceN": 0.0,
+          "residualN": 4.527898148626224e-10,
+          "sewingGapMeters": [
+            0.002000000095069753,
+            0.001644145977908749
+          ],
+          "sewingJoules": 2.801282374380197e-19
+        },
+        {
+          "anglesRadians": [
+            0.2998012308107564,
+            -0.036601647435478016
+          ],
+          "centerOfMassShiftMeters": [
+            8.524419958730717e-18,
+            -2.0204468228945193e-18,
+            -2.3663125333260955e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999737105348,
+            1.0000000572438388
+          ],
+          "fraction": 0.28125,
+          "heldSeamErrorMeters": 3.4504257090395285e-13,
+          "heldSeamForceNormN": 3.4504257090395285e-05,
+          "maxSpeedMetersPerSecond": 0.06372261875076529,
+          "momentumKgMetersPerSecond": [
+            4.7262679786696166e-20,
+            -1.0390551623631583e-20,
+            -9.362427107172291e-20
+          ],
+          "pendingRowErrorMeters": -0.001394277995015647,
+          "pendingRowForceN": 0.0,
+          "residualN": 2.531758758124751e-10,
+          "sewingGapMeters": [
+            0.002000000095339945,
+            0.001605722004984353
+          ],
+          "sewingJoules": 5.9527187868004664e-18
+        },
+        {
+          "anglesRadians": [
+            0.2996974179924685,
+            -0.0746328482294876
+          ],
+          "centerOfMassShiftMeters": [
+            9.698759089316437e-18,
+            -2.1438536502382306e-18,
+            -2.7638045307218747e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000130093356,
+            1.0000000716088413
+          ],
+          "fraction": 0.3125,
+          "heldSeamErrorMeters": -3.0026285277595655e-13,
+          "heldSeamForceNormN": 3.0026285277595655e-05,
+          "maxSpeedMetersPerSecond": 0.0739970712192768,
+          "momentumKgMetersPerSecond": [
+            4.697565890575745e-20,
+            -4.910992398022552e-21,
+            -1.6019619473965343e-19
+          ],
+          "pendingRowErrorMeters": -0.0014386724414979417,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.0949788132414914e-09,
+          "sewingGapMeters": [
+            0.0020000000946946398,
+            0.0015613275585020583
+          ],
+          "sewingJoules": 4.507889037857787e-18
+        },
+        {
+          "anglesRadians": [
+            0.29970028408099736,
+            -0.11220436199540328
+          ],
+          "centerOfMassShiftMeters": [
+            1.0866004585409273e-17,
+            -2.0916057842323933e-18,
+            -3.224375055187721e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.000000012651205,
+            1.0000000745802933
+          ],
+          "fraction": 0.34375,
+          "heldSeamErrorMeters": 2.2535358995545707e-14,
+          "heldSeamForceNormN": 2.2535358995545707e-06,
+          "maxSpeedMetersPerSecond": 0.07317832906219472,
+          "momentumKgMetersPerSecond": [
+            4.668542532882879e-20,
+            2.058714436096661e-21,
+            -1.8464757418633967e-19
+          ],
+          "pendingRowErrorMeters": -0.0014826210731334224,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.0246712402184333e-09,
+          "sewingGapMeters": [
+            0.002000000095017438,
+            0.0015173789268665776
+          ],
+          "sewingJoules": 2.539212025290614e-20
+        },
+        {
+          "anglesRadians": [
+            0.2997003918254926,
+            -0.14970090688556068
+          ],
+          "centerOfMassShiftMeters": [
+            1.163344922061164e-17,
+            -2.1402382542788357e-18,
+            -3.5716069591086995e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000128709177,
+            1.0000000743164894
+          ],
+          "fraction": 0.375,
+          "heldSeamErrorMeters": 7.016956460326185e-15,
+          "heldSeamForceNormN": 7.016956460326184e-07,
+          "maxSpeedMetersPerSecond": 0.07308082891023082,
+          "momentumKgMetersPerSecond": [
+            3.0686876886262155e-20,
+            -1.905749240573286e-21,
+            -1.3865120877342362e-19
+          ],
+          "pendingRowErrorMeters": -0.001526432321058481,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.061888144666349e-09,
+          "sewingGapMeters": [
+            0.0020000000950019196,
+            0.0014735676789415192
+          ],
+          "sewingJoules": 2.461883898305669e-21
+        },
+        {
+          "anglesRadians": [
+            0.2997003401633997,
+            -0.1872003004294618
+          ],
+          "centerOfMassShiftMeters": [
+            1.252652748890929e-17,
+            -2.0759949212657137e-18,
+            -3.918655813526097e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000129048765,
+            1.0000000742723072
+          ],
+          "fraction": 0.40625,
+          "heldSeamErrorMeters": 3.0721952759549254e-15,
+          "heldSeamForceNormN": 3.0721952759549254e-07,
+          "maxSpeedMetersPerSecond": 0.07315239004336653,
+          "momentumKgMetersPerSecond": [
+            3.5737813097586654e-20,
+            2.5450212924480363e-21,
+            -1.36536522925827e-19
+          ],
+          "pendingRowErrorMeters": -0.0015701853726779584,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.0519026039214057e-09,
+          "sewingGapMeters": [
+            0.002000000094997975,
+            0.0014298146273220417
+          ],
+          "sewingJoules": 4.71919190679988e-22
+        },
+        {
+          "anglesRadians": [
+            0.29970034989956157,
+            -0.22470024417325538
+          ],
+          "centerOfMassShiftMeters": [
+            1.36555299154105e-17,
+            -1.9252618993987036e-18,
+            -4.089612297322287e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000128935511,
+            1.0000000742568589
+          ],
+          "fraction": 0.4375,
+          "heldSeamErrorMeters": 3.981190377366772e-15,
+          "heldSeamForceNormN": 3.981190377366773e-07,
+          "maxSpeedMetersPerSecond": 0.07323592647421419,
+          "momentumKgMetersPerSecond": [
+            4.516345736726853e-20,
+            6.0299412410715435e-21,
+            -6.916014312162643e-20
+          ],
+          "pendingRowErrorMeters": -0.0016138628047791845,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.2098415992728997e-09,
+          "sewingGapMeters": [
+            0.002000000094998884,
+            0.0013861371952208156
+          ],
+          "sewingJoules": 7.924938410418891e-22
+        },
+        {
+          "anglesRadians": [
+            0.29970035935345346,
+            -0.26220019778579023
+          ],
+          "centerOfMassShiftMeters": [
+            1.467889542562422e-17,
+            -1.7381603818362582e-18,
+            -4.573192027069849e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000128827187,
+            1.0000000742371946
+          ],
+          "fraction": 0.46875,
+          "heldSeamErrorMeters": 4.799979858027825e-15,
+          "heldSeamForceNormN": 4.799979858027826e-07,
+          "maxSpeedMetersPerSecond": 0.07333457545857604,
+          "momentumKgMetersPerSecond": [
+            4.093586107611769e-20,
+            7.446630759996897e-21,
+            -1.9235824238642588e-19
+          ],
+          "pendingRowErrorMeters": -0.00165744889641442,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.2429156286036007e-09,
+          "sewingGapMeters": [
+            0.0020000000949997026,
+            0.00134255110358558
+          ],
+          "sewingJoules": 1.151990331873641e-21
+        },
+        {
+          "anglesRadians": [
+            0.2997003682177281,
+            -0.29970016129877214
+          ],
+          "centerOfMassShiftMeters": [
+            1.594582923511848e-17,
+            -1.6313119807230916e-18,
+            -4.7636287878014983e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000128716766,
+            1.0000000742141966
+          ],
+          "fraction": 0.5,
+          "heldSeamErrorMeters": 5.582340145693365e-15,
+          "heldSeamForceNormN": 5.582340145693364e-07,
+          "maxSpeedMetersPerSecond": 0.07344921081499257,
+          "momentumKgMetersPerSecond": [
+            5.06630833862558e-20,
+            4.3219125352964916e-21,
+            -7.693076288564226e-20
+          ],
+          "pendingRowErrorMeters": -0.00170092859798546,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.377837997677087e-09,
+          "sewingGapMeters": [
+            0.002000000095000485,
+            0.00129907140201454
+          ],
+          "sewingJoules": 1.5581260751109911e-21
+        },
+        {
+          "anglesRadians": [
+            0.2997250101826392,
+            -0.2998221141024448
+          ],
+          "centerOfMassShiftMeters": [
+            1.6951144661142084e-17,
+            -1.550016538318629e-18,
+            1.0431681428329608e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999905313564,
+            1.0000000931527766
+          ],
+          "fraction": 0.53125,
+          "heldSeamErrorMeters": 2.17723018433591e-12,
+          "heldSeamForceNormN": 0.00021772301843359096,
+          "maxSpeedMetersPerSecond": 0.0002540609988293935,
+          "momentumKgMetersPerSecond": [
+            4.0217127658694966e-20,
+            3.2249343058577907e-21,
+            6.077288411892823e-18
+          ],
+          "pendingRowErrorMeters": -0.0017010395515492556,
+          "pendingRowForceN": 0.0,
+          "residualN": 5.368760914905757e-07,
+          "sewingGapMeters": [
+            0.002000000097172133,
+            0.0012989604484507445
+          ],
+          "sewingJoules": 2.37016563779169e-16
+        },
+        {
+          "anglesRadians": [
+            0.29970062048175866,
+            -0.2997011242172512
+          ],
+          "centerOfMassShiftMeters": [
+            1.8128821856656674e-17,
+            -1.5312067548677407e-18,
+            1.4559763565390734e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000122270296,
+            1.0000000588950133
+          ],
+          "fraction": 0.5625,
+          "heldSeamErrorMeters": 1.7067076918397817e-14,
+          "heldSeamForceNormN": 1.7067076918397817e-06,
+          "maxSpeedMetersPerSecond": 0.00024157367632944267,
+          "momentumKgMetersPerSecond": [
+            4.711196031244545e-20,
+            7.698655117849717e-22,
+            1.6504516819645085e-18
+          ],
+          "pendingRowErrorMeters": -0.0017008120050537767,
+          "pendingRowForceN": 0.0,
+          "residualN": 5.430110500501254e-07,
+          "sewingGapMeters": [
+            0.0020000000950119697,
+            0.0012991879949462233
+          ],
+          "sewingJoules": 1.4564255726925376e-20
+        },
+        {
+          "anglesRadians": [
+            0.29970014242544557,
+            -0.2996998933155065
+          ],
+          "centerOfMassShiftMeters": [
+            1.9320663996393357e-17,
+            -1.4200712673814656e-18,
+            1.7380082740096905e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000122773647,
+            1.0000000577082335
+          ],
+          "fraction": 0.59375,
+          "heldSeamErrorMeters": -8.349224089876373e-15,
+          "heldSeamForceNormN": 8.349224089876371e-07,
+          "maxSpeedMetersPerSecond": 2.0854716113739983e-05,
+          "momentumKgMetersPerSecond": [
+            4.767101490357049e-20,
+            4.448612733520525e-21,
+            1.1287927977948942e-18
+          ],
+          "pendingRowErrorMeters": -0.0017007510221992547,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.3599794287559913e-09,
+          "sewingGapMeters": [
+            0.0020000000949865534,
+            0.0012992489778007453
+          ],
+          "sewingJoules": 3.485477145148597e-21
+        },
+        {
+          "anglesRadians": [
+            0.29970014242544557,
+            -0.2996998933155065
+          ],
+          "centerOfMassShiftMeters": [
+            1.9320663996393357e-17,
+            -1.4200712673814656e-18,
+            1.7380082740096905e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000122773647,
+            1.0000000577082335
+          ],
+          "fraction": 0.625,
+          "heldSeamErrorMeters": -8.349224089876373e-15,
+          "heldSeamForceNormN": 8.349224089876371e-07,
+          "maxSpeedMetersPerSecond": 0.0,
+          "momentumKgMetersPerSecond": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pendingRowErrorMeters": -0.0017007510221992547,
+          "pendingRowForceN": 0.0,
+          "residualN": 8.093796490210709e-07,
+          "sewingGapMeters": [
+            0.0020000000949865534,
+            0.0012992489778007453
+          ],
+          "sewingJoules": 3.485477145148597e-21
+        },
+        {
+          "anglesRadians": [
+            0.2996009632709601,
+            -0.2997003638464384
+          ],
+          "centerOfMassShiftMeters": [
+            1.9035811055964296e-17,
+            -1.4930803400683225e-18,
+            1.4386975887430757e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000122185773,
+            1.0000000585401554
+          ],
+          "fraction": 0.65625,
+          "heldSeamErrorMeters": 5.756679855029034e-15,
+          "heldSeamForceNormN": 5.756679855029035e-07,
+          "maxSpeedMetersPerSecond": 0.0001942274268025611,
+          "momentumKgMetersPerSecond": [
+            -1.1401071075419315e-20,
+            -2.9414877397950294e-21,
+            -1.1979347263249006e-18
+          ],
+          "pendingRowErrorMeters": -0.0017006365727313102,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.6481249686024264e-07,
+          "sewingGapMeters": [
+            0.0020000000950006593,
+            0.0012993634272686898
+          ],
+          "sewingJoules": 1.6569681476648552e-21
+        },
+        {
+          "anglesRadians": [
+            0.29940184930112307,
+            -0.2997003673998181
+          ],
+          "centerOfMassShiftMeters": [
+            1.8796799611714273e-17,
+            -1.5018610277706665e-18,
+            1.1392545125002775e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000122034627,
+            1.000000057719621
+          ],
+          "fraction": 0.6875,
+          "heldSeamErrorMeters": 5.844717071434857e-15,
+          "heldSeamForceNormN": 5.844717071434855e-07,
+          "maxSpeedMetersPerSecond": 0.000390302096232359,
+          "momentumKgMetersPerSecond": [
+            -9.554525309907459e-21,
+            -3.4421559607018417e-22,
+            -1.1965531928205701e-18
+          ],
+          "pendingRowErrorMeters": -0.0017004057070082327,
+          "pendingRowForceN": 0.0,
+          "residualN": 5.381993962422329e-11,
+          "sewingGapMeters": [
+            0.0020000000950007473,
+            0.0012995942929917674
+          ],
+          "sewingJoules": 1.7080358822561027e-21
+        },
+        {
+          "anglesRadians": [
+            0.2988098889834209,
+            -0.299700559257756
+          ],
+          "centerOfMassShiftMeters": [
+            1.8625616045431256e-17,
+            -1.5652697117579571e-18,
+            8.400046640635674e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            1.0000000120302495,
+            1.0000000579984014
+          ],
+          "fraction": 0.71875,
+          "heldSeamErrorMeters": 2.2857150200339404e-14,
+          "heldSeamForceNormN": 2.28571502003394e-06,
+          "maxSpeedMetersPerSecond": 0.0011602653305044304,
+          "momentumKgMetersPerSecond": [
+            -6.827076709025232e-21,
+            -2.505745193944704e-21,
+            -1.1974168067413168e-18
+          ],
+          "pendingRowErrorMeters": -0.0016997195414457215,
+          "pendingRowForceN": 0.0,
+          "residualN": 7.332798183455993e-11,
+          "sewingGapMeters": [
+            0.0020000000950177598,
+            0.0013002804585542785
+          ],
+          "sewingJoules": 2.6122465764043784e-20
+        },
+        {
+          "anglesRadians": [
+            0.22815307564932932,
+            -0.2997466671723975
+          ],
+          "centerOfMassShiftMeters": [
+            1.8514730048667177e-17,
+            -1.694376577146244e-18,
+            7.687473949376768e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.999999952655716,
+            1.0000001257929791
+          ],
+          "fraction": 0.75,
+          "heldSeamErrorMeters": 4.086596078894944e-12,
+          "heldSeamForceNormN": 0.00040865960788949446,
+          "maxSpeedMetersPerSecond": 0.13825530452019583,
+          "momentumKgMetersPerSecond": [
+            -4.44712378551711e-21,
+            -5.2203160804823314e-21,
+            -2.8545590098001024e-19
+          ],
+          "pendingRowErrorMeters": -0.0016176657212695167,
+          "pendingRowForceN": 0.0,
+          "residualN": 2.0968518250242152e-08,
+          "sewingGapMeters": [
+            0.0020000000990814987,
+            0.0013823342787304834
+          ],
+          "sewingJoules": 8.350133756019765e-16
+        },
+        {
+          "anglesRadians": [
+            0.12051101262686739,
+            -0.29963445423375945
+          ],
+          "centerOfMassShiftMeters": [
+            1.8835526174155932e-17,
+            -1.842351831777951e-18,
+            1.2327275211237325e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999924140022,
+            1.0000000941666385
+          ],
+          "fraction": 0.78125,
+          "heldSeamErrorMeters": 2.1993773989537058e-12,
+          "heldSeamForceNormN": 0.00021993773989537055,
+          "maxSpeedMetersPerSecond": 0.2100292916195897,
+          "momentumKgMetersPerSecond": [
+            1.2822720151020698e-20,
+            -5.9202509423030735e-21,
+            -2.580940673927779e-18
+          ],
+          "pendingRowErrorMeters": -0.0014918590922755731,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.762485749528995e-08,
+          "sewingGapMeters": [
+            0.00200000009719428,
+            0.001508140907724427
+          ],
+          "sewingJoules": 2.418630471514184e-16
+        },
+        {
+          "anglesRadians": [
+            0.010094488798556851,
+            -0.2994062344056414
+          ],
+          "centerOfMassShiftMeters": [
+            1.9307412710874e-17,
+            -1.929147607098065e-18,
+            3.103001667147471e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.999999962796139,
+            1.0000001946837542
+          ],
+          "fraction": 0.8125,
+          "heldSeamErrorMeters": 1.9131614695244714e-13,
+          "heldSeamForceNormN": 1.9131614695244714e-05,
+          "maxSpeedMetersPerSecond": 0.21503563434408615,
+          "momentumKgMetersPerSecond": [
+            1.8873716586962104e-20,
+            -3.449910709400066e-21,
+            7.484058028854258e-19
+          ],
+          "pendingRowErrorMeters": -0.0013622395635863294,
+          "pendingRowForceN": 0.0,
+          "residualN": 8.60048993053821e-08,
+          "sewingGapMeters": [
+            0.0020000000951862188,
+            0.0016377604364136706
+          ],
+          "sewingJoules": 1.8300934042365175e-18
+        },
+        {
+          "anglesRadians": [
+            -0.07636903337284998,
+            -0.29874668885952604
+          ],
+          "centerOfMassShiftMeters": [
+            1.9807704235594617e-17,
+            -2.010162132925575e-18,
+            4.775390898185038e-17
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999683639186,
+            1.0000001951148572
+          ],
+          "fraction": 0.84375,
+          "heldSeamErrorMeters": -1.3829779335616799e-12,
+          "heldSeamForceNormN": 0.000138297793356168,
+          "maxSpeedMetersPerSecond": 0.16854658494471172,
+          "momentumKgMetersPerSecond": [
+            2.0009450815100987e-20,
+            -3.246164515475961e-21,
+            6.678902978025394e-19
+          ],
+          "pendingRowErrorMeters": -0.0012600724343302477,
+          "pendingRowForceN": 0.0,
+          "residualN": 9.443377710161295e-09,
+          "sewingGapMeters": [
+            0.0020000000936119247,
+            0.0017399275656697524
+          ],
+          "sewingJoules": 9.563139823592671e-17
+        },
+        {
+          "anglesRadians": [
+            -0.11203667849289996,
+            -0.2199896066958547
+          ],
+          "centerOfMassShiftMeters": [
+            2.0419671998493116e-17,
+            -2.075888816786026e-18,
+            1.0811092066651568e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999021022419,
+            1.0000000891200123
+          ],
+          "fraction": 0.875,
+          "heldSeamErrorMeters": 1.5641728363935403e-12,
+          "heldSeamForceNormN": 0.000156417283639354,
+          "maxSpeedMetersPerSecond": 0.16838608805304497,
+          "momentumKgMetersPerSecond": [
+            2.4473902466826692e-20,
+            -2.5997024419511167e-21,
+            2.414535248625238e-18
+          ],
+          "pendingRowErrorMeters": -0.0011264489719729836,
+          "pendingRowForceN": 0.0,
+          "residualN": 2.153738835051263e-08,
+          "sewingGapMeters": [
+            0.0020000000965590754,
+            0.0018735510280270165
+          ],
+          "sewingJoules": 1.2233183310557065e-16
+        },
+        {
+          "anglesRadians": [
+            -0.10652886230995637,
+            -0.10150947300704746
+          ],
+          "centerOfMassShiftMeters": [
+            2.059009601005162e-17,
+            -2.044263779866937e-18,
+            1.6902928638658593e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999958590392,
+            1.0000000851589697
+          ],
+          "fraction": 0.90625,
+          "heldSeamErrorMeters": -6.665197907484988e-14,
+          "heldSeamForceNormN": 6.665197907484988e-06,
+          "maxSpeedMetersPerSecond": 0.22875666412017184,
+          "momentumKgMetersPerSecond": [
+            6.820850778947512e-21,
+            1.2535243486842267e-21,
+            2.4367453759986096e-18
+          ],
+          "pendingRowErrorMeters": -0.0009941711387651234,
+          "pendingRowForceN": 0.0,
+          "residualN": 9.52635225054849e-11,
+          "sewingGapMeters": [
+            0.0020000000949282506,
+            0.0020058288612348767
+          ],
+          "sewingJoules": 2.2212431572971127e-19
+        },
+        {
+          "anglesRadians": [
+            -0.07725328148142917,
+            0.01644047458413868
+          ],
+          "centerOfMassShiftMeters": [
+            2.0293761159675035e-17,
+            -1.9009501707335635e-18,
+            2.2988727734956267e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999474526979,
+            1.0000002268967758
+          ],
+          "fraction": 0.9375,
+          "heldSeamErrorMeters": -1.4073876612730185e-12,
+          "heldSeamForceNormN": 0.00014073876612730185,
+          "maxSpeedMetersPerSecond": 0.21759754573133733,
+          "momentumKgMetersPerSecond": [
+            -1.1850712110494263e-20,
+            5.731306812793438e-21,
+            2.4344321132308785e-18
+          ],
+          "pendingRowErrorMeters": -0.0008900320320653571,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.070494279298029e-11,
+          "sewingGapMeters": [
+            0.002000000093587515,
+            0.002109967967934643
+          ],
+          "sewingJoules": 9.903700145517683e-17
+        },
+        {
+          "anglesRadians": [
+            -0.0416327347336161,
+            0.10344104343034163
+          ],
+          "centerOfMassShiftMeters": [
+            1.966358901139297e-17,
+            -1.8291323342327727e-18,
+            3.0922467401534187e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999517680479,
+            1.0000002209543646
+          ],
+          "fraction": 0.96875,
+          "heldSeamErrorMeters": -2.196365051637672e-12,
+          "heldSeamForceNormN": 0.00021963650516376712,
+          "maxSpeedMetersPerSecond": 0.15483121180211923,
+          "momentumKgMetersPerSecond": [
+            -2.5207160517454088e-20,
+            2.868574326091343e-21,
+            3.173565341790316e-18
+          ],
+          "pendingRowErrorMeters": -0.000829714994111351,
+          "pendingRowForceN": 0.0,
+          "residualN": 7.749614612021673e-09,
+          "sewingGapMeters": [
+            0.0020000000927985376,
+            0.002170285005888649
+          ],
+          "sewingJoules": 2.412009720027677e-16
+        },
+        {
+          "anglesRadians": [
+            -0.011952284330080536,
+            0.14454852262566176
+          ],
+          "centerOfMassShiftMeters": [
+            1.896206624787665e-17,
+            -1.7340282677424238e-18,
+            3.855660784868564e-16
+          ],
+          "contactJoules": 0.0,
+          "edgeRatioRange": [
+            0.9999999974291409,
+            1.0000001227841215
+          ],
+          "fraction": 1.0,
+          "heldSeamErrorMeters": -2.3539243471093485e-12,
+          "heldSeamForceNormN": 0.00023539243471093485,
+          "maxSpeedMetersPerSecond": 0.06804831315198291,
+          "momentumKgMetersPerSecond": [
+            -2.8061275592498116e-20,
+            3.80002676289638e-21,
+            3.053690116966819e-18
+          ],
+          "pendingRowErrorMeters": -0.0008164041229601579,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.3047082429265317e-10,
+          "sewingGapMeters": [
+            0.0020000000926409783,
+            0.002183595877039842
+          ],
+          "sewingJoules": 2.7704799159570863e-16
+        }
+      ],
+      "peakContactEnergyScope": "reviewSummary.peakContactEnergyJoules excludes the initial state; initial energy is separately recorded.",
+      "peakMaximumSpeedMetersPerSecond": 0.22875666412017184,
+      "report": {
+        "bytes": 958313,
+        "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/report.json",
+        "sha256": "abdf1b6b69fc4a0eac7d78637a3dd73c5b4f15e7ae6d3eab7089db6713158dad"
+      },
+      "restGeometry": {
+        "areasMeters2": [
+          9.999999747378752e-05,
+          9.999999747378752e-05,
+          9.999999747378752e-05,
+          9.999999747378752e-05
+        ],
+        "bendingHinges": [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ]
+        ],
+        "bendingRestAngles": [
+          0.0,
+          0.0
+        ],
+        "bendingWeights": [
+          2.000000050291417e-05,
+          2.000000050291417e-05
+        ],
+        "faces": [
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            5,
+            7,
+            6
+          ]
+        ],
+        "massKg": [
+          6.666666649834951e-06,
+          6.666666649834951e-06,
+          1.3333333299669903e-05,
+          1.3333333299669903e-05,
+          6.666666649834951e-06,
+          6.666666649834951e-06,
+          1.3333333299669903e-05,
+          1.3333333299669903e-05
+        ],
+        "materials": [
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "nativeEdges": [
+          [
+            3,
+            -1,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            2,
+            -1,
+            3,
+            0
+          ],
+          [
+            2,
+            -1,
+            1,
+            3
+          ],
+          [
+            3,
+            -1,
+            2,
+            1
+          ],
+          [
+            7,
+            -1,
+            4,
+            6
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            6,
+            -1,
+            7,
+            4
+          ],
+          [
+            6,
+            -1,
+            5,
+            7
+          ],
+          [
+            7,
+            -1,
+            6,
+            5
+          ]
+        ],
+        "poses": [
+          [
+            [
+              89.44271850585938,
+              -11.180339813232422
+            ],
+            [
+              -8.124198458372598e-16,
+              55.90169906616211
+            ]
+          ],
+          [
+            [
+              55.47002029418945,
+              -6.933752536773682
+            ],
+            [
+              -3.98852864730531e-15,
+              90.13877868652344
+            ]
+          ],
+          [
+            [
+              89.44271850585938,
+              -11.180339813232422
+            ],
+            [
+              -8.124198458372598e-16,
+              55.90169906616211
+            ]
+          ],
+          [
+            [
+              55.47002029418945,
+              -6.933752536773682
+            ],
+            [
+              -3.98852864730531e-15,
+              90.13877868652344
+            ]
+          ]
+        ],
+        "restPositionsMeters": [
+          [
+            0.004999999888241291,
+            0.009999999776482582,
+            0.0
+          ],
+          [
+            0.004999999888241291,
+            -0.009999999776482582,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.019999999552965164,
+            0.0,
+            0.0
+          ],
+          [
+            0.004999999888241291,
+            0.009999999776482582,
+            0.0020000000949949026
+          ],
+          [
+            0.004999999888241291,
+            -0.009999999776482582,
+            0.0020000000949949026
+          ],
+          [
+            0.0,
+            0.0,
+            0.0020000000949949026
+          ],
+          [
+            0.019999999552965164,
+            0.0,
+            0.0020000000949949026
+          ]
+        ]
+      },
+      "reviewLoadedHelpers": {
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+        "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+        "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a"
+      },
+      "reviewSummary": {
+        "accepted": false,
+        "activationWorkRoundedStepSumJoules": 1.3967347459292155e-05,
+        "contactActiveFractions": [],
+        "contactSupportLeaves": 128,
+        "crossLayerCoreCandidates": 0,
+        "exactDeclaredHingePrincipalBranchIntervals": 64,
+        "exactTriangleIntervals": 128,
+        "finalAnglesRadians": [
+          -0.011952284330080536,
+          0.14454852262566176
+        ],
+        "finalHeldSeamForceNormN": 0.00023539243471093485,
+        "finalMaximumSpeedMetersPerSecond": 0.06804831315198291,
+        "heldNonzeroForceStates": 32,
+        "initialContactEnergyJoules": 0.0,
+        "initialContactGradientInfinityN": 0.0,
+        "inputSha256": "8648d2309ed3f8164229e380faa4692b8130d9b58023bde9cbeb4b0bcce241d1",
+        "limitations": [
+          "Read-only saved-state review; no generator, global solver, adaptive scheduler or energy-balance helper was imported or executed.",
+          "Control sampling, rounded coefficient witnesses and target-first parameter work were reconstructed independently with Fraction from original binary64 inputs; angles use an independently written sampler of the same declared binary64 geometric convention.",
+          "Membrane forces use an independent stress formula; hinge forces use the closed-form opposite-vertex gradient, distinct from the production chain rule. Sewing uses independently computed scalar distance and central-force formulas; the generator also retained that algebraic check. Contact force and energy reuse the pinned native contact adapter.",
+          "Stable fixed-angle motion, elastic-bending work and membrane energy changes reuse recorded mechanical helpers. This is not a wholly independent mechanical or transcendental arithmetic implementation.",
+          "Exact Fraction exhaustive swept-AABB enumeration covers all nonincident FV/EE primitive identities. Each recorded normal-support leaf and its entire time coverage is checked separately; actual candidate and cross-layer counts are retained per interval.",
+          "Exact triangle Bernstein positivity is independently proven with each start normal over every full saved interval. Every declared hinge also has positive normal-dot-product quartic Bernstein coefficients, proving its angle remains strictly between -pi/2 and pi/2, including inactive hinges. Endpoint intersections are recomputed by native HashGrid and BruteForce plus the shared separate surface oracle.",
+          "Input and repository helper bytes match the retained digests; native topology is checked against all oriented faces. Input records runtime versions, not a portable complete external-wheel fingerprint; this review does not upgrade callback files into supervised crash-safe capture/replay.",
+          "Unchanged input rest coordinates, stored native material/pose/mass data and final adapter rest snapshots are checked. Static artifacts cannot independently prove the historical in-memory model was never transiently mutated.",
+          "Held-anchor squared-distance extrema along each affine saved path use exact original-coordinate quadratic arithmetic; the reported length errors use 100-digit Decimal square roots, not correctly rounded exact-real square-root certificates. No tolerance-based seam acceptance is granted.",
+          "Generic eight-vertex synthetic direct-API fixture with one held and one pending scalar sewing row. Released folds leave the seam held; no all-controls-free tail, refined-source execution, continuous spatial stitching, material-normal joint, calibrated damping, settling, continuous actuator work, garment operation or application acceptance."
+        ],
+        "maximumForceResidualDisagreementN": 1.0089931006592584e-14,
+        "maximumHeldSeamAffinePathErrorMeters": 4.086596168832437e-12,
+        "maximumHeldSeamErrorMeters": 4.086596078894944e-12,
+        "maximumHypotheticalPendingEnergyIfActivatedJoules": 144.67677779674463,
+        "maximumIndependentForceResidualN": 8.093796490210407e-07,
+        "maximumSourceEdgeRelativeChange": 2.2689677581233525e-07,
+        "minimumAbsolutePendingRowErrorMeters": 0.0008164041229601579,
+        "nonzeroContactClassifications": [],
+        "originalGeneratorSha256": "780f741b7f70318140aef1ce1d704f41038fc3c268fd10dbc263456948ca61c4",
+        "parameterWorkRoundedStepSumJoules": 0.00017741991335175794,
+        "peakContactEnergyJoules": 0.0,
+        "peakContactGradientInfinityN": 0.0,
+        "peakHeldSeamForceNormN": 0.00040865960788949446,
+        "profile": "independent-saved-synthetic-mixed-sewing-fold-review-v1",
+        "releaseEnergyRemovedRoundedStepSumJoules": 1.0361102477819712e-08,
+        "reportSha256": "abdf1b6b69fc4a0eac7d78637a3dd73c5b4f15e7ae6d3eab7089db6713158dad",
+        "runtime": {
+          "packages": {
+            "ipctk": "1.6.0",
+            "newton": "1.6.0",
+            "numpy": "2.5.3",
+            "scipy": "1.17.0",
+            "warp-lang": "1.17.0"
+          },
+          "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+          "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]"
+        },
+        "savedContactActiveStateCount": 0,
+        "savedStates": 32,
+        "scriptSha256": "880460eeb8423dd9a563f6eeffccd79b9efd56573610f645f6b6875ef2384ee0",
+        "sewingParameterWorkRoundedStepSumJoules": 0.0,
+        "targetWorkRoundedStepSumJoules": 0.00016345256589246577,
+        "verified": true
+      },
+      "runtime": {
+        "packages": {
+          "ipctk": "1.6.0",
+          "newton": "1.6.0",
+          "numpy": "2.5.3",
+          "scipy": "1.17.0",
+          "warp-lang": "1.17.0"
+        },
+        "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+        "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]"
+      },
+      "states": [
+        {
+          "bytes": 18142,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0001.json",
+          "sha256": "5572c78dbcbb60d075fc1d295909393e6fd02abccfaf3a5549751b343795475b"
+        },
+        {
+          "bytes": 18329,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0002.json",
+          "sha256": "bbd56bc63a3dbb2b26779b7cececc1fa178226fcae9c1dac1c9a2587ee00235b"
+        },
+        {
+          "bytes": 18350,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0003.json",
+          "sha256": "d317f250de3b1ada9001be6421e41458ed5c46e91b157e349ea4e012bd737a3f"
+        },
+        {
+          "bytes": 18308,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0004.json",
+          "sha256": "c57aa7a939387f5051aca22d9a300802028398a9bc0b02e8abf27397fb5799ba"
+        },
+        {
+          "bytes": 18304,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0005.json",
+          "sha256": "06088ec6f2dbbdd6d417fa6418f6db8b63b2f076a0e1b1634e8118e9a06f2bbf"
+        },
+        {
+          "bytes": 18339,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0006.json",
+          "sha256": "797cafddb5e12f9ca06bc7bb2e03e3f8fa933fec1c637582ee19052b63dd0d05"
+        },
+        {
+          "bytes": 18307,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0007.json",
+          "sha256": "4b48e25ff425ebbd2621f0cdbf479fe07fb842c1dc11d167153b4b20b2997f3f"
+        },
+        {
+          "bytes": 18300,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0008.json",
+          "sha256": "259b0f29aa0a84ebf30ae2f8139962984668457b24c0ebe85179cd72b475fce0"
+        },
+        {
+          "bytes": 18396,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0009.json",
+          "sha256": "abf0b67694bcbc9ed502f5f48d47f9275e0aff02b405e52b99c6e564d6c80799"
+        },
+        {
+          "bytes": 18427,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0010.json",
+          "sha256": "b620deb58f63c6e81073e9d5ec4bbc243a4b8113634330993ef91d57a4bdfb26"
+        },
+        {
+          "bytes": 18498,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0011.json",
+          "sha256": "3fef6542f66273a487e472cdf89d0dcc97b601f92f5444f7ff9bbc05d0303586"
+        },
+        {
+          "bytes": 18409,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0012.json",
+          "sha256": "31d3d51a96ea01e1d3b643abb39e79990e570cb00647c01377773d386b028a69"
+        },
+        {
+          "bytes": 18474,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0013.json",
+          "sha256": "3189f6cf3a5d37679ce80d7c65f02e6e9e83c88d6a9ec5c219765f2dbe5ab815"
+        },
+        {
+          "bytes": 18485,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0014.json",
+          "sha256": "86a39d6bacf3722667518eafcdcb7a96fd3110e9916c1ce1af928994534c45d8"
+        },
+        {
+          "bytes": 18474,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0015.json",
+          "sha256": "616979f69abf3314647e3cb43d377e46ab5b4c1d8bcae91607ba5f40428bdd6f"
+        },
+        {
+          "bytes": 18406,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0016.json",
+          "sha256": "17d71c4fcd2d9cce79350c4792c3af782e690ce7fae064e8df433e32fa8b5de6"
+        },
+        {
+          "bytes": 17959,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0017.json",
+          "sha256": "eb506e4dcff2f550ff9c303b9e7e097df026dde7db1722344152caea8fcd0eae"
+        },
+        {
+          "bytes": 17984,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0018.json",
+          "sha256": "b8bbb96ac7d949350e2fec263301f4e3fd7abc2012325baef98a5d05b4bffbd2"
+        },
+        {
+          "bytes": 17983,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0019.json",
+          "sha256": "011956ea67f3c87078e3731094aae1db131de5b251af0128d19aea3c04922218"
+        },
+        {
+          "bytes": 17241,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0020.json",
+          "sha256": "ab3f164e76fdd9e40b2c16c283870e1a0b5a66b5083fca76a4df9b6ea9c80e26"
+        },
+        {
+          "bytes": 18111,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0021.json",
+          "sha256": "f7aace79db5323813be5a9112310946097176317286ae7cb27b0ba0aa7e0c372"
+        },
+        {
+          "bytes": 18227,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0022.json",
+          "sha256": "64d3303456dcd4b7ba7bdec27840ebb5b74707c1787a6227ac1c03f4b48a60f5"
+        },
+        {
+          "bytes": 18228,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0023.json",
+          "sha256": "6264c111782b9b7c087b8332c04b4419faa4ff7ea2cdc3146c55d1ed582ada9f"
+        },
+        {
+          "bytes": 18798,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0024.json",
+          "sha256": "60ab096c10078b37ac5eca261cd05374cf01df88530425374bb33a5f266adcb6"
+        },
+        {
+          "bytes": 19183,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0025.json",
+          "sha256": "b4a073a56f7be2d65a117ad4f0132dd2f01cfa35b36f6cb898b4610a475807e6"
+        },
+        {
+          "bytes": 19136,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0026.json",
+          "sha256": "9778636309462f1eee4cc46eaa69cdfadab0bda6693f2bc2746a5d4fc9e3cee5"
+        },
+        {
+          "bytes": 18808,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0027.json",
+          "sha256": "c2f41b7415e1923375b65f4b17eeed8a0e4877f7bd243be1a121edc7f499b757"
+        },
+        {
+          "bytes": 18625,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0028.json",
+          "sha256": "dffb8be66f363cf9f2da6fe0905e037dcd272ba5ff3c0ad7762d835b1e11f84f"
+        },
+        {
+          "bytes": 19000,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0029.json",
+          "sha256": "a098c7d4d788e6896337aa0df21f66b845a51eedb5ac6f2cbe5ac24272975c27"
+        },
+        {
+          "bytes": 18995,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0030.json",
+          "sha256": "56aaaf0c1dc06a304d1db3605b09b1097db6090ac0d4b60f2271d54923d94380"
+        },
+        {
+          "bytes": 18501,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0031.json",
+          "sha256": "7cd6382b31c30dc1ca508102cf6c92060a2153b2c9054c95f3596e16effa3e28"
+        },
+        {
+          "bytes": 18515,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0032.json",
+          "sha256": "4563bc260374858dc43b7ba7b68e334ed623b8e1cb8476daced53824fa053a98"
+        }
+      ],
+      "worstAffineSeamInterval": {
+        "endFraction": 0.75,
+        "gapMinusTargetExtremaMetersDecimal100": [
+          "2.1467570858965036851178536299134259876868282221476321931056996740285237726045793633234195E-14",
+          "4.086596168832437597738832808195397065672905430638709185595018373647970634280347715547267180E-12"
+        ],
+        "maximumAbsoluteGapErrorMeters": 4.086596168832437e-12,
+        "maximumAtFraction": {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "maximumSquaredGapMeters2": {
+          "denominator": "5986310706507378352962293074805895248510699696029696",
+          "numerator": "23945245198560120025057998532214162674636175889"
+        },
+        "minimumAtFraction": {
+          "denominator": "20194541146295766866074979529373067765",
+          "numerator": "366547530629537240071160558464428756"
+        },
+        "minimumSquaredGapMeters2": {
+          "denominator": "90070663300956885858253778775383000685368664947417096141936596626570442386178048",
+          "numerator": "360282687436578303438427724831415410277619791735397403117365763532818246681"
+        },
+        "pathProof": {
+          "crossLayerCoreCandidates": 0,
+          "exhaustiveAabbCandidateCount": 4,
+          "hingeNormalDotQuarticBernsteinMargins": [
+            {
+              "denominator": "133499189745056880149688856635597007162669032647290798121690100488888732861290034376435130433536",
+              "numerator": "5103340536677594154878167821683747982896018446808095149151021545537140816747145433968207"
+            },
+            {
+              "denominator": "8343699359066055009355553539724812947666814540455674882605631280555545803830627148527195652096",
+              "numerator": "318866009138096243130584149437652391637539975955109999750259382281795752530820203770089"
+            }
+          ],
+          "nativeCandidateCount": 4,
+          "supportWitnesses": [
+            {
+              "candidate": 0,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "5316911983139663491615228241121378304",
+                "numerator": "654389213574736069017712321258233"
+              },
+              "projectedGap": {
+                "denominator": "5575186299632655785383929568162090376495104",
+                "numerator": "685856087545404109269437682190166964297"
+              },
+              "squaredCoreMargin": {
+                "denominator": "31082702275611665134711390509176302506278509424834232340028998555822468563283335970816",
+                "numerator": "470360317186805379380827995152831175196252501327941256351591207668731424867537"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "31082702275611665134711390509176302506278509424834232340028998555822468563283335970816",
+                "numerator": "1279364716833492595499752509055605889283059083040916677662672081"
+              }
+            },
+            {
+              "candidate": 1,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "21267647932558653966460912964485513216",
+                "numerator": "2617556700460526183375423348309577"
+              },
+              "projectedGap": {
+                "denominator": "5575186299632655785383929568162090376495104",
+                "numerator": "685856047203509849901757558954095887423"
+              },
+              "squaredCoreMargin": {
+                "denominator": "31082702275611665134711390509176302506278509424834232340028998555822468563283335970816",
+                "numerator": "470360261851587836047898956288300874077781932097007775644205710430596506814337"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "31082702275611665134711390509176302506278509424834232340028998555822468563283335970816",
+                "numerator": "1383423839971084736709482280448293156193277588493300009955985281"
+              }
+            },
+            {
+              "candidate": 2,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "21267647932558653966460912964485513216",
+                "numerator": "2617556857599313959382908597996105"
+              },
+              "projectedGap": {
+                "denominator": "44601490397061246283071436545296723011960832",
+                "numerator": "5488913832976832940138368634827317037315"
+              },
+              "squaredCoreMargin": {
+                "denominator": "1989292945639146568621528992587283360401824603189390869761855907572637988050133502132224",
+                "numerator": "30125726705119187494592528785831227577732652606063703678059341617516273476548105"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "1989292945639146568621528992587283360401824603189390869761855907572637988050133502132224",
+                "numerator": "98553256900790575566509233885353234426074902894125312211554121225"
+              }
+            },
+            {
+              "candidate": 3,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "166153499473114484112975882535043072",
+                "numerator": "20449661748131988450911810661903"
+              },
+              "projectedGap": {
+                "denominator": "22300745198530623141535718272648361505980416",
+                "numerator": "2744456755172452818308105985269604038061"
+              },
+              "squaredCoreMargin": {
+                "denominator": "497323236409786642155382248146820840100456150797347717440463976893159497012533375533056",
+                "numerator": "7531430790866372144651707590150916581301008436797797649890061668231602643736297"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "497323236409786642155382248146820840100456150797347717440463976893159497012533375533056",
+                "numerator": "26994566666646600667675621894125245905910486691062157215643801321"
+              }
+            }
+          ],
+          "triangleStartNormalBernsteinMargins": [
+            {
+              "denominator": "1042962419883256876169444192465601618458351817556959360325703910069443225478828393565899456512",
+              "numerator": "41692455165989091159750623984481228367530661244746871012839073893234362790301196859915"
+            },
+            {
+              "denominator": "1042962419883256876169444192465601618458351817556959360325703910069443225478828393565899456512",
+              "numerator": "41692456390956740268351948083679487767462239863904664198620790303064946268794827512275"
+            },
+            {
+              "denominator": "4171849679533027504677776769862406473833407270227837441302815640277772901915313574263597826048",
+              "numerator": "166872169329876560765380414118302230051638556750732058695113600125574784629588494619205"
+            },
+            {
+              "denominator": "4171849679533027504677776769862406473833407270227837441302815640277772901915313574263597826048",
+              "numerator": "166872174227104970678003913472383059900178826186864749575947007983833769780395054240325"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "allSolverSourceDigests": {
+        "solver_adaptive_contact.py": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec",
+        "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+        "solver_attempt_journal.py": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_binding_control_schedule.py": "8d773fcfffbeb3a12b8682cfc2af78ba0c0738e847439da3777eb07886347dac",
+        "solver_binding_control_schedule_replay.py": "3266a2d1d688336b10113d1ff0a488ee8fd4b8ea03244c04bed8a0c0937784b4",
+        "solver_binding_diagnostics.py": "0016c0f403ab39419183e9184f3a3f1d0c53e65472afdfd0ae8366c478c3570f",
+        "solver_binding_fold.py": "ca440dc52b50962ae2e8f5747ba10bf438b9367546cc6aeef451fa295230a543",
+        "solver_binding_fold_replay.py": "b1391bee4eeda899b48ebdff2506bb32d1cdf854e2f541b0cb33f113d7cb11f9",
+        "solver_binding_gripper_remap.py": "27159d748cc26323ba359395324c11427531342075310c10fba3bda1e570aab8",
+        "solver_binding_gripper_remap_replay.py": "eb7552dfbbecf50d7976279507e6e1a47482bde7cf00fa9814eaa1ca09abc42e",
+        "solver_binding_placement.py": "a8db85ad76d6bf8bcb72c14b6c37c467833f96eb5e5a3a63cc73293af0b47f2a",
+        "solver_binding_placement_replay.py": "bf7295b46f20ab48637b9b25ebb5de4f97d78d9f051b98d1e48ea067b885ae05",
+        "solver_binding_refinement.py": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb",
+        "solver_binding_remap.py": "904894294afb8666115b29d4ef468a53dcaa00f932caa348f6672544ac2413fb",
+        "solver_binding_remap_replay.py": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f",
+        "solver_binding_sewing_schedule.py": "3d956fb5984cc9248cfa19273515d3a78ca766de54d76676f609663f2c8e0218",
+        "solver_binding_sewing_schedule_replay.py": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84",
+        "solver_binding_source.py": "51561505f8e490e54444d07873dd9a72386acf837a9ca65eb5d89316bbf64ff8",
+        "solver_candidate_coverage.py": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947",
+        "solver_contact_filters.py": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab",
+        "solver_contact_preflight.py": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a",
+        "solver_controlled_fold.py": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69",
+        "solver_crease_mesh.py": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2",
+        "solver_cuff_construction.py": "f76e642a3201d4fd9de76cc77b6048334d2cf5046d80c8dffa01c6dee43bef0f",
+        "solver_cuff_sequence.py": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044",
+        "solver_cuff_source_binding.py": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f",
+        "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+        "solver_distance_sewing.py": "c380810325805feaf7f5b3c3cba437e2164a05c39b1bb047e0a42447bdf7dde0",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_engine_source_namespace.py": "2a08d3703380981ad186427482bb9b6c4a5016044e910efea3bd03d01ee51108",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_barrier.py": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a",
+        "solver_fold_control_schedule.py": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e",
+        "solver_global_sewing.py": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_gripper_input.py": "743e0f822c94a0d14a31e955c7a4368bbef9388b60d4c66510600c4f2ccb7873",
+        "solver_gripper_replay.py": "e7d5929adba375d2e8f78f978d380d1b0b905ba5a813cd74f00a0aa6ac16c7a1",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+        "solver_material_grippers.py": "c586c9d9198ac941a7dadbda8fc57c9cc33d17aa3676d6851378926e4fb9b0d8",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_normal_sewing.py": "d658cbcd1ab624271a183e98352c78b8731bba09446ebb6a6da850884f38a5d0",
+        "solver_point_contact.py": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8",
+        "solver_process_budget.py": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766",
+        "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+        "solver_rigid_staging.py": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a",
+        "solver_rigid_velocity_diagnostics.py": "067a81b92f64da43ed8296243cb20bbc5645b4f38aa6c913634f7b18c0913805",
+        "solver_sewing_activation.py": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561",
+        "solver_sewing_activation_schedule.py": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48",
+        "solver_sewing_input.py": "cd21a37cc3baf30c00c79d0b83d35b70e1ec562a138d94ea66147d13b7fe433f",
+        "solver_sewing_replay.py": "4defdd239b88ca35e3d7de55cdd482b83a9282dd15ee7d2003858ea39e37cdfc",
+        "solver_sewing_sweep.py": "fee7aa9fcfbf0a30b365faac9da134b80a866e11d8de6e5bf5004b66f3a53f92",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_strain_diagnostics.py": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3",
+        "solver_surface_distance_diagnostics.py": "c41fabaf149fb02c9c2dad08980ffaf1a4b02f7fef70efac15061a10daf286dc",
+        "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+        "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+        "solver_torso_control.py": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80",
+        "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "contactProfile": {
+        "accepted": false,
+        "adapter": "experimental-rest-filtered-contact-v2",
+        "broadPhase": "ipctk-HashGrid-explicit-v1",
+        "collisionSet": "area-weighted IPC; not improved-max",
+        "filteredPairsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredParametersSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "filteredPrimitivePairs": 0,
+        "fullActivationM": 0.002,
+        "fullMinimumM": 0.0001,
+        "ipctk": "1.6.0",
+        "limitations": [
+          "Changed contact model, not a tolerance fix or paper reproduction.",
+          "Local positive core and activation derive from each primitive pair's own rest distance.",
+          "Planar connected rest components only; no sewing or layer operations.",
+          "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
+          "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
+          "Native broad-phase allocation and CCD require external process budgets."
+        ],
+        "localActivationRangeM": null,
+        "localMinimumRangeM": null,
+        "localScaleRule": "each filtered primitive pair: activation = rest distance / 4; minimum = min(full minimum, activation)",
+        "maxCandidates": 100000,
+        "parameterBuckets": 1,
+        "pathPredicate": "outward-rounded-temporal-separation-v1 with fixed per-pair thickness",
+        "pressurePa": 10000.0,
+        "stiffnessUnits": "Pa"
+      },
+      "controls": {
+        "durationSeconds": 0.064,
+        "externalStiffnessJoules": [
+          0.02,
+          0.02
+        ],
+        "initialSubdivisions": 32,
+        "schedule": {
+          "hinges": [
+            [
+              0,
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6,
+              7
+            ]
+          ],
+          "knots": [
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 0.0,
+              "targetsRadians": [
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 0.25,
+              "targetsRadians": [
+                0.3,
+                0.0
+              ]
+            },
+            {
+              "activation": [
+                1.0,
+                1.0
+              ],
+              "fraction": 0.5,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                1.0,
+                1.0
+              ],
+              "fraction": 0.625,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                0.0,
+                1.0
+              ],
+              "fraction": 0.75,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                0.0,
+                0.0
+              ],
+              "fraction": 0.875,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            },
+            {
+              "activation": [
+                0.0,
+                0.0
+              ],
+              "fraction": 1.0,
+              "targetsRadians": [
+                0.3,
+                -0.3
+              ]
+            }
+          ],
+          "profile": "fold-angle-activation-v1"
+        },
+        "sewingComplianceMPerN": 1e-08,
+        "sewingRowIds": [
+          "synthetic:held-left-end",
+          "synthetic:pending-right-end"
+        ],
+        "sewingRows": [
+          {
+            "2": 1.0,
+            "6": -1.0
+          },
+          {
+            "3": 1.0,
+            "7": -1.0
+          }
+        ],
+        "sewingSchedule": {
+          "knots": [
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 0.0
+            },
+            {
+              "activation": [
+                1.0,
+                0.0
+              ],
+              "fraction": 1.0
+            }
+          ],
+          "profile": "sewing-row-activation-v1",
+          "rowIds": [
+            "synthetic:held-left-end",
+            "synthetic:pending-right-end"
+          ]
+        },
+        "sewingTargetsMeters": [
+          0.0020000000949949026,
+          0.003
+        ]
+      },
+      "generator": {
+        "bytes": 12018,
+        "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v1.py",
+        "sha256": "12e0e3626071ec6e9985e7a8ddb6f98d37e680325d88d367c2bdf177cf9264c8"
+      },
+      "independentReview": {
+        "bytes": 464039,
+        "path": ".planning/solver/review-mixed-sewing-fold-contact-motion-sep23-v2.json",
+        "sha256": "ca2bed3206bc5233262f3aef4e385db0d60ee0a862d39945162d0af77d1c5902"
+      },
+      "input": {
+        "bytes": 13822,
+        "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/input.json",
+        "sha256": "2aefbc6594c3a28e8383e313a4a15523190bc0a758d5ce0137b5b274c7542d6f"
+      },
+      "loadedHelpers": {
+        "solver_adaptive_contact.py": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec",
+        "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+        "solver_attempt_journal.py": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c",
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_controlled_fold.py": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69",
+        "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+        "solver_distance_sewing.py": "c380810325805feaf7f5b3c3cba437e2164a05c39b1bb047e0a42447bdf7dde0",
+        "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+        "solver_energy_balance.py": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+        "solver_fold_control_schedule.py": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e",
+        "solver_global_sewing.py": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336",
+        "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+        "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+        "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+        "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+        "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+        "solver_process_budget.py": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766",
+        "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+        "solver_sewing_activation.py": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561",
+        "solver_sewing_activation_schedule.py": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+        "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+        "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+      },
+      "log": {
+        "bytes": 1340,
+        "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2.log",
+        "sha256": "da02c8b901a003485905e64fb82b4aa4ae78f9ce7fb1c4330000c6b43ccd9033"
+      },
+      "maximumContactEnergyIncludingInitialJoules": 8.492959811016597e-06,
+      "name": "mixed-sewing-fold-contact-motion",
+      "observations": [
+        {
+          "anglesRadians": [
+            0.03725191637566551,
+            0.024682263920943706
+          ],
+          "centerOfMassShiftMeters": [
+            2.631553606192208e-19,
+            4.834300275576038e-20,
+            1.8400245741760937e-19
+          ],
+          "contactJoules": 3.4977506930076457e-06,
+          "edgeRatioRange": [
+            0.9999999136467693,
+            1.000000133647249
+          ],
+          "fraction": 0.03125,
+          "heldSeamErrorMeters": 1.053820962351043e-09,
+          "heldSeamForceNormN": 0.10538209623510429,
+          "maxSpeedMetersPerSecond": 0.06929776949949079,
+          "momentumKgMetersPerSecond": [
+            1.0542085926196056e-20,
+            1.9337880202000132e-21,
+            7.542078012883579e-21
+          ],
+          "pendingRowErrorMeters": -0.0009084406566982357,
+          "pendingRowForceN": 0.0,
+          "residualN": 9.930357426114755e-12,
+          "sewingGapMeters": [
+            0.002000001148815865,
+            0.0020915593433017644
+          ],
+          "sewingJoules": 5.552693103452392e-11
+        },
+        {
+          "anglesRadians": [
+            0.07475693591418589,
+            0.06175391917920005
+          ],
+          "centerOfMassShiftMeters": [
+            5.066183075256004e-19,
+            3.245429851714378e-19,
+            1.7943862047502833e-18
+          ],
+          "contactJoules": 3.535684854514946e-06,
+          "edgeRatioRange": [
+            0.9999999508622778,
+            1.000000117506141
+          ],
+          "fraction": 0.0625,
+          "heldSeamErrorMeters": 1.0619221079734287e-09,
+          "heldSeamForceNormN": 0.10619221079734287,
+          "maxSpeedMetersPerSecond": 0.05848752014641513,
+          "momentumKgMetersPerSecond": [
+            9.72595504611464e-21,
+            1.1049637486314692e-20,
+            6.4206931627174e-20
+          ],
+          "pendingRowErrorMeters": -0.0009059094677339413,
+          "pendingRowForceN": 0.0,
+          "residualN": 4.560919784207806e-13,
+          "sewingGapMeters": [
+            0.0020000011569170106,
+            0.0020940905322660588
+          ],
+          "sewingJoules": 5.6383928170136514e-11
+        },
+        {
+          "anglesRadians": [
+            0.11216526296792868,
+            0.09880941706829187
+          ],
+          "centerOfMassShiftMeters": [
+            4.657910479310795e-19,
+            5.882003234163781e-19,
+            4.854343767461217e-18
+          ],
+          "contactJoules": 3.6099534599836344e-06,
+          "edgeRatioRange": [
+            0.9999999522169174,
+            1.000000117186002
+          ],
+          "fraction": 0.09375,
+          "heldSeamErrorMeters": 1.0742543538749816e-09,
+          "heldSeamForceNormN": 0.10742543538749816,
+          "maxSpeedMetersPerSecond": 0.05817836822289889,
+          "momentumKgMetersPerSecond": [
+            -1.5737401707069963e-21,
+            1.0546552008550684e-20,
+            1.2262908559031364e-19
+          ],
+          "pendingRowErrorMeters": -0.0009060584312456971,
+          "pendingRowForceN": 0.0,
+          "residualN": 8.711822929718949e-12,
+          "sewingGapMeters": [
+            0.0020000011692492565,
+            0.002093941568754303
+          ],
+          "sewingJoules": 5.770112084096771e-11
+        },
+        {
+          "anglesRadians": [
+            0.14953812820704143,
+            0.13548437272129538
+          ],
+          "centerOfMassShiftMeters": [
+            9.802210111473083e-19,
+            7.722300380073366e-19,
+            8.487678480945588e-18
+          ],
+          "contactJoules": 3.7240396146544314e-06,
+          "edgeRatioRange": [
+            0.9999999223717757,
+            1.0000001300519632
+          ],
+          "fraction": 0.125,
+          "heldSeamErrorMeters": 1.0943986545990103e-09,
+          "heldSeamForceNormN": 0.10943986545990103,
+          "maxSpeedMetersPerSecond": 0.05842737205479977,
+          "momentumKgMetersPerSecond": [
+            2.0551555877707572e-20,
+            7.35519148667946e-21,
+            1.4544174883268774e-19
+          ],
+          "pendingRowErrorMeters": -0.0009049432324170514,
+          "pendingRowForceN": 0.0,
+          "residualN": 2.278553734580413e-11,
+          "sewingGapMeters": [
+            0.002000001189393557,
+            0.0020950567675829487
+          ],
+          "sewingJoules": 5.98854207594062e-11
+        },
+        {
+          "anglesRadians": [
+            0.18690422769236933,
+            0.1719351159515951
+          ],
+          "centerOfMassShiftMeters": [
+            1.933820372701955e-18,
+            1.174028786367456e-18,
+            1.2196322964506857e-17
+          ],
+          "contactJoules": 3.881545468403229e-06,
+          "edgeRatioRange": [
+            0.9999998879649558,
+            1.000000147105135
+          ],
+          "fraction": 0.15625,
+          "heldSeamErrorMeters": 1.1224835405783395e-09,
+          "heldSeamForceNormN": 0.11224835405783394,
+          "maxSpeedMetersPerSecond": 0.058675592156420826,
+          "momentumKgMetersPerSecond": [
+            3.813508217429665e-20,
+            1.6094800757459917e-20,
+            1.4843511447406939e-19
+          ],
+          "pendingRowErrorMeters": -0.0009032122231866077,
+          "pendingRowForceN": 0.0,
+          "residualN": 7.639917865009949e-11,
+          "sewingGapMeters": [
+            0.002000001217478443,
+            0.0020967877768133924
+          ],
+          "sewingJoules": 6.299846494346424e-11
+        },
+        {
+          "anglesRadians": [
+            0.22426481863870865,
+            0.20791565657536204
+          ],
+          "centerOfMassShiftMeters": [
+            2.6067362392665234e-18,
+            1.4900862448857695e-18,
+            1.9837939168895532e-17
+          ],
+          "contactJoules": 4.088497949981764e-06,
+          "edgeRatioRange": [
+            0.9999998474655597,
+            1.0000001792327071
+          ],
+          "fraction": 0.1875,
+          "heldSeamErrorMeters": 1.1596242807145052e-09,
+          "heldSeamForceNormN": 0.11596242807145053,
+          "maxSpeedMetersPerSecond": 0.059090619170819585,
+          "momentumKgMetersPerSecond": [
+            2.683805243643222e-20,
+            1.2622032386370045e-20,
+            3.055852380650129e-19
+          ],
+          "pendingRowErrorMeters": -0.0009007419826214122,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.0631484693151433e-09,
+          "sewingGapMeters": [
+            0.0020000012546191833,
+            0.002099258017378588
+          ],
+          "sewingJoules": 6.723642362113168e-11
+        },
+        {
+          "anglesRadians": [
+            0.26162120585896265,
+            0.24227433444305937
+          ],
+          "centerOfMassShiftMeters": [
+            2.8599004003945778e-18,
+            1.705189108586832e-18,
+            2.879523573813441e-17
+          ],
+          "contactJoules": 4.35630526299595e-06,
+          "edgeRatioRange": [
+            0.9999998050096411,
+            1.0000002114079014
+          ],
+          "fraction": 0.21875,
+          "heldSeamErrorMeters": 1.209681835170201e-09,
+          "heldSeamForceNormN": 0.1209681835170201,
+          "maxSpeedMetersPerSecond": 0.06007919829818576,
+          "momentumKgMetersPerSecond": [
+            1.019853113284717e-20,
+            8.597290284885147e-21,
+            3.58136351909795e-19
+          ],
+          "pendingRowErrorMeters": -0.0008974095864166406,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.1057300838834827e-08,
+          "sewingGapMeters": [
+            0.0020000013046767378,
+            0.0021025904135833595
+          ],
+          "sewingJoules": 7.316650711703727e-11
+        },
+        {
+          "anglesRadians": [
+            0.29896484428406866,
+            0.275226516005697
+          ],
+          "centerOfMassShiftMeters": [
+            3.193294555685429e-18,
+            1.889228116575823e-18,
+            3.605027069931693e-17
+          ],
+          "contactJoules": 4.692680324363729e-06,
+          "edgeRatioRange": [
+            0.9999997628782198,
+            1.0000002413991143
+          ],
+          "fraction": 0.25,
+          "heldSeamErrorMeters": 1.273020549218129e-09,
+          "heldSeamForceNormN": 0.1273020549218129,
+          "maxSpeedMetersPerSecond": 0.060954562706280226,
+          "momentumKgMetersPerSecond": [
+            1.338374265349256e-20,
+            7.364869024212542e-21,
+            2.898787972757171e-19
+          ],
+          "pendingRowErrorMeters": -0.0008934747515033101,
+          "pendingRowForceN": 0.0,
+          "residualN": 2.126032960791946e-10,
+          "sewingGapMeters": [
+            0.002000001368015452,
+            0.00210652524849669
+          ],
+          "sewingJoules": 8.102906593658134e-11
+        },
+        {
+          "anglesRadians": [
+            0.29956217423173015,
+            -0.0284681596537246
+          ],
+          "centerOfMassShiftMeters": [
+            3.4201894119450287e-18,
+            2.0052401191823455e-18,
+            4.313498616315039e-17
+          ],
+          "contactJoules": 3.995829593655705e-06,
+          "edgeRatioRange": [
+            0.9999993706569174,
+            1.0000011115903942
+          ],
+          "fraction": 0.28125,
+          "heldSeamErrorMeters": 1.1736418629483547e-09,
+          "heldSeamForceNormN": 0.11736418629483548,
+          "maxSpeedMetersPerSecond": 0.6148086861234369,
+          "momentumKgMetersPerSecond": [
+            8.979841276413655e-21,
+            4.632314927347693e-21,
+            2.840934385414731e-19
+          ],
+          "pendingRowErrorMeters": -0.0009092680448697858,
+          "pendingRowForceN": 0.0,
+          "residualN": 5.4074064670395217e-11,
+          "sewingGapMeters": [
+            0.0020000012686367656,
+            0.0020907319551302143
+          ],
+          "sewingJoules": 6.887176112324423e-11
+        },
+        {
+          "anglesRadians": [
+            0.2998993960212982,
+            -0.07808001733541124
+          ],
+          "centerOfMassShiftMeters": [
+            3.576054403815245e-18,
+            2.0329439240820524e-18,
+            4.996415965665737e-17
+          ],
+          "contactJoules": 3.990797011472305e-06,
+          "edgeRatioRange": [
+            0.9999994325502657,
+            1.0000006790459721
+          ],
+          "fraction": 0.3125,
+          "heldSeamErrorMeters": 1.2088888041647539e-09,
+          "heldSeamForceNormN": 0.12088888041647539,
+          "maxSpeedMetersPerSecond": 0.1023397594390649,
+          "momentumKgMetersPerSecond": [
+            6.2347030566443604e-21,
+            1.1370744092122968e-21,
+            2.7381296710900293e-19
+          ],
+          "pendingRowErrorMeters": -0.0009018987602904547,
+          "pendingRowForceN": 0.0,
+          "residualN": 5.066340819093185e-10,
+          "sewingGapMeters": [
+            0.0020000013038837068,
+            0.0020981012397095454
+          ],
+          "sewingJoules": 7.307060704174443e-11
+        },
+        {
+          "anglesRadians": [
+            0.2997144714863783,
+            -0.11234540086784726
+          ],
+          "centerOfMassShiftMeters": [
+            3.9132081913037816e-18,
+            2.013601467525203e-18,
+            5.604469832643993e-17
+          ],
+          "contactJoules": 3.9897611479826955e-06,
+          "edgeRatioRange": [
+            0.9999996918587011,
+            1.0000003343482118
+          ],
+          "fraction": 0.34375,
+          "heldSeamErrorMeters": 1.1932201979952817e-09,
+          "heldSeamForceNormN": 0.11932201979952814,
+          "maxSpeedMetersPerSecond": 0.06909723072120999,
+          "momentumKgMetersPerSecond": [
+            1.3490183970978394e-20,
+            -7.886133729680227e-22,
+            2.4333238837930925e-19
+          ],
+          "pendingRowErrorMeters": -0.0009061077934772207,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.741903104037547e-08,
+          "sewingGapMeters": [
+            0.0020000012882151006,
+            0.0020938922065227793
+          ],
+          "sewingJoules": 7.118872204519495e-11
+        },
+        {
+          "anglesRadians": [
+            0.29969672105758766,
+            -0.14967919481804062
+          ],
+          "centerOfMassShiftMeters": [
+            4.167890239146449e-18,
+            1.910925196471087e-18,
+            6.223507257538482e-17
+          ],
+          "contactJoules": 3.9888737017039854e-06,
+          "edgeRatioRange": [
+            0.9999999477125922,
+            1.000000088469913
+          ],
+          "fraction": 0.375,
+          "heldSeamErrorMeters": 1.1917546528621148e-09,
+          "heldSeamForceNormN": 0.11917546528621147,
+          "maxSpeedMetersPerSecond": 0.07551618251997481,
+          "momentumKgMetersPerSecond": [
+            1.0185213936454915e-20,
+            -4.1289193912351324e-21,
+            2.473527530784483e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065871046288901,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.299126249967088e-11,
+          "sewingGapMeters": [
+            0.0020000012867495555,
+            0.00209341289537111
+          ],
+          "sewingJoules": 7.101395763092498e-11
+        },
+        {
+          "anglesRadians": [
+            0.29970007723453534,
+            -0.18719921102451484
+          ],
+          "centerOfMassShiftMeters": [
+            4.7516544102320076e-18,
+            1.835916571298697e-18,
+            6.931526724992237e-17
+          ],
+          "contactJoules": 3.988832797217265e-06,
+          "edgeRatioRange": [
+            1.000000008301186,
+            1.000000076354568
+          ],
+          "fraction": 0.40625,
+          "heldSeamErrorMeters": 1.1919763678695794e-09,
+          "heldSeamForceNormN": 0.11919763678695795,
+          "maxSpeedMetersPerSecond": 0.0759890837988307,
+          "momentumKgMetersPerSecond": [
+            2.33563570487557e-20,
+            -2.9750126186989982e-21,
+            2.8272140406628977e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065308607242549,
+          "pendingRowForceN": 0.0,
+          "residualN": 2.1217468049433003e-10,
+          "sewingGapMeters": [
+            0.0020000012869712705,
+            0.002093469139275745
+          ],
+          "sewingJoules": 7.104038307797774e-11
+        },
+        {
+          "anglesRadians": [
+            0.29970047556817897,
+            -0.2247002284513156
+          ],
+          "centerOfMassShiftMeters": [
+            5.556560156651728e-18,
+            1.874803511250509e-18,
+            7.520845355951446e-17
+          ],
+          "contactJoules": 3.9888405649333185e-06,
+          "edgeRatioRange": [
+            0.9999999948230143,
+            1.0000000848956268
+          ],
+          "fraction": 0.4375,
+          "heldSeamErrorMeters": 1.1919904733398434e-09,
+          "heldSeamForceNormN": 0.11919904733398433,
+          "maxSpeedMetersPerSecond": 0.07606938864891331,
+          "momentumKgMetersPerSecond": [
+            3.2184959439655096e-20,
+            1.5498941261938303e-21,
+            2.356372891017609e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065123547380982,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.0889478208042647e-10,
+          "sewingGapMeters": [
+            0.002000001286985376,
+            0.002093487645261902
+          ],
+          "sewingJoules": 7.104206442664721e-11
+        },
+        {
+          "anglesRadians": [
+            0.2997004868195715,
+            -0.2622000679630252
+          ],
+          "centerOfMassShiftMeters": [
+            5.97160772672635e-18,
+            1.987742109104316e-18,
+            8.177759572950619e-17
+          ],
+          "contactJoules": 3.988844933094193e-06,
+          "edgeRatioRange": [
+            0.999999986636793,
+            1.0000000875424775
+          ],
+          "fraction": 0.46875,
+          "heldSeamErrorMeters": 1.191988451953313e-09,
+          "heldSeamForceNormN": 0.1191988451953313,
+          "maxSpeedMetersPerSecond": 0.07623878270723258,
+          "momentumKgMetersPerSecond": [
+            1.6590373931281687e-20,
+            4.538223428315591e-21,
+            2.6246914188664986e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065110236580057,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.485566002492391e-11,
+          "sewingGapMeters": [
+            0.0020000012869833546,
+            0.0020934889763419944
+          ],
+          "sewingJoules": 7.104182347950278e-11
+        },
+        {
+          "anglesRadians": [
+            0.29970041037338924,
+            -0.299700139119908
+          ],
+          "centerOfMassShiftMeters": [
+            6.2445346285171244e-18,
+            2.2258993094606086e-18,
+            8.690551502977839e-17
+          ],
+          "contactJoules": 3.988835415972376e-06,
+          "edgeRatioRange": [
+            1.0000000080530707,
+            1.000000078958487
+          ],
+          "fraction": 0.5,
+          "heldSeamErrorMeters": 1.1919941964901037e-09,
+          "heldSeamForceNormN": 0.11919941964901037,
+          "maxSpeedMetersPerSecond": 0.07636352205077171,
+          "momentumKgMetersPerSecond": [
+            1.093077622296339e-20,
+            9.473348460234364e-21,
+            2.055576587595081e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065169216030291,
+          "pendingRowForceN": 0.0,
+          "residualN": 7.518097255854173e-12,
+          "sewingGapMeters": [
+            0.002000001286989099,
+            0.002093483078396971
+          ],
+          "sewingJoules": 7.104250822330439e-11
+        },
+        {
+          "anglesRadians": [
+            0.2997294190818494,
+            -0.2998265247860652
+          ],
+          "centerOfMassShiftMeters": [
+            6.620961974600381e-18,
+            2.3111956489975067e-18,
+            9.287899220894341e-17
+          ],
+          "contactJoules": 3.988851009700366e-06,
+          "edgeRatioRange": [
+            0.9999999983879162,
+            1.000000092462552
+          ],
+          "fraction": 0.53125,
+          "heldSeamErrorMeters": 1.1943985965198745e-09,
+          "heldSeamForceNormN": 0.11943985965198745,
+          "maxSpeedMetersPerSecond": 0.0014951598551655556,
+          "momentumKgMetersPerSecond": [
+            1.5044233731728967e-20,
+            3.44313132163019e-21,
+            2.383894250462963e-19
+          ],
+          "pendingRowErrorMeters": -0.0009060409184940012,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.3977739937720557e-09,
+          "sewingGapMeters": [
+            0.002000001289393499,
+            0.002093959081505999
+          ],
+          "sewingJoules": 7.132940036843228e-11
+        },
+        {
+          "anglesRadians": [
+            0.29970077673197526,
+            -0.29970131173077075
+          ],
+          "centerOfMassShiftMeters": [
+            7.092838058911426e-18,
+            2.502061429834796e-18,
+            9.817306542161374e-17
+          ],
+          "contactJoules": 3.988834921053003e-06,
+          "edgeRatioRange": [
+            1.0000000086908045,
+            1.0000000593809963
+          ],
+          "fraction": 0.5625,
+          "heldSeamErrorMeters": 1.192014014838455e-09,
+          "heldSeamForceNormN": 0.1192014014838455,
+          "maxSpeedMetersPerSecond": 0.0013476385142299429,
+          "momentumKgMetersPerSecond": [
+            1.8882788449506822e-20,
+            7.647917817201825e-21,
+            2.143094034879077e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065047584843606,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.2435034529856281e-09,
+          "sewingGapMeters": [
+            0.0020000012870089174,
+            0.0020934952415156394
+          ],
+          "sewingJoules": 7.104487057856462e-11
+        },
+        {
+          "anglesRadians": [
+            0.29969995155406803,
+            -0.29969992068347495
+          ],
+          "centerOfMassShiftMeters": [
+            7.469666185778593e-18,
+            2.678727122881466e-18,
+            1.0315551860296296e-16
+          ],
+          "contactJoules": 3.988842673821923e-06,
+          "edgeRatioRange": [
+            0.9999999903059207,
+            1.000000067799623
+          ],
+          "fraction": 0.59375,
+          "heldSeamErrorMeters": 1.1919724525986941e-09,
+          "heldSeamForceNormN": 0.1191972452598694,
+          "maxSpeedMetersPerSecond": 0.00050991859210614,
+          "momentumKgMetersPerSecond": [
+            1.5075296385738605e-20,
+            7.064473291958181e-21,
+            1.9752899421569167e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065198221693016,
+          "pendingRowForceN": 0.0,
+          "residualN": 7.508157887081701e-08,
+          "sewingGapMeters": [
+            0.002000001286967355,
+            0.0020934801778306985
+          ],
+          "sewingJoules": 7.10399163877073e-11
+        },
+        {
+          "anglesRadians": [
+            0.29970025403569983,
+            -0.2997003269352167
+          ],
+          "centerOfMassShiftMeters": [
+            7.908096857785642e-18,
+            2.9140592697851854e-18,
+            1.0754981748394885e-16
+          ],
+          "contactJoules": 3.988835669358749e-06,
+          "edgeRatioRange": [
+            1.0000000077311748,
+            1.000000061267471
+          ],
+          "fraction": 0.625,
+          "heldSeamErrorMeters": 1.1919870528988297e-09,
+          "heldSeamForceNormN": 0.11919870528988295,
+          "maxSpeedMetersPerSecond": 0.0004473325795418544,
+          "momentumKgMetersPerSecond": [
+            1.7535636621004125e-20,
+            9.401899612359114e-21,
+            1.7530190941257074e-19
+          ],
+          "pendingRowErrorMeters": -0.000906517862727069,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.171552868823103e-10,
+          "sewingGapMeters": [
+            0.0020000012869819555,
+            0.002093482137272931
+          ],
+          "sewingJoules": 7.104165671392186e-11
+        },
+        {
+          "anglesRadians": [
+            0.29960097582578277,
+            -0.2997003837113505
+          ],
+          "centerOfMassShiftMeters": [
+            8.54583567853841e-18,
+            3.1115715684284097e-18,
+            1.1079399235034547e-16
+          ],
+          "contactJoules": 3.988834355485949e-06,
+          "edgeRatioRange": [
+            1.0000000087768923,
+            1.0000000581954982
+          ],
+          "fraction": 0.65625,
+          "heldSeamErrorMeters": 1.191995817589192e-09,
+          "heldSeamForceNormN": 0.1191995817589192,
+          "maxSpeedMetersPerSecond": 0.000472841056681446,
+          "momentumKgMetersPerSecond": [
+            2.5509194582622413e-20,
+            7.871183676732059e-21,
+            1.2932590026659083e-19
+          ],
+          "pendingRowErrorMeters": -0.00090651906359009,
+          "pendingRowForceN": 0.0,
+          "residualN": 9.574202625151074e-09,
+          "sewingGapMeters": [
+            0.00200000128699072,
+            0.00209348093640991
+          ],
+          "sewingJoules": 7.104270145750632e-11
+        },
+        {
+          "anglesRadians": [
+            0.29940186472752867,
+            -0.29970038171151575
+          ],
+          "centerOfMassShiftMeters": [
+            9.256689522738742e-18,
+            3.344591244849376e-18,
+            1.145644767941322e-16
+          ],
+          "contactJoules": 3.988833731884669e-06,
+          "edgeRatioRange": [
+            1.0000000089405034,
+            1.0000000581198372
+          ],
+          "fraction": 0.6875,
+          "heldSeamErrorMeters": 1.1919954654403264e-09,
+          "heldSeamForceNormN": 0.11919954654403263,
+          "maxSpeedMetersPerSecond": 0.0005928471729832273,
+          "momentumKgMetersPerSecond": [
+            2.8430418458770376e-20,
+            9.372325313442607e-21,
+            1.5053462044481624e-19
+          ],
+          "pendingRowErrorMeters": -0.000906520184768039,
+          "pendingRowForceN": 0.0,
+          "residualN": 9.970044149599654e-11,
+          "sewingGapMeters": [
+            0.002000001286990368,
+            0.002093479815231961
+          ],
+          "sewingJoules": 7.104265948151503e-11
+        },
+        {
+          "anglesRadians": [
+            0.298810063042232,
+            -0.2997006083176265
+          ],
+          "centerOfMassShiftMeters": [
+            1.0302829960103282e-17,
+            3.668571355041689e-18,
+            1.2045381814635875e-16
+          ],
+          "contactJoules": 3.98883319412e-06,
+          "edgeRatioRange": [
+            1.0000000090419408,
+            1.000000058092826
+          ],
+          "fraction": 0.71875,
+          "heldSeamErrorMeters": 1.1920140855284367e-09,
+          "heldSeamForceNormN": 0.11920140855284367,
+          "maxSpeedMetersPerSecond": 0.0013458917148045188,
+          "momentumKgMetersPerSecond": [
+            4.184514563748852e-20,
+            1.2953042884182287e-20,
+            2.3526263358397507e-19
+          ],
+          "pendingRowErrorMeters": -0.0009065174789270477,
+          "pendingRowForceN": 0.0,
+          "residualN": 6.42271125952281e-10,
+          "sewingGapMeters": [
+            0.002000001287008988,
+            0.0020934825210729524
+          ],
+          "sewingJoules": 7.104487900490976e-11
+        },
+        {
+          "anglesRadians": [
+            0.23007144358442816,
+            -0.2997534039663291
+          ],
+          "centerOfMassShiftMeters": [
+            1.1274168436878421e-17,
+            3.9871456806214065e-18,
+            1.2590469872906943e-16
+          ],
+          "contactJoules": 3.988900593082967e-06,
+          "edgeRatioRange": [
+            0.9999999474567984,
+            1.000000125792171
+          ],
+          "fraction": 0.75,
+          "heldSeamErrorMeters": 1.1963928415667513e-09,
+          "heldSeamForceNormN": 0.11963928415667513,
+          "maxSpeedMetersPerSecond": 0.13951888990849154,
+          "momentumKgMetersPerSecond": [
+            3.885896734567967e-20,
+            1.2734571965357129e-20,
+            2.186031080978531e-19
+          ],
+          "pendingRowErrorMeters": -0.0009056073832477887,
+          "pendingRowForceN": 0.0,
+          "residualN": 8.527956119053215e-12,
+          "sewingGapMeters": [
+            0.002000001291387744,
+            0.0020943926167522114
+          ],
+          "sewingJoules": 7.156779156760828e-11
+        },
+        {
+          "anglesRadians": [
+            0.12459025909556946,
+            -0.29964006625112544
+          ],
+          "centerOfMassShiftMeters": [
+            1.2035073178501722e-17,
+            4.379708960071958e-18,
+            1.3267762996511433e-16
+          ],
+          "contactJoules": 3.9889002603288094e-06,
+          "edgeRatioRange": [
+            0.99999993250511,
+            1.0000001161794745
+          ],
+          "fraction": 0.78125,
+          "heldSeamErrorMeters": 1.1944114313051923e-09,
+          "heldSeamForceNormN": 0.11944114313051922,
+          "maxSpeedMetersPerSecond": 0.21382469599932483,
+          "momentumKgMetersPerSecond": [
+            3.0431190961495784e-20,
+            1.5708114603370176e-20,
+            2.7149831728871986e-19
+          ],
+          "pendingRowErrorMeters": -0.0009060012595057932,
+          "pendingRowForceN": 0.0,
+          "residualN": 4.356262517379861e-09,
+          "sewingGapMeters": [
+            0.002000001289406334,
+            0.002093998740494207
+          ],
+          "sewingJoules": 7.13309333616259e-11
+        },
+        {
+          "anglesRadians": [
+            0.015000507809088709,
+            -0.2994089840132294
+          ],
+          "centerOfMassShiftMeters": [
+            1.3120228388640373e-17,
+            4.692128874165923e-18,
+            1.3878347806367422e-16
+          ],
+          "contactJoules": 3.9888379055904984e-06,
+          "edgeRatioRange": [
+            0.9999999379633646,
+            1.000000196849878
+          ],
+          "fraction": 0.8125,
+          "heldSeamErrorMeters": 1.1922894108638837e-09,
+          "heldSeamForceNormN": 0.11922894108638839,
+          "maxSpeedMetersPerSecond": 0.22183900376101492,
+          "momentumKgMetersPerSecond": [
+            4.3426147872362366e-20,
+            1.2493694597021548e-20,
+            2.453018134965699e-19
+          ],
+          "pendingRowErrorMeters": -0.0009064573826119476,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.044898929938089e-07,
+          "sewingGapMeters": [
+            0.0020000012872843135,
+            0.0020935426173880525
+          ],
+          "sewingJoules": 7.107770196290734e-11
+        },
+        {
+          "anglesRadians": [
+            -0.05512432189740998,
+            -0.2986853425773872
+          ],
+          "centerOfMassShiftMeters": [
+            1.4299778458277822e-17,
+            5.04092872885683e-18,
+            1.4508093890380462e-16
+          ],
+          "contactJoules": 4.026379822689321e-06,
+          "edgeRatioRange": [
+            0.9999998128866705,
+            1.0000001897093411
+          ],
+          "fraction": 0.84375,
+          "heldSeamErrorMeters": 1.196101428405788e-09,
+          "heldSeamForceNormN": 0.1196101428405788,
+          "maxSpeedMetersPerSecond": 0.14275431075004427,
+          "momentumKgMetersPerSecond": [
+            4.7220776757588274e-20,
+            1.3954889312559393e-20,
+            2.508065545606641e-19
+          ],
+          "pendingRowErrorMeters": -0.0009060185287544111,
+          "pendingRowForceN": 0.0,
+          "residualN": 6.693176611977103e-07,
+          "sewingGapMeters": [
+            0.002000001291096331,
+            0.002093981471245589
+          ],
+          "sewingJoules": 7.153293135171832e-11
+        },
+        {
+          "anglesRadians": [
+            -0.06311689364625997,
+            -0.21868107635354023
+          ],
+          "centerOfMassShiftMeters": [
+            1.5786154557826014e-17,
+            5.383511076665054e-18,
+            1.529853905216197e-16
+          ],
+          "contactJoules": 4.03938348997699e-06,
+          "edgeRatioRange": [
+            0.9999998142800364,
+            1.0000002310694007
+          ],
+          "fraction": 0.875,
+          "heldSeamErrorMeters": 1.202058877349671e-09,
+          "heldSeamForceNormN": 0.1202058877349671,
+          "maxSpeedMetersPerSecond": 0.16578236435906246,
+          "momentumKgMetersPerSecond": [
+            5.949350773030189e-20,
+            1.3721078217663302e-20,
+            3.1652547977160235e-19
+          ],
+          "pendingRowErrorMeters": -0.0009048457105436556,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.444633579428256e-09,
+          "sewingGapMeters": [
+            0.00200000129705378,
+            0.0020951542894563444
+          ],
+          "sewingJoules": 7.224727723075756e-11
+        },
+        {
+          "anglesRadians": [
+            -0.05960792338507205,
+            -0.07237951837212733
+          ],
+          "centerOfMassShiftMeters": [
+            1.7071829493665107e-17,
+            5.5900590822551105e-18,
+            1.679762180322184e-16
+          ],
+          "contactJoules": 3.5320526958674884e-06,
+          "edgeRatioRange": [
+            0.999999842279976,
+            1.000000200004959
+          ],
+          "fraction": 0.90625,
+          "heldSeamErrorMeters": 1.0643174666244426e-09,
+          "heldSeamForceNormN": 0.10643174666244426,
+          "maxSpeedMetersPerSecond": 0.29424066354528106,
+          "momentumKgMetersPerSecond": [
+            5.1341384110323765e-20,
+            8.256543531522348e-21,
+            5.995764684489236e-19
+          ],
+          "pendingRowErrorMeters": -0.000906013197258226,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.944995309451693e-07,
+          "sewingGapMeters": [
+            0.0020000011593123692,
+            0.002093986802741774
+          ],
+          "sewingJoules": 5.663858348809358e-11
+        },
+        {
+          "anglesRadians": [
+            0.011448121817363835,
+            0.0005147010447204097
+          ],
+          "centerOfMassShiftMeters": [
+            1.7887279904388495e-17,
+            5.6122299874143144e-18,
+            1.7957497503353625e-16
+          ],
+          "contactJoules": 3.494898804043362e-06,
+          "edgeRatioRange": [
+            0.9999998391723565,
+            1.000000278729939
+          ],
+          "fraction": 0.9375,
+          "heldSeamErrorMeters": 1.0529449040105887e-09,
+          "heldSeamForceNormN": 0.10529449040105887,
+          "maxSpeedMetersPerSecond": 0.11351712547156761,
+          "momentumKgMetersPerSecond": [
+            3.264321869807805e-20,
+            8.855238527605955e-22,
+            4.638816228905099e-19
+          ],
+          "pendingRowErrorMeters": -0.0009069730069084375,
+          "pendingRowForceN": 0.0,
+          "residualN": 5.277233441902673e-09,
+          "sewingGapMeters": [
+            0.0020000011479398066,
+            0.0020930269930915625
+          ],
+          "sewingJoules": 5.5434648544093393e-11
+        },
+        {
+          "anglesRadians": [
+            0.05517530043373713,
+            0.04304873354339486
+          ],
+          "centerOfMassShiftMeters": [
+            1.9056088015609383e-17,
+            5.4913922180458766e-18,
+            1.9472731786072144e-16
+          ],
+          "contactJoules": 3.510852859397624e-06,
+          "edgeRatioRange": [
+            0.9999999802978966,
+            1.000000129234585
+          ],
+          "fraction": 0.96875,
+          "heldSeamErrorMeters": 1.0589729835218387e-09,
+          "heldSeamForceNormN": 0.10589729835218387,
+          "maxSpeedMetersPerSecond": 0.068433405684242,
+          "momentumKgMetersPerSecond": [
+            4.6711405547663594e-20,
+            -4.834020749670802e-21,
+            6.062004492670514e-19
+          ],
+          "pendingRowErrorMeters": -0.0009064710188442719,
+          "pendingRowForceN": 0.0,
+          "residualN": 3.2254354055683e-07,
+          "sewingGapMeters": [
+            0.002000001153967886,
+            0.002093528981155728
+          ],
+          "sewingJoules": 5.607118899145722e-11
+        },
+        {
+          "anglesRadians": [
+            0.06421769441748221,
+            0.05201679094129651
+          ],
+          "centerOfMassShiftMeters": [
+            2.0497374640081385e-17,
+            5.236501195422541e-18,
+            2.092536572060634e-16
+          ],
+          "contactJoules": 3.5209971829432394e-06,
+          "edgeRatioRange": [
+            0.999999873298844,
+            1.000000168778999
+          ],
+          "fraction": 1.0,
+          "heldSeamErrorMeters": 1.0608897432415332e-09,
+          "heldSeamForceNormN": 0.10608897432415333,
+          "maxSpeedMetersPerSecond": 0.014013599095821843,
+          "momentumKgMetersPerSecond": [
+            5.766449292797185e-20,
+            -1.019540826462137e-20,
+            5.811925386895685e-19
+          ],
+          "pendingRowErrorMeters": -0.0009062140992402278,
+          "pendingRowForceN": 0.0,
+          "residualN": 1.2923392286867674e-08,
+          "sewingGapMeters": [
+            0.002000001155884646,
+            0.0020937859007597722
+          ],
+          "sewingJoules": 5.627435236575431e-11
+        }
+      ],
+      "peakContactEnergyScope": "reviewSummary.peakContactEnergyJoules excludes the initial state; initial energy is separately recorded.",
+      "peakMaximumSpeedMetersPerSecond": 0.6148086861234369,
+      "report": {
+        "bytes": 1035901,
+        "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/report.json",
+        "sha256": "1fff52ed0ff0e6283c607a11b25e75487aea5da6255c60685b56e079ac34060e"
+      },
+      "restGeometry": {
+        "areasMeters2": [
+          9.999999747378752e-05,
+          9.999999747378752e-05,
+          9.999999747378752e-05,
+          9.999999747378752e-05
+        ],
+        "bendingHinges": [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ]
+        ],
+        "bendingRestAngles": [
+          0.0,
+          0.0
+        ],
+        "bendingWeights": [
+          2.000000050291417e-05,
+          2.000000050291417e-05
+        ],
+        "faces": [
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            4,
+            6,
+            7
+          ],
+          [
+            5,
+            7,
+            6
+          ]
+        ],
+        "massKg": [
+          6.666666649834951e-06,
+          6.666666649834951e-06,
+          1.3333333299669903e-05,
+          1.3333333299669903e-05,
+          6.666666649834951e-06,
+          6.666666649834951e-06,
+          1.3333333299669903e-05,
+          1.3333333299669903e-05
+        ],
+        "materials": [
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            10000.0,
+            10000.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "nativeEdges": [
+          [
+            3,
+            -1,
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            2,
+            -1,
+            3,
+            0
+          ],
+          [
+            2,
+            -1,
+            1,
+            3
+          ],
+          [
+            3,
+            -1,
+            2,
+            1
+          ],
+          [
+            7,
+            -1,
+            4,
+            6
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ],
+          [
+            6,
+            -1,
+            7,
+            4
+          ],
+          [
+            6,
+            -1,
+            5,
+            7
+          ],
+          [
+            7,
+            -1,
+            6,
+            5
+          ]
+        ],
+        "poses": [
+          [
+            [
+              89.44271850585938,
+              -11.180339813232422
+            ],
+            [
+              -8.124198458372598e-16,
+              55.90169906616211
+            ]
+          ],
+          [
+            [
+              55.47002029418945,
+              -6.933752536773682
+            ],
+            [
+              -3.98852864730531e-15,
+              90.13877868652344
+            ]
+          ],
+          [
+            [
+              89.44271850585938,
+              -11.180339813232422
+            ],
+            [
+              -8.124198458372598e-16,
+              55.90169906616211
+            ]
+          ],
+          [
+            [
+              55.47002029418945,
+              -6.933752536773682
+            ],
+            [
+              -3.98852864730531e-15,
+              90.13877868652344
+            ]
+          ]
+        ],
+        "restPositionsMeters": [
+          [
+            0.004999999888241291,
+            0.009999999776482582,
+            0.0
+          ],
+          [
+            0.004999999888241291,
+            -0.009999999776482582,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.019999999552965164,
+            0.0,
+            0.0
+          ],
+          [
+            0.004999999888241291,
+            0.009999999776482582,
+            0.0020000000949949026
+          ],
+          [
+            0.004999999888241291,
+            -0.009999999776482582,
+            0.0020000000949949026
+          ],
+          [
+            0.0,
+            0.0,
+            0.0020000000949949026
+          ],
+          [
+            0.019999999552965164,
+            0.0,
+            0.0020000000949949026
+          ]
+        ]
+      },
+      "reviewLoadedHelpers": {
+        "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+        "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+        "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+        "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+        "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+        "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+        "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+        "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+        "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a"
+      },
+      "reviewSummary": {
+        "accepted": false,
+        "activationWorkRoundedStepSumJoules": 0.00013534259878141192,
+        "contactActiveFractions": [
+          0.03125,
+          0.0625,
+          0.09375,
+          0.125,
+          0.15625,
+          0.1875,
+          0.21875,
+          0.25,
+          0.28125,
+          0.3125,
+          0.34375,
+          0.375,
+          0.40625,
+          0.4375,
+          0.46875,
+          0.5,
+          0.53125,
+          0.5625,
+          0.59375,
+          0.625,
+          0.65625,
+          0.6875,
+          0.71875,
+          0.75,
+          0.78125,
+          0.8125,
+          0.84375,
+          0.875,
+          0.90625,
+          0.9375,
+          0.96875,
+          1.0
+        ],
+        "contactSupportLeaves": 128,
+        "crossLayerCoreCandidates": 0,
+        "exactDeclaredHingePrincipalBranchIntervals": 64,
+        "exactTriangleIntervals": 128,
+        "finalAnglesRadians": [
+          0.06421769441748221,
+          0.05201679094129651
+        ],
+        "finalHeldSeamForceNormN": 0.10608897432415333,
+        "finalMaximumSpeedMetersPerSecond": 0.014013599095821843,
+        "heldNonzeroForceStates": 32,
+        "initialContactEnergyJoules": 8.492959811016597e-06,
+        "initialContactGradientInfinityN": 0.10110496350945526,
+        "inputSha256": "2aefbc6594c3a28e8383e313a4a15523190bc0a758d5ce0137b5b274c7542d6f",
+        "limitations": [
+          "Read-only saved-state review; no generator, global solver, adaptive scheduler or energy-balance helper was imported or executed.",
+          "Control sampling, rounded coefficient witnesses and target-first parameter work were reconstructed independently with Fraction from original binary64 inputs; angles use an independently written sampler of the same declared binary64 geometric convention.",
+          "Membrane forces use an independent stress formula; hinge forces use the closed-form opposite-vertex gradient, distinct from the production chain rule. Sewing uses independently computed scalar distance and central-force formulas; the generator also retained that algebraic check. Contact force and energy reuse the pinned native contact adapter.",
+          "Stable fixed-angle motion, elastic-bending work and membrane energy changes reuse recorded mechanical helpers. This is not a wholly independent mechanical or transcendental arithmetic implementation.",
+          "Exact Fraction exhaustive swept-AABB enumeration covers all nonincident FV/EE primitive identities. Each recorded normal-support leaf and its entire time coverage is checked separately; actual candidate and cross-layer counts are retained per interval.",
+          "Exact triangle Bernstein positivity is independently proven with each start normal over every full saved interval. Every declared hinge also has positive normal-dot-product quartic Bernstein coefficients, proving its angle remains strictly between -pi/2 and pi/2, including inactive hinges. Endpoint intersections are recomputed by native HashGrid and BruteForce plus the shared separate surface oracle.",
+          "Input and repository helper bytes match the retained digests; native topology is checked against all oriented faces. Input records runtime versions, not a portable complete external-wheel fingerprint; this review does not upgrade callback files into supervised crash-safe capture/replay.",
+          "Unchanged input rest coordinates, stored native material/pose/mass data and final adapter rest snapshots are checked. Static artifacts cannot independently prove the historical in-memory model was never transiently mutated.",
+          "Held-anchor squared-distance extrema along each affine saved path use exact original-coordinate quadratic arithmetic; the reported length errors use 100-digit Decimal square roots, not correctly rounded exact-real square-root certificates. No tolerance-based seam acceptance is granted.",
+          "Generic eight-vertex synthetic direct-API fixture with one held and one pending scalar sewing row. Released folds leave the seam held; no all-controls-free tail, refined-source execution, continuous spatial stitching, material-normal joint, calibrated damping, settling, continuous actuator work, garment operation or application acceptance."
+        ],
+        "maximumForceResidualDisagreementN": 1.6396281034281035e-14,
+        "maximumHeldSeamAffinePathErrorMeters": 3.8079722202653606e-07,
+        "maximumHeldSeamErrorMeters": 1.273020549218129e-09,
+        "maximumHypotheticalPendingEnergyIfActivatedJoules": 41.33841887106614,
+        "maximumIndependentForceResidualN": 6.693176612115881e-07,
+        "maximumSourceEdgeRelativeChange": 1.1115903941760763e-06,
+        "minimumAbsolutePendingRowErrorMeters": 0.0008934747515033101,
+        "nonzeroContactClassifications": [
+          "interlayer"
+        ],
+        "originalGeneratorSha256": "12e0e3626071ec6e9985e7a8ddb6f98d37e680325d88d367c2bdf177cf9264c8",
+        "parameterWorkRoundedStepSumJoules": 0.00030062393849915006,
+        "peakContactEnergyJoules": 4.692680324363729e-06,
+        "peakContactGradientInfinityN": 0.12923158006383687,
+        "peakHeldSeamForceNormN": 0.1273020549218129,
+        "profile": "independent-saved-synthetic-mixed-sewing-fold-review-v1",
+        "releaseEnergyRemovedRoundedStepSumJoules": 1.0726924113026988e-08,
+        "reportSha256": "1fff52ed0ff0e6283c607a11b25e75487aea5da6255c60685b56e079ac34060e",
+        "runtime": {
+          "packages": {
+            "ipctk": "1.6.0",
+            "newton": "1.6.0",
+            "numpy": "2.5.3",
+            "scipy": "1.17.0",
+            "warp-lang": "1.17.0"
+          },
+          "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+          "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]"
+        },
+        "savedContactActiveStateCount": 32,
+        "savedStates": 32,
+        "scriptSha256": "880460eeb8423dd9a563f6eeffccd79b9efd56573610f645f6b6875ef2384ee0",
+        "sewingParameterWorkRoundedStepSumJoules": 0.0,
+        "targetWorkRoundedStepSumJoules": 0.00016528133971773813,
+        "verified": true
+      },
+      "runtime": {
+        "packages": {
+          "ipctk": "1.6.0",
+          "newton": "1.6.0",
+          "numpy": "2.5.3",
+          "scipy": "1.17.0",
+          "warp-lang": "1.17.0"
+        },
+        "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+        "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]"
+      },
+      "states": [
+        {
+          "bytes": 20260,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0001.json",
+          "sha256": "3f8ab2c7e1bb9bc2a1f0dc1cf18e3f7b44a270871f514ee018dc3cd39a66a44e"
+        },
+        {
+          "bytes": 18532,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0002.json",
+          "sha256": "8de76aeec4515df877a887ae380589c1c7560fedd40305628af1b3d27968ba41"
+        },
+        {
+          "bytes": 18563,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0003.json",
+          "sha256": "a5f1c4efc58b87ef375ecef3fd6a74855be25cd03d86f44810a84bea8796d6f9"
+        },
+        {
+          "bytes": 18528,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0004.json",
+          "sha256": "edff00dda93978b550afbf6344740c819107b65f3537fe4f9ebde32bc285596a"
+        },
+        {
+          "bytes": 18545,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0005.json",
+          "sha256": "e9d00014f181a2500ac25de6917b0f1c5a58447fd3ba93aaaee2915041453489"
+        },
+        {
+          "bytes": 18551,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0006.json",
+          "sha256": "ee3909a12e66dcf6e5ab25dd43aacd5fdfdae02d225054b8be7696b526900702"
+        },
+        {
+          "bytes": 18532,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0007.json",
+          "sha256": "c01517426abb2e050da24718cdcf962251feb2ec927418f3dcc0b34ceeaaddea"
+        },
+        {
+          "bytes": 18508,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0008.json",
+          "sha256": "9f47c894140fa3c36707d285b82ae13e0bdb5274c8eed1ec2e23c2b115aa4a86"
+        },
+        {
+          "bytes": 22662,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0009.json",
+          "sha256": "a34298ac36e8d94f03add87a4afe280d17eebb6a283bb8f9a17cfbdd6bbd1e63"
+        },
+        {
+          "bytes": 20583,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0010.json",
+          "sha256": "a0888fa1b513768394500939fd23713980d12fb5d8719368b4057cdaf8d4d6d6"
+        },
+        {
+          "bytes": 18709,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0011.json",
+          "sha256": "bc6450b5ce5c1a67db26de27649f8725257955221f2ff5b68d9f58298be7050b"
+        },
+        {
+          "bytes": 18643,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0012.json",
+          "sha256": "7a19e644054806df458bd586622635d1225317a22e3307e990a8f14299c2455d"
+        },
+        {
+          "bytes": 18867,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0013.json",
+          "sha256": "6c7220484a6691f2c5876b906655656f87bedb21e32bbcedcf073ac9c13e75ed"
+        },
+        {
+          "bytes": 19367,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0014.json",
+          "sha256": "ae73f402335119d8db402293f3f1ee66f84a94e88ace216894d5243cf873459b"
+        },
+        {
+          "bytes": 18682,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0015.json",
+          "sha256": "dac643083f9f41f1c72d0256ad9a084ce6d9f97cd645730daf9fb73d52124be7"
+        },
+        {
+          "bytes": 18633,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0016.json",
+          "sha256": "9339cee99fbb9ba3e59375f1179527fb9f0704c281f9197b34b125d45c7bc5f2"
+        },
+        {
+          "bytes": 19328,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0017.json",
+          "sha256": "ab29de704d0d91ec25e4d2d7f6265e3f35adf20a6d3b145df52af47b557f933c"
+        },
+        {
+          "bytes": 19189,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0018.json",
+          "sha256": "4056d5e7d2117d27c1ad5012e162bf9062991b265fc791daf0504217292b544f"
+        },
+        {
+          "bytes": 18198,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0019.json",
+          "sha256": "fe655bf9b4688f15c58b4a59330d20651a662af2b66127bd466bc91c18b725f9"
+        },
+        {
+          "bytes": 18207,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0020.json",
+          "sha256": "70d211387664b90a81cc22aeede4e7d56df7205440b87b619a0cf78efb587a6b"
+        },
+        {
+          "bytes": 18818,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0021.json",
+          "sha256": "28c6e7671c9610615a5df126233ffed95219903a9024a8daba57a25880bce12f"
+        },
+        {
+          "bytes": 18293,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0022.json",
+          "sha256": "2fa50b579569f84e76accfc83be708a8b7d0cfb3a0649f9cb8bc9ac8165ca75a"
+        },
+        {
+          "bytes": 18279,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0023.json",
+          "sha256": "28f81f98b2b0e2d4c1acc11e61cd65e328a7b15eb172923e4f33aee7cce17550"
+        },
+        {
+          "bytes": 19175,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0024.json",
+          "sha256": "7cc9dbc649712a3eee766bac7d2d7bb0b24630863c8e8bcacc8b13fc0e005b04"
+        },
+        {
+          "bytes": 19396,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0025.json",
+          "sha256": "50af33016c9fa0426538f5a71bc47349f3eda37861fefb70ba6dc9457cb557bb"
+        },
+        {
+          "bytes": 19370,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0026.json",
+          "sha256": "f6c351fa71e717d4ecf1ae9c7e1e659ef1e0f7073341ad4e9f1c596efa74d97b"
+        },
+        {
+          "bytes": 20166,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0027.json",
+          "sha256": "2b6c758a24f1cfe10e5d589202896977a07847046d227cd33ed6ec5dc135a0b3"
+        },
+        {
+          "bytes": 18843,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0028.json",
+          "sha256": "d8adb8aeb00547b35fd454991e43f510559ac85c83a4cffa4440e7c8adde0dac"
+        },
+        {
+          "bytes": 30756,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0029.json",
+          "sha256": "7eadf2bfdf5e284b800e0a4f4b31d63dff2daf29ce792f85c94d85afbf403cb4"
+        },
+        {
+          "bytes": 19859,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0030.json",
+          "sha256": "d662f324bc3c8ccccf7180427d71376ddeaa7a0c907c8bd8f1bcef13e102df34"
+        },
+        {
+          "bytes": 19711,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0031.json",
+          "sha256": "a6838ad88a2cf481d8365e4a0ff6492c981b4d520a62191a2ab7bd0b52dff742"
+        },
+        {
+          "bytes": 18905,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0032.json",
+          "sha256": "8708da5f643ad9ac215bf3ecf329d5619803321d96a74632ad160c3bd011dfa8"
+        }
+      ],
+      "worstAffineSeamInterval": {
+        "endFraction": 0.28125,
+        "gapMinusTargetExtremaMetersDecimal100": [
+          "-3.80797222026536065758636694652908836147296859651540717975120357578100748151353748827726169081121E-7",
+          "1.273020549571152151045282665447194124052693472662437586564485640471806910304180711628453224607E-9"
+        ],
+        "maximumAbsoluteGapErrorMeters": 3.8079722202653606e-07,
+        "maximumAtFraction": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "maximumSquaredGapMeters2": {
+          "denominator": "374144419156711147060143317175368453031918731001856",
+          "numerator": "1496579723968931802960353255502858527039247161"
+        },
+        "minimumAtFraction": {
+          "denominator": "36586829049396401618622373899645559966778633",
+          "numerator": "18294604348875600488183164845655965263621116"
+        },
+        "minimumSquaredGapMeters2": {
+          "denominator": "796790578371862818714837234139527029260085009053138427294522917219829513490343657472",
+          "numerator": "3185949069178694839350482247685822397426512616089851396663015827201506107690033"
+        },
+        "pathProof": {
+          "crossLayerCoreCandidates": 0,
+          "exhaustiveAabbCandidateCount": 4,
+          "hingeNormalDotQuarticBernsteinMargins": [
+            {
+              "denominator": "521481209941628438084722096232800809229175908778479680162851955034721612739414196782949728256",
+              "numerator": "19930270163016165437404314042951318462464609964177754311291738816353441917744693051371"
+            },
+            {
+              "denominator": "32592575621351777380295131014550050576823494298654980010178247189670100796213387298934358016",
+              "numerator": "1254636306533793023159650559478051493818838269437692358532909757434556955835963322175"
+            }
+          ],
+          "nativeCandidateCount": 4,
+          "supportWitnesses": [
+            {
+              "candidate": 0,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "1329227995784915872903807060280344576",
+                "numerator": "163597377154912623670753429515065"
+              },
+              "projectedGap": {
+                "denominator": "348449143727040986586495598010130648530944",
+                "numerator": "42776136060611847409861878981486909611"
+              },
+              "squaredCoreMargin": {
+                "denominator": "121416805764108066932466369176469931665150427440758720078238275608681517825325531136",
+                "numerator": "1829648380129367918408223895028743831390247755722324640909729016362562650681"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "121416805764108066932466369176469931665150427440758720078238275608681517825325531136",
+                "numerator": "6436338690728537784226786719115596230366251402768704179700281"
+              }
+            },
+            {
+              "candidate": 1,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "5316911983139663491615228241121378304",
+                "numerator": "654389470160004473395765529877413"
+              },
+              "projectedGap": {
+                "denominator": "1393796574908163946345982392040522594123776",
+                "numerator": "171104534161276368038147904029640295623"
+              },
+              "squaredCoreMargin": {
+                "denominator": "1942668892225729070919461906823518906642406839052139521251812409738904285205208498176",
+                "numerator": "29274370632342164251102707561714159409171690678019175647983107353737447396017"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "1942668892225729070919461906823518906642406839052139521251812409738904285205208498176",
+                "numerator": "118298730924461279724476505063986603856211785864225595149832881"
+              }
+            },
+            {
+              "candidate": 2,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "332306998946228968225951765070086144",
+                "numerator": "40899309878751615750688378768619"
+              },
+              "projectedGap": {
+                "denominator": "22300745198530623141535718272648361505980416",
+                "numerator": "2719311300284596697967726128796636988529"
+              },
+              "squaredCoreMargin": {
+                "denominator": "497323236409786642155382248146820840100456150797347717440463976893159497012533375533056",
+                "numerator": "7394041857913964199015563051210446148119788063881127176575992436204540657220065"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "497323236409786642155382248146820840100456150797347717440463976893159497012533375533056",
+                "numerator": "23994624464078957445913866267820835984451595151943582876053354977"
+              }
+            },
+            {
+              "candidate": 3,
+              "group": "ee_candidates",
+              "normalSquared": {
+                "denominator": "21267647932558653966460912964485513216",
+                "numerator": "2617555678401746093550544235694761"
+              },
+              "projectedGap": {
+                "denominator": "11150372599265311570767859136324180752990208",
+                "numerator": "1359655569179404291038985645253096986743"
+              },
+              "squaredCoreMargin": {
+                "denominator": "124330809102446660538845562036705210025114037699336929360115994223289874253133343883264",
+                "numerator": "1848510244324178289673949901991683922108024202618735648382213285701978910361425"
+              },
+              "storedLowerBoundSquaredMargin": {
+                "denominator": "124330809102446660538845562036705210025114037699336929360115994223289874253133343883264",
+                "numerator": "6151746116981057216242460011234094488916135806407800553025832785"
+              }
+            }
+          ],
+          "triangleStartNormalBernsteinMargins": [
+            {
+              "denominator": "260740604970814219042361048116400404614587954389239840081425977517360806369707098391474864128",
+              "numerator": "10428977615731491730417039030239577971206623299739235163234878056987303959139000239591"
+            },
+            {
+              "denominator": "260740604970814219042361048116400404614587954389239840081425977517360806369707098391474864128",
+              "numerator": "10428977921793137789224821735266610723080855982532667878577720091796750366966623496359"
+            },
+            {
+              "denominator": "65185151242703554760590262029100101153646988597309960020356494379340201592426774597868716032",
+              "numerator": "2577263743860934776543817002329971472557490917866567594118179701591343302858088109371"
+            },
+            {
+              "denominator": "65185151242703554760590262029100101153646988597309960020356494379340201592426774597868716032",
+              "numerator": "2577263821302317820777091767061773655555684423508553922420481987562192614874288883835"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "comparisonArtifact": {
+    "bytes": 18245,
+    "path": ".planning/solver/mixed-control-comparison-sep23-v1.json",
+    "sha256": "af09e3a0401fc5067fe38450bd8a251aa26a301a0d8a68262c0f299d5edbb97f"
+  },
+  "date": "2026-09-23",
+  "figure": {
+    "bytes": 470404,
+    "path": "docs/research/3d-mixed-control-motion.png",
+    "sha256": "56a06fa4ead7ef0ffbb332933ab74e410ba0c9fed6af78bfcf7eca164b917866"
+  },
+  "figureGenerator": {
+    "bytes": 4149,
+    "path": ".planning/solver/plot-mixed-control-motion-sep23-v1.py",
+    "sha256": "e7a63d9801249f8c37bc17cd4927fd1ef0c4d764e1d61b7a0b7b3db64202ada0"
+  },
+  "garmentMotionExecuted": false,
+  "generator": {
+    "bytes": 11095,
+    "path": ".planning/solver/make-mixed-control-ledger-sep23-v1.py",
+    "sha256": "c1140e4fc6e1721b1fc8cdba68bacfb6f3ef88f8ef1db8c14a02bdf3cca815a5"
+  },
+  "imageId": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+  "limitations": [
+    "Actual synthetic direct-API callback files are not supervised crash-safe capture or refined main replay.",
+    "The two activation widths are distinct physical input models and do not establish timestep, mesh or material convergence.",
+    "The wider buffer begins active; post-step peak energy is not the maximum including the initial state.",
+    "Both runs remain moving after fold release with sewing held. Neither is settled, all-controls-free, an interlayer core encounter or a garment phase.",
+    "Exact squared seam extrema and Decimal100 length observations have no declared acceptance tolerance and establish no spatial stitching.",
+    "Publication attack tests explicitly mock convergence; the separate mechanics regressions and saved-state controls provide actual numerical solve evidence.",
+    "Review discloses shared native contact and stable mechanical helpers; it is not independent textile/material validation.",
+    "Both proposed capture/main-replay entrypoint changes remain unapplied after automatic approval rejection, awaiting specific authorization.",
+    "A Git clone includes tests, this reduced ledger and figure; ignored raw scripts, input/state files, logs and runtimes are not included."
+  ],
+  "profile": "generic-mixed-control-motion-evidence-v1",
+  "publicationFailureArtifacts": [
+    {
+      "bytes": 3627,
+      "path": ".planning/solver/review-mixed-publication-sep23-v1.py",
+      "sha256": "5dd0702095ce5f0e2a57aedc51b33f759e3812832a8dd82bfd9b31ce7984dc4a"
+    },
+    {
+      "bytes": 2034,
+      "path": ".planning/solver/review-mixed-publication-sep23-v1.json",
+      "sha256": "a9ea884b2421d849ea6f9d1d8e5a6375e821e988cd6b4cc9a409da51288e6e7f"
+    },
+    {
+      "bytes": 2020,
+      "path": ".planning/solver/review-mixed-publication-sep23-v1.log",
+      "sha256": "a6fc1c19b34f2419aac85067ef49ea7aa5a1346ccbca6e6998d79f9728d68169"
+    }
+  ],
+  "publicationFailureBeforeRepair": {
+    "accepted": false,
+    "cases": [
+      {
+        "acceptedSteps": 4,
+        "attack": "control",
+        "callbackCount": 4,
+        "complete": true,
+        "secondOutcome": "accepted",
+        "secondReportedPendingRows": [],
+        "secondReportedSewingActivation": [
+          1.0
+        ],
+        "secondSewingParameterWork": 0.0,
+        "secondSewingParameterWorkPresent": true
+      },
+      {
+        "acceptedSteps": 4,
+        "attack": "post-work-sewing-diagnostic",
+        "callbackCount": 4,
+        "complete": true,
+        "secondOutcome": "accepted",
+        "secondReportedPendingRows": [
+          0
+        ],
+        "secondReportedSewingActivation": [
+          0.0
+        ],
+        "secondSewingParameterWork": 0.0,
+        "secondSewingParameterWorkPresent": true
+      },
+      {
+        "acceptedSteps": 4,
+        "attack": "missing-sewing-work",
+        "callbackCount": 4,
+        "complete": true,
+        "secondOutcome": "accepted",
+        "secondReportedPendingRows": [],
+        "secondReportedSewingActivation": [
+          1.0
+        ],
+        "secondSewingParameterWork": null,
+        "secondSewingParameterWorkPresent": false
+      },
+      {
+        "acceptedSteps": 4,
+        "attack": "boolean-sewing-work",
+        "callbackCount": 4,
+        "complete": true,
+        "secondOutcome": "accepted",
+        "secondReportedPendingRows": [],
+        "secondReportedSewingActivation": [
+          1.0
+        ],
+        "secondSewingParameterWork": false,
+        "secondSewingParameterWorkPresent": true
+      }
+    ],
+    "scope": "Synthetic mocked solver reports and actual primitive work only; no solved dynamics, garment source, capture admission or physical conclusion.",
+    "scriptSha256": "5dd0702095ce5f0e2a57aedc51b33f759e3812832a8dd82bfd9b31ce7984dc4a",
+    "sourceDigests": {
+      "solver_adaptive_contact.py": "db9beda8f7695a6ddbdb001d9f9df0441f3b5659f42dba84a982dd89fd224d6e",
+      "solver_energy_balance.py": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313",
+      "solver_global_sewing.py": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336"
+    }
+  },
+  "refinedSourceAdmissionChanged": false,
+  "repairBehavior": [
+    "Freeze sewing CSR data/indices/indptr, cached Cartesian operator, compliance, mode and frame metadata across each adaptive call.",
+    "Resample original fractions and recheck every step control/row diagnostic after work; preserve all original step fields except newly authored energy and actual gripper momentum diagnostics.",
+    "Require eleven complete finite non-Boolean sewing energy/work fields and global work totals, with six nonnegative quantities.",
+    "Copy and verify work inputs for weighted sewing as well as controlled folds; rejection preserves the accepted prefix before journal/callback publication."
+  ],
+  "repeatComparison": {
+    "accepted": false,
+    "betweenCasesInputChanges": [
+      {
+        "after": 0.002,
+        "before": 0.001,
+        "path": "/contact/fullActivationM"
+      },
+      {
+        "after": "12e0e3626071ec6e9985e7a8ddb6f98d37e680325d88d367c2bdf177cf9264c8",
+        "before": "780f741b7f70318140aef1ce1d704f41038fc3c268fd10dbc263456948ca61c4",
+        "path": "/scriptSha256"
+      }
+    ],
+    "cases": [
+      {
+        "adaptiveAndObservationsByteIdentical": true,
+        "all32StateFilesByteIdentical": true,
+        "inputChanges": [
+          {
+            "after": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec",
+            "before": "db9beda8f7695a6ddbdb001d9f9df0441f3b5659f42dba84a982dd89fd224d6e",
+            "path": "/sourceDigestsBefore/solver_adaptive_contact.py"
+          }
+        ],
+        "name": "mixed-sewing-fold-motion",
+        "newInput": {
+          "bytes": 13822,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/input.json",
+          "sha256": "8648d2309ed3f8164229e380faa4692b8130d9b58023bde9cbeb4b0bcce241d1"
+        },
+        "newReport": {
+          "bytes": 958313,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/report.json",
+          "sha256": "abdf1b6b69fc4a0eac7d78637a3dd73c5b4f15e7ae6d3eab7089db6713158dad"
+        },
+        "oldInput": {
+          "bytes": 13822,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v1/input.json",
+          "sha256": "649215fd2186bfe42087a1ea177e2a61498195937dbb43d2cfc013e411a47bac"
+        },
+        "oldReport": {
+          "bytes": 958314,
+          "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v1/report.json",
+          "sha256": "7a33c5750e1a3613cb28875ad354ee0c047d7fecbd882dcb7277cc208efd5a13"
+        },
+        "states": [
+          {
+            "bytes": 18142,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0001.json",
+            "sha256": "5572c78dbcbb60d075fc1d295909393e6fd02abccfaf3a5549751b343795475b"
+          },
+          {
+            "bytes": 18329,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0002.json",
+            "sha256": "bbd56bc63a3dbb2b26779b7cececc1fa178226fcae9c1dac1c9a2587ee00235b"
+          },
+          {
+            "bytes": 18350,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0003.json",
+            "sha256": "d317f250de3b1ada9001be6421e41458ed5c46e91b157e349ea4e012bd737a3f"
+          },
+          {
+            "bytes": 18308,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0004.json",
+            "sha256": "c57aa7a939387f5051aca22d9a300802028398a9bc0b02e8abf27397fb5799ba"
+          },
+          {
+            "bytes": 18304,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0005.json",
+            "sha256": "06088ec6f2dbbdd6d417fa6418f6db8b63b2f076a0e1b1634e8118e9a06f2bbf"
+          },
+          {
+            "bytes": 18339,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0006.json",
+            "sha256": "797cafddb5e12f9ca06bc7bb2e03e3f8fa933fec1c637582ee19052b63dd0d05"
+          },
+          {
+            "bytes": 18307,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0007.json",
+            "sha256": "4b48e25ff425ebbd2621f0cdbf479fe07fb842c1dc11d167153b4b20b2997f3f"
+          },
+          {
+            "bytes": 18300,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0008.json",
+            "sha256": "259b0f29aa0a84ebf30ae2f8139962984668457b24c0ebe85179cd72b475fce0"
+          },
+          {
+            "bytes": 18396,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0009.json",
+            "sha256": "abf0b67694bcbc9ed502f5f48d47f9275e0aff02b405e52b99c6e564d6c80799"
+          },
+          {
+            "bytes": 18427,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0010.json",
+            "sha256": "b620deb58f63c6e81073e9d5ec4bbc243a4b8113634330993ef91d57a4bdfb26"
+          },
+          {
+            "bytes": 18498,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0011.json",
+            "sha256": "3fef6542f66273a487e472cdf89d0dcc97b601f92f5444f7ff9bbc05d0303586"
+          },
+          {
+            "bytes": 18409,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0012.json",
+            "sha256": "31d3d51a96ea01e1d3b643abb39e79990e570cb00647c01377773d386b028a69"
+          },
+          {
+            "bytes": 18474,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0013.json",
+            "sha256": "3189f6cf3a5d37679ce80d7c65f02e6e9e83c88d6a9ec5c219765f2dbe5ab815"
+          },
+          {
+            "bytes": 18485,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0014.json",
+            "sha256": "86a39d6bacf3722667518eafcdcb7a96fd3110e9916c1ce1af928994534c45d8"
+          },
+          {
+            "bytes": 18474,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0015.json",
+            "sha256": "616979f69abf3314647e3cb43d377e46ab5b4c1d8bcae91607ba5f40428bdd6f"
+          },
+          {
+            "bytes": 18406,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0016.json",
+            "sha256": "17d71c4fcd2d9cce79350c4792c3af782e690ce7fae064e8df433e32fa8b5de6"
+          },
+          {
+            "bytes": 17959,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0017.json",
+            "sha256": "eb506e4dcff2f550ff9c303b9e7e097df026dde7db1722344152caea8fcd0eae"
+          },
+          {
+            "bytes": 17984,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0018.json",
+            "sha256": "b8bbb96ac7d949350e2fec263301f4e3fd7abc2012325baef98a5d05b4bffbd2"
+          },
+          {
+            "bytes": 17983,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0019.json",
+            "sha256": "011956ea67f3c87078e3731094aae1db131de5b251af0128d19aea3c04922218"
+          },
+          {
+            "bytes": 17241,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0020.json",
+            "sha256": "ab3f164e76fdd9e40b2c16c283870e1a0b5a66b5083fca76a4df9b6ea9c80e26"
+          },
+          {
+            "bytes": 18111,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0021.json",
+            "sha256": "f7aace79db5323813be5a9112310946097176317286ae7cb27b0ba0aa7e0c372"
+          },
+          {
+            "bytes": 18227,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0022.json",
+            "sha256": "64d3303456dcd4b7ba7bdec27840ebb5b74707c1787a6227ac1c03f4b48a60f5"
+          },
+          {
+            "bytes": 18228,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0023.json",
+            "sha256": "6264c111782b9b7c087b8332c04b4419faa4ff7ea2cdc3146c55d1ed582ada9f"
+          },
+          {
+            "bytes": 18798,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0024.json",
+            "sha256": "60ab096c10078b37ac5eca261cd05374cf01df88530425374bb33a5f266adcb6"
+          },
+          {
+            "bytes": 19183,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0025.json",
+            "sha256": "b4a073a56f7be2d65a117ad4f0132dd2f01cfa35b36f6cb898b4610a475807e6"
+          },
+          {
+            "bytes": 19136,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0026.json",
+            "sha256": "9778636309462f1eee4cc46eaa69cdfadab0bda6693f2bc2746a5d4fc9e3cee5"
+          },
+          {
+            "bytes": 18808,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0027.json",
+            "sha256": "c2f41b7415e1923375b65f4b17eeed8a0e4877f7bd243be1a121edc7f499b757"
+          },
+          {
+            "bytes": 18625,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0028.json",
+            "sha256": "dffb8be66f363cf9f2da6fe0905e037dcd272ba5ff3c0ad7762d835b1e11f84f"
+          },
+          {
+            "bytes": 19000,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0029.json",
+            "sha256": "a098c7d4d788e6896337aa0df21f66b845a51eedb5ac6f2cbe5ac24272975c27"
+          },
+          {
+            "bytes": 18995,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0030.json",
+            "sha256": "56aaaf0c1dc06a304d1db3605b09b1097db6090ac0d4b60f2271d54923d94380"
+          },
+          {
+            "bytes": 18501,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0031.json",
+            "sha256": "7cd6382b31c30dc1ca508102cf6c92060a2153b2c9054c95f3596e16effa3e28"
+          },
+          {
+            "bytes": 18515,
+            "path": ".planning/solver/mixed-sewing-fold-motion-sep23-v2/state-0032.json",
+            "sha256": "4563bc260374858dc43b7ba7b68e334ed623b8e1cb8476daced53824fa053a98"
+          }
+        ]
+      },
+      {
+        "adaptiveAndObservationsByteIdentical": true,
+        "all32StateFilesByteIdentical": true,
+        "inputChanges": [
+          {
+            "after": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec",
+            "before": "db9beda8f7695a6ddbdb001d9f9df0441f3b5659f42dba84a982dd89fd224d6e",
+            "path": "/sourceDigestsBefore/solver_adaptive_contact.py"
+          }
+        ],
+        "name": "mixed-sewing-fold-contact-motion",
+        "newInput": {
+          "bytes": 13822,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/input.json",
+          "sha256": "2aefbc6594c3a28e8383e313a4a15523190bc0a758d5ce0137b5b274c7542d6f"
+        },
+        "newReport": {
+          "bytes": 1035901,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/report.json",
+          "sha256": "1fff52ed0ff0e6283c607a11b25e75487aea5da6255c60685b56e079ac34060e"
+        },
+        "oldInput": {
+          "bytes": 13822,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v1/input.json",
+          "sha256": "674a53b2123fb53c0daf4f71f37ccb28f5041b396050c08959946a765d4f9ce9"
+        },
+        "oldReport": {
+          "bytes": 1035902,
+          "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v1/report.json",
+          "sha256": "5d729a696eff83a45ef4d506becdea64b697833961d40ef6b154fb27618aff1f"
+        },
+        "states": [
+          {
+            "bytes": 20260,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0001.json",
+            "sha256": "3f8ab2c7e1bb9bc2a1f0dc1cf18e3f7b44a270871f514ee018dc3cd39a66a44e"
+          },
+          {
+            "bytes": 18532,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0002.json",
+            "sha256": "8de76aeec4515df877a887ae380589c1c7560fedd40305628af1b3d27968ba41"
+          },
+          {
+            "bytes": 18563,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0003.json",
+            "sha256": "a5f1c4efc58b87ef375ecef3fd6a74855be25cd03d86f44810a84bea8796d6f9"
+          },
+          {
+            "bytes": 18528,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0004.json",
+            "sha256": "edff00dda93978b550afbf6344740c819107b65f3537fe4f9ebde32bc285596a"
+          },
+          {
+            "bytes": 18545,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0005.json",
+            "sha256": "e9d00014f181a2500ac25de6917b0f1c5a58447fd3ba93aaaee2915041453489"
+          },
+          {
+            "bytes": 18551,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0006.json",
+            "sha256": "ee3909a12e66dcf6e5ab25dd43aacd5fdfdae02d225054b8be7696b526900702"
+          },
+          {
+            "bytes": 18532,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0007.json",
+            "sha256": "c01517426abb2e050da24718cdcf962251feb2ec927418f3dcc0b34ceeaaddea"
+          },
+          {
+            "bytes": 18508,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0008.json",
+            "sha256": "9f47c894140fa3c36707d285b82ae13e0bdb5274c8eed1ec2e23c2b115aa4a86"
+          },
+          {
+            "bytes": 22662,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0009.json",
+            "sha256": "a34298ac36e8d94f03add87a4afe280d17eebb6a283bb8f9a17cfbdd6bbd1e63"
+          },
+          {
+            "bytes": 20583,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0010.json",
+            "sha256": "a0888fa1b513768394500939fd23713980d12fb5d8719368b4057cdaf8d4d6d6"
+          },
+          {
+            "bytes": 18709,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0011.json",
+            "sha256": "bc6450b5ce5c1a67db26de27649f8725257955221f2ff5b68d9f58298be7050b"
+          },
+          {
+            "bytes": 18643,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0012.json",
+            "sha256": "7a19e644054806df458bd586622635d1225317a22e3307e990a8f14299c2455d"
+          },
+          {
+            "bytes": 18867,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0013.json",
+            "sha256": "6c7220484a6691f2c5876b906655656f87bedb21e32bbcedcf073ac9c13e75ed"
+          },
+          {
+            "bytes": 19367,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0014.json",
+            "sha256": "ae73f402335119d8db402293f3f1ee66f84a94e88ace216894d5243cf873459b"
+          },
+          {
+            "bytes": 18682,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0015.json",
+            "sha256": "dac643083f9f41f1c72d0256ad9a084ce6d9f97cd645730daf9fb73d52124be7"
+          },
+          {
+            "bytes": 18633,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0016.json",
+            "sha256": "9339cee99fbb9ba3e59375f1179527fb9f0704c281f9197b34b125d45c7bc5f2"
+          },
+          {
+            "bytes": 19328,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0017.json",
+            "sha256": "ab29de704d0d91ec25e4d2d7f6265e3f35adf20a6d3b145df52af47b557f933c"
+          },
+          {
+            "bytes": 19189,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0018.json",
+            "sha256": "4056d5e7d2117d27c1ad5012e162bf9062991b265fc791daf0504217292b544f"
+          },
+          {
+            "bytes": 18198,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0019.json",
+            "sha256": "fe655bf9b4688f15c58b4a59330d20651a662af2b66127bd466bc91c18b725f9"
+          },
+          {
+            "bytes": 18207,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0020.json",
+            "sha256": "70d211387664b90a81cc22aeede4e7d56df7205440b87b619a0cf78efb587a6b"
+          },
+          {
+            "bytes": 18818,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0021.json",
+            "sha256": "28c6e7671c9610615a5df126233ffed95219903a9024a8daba57a25880bce12f"
+          },
+          {
+            "bytes": 18293,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0022.json",
+            "sha256": "2fa50b579569f84e76accfc83be708a8b7d0cfb3a0649f9cb8bc9ac8165ca75a"
+          },
+          {
+            "bytes": 18279,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0023.json",
+            "sha256": "28f81f98b2b0e2d4c1acc11e61cd65e328a7b15eb172923e4f33aee7cce17550"
+          },
+          {
+            "bytes": 19175,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0024.json",
+            "sha256": "7cc9dbc649712a3eee766bac7d2d7bb0b24630863c8e8bcacc8b13fc0e005b04"
+          },
+          {
+            "bytes": 19396,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0025.json",
+            "sha256": "50af33016c9fa0426538f5a71bc47349f3eda37861fefb70ba6dc9457cb557bb"
+          },
+          {
+            "bytes": 19370,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0026.json",
+            "sha256": "f6c351fa71e717d4ecf1ae9c7e1e659ef1e0f7073341ad4e9f1c596efa74d97b"
+          },
+          {
+            "bytes": 20166,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0027.json",
+            "sha256": "2b6c758a24f1cfe10e5d589202896977a07847046d227cd33ed6ec5dc135a0b3"
+          },
+          {
+            "bytes": 18843,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0028.json",
+            "sha256": "d8adb8aeb00547b35fd454991e43f510559ac85c83a4cffa4440e7c8adde0dac"
+          },
+          {
+            "bytes": 30756,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0029.json",
+            "sha256": "7eadf2bfdf5e284b800e0a4f4b31d63dff2daf29ce792f85c94d85afbf403cb4"
+          },
+          {
+            "bytes": 19859,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0030.json",
+            "sha256": "d662f324bc3c8ccccf7180427d71376ddeaa7a0c907c8bd8f1bcef13e102df34"
+          },
+          {
+            "bytes": 19711,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0031.json",
+            "sha256": "a6838ad88a2cf481d8365e4a0ff6492c981b4d520a62191a2ab7bd0b52dff742"
+          },
+          {
+            "bytes": 18905,
+            "path": ".planning/solver/mixed-sewing-fold-contact-motion-sep23-v2/state-0032.json",
+            "sha256": "8708da5f643ad9ac215bf3ecf329d5619803321d96a74632ad160c3bd011dfa8"
+          }
+        ]
+      }
+    ],
+    "dynamicsExecutedByComparison": false,
+    "profile": "saved-synthetic-mixed-control-comparison-v1",
+    "scope": "Each valid synthetic run reproduces all32raw saved states and complete numerical diagnostics under repaired publication checks. The separate contact case changes only declared activation width (and generator identity), not geometry, targets, stiffness, duration or rest data. This is not temporal/spatial convergence or garment acceptance.",
+    "script": {
+      "bytes": 2969,
+      "path": ".planning/solver/compare-mixed-control-runs-sep23-v1.py",
+      "sha256": "4208e5710d17106bcd9547729e175386db29d21f8dbb081339e4b2fd631671aa"
+    }
+  },
+  "reviewer": {
+    "bytes": 35977,
+    "path": ".planning/solver/review-mixed-sewing-fold-motion-sep23-v2.py",
+    "sha256": "880460eeb8423dd9a563f6eeffccd79b9efd56573610f645f6b6875ef2384ee0"
+  },
+  "scope": "Actual generic synthetic sewing/fold/contact integration, exact saved-path review and repaired adaptive publication validation; no garment operation acceptance.",
+  "sourceIdentity": [
+    {
+      "bytes": 31675,
+      "path": "scripts/solver_adaptive_contact.py",
+      "sha256": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec"
+    },
+    {
+      "bytes": 17399,
+      "path": "scripts/test_solver_mixed_control_integration.py",
+      "sha256": "a29c84027a51c28bed526acd658988c01d24540130f2a3abc43d84901555895a"
+    },
+    {
+      "bytes": 14789,
+      "path": "scripts/test_solver_mixed_control_publication.py",
+      "sha256": "cfd43c7b54c9e18da49543f7535b2b2214bd1cc9b9e58e25c2471d5ae6982d3e"
+    }
+  ],
+  "unchangedExecutionSources": [
+    {
+      "bytes": 32674,
+      "path": "scripts/spike-contact-continuation.py",
+      "sha256": "ab9f17fb1dee9a2e43e87fb32795e39382530fdf5de91d3b04966a4ac080a26c"
+    },
+    {
+      "bytes": 31616,
+      "path": "scripts/replay-rest-filtered-continuation.py",
+      "sha256": "a323cd47c6d00748e82d5dd023be807e47cfd56a157e5f08b09d1d1fdafd2c24"
+    },
+    {
+      "bytes": 47901,
+      "path": "scripts/solver_global_sewing.py",
+      "sha256": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336"
+    },
+    {
+      "bytes": 29784,
+      "path": "scripts/solver_energy_balance.py",
+      "sha256": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313"
+    }
+  ],
+  "verification": {
+    "countsOverlap": true,
+    "existingActivationAdaptiveNative": {
+      "bytes": 104,
+      "passed": true,
+      "path": ".planning/solver/mixed-sewing-adaptive-existing-native-sep23-v2.log",
+      "seconds": 0.043,
+      "sha256": "8e83c9e30711d3808140522c0a784c32a4a16bd2d9a482bfdc79f43bb50d7c5e",
+      "tests": 6
+    },
+    "fullPinnedLinux": {
+      "bytes": 6544,
+      "passed": true,
+      "path": ".planning/solver/mixed-control-full-numerical-sep23-v1.log",
+      "seconds": 596.167,
+      "sha256": "38edecc57e56aa5df340cf00eb3b1484d43c54acba221bfa211148ce51dcc6a6",
+      "tests": 1002
+    },
+    "logScope": "Complete output retained for each listed test run.",
+    "mechanicsLinux": {
+      "bytes": 1919,
+      "passed": true,
+      "path": ".planning/solver/mixed-control-integration-linux-sep23-v1.log",
+      "seconds": 1.348,
+      "sha256": "284d171534300be738a6aaf6189213d6ef6acc7e558118a9a2f37e1bca94dfb9",
+      "tests": 6
+    },
+    "mechanicsNative": {
+      "bytes": 1793,
+      "passed": true,
+      "path": ".planning/solver/mixed-control-integration-native-sep23-v1.log",
+      "seconds": 1.496,
+      "sha256": "99bc35796f668eb0580ae6ec46a5369cf2ac7a4933838f01332c0e775b46f05b",
+      "tests": 6
+    },
+    "newTests": 15,
+    "priorFocusedLogExplanation": "Initial publication fixture used invalid normal-side dtype/positive-anchor frames; corrected only that test fixture. Initial existing-activation compatibility exposed a production typo in the excluded gripper momentum key; corrected production key with conditional exclusion. Earlier eight-method publication passes precede the final nine-method sewing-only coverage.",
+    "priorFocusedLogs": [
+      {
+        "bytes": 5797,
+        "path": ".planning/solver/mixed-control-publication-native-sep23-v1.log",
+        "sha256": "dbe6eecec0e71008f4fbdc46553ee00da6114fb9165ab223b86108c940b52dc1"
+      },
+      {
+        "bytes": 5773,
+        "path": ".planning/solver/mixed-control-publication-linux-sep23-v1.log",
+        "sha256": "1c25649394b9afe35c7e4d587faf0e693666eb31347bf7e891900dd821777b0d"
+      },
+      {
+        "bytes": 2155,
+        "path": ".planning/solver/mixed-control-publication-native-sep23-v2.log",
+        "sha256": "46197cf7a33746d442e6588b04a180ccc8f0ce769a93fdbccee62becece23ac2"
+      },
+      {
+        "bytes": 2281,
+        "path": ".planning/solver/mixed-control-publication-linux-sep23-v2.log",
+        "sha256": "ee846f501d8002b7f57beb9344d512fb2c7f9ce782c7839539139cde6eea1b0b"
+      },
+      {
+        "bytes": 797,
+        "path": ".planning/solver/mixed-sewing-adaptive-existing-native-sep23-v1.log",
+        "sha256": "dd72ee0014f0d3cce707caa75ad0f5c013c0b86f64766aaeea225c1b0ab1fe09"
+      }
+    ],
+    "publicationLinux": {
+      "bytes": 2501,
+      "passed": true,
+      "path": ".planning/solver/mixed-control-publication-linux-sep23-v3.log",
+      "seconds": 0.889,
+      "sha256": "4adbd92b241d9a24dac16b5bb41462582cc279e8170ab8cd9fda9e64e436455b",
+      "tests": 9
+    },
+    "publicationNative": {
+      "bytes": 2374,
+      "passed": true,
+      "path": ".planning/solver/mixed-control-publication-native-sep23-v3.log",
+      "seconds": 0.87,
+      "sha256": "aed2b5c18618b92b5deeb76c50f958270bc67ceefaa7516bbc354802717c0790",
+      "tests": 9
+    }
+  }
+}
