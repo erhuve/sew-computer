@@ -4,6 +4,42 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Loaded cable pair and released-tail timestep comparison · 2026-09-24
+
+Two integrated cable cells now carry load during the same saved motion interval, followed by a fully released tail. Three matched synthetic runs complete **64 ms at 32, 64 and 128 uniform intervals**, with **224 accepted states, zero rejected attempts and 112 fully released intervals**. Independent response, work and geometry checks pass. The timestep comparison nevertheless exposes unresolved early dynamics: whole-window position and velocity discrepancies grow as the timestep halves. The [loaded-pair ledger](3d-cable-loaded-tail-results.json) retains the complete input, source and artifact identities, reduced observations and prospective diagnostic. This is an evidence increment using unchanged numerical code from `624a45c`, with no garment or application acceptance.
+
+The eight-vertex, four-triangle, two-layer fixture retains its rest geometry, mass, membrane/bending and contact inputs. It has no point seams, fold/gripper actuators, gravity, body, friction or material damping. Compared with the preceding 32 ms experiment, this explicitly new input shortens the outer cell's tensile thresholds from 3→2.75 mm to **1.75→1.625 mm** and adds 32 ms after release. The center threshold remains 1.5→1.25 mm. The historical outer cell ID remains `slack-outer-points`; measured response, rather than that inherited name, determines whether it is loaded. This is neither a continuation nor an equivalent trajectory of the previous input.
+
+| Time (ms) | Center threshold (mm) | Outer threshold (mm) | Center activation | Outer activation |
+| --- | --- | --- | --- | --- |
+| 0 | 1.5 | 1.75 | 0 | 0 |
+| 4 | 1.5 | 1.75 | 1 | 0 |
+| 12 | 1.25 | 1.625 | 1 | 0.5 |
+| 16 | 1.25 | 1.625 | 1 | 1 |
+| 24 | 1.25 | 1.625 | 0 | 1 |
+| 32 | 1.25 | 1.625 | 0 | 0 |
+| 64 | 1.25 | 1.625 | 0 | 0 |
+
+All grids share exactly the same physical inputs, raw schedule and precision/resource policies. Controls interpolate on the original fractions. The predeclared runs use the pinned Linux ARM64 image, 600/605-second soft/hard CPU limits, a 1,200-second external timeout with five-second termination grace, 3 GB memory, one CPU, 256 PIDs and no network. No limit is exhausted. The force criterion stays at 1e-6 N; response and work precision do not change with timestep. The ledger records every actual partition and command. No motion failure or rejected prefix is omitted.
+
+| Intervals | Step (ms) | Released intervals | Peak native speed (mm/s) | Final maximum speed (mm/s) | Net discrete parameter work (J) |
+| --- | --- | --- | --- | --- | --- |
+| 32 | 2 | 16 | 23.6185 | 0.666070 | −3.35800e-8 |
+| 64 | 1 | 32 | 57.1476 | 0.999600 | +6.44563e-8 |
+| 128 | 0.5 | 64 | 139.780 | 1.300440 | +4.51216e-7 |
+
+Both cells have independently checked positive energy and force lower bounds at every saved state from **12 through 16 ms**. Exact rational quadratic minima at the fixed material fraction one-half additionally prove positive extension with positive activation over each saved affine path through that common interval; continuity supplies a positive material neighborhood. A separate exact Bernstein check confirms all twenty-eight cell/time witnesses. These statements distinguish sampled mechanical response from continuous geometry along the recorded affine paths. They do not certify an unsampled nonlinear physical trajectory or a complete seam.
+
+The fully released tail comprises intervals **starting at or after 32 ms**. The interval ending at 32 ms can still remove stored cable energy and is excluded. Across all 112 tail intervals, both old/new activations are zero, targets stay fixed, and cable energy, gradient, Hessian, response error bounds, parameter work and new-control motion work are exactly zero. Cloth, bending and contact remain enabled with their guards enforced; this does not imply nonzero contact force throughout the tail. Every saved state moves; there is no unchanged-position tail and no settling or material-damping claim. Final center endpoint gaps remain approximately 2.139–2.160 mm across these runs, above the initial approximately 2 mm gap and the final 1.25 mm tensile threshold.
+
+![Loaded cable controls, released motion and temporal discrepancies](3d-cable-loaded-tail.png)
+
+At the original common 2 ms endpoints, with no rigid alignment or nearest-time matching, peak maximum-vertex position disagreement increases from **0.0960456 mm** for 32 versus 64 intervals to **0.200515 mm** for 64 versus 128. Native velocity disagreement increases from **31.2029 to 103.597 mm/s**; common 2 ms secant disagreement increases from **29.6440 to 88.6670 mm/s**. The latter uses the same displacement window for both runs and remains distinct from each run's final-substep velocity. Tail-only position disagreement decreases from **6.17236 to 3.84669 µm**, but this narrower improvement does not establish whole-window convergence. Net discrete parameter work changes sign; its numerical enclosure does not bound trajectory discretization error or continuous actuator work.
+
+Independent saved-state review verifies **4,793 exact contact leaves and 896 triangle leaves**, all 224 endpoint responses/work records and all 112 released identities. Separate 32-node/100-digit and 64-node/180-digit response/work quadrature are numerical cross-checks, not a second rigorous enclosure. A standard-library comparison reproduces byte-identically; an additional 180-digit reduction checks 294 position/velocity/secant metric triples and all 224 kinetic energies. The preceding **1,272-test numerical/supervision suite passed in 801.821 seconds** on `624a45c`; it is not rerun or increased by these saved-state checks. All seventy-nine numerical/entrypoint/fixture files in the frozen manifest remain byte-identical. Documentation/whitespace checks apply to this evidence increment; no application build, browser, release or deployment result is claimed.
+
+The next diagnostic must isolate initial contact preload from cable control interaction. Initial contact energy is **8.49296e-6 J**, while initial cable energy is zero. Timestep discrepancies are already present by 2 ms, before the target ramp begins at 4 ms, but activation is changing during that interval. A prospective original/separated initial pose × scheduled/zero-activation comparison at 64 and 128 intervals would distinguish these effects more clearly. A proper rigid separation of the upper initial pose beyond the contact activation buffer is an explicitly changed initial condition that also changes later cable extension/work; it is not an equivalent trajectory or a proven fix. That experiment has not executed in this checkpoint. Temporal/spatial stability, construction-specific joint/layer semantics, joint spatial/temporal seam verification, actual binding/turning, calibrated material/body behavior and full-shirt acceptance remain open.
+
 ## Guarded varying cable controls · 2026-09-24
 
 Changing cable targets and activation now execute through the generic guarded solver, adaptive retries and complete discrete work accounting. The [varying-control ledger](3d-cable-varying-results.json) retains implementation identities, independent references, publication repairs and the matched synthetic comparison. This closes the generic integration prerequisite from the preceding parameter checkpoint. The controls remain supplied-cell research mechanics; they do not select a physical garment joint or admit refined source execution.
