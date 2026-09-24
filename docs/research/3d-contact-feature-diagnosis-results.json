@@ -1,0 +1,356 @@
+{
+  "accepted": false,
+  "activationGate": {
+    "areaWeightedOriginalAndWiderActivationCounts": [
+      0,
+      1
+    ],
+    "areaWeightedRetainedControl": [
+      {
+        "epsX": 0.001,
+        "kind": "EdgeEdgeNormalCollision",
+        "mollifier": 1.1102230246251257e-13,
+        "selectedFeature": "EA_EB0",
+        "weight": 0.08333333333333333
+      }
+    ],
+    "independentExactKktReview": {
+      "artifact": {
+        "bytes": 3824,
+        "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1.json",
+        "sha256": "711f2353890f046c1385cae087d533021ab418e83324131ba48164e05095c942"
+      },
+      "builtCollisions": 0,
+      "exactMinimumAndKktReconstructed": true,
+      "scope": "Independent stdlib exact geometry/KKT and source/claim reconciliation of the parent compiled execution; no duplicate native builder execution.",
+      "suppliedCandidates": 1,
+      "widerControlCollisions": 1
+    },
+    "scope": "One explicitly supplied candidate with exact finite-segment minimum below activation and native selected distance above it. Separate wire and positive-area triangle controls; not complete broad-phase or saved-trajectory inventory coverage.",
+    "wireBuiltCollisions": 0,
+    "wireSuppliedCandidates": 1,
+    "wireWiderActivationControlCollisions": 1
+  },
+  "artifactAvailability": "Raw scripts, source checkout, logs and references are ignored local research evidence. This committed ledger binds them but does not provision them in a fresh clone.",
+  "artifacts": [
+    {
+      "bytes": 562452,
+      "path": ".planning/solver/contact-work-endpoint-coverage-uniform2048-sep24-v1/result.json",
+      "sha256": "101c8527e08e639e99f23d2f7a78807f508c44ba402dc8b14208a1efc88f1358"
+    },
+    {
+      "bytes": 14824,
+      "path": ".planning/solver/contact-work-independent-reference-sep24-v1.py",
+      "sha256": "e6187c3869fb4efa0874cf324e6c4d77165b06d568e64de0ec229b3f9571f22f"
+    },
+    {
+      "bytes": 1287,
+      "path": ".planning/solver/contact-work-integration-full-numerical-linux-execution-sep24-v2.json",
+      "sha256": "8e7a10f2b488b19aef83cbc0ecd2c2533b85e279db85bc7aaf1cd0a9930edf74"
+    },
+    {
+      "bytes": 41640,
+      "path": ".planning/solver/contact-work-integration-test-declaration-sep24-v2.json",
+      "sha256": "fa8ecb015537f1da2964e8274b121e8dcedb96176421905604f00d870972adb7"
+    },
+    {
+      "bytes": 14566,
+      "path": ".planning/solver/contact-work-native-branch-review-before-ratio-assumption-sep24-v1.py",
+      "sha256": "b89f1573450c6ac8fd088c4041f9a30c05825d80607ccf588542f851918dcbd4"
+    },
+    {
+      "bytes": 716,
+      "path": ".planning/solver/contact-work-native-branch-review-check-sep24-v1.log",
+      "sha256": "17fd81c34f4e3cef4c912f1eda2f0ad4e94e784bda7784646d1720532d71db0d"
+    },
+    {
+      "bytes": 3108,
+      "path": ".planning/solver/contact-work-native-branch-review-declaration-sep24-v1.json",
+      "sha256": "d17cdc92b8cd497cf7be36d73cc55d97e4331a035d1f72f6d61ebbf898d07858"
+    },
+    {
+      "bytes": 3433,
+      "path": ".planning/solver/contact-work-native-branch-review-declaration-sep24-v2.json",
+      "sha256": "24f484c6cf9d008c1ecc6bff874843042cb63922e82f6eb22256e13ab3c741a5"
+    },
+    {
+      "bytes": 3846,
+      "path": ".planning/solver/contact-work-native-branch-review-execution-sep24-v1.json",
+      "sha256": "70932a6b22a97ded24b2a02b0e94919f4f04530866a6428d9755b23e981531c7"
+    },
+    {
+      "bytes": 1347606,
+      "path": ".planning/solver/contact-work-native-branch-review-sep24-v1.json",
+      "sha256": "59444050a907c2e500d2439d7b027efeb317fb656c79a1a187ef4a65afa9e8aa"
+    },
+    {
+      "bytes": 464,
+      "path": ".planning/solver/contact-work-native-branch-review-sep24-v1.log",
+      "sha256": "f9357e2e06d0e1cb2c6cc9059df1a1ad41c0749c1550eaac0d0d21531d6b8f4b"
+    },
+    {
+      "bytes": 6475,
+      "path": ".planning/solver/contact-work-native-branch-review-sep24-v1.md",
+      "sha256": "63c51e087547a9d595ba911c367b23189f6386f4a06d68b82e6d5194c8071498"
+    },
+    {
+      "bytes": 14670,
+      "path": ".planning/solver/contact-work-native-branch-review-sep24-v1.py",
+      "sha256": "115cea5255082ab7c635c2f06227df0f6b7e5134223ffbcd4bcb595fdaab1ff2"
+    },
+    {
+      "bytes": 716,
+      "path": ".planning/solver/contact-work-native-branch-review-sep24-v2.log",
+      "sha256": "17fd81c34f4e3cef4c912f1eda2f0ad4e94e784bda7784646d1720532d71db0d"
+    },
+    {
+      "bytes": 5385,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/candidates/edge_edge.cpp",
+      "sha256": "664a980408152350736258fa3ab7135c6268a75d5c934b6b207492cfe89c15cf"
+    },
+    {
+      "bytes": 13172,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/collisions/normal/normal_collisions.cpp",
+      "sha256": "f1ba4d569cd670a87c7b02eed92b11313ee4fffa7117f07c31c904da897b92fa"
+    },
+    {
+      "bytes": 25084,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/collisions/normal/normal_collisions_builder.cpp",
+      "sha256": "0146f4a528c29398808cd6060dcab9cb1dd916dad10089f4030d91ca26757cbd"
+    },
+    {
+      "bytes": 7447,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/distance/distance_type.cpp",
+      "sha256": "3ed5aa810c54cbad8b890076f022d62bf8f1ec945774ac208828dbf5829f21ef"
+    },
+    {
+      "bytes": 7446,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/distance/edge_edge.cpp",
+      "sha256": "a938a18ff50b85e33ef67190021a7dd41d415b41991f7670f1905f117643bdc8"
+    },
+    {
+      "bytes": 15628,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/distance/edge_edge_mollifier.cpp",
+      "sha256": "a8b17ebced68a8c7807ff2838fd65fc654c2c875dfb48293e20d74f02bf48bd9"
+    },
+    {
+      "bytes": 16554,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/distance/point_line.cpp",
+      "sha256": "9260fc8918bee89e6158a30158848f94f1a20ebc3d95cc4df818f6c7fc98ecac"
+    },
+    {
+      "bytes": 2675,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/potentials/barrier_potential.cpp",
+      "sha256": "e91b9af5b4ac0b56126b54264798e2af922874d3e11b08a06826bafd4e0a4e24"
+    },
+    {
+      "bytes": 15680,
+      "path": ".planning/solver/ipc-toolkit-v1.6.0-review/src/ipc/potentials/normal_potential.cpp",
+      "sha256": "c1ec1df270837e72a26fe5111395eae8e0c134689a6f4e6e97fda862445460a7"
+    },
+    {
+      "bytes": 1193,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v1-declaration.json",
+      "sha256": "aa19e87b550315cb4055ed073c34181fcd317c337bbde479a0bf0b5f6fcec7a2"
+    },
+    {
+      "bytes": 537,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v1-execution.json",
+      "sha256": "dc1a0a47d239cc241f61c425346ca6a48e1122a2943ff57139491264eb30db63"
+    },
+    {
+      "bytes": 2249,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v1.json",
+      "sha256": "fa671bb0fbc4e8a97ebf7ae0ba48505ec18cf899df61f165c690ea1ee1781213"
+    },
+    {
+      "bytes": 218,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v1.log",
+      "sha256": "e828bb586ae9880477c513e4d389d0676e1966d32b60d58cae507d84eb99aa08"
+    },
+    {
+      "bytes": 4109,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v1.py",
+      "sha256": "4038473e3f206645f3a6b913e51801cfb6973beff9bd0183f88c253b140c888b"
+    },
+    {
+      "bytes": 1557,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v2-declaration.json",
+      "sha256": "bd67c8f178363f2dd497f16853d65a9c2eba28ac9871abd632cae9d5a8e51622"
+    },
+    {
+      "bytes": 535,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v2-execution.json",
+      "sha256": "0a5a0aed1bbddbe145f0fa958e0a9660fca015cba6812bec18f6787302c6fd5b"
+    },
+    {
+      "bytes": 2249,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v2.json",
+      "sha256": "70f03f51734b39831e42e3965b2a9052704441370f0c95fb7b303ed2436336e8"
+    },
+    {
+      "bytes": 218,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v2.log",
+      "sha256": "c5597ceeccbdd8b7b758f6755c4d3512049f8c83df8b51d422440d2194b6ace0"
+    },
+    {
+      "bytes": 4192,
+      "path": ".planning/solver/native-parallel-area-gate-witness-sep24-v2.py",
+      "sha256": "f59c0aac4658521f891ae76bd559660a818ee01bc13d7096da4f3ab2ffd9d3af"
+    },
+    {
+      "bytes": 1111,
+      "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1-declaration.json",
+      "sha256": "4ad184ed87a0ca28eb8959acd2a473194cddf6bdf2c44699b21a9f0bb9f5177d"
+    },
+    {
+      "bytes": 548,
+      "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1-execution.json",
+      "sha256": "e6f0c5025fbdb12982747b21aa752f2eb0b991be08c641b05a5d27242bb6dbb9"
+    },
+    {
+      "bytes": 775,
+      "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1-retry-execution.json",
+      "sha256": "5096924ace030a104b31492b9ae80361d87046f5ab78957e951b99f5068a8fea"
+    },
+    {
+      "bytes": 246,
+      "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1-retry.log",
+      "sha256": "bdfbfd60cf43ab7baed9956e8bd80d385b40702317e7f46a3fdca5d9fb00ae54"
+    },
+    {
+      "bytes": 3824,
+      "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1.json",
+      "sha256": "711f2353890f046c1385cae087d533021ab418e83324131ba48164e05095c942"
+    },
+    {
+      "bytes": 324,
+      "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1.log",
+      "sha256": "1b66f03eb5ee00993072f737bf1035f4abd159bf499bb36d9d32eb69cbc2e346"
+    },
+    {
+      "bytes": 6742,
+      "path": ".planning/solver/native-parallel-candidate-gate-witness-sep24-v1.py",
+      "sha256": "824303ea9caa76e7e0c53507998297e7b1660bda26a934fb21bffee753ed39bf"
+    },
+    {
+      "bytes": 9415,
+      "path": ".planning/solver/package-contact-feature-diagnosis-sep24-v1.py",
+      "sha256": "a6f50ee44a7a6edcea0c96040092b041e7456d6603cf405b3367eeaaeaa9017b"
+    },
+    {
+      "bytes": 1072,
+      "path": ".planning/solver/review-native-parallel-area-gate-execution-sep24-v1.json",
+      "sha256": "155dad98a67e37018f8a6f2d40de213a44821a3a31094a18e76baa306a934537"
+    },
+    {
+      "bytes": 2787,
+      "path": ".planning/solver/review-native-parallel-area-gate-sep24-v1.json",
+      "sha256": "ad12a01083cc912046bbffb3ae3d84033d181a13e1cf5d37951cb9f677ed8860"
+    },
+    {
+      "bytes": 199,
+      "path": ".planning/solver/review-native-parallel-area-gate-sep24-v1.log",
+      "sha256": "86d2579e423c49dedca9abedcb60884d9d60012d6ca521881023bdb6036c2d1f"
+    },
+    {
+      "bytes": 5446,
+      "path": ".planning/solver/review-native-parallel-area-gate-sep24-v1.py",
+      "sha256": "2be0995be92e7dd390363f5013a9b66b646809c2917b645cf1e3f0d1435b1d2e"
+    },
+    {
+      "bytes": 17121,
+      "path": ".planning/solver/temporal-accuracy-uniform2048-sep24-v1/input.json",
+      "sha256": "2100e1a76ccb8b9f4c9e3b207fc3a06b52aab6c87f464f7de0179b9ada3ed11e"
+    },
+    {
+      "bytes": 66961,
+      "path": "docs/research/3d-contact-work-integration-results.json",
+      "sha256": "ae6b9a8977e8c70461b4e39ab372881b59fc0c7bd5cfc7cf2f34a33eb3f894f6"
+    }
+  ],
+  "baseCommit": "4c0a21290bdeee4ca0c0670a0395ce191e659e4b",
+  "classifierRepairImplemented": false,
+  "currentExactMinimumRejectionPreserved": true,
+  "date": "2026-09-24",
+  "deployed": false,
+  "diagnosisVerified": true,
+  "garmentAccepted": false,
+  "heuristicSwitch": {
+    "branchTangentialTranslationDerivative": 0,
+    "energyJumpApproximationJoules": 7.353350643000164e-24,
+    "scope": "Synthetic positive-mollifier scalar jump; fixed branch derivative in the common tangential translation is exactly zero."
+  },
+  "nativeBranchSummary": {
+    "allSelectedFormulasDefined": true,
+    "allSelectedProjectionParametersInsideSegment": true,
+    "allUnderParallelThreshold": true,
+    "cases": 16,
+    "distanceExcessRangeMetersSquared": [
+      4.4698552441008344e-14,
+      1.2789285727280088e-12
+    ],
+    "maximumBranchVersusMinimumGradientDifferenceNewtons": 1.9336408115356102e-16,
+    "selectedMinusMinimumEnergyRangeJoules": [
+      -1.9710339084950155e-26,
+      -8.38594018621325e-31
+    ]
+  },
+  "newMotionExecuted": false,
+  "next": [
+    "Preserve current exact-minimum rejection; do not turn a mathematically defined captured branch into a claim of continuous conservative native contact.",
+    "Implement and name a separate exact finite-feature contact model before candidate activation; include primitive conversion, weighting, multiplicity, energy, gradient, Hessian, work, caches and identity.",
+    "Test exact ties and degeneracies, near-parallel nondegenerate formulas, activation crossings and positive tiny mollifiers using these jump/gate witnesses and independent references.",
+    "Verify the actual pinned runtime, complete retained-state/candidate coverage and regression behavior before a newly declared temporal study; preserve force thresholds and exact path guards.",
+    "Retain B energy/depth feasibility, original preloaded controls, released tail, reference self-agreement, spatial accuracy, garment construction and material/body/application acceptance as separate unfinished gates."
+  ],
+  "parallelCutoffSwitch": {
+    "coordinateDifferenceMeters": {
+      "denominator": "144115188075855872",
+      "numerator": "1"
+    },
+    "energyJumpApproximationJoules": -2.703487379120794e-20,
+    "scope": "Adjacent binary64 coordinates select different branches. Endpoint force-times-displacement is diagnostic, not a bound on the intervening path."
+  },
+  "productionTouched": false,
+  "profile": "static-near-parallel-contact-feature-diagnosis-v1",
+  "pushed": false,
+  "retainedFailures": [
+    "Initial wire launch exited126 because the filesystem sandbox could not access the Docker socket; identical declared script/command passed with reviewed Docker access.",
+    "Area v1 wrote its result then exited139 during native borrowed-reference/container teardown. V2 releases the borrowed item before its owning container and completes exit0; geometry, activation and assertions are unchanged.",
+    "An area launcher Python syntax typo failed before any declaration files or Docker invocation; it is an orchestration error recorded here, not a numerical execution.",
+    "Independent branch review initially imposed an unjustified ratio>1000 assertion; the measured ratio was approximately566. The failed source snapshot/log and corrected successful/reproduction runs are retained."
+  ],
+  "temporalResolutionEstablished": false,
+  "verification": {
+    "areaExecutionExit": 0,
+    "fullNumericalSuiteRerun": false,
+    "independentAreaExecution": {
+      "bytes": 1072,
+      "path": ".planning/solver/review-native-parallel-area-gate-execution-sep24-v1.json",
+      "sha256": "155dad98a67e37018f8a6f2d40de213a44821a3a31094a18e76baa306a934537"
+    },
+    "independentAreaReview": {
+      "bytes": 2787,
+      "path": ".planning/solver/review-native-parallel-area-gate-sep24-v1.json",
+      "sha256": "ad12a01083cc912046bbffb3ae3d84033d181a13e1cf5d37951cb9f677ed8860"
+    },
+    "independentBranchByteReproduction": true,
+    "independentBranchExecutionExits": [
+      1,
+      0,
+      0
+    ],
+    "numericalSourceManifest": {
+      "bytes": 41640,
+      "path": ".planning/solver/contact-work-integration-test-declaration-sep24-v2.json",
+      "sha256": "fa8ecb015537f1da2964e8274b121e8dcedb96176421905604f00d870972adb7"
+    },
+    "precedingFullNumericalTests": 1384,
+    "protectedEntrypointsUnchanged": true,
+    "runtimeImage": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "sourceWheelScope": "Inspected source identities and observed compiled behavior are separate; an inspected source hash alone does not attest a wheel build.",
+    "unchangedNumericalTestRuntimeInputs": 225,
+    "wireExecutionExit": 0
+  }
+}
