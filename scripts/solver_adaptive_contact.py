@@ -443,33 +443,14 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
     if varying_control is not None:
         varying_sewing_identity = _sewing_model_identity(solver)
         varying_other_controls = (fold_recipe, controlled_fold_recipe, gripper_recipe)
-    attempts, accepted, rejected = [], [], []
-    completed_fraction = 0.
-    reason = "attempt-budget-exhausted"
-    pending = []
-    next_initial_interval = 0
-    while len(attempts) < max_attempts:
-        if not pending:
-            if next_initial_interval == initial_subdivisions:
-                reason = "complete"
-                break
-            interval = next_initial_interval
-            pending.append((interval / initial_subdivisions, (interval + 1) / initial_subdivisions, 0, None, interval))
-            next_initial_interval += 1
-        start_fraction, end_fraction, depth, parent_attempt, initial_interval = pending.pop()
-        duration = float(dt * (end_fraction - start_fraction))
-        if duration <= 0 or not np.isfinite(duration):
-            reason = "substep-duration-underflow"
-            break
-        sewing_progress, fold_progress = (schedule.progress(end_fraction) if schedule else
-                                          (end_fraction, end_fraction))
-        substep_targets = (targets.copy() if sewing_progress == 1 else
-                           initial_targets + sewing_progress * (targets - initial_targets))
-        record = {"attemptId": len(attempts) + 1, "parentAttemptId": parent_attempt,
-                  "initialInterval": initial_interval, "startFraction": start_fraction,
-                  "endFraction": end_fraction, "durationSeconds": duration, "depth": depth, "converged": False}
-        if attempt_journal is not None:
-            attempt_journal.start(copy.deepcopy(record) if varying_control is not None or tightened else record)
+    def validated_interval(current_positions, current_velocities, start_fraction, end_fraction,
+                           duration, sewing_progress, fold_progress, substep_targets, record):
+        """Evaluate one guarded interval without journaling or publishing state.
+
+        The closure retains the original admitted problem and global schedule.
+        Returning a valid trial does not advance the accepted path or work.
+        """
+        candidate_positions = candidate_velocities = None
         fatal = False
         propagate = None
         try:
@@ -717,6 +698,38 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         except BaseException as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
             valid, fatal, propagate = False, True, error
+        return candidate_positions, candidate_velocities, valid, fatal, propagate
+
+    attempts, accepted, rejected = [], [], []
+    completed_fraction = 0.
+    reason = "attempt-budget-exhausted"
+    pending = []
+    next_initial_interval = 0
+    while len(attempts) < max_attempts:
+        if not pending:
+            if next_initial_interval == initial_subdivisions:
+                reason = "complete"
+                break
+            interval = next_initial_interval
+            pending.append((interval / initial_subdivisions, (interval + 1) / initial_subdivisions, 0, None, interval))
+            next_initial_interval += 1
+        start_fraction, end_fraction, depth, parent_attempt, initial_interval = pending.pop()
+        duration = float(dt * (end_fraction - start_fraction))
+        if duration <= 0 or not np.isfinite(duration):
+            reason = "substep-duration-underflow"
+            break
+        sewing_progress, fold_progress = (schedule.progress(end_fraction) if schedule else
+                                          (end_fraction, end_fraction))
+        substep_targets = (targets.copy() if sewing_progress == 1 else
+                           initial_targets + sewing_progress * (targets - initial_targets))
+        record = {"attemptId": len(attempts) + 1, "parentAttemptId": parent_attempt,
+                  "initialInterval": initial_interval, "startFraction": start_fraction,
+                  "endFraction": end_fraction, "durationSeconds": duration, "depth": depth, "converged": False}
+        if attempt_journal is not None:
+            attempt_journal.start(copy.deepcopy(record) if varying_control is not None or tightened else record)
+        candidate_positions, candidate_velocities, valid, fatal, propagate = validated_interval(
+            current_positions, current_velocities, start_fraction, end_fraction,
+            duration, sewing_progress, fold_progress, substep_targets, record)
         record["outcome"] = "accepted" if valid else ("interrupted" if propagate is not None else "rejected")
         record["fatal"] = fatal
         if valid:
