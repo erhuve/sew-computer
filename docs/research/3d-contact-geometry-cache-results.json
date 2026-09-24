@@ -1,0 +1,2718 @@
+{
+  "accepted": false,
+  "artifactAvailability": "Curated ledger committed; raw scripts, declarations, logs, state inputs, byte snapshots and independent reviews retained locally in ignored .planning/. Baseline benchmark output lives in the original isolated checkout. Hashes identify retained bytes, not remote archival availability.",
+  "artifacts": [
+    {
+      "bytes": 1705,
+      "path": ".planning/solver/execute-geometry-cache-checks-sep24-v1.py",
+      "sha256": "1e19d93090105ae7d347e8f6d76d4cd25ebea4ac632ce17494634a1176a7902d"
+    },
+    {
+      "bytes": 2033,
+      "path": ".planning/solver/execute-geometry-cache-cost-sep24-v1.py",
+      "sha256": "dac374bdad93f07f011ec550cb523a70c9124d4d35672cbc13d1e8d484fb1b97"
+    },
+    {
+      "bytes": 2065,
+      "path": ".planning/solver/geometry-cache-cost-baseline-sep24-v1-execution.json",
+      "sha256": "363173ee11e6689acd0498a9dfa2afbc348c08adf6787032cb02885b7954abfe"
+    },
+    {
+      "bytes": 721,
+      "path": ".planning/solver/geometry-cache-cost-baseline-sep24-v1.log",
+      "sha256": "128d1b159c1e80b3af03fd2cfe954ce054a576bbd654844e2eb4f10421a0e0e7"
+    },
+    {
+      "bytes": 2093,
+      "path": ".planning/solver/geometry-cache-cost-candidate-sep24-v1-execution.json",
+      "sha256": "39dcd54cc8922e6e8dc7785940e96f137f5a20761e77bd2d3ac3dc119b0c92a3"
+    },
+    {
+      "bytes": 722,
+      "path": ".planning/solver/geometry-cache-cost-candidate-sep24-v1.log",
+      "sha256": "53ec4f01424625d6971d3b56b5645f0240968f1105aa940133d7e276de7c6945"
+    },
+    {
+      "bytes": 110711,
+      "path": ".planning/solver/geometry-cache-cost-declaration-sep24-v1.json",
+      "sha256": "2838d380da255c12fd9e319be91f7106f3bb60f43d091ed3e3b7368d4da209fe"
+    },
+    {
+      "bytes": 5252,
+      "path": ".planning/solver/geometry-cache-cost-sep24-v1.py",
+      "sha256": "95b811ec867351ab2ef10052e36e2af45fd3eebcf07287f2de233beda14235f8"
+    },
+    {
+      "bytes": 41061,
+      "path": ".planning/solver/geometry-cache-focused-declaration-sep24-v1.json",
+      "sha256": "2433098ac4ee3361885dcb9ed374d12979bc4fe4722f29bbb242ed95d1cb175f"
+    },
+    {
+      "bytes": 1459,
+      "path": ".planning/solver/geometry-cache-focused-sep24-v1-execution.json",
+      "sha256": "f43b79183114232530fa483b49f4cb10ffd124d3fef8f5cb927dde1ec96b5aa3"
+    },
+    {
+      "bytes": 2380,
+      "path": ".planning/solver/geometry-cache-focused-sep24-v1.log",
+      "sha256": "2af61599d1418bae5097f2956d78442d2a34f17c7aa679fabd993e9ce54c62ce"
+    },
+    {
+      "bytes": 41045,
+      "path": ".planning/solver/geometry-cache-full-declaration-sep24-v1.json",
+      "sha256": "0435a2f309b783f306810c4390d705791bdd5ec88005a37a2b4e2c80816a6df2"
+    },
+    {
+      "bytes": 1447,
+      "path": ".planning/solver/geometry-cache-full-sep24-v1-execution.json",
+      "sha256": "1b0c243a2e67c76ff34f8ce118e5e2e7c65726d04b95462dac463140386ff1b2"
+    },
+    {
+      "bytes": 10303,
+      "path": ".planning/solver/geometry-cache-full-sep24-v1.log",
+      "sha256": "b614695270e1c1037ca17f42800e44fecc38b31cf42c9f09781495302a62a9b4"
+    },
+    {
+      "bytes": 15092,
+      "path": ".planning/solver/package-contact-geometry-cache-sep24-v1.py",
+      "sha256": "3c967ca2e7c1c6680625f9570d9b63c9accab0331e080b297e23e88ed0649170"
+    },
+    {
+      "bytes": 8904,
+      "path": ".planning/solver/review-contact-geometry-cache-before-budget-fixture-fix-sep24-v1.py",
+      "sha256": "4f54149372832d72d2d8d02e9b01e867075adfad0491c0d2aeea814347192121"
+    },
+    {
+      "bytes": 2239,
+      "path": ".planning/solver/review-contact-geometry-cache-execution-sep24-v1.json",
+      "sha256": "95a58136f95cb092798c079870ff0e26cea1d233c484e538c88629fa20ea78ab"
+    },
+    {
+      "bytes": 5239,
+      "path": ".planning/solver/review-contact-geometry-cache-sep24-v1.json",
+      "sha256": "bdcf1a345a4b2af4c13236dde414019a349accd0f59a36b8747960d358c92a75"
+    },
+    {
+      "bytes": 639,
+      "path": ".planning/solver/review-contact-geometry-cache-sep24-v1.log",
+      "sha256": "a4b31c65a2a9abbe12edf987c13c6a4b751e183473144289ffb24f1b357c7db9"
+    },
+    {
+      "bytes": 8905,
+      "path": ".planning/solver/review-contact-geometry-cache-sep24-v1.py",
+      "sha256": "7e6964868d1b92433d02baa67e3501b8ad3ede02c95abfda4d6b81bb251682a0"
+    },
+    {
+      "bytes": 392,
+      "path": ".planning/solver/review-contact-geometry-cache-sep24-v2.log",
+      "sha256": "4a8d1c9ca6469ef110d8bf6ab172ee01a1ebd5cce11df3378f9b30a270b5dc70"
+    },
+    {
+      "bytes": 817,
+      "path": ".planning/solver/review-geometry-cache-cost-design-execution-sep24-v1.json",
+      "sha256": "e1b63d7d5d3f422cf345e393ec8b6fb7d26b5677794aff655796d0d174c0869b"
+    },
+    {
+      "bytes": 2867,
+      "path": ".planning/solver/review-geometry-cache-cost-design-sep24-v1.json",
+      "sha256": "31b2d8f4bcde5497678dfd011dff01feb57d921c2bf4925e616de3ca9443c355"
+    },
+    {
+      "bytes": 375,
+      "path": ".planning/solver/review-geometry-cache-cost-design-sep24-v1.log",
+      "sha256": "28c413f23966775400ac56f2184279236c3253c24087b70d496ef5a8278634d3"
+    },
+    {
+      "bytes": 4587,
+      "path": ".planning/solver/review-geometry-cache-cost-design-sep24-v1.py",
+      "sha256": "a739cbb55ea98eb80f331a69f48abd14068bbf37ee028550ac41ec65a7f6239a"
+    },
+    {
+      "bytes": 822,
+      "path": ".planning/solver/review-geometry-cache-cost-results-execution-sep24-v1.json",
+      "sha256": "844ccfae6fe4e5160e42b9a67fdbcf3981964b73a84eee32a51822f15007695d"
+    },
+    {
+      "bytes": 23562,
+      "path": ".planning/solver/review-geometry-cache-cost-results-sep24-v1.json",
+      "sha256": "8591d0249bfe2ae8d82ae51895ca8bbce51f210da77c9a7dbe5cdf70caee7127"
+    },
+    {
+      "bytes": 346,
+      "path": ".planning/solver/review-geometry-cache-cost-results-sep24-v1.log",
+      "sha256": "fc566fb6a03f4a57db146cbc08d2130f4bdfc13818d92670a734e8e5a79f271e"
+    },
+    {
+      "bytes": 8873,
+      "path": ".planning/solver/review-geometry-cache-cost-results-sep24-v1.py",
+      "sha256": "661a02225aeb089d783ad828082146c65112700ceff9712513da67a113d91ace"
+    },
+    {
+      "bytes": 1821,
+      "path": ".planning/solver/review-cache-publication-design-sep24-v1.json",
+      "sha256": "6aca24f28c8cf232311d5148cd7180d21fbbf22e43025c989cf3c89bfebc3193"
+    },
+    {
+      "bytes": 10853,
+      "path": ".planning/solver/review-cache-publication-curator-before-binding-fix-sep24-v1.py",
+      "sha256": "52ef663dc92ad6eb6f6c2fb7df249eeff37821a89c730cb5c1fcf857fa97acaa"
+    }
+  ],
+  "baseCommit": "0f2d35e0b7cdc45d50571df5027f8422e89aef42",
+  "benchmark": {
+    "completeWorkRecordsAndNativeResponseHashesIdentical": true,
+    "declaration": {
+      "bytes": 110711,
+      "path": ".planning/solver/geometry-cache-cost-declaration-sep24-v1.json",
+      "sha256": "2838d380da255c12fd9e319be91f7106f3bb60f43d091ed3e3b7368d4da209fe"
+    },
+    "endpointPairs": 6,
+    "observedCpuReductionFraction": 0.44752564115169424,
+    "observedWallReductionFraction": 0.44517612121235217,
+    "publicCheckedWorkCallsPerVariant": 72,
+    "rows": [
+      {
+        "candidateCacheCounts": [
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          }
+        ],
+        "endIndex": 64,
+        "endStateSha256": "e3d7d722b9c6b2ff90755ef3976e525d8529f1de23e1858c46aadbe1a78bf70a",
+        "native": {
+          "energyHex": "0x1.54e8da1c178f3p-28",
+          "gradientSha256": "9194481f057fab5aff27c7036c03e12234fbf8e1393735dcaa416952d57e0fff",
+          "hessianDataSha256": "a5c07205aa574b20e1dd71bc728d95952aa32f6b55be26ff5968b33611ddadd4",
+          "hessianIndicesSha256": "7f2f84fe5d3c6fb2edee799418ab37374c8617b7c98f86fdf6d8b5ecb01d6a76",
+          "hessianShape": [
+            24,
+            24
+          ]
+        },
+        "startStateSha256": "1a9c0ff0c1580ca034c75a018c8b3bcecad14bb2ab977efa5c50dd2a9b89fc00",
+        "timings": {
+          "baseline": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 86990417,
+                "wallNanoseconds": 86857875
+              },
+              {
+                "cpuNanoseconds": 100979542,
+                "wallNanoseconds": 101625875
+              },
+              {
+                "cpuNanoseconds": 86995708,
+                "wallNanoseconds": 86175667
+              },
+              {
+                "cpuNanoseconds": 85000041,
+                "wallNanoseconds": 85553375
+              },
+              {
+                "cpuNanoseconds": 85999708,
+                "wallNanoseconds": 85383084
+              },
+              {
+                "cpuNanoseconds": 87000208,
+                "wallNanoseconds": 87343791
+              },
+              {
+                "cpuNanoseconds": 85978834,
+                "wallNanoseconds": 85856875
+              },
+              {
+                "cpuNanoseconds": 86993083,
+                "wallNanoseconds": 88795417
+              },
+              {
+                "cpuNanoseconds": 89994625,
+                "wallNanoseconds": 90090459
+              },
+              {
+                "cpuNanoseconds": 88983500,
+                "wallNanoseconds": 88812875
+              },
+              {
+                "cpuNanoseconds": 85989708,
+                "wallNanoseconds": 86374375
+              },
+              {
+                "cpuNanoseconds": 105383707,
+                "wallNanoseconds": 105787125
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 86994395.5,
+              "wallNanoseconds": 87100833.0
+            },
+            "totals": {
+              "cpuNanoseconds": 1076289081,
+              "wallNanoseconds": 1078656793
+            }
+          },
+          "candidate": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 53999958,
+                "wallNanoseconds": 54202666
+              },
+              {
+                "cpuNanoseconds": 56834374,
+                "wallNanoseconds": 56405584
+              },
+              {
+                "cpuNanoseconds": 53975791,
+                "wallNanoseconds": 59767458
+              },
+              {
+                "cpuNanoseconds": 52988959,
+                "wallNanoseconds": 53627875
+              },
+              {
+                "cpuNanoseconds": 53999291,
+                "wallNanoseconds": 53576000
+              },
+              {
+                "cpuNanoseconds": 53000083,
+                "wallNanoseconds": 53298542
+              },
+              {
+                "cpuNanoseconds": 54095874,
+                "wallNanoseconds": 58739125
+              },
+              {
+                "cpuNanoseconds": 53870083,
+                "wallNanoseconds": 53584625
+              },
+              {
+                "cpuNanoseconds": 54855792,
+                "wallNanoseconds": 55580167
+              },
+              {
+                "cpuNanoseconds": 53987500,
+                "wallNanoseconds": 53856541
+              },
+              {
+                "cpuNanoseconds": 54000291,
+                "wallNanoseconds": 53610000
+              },
+              {
+                "cpuNanoseconds": 53972958,
+                "wallNanoseconds": 53792584
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 53993395.5,
+              "wallNanoseconds": 53824562.5
+            },
+            "totals": {
+              "cpuNanoseconds": 649580954,
+              "wallNanoseconds": 660041167
+            }
+          }
+        },
+        "workRecord": {
+          "accepted": false,
+          "changeErrorBoundJoules": 1.1581141621356154e-26,
+          "changeJoules": 1.548589956530464e-09,
+          "definition": {
+            "nativeIdentitySha256": "08a19302d2e7adc56981c5d66265e570230c0a84f74d34770da5a8aba4b66f35",
+            "policy": {
+              "bits": 160,
+              "max_endpoint_terms": 10000,
+              "max_fraction_bits": 32768,
+              "max_log_terms": 96,
+              "max_total_log_terms": 100000
+            },
+            "profile": "guarded-native-contact-work-control-v1",
+            "scalarProfile": "captured-ipc-contact-work-v1",
+            "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+            "vertexCount": 8
+          },
+          "end": {
+            "inventorySha256": "77220155acd8f19304e81716d3e3db0ebbc467c504aaf16a72fd295a333aa821",
+            "nativeEnergyJoules": 4.9608872809102615e-09,
+            "positionsSha256": "d69c4ed5a223433748295823afceba1a28a63489567e9225f4b4d3578048f21b",
+            "termCount": 25
+          },
+          "logCalls": 55,
+          "logTerms": 475,
+          "profile": "bounded-native-contact-work-record-v1",
+          "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+          "start": {
+            "inventorySha256": "43b175a4c52e328248139d9d3d0487a12dc7b2dcb4db3bb4ef0e7cfa73c45a1c",
+            "nativeEnergyJoules": 3.412297324379822e-09,
+            "positionsSha256": "95a26f7dced2dc4c09438ead5afd4a9c70e64e2f5449e8c0961e6c0910e8e590",
+            "termCount": 25
+          },
+          "unionTerms": 25
+        }
+      },
+      {
+        "candidateCacheCounts": [
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          },
+          {
+            "currsize": 82,
+            "hits": 266,
+            "maxsize": 256,
+            "misses": 82
+          }
+        ],
+        "endIndex": 128,
+        "endStateSha256": "44da9e5b1e4c4ebe083707917c977ff7057fbd9662a412396b9251c68321ddfa",
+        "native": {
+          "energyHex": "0x1.bffd8b56e112ap-28",
+          "gradientSha256": "ce0d1b23e510d26d0b092850b11f2dfdee918378360b6f0953269471636dc017",
+          "hessianDataSha256": "67674db7424eb26f0aa66687008134d88e320d6f95133e60d044c1b0bec387d9",
+          "hessianIndicesSha256": "7f2f84fe5d3c6fb2edee799418ab37374c8617b7c98f86fdf6d8b5ecb01d6a76",
+          "hessianShape": [
+            24,
+            24
+          ]
+        },
+        "startStateSha256": "6b9802afc8dcd5a0ac0e856f8f3868ac482d9a1a0edaf470088536f7e5fd16fb",
+        "timings": {
+          "baseline": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 85998833,
+                "wallNanoseconds": 86167292
+              },
+              {
+                "cpuNanoseconds": 86990416,
+                "wallNanoseconds": 86765917
+              },
+              {
+                "cpuNanoseconds": 89000833,
+                "wallNanoseconds": 89313917
+              },
+              {
+                "cpuNanoseconds": 88451582,
+                "wallNanoseconds": 92778083
+              },
+              {
+                "cpuNanoseconds": 85999458,
+                "wallNanoseconds": 85743333
+              },
+              {
+                "cpuNanoseconds": 88999625,
+                "wallNanoseconds": 88734000
+              },
+              {
+                "cpuNanoseconds": 85752041,
+                "wallNanoseconds": 87237333
+              },
+              {
+                "cpuNanoseconds": 87999375,
+                "wallNanoseconds": 87874292
+              },
+              {
+                "cpuNanoseconds": 88938708,
+                "wallNanoseconds": 89345041
+              },
+              {
+                "cpuNanoseconds": 85999374,
+                "wallNanoseconds": 85730208
+              },
+              {
+                "cpuNanoseconds": 89910417,
+                "wallNanoseconds": 89753667
+              },
+              {
+                "cpuNanoseconds": 88976333,
+                "wallNanoseconds": 89561000
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 88225478.5,
+              "wallNanoseconds": 88304146.0
+            },
+            "totals": {
+              "cpuNanoseconds": 1053016995,
+              "wallNanoseconds": 1059004083
+            }
+          },
+          "candidate": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 53998750,
+                "wallNanoseconds": 53924125
+              },
+              {
+                "cpuNanoseconds": 53385874,
+                "wallNanoseconds": 56600334
+              },
+              {
+                "cpuNanoseconds": 53999667,
+                "wallNanoseconds": 53939209
+              },
+              {
+                "cpuNanoseconds": 54000041,
+                "wallNanoseconds": 53660667
+              },
+              {
+                "cpuNanoseconds": 52999875,
+                "wallNanoseconds": 53374750
+              },
+              {
+                "cpuNanoseconds": 59000625,
+                "wallNanoseconds": 59112292
+              },
+              {
+                "cpuNanoseconds": 58973458,
+                "wallNanoseconds": 59580584
+              },
+              {
+                "cpuNanoseconds": 53999749,
+                "wallNanoseconds": 53474250
+              },
+              {
+                "cpuNanoseconds": 53999917,
+                "wallNanoseconds": 53675417
+              },
+              {
+                "cpuNanoseconds": 53000375,
+                "wallNanoseconds": 53465667
+              },
+              {
+                "cpuNanoseconds": 53000166,
+                "wallNanoseconds": 53241542
+              },
+              {
+                "cpuNanoseconds": 53999708,
+                "wallNanoseconds": 53303917
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 53999687.5,
+              "wallNanoseconds": 53668042.0
+            },
+            "totals": {
+              "cpuNanoseconds": 654358205,
+              "wallNanoseconds": 657352754
+            }
+          }
+        },
+        "workRecord": {
+          "accepted": false,
+          "changeErrorBoundJoules": 7.691764095608649e-26,
+          "changeJoules": -1.1956853293555613e-09,
+          "definition": {
+            "nativeIdentitySha256": "08a19302d2e7adc56981c5d66265e570230c0a84f74d34770da5a8aba4b66f35",
+            "policy": {
+              "bits": 160,
+              "max_endpoint_terms": 10000,
+              "max_fraction_bits": 32768,
+              "max_log_terms": 96,
+              "max_total_log_terms": 100000
+            },
+            "profile": "guarded-native-contact-work-control-v1",
+            "scalarProfile": "captured-ipc-contact-work-v1",
+            "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+            "vertexCount": 8
+          },
+          "end": {
+            "inventorySha256": "46866867855caf44b0d6f649f434b12008fd4346c056fba70deb0f766573471e",
+            "nativeEnergyJoules": 6.519118431607537e-09,
+            "positionsSha256": "6551a9d34cd25c74af0462498d8aa76248d87e6c710bcd648b700cc9117eb98a",
+            "termCount": 25
+          },
+          "logCalls": 55,
+          "logTerms": 475,
+          "profile": "bounded-native-contact-work-record-v1",
+          "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+          "start": {
+            "inventorySha256": "2cf7e115c3a589362cc2a39c3ef9953b566802044dd5a9741d714b581a339c0a",
+            "nativeEnergyJoules": 7.714803760963304e-09,
+            "positionsSha256": "fe77f3126c79b3306c887e2738a52bf6c52a815e8b5f1536499af06f26552e18",
+            "termCount": 25
+          },
+          "unionTerms": 25
+        }
+      },
+      {
+        "candidateCacheCounts": [
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          },
+          {
+            "currsize": 90,
+            "hits": 338,
+            "maxsize": 256,
+            "misses": 90
+          }
+        ],
+        "endIndex": 256,
+        "endStateSha256": "89f073ddd6d12c1da67c6d640f1ee1e1aaba49d8a68a1a3cee6905509ffca428",
+        "native": {
+          "energyHex": "0x1.0d4962ed01e5bp-28",
+          "gradientSha256": "bf612b900865d2be91c8f3ab1832147033a78825dbb1001ed2d697ce65df2da1",
+          "hessianDataSha256": "b85f264c7740834a78ce1461fee22105338c7a1289e278dd43ba23f390ad2ebb",
+          "hessianIndicesSha256": "7f2f84fe5d3c6fb2edee799418ab37374c8617b7c98f86fdf6d8b5ecb01d6a76",
+          "hessianShape": [
+            24,
+            24
+          ]
+        },
+        "startStateSha256": "4e39141b7975b786c8f6eee04cf2662d282595b28c2fc68f3855fd7b3b5e28a7",
+        "timings": {
+          "baseline": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 140449625,
+                "wallNanoseconds": 141876875
+              },
+              {
+                "cpuNanoseconds": 130954040,
+                "wallNanoseconds": 131267875
+              },
+              {
+                "cpuNanoseconds": 129990250,
+                "wallNanoseconds": 129338583
+              },
+              {
+                "cpuNanoseconds": 129956290,
+                "wallNanoseconds": 130620416
+              },
+              {
+                "cpuNanoseconds": 127995792,
+                "wallNanoseconds": 127403709
+              },
+              {
+                "cpuNanoseconds": 195851458,
+                "wallNanoseconds": 196371834
+              },
+              {
+                "cpuNanoseconds": 180401499,
+                "wallNanoseconds": 188382375
+              },
+              {
+                "cpuNanoseconds": 152992707,
+                "wallNanoseconds": 153081708
+              },
+              {
+                "cpuNanoseconds": 124947916,
+                "wallNanoseconds": 126379958
+              },
+              {
+                "cpuNanoseconds": 130002541,
+                "wallNanoseconds": 129815584
+              },
+              {
+                "cpuNanoseconds": 137899625,
+                "wallNanoseconds": 137835166
+              },
+              {
+                "cpuNanoseconds": 127946624,
+                "wallNanoseconds": 129131292
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 130478290.5,
+              "wallNanoseconds": 130944145.5
+            },
+            "totals": {
+              "cpuNanoseconds": 1709388367,
+              "wallNanoseconds": 1721505375
+            }
+          },
+          "candidate": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 71990333,
+                "wallNanoseconds": 72089959
+              },
+              {
+                "cpuNanoseconds": 71102458,
+                "wallNanoseconds": 75789208
+              },
+              {
+                "cpuNanoseconds": 75914166,
+                "wallNanoseconds": 75394292
+              },
+              {
+                "cpuNanoseconds": 72389125,
+                "wallNanoseconds": 73023417
+              },
+              {
+                "cpuNanoseconds": 71986917,
+                "wallNanoseconds": 72181333
+              },
+              {
+                "cpuNanoseconds": 71976583,
+                "wallNanoseconds": 77021125
+              },
+              {
+                "cpuNanoseconds": 73983249,
+                "wallNanoseconds": 73751750
+              },
+              {
+                "cpuNanoseconds": 72954499,
+                "wallNanoseconds": 72606208
+              },
+              {
+                "cpuNanoseconds": 73992874,
+                "wallNanoseconds": 74665000
+              },
+              {
+                "cpuNanoseconds": 71993542,
+                "wallNanoseconds": 72079958
+              },
+              {
+                "cpuNanoseconds": 71991667,
+                "wallNanoseconds": 72077500
+              },
+              {
+                "cpuNanoseconds": 73146541,
+                "wallNanoseconds": 74945584
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 72191333.5,
+              "wallNanoseconds": 73387583.5
+            },
+            "totals": {
+              "cpuNanoseconds": 873421954,
+              "wallNanoseconds": 885625334
+            }
+          }
+        },
+        "workRecord": {
+          "accepted": false,
+          "changeErrorBoundJoules": 5.411909822936512e-28,
+          "changeJoules": -2.1458185274138007e-10,
+          "definition": {
+            "nativeIdentitySha256": "08a19302d2e7adc56981c5d66265e570230c0a84f74d34770da5a8aba4b66f35",
+            "policy": {
+              "bits": 160,
+              "max_endpoint_terms": 10000,
+              "max_fraction_bits": 32768,
+              "max_log_terms": 96,
+              "max_total_log_terms": 100000
+            },
+            "profile": "guarded-native-contact-work-control-v1",
+            "scalarProfile": "captured-ipc-contact-work-v1",
+            "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+            "vertexCount": 8
+          },
+          "end": {
+            "inventorySha256": "9fadd3b32e2dfd7d304e3b56e1d9dba5f9b14bd7e3ab23eab105669e720be5a9",
+            "nativeEnergyJoules": 3.918636731949965e-09,
+            "positionsSha256": "44f4a7fc6b82a108c6e172329a46b5280e5524bb2c4d49f0f89d804e060128bb",
+            "termCount": 33
+          },
+          "logCalls": 71,
+          "logTerms": 554,
+          "profile": "bounded-native-contact-work-record-v1",
+          "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+          "start": {
+            "inventorySha256": "77e438a43437d8eb566723051d5ead0a82903bcff0a00a14d561565c3b5c58ba",
+            "nativeEnergyJoules": 4.133218584691557e-09,
+            "positionsSha256": "153c68a4c5672e4350a231ea0568585a47031686abff08efe27ee746c9909dff",
+            "termCount": 33
+          },
+          "unionTerms": 33
+        }
+      },
+      {
+        "candidateCacheCounts": [
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          },
+          {
+            "currsize": 102,
+            "hits": 326,
+            "maxsize": 256,
+            "misses": 102
+          }
+        ],
+        "endIndex": 512,
+        "endStateSha256": "af82ed15d402550e13de302da0c41e394d801d5bea5839f1a0dd43749209feca",
+        "native": {
+          "energyHex": "0x1.297e564d1585bp-27",
+          "gradientSha256": "e507ceaa666935c132d1fcea84d9df7b92147985c1722942dc477b9b977dac5b",
+          "hessianDataSha256": "74d7a04a9ad5b3d5ff1457cf35162c2c651df6b50581ba222235a2c736facd86",
+          "hessianIndicesSha256": "cba936d50fba14aee0f9d12857e9870adb9a981482915cf50eb5c50c767222d6",
+          "hessianShape": [
+            24,
+            24
+          ]
+        },
+        "startStateSha256": "0b1516b1e8def2def3073a653e39854b7f0c15ea9ffc49273197443f2d25ac24",
+        "timings": {
+          "baseline": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 182975041,
+                "wallNanoseconds": 183641167
+              },
+              {
+                "cpuNanoseconds": 386101582,
+                "wallNanoseconds": 390339917
+              },
+              {
+                "cpuNanoseconds": 159989916,
+                "wallNanoseconds": 159728375
+              },
+              {
+                "cpuNanoseconds": 156934291,
+                "wallNanoseconds": 157298542
+              },
+              {
+                "cpuNanoseconds": 164914833,
+                "wallNanoseconds": 166617667
+              },
+              {
+                "cpuNanoseconds": 154115167,
+                "wallNanoseconds": 157785334
+              },
+              {
+                "cpuNanoseconds": 156999583,
+                "wallNanoseconds": 156392833
+              },
+              {
+                "cpuNanoseconds": 153999458,
+                "wallNanoseconds": 153852750
+              },
+              {
+                "cpuNanoseconds": 153999916,
+                "wallNanoseconds": 153960875
+              },
+              {
+                "cpuNanoseconds": 153999957,
+                "wallNanoseconds": 153965459
+              },
+              {
+                "cpuNanoseconds": 153999750,
+                "wallNanoseconds": 154273250
+              },
+              {
+                "cpuNanoseconds": 154000374,
+                "wallNanoseconds": 153696667
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 155524729.0,
+              "wallNanoseconds": 156845687.5
+            },
+            "totals": {
+              "cpuNanoseconds": 2132029868,
+              "wallNanoseconds": 2141552836
+            }
+          },
+          "candidate": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 88979458,
+                "wallNanoseconds": 89142166
+              },
+              {
+                "cpuNanoseconds": 88991083,
+                "wallNanoseconds": 88661875
+              },
+              {
+                "cpuNanoseconds": 89000624,
+                "wallNanoseconds": 88693292
+              },
+              {
+                "cpuNanoseconds": 88989208,
+                "wallNanoseconds": 89384584
+              },
+              {
+                "cpuNanoseconds": 88999667,
+                "wallNanoseconds": 88732333
+              },
+              {
+                "cpuNanoseconds": 88991375,
+                "wallNanoseconds": 89023833
+              },
+              {
+                "cpuNanoseconds": 88998791,
+                "wallNanoseconds": 88923833
+              },
+              {
+                "cpuNanoseconds": 89363833,
+                "wallNanoseconds": 94149958
+              },
+              {
+                "cpuNanoseconds": 88974252,
+                "wallNanoseconds": 88798291
+              },
+              {
+                "cpuNanoseconds": 89961624,
+                "wallNanoseconds": 95280417
+              },
+              {
+                "cpuNanoseconds": 99998958,
+                "wallNanoseconds": 99799958
+              },
+              {
+                "cpuNanoseconds": 88969625,
+                "wallNanoseconds": 92160833
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 88995083.0,
+              "wallNanoseconds": 89082999.5
+            },
+            "totals": {
+              "cpuNanoseconds": 1080218498,
+              "wallNanoseconds": 1092751373
+            }
+          }
+        },
+        "workRecord": {
+          "accepted": false,
+          "changeErrorBoundJoules": 6.145138427116735e-28,
+          "changeJoules": 3.257345162497692e-11,
+          "definition": {
+            "nativeIdentitySha256": "08a19302d2e7adc56981c5d66265e570230c0a84f74d34770da5a8aba4b66f35",
+            "policy": {
+              "bits": 160,
+              "max_endpoint_terms": 10000,
+              "max_fraction_bits": 32768,
+              "max_log_terms": 96,
+              "max_total_log_terms": 100000
+            },
+            "profile": "guarded-native-contact-work-control-v1",
+            "scalarProfile": "captured-ipc-contact-work-v1",
+            "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+            "vertexCount": 8
+          },
+          "end": {
+            "inventorySha256": "93f647b652b5f1978a660110ff84fd15d71fafa97b504f4a54744844296a9986",
+            "nativeEnergyJoules": 8.658200512594429e-09,
+            "positionsSha256": "ef096b0de0adb25fcf9f2d1d1d5b2a6e337b94cc1cfa54935214abdfac0d0cc8",
+            "termCount": 33
+          },
+          "logCalls": 71,
+          "logTerms": 540,
+          "profile": "bounded-native-contact-work-record-v1",
+          "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+          "start": {
+            "inventorySha256": "cf76b79feb14f5a4180cf732e6d45626aad36c5deadc8bae5f8127815954dc61",
+            "nativeEnergyJoules": 8.625627060969279e-09,
+            "positionsSha256": "07ac41c5ea2ea50c2ba7432dd9cf4b1297b4693b94a2612f3dde28878c4b2e72",
+            "termCount": 33
+          },
+          "unionTerms": 33
+        }
+      },
+      {
+        "candidateCacheCounts": [
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          },
+          {
+            "currsize": 76,
+            "hits": 164,
+            "maxsize": 256,
+            "misses": 76
+          }
+        ],
+        "endIndex": 1024,
+        "endStateSha256": "21784d7a014f772188f3d46d116b71edbf4645efbd57008acf5626a04e265d35",
+        "native": {
+          "energyHex": "0x1.8a80306059401p-37",
+          "gradientSha256": "7656ab029d25cfeb6b635fa6bcdfaf6a3ba1632c7a60d803b894bc81d5777b23",
+          "hessianDataSha256": "e8df27b7cbc4bb6e4889417e5c65302547139388ecf4cd5c90a22301a993944e",
+          "hessianIndicesSha256": "578bb40fe5e8aa63b9b36ceae99e4bae3df67822016a3c50e200099aaebab7d4",
+          "hessianShape": [
+            24,
+            24
+          ]
+        },
+        "startStateSha256": "17767631be07b99216913b15ec1c7f3d3e9bebdbe12747e58d903a5d267f68b7",
+        "timings": {
+          "baseline": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 71986708,
+                "wallNanoseconds": 71339500
+              },
+              {
+                "cpuNanoseconds": 70984083,
+                "wallNanoseconds": 70963583
+              },
+              {
+                "cpuNanoseconds": 67999250,
+                "wallNanoseconds": 68891709
+              },
+              {
+                "cpuNanoseconds": 69983625,
+                "wallNanoseconds": 69084500
+              },
+              {
+                "cpuNanoseconds": 69907127,
+                "wallNanoseconds": 70518208
+              },
+              {
+                "cpuNanoseconds": 73470585,
+                "wallNanoseconds": 96445958
+              },
+              {
+                "cpuNanoseconds": 67999042,
+                "wallNanoseconds": 68777292
+              },
+              {
+                "cpuNanoseconds": 71002291,
+                "wallNanoseconds": 70638459
+              },
+              {
+                "cpuNanoseconds": 69224626,
+                "wallNanoseconds": 70247250
+              },
+              {
+                "cpuNanoseconds": 69960833,
+                "wallNanoseconds": 69539917
+              },
+              {
+                "cpuNanoseconds": 68960833,
+                "wallNanoseconds": 68698250
+              },
+              {
+                "cpuNanoseconds": 68000125,
+                "wallNanoseconds": 68378000
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 69933980.0,
+              "wallNanoseconds": 69893583.5
+            },
+            "totals": {
+              "cpuNanoseconds": 839479128,
+              "wallNanoseconds": 863522626
+            }
+          },
+          "candidate": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 40999000,
+                "wallNanoseconds": 41231709
+              },
+              {
+                "cpuNanoseconds": 40949708,
+                "wallNanoseconds": 41181750
+              },
+              {
+                "cpuNanoseconds": 40984625,
+                "wallNanoseconds": 40996708
+              },
+              {
+                "cpuNanoseconds": 40999833,
+                "wallNanoseconds": 40824167
+              },
+              {
+                "cpuNanoseconds": 40955250,
+                "wallNanoseconds": 41164791
+              },
+              {
+                "cpuNanoseconds": 40999083,
+                "wallNanoseconds": 41136500
+              },
+              {
+                "cpuNanoseconds": 41337292,
+                "wallNanoseconds": 41936583
+              },
+              {
+                "cpuNanoseconds": 44000750,
+                "wallNanoseconds": 43675125
+              },
+              {
+                "cpuNanoseconds": 41976542,
+                "wallNanoseconds": 44614208
+              },
+              {
+                "cpuNanoseconds": 41000041,
+                "wallNanoseconds": 41135875
+              },
+              {
+                "cpuNanoseconds": 40999125,
+                "wallNanoseconds": 41402500
+              },
+              {
+                "cpuNanoseconds": 41002000,
+                "wallNanoseconds": 40973750
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 40999479.0,
+              "wallNanoseconds": 41173270.5
+            },
+            "totals": {
+              "cpuNanoseconds": 496203249,
+              "wallNanoseconds": 500273666
+            }
+          }
+        },
+        "workRecord": {
+          "accepted": false,
+          "changeErrorBoundJoules": 1.8599498080620024e-28,
+          "changeJoules": -2.3776656592501756e-12,
+          "definition": {
+            "nativeIdentitySha256": "08a19302d2e7adc56981c5d66265e570230c0a84f74d34770da5a8aba4b66f35",
+            "policy": {
+              "bits": 160,
+              "max_endpoint_terms": 10000,
+              "max_fraction_bits": 32768,
+              "max_log_terms": 96,
+              "max_total_log_terms": 100000
+            },
+            "profile": "guarded-native-contact-work-control-v1",
+            "scalarProfile": "captured-ipc-contact-work-v1",
+            "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+            "vertexCount": 8
+          },
+          "end": {
+            "inventorySha256": "edfaae605a9914595891165f03f1b3c81ca1edee608359372b5a0e2e571fe119",
+            "nativeEnergyJoules": 1.1212385350197027e-11,
+            "positionsSha256": "57956d228d24736167c1d1e9b181ba31772bac197122e2cb926768f265f861ac",
+            "termCount": 12
+          },
+          "logCalls": 28,
+          "logTerms": 200,
+          "profile": "bounded-native-contact-work-record-v1",
+          "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+          "start": {
+            "inventorySha256": "caa318f6d8b83eef570e2d53986666476386f349e1ff92dfcb9b62ee1f363848",
+            "nativeEnergyJoules": 1.3590051009444671e-11,
+            "positionsSha256": "6caa7483b7d63844fc3e4d8c33701a395349d9ca3598da04d344874fd2197e41",
+            "termCount": 12
+          },
+          "unionTerms": 12
+        }
+      },
+      {
+        "candidateCacheCounts": [
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          },
+          {
+            "currsize": 8,
+            "hits": 8,
+            "maxsize": 256,
+            "misses": 8
+          }
+        ],
+        "endIndex": 2048,
+        "endStateSha256": "5a84ac01adffe56366831b4129ab7b4118230d2a958f37867a5ef33d9a6af91c",
+        "native": {
+          "energyHex": "0x0.0p+0",
+          "gradientSha256": "5d89f056865052bcb89c910d2d62872e029fb273c3db03f8968a52a41593c1b5",
+          "hessianDataSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "hessianIndicesSha256": "cd00e292c5970d3c5e2f0ffa5171e555bc46bfc4faddfb4a418b6840b86e79a3",
+          "hessianShape": [
+            24,
+            24
+          ]
+        },
+        "startStateSha256": "6819b92c9e8e6712c36d6366839d635f56e55c8c49cd171b9cad3894db797097",
+        "timings": {
+          "baseline": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 6989833,
+                "wallNanoseconds": 6935625
+              },
+              {
+                "cpuNanoseconds": 6999500,
+                "wallNanoseconds": 6804792
+              },
+              {
+                "cpuNanoseconds": 6999917,
+                "wallNanoseconds": 6801750
+              },
+              {
+                "cpuNanoseconds": 7000249,
+                "wallNanoseconds": 6787166
+              },
+              {
+                "cpuNanoseconds": 6000875,
+                "wallNanoseconds": 6702667
+              },
+              {
+                "cpuNanoseconds": 6998875,
+                "wallNanoseconds": 6648000
+              },
+              {
+                "cpuNanoseconds": 7000292,
+                "wallNanoseconds": 6646041
+              },
+              {
+                "cpuNanoseconds": 6000167,
+                "wallNanoseconds": 6755917
+              },
+              {
+                "cpuNanoseconds": 5999875,
+                "wallNanoseconds": 6638500
+              },
+              {
+                "cpuNanoseconds": 7003083,
+                "wallNanoseconds": 6574250
+              },
+              {
+                "cpuNanoseconds": 7988208,
+                "wallNanoseconds": 8335000
+              },
+              {
+                "cpuNanoseconds": 6998792,
+                "wallNanoseconds": 7111334
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 6999187.5,
+              "wallNanoseconds": 6771541.5
+            },
+            "totals": {
+              "cpuNanoseconds": 81979666,
+              "wallNanoseconds": 82741042
+            }
+          },
+          "candidate": {
+            "measurements": [
+              {
+                "cpuNanoseconds": 3971874,
+                "wallNanoseconds": 8849875
+              },
+              {
+                "cpuNanoseconds": 4999834,
+                "wallNanoseconds": 4561416
+              },
+              {
+                "cpuNanoseconds": 5000166,
+                "wallNanoseconds": 4500625
+              },
+              {
+                "cpuNanoseconds": 3999875,
+                "wallNanoseconds": 4485083
+              },
+              {
+                "cpuNanoseconds": 4999917,
+                "wallNanoseconds": 4564833
+              },
+              {
+                "cpuNanoseconds": 4000416,
+                "wallNanoseconds": 4519542
+              },
+              {
+                "cpuNanoseconds": 5000750,
+                "wallNanoseconds": 4500000
+              },
+              {
+                "cpuNanoseconds": 3998875,
+                "wallNanoseconds": 4503750
+              },
+              {
+                "cpuNanoseconds": 5000000,
+                "wallNanoseconds": 4478916
+              },
+              {
+                "cpuNanoseconds": 3999834,
+                "wallNanoseconds": 4441584
+              },
+              {
+                "cpuNanoseconds": 5000291,
+                "wallNanoseconds": 4457500
+              },
+              {
+                "cpuNanoseconds": 3999750,
+                "wallNanoseconds": 4444500
+              }
+            ],
+            "medians": {
+              "cpuNanoseconds": 4500125.0,
+              "wallNanoseconds": 4500312.5
+            },
+            "totals": {
+              "cpuNanoseconds": 53971582,
+              "wallNanoseconds": 58307624
+            }
+          }
+        },
+        "workRecord": {
+          "accepted": false,
+          "changeErrorBoundJoules": 0.0,
+          "changeJoules": 0.0,
+          "definition": {
+            "nativeIdentitySha256": "08a19302d2e7adc56981c5d66265e570230c0a84f74d34770da5a8aba4b66f35",
+            "policy": {
+              "bits": 160,
+              "max_endpoint_terms": 10000,
+              "max_fraction_bits": 32768,
+              "max_log_terms": 96,
+              "max_total_log_terms": 100000
+            },
+            "profile": "guarded-native-contact-work-control-v1",
+            "scalarProfile": "captured-ipc-contact-work-v1",
+            "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+            "vertexCount": 8
+          },
+          "end": {
+            "inventorySha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "nativeEnergyJoules": 0.0,
+            "positionsSha256": "c79e8def804002f30d02f9cfeae5553cb3f28431a7d719e9ef3f24ba3601f56a",
+            "termCount": 0
+          },
+          "logCalls": 0,
+          "logTerms": 0,
+          "profile": "bounded-native-contact-work-record-v1",
+          "scope": "Bounded declared contact scalar work on complete trusted native endpoint inventories; exact binary-input geometry and captured native-rounded constants. Native energy observations, gradient/Hessian arithmetic, other constitutive work, source authenticity and physical contact are not certified. No path, garment or temporal-accuracy acceptance.",
+          "start": {
+            "inventorySha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "nativeEnergyJoules": 0.0,
+            "positionsSha256": "31e5c193ad72be2ffc26c3233082f168859dec83ea485932de79b71537a3ed5f",
+            "termCount": 0
+          },
+          "unionTerms": 0
+        }
+      }
+    ],
+    "scope": "Six predetermined old saved endpoint pairs, twelve calls each, baseline then candidate, pinned offline Linux ARM runtime, one CPU. Cache cleared before every timed call; only internal reuse contributes. Native endpoint cache primed in both variants. No profiler. Local fixed-order static observations, not a general or full-solver speedup or trajectory equivalence result.",
+    "timedCallTotalsNanoseconds": {
+      "baseline": {
+        "cpuNanoseconds": 6892183105,
+        "wallNanoseconds": 6946982755
+      },
+      "candidate": {
+        "cpuNanoseconds": 3807754442,
+        "wallNanoseconds": 3854351918
+      }
+    },
+    "variants": [
+      {
+        "actualExitCode": 0,
+        "hostRoot": "/private/tmp/sew-computer-3d-engine",
+        "log": {
+          "bytes": 721,
+          "path": ".planning/solver/geometry-cache-cost-baseline-sep24-v1.log",
+          "sha256": "128d1b159c1e80b3af03fd2cfe954ce054a576bbd654844e2eb4f10421a0e0e7"
+        },
+        "receipt": {
+          "bytes": 2065,
+          "path": ".planning/solver/geometry-cache-cost-baseline-sep24-v1-execution.json",
+          "sha256": "363173ee11e6689acd0498a9dfa2afbc348c08adf6787032cb02885b7954abfe"
+        },
+        "result": {
+          "bytes": 24649,
+          "path": ".planning/solver/geometry-cache-cost-baseline-sep24-v1/result.json",
+          "sha256": "8322569d99b4beb9fb9295394b17d720fb96e4ac098f59c62a38b35ab5f7e3a9"
+        },
+        "unchangedSourceCount": 261
+      },
+      {
+        "actualExitCode": 0,
+        "hostRoot": "/private/tmp/sew-computer-3d-contact-work-cache",
+        "log": {
+          "bytes": 722,
+          "path": ".planning/solver/geometry-cache-cost-candidate-sep24-v1.log",
+          "sha256": "53ec4f01424625d6971d3b56b5645f0240968f1105aa940133d7e276de7c6945"
+        },
+        "receipt": {
+          "bytes": 2093,
+          "path": ".planning/solver/geometry-cache-cost-candidate-sep24-v1-execution.json",
+          "sha256": "39dcd54cc8922e6e8dc7785940e96f137f5a20761e77bd2d3ac3dc119b0c92a3"
+        },
+        "result": {
+          "bytes": 33178,
+          "path": ".planning/solver/geometry-cache-cost-candidate-sep24-v1/result.json",
+          "sha256": "be96f7c361c5b73017802bf59034a9e24843200ffc5a386b1642d4d5533a662a"
+        },
+        "unchangedSourceCount": 262
+      }
+    ]
+  },
+  "boundaries": [
+    "The LRU limit bounds retained entries, not total process RSS or simultaneous temporary computations.",
+    "No native inventory, activation, weight, selected feature, work result, caller budget or solver acceptance decision is cached.",
+    "Declaration/source checks are before/after comparisons, not continuous filesystem monitoring or arbitrary-Python tamper resistance.",
+    "Benchmark/test launchers are recorded at exit but not bound by their pre-run declarations; the benchmark launcher was independently inspected and hashed before result review.",
+    "The preceding cProfile diagnostic had inconsistent call counts; it supplies no speed or call-share claim here.",
+    "Native coefficients, derivative arithmetic and other constitutive inputs remain conditional; cache equivalence adds no physical calibration.",
+    "The original uncached temporal study remains separate; this increment neither changes its frozen inputs nor repairs its missing adaptive histories."
+  ],
+  "implementation": {
+    "maxKeyPoints": 4,
+    "maxRetainedEntries": 256,
+    "maxValueFeatures": 9,
+    "preserved": "Exact feature arithmetic, strict raw coordinate validation before lookup, per-call selected-feature and arithmetic-budget admission, native candidate inventories and coefficients, force/path checks and complete work validation.",
+    "sources": [
+      {
+        "bytes": 21523,
+        "path": "scripts/solver_contact_work.py",
+        "sha256": "52f73b130fa82f4546bf2126793e34216ae9537c046232b031a994ffeb904eb8"
+      },
+      {
+        "bytes": 6730,
+        "path": "scripts/test_solver_contact_geometry_cache.py",
+        "sha256": "9dc1fc7de14c8b8c6570a97b7539e1b1f76c9a8258b220acab90be9becc13e6f"
+      }
+    ],
+    "storedValues": "Immutable exact rational numerator/denominator integers; fresh dictionaries and Fractions per call."
+  },
+  "independentBenchmarkReview": {
+    "accepted": false,
+    "allSixCompleteWorkAndNativeRecordsIdentical": true,
+    "checkedWorkCallsPerVariant": 72,
+    "declaration": {
+      "bytes": 110711,
+      "path": ".planning/solver/geometry-cache-cost-declaration-sep24-v1.json",
+      "sha256": "2838d380da255c12fd9e319be91f7106f3bb60f43d091ed3e3b7368d4da209fe"
+    },
+    "designReview": {
+      "bytes": 2867,
+      "path": ".planning/solver/review-geometry-cache-cost-design-sep24-v1.json",
+      "sha256": "31b2d8f4bcde5497678dfd011dff01feb57d921c2bf4925e616de3ca9443c355"
+    },
+    "driver": {
+      "bytes": 5252,
+      "path": ".planning/solver/geometry-cache-cost-sep24-v1.py",
+      "sha256": "95b811ec867351ab2ef10052e36e2af45fd3eebcf07287f2de233beda14235f8"
+    },
+    "findings": [],
+    "matchedPairs": [
+      {
+        "baselineToCandidateTimedRatios": {
+          "cpu": {
+            "approximate": 1.6568975342833097,
+            "exact": {
+              "denominator": "649580954",
+              "numerator": "1076289081"
+            }
+          },
+          "wall": {
+            "approximate": 1.6342265406000047,
+            "exact": {
+              "denominator": "660041167",
+              "numerator": "1078656793"
+            }
+          }
+        },
+        "completeWorkRecordCanonicalSha256": "fc87ffd3e593dacb2c163a6746c753b38eef5acfd343426eb06ab0d01deed279",
+        "endIndex": 64,
+        "endStateSha256": "e3d7d722b9c6b2ff90755ef3976e525d8529f1de23e1858c46aadbe1a78bf70a",
+        "nativeRecordCanonicalSha256": "15e4a85c1e28a090b2c13d898925d0ea06154bd1164f7d8dbf5a4a4cada91dd5",
+        "startStateSha256": "1a9c0ff0c1580ca034c75a018c8b3bcecad14bb2ab977efa5c50dd2a9b89fc00",
+        "workAndNativeRecordsIdentical": true
+      },
+      {
+        "baselineToCandidateTimedRatios": {
+          "cpu": {
+            "approximate": 1.6092363279833863,
+            "exact": {
+              "denominator": "130871641",
+              "numerator": "210603399"
+            }
+          },
+          "wall": {
+            "approximate": 1.611013381408911,
+            "exact": {
+              "denominator": "657352754",
+              "numerator": "1059004083"
+            }
+          }
+        },
+        "completeWorkRecordCanonicalSha256": "1c763e6df866801eee58c299dbf846de25ae0a4d6491a4d5fe2e0b8cc2f27137",
+        "endIndex": 128,
+        "endStateSha256": "44da9e5b1e4c4ebe083707917c977ff7057fbd9662a412396b9251c68321ddfa",
+        "nativeRecordCanonicalSha256": "a67b2964b18d50e215132ef55b46826e235c050c584bfc89ff34915b23b5a019",
+        "startStateSha256": "6b9802afc8dcd5a0ac0e856f8f3868ac482d9a1a0edaf470088536f7e5fd16fb",
+        "workAndNativeRecordsIdentical": true
+      },
+      {
+        "baselineToCandidateTimedRatios": {
+          "cpu": {
+            "approximate": 1.9571163275339425,
+            "exact": {
+              "denominator": "873421954",
+              "numerator": "1709388367"
+            }
+          },
+          "wall": {
+            "approximate": 1.9438303184312475,
+            "exact": {
+              "denominator": "885625334",
+              "numerator": "1721505375"
+            }
+          }
+        },
+        "completeWorkRecordCanonicalSha256": "b404cb824e8f6a26ad235ea1435203b7a3205eab17f1d7d55516a3889263f641",
+        "endIndex": 256,
+        "endStateSha256": "89f073ddd6d12c1da67c6d640f1ee1e1aaba49d8a68a1a3cee6905509ffca428",
+        "nativeRecordCanonicalSha256": "50b41367a96c24b9f9348dd4ddb3b4f7913dff7e955417ce435fef0498ca5632",
+        "startStateSha256": "4e39141b7975b786c8f6eee04cf2662d282595b28c2fc68f3855fd7b3b5e28a7",
+        "workAndNativeRecordsIdentical": true
+      },
+      {
+        "baselineToCandidateTimedRatios": {
+          "cpu": {
+            "approximate": 1.973702424044214,
+            "exact": {
+              "denominator": "540109249",
+              "numerator": "1066014934"
+            }
+          },
+          "wall": {
+            "approximate": 1.959780503519898,
+            "exact": {
+              "denominator": "1092751373",
+              "numerator": "2141552836"
+            }
+          }
+        },
+        "completeWorkRecordCanonicalSha256": "a6adb5d361f5f0a5515ce768ebd29f2fd5d93481bb7f60d4d35bc2c7d2792041",
+        "endIndex": 512,
+        "endStateSha256": "af82ed15d402550e13de302da0c41e394d801d5bea5839f1a0dd43749209feca",
+        "nativeRecordCanonicalSha256": "44bbba5f278cb5ec93e93981e2d2f8ab21b7b8579150151501ec196280e9974b",
+        "startStateSha256": "0b1516b1e8def2def3073a653e39854b7f0c15ea9ffc49273197443f2d25ac24",
+        "workAndNativeRecordsIdentical": true
+      },
+      {
+        "baselineToCandidateTimedRatios": {
+          "cpu": {
+            "approximate": 1.69180498050306,
+            "exact": {
+              "denominator": "165401083",
+              "numerator": "279826376"
+            }
+          },
+          "wall": {
+            "approximate": 1.7261005019600613,
+            "exact": {
+              "denominator": "250136833",
+              "numerator": "431761313"
+            }
+          }
+        },
+        "completeWorkRecordCanonicalSha256": "2581d0e7975827c7d5f367a4c8565e3cbd15c348d4131c13cb591a02bb6b4d92",
+        "endIndex": 1024,
+        "endStateSha256": "21784d7a014f772188f3d46d116b71edbf4645efbd57008acf5626a04e265d35",
+        "nativeRecordCanonicalSha256": "f057de156ee8029411c20b1334c40c69ca441b4a020ba5ce1e667e0938662746",
+        "startStateSha256": "17767631be07b99216913b15ec1c7f3d3e9bebdbe12747e58d903a5d267f68b7",
+        "workAndNativeRecordsIdentical": true
+      },
+      {
+        "baselineToCandidateTimedRatios": {
+          "cpu": {
+            "approximate": 1.5189413198968302,
+            "exact": {
+              "denominator": "26985791",
+              "numerator": "40989833"
+            }
+          },
+          "wall": {
+            "approximate": 1.4190432798290666,
+            "exact": {
+              "denominator": "29153812",
+              "numerator": "41370521"
+            }
+          }
+        },
+        "completeWorkRecordCanonicalSha256": "45363b94ab99751dbc8552b932b927e94dabf6652e1eca9333ae0e56eef5cb8b",
+        "endIndex": 2048,
+        "endStateSha256": "5a84ac01adffe56366831b4129ab7b4118230d2a958f37867a5ef33d9a6af91c",
+        "nativeRecordCanonicalSha256": "b07955ef9faf87b15a06df1fa588e2359bcf5aceffbadd9f5b47e65dc8902b3d",
+        "startStateSha256": "6819b92c9e8e6712c36d6366839d635f56e55c8c49cd171b9cad3894db797097",
+        "workAndNativeRecordsIdentical": true
+      }
+    ],
+    "newMotionExecuted": false,
+    "numericalCallsExecutedByReviewer": 0,
+    "numericalScope": "Complete saved public work records and native E/g/H representations match at six supplied old-trajectory endpoint pairs under the exact profile. Native arrays are retained as hashes rather than independently re-evaluated. Within-variant repeat equality and per-call clearing are enforced by the reviewed hash-bound driver. This review executes no native mechanics or new motion.",
+    "profile": "independent-matched-unprofiled-contact-geometry-cache-cost-results-review",
+    "provenanceLimit": "The original frozen benchmark declaration omits the launcher; both actual receipts match the launcher identity independently retained by the design review, but a declaration-bound launcher start/end identity proof is absent.",
+    "reviewedLauncher": {
+      "bytes": 2033,
+      "path": ".planning/solver/execute-geometry-cache-cost-sep24-v1.py",
+      "sha256": "dac374bdad93f07f011ec550cb523a70c9124d4d35672cbc13d1e8d484fb1b97"
+    },
+    "script": {
+      "bytes": 8873,
+      "path": ".planning/solver/review-geometry-cache-cost-results-sep24-v1.py",
+      "sha256": "661a02225aeb089d783ad828082146c65112700ceff9712513da67a113d91ace"
+    },
+    "sourceClosure": {
+      "baseline": 261,
+      "candidate": 262,
+      "onlyCandidateAddedFile": "scripts/test_solver_contact_geometry_cache.py",
+      "onlyChangedCommonFile": "scripts/solver_contact_work.py"
+    },
+    "timingScope": "Exact sums/statistics of retained integer per-call CPU and wall nanoseconds. Ratios describe this sequential fixed-order static workload with twelve cold-geometry-cache calls per pair; process elapsed, startup, validation/serialization outside timed calls and cache_clear are excluded. No randomized-run inference, universal or full-solver speedup, trajectory equivalence, convergence or physical calibration claim.",
+    "totalCheckedWorkCalls": 144,
+    "totalTimedBaselineToCandidateRatios": {
+      "cpu": {
+        "approximate": 1.8100387538068035,
+        "exact": {
+          "denominator": "3807754442",
+          "numerator": "6892183105"
+        }
+      },
+      "wall": {
+        "approximate": 1.8023737590117996,
+        "exact": {
+          "denominator": "3854351918",
+          "numerator": "6946982755"
+        }
+      }
+    },
+    "variants": {
+      "baseline": {
+        "hostRoot": "/private/tmp/sew-computer-3d-engine",
+        "observedExitCode": 0,
+        "perPair": [
+          {
+            "cacheAfterEachColdCall": null,
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 105383707,
+              "meanNanoseconds": {
+                "denominator": "4",
+                "numerator": "358763027"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "173988791"
+              },
+              "minimumNanoseconds": 85000041,
+              "sumNanoseconds": 1076289081
+            },
+            "endIndex": 64,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 105787125,
+              "meanNanoseconds": {
+                "denominator": "12",
+                "numerator": "1078656793"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "87100833"
+              },
+              "minimumNanoseconds": 85383084,
+              "sumNanoseconds": 1078656793
+            }
+          },
+          {
+            "cacheAfterEachColdCall": null,
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 89910417,
+              "meanNanoseconds": {
+                "denominator": "4",
+                "numerator": "351005665"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "176450957"
+              },
+              "minimumNanoseconds": 85752041,
+              "sumNanoseconds": 1053016995
+            },
+            "endIndex": 128,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 92778083,
+              "meanNanoseconds": {
+                "denominator": "4",
+                "numerator": "353001361"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "88304146"
+              },
+              "minimumNanoseconds": 85730208,
+              "sumNanoseconds": 1059004083
+            }
+          },
+          {
+            "cacheAfterEachColdCall": null,
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 195851458,
+              "meanNanoseconds": {
+                "denominator": "12",
+                "numerator": "1709388367"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "260956581"
+              },
+              "minimumNanoseconds": 124947916,
+              "sumNanoseconds": 1709388367
+            },
+            "endIndex": 256,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 196371834,
+              "meanNanoseconds": {
+                "denominator": "4",
+                "numerator": "573835125"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "261888291"
+              },
+              "minimumNanoseconds": 126379958,
+              "sumNanoseconds": 1721505375
+            }
+          },
+          {
+            "cacheAfterEachColdCall": null,
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 386101582,
+              "meanNanoseconds": {
+                "denominator": "3",
+                "numerator": "533007467"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "155524729"
+              },
+              "minimumNanoseconds": 153999458,
+              "sumNanoseconds": 2132029868
+            },
+            "endIndex": 512,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 390339917,
+              "meanNanoseconds": {
+                "denominator": "3",
+                "numerator": "535388209"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "313691375"
+              },
+              "minimumNanoseconds": 153696667,
+              "sumNanoseconds": 2141552836
+            }
+          },
+          {
+            "cacheAfterEachColdCall": null,
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 73470585,
+              "meanNanoseconds": {
+                "denominator": "1",
+                "numerator": "69956594"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "69933980"
+              },
+              "minimumNanoseconds": 67999042,
+              "sumNanoseconds": 839479128
+            },
+            "endIndex": 1024,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 96445958,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "431761313"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "139787167"
+              },
+              "minimumNanoseconds": 68378000,
+              "sumNanoseconds": 863522626
+            }
+          },
+          {
+            "cacheAfterEachColdCall": null,
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 7988208,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "40989833"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "13998375"
+              },
+              "minimumNanoseconds": 5999875,
+              "sumNanoseconds": 81979666
+            },
+            "endIndex": 2048,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 8335000,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "41370521"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "13543083"
+              },
+              "minimumNanoseconds": 6574250,
+              "sumNanoseconds": 82741042
+            }
+          }
+        ],
+        "processElapsedSecondsNotUsedForCostComparison": 10.01385895803105,
+        "receipt": {
+          "bytes": 2065,
+          "path": ".planning/solver/geometry-cache-cost-baseline-sep24-v1-execution.json",
+          "sha256": "363173ee11e6689acd0498a9dfa2afbc348c08adf6787032cb02885b7954abfe"
+        },
+        "result": {
+          "bytes": 24649,
+          "path": ".planning/solver/geometry-cache-cost-baseline-sep24-v1/result.json",
+          "sha256": "8322569d99b4beb9fb9295394b17d720fb96e4ac098f59c62a38b35ab5f7e3a9"
+        },
+        "totals": {
+          "cpu": {
+            "count": 72,
+            "maximumNanoseconds": 386101582,
+            "meanNanoseconds": {
+              "denominator": "72",
+              "numerator": "6892183105"
+            },
+            "medianNanoseconds": {
+              "denominator": "1",
+              "numerator": "86997958"
+            },
+            "minimumNanoseconds": 5999875,
+            "sumNanoseconds": 6892183105
+          },
+          "wall": {
+            "count": 72,
+            "maximumNanoseconds": 390339917,
+            "meanNanoseconds": {
+              "denominator": "72",
+              "numerator": "6946982755"
+            },
+            "medianNanoseconds": {
+              "denominator": "1",
+              "numerator": "88304146"
+            },
+            "minimumNanoseconds": 6574250,
+            "sumNanoseconds": 6946982755
+          }
+        },
+        "verifiedSourceCount": 261
+      },
+      "candidate": {
+        "hostRoot": "/private/tmp/sew-computer-3d-contact-work-cache",
+        "observedExitCode": 0,
+        "perPair": [
+          {
+            "cacheAfterEachColdCall": {
+              "currsize": 82,
+              "hits": 266,
+              "maxsize": 256,
+              "misses": 82
+            },
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 56834374,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "324790477"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "107986791"
+              },
+              "minimumNanoseconds": 52988959,
+              "sumNanoseconds": 649580954
+            },
+            "endIndex": 64,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 59767458,
+              "meanNanoseconds": {
+                "denominator": "12",
+                "numerator": "660041167"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "107649125"
+              },
+              "minimumNanoseconds": 53298542,
+              "sumNanoseconds": 660041167
+            }
+          },
+          {
+            "cacheAfterEachColdCall": {
+              "currsize": 82,
+              "hits": 266,
+              "maxsize": 256,
+              "misses": 82
+            },
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 59000625,
+              "meanNanoseconds": {
+                "denominator": "12",
+                "numerator": "654358205"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "107999375"
+              },
+              "minimumNanoseconds": 52999875,
+              "sumNanoseconds": 654358205
+            },
+            "endIndex": 128,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 59580584,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "328676377"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "53668042"
+              },
+              "minimumNanoseconds": 53241542,
+              "sumNanoseconds": 657352754
+            }
+          },
+          {
+            "cacheAfterEachColdCall": {
+              "currsize": 90,
+              "hits": 338,
+              "maxsize": 256,
+              "misses": 90
+            },
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 75914166,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "436710977"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "144382667"
+              },
+              "minimumNanoseconds": 71102458,
+              "sumNanoseconds": 873421954
+            },
+            "endIndex": 256,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 77021125,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "442812667"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "146775167"
+              },
+              "minimumNanoseconds": 72077500,
+              "sumNanoseconds": 885625334
+            }
+          },
+          {
+            "cacheAfterEachColdCall": {
+              "currsize": 102,
+              "hits": 326,
+              "maxsize": 256,
+              "misses": 102
+            },
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 99998958,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "540109249"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "88995083"
+              },
+              "minimumNanoseconds": 88969625,
+              "sumNanoseconds": 1080218498
+            },
+            "endIndex": 512,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 99799958,
+              "meanNanoseconds": {
+                "denominator": "12",
+                "numerator": "1092751373"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "178165999"
+              },
+              "minimumNanoseconds": 88661875,
+              "sumNanoseconds": 1092751373
+            }
+          },
+          {
+            "cacheAfterEachColdCall": {
+              "currsize": 76,
+              "hits": 164,
+              "maxsize": 256,
+              "misses": 76
+            },
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 44000750,
+              "meanNanoseconds": {
+                "denominator": "4",
+                "numerator": "165401083"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "40999479"
+              },
+              "minimumNanoseconds": 40949708,
+              "sumNanoseconds": 496203249
+            },
+            "endIndex": 1024,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 44614208,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "250136833"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "82346541"
+              },
+              "minimumNanoseconds": 40824167,
+              "sumNanoseconds": 500273666
+            }
+          },
+          {
+            "cacheAfterEachColdCall": {
+              "currsize": 8,
+              "hits": 8,
+              "maxsize": 256,
+              "misses": 8
+            },
+            "cpu": {
+              "count": 12,
+              "maximumNanoseconds": 5000750,
+              "meanNanoseconds": {
+                "denominator": "6",
+                "numerator": "26985791"
+              },
+              "medianNanoseconds": {
+                "denominator": "1",
+                "numerator": "4500125"
+              },
+              "minimumNanoseconds": 3971874,
+              "sumNanoseconds": 53971582
+            },
+            "endIndex": 2048,
+            "wall": {
+              "count": 12,
+              "maximumNanoseconds": 8849875,
+              "meanNanoseconds": {
+                "denominator": "3",
+                "numerator": "14576906"
+              },
+              "medianNanoseconds": {
+                "denominator": "2",
+                "numerator": "9000625"
+              },
+              "minimumNanoseconds": 4441584,
+              "sumNanoseconds": 58307624
+            }
+          }
+        ],
+        "processElapsedSecondsNotUsedForCostComparison": 6.631734125025105,
+        "receipt": {
+          "bytes": 2093,
+          "path": ".planning/solver/geometry-cache-cost-candidate-sep24-v1-execution.json",
+          "sha256": "39dcd54cc8922e6e8dc7785940e96f137f5a20761e77bd2d3ac3dc119b0c92a3"
+        },
+        "result": {
+          "bytes": 33178,
+          "path": ".planning/solver/geometry-cache-cost-candidate-sep24-v1/result.json",
+          "sha256": "be96f7c361c5b73017802bf59034a9e24843200ffc5a386b1642d4d5533a662a"
+        },
+        "totals": {
+          "cpu": {
+            "count": 72,
+            "maximumNanoseconds": 99998958,
+            "meanNanoseconds": {
+              "denominator": "36",
+              "numerator": "1903877221"
+            },
+            "medianNanoseconds": {
+              "denominator": "1",
+              "numerator": "53999479"
+            },
+            "minimumNanoseconds": 3971874,
+            "sumNanoseconds": 3807754442
+          },
+          "wall": {
+            "count": 72,
+            "maximumNanoseconds": 99799958,
+            "meanNanoseconds": {
+              "denominator": "36",
+              "numerator": "1927175959"
+            },
+            "medianNanoseconds": {
+              "denominator": "2",
+              "numerator": "107468001"
+            },
+            "minimumNanoseconds": 4441584,
+            "sumNanoseconds": 3854351918
+          }
+        },
+        "verifiedSourceCount": 262
+      }
+    },
+    "verified": true
+  },
+  "independentImplementationReview": {
+    "accepted": false,
+    "allChoiceBudgetAndSelectedOnlyBudgetPoliciesPreserved": true,
+    "capacityAfter1024DistinctGeometries": 256,
+    "concurrentDetachedResults": 128,
+    "differentialCases": {
+      "geometryRejections": 0,
+      "geometryValueCases": 512,
+      "publicColdWarmBudgetPairs": 1024,
+      "randomStencils": 512
+    },
+    "exactInteriorNearParallelWitnesses": [
+      {
+        "allEndpointFeaturesStrictlyFurther": true,
+        "epsilonExponent": -28,
+        "feature": "EA_EB",
+        "squaredDistanceDenominatorExponent": 200,
+        "squaredDistanceNumerator": "1"
+      },
+      {
+        "allEndpointFeaturesStrictlyFurther": true,
+        "epsilonExponent": -540,
+        "feature": "EA_EB",
+        "squaredDistanceDenominatorExponent": 200,
+        "squaredDistanceNumerator": "1"
+      },
+      {
+        "allEndpointFeaturesStrictlyFurther": true,
+        "epsilonExponent": -1074,
+        "feature": "EA_EB",
+        "squaredDistanceDenominatorExponent": 200,
+        "squaredDistanceNumerator": "1"
+      }
+    ],
+    "findings": [],
+    "maximumObservedRationalBits": 11785,
+    "memoryScope": "A process-wide LRU retains at most 256 keys, each at most four raw finite binary64 points, and at most nine pairs of immutable integers. This is an entry bound, not a measured byte/RSS bound. Concurrent misses may compute duplicate temporary arithmetic; process resource limits remain separate. Native inventories, weights, selected feature, path/force, work result and caller budget are not memoized.",
+    "nativeModulesImported": false,
+    "newMotionExecuted": false,
+    "originalArithmeticBodyAstUnchanged": true,
+    "otherExistingFunctionsAndClassesAstUnchanged": [
+      "_single_initialization",
+      "_binary",
+      "WorkPolicy",
+      "WorkBudget",
+      "Interval",
+      "_ceil_div",
+      "_atanh_series",
+      "log_interval",
+      "BarrierParameters",
+      "barrier_value",
+      "barrier_change",
+      "_sub",
+      "_dot",
+      "_cross",
+      "_point_edge",
+      "distance_squared",
+      "closest_feature",
+      "ContactTerm",
+      "WorkResult",
+      "contact_work"
+    ],
+    "profile": "independent-bounded-pure-contact-geometry-cache-review",
+    "script": {
+      "bytes": 8905,
+      "path": "/private/tmp/sew-computer-3d-contact-work-cache/.planning/solver/review-contact-geometry-cache-sep24-v1.py",
+      "sha256": "7e6964868d1b92433d02baa67e3501b8ad3ede02c95abfda4d6b81bb251682a0"
+    },
+    "signedZeroAliasPreservesExactGeometry": true,
+    "sources": [
+      {
+        "bytes": 19949,
+        "path": "/private/tmp/sew-computer-3d-engine/scripts/solver_contact_work.py",
+        "sha256": "ec91df410c4c248f430c263a456a0615f590484d89623ffea4bf1d79bd5ec8b4"
+      },
+      {
+        "bytes": 21523,
+        "path": "/private/tmp/sew-computer-3d-contact-work-cache/scripts/solver_contact_work.py",
+        "sha256": "52f73b130fa82f4546bf2126793e34216ae9537c046232b031a994ffeb904eb8"
+      },
+      {
+        "bytes": 6730,
+        "path": "/private/tmp/sew-computer-3d-contact-work-cache/scripts/test_solver_contact_geometry_cache.py",
+        "sha256": "9dc1fc7de14c8b8c6570a97b7539e1b1f76c9a8258b220acab90be9becc13e6f"
+      }
+    ],
+    "strictRawTypeRejections": [
+      "bool",
+      "int",
+      "Fraction",
+      "Float",
+      "float",
+      "float",
+      "float"
+    ],
+    "trustScope": "Ordinary supported inputs and detached outputs; Python private helpers/class monkeypatching are not a security boundary. Main running-study sources remain unchanged. Differential checks establish arithmetic preservation for tested cases; they do not establish speedup or full-trajectory agreement.",
+    "verified": true,
+    "wholeContactWorkColdWarmChecks": [
+      {
+        "case": "tiny",
+        "outcome": "value",
+        "policy": {}
+      },
+      {
+        "case": "tiny",
+        "outcome": "value",
+        "policy": {
+          "bits": 64
+        }
+      },
+      {
+        "case": "tiny",
+        "outcome": "ValueError",
+        "policy": {
+          "max_log_terms": 1
+        }
+      },
+      {
+        "case": "tiny",
+        "outcome": "ValueError",
+        "policy": {
+          "max_total_log_terms": 1
+        }
+      },
+      {
+        "case": "tiny",
+        "outcome": "ValueError",
+        "policy": {
+          "max_endpoint_terms": 1
+        }
+      },
+      {
+        "case": "opened",
+        "outcome": "value",
+        "policy": {}
+      },
+      {
+        "case": "opened",
+        "outcome": "value",
+        "policy": {
+          "bits": 64
+        }
+      },
+      {
+        "case": "opened",
+        "outcome": "ValueError",
+        "policy": {
+          "max_log_terms": 1
+        }
+      },
+      {
+        "case": "opened",
+        "outcome": "ValueError",
+        "policy": {
+          "max_total_log_terms": 1
+        }
+      },
+      {
+        "case": "opened",
+        "outcome": "ValueError",
+        "policy": {
+          "max_endpoint_terms": 1
+        }
+      },
+      {
+        "case": "clamped",
+        "outcome": "value",
+        "policy": {}
+      },
+      {
+        "case": "clamped",
+        "outcome": "value",
+        "policy": {
+          "bits": 64
+        }
+      },
+      {
+        "case": "clamped",
+        "outcome": "ValueError",
+        "policy": {
+          "max_log_terms": 1
+        }
+      },
+      {
+        "case": "clamped",
+        "outcome": "ValueError",
+        "policy": {
+          "max_total_log_terms": 1
+        }
+      },
+      {
+        "case": "clamped",
+        "outcome": "ValueError",
+        "policy": {
+          "max_endpoint_terms": 1
+        }
+      }
+    ]
+  },
+  "modelChanged": false,
+  "newResearchTrajectoryExecuted": false,
+  "profile": "bounded-exact-contact-geometry-cache-evidence-v1",
+  "regression": {
+    "applicationBuildBrowserTestsRerun": false,
+    "countsOverlap": true,
+    "focused": {
+      "actualExitCode": 0,
+      "allSourceSnapshotsAndCurrentBytesMatch": true,
+      "declaration": {
+        "bytes": 41061,
+        "path": ".planning/solver/geometry-cache-focused-declaration-sep24-v1.json",
+        "sha256": "2433098ac4ee3361885dcb9ed374d12979bc4fe4722f29bbb242ed95d1cb175f"
+      },
+      "frozenSourceCount": 228,
+      "log": {
+        "bytes": 2380,
+        "path": ".planning/solver/geometry-cache-focused-sep24-v1.log",
+        "sha256": "2af61599d1418bae5097f2956d78442d2a34f17c7aa679fabd993e9ce54c62ce"
+      },
+      "receipt": {
+        "bytes": 1459,
+        "path": ".planning/solver/geometry-cache-focused-sep24-v1-execution.json",
+        "sha256": "f43b79183114232530fa483b49f4cb10ffd124d3fef8f5cb927dde1ec96b5aa3"
+      },
+      "testSeconds": 63.515,
+      "tests": 153,
+      "wallSeconds": 66.54263074998744
+    },
+    "full": {
+      "actualExitCode": 0,
+      "allSourceSnapshotsAndCurrentBytesMatch": true,
+      "declaration": {
+        "bytes": 41045,
+        "path": ".planning/solver/geometry-cache-full-declaration-sep24-v1.json",
+        "sha256": "0435a2f309b783f306810c4390d705791bdd5ec88005a37a2b4e2c80816a6df2"
+      },
+      "frozenSourceCount": 228,
+      "log": {
+        "bytes": 10303,
+        "path": ".planning/solver/geometry-cache-full-sep24-v1.log",
+        "sha256": "b614695270e1c1037ca17f42800e44fecc38b31cf42c9f09781495302a62a9b4"
+      },
+      "receipt": {
+        "bytes": 1447,
+        "path": ".planning/solver/geometry-cache-full-sep24-v1-execution.json",
+        "sha256": "1b0c243a2e67c76ff34f8ce118e5e2e7c65726d04b95462dac463140386ff1b2"
+      },
+      "testSeconds": 856.326,
+      "tests": 1418,
+      "wallSeconds": 861.4986249999492
+    },
+    "newTestMethods": 12
+  },
+  "remaining": [
+    "Full temporal and spatial accuracy with original preload and released controls",
+    "Construction-specific joints, actual cuff turning/attachment, bindings, collar, gathers and unresolved interfacing roles",
+    "Material/body evidence, full-shirt closure, settling, strain/contact/source fidelity and repeatability",
+    "Accepted assembly integration, privacy/revision/export/cancel/recovery and private release verification"
+  ],
+  "unitTestsExecuteSyntheticMotion": true
+}

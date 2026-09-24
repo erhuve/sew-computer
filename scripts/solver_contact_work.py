@@ -11,7 +11,7 @@ from collections import defaultdict
 from dataclasses import dataclass, fields
 from fractions import Fraction as F
 import math
-from functools import wraps
+from functools import lru_cache, wraps
 
 
 PROFILE = "captured-ipc-contact-work-v1"
@@ -255,7 +255,7 @@ def _point_edge(p,a,b):
     return features
 
 
-def _distance_choices(kind, positions):
+def _distance_choices_uncached(kind, positions):
     """All feasible finite-primitive features, on exact binary input geometry."""
     sizes = {"vv":2,"ev":3,"fv":4,"ee":4}
     if kind not in sizes or type(positions) is not tuple or len(positions) != sizes[kind]:
@@ -307,6 +307,38 @@ def _distance_choices(kind, positions):
                 normal = _cross(u,v)
                 choices["EA_EB"] = _dot(w,normal)**2/_dot(normal,normal)
     return choices
+
+
+@lru_cache(maxsize=256)
+def _distance_choice_integers(kind, positions):
+    """Bounded pure-geometry memo; never retain caller-visible Fractions.
+
+    Each key contains at most four finite binary64 points and each value at
+    most nine finite-feature distances. No candidates, weights, activation,
+    selected feature or work/budget result is cached here.
+    """
+    choices = _distance_choices_uncached(kind, positions)
+    return tuple((name, value.numerator, value.denominator)
+                 for name, value in choices.items())
+
+
+def _distance_choices(kind, positions):
+    # Validate before lookup: Python considers bool/int coordinates equal to
+    # floats in a dictionary key, but the arithmetic API requires raw floats.
+    sizes = {"vv":2,"ev":3,"fv":4,"ee":4}
+    if kind not in sizes or type(positions) is not tuple or len(positions) != sizes[kind]:
+        raise ValueError("Supported ordered contact stencil required")
+    if any(type(row) is not tuple or len(row) != 3 for row in positions):
+        raise ValueError("Three-dimensional immutable contact coordinates required")
+    for row in positions:
+        for value in row:
+            _binary(value)
+    # Preserve the prior behavior for nonstandard string-like kind objects
+    # without allowing their custom equality/hash methods into shared keys.
+    if type(kind) is not str:
+        return _distance_choices_uncached(kind, positions)
+    return {name: F(numerator, denominator)
+            for name, numerator, denominator in _distance_choice_integers(kind, positions)}
 
 
 def distance_squared(kind, feature, positions, budget):
