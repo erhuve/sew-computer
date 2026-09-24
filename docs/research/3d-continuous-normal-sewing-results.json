@@ -1,0 +1,3215 @@
+{
+  "accepted": false,
+  "adversarialFindingsAndRepairs": [
+    {
+      "failedObservedJ": 7.945339613372214e-17,
+      "finding": "Subtracting rounded normals reversed the sign of one-ULP frame work.",
+      "referenceJ": -2.829231474116278e-17,
+      "repair": "Stable differences of exact independently scaled area vectors; retain tiny increment until final work rounding."
+    },
+    {
+      "finding": "Summing opposing 1e16 N contributions erased a real 1 N remainder, including frame-curvature entries.",
+      "repair": "Exact products and assembly sums; expanded unit-normal derivative identities avoid d^2 cancellation."
+    },
+    {
+      "finding": "Sparse floating contraction of converted one-third/two-thirds anchors erased a -2^-54 m residual and 2^-109 J energy.",
+      "repair": "Exact binary coefficient-position contractions before output rounding; retain conversion defects."
+    },
+    {
+      "finding": "Mutable nested endpoint state could change mechanics without changing description/input identity.",
+      "repair": "No retained mutable mechanical helper or sparse matrix; immutable snapshot, bytes/tuples, slots and deletion guards."
+    },
+    {
+      "finding": "A pose constructed from a binary64 unit normal reported zero residual while expanded derivatives retained a small force.",
+      "repair": "Use original binary-input geometric area with directed 256-bit normalization; independent 150-digit oracle proves the pose has nonzero geometric residual and energy. Do not project derivatives to impose false equilibrium."
+    },
+    {
+      "finding": "JSON encoding alone silently converts tuple input to lists and accepts some NumPy scalar subclasses.",
+      "repair": "Inspect raw input types before immutable encoding, with independent tuple/NumPy regressions."
+    }
+  ],
+  "applicationBehaviorChanged": false,
+  "baseCommit": "1cb1532b2873b6db3df092ced1415c91a06163b9",
+  "constructionPhaseCompleted": false,
+  "date": "2026-09-24",
+  "deployed": false,
+  "designRecords": [
+    {
+      "bytes": 9798,
+      "path": ".planning/solver/integrated-normal-sewing-design-review-sep24-v1.md",
+      "sha256": "dd60e3a545f01494dfb1335bb20c13ecef96752496f7cd087165cfecd1a3925b"
+    },
+    {
+      "bytes": 7039,
+      "path": ".planning/solver/continuous-normal-sewing-schema-sep24-v1.md",
+      "sha256": "8ad2f5256835535895a9c73e3d6abf20bfe58e9e36b204a9af7a292633a55f6f"
+    },
+    {
+      "bytes": 3088,
+      "path": ".planning/solver/review-continuous-normal-cancellation-sep24-v1.md",
+      "sha256": "4140734375560712f4606d00122003db4ff7b9e31b954fc966e33c159f7a5076"
+    }
+  ],
+  "designRecordsScope": "Ignored design/review notes are historical supporting derivations; current code and numerical policy above are authoritative for this increment.",
+  "independentPrecisionReview": {
+    "largeScaleAndRotation": {
+      "accepted": false,
+      "cases": [
+        {
+          "case": "scale-then-tiny-tilt",
+          "exactTinyTiltWork": "-2.82923147411627827911056363515782833231280331403370697688026420420978341615354708322509333870004917324526828913531751386336260348985182633615827359684E-17",
+          "observedTinyTiltWork": -2.829231474116278e-17,
+          "powerOfTwoScale": -120,
+          "scaleWork": 0.0
+        },
+        {
+          "case": "scale-then-tiny-tilt",
+          "exactTinyTiltWork": "-2.82923147411627827911056363515782833231280331403370697688026420420978341615354708322509333870004917324526828913531751386336260348985188633615827359684E-17",
+          "observedTinyTiltWork": -2.829231474116278e-17,
+          "powerOfTwoScale": -60,
+          "scaleWork": 0.0
+        },
+        {
+          "case": "scale-then-tiny-tilt",
+          "exactTinyTiltWork": "-2.82923147411627827911056363515782833231280331403370697688026420420978341615354708322509333870004917324526828913531751386336260348985182633615827359684E-17",
+          "observedTinyTiltWork": -2.829231474116278e-17,
+          "powerOfTwoScale": -30,
+          "scaleWork": 0.0
+        },
+        {
+          "case": "scale-then-tiny-tilt",
+          "exactTinyTiltWork": "-2.82923147411627827911056363515782833231280331403370697688026420420978341615354708322509333870004917324526828913531751386336260348985168633615827359684E-17",
+          "observedTinyTiltWork": -2.829231474116278e-17,
+          "powerOfTwoScale": 15,
+          "scaleWork": 0.0
+        },
+        {
+          "case": "quarter-turn",
+          "exactWork": "1.01529586233442046441141313525701120156215229036571160164943770886591740717671100293611716265084943208770668222644172194337567384706935000951985924272",
+          "observedWork": 1.0152958623344204
+        },
+        {
+          "case": "normal-flip",
+          "exactWork": "0.919513233812305292952877548222395106657022014486080279837040484189027363558384987110086853474097246901870638265309138379679381323066464539545054186600",
+          "observedWork": 0.9195132338123053
+        }
+      ],
+      "inputAndOutputIsolation": true,
+      "pendingCollapsedGeometryMask": true,
+      "producerSha256": "55b58055b15a760f027b99f8d5476a4d58f3b6ac6063d3991236c35311bbd1db",
+      "scope": "Independent numerical endpoint tests only; large changes are not certified paths"
+    },
+    "opposedLargeForces": {
+      "expectedPositiveAnchorZGradient": "0.999999999999999998819309354559898697134329072916392178171918203588575124740600585937500000000000000",
+      "expectedPositiveTinyWorkJ": "1.014999999999999977290029680315540397063262943423929973131590255805266023915317020576242859051020202E-16",
+      "observedPositiveAnchorZGradientN": 1.0,
+      "observedPositiveTinyWorkJ": 1.015e-16
+    },
+    "roundedNormalPose": {
+      "energyJ": 3.208153931139114e-19,
+      "geometricOracleDecimalDigits": 150,
+      "globalForceErrorBoundVerified": false,
+      "maximumGradientDifferenceFromRoundedOracleN": 5.333917539287304e-64,
+      "normalEnclosureVerified": true
+    },
+    "tinyNormalWork": {
+      "cases": 22,
+      "observedToDecimalReferenceRatioRange": [
+        0.9999999999999999,
+        1.0
+      ]
+    }
+  },
+  "ledgerGenerator": {
+    "bytes": 13857,
+    "path": ".planning/solver/make-continuous-normal-ledger-sep24-v1.py",
+    "sha256": "0662e8e6f3dbc1bec6912d84a7132aee626cf8145f9e1df4800a5ad11660788b"
+  },
+  "meaningfulModelChecks": [
+    {
+      "check": "Interior deformation invisible to two endpoint samples",
+      "integratedEnergyJ": 0.25,
+      "interiorZGradientN": 1.0,
+      "sampledEnergyJ": 0.0,
+      "scope": "Synthetic declared-scale fixture, not garment mechanics."
+    },
+    {
+      "check": "Exact measure-preserving subdivision",
+      "scope": "Same face and density, endpoint maps/targets interpolated and reference length divided; comparison includes energy, gradient and full curvature within reported floating tolerances."
+    },
+    {
+      "check": "Adjacent directors incompatible",
+      "scope": "Two orthogonal one-sided normals, shared continuous positive anchor and positive target. Even minimizing the shared anchor leaves positive energy. No normal smoothing or corner policy inferred."
+    },
+    {
+      "check": "Pending geometry",
+      "scope": "Inactive frame terms remain zero without evaluating degenerate normals. Complete global cloth guards remain the caller responsibility."
+    }
+  ],
+  "mechanicalLaw": {
+    "anchors": "Preserve exact unit-sum rational anchors and independently rounded binary64 coefficients; do not normalize the numerical coefficients. Exact binary-input contractions and final one-round outputs.",
+    "derivatives": "Expanded analytic geometric-unit-normal identities eliminate d^2 frame cancellation before evaluation. This approximates the analytic law, not exact differentiation of the discrete square-root-midpoint algorithm.",
+    "energyUnits": "J",
+    "fullHessian": "Analytic normal curvature with frame reactions and endpoint coupling; may be indefinite away from zero residual.",
+    "gaussNewton": "Exact products and sums of the returned binary64 Jacobian, then one entry rounding; not a full curvature matrix.",
+    "gradientUnits": "N",
+    "inputIsolation": "Raw JSON preflight precedes immutable byte snapshot; tuples and NumPy raw input scalars reject; tuple/byte persistent state uses slots, sealing and deletion guards.",
+    "intendedEnergy": "alpha*kappa*L/2*(|Rmean|^2+|R1-R0|^2/12)",
+    "normalDiagnostics": "Exact magnitude enclosure witnesses and normal unit-length defect for active cells; no certified global force/Hessian/work error bound.",
+    "normals": "Exact binary-input oriented area, max-component scaling, directed 256-bit rational square-root enclosure; midpoint magnitude and rational normal derivatives retained until final outputs.",
+    "numericalWeights": "Round exact alpha*kappa*L and alpha*kappa*L/12 independently, take binary64 square roots, use exact squares of these roots for modal energy/derivatives/work; retain all conversion residuals.",
+    "outputRange": "Nonzero unrepresentable outputs reject; no silent positive-scale underflow.",
+    "referenceMeasure": "Explicit per-cell reference length L in meters; caller defines material measure, including gathered-member choice; no extra fraction factor.",
+    "residual": "R(u)=C(u)q-side*d(u)*n_face(q), affine in the cell parameter at fixed q",
+    "stiffnessDensityUnits": "N/m^2",
+    "work": "Fixed maps, targets, scales, frame and sign only; exact displacement contractions plus stable difference of independently scaled area vectors. Positive proportional areas preserve normals exactly. Not a motion path certificate."
+  },
+  "profile": "continuous-normal-sewing-results-v1",
+  "remainingLimits": [
+    "Continuous integration of the declared affine numerical residual is not a calibrated physical seam model.",
+    "Piecewise constant directors can conflict across legitimate creases; a compatible corner/director/joint law remains unresolved.",
+    "Exact source-map anchors, converted primitive anchors and immutable historical point operators are distinct; no automatic replacement or equivalence.",
+    "Source ownership, oriented candidate authority, complete path coverage and reference measure are caller prerequisites.",
+    "Low energy does not certify pointwise seam error, especially on short cells or small stiffness density.",
+    "No parameter-change work or generic solver/adaptive/captured integration is installed.",
+    "No global force/Hessian/work error bound; geometric enclosure error can be amplified by small admissible triangles.",
+    "No joint space-time gap proof, contact path, mesh/timestep convergence, material damping/friction, body calibration, construction or full-shirt acceptance."
+  ],
+  "retainedDevelopmentAndReviewArtifacts": [
+    {
+      "bytes": 2702,
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v1.py",
+      "sha256": "a3b7b22aceafaa74c42611b904cc192957eb72d28a4c655672beb5c5abafa165"
+    },
+    {
+      "bytes": 8421,
+      "canonicalJsonSha256": "0f87f38b714769cd44b2d20021357f195f57eafb0108ad5174e057b5f686e4cc",
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v1.json",
+      "sha256": "63aa3079473cf4ece0db79f63ff0d9f12cfa39d2f1664bd9dd4aed5d9f7f4fb1"
+    },
+    {
+      "bytes": 2702,
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v2.py",
+      "sha256": "a3b7b22aceafaa74c42611b904cc192957eb72d28a4c655672beb5c5abafa165"
+    },
+    {
+      "bytes": 8419,
+      "canonicalJsonSha256": "2b3a8cf7c7ef2d9f35c3c127519edb61c27d91c46ca267cf40c0ffd52a392d2a",
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v2.json",
+      "sha256": "91f64363db97854676c1866642ba4a61b72f64e6421ea410434b916b854ce490"
+    },
+    {
+      "bytes": 8419,
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v2.log",
+      "sha256": "91f64363db97854676c1866642ba4a61b72f64e6421ea410434b916b854ce490"
+    },
+    {
+      "bytes": 2702,
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v3.py",
+      "sha256": "a3b7b22aceafaa74c42611b904cc192957eb72d28a4c655672beb5c5abafa165"
+    },
+    {
+      "bytes": 8219,
+      "canonicalJsonSha256": "ac300b5a17496d000d8058bc1a4054ddc2cccf062268530652401971cd1c94a6",
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v3.json",
+      "sha256": "8e4332b7873cb13ed454f4bae7a8a60dce23b316d7fef5473d1c5424e6c1a5bc"
+    },
+    {
+      "bytes": 8219,
+      "path": ".planning/solver/review-continuous-normal-precision-sep24-v3.log",
+      "sha256": "8e4332b7873cb13ed454f4bae7a8a60dce23b316d7fef5473d1c5424e6c1a5bc"
+    },
+    {
+      "bytes": 3877,
+      "path": ".planning/solver/review-continuous-normal-large-change-sep24-v1.py",
+      "sha256": "6b67218eb39b602d6da285ba371f9d416089cae9f3fc33ed6932f15e16fd774a"
+    },
+    {
+      "bytes": 2195,
+      "canonicalJsonSha256": "90b63e727c75b21dce42d8db22a25328c55819758fa5e1446e929eaccbcb3670",
+      "path": ".planning/solver/review-continuous-normal-large-change-sep24-v1.json",
+      "sha256": "959a8eaaa24e9d099f7a6536198cd1419cd9efec7c5689c09bda2ce4e49a5b0a"
+    },
+    {
+      "bytes": 2195,
+      "path": ".planning/solver/review-continuous-normal-large-change-sep24-v1.log",
+      "sha256": "959a8eaaa24e9d099f7a6536198cd1419cd9efec7c5689c09bda2ce4e49a5b0a"
+    },
+    {
+      "bytes": 3913,
+      "path": ".planning/solver/review-continuous-normal-large-change-sep24-v2.py",
+      "sha256": "ba6f7fa0670150107cb5e5e13f2ee209e28e2dbb119d5e2b44ad5281e2360284"
+    },
+    {
+      "bytes": 2195,
+      "canonicalJsonSha256": "695862b09999e0691fad485830047dbda783824f33cbf9cc742adc997705d900",
+      "path": ".planning/solver/review-continuous-normal-large-change-sep24-v2.json",
+      "sha256": "1fa675e5686ad9fae3b3d5c22dde4e7012223cf61bdceeb48089547dc74db35a"
+    },
+    {
+      "bytes": 2195,
+      "path": ".planning/solver/review-continuous-normal-large-change-sep24-v2.log",
+      "sha256": "1fa675e5686ad9fae3b3d5c22dde4e7012223cf61bdceeb48089547dc74db35a"
+    },
+    {
+      "bytes": 2721,
+      "canonicalJsonSha256": "37170e12bbc4f9a95695059e4e0f139c87b3a4ff7e4e40e0763c0da3f22c0fbc",
+      "path": ".planning/solver/continuous-normal-precision-policy-sep24-v1.json",
+      "sha256": "1a9bd4a578f62e2101c39fec023fa314be843b9b8d3ddb1acce71044c334accc"
+    },
+    {
+      "bytes": 2184,
+      "canonicalJsonSha256": "189a3862f1e1e463d92657de7252631c4a5289c3143af39a8e581a277a02286b",
+      "path": ".planning/solver/continuous-normal-precision-policy-sep24-v2.json",
+      "sha256": "4b2e242a0f7665b0d595469a100930076bb2c90ad1c6f509fd1488f77ee69ab5"
+    },
+    {
+      "bytes": 17607,
+      "path": ".planning/solver/continuous-normal-precision-regression-native-sep24-v1.log",
+      "sha256": "f77146fc66ea988092676f784f498043160f6a41e976721f3fb144fedd04f7c4"
+    },
+    {
+      "bytes": 3149,
+      "path": ".planning/solver/continuous-normal-conversion-mutation-native-sep24-v1.log",
+      "sha256": "d76dc4e4a163a57bac6d0c2f2d1258dcbd15ace6d6b0dcf22637b154dcf3a8dc"
+    },
+    {
+      "bytes": 7723,
+      "path": ".planning/solver/continuous-normal-zero-residual-native-sep24-v1.log",
+      "sha256": "03ca14b116465e2bbc02796a843a47a2409006c202c7a42fe5fb2e2977f23e67"
+    },
+    {
+      "bytes": 3065,
+      "path": ".planning/solver/continuous-normal-producer-native-sep24-v1.log",
+      "sha256": "f9d708664bba02906a2914f19adccac728baffc381f51bb848a05116d580760d"
+    },
+    {
+      "bytes": 116,
+      "path": ".planning/solver/continuous-normal-producer-native-sep24-v2.log",
+      "sha256": "9d0969974188a2690240e9b137bd727a4d40ea19d0d763c60a274c22804cb694"
+    },
+    {
+      "bytes": 4445,
+      "path": ".planning/solver/continuous-normal-producer-native-sep24-v3.log",
+      "sha256": "8e6c486689f9f6053a2fb098de62844d51c678d32d57ef00843eec6233396ee8"
+    },
+    {
+      "bytes": 4445,
+      "path": ".planning/solver/continuous-normal-producer-linux-sep24-v3.log",
+      "sha256": "a0513e2eb1035b9181937ce9e0d66b90f371a6fd498ad26d49e65c4ec89ecbbe"
+    },
+    {
+      "bytes": 584,
+      "path": ".planning/solver/continuous-normal-geometric-reference-native-sep24-v1.log",
+      "sha256": "e2356e220ac3f18a4343ab344e3b0d5852a36b4b1270b7596c5095b417ad0e7d"
+    },
+    {
+      "bytes": 333,
+      "path": ".planning/solver/continuous-normal-scaling-native-sep24-v1.log",
+      "sha256": "eaf57896e1b2f8536ff12ff00e6e791990dc56a3e5d4ac90e90c71647a305da6"
+    }
+  ],
+  "runtime": {
+    "containerImage": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "focusedLinuxLimits": "Same image, linux/arm64, network none and single-thread numerical settings; no explicit memory/cpu/pid limits were supplied for focused runs.",
+    "fullDiscoveryContainerLimits": {
+      "cpus": 1,
+      "memory": "3g",
+      "network": "none",
+      "pids": 256,
+      "platform": "linux/arm64"
+    },
+    "identitySource": {
+      "bytes": 518832,
+      "canonicalJsonSha256": "c81876ad633bacab9a2935a29414ca2e48b9232e24d5354ea6827afb4d5f9b1c",
+      "path": "docs/research/3d-binding-spatial-seams-results.json",
+      "sha256": "c958925db24d25f42279427e2f503f1e5fe7d800ad114af49465b72d39d4c83e"
+    },
+    "note": "Same pinned immutable image as the preceding spatial checkpoint; package/platform identity is referenced from that measured ledger."
+  },
+  "scope": "Standalone supplied-cell continuous piecewise-face normal-offset candidate penalty and static diagnostics. No solver integration, source control installation, motion, temporal/contact certification, calibrated seam law or garment acceptance.",
+  "sharedInputHelper": {
+    "bytes": 2018,
+    "function": "_contains_bool",
+    "path": "scripts/solver_sewing_activation.py",
+    "sha256": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561"
+  },
+  "sharedMechanicalHelpers": [],
+  "sourceAdmissionGranted": false,
+  "sourceControlsInstalled": false,
+  "sourceFiles": [
+    {
+      "bytes": 29926,
+      "path": "scripts/solver_continuous_normal_sewing.py",
+      "sha256": "55b58055b15a760f027b99f8d5476a4d58f3b6ac6063d3991236c35311bbd1db"
+    },
+    {
+      "bytes": 44956,
+      "path": "scripts/test_solver_continuous_normal_sewing.py",
+      "sha256": "0992569c65f995cb0310a849aa553c360e25884a0d1862531de565c022630ed3"
+    }
+  ],
+  "staticSourceDiagnostic": {
+    "accepted": false,
+    "alternativesWithDecreasedEnergy": 8,
+    "alternativesWithNonzeroGradientChange": 32,
+    "byteReproduction": {
+      "bytes": 5210,
+      "canonicalJsonSha256": "7f897daeda72cfc5f44f2c042b6fc391fab43fef19ee85da6d01c95cb6a9eb6b",
+      "path": ".planning/solver/continuous-normal-source-reproduction-sep24-v1.json",
+      "sha256": "41c0198c29cd8e58fbb27725df57f1d8ba7e92e401767d69bc37139b0f7330f7"
+    },
+    "cells": [
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 73,
+            "localNegativeFaceIndex": 25,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 8.535589249076824e-20,
+                "gradientEuclideanNormNewtons": 1.0117339515283988e-09,
+                "gradientSha256": "5ad138498394d0d325a62bbc20d3bb3dcea4467bd2640eba2cbf797d8a5f797f",
+                "maximumVertexGradientNormNewtons": 7.739347878172239e-10
+              },
+              "initial": {
+                "energyJoules": 8.535589249076824e-20,
+                "gradientEuclideanNormNewtons": 1.0117339515283988e-09,
+                "gradientSha256": "5ad138498394d0d325a62bbc20d3bb3dcea4467bd2640eba2cbf797d8a5f797f",
+                "maximumVertexGradientNormNewtons": 7.739347878172239e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 73,
+            "localNegativeFaceIndex": 25,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.0168103750000261e-05,
+                "gradientEuclideanNormNewtons": 0.01102416151643419,
+                "gradientSha256": "89d4a6860b04d248ee9ba3425fe268585269b610724a8ae679a57087c2323eca",
+                "maximumVertexGradientNormNewtons": 0.008454533376929002
+              },
+              "initial": {
+                "energyJoules": 1.0168103750000261e-05,
+                "gradientEuclideanNormNewtons": 0.01102416151643419,
+                "gradientSha256": "89d4a6860b04d248ee9ba3425fe268585269b610724a8ae679a57087c2323eca",
+                "maximumVertexGradientNormNewtons": 0.008454533376929002
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 1,
+        "cellIndex": 0,
+        "fractionInterval": [
+          {
+            "denominator": "1",
+            "numerator": "0"
+          },
+          {
+            "denominator": "885523927110328",
+            "numerator": "44719793222231"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "8796093022208000",
+          "numerator": "44719793222231"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 8.940514961309223e-20,
+                "gradientEuclideanNormNewtons": 1.218767190038459e-09,
+                "gradientSha256": "e663711a8741a337d490519dace7b667c54aa252004bfeac71e83c4f84eac599",
+                "maximumVertexGradientNormNewtons": 9.285805708006628e-10
+              },
+              "initial": {
+                "energyJoules": 8.940514961309223e-20,
+                "gradientEuclideanNormNewtons": 1.218767190038459e-09,
+                "gradientSha256": "e663711a8741a337d490519dace7b667c54aa252004bfeac71e83c4f84eac599",
+                "maximumVertexGradientNormNewtons": 9.285805708006628e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.3924274221034026e-05,
+                "gradientEuclideanNormNewtons": 0.015161338912263645,
+                "gradientSha256": "e07cb9593385bee2ec18e2ba476626b1a13eccfe0be8bce6f5b091b8588339ea",
+                "maximumVertexGradientNormNewtons": 0.011514211306596932
+              },
+              "initial": {
+                "energyJoules": 1.3924274221034026e-05,
+                "gradientEuclideanNormNewtons": 0.015161338912263645,
+                "gradientSha256": "e07cb9593385bee2ec18e2ba476626b1a13eccfe0be8bce6f5b091b8588339ea",
+                "maximumVertexGradientNormNewtons": 0.011514211306596932
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 8.940514961309223e-20,
+                "gradientEuclideanNormNewtons": 1.2187671903562706e-09,
+                "gradientSha256": "3afec00ab5120f4b96b9295f148b9db1473193384ae916ad17ed593cea2710fa",
+                "maximumVertexGradientNormNewtons": 9.285805708006628e-10
+              },
+              "initial": {
+                "energyJoules": 8.940514961309223e-20,
+                "gradientEuclideanNormNewtons": 1.2187671903562706e-09,
+                "gradientSha256": "3afec00ab5120f4b96b9295f148b9db1473193384ae916ad17ed593cea2710fa",
+                "maximumVertexGradientNormNewtons": 9.285805708006628e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.3924274221034026e-05,
+                "gradientEuclideanNormNewtons": 0.015161338912263645,
+                "gradientSha256": "cd823476e970b26de188c51c851a7fdd99c2b48ff54b03f336b1261e4bb8cc79",
+                "maximumVertexGradientNormNewtons": 0.011514211306596932
+              },
+              "initial": {
+                "energyJoules": 1.3924274221034026e-05,
+                "gradientEuclideanNormNewtons": 0.015161338912263645,
+                "gradientSha256": "cd823476e970b26de188c51c851a7fdd99c2b48ff54b03f336b1261e4bb8cc79",
+                "maximumVertexGradientNormNewtons": 0.011514211306596932
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 1,
+        "fractionInterval": [
+          {
+            "denominator": "885523927110328",
+            "numerator": "44719793222231"
+          },
+          {
+            "denominator": "1771047861007650",
+            "numerator": "211918798571521"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "7789150866102897004353945600000",
+          "numerator": "54229136304309613437862350869"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.9296633160637594e-34,
+                "gradientEuclideanNormNewtons": 4.132742053991586e-24,
+                "gradientSha256": "4e95fcd3fade5cba45e9b06dec277bf92c4abaffb7efbe12cd7734526c5f0275",
+                "maximumVertexGradientNormNewtons": 2.618387624000709e-24
+              },
+              "initial": {
+                "energyJoules": 2.9296633160637594e-34,
+                "gradientEuclideanNormNewtons": 4.132742053991586e-24,
+                "gradientSha256": "4e95fcd3fade5cba45e9b06dec277bf92c4abaffb7efbe12cd7734526c5f0275",
+                "maximumVertexGradientNormNewtons": 2.618387624000709e-24
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 5.442674490604543e-20,
+                "gradientEuclideanNormNewtons": 5.619930461233444e-17,
+                "gradientSha256": "41bdac6e5ee895399d7aabbb9221546f76f1a9ae80a61559fb0791e24ea857e8",
+                "maximumVertexGradientNormNewtons": 3.558599543458372e-17
+              },
+              "initial": {
+                "energyJoules": 5.442674490604543e-20,
+                "gradientEuclideanNormNewtons": 5.619930461233444e-17,
+                "gradientSha256": "41bdac6e5ee895399d7aabbb9221546f76f1a9ae80a61559fb0791e24ea857e8",
+                "maximumVertexGradientNormNewtons": 3.558599543458372e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.9296633160637594e-34,
+                "gradientEuclideanNormNewtons": 4.132742055185262e-24,
+                "gradientSha256": "fe8995be62f84b792a926ef2ef547088d4a9a98fd30295f88affadf306b78d20",
+                "maximumVertexGradientNormNewtons": 2.618387624000709e-24
+              },
+              "initial": {
+                "energyJoules": 2.9296633160637594e-34,
+                "gradientEuclideanNormNewtons": 4.132742055185262e-24,
+                "gradientSha256": "fe8995be62f84b792a926ef2ef547088d4a9a98fd30295f88affadf306b78d20",
+                "maximumVertexGradientNormNewtons": 2.618387624000709e-24
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 5.442674490604543e-20,
+                "gradientEuclideanNormNewtons": 5.619930461233443e-17,
+                "gradientSha256": "3ff0219455ccb06f71edc8681fcf929e6d7c4cf2bf6fa5774496c63b4d57d7df",
+                "maximumVertexGradientNormNewtons": 3.558599543458372e-17
+              },
+              "initial": {
+                "energyJoules": 5.442674490604543e-20,
+                "gradientEuclideanNormNewtons": 5.619930461233443e-17,
+                "gradientSha256": "3ff0219455ccb06f71edc8681fcf929e6d7c4cf2bf6fa5774496c63b4d57d7df",
+                "maximumVertexGradientNormNewtons": 3.558599543458372e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 2,
+        "fractionInterval": [
+          {
+            "denominator": "1771047861007650",
+            "numerator": "211918798571521"
+          },
+          {
+            "denominator": "617484755018359449277361397362723617002799200",
+            "numerator": "73886556258998677933861705886959472124589781"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "226310556039033660946674178973504732545182046246823526400000",
+          "numerator": "6158673451540784740925312161464212085951921"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 9.838345987060673e-20,
+                "gradientEuclideanNormNewtons": 1.5985285032159459e-09,
+                "gradientSha256": "f654fd90c131d0234e0637cdf96c6f9f7c728b106c258e9876e7fc1211152718",
+                "maximumVertexGradientNormNewtons": 1.0399597221257355e-09
+              },
+              "initial": {
+                "energyJoules": 9.838345987060673e-20,
+                "gradientEuclideanNormNewtons": 1.5985285032159459e-09,
+                "gradientSha256": "f654fd90c131d0234e0637cdf96c6f9f7c728b106c258e9876e7fc1211152718",
+                "maximumVertexGradientNormNewtons": 1.0399597221257355e-09
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.624382952896652e-05,
+                "gradientEuclideanNormNewtons": 0.026381169674660976,
+                "gradientSha256": "87ab276f40845fe0d9ba53de750fa313958a3db3c95758902e363365f4225779",
+                "maximumVertexGradientNormNewtons": 0.017646010563882677
+              },
+              "initial": {
+                "energyJoules": 2.624382952896652e-05,
+                "gradientEuclideanNormNewtons": 0.026381169674660976,
+                "gradientSha256": "87ab276f40845fe0d9ba53de750fa313958a3db3c95758902e363365f4225779",
+                "maximumVertexGradientNormNewtons": 0.017646010563882677
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 9.838345987060673e-20,
+                "gradientEuclideanNormNewtons": 1.5985285037587689e-09,
+                "gradientSha256": "d47aff26aac8e08bc425dba171f533225f3bdd9344ac5e972f4eda71c09b9cae",
+                "maximumVertexGradientNormNewtons": 1.039959722960112e-09
+              },
+              "initial": {
+                "energyJoules": 9.838345987060673e-20,
+                "gradientEuclideanNormNewtons": 1.5985285037587689e-09,
+                "gradientSha256": "d47aff26aac8e08bc425dba171f533225f3bdd9344ac5e972f4eda71c09b9cae",
+                "maximumVertexGradientNormNewtons": 1.039959722960112e-09
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.624382952896652e-05,
+                "gradientEuclideanNormNewtons": 0.02638116967466097,
+                "gradientSha256": "b7f2ecb9f51be41202d8eca4ff9bdf433f992eb4daa4b549050c4c62cd764c98",
+                "maximumVertexGradientNormNewtons": 0.017646010563882666
+              },
+              "initial": {
+                "energyJoules": 2.624382952896652e-05,
+                "gradientEuclideanNormNewtons": 0.02638116967466097,
+                "gradientSha256": "b7f2ecb9f51be41202d8eca4ff9bdf433f992eb4daa4b549050c4c62cd764c98",
+                "maximumVertexGradientNormNewtons": 0.017646010563882666
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 3,
+        "fractionInterval": [
+          {
+            "denominator": "617484755018359449277361397362723617002799200",
+            "numerator": "73886556258998677933861705886959472124589781"
+          },
+          {
+            "denominator": "4",
+            "numerator": "1"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "678931668117100982840022536920514197635546138740470579200000",
+          "numerator": "8908883479940928039697964289581666639417385177816759897029"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.3016911242408167e-22,
+                "gradientEuclideanNormNewtons": 3.2456078003852996e-12,
+                "gradientSha256": "e1ad59ba220609c5613731346da3e13947d5a947d9112015e9449726bd2d38a3",
+                "maximumVertexGradientNormNewtons": 2.702192477640372e-12
+              },
+              "initial": {
+                "energyJoules": 1.3016911242408167e-22,
+                "gradientEuclideanNormNewtons": 3.2456078003852996e-12,
+                "gradientSha256": "e1ad59ba220609c5613731346da3e13947d5a947d9112015e9449726bd2d38a3",
+                "maximumVertexGradientNormNewtons": 2.702192477640372e-12
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 83,
+            "localNegativeFaceIndex": 35,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 5.6034583333343266e-08,
+                "gradientEuclideanNormNewtons": 6.722417677393224e-05,
+                "gradientSha256": "c6d8a604f58cc184321d8dd26a08d37fb2c975b5fd0fba3a8dce1cb598d0a585",
+                "maximumVertexGradientNormNewtons": 5.599555346890867e-05
+              },
+              "initial": {
+                "energyJoules": 5.6034583333343266e-08,
+                "gradientEuclideanNormNewtons": 6.722417677393224e-05,
+                "gradientSha256": "c6d8a604f58cc184321d8dd26a08d37fb2c975b5fd0fba3a8dce1cb598d0a585",
+                "maximumVertexGradientNormNewtons": 5.599555346890867e-05
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.3016911242408167e-22,
+                "gradientEuclideanNormNewtons": 3.245607801303428e-12,
+                "gradientSha256": "8e748e629fd8db385991adbf17166dc59e97a370256a924b8e58be2ba4e31ca5",
+                "maximumVertexGradientNormNewtons": 2.7021924787431373e-12
+              },
+              "initial": {
+                "energyJoules": 1.3016911242408167e-22,
+                "gradientEuclideanNormNewtons": 3.245607801303428e-12,
+                "gradientSha256": "8e748e629fd8db385991adbf17166dc59e97a370256a924b8e58be2ba4e31ca5",
+                "maximumVertexGradientNormNewtons": 2.7021924787431373e-12
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 85,
+            "localNegativeFaceIndex": 37,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 5.6034583333343266e-08,
+                "gradientEuclideanNormNewtons": 6.722417677393222e-05,
+                "gradientSha256": "4344cd391135b0b607bb9a1a4672692f8c5329c71316df6f597ab73928102f4c",
+                "maximumVertexGradientNormNewtons": 5.599555346890865e-05
+              },
+              "initial": {
+                "energyJoules": 5.6034583333343266e-08,
+                "gradientEuclideanNormNewtons": 6.722417677393222e-05,
+                "gradientSha256": "4344cd391135b0b607bb9a1a4672692f8c5329c71316df6f597ab73928102f4c",
+                "maximumVertexGradientNormNewtons": 5.599555346890865e-05
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 4,
+        "fractionInterval": [
+          {
+            "denominator": "4",
+            "numerator": "1"
+          },
+          {
+            "denominator": "7084191416882624",
+            "numerator": "1773019395850499"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "70368744177664000",
+          "numerator": "1971541629843"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 89,
+            "localNegativeFaceIndex": 41,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.2908589450488368e-07,
+                "gradientEuclideanNormNewtons": 0.0013302104098695728,
+                "gradientSha256": "a2a7b4c350c49b4b3dd2df453227c7a2f1f74d244d33a43def6dbe151922c214",
+                "maximumVertexGradientNormNewtons": 0.0008011722169116933
+              },
+              "initial": {
+                "energyJoules": 2.845163215334992e-20,
+                "gradientEuclideanNormNewtons": 7.328872953047481e-10,
+                "gradientSha256": "dd118ca65aa0cb1f0b190c12d8576c2787e173f1f358baa45387bb7feffd6cee",
+                "maximumVertexGradientNormNewtons": 5.151358407332531e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 1.2908589450485523e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.0013302105635832138,
+              "gradientDifferenceSha256": "2d7e82caab5dfbb7a4e0f8fc249bbe088f80028a5703b2997b79cc4cc88c59fe",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0008011723019527826,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 89,
+            "localNegativeFaceIndex": 41,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.5387870815688053e-05,
+                "gradientEuclideanNormNewtons": 0.017006623568152197,
+                "gradientSha256": "c6d1ee091aba0b34a65915f4f05b4602abbaf4d9cfc9a7e98834092fb0c2dd80",
+                "maximumVertexGradientNormNewtons": 0.011777180153718201
+              },
+              "initial": {
+                "energyJoules": 1.7846210524911958e-05,
+                "gradientEuclideanNormNewtons": 0.01828629912776303,
+                "gradientSha256": "e4f9ad7ad1da580b19c48833dcd7b6aa7d91065054019c4dacec348cfae59873",
+                "maximumVertexGradientNormNewtons": 0.012567668162582266
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -2.4583397092239053e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.0013355531532226843,
+              "gradientDifferenceSha256": "4b6f1a09a62b6cf5fd367431b919beecd8b780e3ca9881626787ded46f20fff4",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0008246077396490299,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 90,
+            "localNegativeFaceIndex": 42,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.2908589450488368e-07,
+                "gradientEuclideanNormNewtons": 0.0013158863462157638,
+                "gradientSha256": "f2470930c9ea6359e1590be2235364254f57ae4df00e81915670723df153ead2",
+                "maximumVertexGradientNormNewtons": 0.0007899481518557026
+              },
+              "initial": {
+                "energyJoules": 2.845163215334992e-20,
+                "gradientEuclideanNormNewtons": 7.328872945503628e-10,
+                "gradientSha256": "535235d2f7a32578a535d758126edd22377a6db8dad1417639af9cadf01ede1d",
+                "maximumVertexGradientNormNewtons": 5.15135839659984e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 1.2908589450485523e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.0013158865021732358,
+              "gradientDifferenceSha256": "9b07ee501dac5f931856eb9050c59a5e5498a0e6ec8ab643cf05fdd6adccc2d8",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0007899482439854246,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 90,
+            "localNegativeFaceIndex": 42,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.5387870815688053e-05,
+                "gradientEuclideanNormNewtons": 0.016989448188265338,
+                "gradientSha256": "090cd7fc54ac5e3244113f5965a374cddcfffd31cd96750724dd3c01ce119c6f",
+                "maximumVertexGradientNormNewtons": 0.011752364737620105
+              },
+              "initial": {
+                "energyJoules": 1.7846210524911958e-05,
+                "gradientEuclideanNormNewtons": 0.018286299127763025,
+                "gradientSha256": "13838b1814230475a2337637596170787419a6211eede4e272ea81a9bd6f1088",
+                "maximumVertexGradientNormNewtons": 0.012567668162582254
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -2.4583397092239053e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.001350270723319167,
+              "gradientDifferenceSha256": "418eefcfe39160683d0e192a3cb149c5bb689935027d3e45efb92fe0ef80119c",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0008482374228120886,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 5,
+        "fractionInterval": [
+          {
+            "denominator": "7084191416882624",
+            "numerator": "1773019395850499"
+          },
+          {
+            "denominator": "4722794296020400",
+            "numerator": "1600618077690293"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "20771068976274392011610521600000",
+          "numerator": "185342434889029147856196936827"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 89,
+            "localNegativeFaceIndex": 41,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.0337445723161783e-22,
+                "gradientEuclideanNormNewtons": 7.2636778270802635e-19,
+                "gradientSha256": "7db4b36a0b74ab03badd829e10b5fbf32553d85bc61e604b74f622b1d8719a27",
+                "maximumVertexGradientNormNewtons": 4.257359901601753e-19
+              },
+              "initial": {
+                "energyJoules": 4.732426419570247e-36,
+                "gradientEuclideanNormNewtons": 1.5564488634695173e-25,
+                "gradientSha256": "881d484de9d8f0bf1ee74982a76cb4e08118c04e23fea8ce640f62b0e2b21e67",
+                "maximumVertexGradientNormNewtons": 9.094168808070728e-26
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 1.033744572316131e-22,
+              "gradientDifferenceEuclideanNormNewtons": 7.263678018244158e-19,
+              "gradientDifferenceSha256": "bc85fa973d59640d5776497e67fbec1c2fd6aa1060e4155e4345bd4a6142064f",
+              "maximumVertexGradientDifferenceNormNewtons": 4.2573601013560724e-19,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 89,
+            "localNegativeFaceIndex": 41,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.5866463233968025e-21,
+                "gradientEuclideanNormNewtons": 4.268778443358562e-18,
+                "gradientSha256": "684504890c0e4921bd2740670ea553f2a9f02b8add8b49b572b4bb104ff290fe",
+                "maximumVertexGradientNormNewtons": 2.503602364069655e-18
+              },
+              "initial": {
+                "energyJoules": 4.901277334946882e-21,
+                "gradientEuclideanNormNewtons": 4.987837154271197e-18,
+                "gradientSha256": "c438f41692cc81db3211ce65d123076caeb09ce842b70e6eb6f757b477ead979",
+                "maximumVertexGradientNormNewtons": 2.9266832028585236e-18
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -1.3146310115500797e-21,
+              "gradientDifferenceEuclideanNormNewtons": 7.256885054551823e-19,
+              "gradientDifferenceSha256": "721dfb8f677654f79fdf8ffab1bdc02f27cfb96bd57c02ab1255dd9cfa4b97b1",
+              "maximumVertexGradientDifferenceNormNewtons": 4.2694219005044386e-19,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 90,
+            "localNegativeFaceIndex": 42,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.0337445723161783e-22,
+                "gradientEuclideanNormNewtons": 7.241421019814877e-19,
+                "gradientSha256": "5de57581f6bb106a92308cc86531bac55d08f2400d31f84ddeb0904d4398317c",
+                "maximumVertexGradientNormNewtons": 4.257359901601753e-19
+              },
+              "initial": {
+                "energyJoules": 4.732426419570247e-36,
+                "gradientEuclideanNormNewtons": 1.5564488606504672e-25,
+                "gradientSha256": "b7cef111194e383bf7597fcbf5213ae0af0a8d23ce9e294b0061a2b826bf3c97",
+                "maximumVertexGradientNormNewtons": 9.094168808070728e-26
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 1.033744572316131e-22,
+              "gradientDifferenceEuclideanNormNewtons": 7.24142121219834e-19,
+              "gradientDifferenceSha256": "86ff5c03cf1873440e80796a96c70c2f692159245ff917c21faf81659cf430af",
+              "maximumVertexGradientDifferenceNormNewtons": 4.2573601013560724e-19,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 90,
+            "localNegativeFaceIndex": 42,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.5866463233968025e-21,
+                "gradientEuclideanNormNewtons": 4.266511432067508e-18,
+                "gradientSha256": "393261e9a3ee063e09ae70dacb3f6eec0f10bb6541dcfdad1eb644605a0d1bd1",
+                "maximumVertexGradientNormNewtons": 2.503602364069655e-18
+              },
+              "initial": {
+                "energyJoules": 4.901277334946882e-21,
+                "gradientEuclideanNormNewtons": 4.987837154271196e-18,
+                "gradientSha256": "83f35c4526753feede31ff211cd2574d31e59fb19de70256129d675cca5228b1",
+                "maximumVertexGradientNormNewtons": 2.9266832028585236e-18
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -1.3146310115500797e-21,
+              "gradientDifferenceEuclideanNormNewtons": 7.279720818968199e-19,
+              "gradientDifferenceSha256": "9761bc7aee2699214643ec7908266f7623fef9b125e667570b4e230b7ee2ff21",
+              "maximumVertexGradientDifferenceNormNewtons": 4.2694219005044386e-19,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 6,
+        "fractionInterval": [
+          {
+            "denominator": "4722794296020400",
+            "numerator": "1600618077690293"
+          },
+          {
+            "denominator": "11623553419650467859777276298558260645599487600",
+            "numerator": "3939377530410018406879594526678669250573638569"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "199691127202830892835370062185054645693974582225430118400000",
+          "numerator": "489370797874612857446235307263013225054763"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 89,
+            "localNegativeFaceIndex": 41,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.777768122173563e-07,
+                "gradientEuclideanNormNewtons": 0.0025563304244462333,
+                "gradientSha256": "83bccca841c5ff8a0cb7d610bdd15dc699b86b8ca6b01383057ed835c3ddc579",
+                "maximumVertexGradientNormNewtons": 0.0019618304736613323
+              },
+              "initial": {
+                "energyJoules": 7.949871723247872e-21,
+                "gradientEuclideanNormNewtons": 3.264983114880343e-10,
+                "gradientSha256": "a1e97c05aa3ae6b030bc46135ddbc8e41e04ba94138e02c82084d057869a6048",
+                "maximumVertexGradientNormNewtons": 2.427340352573738e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.777768122173484e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.002556330463366297,
+              "gradientDifferenceSha256": "d1a0f136dfafb1b2ec013f9d1d57bfeb05f09772231eaed88b0a11c7b4f5b7a4",
+              "maximumVertexGradientDifferenceNormNewtons": 0.001961830513731494,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 89,
+            "localNegativeFaceIndex": 41,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 8.006883261377288e-06,
+                "gradientEuclideanNormNewtons": 0.010459755459479293,
+                "gradientSha256": "513274ec71f75023f8adb56dde2cf1ccdb2779b3fdabcc1be102eb52fad029ad",
+                "maximumVertexGradientNormNewtons": 0.007867557781030385
+              },
+              "initial": {
+                "energyJoules": 1.2321893225088171e-05,
+                "gradientEuclideanNormNewtons": 0.01299627384669234,
+                "gradientSha256": "7d5f5c9fe9cddba60ba6aa06e92c60f5fc7267c7e99b21f6a552abd8e9454ba5",
+                "maximumVertexGradientNormNewtons": 0.009805509445231241
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -4.3150099637108834e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.002550797671292637,
+              "gradientDifferenceSha256": "6f9230821fc30ef4e7ed9b2006a3fb19c709721a7643f986ffee089f0dce793b",
+              "maximumVertexGradientDifferenceNormNewtons": 0.001948101686039245,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 90,
+            "localNegativeFaceIndex": 42,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.777768122173563e-07,
+                "gradientEuclideanNormNewtons": 0.002554233748849174,
+                "gradientSha256": "15fcadfd999978c76506e7865421b5d31755dec41faee1013e7bea6e7ebf55a9",
+                "maximumVertexGradientNormNewtons": 0.0019618304736613323
+              },
+              "initial": {
+                "energyJoules": 7.949871723247872e-21,
+                "gradientEuclideanNormNewtons": 3.2649831071053525e-10,
+                "gradientSha256": "3b78a7d4a4021e0daf50ea51241fc3b7ee232e702417824a85922339c598d145",
+                "maximumVertexGradientNormNewtons": 2.427340352573738e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.777768122173484e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.0025542337878891146,
+              "gradientDifferenceSha256": "11874565c9c33579d0410e5d6262972c9566e1421ae454d88efa49b700da99f5",
+              "maximumVertexGradientDifferenceNormNewtons": 0.001961830513731494,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 90,
+            "localNegativeFaceIndex": 42,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 8.006883261377288e-06,
+                "gradientEuclideanNormNewtons": 0.010457344873524585,
+                "gradientSha256": "19b4f99ee4a4588d2bbff99fe71d1218b37b1076bdd1473b5427e210b6586c85",
+                "maximumVertexGradientNormNewtons": 0.007867557781030385
+              },
+              "initial": {
+                "energyJoules": 1.2321893225088171e-05,
+                "gradientEuclideanNormNewtons": 0.012996273846692339,
+                "gradientSha256": "0da99104c32e1836cfca34d39036253db3e126208df4b855e8f7d7cf7f20466e",
+                "maximumVertexGradientNormNewtons": 0.009805509445231241
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -4.3150099637108834e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.0025529862918903545,
+              "gradientDifferenceSha256": "c6401b66dd8e9e860365fcc099c9f26593b60778bf41c093aa4abc801e95e9a2",
+              "maximumVertexGradientDifferenceNormNewtons": 0.001948101686039245,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 7,
+        "fractionInterval": [
+          {
+            "denominator": "11623553419650467859777276298558260645599487600",
+            "numerator": "3939377530410018406879594526678669250573638569"
+          },
+          {
+            "denominator": "644017401534784",
+            "numerator": "257678653036817"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "51120928563924708565854735919373989297657493049710110310400000",
+          "numerator": "314953311666019168446510553259425984911431679619062475771009"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.443960984267467e-07,
+                "gradientEuclideanNormNewtons": 0.0028139865342975477,
+                "gradientSha256": "d812cf5cee451557c0cdc0350ef651af2c541264b58a5e7b323205dfdf3bc072",
+                "maximumVertexGradientNormNewtons": 0.002285518115954637
+              },
+              "initial": {
+                "energyJoules": 2.4889857020329794e-21,
+                "gradientEuclideanNormNewtons": 2.0212694635481156e-10,
+                "gradientSha256": "b90a75505d56d9ed22e7883079cd55ee96054da53f5e353f13a1fe3ae953cfd3",
+                "maximumVertexGradientNormNewtons": 1.617560433954393e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.443960984267442e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.0028139864935564233,
+              "gradientDifferenceSha256": "2d42bb398ac1f402ffc5d1afd4ff36ce88b0788467d513dc1d5e1b543b09a344",
+              "maximumVertexGradientDifferenceNormNewtons": 0.002285518080823901,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.5556681757431547e-05,
+                "gradientEuclideanNormNewtons": 0.017503491539458533,
+                "gradientSha256": "12afe82f1abbf14468e090ad055d7528409262d8ee1844f51c302570ef5042e2",
+                "maximumVertexGradientNormNewtons": 0.013147427376165421
+              },
+              "initial": {
+                "energyJoules": 2.0112069166666677e-05,
+                "gradientEuclideanNormNewtons": 0.01997963920530536,
+                "gradientSha256": "5719beaa2114555236cf39c6f2792e15163ea6644d55609b59e017dbf09d1e6e",
+                "maximumVertexGradientNormNewtons": 0.015084051884634164
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -4.55538740923513e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.0027499543101563817,
+              "gradientDifferenceSha256": "a380206ada1ccf138c8cea4af3051403bc65440e52fe6f94f20013248d7609f0",
+              "maximumVertexGradientDifferenceNormNewtons": 0.002131835148197763,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.0853544602138406e-07,
+                "gradientEuclideanNormNewtons": 0.0026010129276756925,
+                "gradientSha256": "589d6c7460860d06408bd7bf3065ffdd8ade68bc8ef1b881a0b52956f93b08b4",
+                "maximumVertexGradientNormNewtons": 0.0020877669409676046
+              },
+              "initial": {
+                "energyJoules": 2.4889857020329794e-21,
+                "gradientEuclideanNormNewtons": 2.0212694538976724e-10,
+                "gradientSha256": "91521af95c69459abe2bb6e2ed4bb8133d62697e2b20fedcfa31d89c9e153f96",
+                "maximumVertexGradientNormNewtons": 1.617560421895402e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.085354460213816e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.0026010128841801837,
+              "gradientDifferenceSha256": "bdd44bf7ca66d069ed88ab97338d5ca2c950d38f4c93f84a7563ff697c90c6cf",
+              "maximumVertexGradientDifferenceNormNewtons": 0.002087766903124927,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.5592542409836907e-05,
+                "gradientEuclideanNormNewtons": 0.017450787733338847,
+                "gradientSha256": "bee35da9bd1420876366a2270ff1d7146410554883d54f20cc28dd5c837fb306",
+                "maximumVertexGradientNormNewtons": 0.013052708393147011
+              },
+              "initial": {
+                "energyJoules": 2.0112069166666677e-05,
+                "gradientEuclideanNormNewtons": 0.019979639205305346,
+                "gradientSha256": "e91fea3b36c2fdc3d07df7fd51dd8fa84a2aaf7c5f033d0a1f9f071d5c528c9d",
+                "maximumVertexGradientNormNewtons": 0.015084051884634145
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": -4.51952675682977e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.0026009189483912933,
+              "gradientDifferenceSha256": "765f0f021e60e6d46dabfd49de9ea8fbbd3e2b72fa666e54c9a3f58f510b58f6",
+              "maximumVertexGradientDifferenceNormNewtons": 0.002069240340735487,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 8,
+        "fractionInterval": [
+          {
+            "denominator": "644017401534784",
+            "numerator": "257678653036817"
+          },
+          {
+            "denominator": "2",
+            "numerator": "1"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "2814749767106560",
+          "numerator": "28305221001453"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.0722776563298736e-08,
+                "gradientEuclideanNormNewtons": 0.0005057651468261317,
+                "gradientSha256": "11694a8b33ba388152264ca8e7113d0ef3dd441e86c9eff7827db9f8720dfe35",
+                "maximumVertexGradientNormNewtons": 0.0003225818185189382
+              },
+              "initial": {
+                "energyJoules": 1.1126266411559402e-22,
+                "gradientEuclideanNormNewtons": 2.4421628150820013e-11,
+                "gradientSha256": "2d2761ed6758eea3f75af92d24ff7fb76a59e3b3b055c9aa2122271a5757b82e",
+                "maximumVertexGradientNormNewtons": 1.5138666077549146e-11
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.072277656329862e-08,
+              "gradientDifferenceEuclideanNormNewtons": 0.0005057651554121698,
+              "gradientDifferenceSha256": "8c5a9d953ec1e98a3218de507cab8e7de51476046f496dd15dbf4caf45dd0f31",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0003225818240704836,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 7.751271808702068e-06,
+                "gradientEuclideanNormNewtons": 0.007336140290496016,
+                "gradientSha256": "0f70ffe4876d009722c0b8936f552bca3d73c3f5310e5a0735547803c14d3804",
+                "maximumVertexGradientNormNewtons": 0.004359018486457893
+              },
+              "initial": {
+                "energyJoules": 7.13780781012239e-06,
+                "gradientEuclideanNormNewtons": 0.0070276986680965535,
+                "gradientSha256": "8ec48080b320c09953de3120fb116d8e3932658134396d6aa136d9f112560c79",
+                "maximumVertexGradientNormNewtons": 0.0042022089619608936
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 6.134639985796774e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.0004895732298340942,
+              "gradientDifferenceSha256": "65024209cca3fc1ac746fcbe73fb3cc231e4f150bf277475d604019291bd3e83",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0002707848572683652,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.242605263052655e-08,
+                "gradientEuclideanNormNewtons": 0.0003583465432864273,
+                "gradientSha256": "fcdc430aa72d5f22808dad18a527169fa36ccbd5f507a4c9f294995536f8fafd",
+                "maximumVertexGradientNormNewtons": 0.00022693780748808486
+              },
+              "initial": {
+                "energyJoules": 1.1126266411559402e-22,
+                "gradientEuclideanNormNewtons": 2.4421628456042018e-11,
+                "gradientSha256": "bf52ecca85f2332e663f6c704f61a4c028153cd35518b1bde908f777badcb88a",
+                "maximumVertexGradientNormNewtons": 1.5138666077549146e-11
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 2.2426052630526437e-08,
+              "gradientDifferenceEuclideanNormNewtons": 0.00035834655516560473,
+              "gradientDifferenceSha256": "77d634a5168ead195e0bc7ef76554a6477f70b123828c2c9963854587c6b2cfa",
+              "maximumVertexGradientDifferenceNormNewtons": 0.00022693781531923858,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 7.76956853263484e-06,
+                "gradientEuclideanNormNewtons": 0.007332203693906049,
+                "gradientSha256": "346e232083467225ccf377203f041f0c4f85c6c0b9514dba582e6e67e2e49e96",
+                "maximumVertexGradientNormNewtons": 0.00438277855626951
+              },
+              "initial": {
+                "energyJoules": 7.13780781012239e-06,
+                "gradientEuclideanNormNewtons": 0.007027698668096551,
+                "gradientSha256": "37e67e5784760bac34f05401ba23061c37c8378940efba62e82386be43e00ff0",
+                "maximumVertexGradientNormNewtons": 0.0042022089619608936
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 6.317607225124491e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.00034724904160935663,
+              "gradientDifferenceSha256": "aeb5d29ae2a5510f805ee90f2b4b045937c91838df9cfdfcf4308e57d40db984",
+              "maximumVertexGradientDifferenceNormNewtons": 0.00020609325228593825,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 9,
+        "fractionInterval": [
+          {
+            "denominator": "2",
+            "numerator": "1"
+          },
+          {
+            "denominator": "3642395133278886409734976387573134616798621200",
+            "numerator": "1950322890740736536593344700418531711493765007"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "4004855801994848864540308380661461500763025989604422451200000",
+          "numerator": "14292945510946394455780203986736119827012948384212656851937"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.740811977731282e-22,
+                "gradientEuclideanNormNewtons": 1.7217236894643497e-18,
+                "gradientSha256": "dc5346fc7ea336c23b08797548815deca25d168bd55755e9b28dac49ca69fa03",
+                "maximumVertexGradientNormNewtons": 1.1802516678817825e-18
+              },
+              "initial": {
+                "energyJoules": 7.4237915155889895e-37,
+                "gradientEuclideanNormNewtons": 1.1224549056767077e-25,
+                "gradientSha256": "db2ccad362c9561ca14860fb10d24899aadbd060c6d783e987c50549468aaba2",
+                "maximumVertexGradientNormNewtons": 7.374232891425639e-26
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 1.7408119777312744e-22,
+              "gradientDifferenceEuclideanNormNewtons": 1.721723717468412e-18,
+              "gradientDifferenceSha256": "df2a1adb1ccd2b4ab6c956ca14c5c460b888acaa02ee04c21e2aa8390dd94636",
+              "maximumVertexGradientDifferenceNormNewtons": 1.1802516885658254e-18,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.8690526287196575e-20,
+                "gradientEuclideanNormNewtons": 1.777491908635903e-17,
+                "gradientSha256": "0655ed9cdbd14d7cd97f848885fc7ebea04893c2026ca325b2a636c37633a479",
+                "maximumVertexGradientNormNewtons": 1.1602345985894988e-17
+              },
+              "initial": {
+                "energyJoules": 1.587519833257307e-20,
+                "gradientEuclideanNormNewtons": 1.6376041786248373e-17,
+                "gradientSha256": "ef634da5513ab1851bea0a85d70da3381ae99edc4f29514ff48f99088da65f39",
+                "maximumVertexGradientNormNewtons": 1.0754666717207836e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 2.815327954623505e-21,
+              "gradientDifferenceEuclideanNormNewtons": 1.6488147494865752e-18,
+              "gradientDifferenceSha256": "5a0b96f15c88c0a7818159a90ae581536644422835ff9613eb10f1b5fecd56dc",
+              "maximumVertexGradientDifferenceNormNewtons": 1.01291116589853e-18,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.3014265557524038e-22,
+                "gradientEuclideanNormNewtons": 1.4903663709769494e-18,
+                "gradientSha256": "24fffdcf64db3c6bf1be5d46e1d75d49f4dc9a3849dd5e9706503adb9125694e",
+                "maximumVertexGradientNormNewtons": 9.95069629074543e-19
+              },
+              "initial": {
+                "energyJoules": 7.4237915155889895e-37,
+                "gradientEuclideanNormNewtons": 1.1224549123108883e-25,
+                "gradientSha256": "6316a384f8ae5943b8bab7e298e4e0b31972fe6441d974747ad7e4e67a345112",
+                "maximumVertexGradientNormNewtons": 7.374232891425639e-26
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 1.3014265557523963e-22,
+              "gradientDifferenceEuclideanNormNewtons": 1.490366402729898e-18,
+              "gradientDifferenceSha256": "47737a0fbf7266587ed4c4e33e8703277242b62f96d5ecedb62ecc51fa9a5a7c",
+              "maximumVertexGradientDifferenceNormNewtons": 9.950696534798934e-19,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.8734464829394462e-20,
+                "gradientEuclideanNormNewtons": 1.7782068260316115e-17,
+                "gradientSha256": "2606eb555d7faef0c01c29e78f6cc20913723b9d976594ff93258c23b6857c9f",
+                "maximumVertexGradientNormNewtons": 1.1660674240994537e-17
+              },
+              "initial": {
+                "energyJoules": 1.587519833257307e-20,
+                "gradientEuclideanNormNewtons": 1.637604178624837e-17,
+                "gradientSha256": "36cd1048cd3b206a0415d40bee5ec71a70c1a636e1f78587404dc7960ba79c59",
+                "maximumVertexGradientNormNewtons": 1.0754666717207836e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 2.8592664968213917e-21,
+              "gradientDifferenceEuclideanNormNewtons": 1.4569675137694767e-18,
+              "gradientDifferenceSha256": "01200efc386b117e90f32ca3411236977a3b0097580c1d1aa2de130c9c507927",
+              "maximumVertexGradientDifferenceNormNewtons": 9.397151044147673e-19,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 10,
+        "fractionInterval": [
+          {
+            "denominator": "3642395133278886409734976387573134616798621200",
+            "numerator": "1950322890740736536593344700418531711493765007"
+          },
+          {
+            "denominator": "14168382888061200",
+            "numerator": "7586470017735263"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "31287935953084756754221159223917667974711140543784550400000",
+          "numerator": "248351094336031900903083329961944957608757"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.32617215484134e-07,
+                "gradientEuclideanNormNewtons": 0.0025491678264193177,
+                "gradientSha256": "f590f80be99ad4269d804a19593ba0bf53061ab3bef8e208cd22e7415bb2ce0e",
+                "maximumVertexGradientNormNewtons": 0.0020340526999930468
+              },
+              "initial": {
+                "energyJoules": 2.377738824083083e-21,
+                "gradientEuclideanNormNewtons": 1.8622386116270126e-10,
+                "gradientSha256": "70968c02e17a6a177f5211a8c27f2351fa96f978eafc803c0b2e655737dd07f8",
+                "maximumVertexGradientNormNewtons": 1.4662152929161601e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.326172154841316e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.0025491678569810584,
+              "gradientDifferenceSha256": "0cddb9c451d5cd057cc56658e9d15cbf7e4f0fbcc28fcf53feb0ca67d80df130",
+              "maximumVertexGradientDifferenceNormNewtons": 0.002034052726744199,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 87,
+            "localNegativeFaceIndex": 39,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.7596812327895246e-05,
+                "gradientEuclideanNormNewtons": 0.0163710864701155,
+                "gradientSha256": "0e7aa8c79bf29face49c5191c65d59e246fa03d26a51478b183021303199b499",
+                "maximumVertexGradientNormNewtons": 0.012656031923463797
+              },
+              "initial": {
+                "energyJoules": 1.297426135654429e-05,
+                "gradientEuclideanNormNewtons": 0.014067340230544243,
+                "gradientSha256": "649bfa1773561e4c3a2267686d86cd76e46895aaf1f75be4c1152f3baba9a3c7",
+                "maximumVertexGradientNormNewtons": 0.01088184292267329
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.622550971350957e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.0024119174678572893,
+              "gradientDifferenceSha256": "73ea0e7020e5fb5eac16b95989c48864848d38e1a3e8fd4467f3032c77426c6c",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0018548024212261404,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.918874907666059e-07,
+                "gradientEuclideanNormNewtons": 0.0024011937508849977,
+                "gradientSha256": "72c1fd035b7e4071408da7c906da693bdf1dc8f48c510b478806acf7b9a0749a",
+                "maximumVertexGradientNormNewtons": 0.0019001501525176328
+              },
+              "initial": {
+                "energyJoules": 2.377738824083083e-21,
+                "gradientEuclideanNormNewtons": 1.8622386167228184e-10,
+                "gradientSha256": "df041147ce897c302bf54401a4fe18f06a4ef9c7b93dc5e69c673d6d135bad1d",
+                "maximumVertexGradientNormNewtons": 1.4662152929161601e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 3.918874907666035e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.002401193782867322,
+              "gradientDifferenceSha256": "27d11d15806988f7bb30447c96594372eb285125aa2686fdf3bd965ae07ca11b",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0019001501811077826,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 88,
+            "localNegativeFaceIndex": 40,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.7637542052612774e-05,
+                "gradientEuclideanNormNewtons": 0.01640313688027554,
+                "gradientSha256": "1f27b37e92452ccb3c53dc693e8c90c62492b5f98d8da0ec10c4d47ebe8bdded",
+                "maximumVertexGradientNormNewtons": 0.012712097328003259
+              },
+              "initial": {
+                "energyJoules": 1.297426135654429e-05,
+                "gradientEuclideanNormNewtons": 0.014067340230544241,
+                "gradientSha256": "62e90fc8097bbc0190ca08aeedf3660ec1fc205d6b7cca03db6e33f7af1490b9",
+                "maximumVertexGradientNormNewtons": 0.01088184292267329
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 4.6632806960684845e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.0023575243263338663,
+              "gradientDifferenceSha256": "43d14c009f6fe581e83f1f989738663ba38caaf110fbb28e53a8a133d6dc79e1",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0018463448577215676,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 11,
+        "fractionInterval": [
+          {
+            "denominator": "14168382888061200",
+            "numerator": "7586470017735263"
+          },
+          {
+            "denominator": "14168382833765248",
+            "numerator": "8499452466955275"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "124626413857646352069663129600000",
+          "numerator": "808467832658977089139994330611"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 64,
+            "localNegativeFaceIndex": 16,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 6.116924692050467e-07,
+                "gradientEuclideanNormNewtons": 0.003614744006980297,
+                "gradientSha256": "eb243cce3859c00834791af7fc4938ecd59b492027332d2ee933d36011305c6c",
+                "maximumVertexGradientNormNewtons": 0.002525001379849738
+              },
+              "initial": {
+                "energyJoules": 3.6401530413621357e-20,
+                "gradientEuclideanNormNewtons": 9.56118043163178e-10,
+                "gradientSha256": "2397127ffc5c984b30fd5d8e708efd9375ced9855c34dd4b2583441fd870da4a",
+                "maximumVertexGradientNormNewtons": 5.851879770567279e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 6.116924692050102e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.003614743864233659,
+              "gradientDifferenceSha256": "64fb06d1697d6b0aedba7db2b546632dcab855c6b30a01e260f0480d77995324",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0025250012709566055,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 64,
+            "localNegativeFaceIndex": 16,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.812044372376222e-05,
+                "gradientEuclideanNormNewtons": 0.03145869269701161,
+                "gradientSha256": "8edc881a10722a6211a711d853f623e04b5ebc0d0fbb5f15e72c745ca2bf3ee7",
+                "maximumVertexGradientNormNewtons": 0.01748594084389582
+              },
+              "initial": {
+                "energyJoules": 3.0168103750000134e-05,
+                "gradientEuclideanNormNewtons": 0.028043280446194738,
+                "gradientSha256": "8cb28c45e5091805cefe53bac56e871a59feab8673d603e3ddc7348f3b265d93",
+                "maximumVertexGradientNormNewtons": 0.015084051942439215
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 7.952339973762088e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.0035416737709234097,
+              "gradientDifferenceSha256": "05552b9cf21255b6743d2dfc8023456bde185b4d529e45672461482d18318050",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0024150672162040507,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 66,
+            "localNegativeFaceIndex": 18,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 6.709508142918129e-07,
+                "gradientEuclideanNormNewtons": 0.003951611133927715,
+                "gradientSha256": "b9fc77658ac3ee1cfe6469f7c9d8837d1efb09adf197ebed51e006b6deb6f1d0",
+                "maximumVertexGradientNormNewtons": 0.002846462672843171
+              },
+              "initial": {
+                "energyJoules": 3.6401530413621357e-20,
+                "gradientEuclideanNormNewtons": 9.561180450379654e-10,
+                "gradientSha256": "6b68d5a963e5731406996e73b4b709fac551303779fa1bd44bb6f9dcda3de192",
+                "maximumVertexGradientNormNewtons": 5.851879770567279e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 6.709508142917765e-07,
+              "gradientDifferenceEuclideanNormNewtons": 0.003951610997806747,
+              "gradientDifferenceSha256": "1dabc53acc4f658c091055ab454e88d83ebc185d6cfb0cb17b92caafb777bd78",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0028464625712847375,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 66,
+            "localNegativeFaceIndex": 18,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.806118537867546e-05,
+                "gradientEuclideanNormNewtons": 0.03136395413719903,
+                "gradientSha256": "26b9c230dd678b57ac707f6ba5dc4b5cc677168ed312890bbff2fc9529987958",
+                "maximumVertexGradientNormNewtons": 0.01723053739838435
+              },
+              "initial": {
+                "energyJoules": 3.0168103750000134e-05,
+                "gradientEuclideanNormNewtons": 0.028043280446194724,
+                "gradientSha256": "c796d9a51f72279f8f5fa103ceb434a5b24f365ad8a92b40d78e6c325cad7790",
+                "maximumVertexGradientNormNewtons": 0.015084051942439215
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 7.893081628675323e-06,
+              "gradientDifferenceEuclideanNormNewtons": 0.003565134077654031,
+              "gradientDifferenceSha256": "239e2eddcf56b21814a85d715780d1161f575f22a5f61146499ec1b9f5801575",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0022265979527424607,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 12,
+        "fractionInterval": [
+          {
+            "denominator": "14168382833765248",
+            "numerator": "8499452466955275"
+          },
+          {
+            "denominator": "14168382833765248",
+            "numerator": "10622344042064251"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "8796093022208000",
+          "numerator": "132680723444311"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.2975270308248376e-35,
+                "gradientEuclideanNormNewtons": 8.110592400104493e-25,
+                "gradientSha256": "5d11b82e656fbe709ac4495246c916d311966f642ccea43fa0ff543d12dd53fb",
+                "maximumVertexGradientNormNewtons": 6.853942449937746e-25
+              },
+              "initial": {
+                "energyJoules": 3.2975270308248376e-35,
+                "gradientEuclideanNormNewtons": 8.110592400104493e-25,
+                "gradientSha256": "5d11b82e656fbe709ac4495246c916d311966f642ccea43fa0ff543d12dd53fb",
+                "maximumVertexGradientNormNewtons": 6.853942449937746e-25
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.4210854715202105e-20,
+                "gradientEuclideanNormNewtons": 1.6807468153198528e-17,
+                "gradientSha256": "cae3a75f7489e92c262a111ba2e0ce6eeb16f3029bedea6690ee267826925b23",
+                "maximumVertexGradientNormNewtons": 1.421085468116534e-17
+              },
+              "initial": {
+                "energyJoules": 1.4210854715202105e-20,
+                "gradientEuclideanNormNewtons": 1.6807468153198528e-17,
+                "gradientSha256": "cae3a75f7489e92c262a111ba2e0ce6eeb16f3029bedea6690ee267826925b23",
+                "maximumVertexGradientNormNewtons": 1.421085468116534e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.2975270308248376e-35,
+                "gradientEuclideanNormNewtons": 8.110592394460524e-25,
+                "gradientSha256": "3f5f288972d8d67daa6c3eab26b05b54d4484e366a2c0aeb014d32cfff110c18",
+                "maximumVertexGradientNormNewtons": 6.853942449937746e-25
+              },
+              "initial": {
+                "energyJoules": 3.2975270308248376e-35,
+                "gradientEuclideanNormNewtons": 8.110592394460524e-25,
+                "gradientSha256": "3f5f288972d8d67daa6c3eab26b05b54d4484e366a2c0aeb014d32cfff110c18",
+                "maximumVertexGradientNormNewtons": 6.853942449937746e-25
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.4210854715202105e-20,
+                "gradientEuclideanNormNewtons": 1.6807468153198528e-17,
+                "gradientSha256": "c1ff1710503ec8e3c04a04c6de4cd28c18c1323376a4ef5f1e4e533cec89a5a3",
+                "maximumVertexGradientNormNewtons": 1.421085468116534e-17
+              },
+              "initial": {
+                "energyJoules": 1.4210854715202105e-20,
+                "gradientEuclideanNormNewtons": 1.6807468153198528e-17,
+                "gradientSha256": "c1ff1710503ec8e3c04a04c6de4cd28c18c1323376a4ef5f1e4e533cec89a5a3",
+                "maximumVertexGradientNormNewtons": 1.421085468116534e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 13,
+        "fractionInterval": [
+          {
+            "denominator": "14168382833765248",
+            "numerator": "10622344042064251"
+          },
+          {
+            "denominator": "3542095708441312",
+            "numerator": "2655586010516063"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "140737488355328000",
+          "numerator": "1"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.301692046452439e-22,
+                "gradientEuclideanNormNewtons": 3.1984229754233005e-12,
+                "gradientSha256": "355cd59b3237ef1c95739421245171c99b1fb6fc2afbd1497c5819406a498cf4",
+                "maximumVertexGradientNormNewtons": 2.7021934364367104e-12
+              },
+              "initial": {
+                "energyJoules": 1.301692046452439e-22,
+                "gradientEuclideanNormNewtons": 3.1984229754233005e-12,
+                "gradientSha256": "355cd59b3237ef1c95739421245171c99b1fb6fc2afbd1497c5819406a498cf4",
+                "maximumVertexGradientNormNewtons": 2.7021934364367104e-12
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 5.603458333331485e-08,
+                "gradientEuclideanNormNewtons": 6.624346148329049e-05,
+                "gradientSha256": "ca3844779ab7d220b0fc1201d812b0b1c7a4e37fbedb3e74c44957a17439c27a",
+                "maximumVertexGradientNormNewtons": 5.59955534688802e-05
+              },
+              "initial": {
+                "energyJoules": 5.603458333331485e-08,
+                "gradientEuclideanNormNewtons": 6.624346148329049e-05,
+                "gradientSha256": "ca3844779ab7d220b0fc1201d812b0b1c7a4e37fbedb3e74c44957a17439c27a",
+                "maximumVertexGradientNormNewtons": 5.59955534688802e-05
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.301692046452439e-22,
+                "gradientEuclideanNormNewtons": 3.198422973212295e-12,
+                "gradientSha256": "a44561581bd45c13b377f814207ddb5752eec197b96d1bd741f88a1296439e7c",
+                "maximumVertexGradientNormNewtons": 2.7021934364367104e-12
+              },
+              "initial": {
+                "energyJoules": 1.301692046452439e-22,
+                "gradientEuclideanNormNewtons": 3.198422973212295e-12,
+                "gradientSha256": "a44561581bd45c13b377f814207ddb5752eec197b96d1bd741f88a1296439e7c",
+                "maximumVertexGradientNormNewtons": 2.7021934364367104e-12
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 5.603458333331485e-08,
+                "gradientEuclideanNormNewtons": 6.624346148329049e-05,
+                "gradientSha256": "d15b78ed4a06d179a79fb4143b3050278925af0f4ff671698c491f0893f7e636",
+                "maximumVertexGradientNormNewtons": 5.59955534688802e-05
+              },
+              "initial": {
+                "energyJoules": 5.603458333331485e-08,
+                "gradientEuclideanNormNewtons": 6.624346148329049e-05,
+                "gradientSha256": "d15b78ed4a06d179a79fb4143b3050278925af0f4ff671698c491f0893f7e636",
+                "maximumVertexGradientNormNewtons": 5.59955534688802e-05
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 14,
+        "fractionInterval": [
+          {
+            "denominator": "3542095708441312",
+            "numerator": "2655586010516063"
+          },
+          {
+            "denominator": "4",
+            "numerator": "3"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "35184372088832000",
+          "numerator": "985770814921"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.31326411845173e-20,
+                "gradientEuclideanNormNewtons": 8.355441192064475e-10,
+                "gradientSha256": "0c53b735e6fc388a54a287bb56bcc58ec9a69d81127908172f9d330443eea378",
+                "maximumVertexGradientNormNewtons": 6.369996152288676e-10
+              },
+              "initial": {
+                "energyJoules": 4.31326411845173e-20,
+                "gradientEuclideanNormNewtons": 8.355441192064475e-10,
+                "gradientSha256": "0c53b735e6fc388a54a287bb56bcc58ec9a69d81127908172f9d330443eea378",
+                "maximumVertexGradientNormNewtons": 6.369996152288676e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.4178279144346803e-05,
+                "gradientEuclideanNormNewtons": 0.015201703731888368,
+                "gradientSha256": "faaa52e2b1ddd193088096634a0440ce17fb81f2ebd4d2fe29dadc9b54013224",
+                "maximumVertexGradientNormNewtons": 0.01165973482072935
+              },
+              "initial": {
+                "energyJoules": 1.4178279144346803e-05,
+                "gradientEuclideanNormNewtons": 0.015201703731888368,
+                "gradientSha256": "faaa52e2b1ddd193088096634a0440ce17fb81f2ebd4d2fe29dadc9b54013224",
+                "maximumVertexGradientNormNewtons": 0.01165973482072935
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 4.31326411845173e-20,
+                "gradientEuclideanNormNewtons": 8.355441185273926e-10,
+                "gradientSha256": "7a8831c16a3edfca844770044f157c02b35a273e3093ce51bbed190c8d4fb18b",
+                "maximumVertexGradientNormNewtons": 6.369996152288676e-10
+              },
+              "initial": {
+                "energyJoules": 4.31326411845173e-20,
+                "gradientEuclideanNormNewtons": 8.355441185273926e-10,
+                "gradientSha256": "7a8831c16a3edfca844770044f157c02b35a273e3093ce51bbed190c8d4fb18b",
+                "maximumVertexGradientNormNewtons": 6.369996152288676e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.4178279144346803e-05,
+                "gradientEuclideanNormNewtons": 0.015201703731888366,
+                "gradientSha256": "b41e6667a55c79cb3c1e13ba90eb52c10937b9b3b7572aeef9da8335b2b25368",
+                "maximumVertexGradientNormNewtons": 0.01165973482072935
+              },
+              "initial": {
+                "energyJoules": 1.4178279144346803e-05,
+                "gradientEuclideanNormNewtons": 0.015201703731888366,
+                "gradientSha256": "b41e6667a55c79cb3c1e13ba90eb52c10937b9b3b7572aeef9da8335b2b25368",
+                "maximumVertexGradientNormNewtons": 0.01165973482072935
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 15,
+        "fractionInterval": [
+          {
+            "denominator": "4",
+            "numerator": "3"
+          },
+          {
+            "denominator": "7084191444030600",
+            "numerator": "5811997433928673"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "7789150866102897004353945600000",
+          "numerator": "55218377638518235674618450893"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 9.669787797228833e-35,
+                "gradientEuclideanNormNewtons": 1.6021803289666513e-24,
+                "gradientSha256": "bdc9d51f8fb8e64852300f5f5e29893e31d25bae33e02fcb5a7abadb015389e7",
+                "maximumVertexGradientNormNewtons": 1.0138437887780762e-24
+              },
+              "initial": {
+                "energyJoules": 9.669787797228833e-35,
+                "gradientEuclideanNormNewtons": 1.6021803289666513e-24,
+                "gradientSha256": "bdc9d51f8fb8e64852300f5f5e29893e31d25bae33e02fcb5a7abadb015389e7",
+                "maximumVertexGradientNormNewtons": 1.0138437887780762e-24
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.531207415937331e-20,
+                "gradientEuclideanNormNewtons": 2.5860720601040106e-17,
+                "gradientSha256": "d3cbe1f9237441004b4e27f286a2e5755b28e9c7c0b72a52034567c7718562b3",
+                "maximumVertexGradientNormNewtons": 1.63547658678685e-17
+              },
+              "initial": {
+                "energyJoules": 2.531207415937331e-20,
+                "gradientEuclideanNormNewtons": 2.5860720601040106e-17,
+                "gradientSha256": "d3cbe1f9237441004b4e27f286a2e5755b28e9c7c0b72a52034567c7718562b3",
+                "maximumVertexGradientNormNewtons": 1.63547658678685e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 9.669787797228833e-35,
+                "gradientEuclideanNormNewtons": 1.6021803275549732e-24,
+                "gradientSha256": "70a20b1b9fe10f6a820aae71855ca8f73b38b60a29d4eb2270f6b6bc2db56289",
+                "maximumVertexGradientNormNewtons": 1.0138437887780762e-24
+              },
+              "initial": {
+                "energyJoules": 9.669787797228833e-35,
+                "gradientEuclideanNormNewtons": 1.6021803275549732e-24,
+                "gradientSha256": "70a20b1b9fe10f6a820aae71855ca8f73b38b60a29d4eb2270f6b6bc2db56289",
+                "maximumVertexGradientNormNewtons": 1.0138437887780762e-24
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.531207415937331e-20,
+                "gradientEuclideanNormNewtons": 2.5860720601040096e-17,
+                "gradientSha256": "9636071c0d31b3935aba67353ac4f0e12cd7cc73b22854e6200eb73df5905dda",
+                "maximumVertexGradientNormNewtons": 1.63547658678685e-17
+              },
+              "initial": {
+                "energyJoules": 2.531207415937331e-20,
+                "gradientEuclideanNormNewtons": 2.5860720601040096e-17,
+                "gradientSha256": "9636071c0d31b3935aba67353ac4f0e12cd7cc73b22854e6200eb73df5905dda",
+                "maximumVertexGradientNormNewtons": 1.63547658678685e-17
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 16,
+        "fractionInterval": [
+          {
+            "denominator": "7084191444030600",
+            "numerator": "5811997433928673"
+          },
+          {
+            "denominator": "2443401275400865903981977068256689060107390",
+            "numerator": "2004610131570371572611066384949055453164359"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "161192886817557632220427279589136986824738073056011878400000",
+          "numerator": "2040063152544718513661633294298711358695013"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.4465613297000199e-19,
+                "gradientEuclideanNormNewtons": 1.9271329609859667e-09,
+                "gradientSha256": "249c0789439e07cdbbda55e0576f8c733aac03d2b7e0e7ca3143baa3575c29f3",
+                "maximumVertexGradientNormNewtons": 1.344724605519223e-09
+              },
+              "initial": {
+                "energyJoules": 1.4465613297000199e-19,
+                "gradientEuclideanNormNewtons": 1.9271329609859667e-09,
+                "gradientSha256": "249c0789439e07cdbbda55e0576f8c733aac03d2b7e0e7ca3143baa3575c29f3",
+                "maximumVertexGradientNormNewtons": 1.344724605519223e-09
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 62,
+            "localNegativeFaceIndex": 14,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.5989824605653774e-05,
+                "gradientEuclideanNormNewtons": 0.025731401124302007,
+                "gradientSha256": "08d638c87f23bd45cb4abc8cb69b8b1742526ebbbe5d19b6a0fca5f3c28aee95",
+                "maximumVertexGradientNormNewtons": 0.01759348594806336
+              },
+              "initial": {
+                "energyJoules": 2.5989824605653774e-05,
+                "gradientEuclideanNormNewtons": 0.025731401124302007,
+                "gradientSha256": "08d638c87f23bd45cb4abc8cb69b8b1742526ebbbe5d19b6a0fca5f3c28aee95",
+                "maximumVertexGradientNormNewtons": 0.01759348594806336
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.4465613297000199e-19,
+                "gradientEuclideanNormNewtons": 1.9271329593391895e-09,
+                "gradientSha256": "69d54583b10f3ad613267f7f34e308f6880558f6ad436d752b0e974c81736bd4",
+                "maximumVertexGradientNormNewtons": 1.3447246031592167e-09
+              },
+              "initial": {
+                "energyJoules": 1.4465613297000199e-19,
+                "gradientEuclideanNormNewtons": 1.9271329593391895e-09,
+                "gradientSha256": "69d54583b10f3ad613267f7f34e308f6880558f6ad436d752b0e974c81736bd4",
+                "maximumVertexGradientNormNewtons": 1.3447246031592167e-09
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 63,
+            "localNegativeFaceIndex": 15,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 2.5989824605653774e-05,
+                "gradientEuclideanNormNewtons": 0.025731401124301983,
+                "gradientSha256": "0ea8663f4b1be068e87ea269b29eeba39e53dbbf6855d0ea4da31f3ca0de3af4",
+                "maximumVertexGradientNormNewtons": 0.017593485948063325
+              },
+              "initial": {
+                "energyJoules": 2.5989824605653774e-05,
+                "gradientEuclideanNormNewtons": 0.025731401124301983,
+                "gradientSha256": "0ea8663f4b1be068e87ea269b29eeba39e53dbbf6855d0ea4da31f3ca0de3af4",
+                "maximumVertexGradientNormNewtons": 0.017593485948063325
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 2,
+        "cellIndex": 17,
+        "fractionInterval": [
+          {
+            "denominator": "2443401275400865903981977068256689060107390",
+            "numerator": "2004610131570371572611066384949055453164359"
+          },
+          {
+            "denominator": "885523927110328",
+            "numerator": "840804133888097"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "10746192454503842148028485305942465788315871537067458560000",
+          "numerator": "139645828535574943951448589754657071538106285951276168539"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 53,
+            "localNegativeFaceIndex": 5,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 7.507383009661537e-20,
+                "gradientEuclideanNormNewtons": 9.123797140154041e-10,
+                "gradientSha256": "6eda660739d4fd845eb6d9cbe7a6ba1cf384c11b6cd275b8dd65215358036f51",
+                "maximumVertexGradientNormNewtons": 7.005509534171541e-10
+              },
+              "initial": {
+                "energyJoules": 7.507383009661537e-20,
+                "gradientEuclideanNormNewtons": 9.123797140154041e-10,
+                "gradientSha256": "6eda660739d4fd845eb6d9cbe7a6ba1cf384c11b6cd275b8dd65215358036f51",
+                "maximumVertexGradientNormNewtons": 7.005509534171541e-10
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 53,
+            "localNegativeFaceIndex": 5,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 9.050421834348547e-06,
+                "gradientEuclideanNormNewtons": 0.009996451418070911,
+                "gradientSha256": "2750982ddaa82b3508ae4257c6c32d3a7b27dd9a9643e0d5aa390ba2d416208c",
+                "maximumVertexGradientNormNewtons": 0.007692859898166839
+              },
+              "initial": {
+                "energyJoules": 9.050421834348547e-06,
+                "gradientEuclideanNormNewtons": 0.009996451418070911,
+                "gradientSha256": "2750982ddaa82b3508ae4257c6c32d3a7b27dd9a9643e0d5aa390ba2d416208c",
+                "maximumVertexGradientNormNewtons": 0.007692859898166839
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 1,
+        "cellIndex": 18,
+        "fractionInterval": [
+          {
+            "denominator": "885523927110328",
+            "numerator": "840804133888097"
+          },
+          {
+            "denominator": "161560670257079991167772132868688732515336225",
+            "numerator": "160663833524659777307739318602684363483376314"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "1421102684311548875820134727375226406004860733069511884800000",
+          "numerator": "6430789381472121106835198177817913362381712101168539557167"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 53,
+            "localNegativeFaceIndex": 5,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.088393197362847e-35,
+                "gradientEuclideanNormNewtons": 3.411979206268756e-25,
+                "gradientSha256": "eeb747972a28efabbe3abecf872290bdc911336187ef7ab97fbc9efde8374d5c",
+                "maximumVertexGradientNormNewtons": 2.2767777652472685e-25
+              },
+              "initial": {
+                "energyJoules": 3.088393197362847e-35,
+                "gradientEuclideanNormNewtons": 3.411979206268756e-25,
+                "gradientSha256": "eeb747972a28efabbe3abecf872290bdc911336187ef7ab97fbc9efde8374d5c",
+                "maximumVertexGradientNormNewtons": 2.2767777652472685e-25
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 53,
+            "localNegativeFaceIndex": 5,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 3.3949564663114485e-21,
+                "gradientEuclideanNormNewtons": 3.5631265015643544e-18,
+                "gradientSha256": "01d4ae56116784dd2e0269b1bb20825e6b8c196e60b7c599b879aaebbaedf2e3",
+                "maximumVertexGradientNormNewtons": 2.3764705504713482e-18
+              },
+              "initial": {
+                "energyJoules": 3.3949564663114485e-21,
+                "gradientEuclideanNormNewtons": 3.5631265015643544e-18,
+                "gradientSha256": "01d4ae56116784dd2e0269b1bb20825e6b8c196e60b7c599b879aaebbaedf2e3",
+                "maximumVertexGradientNormNewtons": 2.3764705504713482e-18
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 1,
+        "cellIndex": 19,
+        "fractionInterval": [
+          {
+            "denominator": "161560670257079991167772132868688732515336225",
+            "numerator": "160663833524659777307739318602684363483376314"
+          },
+          {
+            "denominator": "1771047861007650",
+            "numerator": "1761216626870663"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "1065827013233661656865101045531419804503645549802133913600000",
+          "numerator": "1809218155273468534160715915168683113623823"
+        }
+      },
+      {
+        "alternatives": [
+          {
+            "canonicalNegativeFaceIndex": 53,
+            "localNegativeFaceIndex": 5,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": -1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.0282131228600422e-20,
+                "gradientEuclideanNormNewtons": 1.1196176219638775e-10,
+                "gradientSha256": "4c435aaff56b6a6e150dfb20ee9d6933d1dbd8f9321acd23a13b39977ad250b8",
+                "maximumVertexGradientNormNewtons": 7.339604178984828e-11
+              },
+              "initial": {
+                "energyJoules": 1.0282131228600422e-20,
+                "gradientEuclideanNormNewtons": 1.1196176219638775e-10,
+                "gradientSha256": "4c435aaff56b6a6e150dfb20ee9d6933d1dbd8f9321acd23a13b39977ad250b8",
+                "maximumVertexGradientNormNewtons": 7.339604178984828e-11
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          },
+          {
+            "canonicalNegativeFaceIndex": 53,
+            "localNegativeFaceIndex": 5,
+            "normalMagnitudeEnclosuresVerified": true,
+            "side": 1,
+            "states": {
+              "constructed": {
+                "energyJoules": 1.1176819156517131e-06,
+                "gradientEuclideanNormNewtons": 0.001162624661694485,
+                "gradientSha256": "820920dc004ab39d4c3d1a5b222763542d4716a0f6f331847c7795d6822b5f73",
+                "maximumVertexGradientNormNewtons": 0.0007616734787621369
+              },
+              "initial": {
+                "energyJoules": 1.1176819156517131e-06,
+                "gradientEuclideanNormNewtons": 0.001162624661694485,
+                "gradientSha256": "820920dc004ab39d4c3d1a5b222763542d4716a0f6f331847c7795d6822b5f73",
+                "maximumVertexGradientNormNewtons": 0.0007616734787621369
+              }
+            },
+            "staticResponseDifference": {
+              "constructedMinusInitialRoundedEnergyJoules": 0.0,
+              "gradientDifferenceEuclideanNormNewtons": 0.0,
+              "gradientDifferenceSha256": "17e730aa3dad34291384b291957be680d153601420dc1e72d54a10dcab90cf24",
+              "maximumVertexGradientDifferenceNormNewtons": 0.0,
+              "scope": "Differences between independently rounded fixed-state responses, not work along a trajectory or an assertion of increased energy."
+            }
+          }
+        ],
+        "candidateFaceCount": 1,
+        "cellIndex": 20,
+        "fractionInterval": [
+          {
+            "denominator": "1771047861007650",
+            "numerator": "1761216626870663"
+          },
+          {
+            "denominator": "1",
+            "numerator": "1"
+          }
+        ],
+        "referenceLengthMeters": {
+          "denominator": "1947287716525724251088486400000",
+          "numerator": "1088224132665730573476812717"
+        }
+      }
+    ],
+    "constructionPhaseCompleted": false,
+    "conversionOwnership": "The static diagnostic rounds exact interpolated targets at newly introduced cell cuts to binary64 before calling the primitive. The primitive receives those binary64 targets and independently rounds exact rational anchor coefficients. Original target knots remain unchanged.",
+    "conversionSummary": {
+      "allPositiveExactCoefficientsRetainedWithoutNormalization": true,
+      "exactMaterialBarycentricsEqualAuditedMapEndpointOperators": true,
+      "maximumAbsoluteAnchorCoefficientRoundingResidual": {
+        "denominator": "2270180136599863954257777027304580744378388557776373459976192",
+        "numerator": "125640061046460238479025639266940083159736463"
+      },
+      "maximumAbsoluteTargetRoundingResidualMeters": {
+        "denominator": "4467014899153826267429141297616125016815041952674402385736499200",
+        "numerator": "454018067019037175343516990114743247616665583"
+      },
+      "nonzeroTargetRoundingResidualCountIncludingRepeatedEndpoints": 34,
+      "originalTargetKnotsRetainedVerbatim": true
+    },
+    "counts": {
+      "fabricInstances": 5,
+      "faceSignAlternatives": 76,
+      "heldRows": 5,
+      "pairedCells": 21,
+      "pendingRows": 35,
+      "preservedRows": 40,
+      "stateEvaluationsRequested": 152,
+      "triangles": 398,
+      "vertices": 245
+    },
+    "developmentAndFinalLogs": [
+      {
+        "bytes": 1216,
+        "path": ".planning/solver/continuous-normal-source-native-sep24-v1.log",
+        "sha256": "a536ccf9a7a75816c8873bdc81001dff9c9ace620ec4681a575998c2f80eb2bb"
+      },
+      {
+        "bytes": 1216,
+        "path": ".planning/solver/continuous-normal-source-native-sep24-v2.log",
+        "sha256": "c6e5fb4cf254ea2c8705a18aea317f9053e427400d5ffb73f70507249d779214"
+      },
+      {
+        "bytes": 1241,
+        "path": ".planning/solver/continuous-normal-source-native-sep24-v3.log",
+        "sha256": "281ea97eca91f3b5004c274d7ae270d64b9211eb0c3054ec1bdd6a1d6106f8c2"
+      }
+    ],
+    "developmentNotes": [
+      "First preparation reported 1194 flat triangle indices as the triangle count; the final report corrects this to 398 triangles. Source and recipe arithmetic were unchanged. Earlier logs remain retained."
+    ],
+    "dynamicsExecuted": false,
+    "energyEnvelopeNumericalPolicy": "math.fsum of minima/maxima of independently rounded cell energies; numerical ranges over independent cell choices, not directed bounds on exact energy or a coherent garment director field.",
+    "generator": {
+      "bytes": 23032,
+      "path": ".planning/solver/prepare-continuous-normal-source-sep24-v1.py",
+      "sha256": "ae9c172693aa2c0594724b8c8a250fb6a7936a09f5513064afcba83c5267e31b"
+    },
+    "independentAudit": {
+      "accepted": false,
+      "all40OriginalAndNumericalRowHashesVerified": true,
+      "all40ReferenceTargetsPreserved": true,
+      "allEnergyOutputsMatchRoundedReference": true,
+      "allFiveHeldTargetKnotsPreserved": true,
+      "artifacts": [
+        {
+          "bytes": 21943,
+          "path": ".planning/solver/review-continuous-normal-source-sep24-v1.py",
+          "sha256": "41f88b14e4dff7b3d775f132f5f063e396265364669e53256365913d7620ac05"
+        },
+        {
+          "bytes": 89023,
+          "canonicalJsonSha256": "afcc8c07a49ffb3a825399840735f1e5c25d7b05c4f54e7924285601b78473ff",
+          "path": ".planning/solver/review-continuous-normal-source-sep24-v1.json",
+          "sha256": "4fd65e76032cf1699efc7f5687245f295846dafd7dce31e67e817ff2b15aa889"
+        },
+        {
+          "bytes": 610,
+          "path": ".planning/solver/review-continuous-normal-source-sep24-v1.log",
+          "sha256": "3e016a5b72d9898438c5fbc1a57c6a16997f1b75926d9977b4afac70ba1e3abb"
+        }
+      ],
+      "gradientComponentsCompared": 111720,
+      "limitations": [
+        "Bounded static observations only; no dynamics or source admission.",
+        "Exact material lineage does not make arbitrary deformed coarse and refined operators identical.",
+        "No installed springs, physical director or sign field, textile-side choice, calibrated stiffness, or completion is inferred.",
+        "Original40 rows are retained; the new experimental penalty would add separate stiffness if installed.",
+        "Decimal comparison is a numerical independent reference, not a certified global error enclosure.",
+        "Cellwise energy extrema use rounded sums; they are not certified outward bounds."
+      ],
+      "materialAllFaceContainmentChecks": 7098,
+      "maximumEnergyOutputDifferenceJoules": 0.0,
+      "maximumGradientOutputDifferenceNewtons": 0.0,
+      "negativeFaceAlternatives": 38,
+      "referenceArithmetic": "Python stdlib Fraction source geometry and input contractions; Decimal160 true-normal energy and independent residual-gradient/area pullback. No repository imports.",
+      "staticResponseCounts": {
+        "alternativesWithChangedGradient": 32,
+        "alternativesWithDecreasedRoundedEnergy": 8,
+        "alternativesWithIncreasedRoundedEnergy": 24
+      },
+      "verified": true
+    },
+    "inputs": {
+      "constructedPositions": {
+        "bytes": 14766,
+        "canonicalJsonSha256": "3bc5ad38e5aec8eecaee35602dd2bac59c22aa2f08b88ffa7b097881b54b6862",
+        "path": ".planning/solver/binding-spatial-seams-sep24-v1/constructed-positions.json",
+        "sha256": "57ea94c3069fe11c4d977c18da3b92e1e315042d14811a5ba62cbf7bf0205e99"
+      },
+      "mapAudit": {
+        "bytes": 3088,
+        "canonicalJsonSha256": "917c7fab7378d7df217a4f9c30897e79938e6653e781f56c0d753a93ec3ec0ce",
+        "path": ".planning/solver/binding-spatial-seams-sep24-v1/audit.json",
+        "sha256": "49a9b1d40e2b54c404cf02658c31e128803956f618ad606c7f0786ee4d96be69"
+      },
+      "mapDescriptor": {
+        "bytes": 1101808,
+        "canonicalJsonSha256": "d17c6dd7bb6c6a814cfff2b5a7eb2e46b7bc4b0331921760258c6190430970a6",
+        "path": ".planning/solver/binding-spatial-seams-sep24-v1/descriptor.json",
+        "sha256": "23fc1ae08df8fc76c4dc3dbf647d8cc58dbb951e881b61eef487f02e040fbc69"
+      },
+      "placementDescriptor": {
+        "bytes": 777679,
+        "canonicalJsonSha256": "8d0cceef4fe052fcf0d6d898414b5a0013df7dd5e2e22eecbf680054db0c6dc7",
+        "path": ".planning/solver/binding-placement-sep23-v2/descriptor.json",
+        "sha256": "e75a397a9af408403cd9243957dd19d54cbf7f651d375b366d9fbd0cf0c1871d"
+      },
+      "reference": {
+        "bytes": 294293,
+        "canonicalJsonSha256": "aa2db98db73b49d538dcd12715a4151884f532d2c5db8990de60b9c416524129",
+        "path": ".planning/solver/binding-fourfold-three-input-sep23-v1/canonical.json",
+        "sha256": "05e70cc9b2adcad1038f5aaf7b2c0694ba7c229984e30a66ddc575fc11aa4b6e"
+      },
+      "source": {
+        "bytes": 439145,
+        "canonicalJsonSha256": "bda29406be6bffc674a7702acfe97cc6ea28aeb8adca16b617659d6679c2d694",
+        "path": ".planning/solver/binding-placement-sep23-v2/source.json",
+        "sha256": "f1add81d9d9b6152abf8d975728750f7788bc5ad05931802259b942d230329a1"
+      },
+      "spatialObservations": {
+        "bytes": 305529,
+        "canonicalJsonSha256": "7723ee6ec38a06fcf070eebbf0bf42c24839542077a355ee52797e7e2c6f39dd",
+        "path": ".planning/solver/binding-spatial-seams-sep24-v1/observations.json",
+        "sha256": "1ecca1b5aa88784a798885c71452afff8dbd411195c1248cfe35b5451eb4ec68"
+      }
+    },
+    "limitations": [
+      "Static supplied-state evaluations only; every admissible cell face and both signs are separate alternatives, never simultaneously installed or summed as extra physical springs.",
+      "Exact raw-lineage material barycentrics are independently reconstructed and must equal the audited spatial operators; every exact positive coefficient is retained without normalization.",
+      "The primitive converts exact endpoint coefficients to binary64; the diagnostic converts newly cut exact target values before supplying them to the primitive. Every conversion is recorded; original stored row operators and all five raw target knots remain unchanged.",
+      "Exact per-cell negative captured arc measure is a declared diagnostic material metric, not Euclidean arclength, old point compliance or calibrated seam stiffness.",
+      "The supplied numerical potential includes declared coefficient, scale and normal arithmetic. Its normal enclosure is not a certified global force or energy error bound.",
+      "Energy envelopes factor over independent per-cell choices at each fixed state; they do not choose a coherent physical director field or certify a bound over a motion.",
+      "Original-row comparisons use unchanged local prefix vertices at current offsets; source mesh/pattern and split rederivation remains the separately captured validator prerequisite.",
+      "No contact, strain, path, force balance, equilibrium, material-side, construction, convergence or garment acceptance is established."
+    ],
+    "loadedRepositoryHelpers": [
+      {
+        "bytes": 16859,
+        "path": "scripts/solver_binding_control_schedule_replay.py",
+        "sha256": "3266a2d1d688336b10113d1ff0a488ee8fd4b8ea03244c04bed8a0c0937784b4"
+      },
+      {
+        "bytes": 27892,
+        "path": "scripts/solver_binding_fold_replay.py",
+        "sha256": "b1391bee4eeda899b48ebdff2506bb32d1cdf854e2f541b0cb33f113d7cb11f9"
+      },
+      {
+        "bytes": 31770,
+        "path": "scripts/solver_binding_placement_replay.py",
+        "sha256": "bf7295b46f20ab48637b9b25ebb5de4f97d78d9f051b98d1e48ea067b885ae05"
+      },
+      {
+        "bytes": 28614,
+        "path": "scripts/solver_binding_remap_replay.py",
+        "sha256": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f"
+      },
+      {
+        "bytes": 16698,
+        "path": "scripts/solver_binding_sewing_schedule_replay.py",
+        "sha256": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84"
+      },
+      {
+        "bytes": 31318,
+        "path": "scripts/solver_binding_spatial_seams_replay.py",
+        "sha256": "629797a4839271bf76b3c5f489bc81caff637ca22b8372007e64e55b2cea5521"
+      },
+      {
+        "bytes": 29926,
+        "path": "scripts/solver_continuous_normal_sewing.py",
+        "sha256": "55b58055b15a760f027b99f8d5476a4d58f3b6ac6063d3991236c35311bbd1db"
+      },
+      {
+        "bytes": 2018,
+        "path": "scripts/solver_sewing_activation.py",
+        "sha256": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561"
+      }
+    ],
+    "loadedRepositoryHelpersScope": "Observed imports under scripts only; not a full environment dependency closure.",
+    "mappingAuditVerified": true,
+    "maximumPerAlternativeGradientChangeNormNewtons": 0.003951610997806747,
+    "originalHeldTargetKnots": [
+      {
+        "fraction": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "targetMeters": 0.0010000000000000187
+      },
+      {
+        "fraction": {
+          "denominator": "4",
+          "numerator": "1"
+        },
+        "targetMeters": 0.0010000000000000046
+      },
+      {
+        "fraction": {
+          "denominator": "2",
+          "numerator": "1"
+        },
+        "targetMeters": 0.001
+      },
+      {
+        "fraction": {
+          "denominator": "4",
+          "numerator": "3"
+        },
+        "targetMeters": 0.0010000000000000046
+      },
+      {
+        "fraction": {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        "targetMeters": 0.0010000000000000187
+      }
+    ],
+    "perSignIndependentCellChoiceEnergyEnvelopes": {
+      "constructed": {
+        "-1": {
+          "sumOfCellMaximumEnergiesJoules": 2.195549611488779e-06,
+          "sumOfCellMinimumEnergiesJoules": 2.04140416534635e-06
+        },
+        "1": {
+          "sumOfCellMaximumEnergiesJoules": 0.0002032993349625805,
+          "sumOfCellMinimumEnergiesJoules": 0.00020314518951643809
+        }
+      },
+      "initial": {
+        "-1": {
+          "sumOfCellMaximumEnergiesJoules": 6.243305972517229e-19,
+          "sumOfCellMinimumEnergiesJoules": 6.243305972517229e-19
+        },
+        "1": {
+          "sumOfCellMaximumEnergiesJoules": 0.00020134483000000205,
+          "sumOfCellMinimumEnergiesJoules": 0.00020134483000000205
+        }
+      }
+    },
+    "physicalDirectorSelected": false,
+    "physicalSignSelected": false,
+    "placementAuditVerified": true,
+    "profile": "static-source-continuous-normal-alternatives-v1",
+    "rawReport": {
+      "bytes": 2068946,
+      "canonicalJsonSha256": "211207d317191befb57fa681a6868b9526e91d220652039f88144379f1927097",
+      "path": ".planning/solver/continuous-normal-source-sep24-v1.json",
+      "sha256": "f350c48b3e16c0ab0b90c4a6800496a720d3d3a5e43e970aaecee410c9a3b6ad"
+    },
+    "reductionGenerator": {
+      "bytes": 5945,
+      "path": ".planning/solver/reduce-continuous-normal-source-sep24-v1.py",
+      "sha256": "7dea645a82de2d65192c936065043d76b5494dd965cf8265c1e5db9174716e5c"
+    },
+    "referenceMeasure": {
+      "actualEuclideanArclengthClaimed": false,
+      "additionalFractionFactorApplied": false,
+      "cellMeasureSumEqualsTotalExactly": true,
+      "densityNPerM2": 1000.0,
+      "policy": "negative-captured-arc-interval-times-normalized-cell-width-v1",
+      "registrationMember": {
+        "direction": "forward",
+        "endArcMm": 100.672415,
+        "instanceId": "opening_binding_left_left:shell",
+        "pathName": "right",
+        "startArcMm": 0
+      },
+      "totalMeters": {
+        "denominator": "1099511627776000",
+        "numerator": "110690490888791"
+      }
+    },
+    "rowComparisonScope": "All forty stored original/numerical row identities and coefficient differences remain in the raw report. No row is replaced, normalized or retargeted.",
+    "runtime": {
+      "numpy": "2.5.3",
+      "platform": "macOS-15.3.1-arm64-arm-64bit-Mach-O",
+      "python": "3.13.5",
+      "scipy": "1.17.0"
+    },
+    "selectorIdentity": {
+      "memberIndex": 1,
+      "phaseId": "cuff:left:bind-opening-left",
+      "registrationId": "bind_opening_left_left",
+      "rowIds": [
+        "row:ebb650cbabb5fe12d86d1054684ed1997984dfd3079eb38f162ff1c86733214f",
+        "row:2398836424f08c7f149ecfb882a09cbfdbf82cfa2742629d0c57cc9884532241",
+        "row:988798989ceb0ef5c87209d2d68e3023bc45ffea8fe1cf105cb3a88324ecd946",
+        "row:83f718266ca016b0bb805519df9e4b761a9eb4ec17fcc29452aee530d883357c",
+        "row:b1b8806ca48f276a8884a668a6efea58d5e37382188592cfbda73bc3b9a29901"
+      ],
+      "rowIndices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "sourceAdmissionChanged": false,
+    "sourceArraysIncluded": false,
+    "sourceControlsInstalled": false
+  },
+  "staticSourceDiagnosticReduction": {
+    "bytes": 132579,
+    "canonicalJsonSha256": "26f4cff2ca6d0f84f5f85473a8b4176bcea8167607b08385c08cd96a65d730ae",
+    "path": ".planning/solver/continuous-normal-source-ledger-reduction-sep24-v1.json",
+    "sha256": "06a7c96af8334e222a95066067b6c2c963e52534c772927bd343bf673f4bb60a"
+  },
+  "supersededRegressionExpectation": "The retained continuous-normal-zero-residual-native-sep24-v1.log tested a rounded-normal pose as exact equilibrium. Independent geometric analysis superseded that expectation: the chosen analytic model has a real tiny residual, now retained and tested against a high-precision oracle. The old failure is history, not an unmet acceptance requirement.",
+  "verification": {
+    "countsOverlap": true,
+    "focusedNative": {
+      "bytes": 4445,
+      "passed": true,
+      "path": ".planning/solver/continuous-normal-producer-native-sep24-v4.log",
+      "seconds": 0.446,
+      "sha256": "8e6c486689f9f6053a2fb098de62844d51c678d32d57ef00843eec6233396ee8",
+      "tests": 20
+    },
+    "focusedPinnedLinux": {
+      "bytes": 4445,
+      "passed": true,
+      "path": ".planning/solver/continuous-normal-producer-linux-sep24-v4.log",
+      "seconds": 0.445,
+      "sha256": "bf940f00759503005193efce74aa9d743150ed594f3aff0fcfffc4050be76d31",
+      "tests": 20
+    },
+    "fullPinnedLinux": {
+      "bytes": 6632,
+      "passed": true,
+      "path": ".planning/solver/continuous-normal-full-numerical-sep24-v1.log",
+      "seconds": 755.048,
+      "sha256": "9df92cce7d0f291ddc051fb5dcc854427345fc9a88f9ec6958a2bfffa7c854f1",
+      "tests": 1089
+    },
+    "newTests": 20,
+    "reproduce": "python -m unittest discover -s scripts -p 'test_solver_*.py'",
+    "scope": "Complete outputs retained. Focused counts overlap full discovery; no application build, browser, release or deployment checks claimed.",
+    "testMethods": [
+      "test_adjacent_one_sided_directors_can_make_a_continuous_offset_incompatible",
+      "test_affine_cell_integral_matches_independent_high_precision_polynomial",
+      "test_converted_thirds_retain_nonzero_anchor_residual_before_force_reduction",
+      "test_directed_normal_enclosures_bind_original_binary_area_without_global_error_claim",
+      "test_endpoint_reversal_and_exact_measure_preserving_subdivision",
+      "test_exact_to_binary_conversions_and_non_dyadic_measure_are_visible",
+      "test_input_cells_positions_and_public_descriptions_are_isolated",
+      "test_interior_bump_invisible_to_two_samples_has_positive_integrated_response",
+      "test_jacobian_gradient_and_full_curvature_against_independent_differences",
+      "test_large_positive_frame_scaling_has_zero_director_work_and_retains_anchor_work",
+      "test_one_ulp_frame_tilt_work_preserves_high_precision_direction_and_magnitude",
+      "test_opposed_large_cells_retain_small_net_force_and_signed_work",
+      "test_pending_cell_skips_degenerate_frames_but_preserves_identity_and_shape",
+      "test_positive_coefficient_and_integrated_scale_underflow_fail_closed",
+      "test_proper_rotation_force_torque_and_required_frame_reactions",
+      "test_raw_positions_and_active_frame_degeneracy_reject",
+      "test_rounded_normal_anchor_retains_true_geometric_residual_and_high_stiffness_force",
+      "test_shared_and_disjoint_frames_accumulate_without_cross_cell_curvature",
+      "test_stable_directional_work_near_equilibrium_and_large_energy_cancellation",
+      "test_strict_raw_cell_identity_coefficients_and_frame_support"
+    ]
+  }
+}
