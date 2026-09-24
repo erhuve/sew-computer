@@ -4,6 +4,43 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Explicit force stopping and matched temporal sensitivity · 2026-09-24
+
+The generic direct solver now accepts an explicit **tightening-only numerical force criterion**. Two matched separated scheduled runs at **1e-8 N**, using 128/512 intervals over 64 ms, complete **640 new states with zero rejected attempts**, including **320 fully released intervals**. The tighter criterion greatly reduces accumulated saved-force balance defects, but the dominant early timestep velocity difference remains approximately **5.954 mm/s**. This separates observed stopping sensitivity from the remaining temporal sensitivity; it does not establish convergence or identify a unique cause. The [evidence ledger](3d-tight-stationarity-results.json) binds code, tests, declarations, local artifacts, exact reductions and independent reviews.
+
+`stationarity_tolerance_newtons` defaults to **1e-6 N** and admits only original, exactly representable, non-Boolean binary64 scalars satisfying **0 < tolerance <= 1e-6 N**. Nondefault requests require guarded direct search. The selected criterion propagates through search termination, final numerical gradients, exact cable uncertainty bounds, adaptive retries and post-work publication, controlled-fold checks and gripper momentum bounds. Raw top-level and nested declarations are checked before diagnostic conversion can narrow them; exact rational comparisons retain positive contributions smaller than a floating-point addition can resolve. Cable response/work precision and arithmetic budgets are not automatically changed. An unattainable request may fail honestly.
+
+Default reports and states retain their existing behavior. Tightened requests reject the legacy `AttemptJournal` and its subclasses before activity because its capture/replay schema still declares 1e-6 N. Both refined entrypoints remain unchanged. These synthetic runs use an explicitly declared research journal; they do not admit refined garment sources. The stationarity result remains conditional on the trusted non-cable numerical force/work terms, not a complete constitutive-error certificate.
+
+Only the criterion changes in each same-grid motion comparison. Independent direct input checks remove only the profile name and added criterion, preserving subdivision count, coordinates, mass, materials, both cable schedules, contact, precision and resource limits. Both static preflights precede motion. The pinned Linux image, one CPU, 3 GiB, 256-process limit, no network, 600/605 CPU-second limits, 1,200-second external limit and five-second termination grace remain fixed. Each run retains 512 maximum attempts, retry depth six and 300 maximum evaluations; the 512-step run completes without spare nominal attempts or a budget increase.
+
+| Intervals | Force criterion (N) | Final accumulated saved-force velocity defect (mm/s) | Final accumulated position defect (µm) | Final maximum native speed (mm/s) |
+| --- | --- | --- | --- | --- |
+| 128 | 1e-6 | 1.783912 | 63.4240 | 1.300440 |
+| 128 | 1e-8 | 0.00203895 | 0.0792717 | 1.352501 |
+| 512 | 1e-6 | 0.409526 | 17.0165 | 1.880015 |
+| 512 | 1e-8 | 0.00500687 | 0.100079 | 1.929154 |
+
+These defects hold the **saved numerical force history fixed**. They are not trajectory-error bounds for a different simulation with changed force feedback. For each stored interval, exact arithmetic reconstructs `e = m*(v1-v0) + h*g`, accumulates `e/m`, and integrates that velocity defect together with `(q1-q0)-h*v1`. A separate exact kinetic/work identity retains inertial attenuation, potential-motion remainder, impulse-defect work and kinematic-work defect. None of these terms is labeled calibrated material damping. The primary reduction checks 1,600 saved intervals across six runs: 640 new and 960 reused.
+
+| 128-versus-512 comparison at every common 0.5 ms endpoint | 1e-6 N | 1e-8 N |
+| --- | --- | --- |
+| Maximum position difference (µm), at 64 ms | 12.44059 | 11.66199 |
+| Maximum native-velocity difference (mm/s), at 2.5 ms | 5.953707 | 5.954307 |
+| Maximum common-window secant difference (mm/s), ending at 2 ms | 10.73619 | 10.73723 |
+
+Same-grid default-versus-tight maximum native-velocity changes are **0.0839953 mm/s at 128 intervals** and **0.0613835 mm/s at 512 intervals**. Maximum position changes are **1.75980 and 0.981204 µm**. All common endpoints and fixed 2 ms observations are retained separately, including phase maxima; no interpolation or alignment is used. The large early cross-grid discrepancy persists under tighter solves, while released-tail speed remains nonzero. Smaller conditional balance defects do not establish temporal convergence, physical settling or a causal explanation for the remaining motion.
+
+![Force stopping sensitivity and unresolved temporal motion](3d-tight-stationarity.png)
+
+Verification: **1,293 full pinned Linux numerical/supervision tests pass in 813.512 seconds**, including **21 new cases**. The same twenty-one pass on macOS and pinned Linux; counts overlap. An independent adversarial source review passes **62 checks**, including raw narrowing, exact tiny bounds, late coherent cable mutations, detached journals, legacy journal rejection and four default-byte comparisons. Its orchestration probes use mocked equilibrium claims and an analytic scalar search test; they are not independent cloth motion. The production suite includes actual fixed/varying cable, cloth/contact and gripper cases.
+
+The primary agent adapted earlier independently authored saved-state oracles to verify **13,962 contact leaves, 2,560 triangle leaves, all 640 new states and all 320 fully released intervals**. A separate second author independently reconstructs the new runs' saved balance identities and all **3,088 sample metrics and 24 global maxima across eight grids**, using 1,280 states from the four matched runs. This does not constitute a second complete contact/constitutive audit. Source bytes remained fixed during verification. The ledger retains a corrected focused-test fixture, two independent-review harness mistakes, an exploratory caller error and the repaired figure layout; none changed the motion inputs or relaxed a criterion. No application build, browser, release or deployment result is claimed.
+
+Next resolve **early contact/control dynamics and released motion** with a declared temporal-accuracy target and explicit dissipative semantics. The stopping criterion can now be controlled separately; endlessly tightening it is not evidence of temporal convergence. Then establish spatial accuracy, validate construction-specific joints and execute actual cuff/binding operations. Joint spatial/temporal seam verification, calibrated material/friction/damping/body evidence and full-shirt application acceptance remain unfinished. Refined capture/main-replay changes and remote publication remain pending specific authorization.
+
+The following entries retain previous checkpoints and their then-current next steps.
+
 ## Finer separated-pose temporal comparison · 2026-09-24
 
 Two finer runs preserve the complete separated scheduled physical input and extend the comparison to **64, 128, 256 and 512 intervals over 64 ms**. The new 256/512 runs complete **768 states with zero rejected attempts**, including **384 fully released intervals**; 192 states from the earlier 64/128 runs are reused. Saved-state geometry, response and work checks pass, but native-velocity differences grow near contact engagement and position agreement remains nonmonotone. Temporal convergence and physical settling remain unestablished. The [finer-grid ledger](3d-cable-separated-finer-results.json) binds the declaration, exact input comparison, complete artifacts, audits and reduced observations.

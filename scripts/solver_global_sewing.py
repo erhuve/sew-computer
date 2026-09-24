@@ -3,6 +3,7 @@ import warnings
 from scipy.optimize import OptimizeResult, least_squares
 from scipy.sparse import coo_matrix, diags, kron
 from scipy.sparse.linalg import MatrixRankWarning, splu, spsolve
+from solver_stationarity import stationarity_tolerance
 
 
 def _positive_definite_direction(matrix, gradient):
@@ -38,7 +39,9 @@ def _positive_definite_direction(matrix, gradient):
 def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_hessian=None,
                     inertia_diagonal=None, gradient_function=None, energy_change_function=None,
                     coupled_hessian=None, step_limiter=None, guard_assembled_metrics=False,
-                    gradient_error_function=None, energy_change_interval_function=None):
+                    gradient_error_function=None, energy_change_interval_function=None,
+                    stationarity_tolerance_newtons=1e-6):
+    tolerance = stationarity_tolerance(stationarity_tolerance_newtons)
     if exact_hessian is not None and coupled_hessian is not None:
         raise ValueError("Choose one safeguarded primary search metric")
     if guard_assembled_metrics and inertia_diagonal is None:
@@ -61,7 +64,7 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
     def stationary(gradient, error):
         norm = float(np.max(np.abs(gradient)))
         return (np.isfinite(gradient).all() and
-                (F(norm)+error <= F(1e-6) if bounded else norm <= 1e-6))
+                (F(norm)+error <= F(tolerance) if bounded else norm <= tolerance))
     positions = start.copy()
     residual = evaluate(positions)
     energy = objective(positions)
@@ -312,7 +315,10 @@ class GlobalSewingSolver:
 
     def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct",
              *, fold_targets=None, fold_activation=None, gripper_targets=None, gripper_activation=None, sewing_activation=None,
-             cable_targets=None, cable_activation=None):
+             cable_targets=None, cable_activation=None, stationarity_tolerance_newtons=1e-6):
+        tolerance = stationarity_tolerance(stationarity_tolerance_newtons)
+        if tolerance != 1e-6 and linear_solver != "direct":
+            raise ValueError("Tightened stationarity requires guarded direct search")
         fixed_cable = self.continuous_cable
         varying_cable = self.cable_parameter_control
         cable = fixed_cable
@@ -766,6 +772,7 @@ class GlobalSewingSolver:
                                 coupled_hessian=(lambda positions: assembled_hessian(positions, False)) if guarded else None,
                                 energy_change_function=energy_change_function,
                                 step_limiter=step_limiter if self.contact is not None else None,
+                                stationarity_tolerance_newtons=tolerance,
                                 **({'gradient_error_function': gradient_error_function,
                                     'energy_change_interval_function': energy_change_interval_function}
                                    if cable is not None else {})) if linear_solver in ("direct", "shifted") else least_squares(evaluate, start, jac=lambda positions: evaluate(positions, True),
@@ -803,8 +810,9 @@ class GlobalSewingSolver:
                 'definition': cable.description(), 'energyJoules': response['energy'],
                 'certificate': response['certificate']})
             cable_stationarity = stationarity(gradient, cable_gradient_error,
-                _rational(response['certificate']['gradientMaxAbsoluteErrorBoundNewtons']), cable_assembly_error)
-            cable_converged = _rational(cable_stationarity['stationarityUpperBoundNewtons']) <= F(1e-6)
+                _rational(response['certificate']['gradientMaxAbsoluteErrorBoundNewtons']), cable_assembly_error,
+                tolerance_newtons=tolerance)
+            cable_converged = _rational(cable_stationarity['stationarityUpperBoundNewtons']) <= F(tolerance)
         row_errors = np.zeros(len(sewing_weights))
         if self.sewing_mode == "distance":
             _, lengths = distance_sewing.geometry(final)
@@ -857,8 +865,8 @@ class GlobalSewingSolver:
             "foldBarrierJoules": self.fold_barrier.energy(final) if self.fold_barrier is not None else 0.,
             "bendingHinges": len(self.bending.indices),
             "bendingSearchMetric": "Exact membrane + Gauss-Newton bending; projected membrane fallback, not exact total Hessian" if self.has_bending else None,
-            "converged": bool(result.success and gradient_norm <= 1e-6 and cable_converged),
-            "optimizerSuccess": bool(result.success), "stationarityToleranceN": 1e-6,
+            "converged": bool(result.success and gradient_norm <= tolerance and cable_converged),
+            "optimizerSuccess": bool(result.success), "stationarityToleranceN": tolerance,
             "linearSolver": linear_solver, "energyHistory": getattr(result, "energy_history", None),
             "exactSteps": getattr(result, "exact_steps", None), "projectedSteps": getattr(result, "projected_steps", None),
             "coupledSteps": getattr(result, "coupled_steps", None),

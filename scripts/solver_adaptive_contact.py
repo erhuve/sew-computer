@@ -5,6 +5,7 @@ import numpy as np
 
 from solver_attempt_journal import diagnostic_json, same
 from solver_assembly_schedule import AssemblySchedule
+from solver_stationarity import stationarity_tolerance, validate_tightened_report
 
 
 CONTROLLED_FOLD_SWEEP_POLICY = "all declared controlled hinges, including inactive; optimizer and physical affine paths"
@@ -126,7 +127,7 @@ def _validate_cable_identity(solver, control, definition):
         raise ValueError("Fixed cable control identity or precision changed during the adaptive transition")
 
 
-def _validate_cable_step(solver, control, definition, positions, report):
+def _validate_cable_step(solver, control, definition, positions, report, *, tolerance_newtons=1e-6):
     from solver_cable_integration import CableControl, _rational, stationarity
     _validate_cable_identity(solver, control, definition)
     isolated = positions.copy()
@@ -145,9 +146,10 @@ def _validate_cable_step(solver, control, definition, positions, report):
         raise ValueError("Complete finite cable stationarity diagnostics required")
     cable_error = _rational(expected_diagnostics["certificate"]["gradientMaxAbsoluteErrorBoundNewtons"])
     assembly_error = _rational(bounds["assemblyRoundingBoundNewtons"])
-    expected_bounds = stationarity(np.array([norm]), cable_error+assembly_error, cable_error, assembly_error)
+    expected_bounds = stationarity(np.array([norm]), cable_error+assembly_error, cable_error, assembly_error,
+                                   tolerance_newtons=tolerance_newtons)
     if (not same(bounds, expected_bounds) or report.get("converged") is not True
-            or _rational(expected_bounds["stationarityUpperBoundNewtons"]) > Fraction(1e-6)):
+            or _rational(expected_bounds["stationarityUpperBoundNewtons"]) > Fraction(tolerance_newtons)):
         raise ValueError("Cable uncertainty-aware stationarity is unresolved or inconsistent")
     return expected_diagnostics
 
@@ -195,7 +197,7 @@ def _isolated_cable_call(function, *arrays):
     return result
 
 
-def _varying_cable_step(control, schedule, fraction, options, positions, report):
+def _varying_cable_step(control, schedule, fraction, options, positions, report, *, tolerance_newtons=1e-6):
     from solver_cable_integration import CableControl, _rational, stationarity
     values, weights = schedule.parameters(fraction)
     if (not _same_control_array(options["cable_targets"], values)
@@ -219,9 +221,10 @@ def _varying_cable_step(control, schedule, fraction, options, positions, report)
         raise ValueError("Complete finite varying cable stationarity diagnostics required")
     cable_error = _rational(diagnostic["certificate"]["gradientMaxAbsoluteErrorBoundNewtons"])
     assembly_error = _rational(bounds["assemblyRoundingBoundNewtons"])
-    expected = stationarity(np.array([norm]), cable_error+assembly_error, cable_error, assembly_error)
+    expected = stationarity(np.array([norm]), cable_error+assembly_error, cable_error, assembly_error,
+                           tolerance_newtons=tolerance_newtons)
     if (not same(bounds, expected) or report.get("converged") is not True
-            or _rational(expected["stationarityUpperBoundNewtons"]) > Fraction(1e-6)):
+            or _rational(expected["stationarityUpperBoundNewtons"]) > Fraction(tolerance_newtons)):
         raise ValueError("Varying cable uncertainty-aware stationarity is unresolved or inconsistent")
     return diagnostic
 
@@ -289,7 +292,17 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
                           assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None,
-                          fold_control_schedule=None, cable_parameter_schedule=None, **step_options):
+                          fold_control_schedule=None, cable_parameter_schedule=None,
+                          stationarity_tolerance_newtons=1e-6, **step_options):
+    tolerance = stationarity_tolerance(stationarity_tolerance_newtons)
+    tightened = tolerance != 1e-6
+    if tightened:
+        from solver_attempt_journal import AttemptJournal
+        if isinstance(attempt_journal, AttemptJournal):
+            raise ValueError("Legacy captured journals declare only 1e-6 N; tightened research needs its own explicit journal")
+        if step_options.get("linear_solver", "direct") != "direct":
+            raise ValueError("Tightened stationarity requires guarded direct search")
+        step_options["stationarity_tolerance_newtons"] = tolerance
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
     if "sewing_activation" in step_options:
@@ -456,7 +469,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                   "initialInterval": initial_interval, "startFraction": start_fraction,
                   "endFraction": end_fraction, "durationSeconds": duration, "depth": depth, "converged": False}
         if attempt_journal is not None:
-            attempt_journal.start(copy.deepcopy(record) if varying_control is not None else record)
+            attempt_journal.start(copy.deepcopy(record) if varying_control is not None or tightened else record)
         fatal = False
         propagate = None
         try:
@@ -523,8 +536,12 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                      and np.isfinite(candidate_positions).all() and np.isfinite(candidate_velocities).all()
                      and isinstance(residual, (float, int, np.floating, np.integer))
                      and not isinstance(residual, (bool, np.bool_))
-                     and np.isfinite(residual) and 0 <= residual <= 1e-6
+                     and np.isfinite(residual) and 0 <= residual <= tolerance
                      and step_report.get("converged") is True)
+            if valid:
+                # Validate original scalars before diagnostic_json can narrow
+                # a wider real or Fraction to the requested binary64 value.
+                validate_tightened_report(step_report, tolerance)
             if valid and fold_controls is not None:
                 expected_targets = (targets.copy() if sewing_progress == 1 else
                                     initial_targets + sewing_progress * (targets-initial_targets))
@@ -543,7 +560,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                                     initial_targets + sewing_progress * (targets-initial_targets))
                 if not _same_control_array(substep_targets, expected_targets):
                     raise ValueError("Cable step mutated the original sewing target interpolation")
-                _validate_cable_step(solver, cable_control, cable_definition, candidate_positions, record["step"])
+                _validate_cable_step(solver, cable_control, cable_definition, candidate_positions, record["step"],
+                                     tolerance_newtons=tolerance)
                 original_step_core = copy.deepcopy(_step_core(record["step"], grippers=gripper_controls is not None))
             if valid and varying_control is not None:
                 varying_arrays.extend((candidate_positions, candidate_velocities))
@@ -551,7 +569,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 original_step_core = copy.deepcopy(_step_core(record["step"], grippers=gripper_controls is not None))
                 if any(not _same_control_array(actual, expected) for actual, expected in zip(varying_arrays, varying_snapshots)):
                     raise ValueError("Varying cable solver mutated supplied transition inputs")
-                _varying_cable_step(varying_control, cable_controls, end_fraction, options, candidate_positions, record["step"])
+                _varying_cable_step(varying_control, cable_controls, end_fraction, options, candidate_positions, record["step"],
+                                   tolerance_newtons=tolerance)
                 _validate_varying_identity(solver, varying_control, varying_definition, cable_controls, cable_schedule_definition)
             if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None
                           or cable_control is not None or varying_control is not None):
@@ -625,15 +644,16 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     momentum, impulse = [np.array([float(value) for value in vector])
                                          for vector in (momentum_exact, impulse_exact)]
                     error = np.array([float(change - applied) for change, applied in zip(momentum_exact, impulse_exact)])
-                    tolerance = len(solver.mass) * duration * 1e-6 + 64 * np.finfo(float).eps * max(
+                    momentum_tolerance = len(solver.mass) * duration * tolerance + 64 * np.finfo(float).eps * max(
                         1., float(np.max(np.abs(momentum))), float(np.max(np.abs(impulse))))
                     if (not np.all(solver.active) or not np.isfinite(error).all()
-                            or np.max(np.abs(error)) > tolerance):
+                            or np.max(np.abs(error)) > momentum_tolerance):
                         raise ValueError("Material-gripper transition fails free-cloth linear momentum accounting")
                     step_report = dict(step_report, gripperMomentum={
                         "changeKgMPerS": momentum.tolist(), "externalImpulseNs": impulse.tolist(),
-                        "residualNs": error.tolist(), "toleranceNs": float(tolerance),
+                        "residualNs": error.tolist(), "toleranceNs": float(momentum_tolerance),
                         "scope": "Backward-Euler force at the new state on free cloth; virtual gripper impulse, not isolated-cloth momentum conservation"})
+                validate_tightened_report(step_report, tolerance)
                 record["step"], nonfinite = diagnostic_json(step_report)
                 record["nonfiniteDiagnostics"] = nonfinite
                 if nonfinite:
@@ -649,7 +669,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     if (record["step"].get("converged") is not True
                             or isinstance(final_residual, bool)
                             or not isinstance(final_residual, (int, float))
-                            or not 0 <= final_residual <= 1e-6):
+                            or not 0 <= final_residual <= tolerance):
                         raise ValueError("Controlled-fold final convergence diagnostics changed before publication")
                 if sewing_controls is not None:
                     _validate_sewing_step(solver, sewing_model_identity, sewing_controls, end_fraction,
@@ -658,7 +678,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                         raise ValueError("Sewing step diagnostics changed during work before publication")
                     _validate_sewing_energy(record["step"].get("energyBalance"))
                 if cable_control is not None:
-                    fresh_cable_after = _validate_cable_step(solver, cable_control, cable_definition, candidate_positions, record["step"])
+                    fresh_cable_after = _validate_cable_step(solver, cable_control, cable_definition, candidate_positions, record["step"],
+                                                             tolerance_newtons=tolerance)
                     _validate_cable_energy(cable_control, current_positions, candidate_positions,
                                            record["step"].get("energyBalance"), fresh_cable_after)
                     if not same(record["step"], cable_publication_snapshot):
@@ -668,7 +689,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     _validate_cable_identity(solver, cable_control, cable_definition)
                 if varying_control is not None:
                     fresh_after = _varying_cable_step(varying_control, cable_controls, end_fraction,
-                                                     options, candidate_positions, record["step"])
+                                                     options, candidate_positions, record["step"], tolerance_newtons=tolerance)
                     _validate_varying_cable_energy(varying_control, cable_controls, start_fraction, end_fraction,
                         current_positions, candidate_positions, record["step"].get("energyBalance"), fresh_after)
                     final_targets, final_activation = cable_controls.parameters(end_fraction)
@@ -684,6 +705,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                             or not same(record["step"], varying_publication_snapshot)
                             or not same(_step_core(record["step"], grippers=gripper_controls is not None), original_step_core)):
                         raise ValueError("Varying cable step or accounting changed during final numerical validation")
+            if valid:
+                validate_tightened_report(record["step"], tolerance)
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
@@ -699,7 +722,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         if valid:
             record["completedDurationSeconds"] = float(dt * end_fraction)
         if attempt_journal is not None:
-            if varying_control is not None:
+            if varying_control is not None or tightened:
                 attempt_journal.outcome(copy.deepcopy(record), candidate_positions.copy() if valid else None,
                                         candidate_velocities.copy() if valid else None)
             else:
@@ -735,7 +758,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         "complete": complete, "reason": reason, "requestedDurationSeconds": float(dt),
         "completedDurationSeconds": float(dt * completed_fraction), "completedFraction": completed_fraction,
         "initialSubdivisions": int(initial_subdivisions), "maxDepth": int(max_depth),
-        "maxAttempts": int(max_attempts), "stationarityToleranceN": 1e-6,
+        "maxAttempts": int(max_attempts), "stationarityToleranceN": tolerance,
         "attempts": attempts, "acceptedSteps": accepted, "rejectedSteps": rejected, "interruptedSteps": [],
         "targetInterpolation": ("captured piecewise-linear sewing/fold progress" if schedule else
                                 "linear sewing progress over the original physical interval" if (gripper_controls is not None or sewing_controls is not None) else

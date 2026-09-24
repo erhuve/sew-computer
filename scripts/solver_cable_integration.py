@@ -53,7 +53,9 @@ def assemble_gradient(baseline, cable, cable_error):
     return np.asarray(values), cable_error+rounding, rounding
 
 
-def stationarity(gradient, error, cable_error, assembly_error):
+def stationarity(gradient, error, cable_error, assembly_error, *, tolerance_newtons=1e-6):
+    from solver_stationarity import stationarity_tolerance
+    tolerance = stationarity_tolerance(tolerance_newtons)
     if (not np.isfinite(gradient).all() or min(error, cable_error, assembly_error) < 0
             or error != cable_error+assembly_error):
         raise ValueError('Consistent finite cable gradient bounds required')
@@ -62,7 +64,7 @@ def stationarity(gradient, error, cable_error, assembly_error):
     return {'gradientInfinityNorm': norm, 'cableGradientErrorBoundNewtons': _rat(cable_error),
             'assemblyRoundingBoundNewtons': _rat(assembly_error),
             'totalGradientErrorBoundNewtons': _rat(error),
-            'stationarityUpperBoundNewtons': _rat(upper), 'toleranceNewtons': 1e-6,
+            'stationarityUpperBoundNewtons': _rat(upper), 'toleranceNewtons': tolerance,
             'scope': STATIONARITY_SCOPE}
 
 
