@@ -119,6 +119,64 @@ def _validate_sewing_energy(energy):
         raise ValueError("Complete finite unaccepted sewing work accounting required")
 
 
+def _validate_cable_identity(solver, control, definition):
+    if (getattr(solver, "continuous_cable", None) is not control
+            or not same(control.description(), definition)):
+        raise ValueError("Fixed cable control identity or precision changed during the adaptive transition")
+
+
+def _validate_cable_step(solver, control, definition, positions, report):
+    from solver_cable_integration import CableControl, _rational, stationarity
+    _validate_cable_identity(solver, control, definition)
+    isolated = positions.copy()
+    expected_diagnostics = control.diagnostics(isolated)
+    if not _same_control_array(isolated, positions):
+        raise ValueError("Cable diagnostic evaluation mutated its candidate position input")
+    expected_diagnostics = CableControl.validate_diagnostics(control, positions, expected_diagnostics)
+    _validate_cable_identity(solver, control, definition)
+    if not same(report.get("continuousCable"), expected_diagnostics):
+        raise ValueError("Step cable diagnostics differ from fresh supplied-state evaluation")
+    bounds = report.get("cableStationarity")
+    norm = report.get("gradientInfinityNorm")
+    if (type(bounds) is not dict or isinstance(norm, bool)
+            or not isinstance(norm, (int, float)) or not np.isfinite(norm) or norm < 0
+            or "assemblyRoundingBoundNewtons" not in bounds):
+        raise ValueError("Complete finite cable stationarity diagnostics required")
+    cable_error = _rational(expected_diagnostics["certificate"]["gradientMaxAbsoluteErrorBoundNewtons"])
+    assembly_error = _rational(bounds["assemblyRoundingBoundNewtons"])
+    expected_bounds = stationarity(np.array([norm]), cable_error+assembly_error, cable_error, assembly_error)
+    if (not same(bounds, expected_bounds) or report.get("converged") is not True
+            or _rational(expected_bounds["stationarityUpperBoundNewtons"]) > Fraction(1e-6)):
+        raise ValueError("Cable uncertainty-aware stationarity is unresolved or inconsistent")
+    return expected_diagnostics
+
+
+def _validate_cable_energy(control, previous, positions, report, after):
+    from solver_cable_integration import CableControl
+    from solver_energy_balance import validate_continuous_cable_energy
+    if (type(report) is not dict or report.get("accepted") is not False
+            or any(type(report.get(field)) is not float or not np.isfinite(report[field])
+                   for field in ("targetParameterWorkJoules", "externalParameterWorkJoules"))):
+        raise ValueError("Complete finite unaccepted cable transition accounting required")
+    original_report = copy.deepcopy(report)
+    payload = validate_continuous_cable_energy(control, previous, positions, report)
+    old = previous.copy()
+    before = control.diagnostics(old)
+    if not _same_control_array(old, previous):
+        raise ValueError("Cable before-energy validation mutated its isolated state")
+    before = CableControl.validate_diagnostics(control, previous, before)
+    start, end = previous.copy(), positions.copy()
+    work = control.energy_change(start, end)
+    if not _same_control_array(start, previous) or not _same_control_array(end, positions):
+        raise ValueError("Cable fixed-work validation mutated its isolated states")
+    work = CableControl.validate_change(control, previous, positions, work)
+    for field, expected in (("before", before), ("after", after), ("work", work)):
+        if not same(payload[field], expected):
+            raise ValueError("Cable work accounting differs from fresh immutable-control evaluation: " + field)
+    if not same(report, original_report):
+        raise ValueError("Cable energy report changed during fresh numerical validation")
+
+
 def _step_core(report, *, grippers):
     authored = {"energyBalance", "gripperMomentum"} if grippers else {"energyBalance"}
     return {key: value for key, value in report.items() if key not in authored}
@@ -135,6 +193,21 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         raise ValueError("Adaptive sewing activation requires an explicit captured activation schedule")
     if "fold_activation" in step_options:
         raise ValueError("Adaptive fold activation requires an explicit per-hinge control schedule")
+    cable_control = getattr(solver, "continuous_cable", None)
+    cable_definition = None
+    if cable_control is not None:
+        from solver_cable_integration import CableControl
+        from solver_controlled_fold import _binary64
+        if type(cable_control) is not CableControl or cable_control.vertex_count != len(solver.mass):
+            raise ValueError("An admitted immutable fixed cable control is required")
+        cable_definition = copy.deepcopy(cable_control.description())
+        positions = cable_control.positions(positions)
+        velocities = cable_control.positions(velocities)
+        dt = _binary64(dt)
+        if step_options.get("linear_solver", "direct") != "direct":
+            raise ValueError("Continuous cable controls require guarded direct search")
+        if any(key == "continuous_cable" or key.startswith("cable_") for key in step_options):
+            raise ValueError("Fixed cable controls and precision cannot be overridden per adaptive step")
     controlled_fold_recipe = getattr(solver, "controlled_fold_actuation", None)
     if controlled_fold_recipe is not None:
         from solver_controlled_fold import ControlledFoldActuation, _binary64
@@ -253,6 +326,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
         propagate = None
         try:
             options = dict(step_options)
+            if cable_control is not None:
+                _validate_cable_identity(solver, cable_control, cable_definition)
             if fold_recipe is not None:
                 options["fold_targets"] = (fold_targets.copy() if fold_progress == 1 else
                     initial_fold_targets + fold_progress * (fold_targets - initial_fold_targets))
@@ -273,6 +348,9 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             if fold_controls is not None:
                 candidate_positions = controlled_fold_recipe._positions(candidate_positions)
                 candidate_velocities = controlled_fold_recipe._positions(candidate_velocities)
+            if cable_control is not None:
+                candidate_positions = cable_control.positions(candidate_positions)
+                candidate_velocities = cable_control.positions(candidate_velocities)
             candidate_positions = np.asarray(candidate_positions, dtype=float)
             candidate_velocities = np.asarray(candidate_velocities, dtype=float)
             for label, array in (("candidatePositions", candidate_positions), ("candidateVelocities", candidate_velocities)):
@@ -302,7 +380,15 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 _validate_sewing_step(solver, sewing_model_identity, sewing_controls, end_fraction,
                     options, substep_targets, expected_targets, record["step"])
                 original_step_core = copy.deepcopy(_step_core(record["step"], grippers=gripper_controls is not None))
-            if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None):
+            if valid and cable_control is not None:
+                expected_targets = (targets.copy() if sewing_progress == 1 else
+                                    initial_targets + sewing_progress * (targets-initial_targets))
+                if not _same_control_array(substep_targets, expected_targets):
+                    raise ValueError("Cable step mutated the original sewing target interpolation")
+                _validate_cable_step(solver, cable_control, cable_definition, candidate_positions, record["step"])
+                original_step_core = copy.deepcopy(_step_core(record["step"], grippers=gripper_controls is not None))
+            if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None
+                          or cable_control is not None):
                 # Work belongs to the accepted transition and must be checked
                 # before its immutable journal outcome is written. Trial
                 # controls always use original fractions; retries do not
@@ -332,7 +418,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     new_fold, new_activation = fold_controls.parameters(end_fraction)
                     energy_options.update(previous_fold_targets=old_fold, previous_fold_activation=old_activation,
                                           fold_targets=new_fold, fold_activation=new_activation)
-                if fold_controls is not None or sewing_controls is not None:
+                if fold_controls is not None or sewing_controls is not None or cable_control is not None:
                     # Work is computed before publication. Isolated inputs
                     # preserve the last accepted state even if a helper fails
                     # after mutation; successful mutation also rejects.
@@ -376,6 +462,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 record["nonfiniteDiagnostics"] = nonfinite
                 if nonfinite:
                     raise ValueError("Controlled transition has nonfinite work or momentum diagnostics")
+                if cable_control is not None:
+                    cable_publication_snapshot = copy.deepcopy(record["step"])
                 if fold_controls is not None:
                     _validate_fold_step(solver, controlled_fold_recipe, fold_controls, end_fraction, options,
                                         candidate_positions, record["step"])
@@ -391,6 +479,15 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     if not same(_step_core(record["step"], grippers=gripper_controls is not None), original_step_core):
                         raise ValueError("Sewing step diagnostics changed during work before publication")
                     _validate_sewing_energy(record["step"].get("energyBalance"))
+                if cable_control is not None:
+                    fresh_cable_after = _validate_cable_step(solver, cable_control, cable_definition, candidate_positions, record["step"])
+                    _validate_cable_energy(cable_control, current_positions, candidate_positions,
+                                           record["step"].get("energyBalance"), fresh_cable_after)
+                    if not same(record["step"], cable_publication_snapshot):
+                        raise ValueError("Cable publication diagnostics changed during final numerical validation")
+                    if not same(_step_core(record["step"], grippers=gripper_controls is not None), original_step_core):
+                        raise ValueError("Cable step diagnostics changed during work before publication")
+                    _validate_cable_identity(solver, cable_control, cable_definition)
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
@@ -447,6 +544,9 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
            if sewing_controls is not None else {}),
         **({"gripperInterpolation": "captured piecewise-linear material-point targets and activation over the original physical interval"}
            if gripper_controls is not None else {}),
+        **({"continuousCable": copy.deepcopy(cable_definition),
+            "continuousCableScope": "Fixed supplied-cell control; cable uncertainty is checked before publication. Other numerical terms and their assembly diagnostics remain trusted global-solver terms; no independent non-cable error certificate, source admission or construction acceptance."}
+           if cable_control is not None else {}),
         **({"foldControlInterpolation": "explicit per-hinge targets and activation sampled by exact interpolation at original dyadic fractions; no captured source or construction admission"}
            if fold_controls is not None else {}),
     }

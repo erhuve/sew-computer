@@ -1,0 +1,1942 @@
+{
+  "accepted": false,
+  "adaptivePublication": {
+    "controls": "Freeze the control object, complete definition and precision across retries; forbid per-step cable overrides; validate raw states and duration before conversion.",
+    "mutationPolicy": "Isolate helper inputs; reject changed state/control, original step core or complete normalized publication report, including replaced energy payloads, before journal publication. Preserve rollback and accepted prefixes.",
+    "reportTrustLimit": "Fresh cable checks validate the cable contribution; existing non-cable solver stationarity and report terms remain trusted numerical inputs.",
+    "work": "Compute complete fixed-parameter cable work before every accepted journal outcome even without an external schedule. Re-evaluate numerical before/after/work responses from the immutable control."
+  },
+  "adversarialFindingsAndRepairs": [
+    {
+      "finding": "Rounded zero gradient or a negative nominal floating dot product can hide unresolved cable uncertainty.",
+      "repair": "Use exact uncertainty-aware stationarity and directional intervals; unresolved descent rejects."
+    },
+    {
+      "finding": "Subtracting binary endpoints may round a real displacement, and reconstructing an endpoint can change the path being checked.",
+      "repair": "Compute directional products from exact binary endpoint differences and pass the actual candidate endpoint to cable-path guards."
+    },
+    {
+      "finding": "Finite energy metadata can be internally consistent while shifted endpoint energies or a one-ULP fixed-work value are forged.",
+      "repair": "Fresh immutable-control numerical comparisons supplement metadata, aggregate and interval checks before adaptive publication."
+    },
+    {
+      "finding": "Final validation helpers could mutate the journal-bound core or mutate/replace the energy report after earlier checks.",
+      "repair": "Snapshot the complete normalized report, compare it after fresh numerical validation and perform the final original-core/control checks before publication."
+    },
+    {
+      "finding": "An inexact integer duration could silently narrow during adaptive arithmetic.",
+      "repair": "Apply strict binary64 duration admission before arithmetic; Boolean duration rejection is also retained."
+    },
+    {
+      "finding": "A zero-activation test incorrectly expected exactly static native rest geometry.",
+      "repair": "Compare against a separate no-cable baseline; retain the native float32 rest relaxation instead of changing mechanics."
+    },
+    {
+      "finding": "A helper test assumed np.longdouble was wider than binary64 on macOS ARM.",
+      "repair": "Reject only genuinely wider formats; the platform alias is admissible. No mechanical producer change."
+    }
+  ],
+  "applicationBehaviorChanged": false,
+  "baseCommit": "e59f8c7",
+  "constructionPhaseCompleted": false,
+  "date": "2026-09-24",
+  "deployed": false,
+  "developmentHistory": {
+    "adaptiveHistory": "Nativev1 ran11 tests and reported42 errors from one producer bug: raw validation left dt as Fraction, then np.isfinite rejected it. Shared strict binary64 conversion repairs the type boundary. Nativev2 throughv10 and Linuxv2 throughv5 pass; Linuxv1 never started tests because Docker access was denied. Later publication holes were review findings fixed before their new regressions, not historical failed numerical runs.",
+    "earlyLogScope": "Development logs may bind earlier source/test hashes or failing test/harness revisions; only the final combined54 and complete1179 runs establish this frozen checkpoint.",
+    "energyHistory": {
+      "bytes": 5666,
+      "canonicalJsonSha256": "32298dbb947c4fa4d71cacb2a32ddced122facace610cb1eca843cf704e8bb2f",
+      "path": ".planning/solver/cable-energy-development-history-sep24-v1.json",
+      "sha256": "948fccb740f014f38b7584df7a77e555cf53a6bc869856afa670af17633ae0fd"
+    },
+    "energyHistorySummary": "Dedicated nativeenergyv1 failed a platform longdouble test assumption, repaired without mechanics changes. Linuxenergyv2 did not execute because Docker access was denied. Final nativev4/Linuxv5 each pass13new+27existing energy cases.",
+    "firstFullDiscovery": {
+      "artifact": {
+        "bytes": 9007,
+        "path": ".planning/solver/cable-integration-full-numerical-sep24-v1.log",
+        "sha256": "76062815c8e46f75cb9833dd4b58450cbea44fb2744a89a733ed2389932bbdba"
+      },
+      "errors": 1,
+      "failures": 1,
+      "finding": "Two older journal tests used open-ended Mock solvers with explicit None for prior optional controls but no continuous_cable field; getattr fabricated a non-None placeholder and strict cable admission rejected it.",
+      "repair": "Only the two mock fixtures now explicitly declare continuous_cable=None. Strict real-control admission and all numerical source bytes remain unchanged; affected focused checks and full discovery were rerun.",
+      "seconds": 777.618,
+      "tests": 1179
+    },
+    "localeIssue": "A read-only shasum inventory command failed on this host locale; Python hashing supplies artifact identities. No numerical execution failed in that command.",
+    "nativeJournalHarnessLimit": {
+      "artifact": {
+        "bytes": 11681,
+        "path": ".planning/solver/cable-integration-journal-native-sep24-v1.log",
+        "sha256": "3ddcbe8aa488f35bb06dc0cd4341bc12842de5f9eaefc1ab8c866ecdfff562b4"
+      },
+      "errors": 1,
+      "failures": 1,
+      "scope": "An overbroad native journal rerun encountered two pre-existing Linux-specific supervision tests: macOS has neither /proc nor prctl. These are harness/platform failures, not cable mechanics. All78 pass in pinned Linux; the two changed journal fixtures separately pass natively. No platform helper or skip policy was changed.",
+      "seconds": 7.972,
+      "tests": 78
+    },
+    "nativeLaunchIssue": "An early ad hoc analytical probe failed before mechanics because the default Warp cache directory was unwritable. Proper writable-cache environments passed the retained analytical test. That terminal-only launch failure has no standalone retained log.",
+    "retainedLogs": [
+      {
+        "bytes": 10053,
+        "path": ".planning/solver/cable-adaptive-legacy-native-sep24-v1.log",
+        "sha256": "cd081b8c000db8fcfeea60ddaec2c9a5a6831268e0b5ab1461fb7f25e3c8dc79"
+      },
+      {
+        "bytes": 324,
+        "path": ".planning/solver/cable-adaptive-linux-sep24-v1.log",
+        "sha256": "1b66f03eb5ee00993072f737bf1035f4abd159bf499bb36d9d32eb69cbc2e346"
+      },
+      {
+        "bytes": 3346,
+        "path": ".planning/solver/cable-adaptive-linux-sep24-v2.log",
+        "sha256": "c8573ec7811c9a836b14ed58a6c2fdde3bf1aefe3a65ac1c0fabb776d8541202"
+      },
+      {
+        "bytes": 4133,
+        "path": ".planning/solver/cable-adaptive-linux-sep24-v3.log",
+        "sha256": "b7038837cd9e74d9aaa667957778e6119540aed581445bc0ebd077bda04c1999"
+      },
+      {
+        "bytes": 4943,
+        "path": ".planning/solver/cable-adaptive-linux-sep24-v4.log",
+        "sha256": "ef3b30ac3805b571bd24fdc9e24853267dbcd0bc6500c4befbe97226623f9a00"
+      },
+      {
+        "bytes": 5132,
+        "path": ".planning/solver/cable-adaptive-linux-sep24-v5.log",
+        "sha256": "ec4bcc3a21239e74aaf41a6b3ab5a1e3653f63e74720134712969869c83d2700"
+      },
+      {
+        "bytes": 123240,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v1.log",
+        "sha256": "529ab1a55f34af71eb61c88f097686d2bef887c4d1cc0c2e4f3e9fb46b28cc10"
+      },
+      {
+        "bytes": 5006,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v10.log",
+        "sha256": "bab3e2056edfb87682460909e56cc7090c46ac41389c02a9c2fb9b69fcf2e066"
+      },
+      {
+        "bytes": 2088,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v2.log",
+        "sha256": "bf38fffe88a154df9ed794dd366781d9ed7358db1f0e94ec0a42129129a82d62"
+      },
+      {
+        "bytes": 2667,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v3.log",
+        "sha256": "7d8dbde532f4c150f5ba87b1c83bc9395eefbfdb483ced98e1205bce95e49474"
+      },
+      {
+        "bytes": 3218,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v4.log",
+        "sha256": "fd27407f4439172273cb6ed30f54035f47c3790d53e8d044bef1f747a6dd687f"
+      },
+      {
+        "bytes": 3218,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v5.log",
+        "sha256": "081cbdb2fa956c3db636a1839ff2c0b49149d590b1007b74ecdfd46a0fd58a54"
+      },
+      {
+        "bytes": 3417,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v6.log",
+        "sha256": "60fffa0213bc4f549749517d5e0f543b012b5f65fa9e273f7f30023fd1bde429"
+      },
+      {
+        "bytes": 4007,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v7.log",
+        "sha256": "bf5cd4295a93176bdbaa4aacca38feafd366ba8d17d98aebd54788e5c8864807"
+      },
+      {
+        "bytes": 4816,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v8.log",
+        "sha256": "a6771ede1ca6a4e51f93891e00a2115c50ca1e6cf20721c604beed5248c26e4a"
+      },
+      {
+        "bytes": 4195,
+        "path": ".planning/solver/cable-adaptive-native-sep24-v9.log",
+        "sha256": "f0d012b540eb379df80b79620db5c5a99eeb58c8781b54b64720946e9d39247b"
+      },
+      {
+        "bytes": 1998,
+        "path": ".planning/solver/cable-contact-motion-sep24-v1.log",
+        "sha256": "e95954bd29ffaea0e3d35536335fe68af96ff6d7d15c0cc1fd463e26fdaf981e"
+      },
+      {
+        "bytes": 643,
+        "path": ".planning/solver/cable-contact-motion-sep24-v2.log",
+        "sha256": "a1c95fc0366b98e47337d3335da27728c624cc20dc6f4c91a85af18eb6f748a4"
+      },
+      {
+        "bytes": 324,
+        "path": ".planning/solver/cable-energy-linux-sep24-v2.log",
+        "sha256": "1b66f03eb5ee00993072f737bf1035f4abd159bf499bb36d9d32eb69cbc2e346"
+      },
+      {
+        "bytes": 7874,
+        "path": ".planning/solver/cable-energy-linux-sep24-v3.log",
+        "sha256": "1f086b0ff7a185293e21d8f58b07e9ab90affd845488f66cd3c57b547fae0923"
+      },
+      {
+        "bytes": 7874,
+        "path": ".planning/solver/cable-energy-linux-sep24-v4.log",
+        "sha256": "3f133cd558d97942d454164999e96447d88fb3c9b529a062b364d77dd3b1ff53"
+      },
+      {
+        "bytes": 7874,
+        "path": ".planning/solver/cable-energy-linux-sep24-v5.log",
+        "sha256": "44bac7083494bf491495c3291909affdeb17c71cfe477b4a1b9148715e165f69"
+      },
+      {
+        "bytes": 3347,
+        "path": ".planning/solver/cable-energy-native-sep24-v1.log",
+        "sha256": "e6c8d2a8c1df983b2157fc3bc6173c2d0a0ff634ff100666befcbc1639a1809a"
+      },
+      {
+        "bytes": 7874,
+        "path": ".planning/solver/cable-energy-native-sep24-v2.log",
+        "sha256": "02000de4ef4f52e0351fad4c2a1a5dba8ab5fe40f25bc999163d22f185fb6dca"
+      },
+      {
+        "bytes": 7874,
+        "path": ".planning/solver/cable-energy-native-sep24-v3.log",
+        "sha256": "f739de1b324528b385a45a73082eb414b9dad707629f4e2bfaf071ef59dc54b1"
+      },
+      {
+        "bytes": 7874,
+        "path": ".planning/solver/cable-energy-native-sep24-v4.log",
+        "sha256": "fa04e79de964d7b9bee2fd97b90bb5f68ae91a9bf3e1ba790d585042bc9b8f13"
+      },
+      {
+        "bytes": 5581,
+        "path": ".planning/solver/cable-global-legacy-native-sep24-v1.log",
+        "sha256": "9ad02ad2fa0136eb9594241b4f8fa3478e115faf74caa465acb1ace0e2215104"
+      },
+      {
+        "bytes": 324,
+        "path": ".planning/solver/cable-global-linux-sep24-v1.log",
+        "sha256": "1b66f03eb5ee00993072f737bf1035f4abd159bf499bb36d9d32eb69cbc2e346"
+      },
+      {
+        "bytes": 3014,
+        "path": ".planning/solver/cable-global-linux-sep24-v2.log",
+        "sha256": "4e7e9a4ef638ed5f16616c184b84a9307d618c4e430cc8b1b86842b6b26ff0bc"
+      },
+      {
+        "bytes": 3204,
+        "path": ".planning/solver/cable-global-linux-sep24-v3.log",
+        "sha256": "97adb21ed58b991f9d96954d697fd91e658653f3b42e6e25ff3566eea33bfe10"
+      },
+      {
+        "bytes": 2882,
+        "path": ".planning/solver/cable-global-native-sep24-v1.log",
+        "sha256": "4bcc058e56e27053c505dac55e56dadf08d63dfd300ba75f4d2e88f06a076efd"
+      },
+      {
+        "bytes": 3081,
+        "path": ".planning/solver/cable-global-native-sep24-v2.log",
+        "sha256": "68ee2a93e767cf947b265084d19db4e29efcbecc596e18bfdd602a02c1e57126"
+      },
+      {
+        "bytes": 852,
+        "path": ".planning/solver/cable-integration-focused-linux-sep24-v1.log",
+        "sha256": "bac11687715a1fbfa79420527e80d615a375ac0ccf875eeeba40d61dc8d611b0"
+      },
+      {
+        "bytes": 797,
+        "path": ".planning/solver/cable-integration-focused-native-sep24-v1.log",
+        "sha256": "9ce139bac1c7e8883a369f78d044d14b8301b3f55d5d59a9f42b26c039dbb701"
+      },
+      {
+        "bytes": 9007,
+        "path": ".planning/solver/cable-integration-full-numerical-sep24-v1.log",
+        "sha256": "76062815c8e46f75cb9833dd4b58450cbea44fb2744a89a733ed2389932bbdba"
+      },
+      {
+        "bytes": 6949,
+        "path": ".planning/solver/cable-integration-full-numerical-sep24-v2.log",
+        "sha256": "3fc56f7f1bc1a5ee8b028974cfd3e120737bb0c1c3b2c13996503204d890a301"
+      },
+      {
+        "bytes": 2058,
+        "path": ".planning/solver/cable-integration-helper-linux-sep24-v1.log",
+        "sha256": "4eb904ec90071f28a5958cbccb8dec1e712c53b5bf3cc1ae028709afe25ddf40"
+      },
+      {
+        "bytes": 2675,
+        "path": ".planning/solver/cable-integration-helper-native-sep24-v1.log",
+        "sha256": "bd897894f6fdfad4a34b676e0c289732d096fb521eb32ffbe0c11bbec9dc3afe"
+      },
+      {
+        "bytes": 2002,
+        "path": ".planning/solver/cable-integration-helper-native-sep24-v2.log",
+        "sha256": "57a6c734a61dfe620f0c0d7296c5bdf756e5e87e5d4165c943b5bbfb7b4dc95d"
+      },
+      {
+        "bytes": 100,
+        "path": ".planning/solver/cable-integration-journal-fixtures-native-sep24-v1.log",
+        "sha256": "f6c7556120a6df693f3accdf7acfcede1c908b087adda8a5cacd64abd63927b9"
+      },
+      {
+        "bytes": 1347,
+        "path": ".planning/solver/cable-integration-journal-linux-sep24-v1.log",
+        "sha256": "616cc1c0128a5b309641db37070e9d4e558ad1e375730a7616ed814f90c6e830"
+      },
+      {
+        "bytes": 11681,
+        "path": ".planning/solver/cable-integration-journal-native-sep24-v1.log",
+        "sha256": "3ddcbe8aa488f35bb06dc0cd4341bc12842de5f9eaefc1ab8c866ecdfff562b4"
+      },
+      {
+        "bytes": 67,
+        "path": ".planning/solver/compare-cable-energy-legacy-sep24-v1.log",
+        "sha256": "84fa80b2f123f759a803a976888c3511ca7950b3126ad1ba575c71d3e1c049a3"
+      },
+      {
+        "bytes": 2214,
+        "path": ".planning/solver/compare-cable-energy-legacy-sep24-v1.py",
+        "sha256": "28415f4157eef811ff923cb27524e4bcd765cd3ee2a5f54eb9914bcd5195432f"
+      }
+    ]
+  },
+  "energyAccounting": {
+    "aggregation": "Mechanical change and both work remainders sum the recorded existing binary64 terms and cable terms exactly before one final rounding. The report separately retains cable endpoint energy certificates and exact rational error/assembly bounds.",
+    "fields": [
+      "cableBeforeJoules",
+      "cableAfterJoules",
+      "cableFixedParameterChangeJoules",
+      "cableParameterWorkJoules"
+    ],
+    "legacyCompatibility": {
+      "artifact": {
+        "bytes": 4506,
+        "canonicalJsonSha256": "f546ba61e75e912e139f80f7ab7c004cab9e4310949abe454fd3a271371f15d3",
+        "path": ".planning/solver/compare-cable-energy-legacy-sep24-v1.json",
+        "sha256": "d5ae57d8b97430a5b9cbd0463cd80398c60c0b06d55bee8c8666de95750c485d"
+      },
+      "caseCount": 24,
+      "comparison": "Complete no-cable energy dictionaries exactly equal to committed prior implementation across three sewing modes, activation on/off, grippers on/off and controlled folds on/off.",
+      "scope": "Exact complete legacy energy report dictionaries with no cable; no dynamics or source admission"
+    },
+    "parameterWorkJoules": 0.0,
+    "workPolicy": "Use cancellation-resistant primitive fixed-parameter work, including tiny signed changes when endpoint energy midpoints round equal. Endpoint/work intervals must overlap consistently."
+  },
+  "garmentMotionExecuted": false,
+  "integrationPolicy": {
+    "admission": "Both optional arguments together; exact immutable recipe type; matching vertex count; all-free positive-mass model; guarded direct solver only. Empty legacy rows and separately declared existing point seams are both supported.",
+    "controls": "Targets, density, reference measure and activation are fixed. The separate primitive law and anchor-conversion defects are retained in complete control descriptions; no implicit old-row replacement or renormalization.",
+    "curvature": "Slack-sided generalized cable curvature is added once to both assembled search metrics. Both metrics retain positive-definiteness/descent safeguards and physical-inertia fallback; entrywise rounding bounds do not prove the matrix PSD or a classical total Hessian.",
+    "lineSearch": "For the exact displacement between actual binary endpoints, slope upper must be negative and work upper must be at most binary64(1e-4) times slope lower. Cable work uncertainty and final addition rounding are included.",
+    "pathGuards": "Existing triangle/contact guards and explicit fold-actuator/angular-barrier hinge guards remain. Cable calls use the actual candidate endpoint, including physical checks after optimization. Passive bending does not acquire a general new swept branch certificate.",
+    "precision": "All four positive binary64 absolute tolerances and five integer arithmetic budgets are explicit and fixed for the entire adaptive run. Unresolved precision or resource exhaustion rejects; no automatic precision refinement or relaxed acceptance.",
+    "publicEntry": "GlobalSewingSolver(..., continuous_cable=ContinuousCableSewing(...), cable_precision=explicit_dict)",
+    "scope": "Bounds are conditional on the existing binary64 non-cable force and work terms. No independent bound on every existing mechanical term, geometry computation or physical force is claimed.",
+    "stationarity": "Exact binary64 gradient infinity norm plus cable maximum component error plus final cable-addition rounding must be at most binary64(1e-6) N."
+  },
+  "ledgerGenerator": {
+    "bytes": 21274,
+    "path": ".planning/solver/build-cable-integration-ledger-sep24-v1.py",
+    "sha256": "785b84f0ed23d6f78eaf57c1299af248380e772f8e76786f286f4d345821c2d9"
+  },
+  "legacyFixtureRepair": {
+    "bytes": 32156,
+    "path": "scripts/test_solver_journal_adversarial.py",
+    "sha256": "198489d7c1ffcac8b96b5d167d3be82be4e33449ce2e58dcc72d560155810c58"
+  },
+  "nextIncrementDesign": {
+    "adversarialDesignReview": {
+      "bytes": 6808,
+      "path": ".planning/solver/review-cable-parameter-work-design-sep24-v1.md",
+      "sha256": "02291b14eec15229d46929c41f92234cf7908223cbb1d4a8d8671343473df342"
+    },
+    "artifact": {
+      "bytes": 18724,
+      "path": ".planning/solver/cable-parameter-work-design-sep24-v1.md",
+      "sha256": "bb5d190ba1cc87435acd540771f757f037f99c00943398103d1a9b1bdf3c265d"
+    },
+    "exactOracle": {
+      "bytes": 166494,
+      "canonicalJsonSha256": "93044f22c935bfde28c0d4b4ec292519b8aec0175e2f5c267eeb821c365d9a1b",
+      "path": ".planning/solver/cable-parameter-work-oracle-sep24-v1.json",
+      "sha256": "5bd7190cfa2dbe8a8c0d5c4ee91fc088c81951a932910668511fc7c6762e6267"
+    },
+    "oracleExecutionLog": {
+      "bytes": 329,
+      "path": ".planning/solver/cable-parameter-work-oracle-sep24-v1.log",
+      "sha256": "0f033eab5e347cc7e24607ffce7cf11ca1edbf64671bbbc2a976e91cf7c00357"
+    },
+    "oracleGenerator": {
+      "bytes": 21095,
+      "path": ".planning/solver/cable-parameter-work-oracle-sep24-v1.py",
+      "sha256": "369aaf931be6dcfd40045ef816350e6a46538e81a99cc42ba447a0bc0bad6e54"
+    },
+    "oracleReproductionLog": {
+      "bytes": 328,
+      "path": ".planning/solver/cable-parameter-work-oracle-sep24-reproduction-v1.log",
+      "sha256": "9c8aabac0e85f2b69ad7553ea653914146153dd6060daff4d3f5f494c674d51f"
+    },
+    "oracleScope": "Standard-library design arithmetic only:19 explicit fixtures and243 exhaustive exact cases compare polynomial antiderivatives with joint-root Bernstein/factored integration for positive affine radii. Four irrational-root brackets are separate boundary-only evidence. This is not a generic work implementation, motion result or additional numerical-suite test count.",
+    "scope": "Future-only design and separate exact arithmetic oracle; no varying-control implementation, solver execution or admission. Preserve exact beta, directly combined target/activation/total work, exact dyadic schedules and union active-boundary bounds."
+  },
+  "profile": "guarded-fixed-cable-integration-results-v1",
+  "remainingLimits": [
+    "Candidate separation-limit law allows slack, collapse, wrong sides and tangential/rotational freedom; no calibrated physical joint acceptance.",
+    "Fixed controls only; target/activation changes and their parameter-work accounting remain unimplemented.",
+    "Source-bound cable declarations and joint spatial/temporal seam-distance verification remain separate requirements.",
+    "One32ms synthetic run pair does not establish timestep/spatial convergence, settling, damping, friction or material/body calibration.",
+    "Actual binding wrap/finish/apex, cuff turning through the reserved opening, full-shirt controls and application acceptance remain unfinished.",
+    "Refined capture/main-replay edits and remote push remain unapplied pending their separate specific authorizations; no alternate path bypasses them."
+  ],
+  "runtime": {
+    "containerImage": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "containerLimits": {
+      "cpus": 1,
+      "memory": "3g",
+      "network": "none",
+      "pids": 256,
+      "platform": "linux/arm64"
+    },
+    "nativeScope": "Focused tests run in the existing macOS numerical environment; no cross-runtime trajectory bit identity or performance equivalence claimed.",
+    "numericalThreads": {
+      "OMP_NUM_THREADS": 1,
+      "OPENBLAS_NUM_THREADS": 1
+    }
+  },
+  "scope": "Optional generic supplied-cell fixed cable integration, coupled synthetic dynamics, numerical/adversarial regression and retained path verification.",
+  "sourceAdmissionGranted": false,
+  "sourceControlsInstalled": false,
+  "sourceFiles": [
+    {
+      "bytes": 12093,
+      "path": "scripts/solver_cable_integration.py",
+      "sha256": "9a9b058b57267f2d1ac27e0eaa29fd4bb81401f6b1b3dd86dd5f57944722088f"
+    },
+    {
+      "bytes": 58070,
+      "path": "scripts/solver_global_sewing.py",
+      "sha256": "3b4dd152531ec0e0cb936646300a1fd44a3343cd9a93115e5760bd79e06f572d"
+    },
+    {
+      "bytes": 38859,
+      "path": "scripts/solver_adaptive_contact.py",
+      "sha256": "69d14d9f8fe9d273f41c35d2878864ae4c8498f10be9773dc344ad26cd335196"
+    },
+    {
+      "bytes": 42948,
+      "path": "scripts/solver_energy_balance.py",
+      "sha256": "0f42aadd39651fa25177e7310294f0fbd232055f917a4827681b2175575d690f"
+    },
+    {
+      "bytes": 9141,
+      "path": "scripts/test_solver_cable_integration.py",
+      "sha256": "8e0a01d4f81d1ce04bde93b5b0e429646341755f363ffa5d6d17d7cdaca9c673"
+    },
+    {
+      "bytes": 23586,
+      "path": "scripts/test_solver_cable_global.py",
+      "sha256": "4a10e6da25d3c15a090a820356e5d67db2ae1b80fccca06ac95dafb58c513d8d"
+    },
+    {
+      "bytes": 29784,
+      "path": "scripts/test_solver_cable_adaptive.py",
+      "sha256": "d2c717768f0b75d80f5f914a5c7ea5419c279b1a3fac77585125f5fc5801b631"
+    },
+    {
+      "bytes": 17640,
+      "path": "scripts/test_solver_cable_energy.py",
+      "sha256": "dd61bc9a9110409e83ebe4a00b42c0af29c199d386f03fde9543b8c20f061512"
+    }
+  ],
+  "syntheticMotion": {
+    "adaptiveLimits": {
+      "maxAttempts": 128,
+      "maxDepth": 6,
+      "maxEvaluationsPerAttempt": 300
+    },
+    "artifact": {
+      "bytes": 38352,
+      "canonicalJsonSha256": "8b7d50f5baeac4203f37178391108b81990352651ff7f6f8c8e45d1db6067cb7",
+      "path": ".planning/solver/cable-contact-motion-sep24-v2/comparison.json",
+      "sha256": "e739872b4fc9dd24efa91eefff8993c38264dc134ace9c096cd1ae10201380bc"
+    },
+    "artifactPrivacy": "Full inputs, positions, velocities, per-coordinate forces/curvature, reports, journals and proof leaves remain ignored local artifacts. Only identities and reduced aggregates are tracked.",
+    "caseAudits": [
+      {
+        "case": "activation-0",
+        "exactConstantDistanceReferenceStates": 17,
+        "finalCablePhysicalForceOnLowerLayerN": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "finalGradientNormN": 4.1960487170891835e-08,
+        "finalPhysicalForceOnLowerLayerByTermN": {
+          "bending": [
+            4.0389678347315804e-28,
+            5.756436084903314e-30,
+            -1.1580528575742387e-23
+          ],
+          "cable": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "contact": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "membrane": [
+            -4.963083675318166e-23,
+            9.305781891221561e-25,
+            -6.058451752097371e-27
+          ]
+        },
+        "gradientComponentsChecked": 408,
+        "hessianEntriesChecked": 9792,
+        "initialContactEnergyJoules": 8.492959811016597e-06,
+        "maximum32vs64PointDiscrepancies": [
+          "0E-166",
+          "0E-406",
+          "0E-161"
+        ],
+        "maximumMomentumChangeComponentKgMPerSecond": 2.1886680589276585e-20,
+        "maximumOrdinaryDifferences": {
+          "energyDifferenceJoules": "0",
+          "gradientMaxDifferenceNewtons": "0",
+          "hessianMaxEntryDifferenceNewtonsPerMeter": "0"
+        },
+        "maximumTighterDifferences": {
+          "energyDifferenceJoules": "0",
+          "gradientMaxDifferenceNewtons": "0",
+          "hessianMaxEntryDifferenceNewtonsPerMeter": "0"
+        },
+        "numericalPassiveHingePathsChecked": 16,
+        "staticStatesChecked": 17,
+        "zeroSavedVelocityEndFractions": []
+      },
+      {
+        "case": "activation-1",
+        "exactConstantDistanceReferenceStates": 1,
+        "finalCablePhysicalForceOnLowerLayerN": [
+          3.283475380115336e-18,
+          9.932192356185068e-15,
+          0.0011849319488977834
+        ],
+        "finalGradientNormN": 1.8228673934633187e-07,
+        "finalPhysicalForceOnLowerLayerByTermN": {
+          "bending": [
+            3.07971297398283e-27,
+            -9.175266919049645e-26,
+            -3.1763735522036263e-22
+          ],
+          "cable": [
+            3.283475380115336e-18,
+            9.932192356185068e-15,
+            0.0011849319488977834
+          ],
+          "contact": [
+            -5.052508650265987e-18,
+            -9.977606976807963e-15,
+            -0.0011845610140267869
+          ],
+          "membrane": [
+            -4.756288522179909e-24,
+            -6.617444900424222e-24,
+            -0.0
+          ]
+        },
+        "gradientComponentsChecked": 408,
+        "hessianEntriesChecked": 9792,
+        "initialContactEnergyJoules": 8.492959811016597e-06,
+        "maximum32vs64PointDiscrepancies": [
+          "4.520618074007299644712834782796209715275305972183769366794236E-106",
+          "9.387019786169392757917755785020688975090968769512890351609438E-103",
+          "1.5901962181131196939317987777660771510637889085563962629893986E-99"
+        ],
+        "maximumMomentumChangeComponentKgMPerSecond": 1.7415550256533827e-20,
+        "maximumOrdinaryDifferences": {
+          "energyDifferenceJoules": "2.58492384113661501761388851982534600997380223084556719047810098468900645533250882749402986256846247555043268344694990023285935595242288075085882E-23",
+          "gradientMaxDifferenceNewtons": "5.42101085621503773174092657219598830054739233976112538932774142423482067097195178302170177591413476569170941568526036795210667007915311617525666E-20",
+          "hessianMaxEntryDifferenceNewtonsPerMeter": "7.40151639403309983682534371590644356728457831833756042786915006623243401746856868764351163160428873339201963403564705496665953572765124172336480E-17"
+        },
+        "maximumTighterDifferences": {
+          "energyDifferenceJoules": "2.58492384113661501761388851982534600997380223084556719047810098468900645533250882749402986256846247555043268344694990023285935595242288075085882E-23",
+          "gradientMaxDifferenceNewtons": "5.42101086864000660833360143650342881371042016023887461067225857576517932902804821697829822408586523430829058431473963204789332992084688382474334E-20",
+          "hessianMaxEntryDifferenceNewtonsPerMeter": "3.700743415417188468078772226969401041666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666667E-17"
+        },
+        "numericalPassiveHingePathsChecked": 16,
+        "staticStatesChecked": 17,
+        "zeroSavedVelocityEndFractions": [
+          0.75,
+          0.8125,
+          0.875,
+          0.9375,
+          1.0
+        ]
+      }
+    ],
+    "cases": [
+      {
+        "accepted": false,
+        "acceptedStateCount": 16,
+        "acceptedWorkTotalsJoules": {
+          "cableFixedParameterChangeJoules": 0.0,
+          "cableParameterWorkJoules": 0.0,
+          "externalParameterWorkJoules": 0.0,
+          "mechanicalChangeJoules": -8.470132911126465e-06,
+          "mechanicalChangeMinusParameterWorkJoules": -8.470132911126465e-06
+        },
+        "activation": 0.0,
+        "actualPartition": [
+          [
+            0.0,
+            0.0625,
+            0
+          ],
+          [
+            0.0625,
+            0.125,
+            0
+          ],
+          [
+            0.125,
+            0.1875,
+            0
+          ],
+          [
+            0.1875,
+            0.25,
+            0
+          ],
+          [
+            0.25,
+            0.3125,
+            0
+          ],
+          [
+            0.3125,
+            0.375,
+            0
+          ],
+          [
+            0.375,
+            0.4375,
+            0
+          ],
+          [
+            0.4375,
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            0.5625,
+            0
+          ],
+          [
+            0.5625,
+            0.625,
+            0
+          ],
+          [
+            0.625,
+            0.6875,
+            0
+          ],
+          [
+            0.6875,
+            0.75,
+            0
+          ],
+          [
+            0.75,
+            0.8125,
+            0
+          ],
+          [
+            0.8125,
+            0.875,
+            0
+          ],
+          [
+            0.875,
+            0.9375,
+            0
+          ],
+          [
+            0.9375,
+            1.0,
+            0
+          ]
+        ],
+        "adaptiveSeconds": 0.6181834169999547,
+        "cableEnergyRangeJoules": [
+          0.0,
+          0.0
+        ],
+        "commonPhysicalInputSha256": "7f001db63391c6e2cf088d1e5491bd07075860639d08cd6e3a14f35cd6b0e643",
+        "complete": true,
+        "contactEnergyRangeJoules": [
+          0.0,
+          7.070532288010145e-10
+        ],
+        "exactContactLeaves": 138,
+        "exactTriangleLeaves": 64,
+        "finalGapEndpointsMeters": [
+          0.003525700051477441,
+          0.003533419002298601,
+          0.003527511648339703,
+          0.0035275116481089555
+        ],
+        "finalSpeedMPerSecond": 0.023954103039870733,
+        "initialAudit": {
+          "bytes": 6174,
+          "path": "initial-audit.json",
+          "sha256": "28bc8d4a203fec9866e8114c09a546c13bde3a84df2d9ff390842f40b10f419f"
+        },
+        "initialCableEnergyJoules": 0.0,
+        "input": {
+          "bytes": 12238,
+          "path": "input.json",
+          "sha256": "9130f0c01beae7fb4dcf62f8a1db61535d1835d12c1e865a522400b149d24c7b"
+        },
+        "maximumNumericalResidualNewtons": 3.1901749199996804e-07,
+        "reason": "complete",
+        "rejectedAttemptCount": 0,
+        "report": {
+          "bytes": 1680279,
+          "path": "report.json",
+          "sha256": "cd726c6528e523433119549f577a6cf355ec5314def310b5bad9aaf78ccd9ba3"
+        },
+        "uniformInitialGrid": true
+      },
+      {
+        "accepted": false,
+        "acceptedStateCount": 16,
+        "acceptedWorkTotalsJoules": {
+          "cableFixedParameterChangeJoules": 1.0101583589187749e-07,
+          "cableParameterWorkJoules": 0.0,
+          "externalParameterWorkJoules": 0.0,
+          "mechanicalChangeJoules": -8.388963600655218e-06,
+          "mechanicalChangeMinusParameterWorkJoules": -8.388963600655218e-06
+        },
+        "activation": 1.0,
+        "actualPartition": [
+          [
+            0.0,
+            0.0625,
+            0
+          ],
+          [
+            0.0625,
+            0.125,
+            0
+          ],
+          [
+            0.125,
+            0.1875,
+            0
+          ],
+          [
+            0.1875,
+            0.25,
+            0
+          ],
+          [
+            0.25,
+            0.3125,
+            0
+          ],
+          [
+            0.3125,
+            0.375,
+            0
+          ],
+          [
+            0.375,
+            0.4375,
+            0
+          ],
+          [
+            0.4375,
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            0.5625,
+            0
+          ],
+          [
+            0.5625,
+            0.625,
+            0
+          ],
+          [
+            0.625,
+            0.6875,
+            0
+          ],
+          [
+            0.6875,
+            0.75,
+            0
+          ],
+          [
+            0.75,
+            0.8125,
+            0
+          ],
+          [
+            0.8125,
+            0.875,
+            0
+          ],
+          [
+            0.875,
+            0.9375,
+            0
+          ],
+          [
+            0.9375,
+            1.0,
+            0
+          ]
+        ],
+        "adaptiveSeconds": 3.580179834999967,
+        "cableEnergyRangeJoules": [
+          3.499288640704509e-07,
+          3.5238092514268784e-07
+        ],
+        "commonPhysicalInputSha256": "7f001db63391c6e2cf088d1e5491bd07075860639d08cd6e3a14f35cd6b0e643",
+        "complete": true,
+        "contactEnergyRangeJoules": [
+          1.8264914578180934e-09,
+          4.488084045590993e-09
+        ],
+        "exactContactLeaves": 636,
+        "exactTriangleLeaves": 64,
+        "finalGapEndpointsMeters": [
+          0.002092470594302489,
+          0.0020924613545952944,
+          0.00209931497495536,
+          0.0020993149749048024
+        ],
+        "finalSpeedMPerSecond": 0.0,
+        "initialAudit": {
+          "bytes": 13057,
+          "path": "initial-audit.json",
+          "sha256": "92ef1b85a6fc6d34f7bc22416b13d477cc2a7fd44d5a2e5f47511b06de169918"
+        },
+        "initialCableEnergyJoules": 2.500000949949116e-07,
+        "input": {
+          "bytes": 12238,
+          "path": "input.json",
+          "sha256": "fa858280f4527f9801e6c3822fc9f353b1bb23900e1f76043d8a66c5d0456b63"
+        },
+        "maximumNumericalResidualNewtons": 9.04471220405261e-07,
+        "reason": "complete",
+        "rejectedAttemptCount": 0,
+        "report": {
+          "bytes": 1740347,
+          "path": "report.json",
+          "sha256": "37bc655c64c7b9e34d52730466b5ec339b5b9433f141bd5873baaeaac982339d"
+        },
+        "uniformInitialGrid": true
+      }
+    ],
+    "contactActivationDistanceMeters": 0.002,
+    "contactMinimumMeters": 0.0001,
+    "controlHistory": "Each activation is fixed from its initial state. The active case starts with stored cable potential; neither run contains an engagement or release event.",
+    "directoryInventoryPolicy": "The retained review contains complete failedv1 and finalv2 directory inventories. Original v1 script bytes are separately retained and match the failed provenance; the active script path contains the corrected oracle.",
+    "durationSeconds": 0.032,
+    "failedRunHistory": {
+      "artifacts": {
+        "comparison": {
+          "bytes": 38352,
+          "path": ".planning/solver/cable-contact-motion-sep24-v2/comparison.json",
+          "sha256": "e739872b4fc9dd24efa91eefff8993c38264dc134ace9c096cd1ae10201380bc"
+        },
+        "failedLog": {
+          "bytes": 1998,
+          "path": ".planning/solver/cable-contact-motion-sep24-v1.log",
+          "sha256": "e95954bd29ffaea0e3d35536335fe68af96ff6d7d15c0cc1fd463e26fdaf981e"
+        },
+        "finalLog": {
+          "bytes": 643,
+          "path": ".planning/solver/cable-contact-motion-sep24-v2.log",
+          "sha256": "a1c95fc0366b98e47337d3335da27728c624cc20dc6f4c91a85af18eb6f748a4"
+        },
+        "originalOracleScript": {
+          "bytes": 21858,
+          "path": ".planning/solver/cable-contact-motion-sep24-v1-initial-oracle.py",
+          "sha256": "0e2485a81a83e3e0dc3047f92ddf0f46fd0688710c772579eb404e689bca57e2"
+        },
+        "script": {
+          "bytes": 24404,
+          "path": ".planning/solver/cable-contact-motion-sep24-v1.py",
+          "sha256": "7469998b21871c2c301fab112ee97b70e63810736fe578ad00533ed7d961f62b"
+        }
+      },
+      "disabledV1V2ByteIdenticalFiles": [
+        "report.json",
+        "state-0001.json",
+        "state-0002.json",
+        "state-0003.json",
+        "state-0004.json",
+        "state-0005.json",
+        "state-0006.json",
+        "state-0007.json",
+        "state-0008.json",
+        "state-0009.json",
+        "state-0010.json",
+        "state-0011.json",
+        "state-0012.json",
+        "state-0013.json",
+        "state-0014.json",
+        "state-0015.json",
+        "state-0016.json"
+      ],
+      "failedV1AndFinalV2SourceDifference": "Only the probe script changed: exact rational constant-distance oracle added. All imported numerical solver/helper and independent Decimal oracle source hashes are identical.",
+      "priorStop": "Activation 0 completed 16 states. Before activation 1 motion, finite 160-digit quadrature returned a 6e-163 N artifact against an exactly zero gradient uncertainty. Exact rational constant-distance polynomial integration now checks E/g/H without tolerance relaxation. The original script, log and output remain retained."
+    },
+    "figure": {
+      "bytes": 143339,
+      "path": "docs/research/3d-cable-integration.png",
+      "sha256": "0ba41f8d23b6222ba9d14d3b1a2189c4445b7fb75445dcd4dbe1a8b0a167b6b6"
+    },
+    "figureGenerator": {
+      "bytes": 2262,
+      "path": ".planning/solver/plot-cable-integration-sep24-v1.py",
+      "sha256": "43389018f70c79cd8903b6285cedeb8d1413eee2209054410f07805dd439ac13"
+    },
+    "fixture": "Eight free vertices, four triangles, two cloth layers, two continuous cable cells and rest-filtered surface contact; no old sewing rows, friction, gravity, grippers, added fold barriers or material damping.",
+    "generator": {
+      "bytes": 24404,
+      "path": ".planning/solver/cable-contact-motion-sep24-v1.py",
+      "sha256": "7469998b21871c2c301fab112ee97b70e63810736fe578ad00533ed7d961f62b"
+    },
+    "initialDtSeconds": 0.002,
+    "initialSubdivisions": 16,
+    "limitations": [
+      "One fixed-input short synthetic diagnostic; not timestep convergence, settling or calibrated dissipation.",
+      "No material damping and no friction; backward-Euler attenuation is numerical.",
+      "Cable alone does not enforce side, registration, textile orientation or a physical thread model.",
+      "Cable response bounds and exact affine path proofs have distinct scopes; non-cable force/work arithmetic remains numerical.",
+      "Tighter primitive re-evaluation uses the same certified kernel. Separate Decimal quadrature agreement is numerical evidence, not a new error proof.",
+      "No new captured profile, source binder, refined garment execution or construction completion."
+    ],
+    "matchedExceptFixedCableActivation": true,
+    "momentumScope": "Conditional numerical internal-force and impulse checks, with retained stationarity and arithmetic allowance; no certified error bound on non-cable mechanics.",
+    "observations": {
+      "effect": "Cable restrains initial-contact-driven opening; final center gaps remain above the approximately2mm initial gap. This is not commanded seam closure.",
+      "stationaryTail": "Active states12-16 at24-32ms accept unchanged positions in one evaluation; final residual approximately1.823e-7N. Reported zero speed is a tolerance-limited numerical outcome, not validated settling.",
+      "storedEnergy": "Both cases begin with identical approximately8.493e-6J contact energy. The active case additionally begins with approximately2.500e-7J cable energy; activation is never changed during motion."
+    },
+    "pathProof": "Each saved affine path has exact triangle nondegeneracy verification and exact rational separating-plane checks at the unchanged contact core, with independently verified swept-AABB candidate completeness. This is separate saved-path verification, not new supervised capture/main replay.",
+    "responseReview": "100 times tighter same-kernel static response evaluations and separate references at34 initial/saved states:18 exact rational zero/constant-distance references and16 general32/64-node Decimal100/160-digit radial quadrature cross-checks. Ordinary and tighter policies each check816 gradient components and19584 Hessian entries. Quadrature agreement is numerical evidence, not a second rigorous error certificate.",
+    "retainedArtifacts": [
+      {
+        "bytes": 58436,
+        "canonicalJsonSha256": "c6fa7e7ae991a5b33ec351583724c1e391436720fef3d0b9eb44146f81c449d0",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0001-outcome.json",
+        "sha256": "b198888310432c4005d7a0e0edda38e80d0949c54f496c8bc31086244cde656c"
+      },
+      {
+        "bytes": 240,
+        "canonicalJsonSha256": "20712c86cf9cea698455ede83707b7e314f67c0988b3e69e51e48087642ff164",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0001-start.json",
+        "sha256": "c28e855a27a451186bedb8fa10dd94fdcdaf13e8ca35104bcd312971e9721fe3"
+      },
+      {
+        "bytes": 54023,
+        "canonicalJsonSha256": "2e7690860038063df623cf0d25ba09debd709d08c8b2a60e3e0d4666e526a198",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0002-outcome.json",
+        "sha256": "cb10d00be49e6ab99a89449cbd48c3c70ae85ccbbe5e65e389382a7479af0a88"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "a8c38938bbc66a362362a736484bb03293fcd3f585fa0f997af14aa6453a81a8",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0002-start.json",
+        "sha256": "6b37e35518c490fdece04c6df28f883b8e22eebd3c56760c8dfcc0868a839cab"
+      },
+      {
+        "bytes": 50920,
+        "canonicalJsonSha256": "9940f98648848eb854fbff6c5bd0f8cbcbda6e60dd99ce7da5733033a2a57ddd",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0003-outcome.json",
+        "sha256": "5b1a2271dece9ce8586f96cc727ff954b269f66854bc40f6c033c6eb68500e7c"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "f80a93f89d8cf554cfc6ce89e59d8387ae994dd5941f467bb5b0286008170032",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0003-start.json",
+        "sha256": "3c4f12e49fe928b5136901848138007fedf669d2a30e13f7c6da1f512dc18e6a"
+      },
+      {
+        "bytes": 50875,
+        "canonicalJsonSha256": "47a5e9eb7a3c8936b87ae6f92590caf98974740b0a7c275f7cb63b25b0f98535",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0004-outcome.json",
+        "sha256": "725adcd58085f4d3607eaae2a2865e76716a5af200e6330c56d149193ccd3ede"
+      },
+      {
+        "bytes": 241,
+        "canonicalJsonSha256": "56d26ceafe0ddf1e1afc3c47d78c5cbf5bb1ec214520d29acadf42e9ae6efdf2",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0004-start.json",
+        "sha256": "85b6cbc658f294f8242b78c776cbf86cfdcc17416de1b6f40286dc515966470c"
+      },
+      {
+        "bytes": 50929,
+        "canonicalJsonSha256": "77be3cf7133c00e2b6f451c13cfe7dd7ecbc533bdefc2917f24ef10901ca3e32",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0005-outcome.json",
+        "sha256": "a9b0988cea3579c6d22cd5e288dac2aade2dcb045be1de7b666938e7975bdd6c"
+      },
+      {
+        "bytes": 241,
+        "canonicalJsonSha256": "90bfb467c6b56d9a46e99b21fa5d2be9eb883946486c936045554df183a7fa44",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0005-start.json",
+        "sha256": "d12f76d7be0b4868970a4bf8a571aa994ae803d3aa9e44c4cca79013e208022f"
+      },
+      {
+        "bytes": 50926,
+        "canonicalJsonSha256": "d200a0d5077019b1f0605f63e62a270821406eb6e14ac0c5f8cc8495addc97b9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0006-outcome.json",
+        "sha256": "5c96e91fd78e951fbf188cc234fc592aa50af225d88517d97c88ec70ce582867"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "7da92d582c8c3d77f672ffceccf298f2a1565928c706d97a05c6fdfff54cd35c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0006-start.json",
+        "sha256": "a651661c00572ddb54eb744d98d5bd6ef74bb49c5ede2e56cd04dd51df7ac148"
+      },
+      {
+        "bytes": 50921,
+        "canonicalJsonSha256": "eb465947897ac962c04d4196eda7b63fcd57d735376e9baeebd1ff3de21581ed",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0007-outcome.json",
+        "sha256": "ae333fc53f19e4dad82bec4b423d09ad5289df2d1039e5b8a94fc352664bca8b"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "168c2f184175700320d9e3ad47be1f929f456520251b06de4b9dbf0cf3cb8ee9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0007-start.json",
+        "sha256": "d8c17c63f51aa18bec2e5263ba6754422d764def7aa2239bf17ceb0426a8ac9e"
+      },
+      {
+        "bytes": 50906,
+        "canonicalJsonSha256": "9eebc3fc8ff5942b2081e00ab5ab9656f6c23e5eeba4bfb3ed40e07ae224821a",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0008-outcome.json",
+        "sha256": "59ae37779babc869c717a42e612d7bae661ddb714524e5662373960a1b30adba"
+      },
+      {
+        "bytes": 240,
+        "canonicalJsonSha256": "2674bd27c200bd2cf4e3aae3da8995a62ddb58cff5c29478a044fc21f4ac120e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0008-start.json",
+        "sha256": "d97a795c158198a8f95ecfe4019bece8d31298863ea97fe2f298390cf8bd2fa8"
+      },
+      {
+        "bytes": 50944,
+        "canonicalJsonSha256": "f2b1814f35d0b8964a6eb6c15be6b85ca866e3bfa1b09cc95d5ece74add665ca",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0009-outcome.json",
+        "sha256": "718a80ef12048c46e90416c0324d97af3536fedb36622a7f729684e97d35f773"
+      },
+      {
+        "bytes": 240,
+        "canonicalJsonSha256": "80a88f196025902b3de67c84dcaae9e953681ba170df080263298949f6c6598c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0009-start.json",
+        "sha256": "90d689e8e507463b13d50127acbba45e2861694f0aa9a17ac0f13875d1462769"
+      },
+      {
+        "bytes": 50931,
+        "canonicalJsonSha256": "45432c8c38c6043b75cc9fdb3f3c32e060ab1b22ab75e09d0502ec4d1015ea13",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0010-outcome.json",
+        "sha256": "2d76b2296f182e78d5bb11a801a3889b3c5d37c3952c197e038b5b8b628db4d1"
+      },
+      {
+        "bytes": 243,
+        "canonicalJsonSha256": "e1e6476b29b984bb381f0427321b4d156325bc2e34aa104bc3f0803d56cdb4ce",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0010-start.json",
+        "sha256": "a4ccb4d267515b357921950fff4834420706c7a012541adb7b66084fcdf3c63d"
+      },
+      {
+        "bytes": 50932,
+        "canonicalJsonSha256": "e02ed0ca40d25546cf810a5b2c6ddef5dddd965e1c84d31c04214c088709e44d",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0011-outcome.json",
+        "sha256": "c3698f9ace96fc4fe3ac66e97711d951d9fcb3dbca7960aa20ea53cd993784fa"
+      },
+      {
+        "bytes": 244,
+        "canonicalJsonSha256": "e488216786464411cb3a5d4d07ad4a41b594da7d5406c9551c59ddca426b5ff9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0011-start.json",
+        "sha256": "d675dbb72ac8cc434a7a9d3b6172a5bdb6ad61378c85c73b0ff94eb762ee9f88"
+      },
+      {
+        "bytes": 50933,
+        "canonicalJsonSha256": "fecce9e6005284bd4a387effe45c2afd4dc500240aa82b4bdc5569bb192f1e2a",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0012-outcome.json",
+        "sha256": "cb44c7c8941d24fdb6b3b9f1fd28c143d18ff352045edab2a67a3b715236c7e2"
+      },
+      {
+        "bytes": 243,
+        "canonicalJsonSha256": "3b57e880b3cd545782312f4012c0d9025c3f3b7cf5bb6d8cdd0ad621f274b058",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0012-start.json",
+        "sha256": "ee475eaaeb561852f8e9026a94d2fbbad3264473b4e69cb7f5ffaf56b4c21d48"
+      },
+      {
+        "bytes": 50955,
+        "canonicalJsonSha256": "a8bb706d279383c991d4486d2dfd03b9af8b9486efae9c3b8d46064b61e702de",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0013-outcome.json",
+        "sha256": "5fc50053a5c3bec6d29b70c2caf474a2a9795039a389d756874bdfb9166985d3"
+      },
+      {
+        "bytes": 243,
+        "canonicalJsonSha256": "49941d8ad980d70457997046e611767370a5001feae78ec520fe3df8a5f309df",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0013-start.json",
+        "sha256": "de2d8f88b0173f3862a4f9b699a199fbe30766f9e99efb99f52f40ae70cd5a4a"
+      },
+      {
+        "bytes": 50935,
+        "canonicalJsonSha256": "72e9121ec28b01410b5ed12200f6ba9446de197284c3e0cebba5e21a0de604f6",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0014-outcome.json",
+        "sha256": "7a602c1cbcb0bdf2dfd403cd4a5f0f1fd9d57cc98d8af891587a5744df999e46"
+      },
+      {
+        "bytes": 244,
+        "canonicalJsonSha256": "8d0ebd9346a41c015b5ad40774d8286179267f88b25c3f13c141f93253e1e22c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0014-start.json",
+        "sha256": "7221b5c9a7cf079b4af37dc1230040b90f0c484521834c83b345888bcc0437e6"
+      },
+      {
+        "bytes": 50944,
+        "canonicalJsonSha256": "c3e8e2205207b3631cbce007d25d1f93c5056a5496e0241bbc6b7c7f5520d688",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0015-outcome.json",
+        "sha256": "04a5d279f1986627df89b60e4ea1685a771845afe0fe1c39569f2bc915192aa4"
+      },
+      {
+        "bytes": 244,
+        "canonicalJsonSha256": "6510ecb354094d0bb9d93e2afe9a96aefe3b5f6c7f54c36a1b95048999fa6b77",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0015-start.json",
+        "sha256": "a52dfb92f09c76fdfdceb379147525cc159102cc43abadd7091e20aeb467bed3"
+      },
+      {
+        "bytes": 50934,
+        "canonicalJsonSha256": "75a19dbad5ba158bc825aaff12973ca12f0fb2c005b0b0a9f5a2f42b0cb1b2a7",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0016-outcome.json",
+        "sha256": "521a673f3b4fc83f67258a5d966b50497c592876fd7491511ac1a506023b558d"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "4a615b9c5377bd654369ce9ee5f6dccc75fae097ac5b94297bace140f7475a15",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-0016-start.json",
+        "sha256": "bf38040ee5186af26e152d1632062a101c41ef8fe2e99cb3e65069228d37911b"
+      },
+      {
+        "bytes": 68,
+        "canonicalJsonSha256": "1358db413aa3d3892cfd8f42b9a186ac6cdb2200df69753ed1514dafcb68f810",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/attempt-terminal.json",
+        "sha256": "a44c2ed14613d253d44642c1c95e42bbc59fa1f41e6ef269cdddc95aee1215f9"
+      },
+      {
+        "bytes": 31043,
+        "canonicalJsonSha256": "f2aef038de9eb4b61ac4dd8507b59603b3728ea7f7f94e1187fed8118385ff31",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0001.json",
+        "sha256": "48bddbe82431cb0db3391237b16dacea1143fe60218b209ec672f9478dd8e087"
+      },
+      {
+        "bytes": 31888,
+        "canonicalJsonSha256": "6d347d21ac999fe54b6144e91f9d39bc54a7f0f2d717c9f071c01bc9b5dac069",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0002.json",
+        "sha256": "01b685e4067d4b9aff283861906e2c51d91db7ece094f5305c9400b804d8634d"
+      },
+      {
+        "bytes": 14185,
+        "canonicalJsonSha256": "e197c7eb71f0bf2caf3ed334d9a315bf5d0a43e35b56ad31a0c9d04c6472c4ce",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0003.json",
+        "sha256": "87d945e23514dba48b7529718ef665c0493e2020e0fd7250eb8092d5bbcce484"
+      },
+      {
+        "bytes": 14190,
+        "canonicalJsonSha256": "67a69d2df045290ef7991a6e5dd651b79c923ecde2f0921c09911150d6abfdfe",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0004.json",
+        "sha256": "13b90e63a67fcc3a1d26e002c799f92da443abebfa1a801a820a94dda644e446"
+      },
+      {
+        "bytes": 14198,
+        "canonicalJsonSha256": "5dc9f001a6cf1911891e0f9225d9b2d29356b12cea3d1226180a4dd8c01a0881",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0005.json",
+        "sha256": "12d015cb22665d1c2c11e03449f575253ecf8d252c0c5f5950d8caea7d9db5de"
+      },
+      {
+        "bytes": 14180,
+        "canonicalJsonSha256": "47d61449c36bd97a08a2ebdb951fd03a7f69fbc6e08b69088599d140e016b4cb",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0006.json",
+        "sha256": "18bc56e925dc0b238289c272aa67d7e567a12b07ab5759e26b63a203f4aa25af"
+      },
+      {
+        "bytes": 14198,
+        "canonicalJsonSha256": "2fc6c3e72dad8d29695da7b8c58428eddf4245c805b75b5332e6a75c8c5b9f3e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0007.json",
+        "sha256": "28a3d2b748dec52a3f0896e58abdfc19486a0ba040e1980a1795696821ceec36"
+      },
+      {
+        "bytes": 14187,
+        "canonicalJsonSha256": "eb36802822d45288d60d2dac556c68ab8eb6ba172150aee02bc07e169a5c6eee",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0008.json",
+        "sha256": "562d2c9f4624325b7ad968bb4e2a78100be655c0330b41b8f96b94fe501365ba"
+      },
+      {
+        "bytes": 14218,
+        "canonicalJsonSha256": "98edf32a68312922b0524a00bf9500b937acc0ff2b21d61796ac1d534ef5d5b1",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0009.json",
+        "sha256": "7be3f1b9995abbc63bd4ed862f47497ff1a544fd58e350f26895f2c2efd01ed0"
+      },
+      {
+        "bytes": 14188,
+        "canonicalJsonSha256": "156ca4d423ff049c2d02d66e40f1e1d482ead4ecffb49742ad9bea140f0e76af",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0010.json",
+        "sha256": "c4d836a67741bf864e30fa121015f2b724b1bfe1de70d1957db1c5e750fe608e"
+      },
+      {
+        "bytes": 14258,
+        "canonicalJsonSha256": "0caae90593225b86dc51aaa84704d825ec6d8db45f90c0521232cac5cb475ace",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0011.json",
+        "sha256": "1fc5b9e3d37500d1bc1459d8c1d3e9dfe2f9c0143a0dda98264c7ece081b40cb"
+      },
+      {
+        "bytes": 14253,
+        "canonicalJsonSha256": "051120f10cd58cf44b69797d2a2755ea70f05736e1720e3df4735aca5ab6a9bd",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0012.json",
+        "sha256": "e7907b39af59f661926c637fbdb3b6348053a0943cb2ff4fd667fb0af6ce9c69"
+      },
+      {
+        "bytes": 14287,
+        "canonicalJsonSha256": "53d02b3e7c1f9e65416987f0ba11baaa32988e02a9a61c1507d3a788d33c4734",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0013.json",
+        "sha256": "325e5d83662ad349d91a7b46a588e6c7412a985a348b372cae3d3cd63dd9c324"
+      },
+      {
+        "bytes": 14264,
+        "canonicalJsonSha256": "fe3d95badb503215a2aa999bf7ef13bdbe2eda86c35a81b9ab2557bb7897a340",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0014.json",
+        "sha256": "407dd0f2c938ea0e22b39454aab19faaffa87714734379983d73579676d8157e"
+      },
+      {
+        "bytes": 14258,
+        "canonicalJsonSha256": "05e09fd01fe5ea120248fcb7ee4518f5bcc53f354e9efc6618e7393030512a71",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0015.json",
+        "sha256": "5ea17d1ee0fee6fc19c869dfe0da4e274dbf4b18c95d06911caea5d7f3969ed1"
+      },
+      {
+        "bytes": 14270,
+        "canonicalJsonSha256": "9bf894fa9b42027bd657b20382c7b89cd5108fe4748c85800d238c23f8f437bd",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/audit-0016.json",
+        "sha256": "09d50c71d88df9d0e2d7cee9ff45851ab95550241999268a0cdf70b89fb05ce2"
+      },
+      {
+        "bytes": 6174,
+        "canonicalJsonSha256": "f3aa59b403c74a73df864c7ed256947e1be9550bdb0e35e03f8b053a5ae2dc5d",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/initial-audit.json",
+        "sha256": "28bc8d4a203fec9866e8114c09a546c13bde3a84df2d9ff390842f40b10f419f"
+      },
+      {
+        "bytes": 12238,
+        "canonicalJsonSha256": "95ff8fb8e3a51af772b6900d21b974eb686e4d51423e43a1d959c8611f6c1cc0",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/input.json",
+        "sha256": "9130f0c01beae7fb4dcf62f8a1db61535d1835d12c1e865a522400b149d24c7b"
+      },
+      {
+        "bytes": 1680279,
+        "canonicalJsonSha256": "6a23aa8ee256a93259714c09350bef0e7318a4e431c952434eb72083181b5f1b",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/report.json",
+        "sha256": "cd726c6528e523433119549f577a6cf355ec5314def310b5bad9aaf78ccd9ba3"
+      },
+      {
+        "bytes": 58436,
+        "canonicalJsonSha256": "c6fa7e7ae991a5b33ec351583724c1e391436720fef3d0b9eb44146f81c449d0",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0001.json",
+        "sha256": "b198888310432c4005d7a0e0edda38e80d0949c54f496c8bc31086244cde656c"
+      },
+      {
+        "bytes": 54023,
+        "canonicalJsonSha256": "2e7690860038063df623cf0d25ba09debd709d08c8b2a60e3e0d4666e526a198",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0002.json",
+        "sha256": "cb10d00be49e6ab99a89449cbd48c3c70ae85ccbbe5e65e389382a7479af0a88"
+      },
+      {
+        "bytes": 50920,
+        "canonicalJsonSha256": "9940f98648848eb854fbff6c5bd0f8cbcbda6e60dd99ce7da5733033a2a57ddd",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0003.json",
+        "sha256": "5b1a2271dece9ce8586f96cc727ff954b269f66854bc40f6c033c6eb68500e7c"
+      },
+      {
+        "bytes": 50875,
+        "canonicalJsonSha256": "47a5e9eb7a3c8936b87ae6f92590caf98974740b0a7c275f7cb63b25b0f98535",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0004.json",
+        "sha256": "725adcd58085f4d3607eaae2a2865e76716a5af200e6330c56d149193ccd3ede"
+      },
+      {
+        "bytes": 50929,
+        "canonicalJsonSha256": "77be3cf7133c00e2b6f451c13cfe7dd7ecbc533bdefc2917f24ef10901ca3e32",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0005.json",
+        "sha256": "a9b0988cea3579c6d22cd5e288dac2aade2dcb045be1de7b666938e7975bdd6c"
+      },
+      {
+        "bytes": 50926,
+        "canonicalJsonSha256": "d200a0d5077019b1f0605f63e62a270821406eb6e14ac0c5f8cc8495addc97b9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0006.json",
+        "sha256": "5c96e91fd78e951fbf188cc234fc592aa50af225d88517d97c88ec70ce582867"
+      },
+      {
+        "bytes": 50921,
+        "canonicalJsonSha256": "eb465947897ac962c04d4196eda7b63fcd57d735376e9baeebd1ff3de21581ed",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0007.json",
+        "sha256": "ae333fc53f19e4dad82bec4b423d09ad5289df2d1039e5b8a94fc352664bca8b"
+      },
+      {
+        "bytes": 50906,
+        "canonicalJsonSha256": "9eebc3fc8ff5942b2081e00ab5ab9656f6c23e5eeba4bfb3ed40e07ae224821a",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0008.json",
+        "sha256": "59ae37779babc869c717a42e612d7bae661ddb714524e5662373960a1b30adba"
+      },
+      {
+        "bytes": 50944,
+        "canonicalJsonSha256": "f2b1814f35d0b8964a6eb6c15be6b85ca866e3bfa1b09cc95d5ece74add665ca",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0009.json",
+        "sha256": "718a80ef12048c46e90416c0324d97af3536fedb36622a7f729684e97d35f773"
+      },
+      {
+        "bytes": 50931,
+        "canonicalJsonSha256": "45432c8c38c6043b75cc9fdb3f3c32e060ab1b22ab75e09d0502ec4d1015ea13",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0010.json",
+        "sha256": "2d76b2296f182e78d5bb11a801a3889b3c5d37c3952c197e038b5b8b628db4d1"
+      },
+      {
+        "bytes": 50932,
+        "canonicalJsonSha256": "e02ed0ca40d25546cf810a5b2c6ddef5dddd965e1c84d31c04214c088709e44d",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0011.json",
+        "sha256": "c3698f9ace96fc4fe3ac66e97711d951d9fcb3dbca7960aa20ea53cd993784fa"
+      },
+      {
+        "bytes": 50933,
+        "canonicalJsonSha256": "fecce9e6005284bd4a387effe45c2afd4dc500240aa82b4bdc5569bb192f1e2a",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0012.json",
+        "sha256": "cb44c7c8941d24fdb6b3b9f1fd28c143d18ff352045edab2a67a3b715236c7e2"
+      },
+      {
+        "bytes": 50955,
+        "canonicalJsonSha256": "a8bb706d279383c991d4486d2dfd03b9af8b9486efae9c3b8d46064b61e702de",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0013.json",
+        "sha256": "5fc50053a5c3bec6d29b70c2caf474a2a9795039a389d756874bdfb9166985d3"
+      },
+      {
+        "bytes": 50935,
+        "canonicalJsonSha256": "72e9121ec28b01410b5ed12200f6ba9446de197284c3e0cebba5e21a0de604f6",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0014.json",
+        "sha256": "7a602c1cbcb0bdf2dfd403cd4a5f0f1fd9d57cc98d8af891587a5744df999e46"
+      },
+      {
+        "bytes": 50944,
+        "canonicalJsonSha256": "c3e8e2205207b3631cbce007d25d1f93c5056a5496e0241bbc6b7c7f5520d688",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0015.json",
+        "sha256": "04a5d279f1986627df89b60e4ea1685a771845afe0fe1c39569f2bc915192aa4"
+      },
+      {
+        "bytes": 50934,
+        "canonicalJsonSha256": "75a19dbad5ba158bc825aaff12973ca12f0fb2c005b0b0a9f5a2f42b0cb1b2a7",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/state-0016.json",
+        "sha256": "521a673f3b4fc83f67258a5d966b50497c592876fd7491511ac1a506023b558d"
+      },
+      {
+        "bytes": 12455,
+        "canonicalJsonSha256": "e219fc784483830ee30b19361b9964950b506658755c7a4b79f4c1a18f594ed4",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-0/summary.json",
+        "sha256": "241b4134a22dd8b6ca510b99a02a16eb1d6b10e83a02559d77d02295a95afcd9"
+      },
+      {
+        "bytes": 59759,
+        "canonicalJsonSha256": "eeb41f5d5c4f06fa097fd0056af3dc08456da2e429b696753bcefede8eef10da",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0001-outcome.json",
+        "sha256": "5ac869bee72a8411ad9fd5bf7a942ca304fcf52e019f74d86ecf703ee684d105"
+      },
+      {
+        "bytes": 240,
+        "canonicalJsonSha256": "20712c86cf9cea698455ede83707b7e314f67c0988b3e69e51e48087642ff164",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0001-start.json",
+        "sha256": "c28e855a27a451186bedb8fa10dd94fdcdaf13e8ca35104bcd312971e9721fe3"
+      },
+      {
+        "bytes": 56178,
+        "canonicalJsonSha256": "37c48ec379692dede9dc852b504321d6883a368824b2e42b9f17acdbe521c0ce",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0002-outcome.json",
+        "sha256": "5a980e4b377aac26df78932b8c5c75932825f7045335240c01d1a60f9ecb6dca"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "a8c38938bbc66a362362a736484bb03293fcd3f585fa0f997af14aa6453a81a8",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0002-start.json",
+        "sha256": "6b37e35518c490fdece04c6df28f883b8e22eebd3c56760c8dfcc0868a839cab"
+      },
+      {
+        "bytes": 54051,
+        "canonicalJsonSha256": "f6e6472ebd380fa4421a0834575a769ab3626e62ac73bb84885d1a4e1fc80665",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0003-outcome.json",
+        "sha256": "8addc16b85039ac5fd1b6a6fb403f17755e09de2a6c9c4744bf21b594cb04ebf"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "f80a93f89d8cf554cfc6ce89e59d8387ae994dd5941f467bb5b0286008170032",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0003-start.json",
+        "sha256": "3c4f12e49fe928b5136901848138007fedf669d2a30e13f7c6da1f512dc18e6a"
+      },
+      {
+        "bytes": 54032,
+        "canonicalJsonSha256": "8f7e30586b53fe7229e23986fc826dccb46da343823ff73365d4c979a7c3b7d6",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0004-outcome.json",
+        "sha256": "9d0ebd063ab28f163c1508ee84e64bf7bfde1d6da10ab8f718ee7d8c4f1aa12e"
+      },
+      {
+        "bytes": 241,
+        "canonicalJsonSha256": "56d26ceafe0ddf1e1afc3c47d78c5cbf5bb1ec214520d29acadf42e9ae6efdf2",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0004-start.json",
+        "sha256": "85b6cbc658f294f8242b78c776cbf86cfdcc17416de1b6f40286dc515966470c"
+      },
+      {
+        "bytes": 54051,
+        "canonicalJsonSha256": "0798a956ed83cae932765a533fa4cebce91e9f31fbc9998cc8e10239e5530202",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0005-outcome.json",
+        "sha256": "bfb2218ac4ce93fa7caefb20dc8f56cc97b2635a4cf6515205b9f29c2d62468a"
+      },
+      {
+        "bytes": 241,
+        "canonicalJsonSha256": "90bfb467c6b56d9a46e99b21fa5d2be9eb883946486c936045554df183a7fa44",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0005-start.json",
+        "sha256": "d12f76d7be0b4868970a4bf8a571aa994ae803d3aa9e44c4cca79013e208022f"
+      },
+      {
+        "bytes": 54049,
+        "canonicalJsonSha256": "a027ea394b8c2222bb22b229e2e6152577ade1b0a86269773c3140d6ac742a0e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0006-outcome.json",
+        "sha256": "01dc139056a0c55161b3d540103fa4d19228123b020ba1c2f822c110b4807202"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "7da92d582c8c3d77f672ffceccf298f2a1565928c706d97a05c6fdfff54cd35c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0006-start.json",
+        "sha256": "a651661c00572ddb54eb744d98d5bd6ef74bb49c5ede2e56cd04dd51df7ac148"
+      },
+      {
+        "bytes": 54062,
+        "canonicalJsonSha256": "fe072c6969448c6c003af1f67e65c6b7905236b8051e601dbff74accbbaa1a27",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0007-outcome.json",
+        "sha256": "8cfe9a1886401bca5766d58dd70fc54089942e17e2f599c40d0add1e156d8b33"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "168c2f184175700320d9e3ad47be1f929f456520251b06de4b9dbf0cf3cb8ee9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0007-start.json",
+        "sha256": "d8c17c63f51aa18bec2e5263ba6754422d764def7aa2239bf17ceb0426a8ac9e"
+      },
+      {
+        "bytes": 56154,
+        "canonicalJsonSha256": "3a386a8cb8ae6412e369b5a45b55cd8d69a042e3cbb23c8f119209f1425193f5",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0008-outcome.json",
+        "sha256": "304f540c8a6b954fcd2f2da43385cb0e4515b27c90aec1d1ebaa8b4218886a12"
+      },
+      {
+        "bytes": 240,
+        "canonicalJsonSha256": "2674bd27c200bd2cf4e3aae3da8995a62ddb58cff5c29478a044fc21f4ac120e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0008-start.json",
+        "sha256": "d97a795c158198a8f95ecfe4019bece8d31298863ea97fe2f298390cf8bd2fa8"
+      },
+      {
+        "bytes": 54061,
+        "canonicalJsonSha256": "1441cc98386aa8d26dbbf259d936bd17844a84630979b298e6b75845f3917f83",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0009-outcome.json",
+        "sha256": "5476d3b4766b4ca3c9286c552097705d113b77f464e7b2c3748ea83ebc5d463d"
+      },
+      {
+        "bytes": 240,
+        "canonicalJsonSha256": "80a88f196025902b3de67c84dcaae9e953681ba170df080263298949f6c6598c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0009-start.json",
+        "sha256": "90d689e8e507463b13d50127acbba45e2861694f0aa9a17ac0f13875d1462769"
+      },
+      {
+        "bytes": 54024,
+        "canonicalJsonSha256": "7f2695cb2843ca00a2b5fa56064b0f7ee1594eee87e50c2d8ffe4af9791dba0b",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0010-outcome.json",
+        "sha256": "bf6221bc2722d48be9d6065db8809c832c9402931ffd8cd0bc26d202ffe17703"
+      },
+      {
+        "bytes": 243,
+        "canonicalJsonSha256": "e1e6476b29b984bb381f0427321b4d156325bc2e34aa104bc3f0803d56cdb4ce",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0010-start.json",
+        "sha256": "a4ccb4d267515b357921950fff4834420706c7a012541adb7b66084fcdf3c63d"
+      },
+      {
+        "bytes": 52966,
+        "canonicalJsonSha256": "a693ced7f2409fc557aa87fd63483ad8fb60aa941297ae628ce68190ae0a9d68",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0011-outcome.json",
+        "sha256": "d8d57a830e4f77ea56e080e5a5ac953ab5cbae707fec4ed4dc9fb503f73b57c9"
+      },
+      {
+        "bytes": 244,
+        "canonicalJsonSha256": "e488216786464411cb3a5d4d07ad4a41b594da7d5406c9551c59ddca426b5ff9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0011-start.json",
+        "sha256": "d675dbb72ac8cc434a7a9d3b6172a5bdb6ad61378c85c73b0ff94eb762ee9f88"
+      },
+      {
+        "bytes": 49977,
+        "canonicalJsonSha256": "9ce56a2794fa9e6b722841256c2bb7180c702e31cd3d98e5e91955fac320b52c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0012-outcome.json",
+        "sha256": "6c28bf5522bb77fa0a00a10f5357d89da3c9252301849f9ca499e66f84bc0406"
+      },
+      {
+        "bytes": 243,
+        "canonicalJsonSha256": "3b57e880b3cd545782312f4012c0d9025c3f3b7cf5bb6d8cdd0ad621f274b058",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0012-start.json",
+        "sha256": "ee475eaaeb561852f8e9026a94d2fbbad3264473b4e69cb7f5ffaf56b4c21d48"
+      },
+      {
+        "bytes": 49854,
+        "canonicalJsonSha256": "d90df6ae319a3ed46b950f8542eba16c42e69bc437dee20df782fa45e834035a",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0013-outcome.json",
+        "sha256": "a55c8b4be8a4ffdbcd5f07977585c21473de836427ba5e15611ecec9cfcbe9c8"
+      },
+      {
+        "bytes": 243,
+        "canonicalJsonSha256": "49941d8ad980d70457997046e611767370a5001feae78ec520fe3df8a5f309df",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0013-start.json",
+        "sha256": "de2d8f88b0173f3862a4f9b699a199fbe30766f9e99efb99f52f40ae70cd5a4a"
+      },
+      {
+        "bytes": 49840,
+        "canonicalJsonSha256": "031990edc4bb6d2c2d40c101bc2deb23e36269d58dc2312370329418d0e8e785",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0014-outcome.json",
+        "sha256": "4392ff2e19a37803c7964130692ef306400096cf865e3df6ce0b9834121c602c"
+      },
+      {
+        "bytes": 244,
+        "canonicalJsonSha256": "8d0ebd9346a41c015b5ad40774d8286179267f88b25c3f13c141f93253e1e22c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0014-start.json",
+        "sha256": "7221b5c9a7cf079b4af37dc1230040b90f0c484521834c83b345888bcc0437e6"
+      },
+      {
+        "bytes": 49839,
+        "canonicalJsonSha256": "1f0893edf5f219e0af3545369f5244ba7eb30751fd7973c169ad25abd7baf562",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0015-outcome.json",
+        "sha256": "8fbb96951db73d9e64c2d16d679460ec607b9939d22ebdc2b310733feb18b156"
+      },
+      {
+        "bytes": 244,
+        "canonicalJsonSha256": "6510ecb354094d0bb9d93e2afe9a96aefe3b5f6c7f54c36a1b95048999fa6b77",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0015-start.json",
+        "sha256": "a52dfb92f09c76fdfdceb379147525cc159102cc43abadd7091e20aeb467bed3"
+      },
+      {
+        "bytes": 49838,
+        "canonicalJsonSha256": "a50aad440814116747f13be268120eaa08fcd27fb638a629af373cb121411851",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0016-outcome.json",
+        "sha256": "66f8e366f7aa4d04e4cd40fb9212766b09e5789964449ec83d2bf8cbdcd115a0"
+      },
+      {
+        "bytes": 242,
+        "canonicalJsonSha256": "4a615b9c5377bd654369ce9ee5f6dccc75fae097ac5b94297bace140f7475a15",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-0016-start.json",
+        "sha256": "bf38040ee5186af26e152d1632062a101c41ef8fe2e99cb3e65069228d37911b"
+      },
+      {
+        "bytes": 68,
+        "canonicalJsonSha256": "1358db413aa3d3892cfd8f42b9a186ac6cdb2200df69753ed1514dafcb68f810",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/attempt-terminal.json",
+        "sha256": "a44c2ed14613d253d44642c1c95e42bbc59fa1f41e6ef269cdddc95aee1215f9"
+      },
+      {
+        "bytes": 49647,
+        "canonicalJsonSha256": "4a60ffff497cd1635c91e8861cbc8fb1d54eb9c6705147ffde9119ea1b593cad",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0001.json",
+        "sha256": "555bd2d99543b97bc37fde5c94d44b2a412a417b31bfee23bfd9bbad71cf1aeb"
+      },
+      {
+        "bytes": 50815,
+        "canonicalJsonSha256": "8eacb8941e82137d2fa89182acb0ee3ae02fbb3d87e4dc511303441eb4ec1f0e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0002.json",
+        "sha256": "9bf0fffa5a72fa9af36228138ceaf344ed30483868920de04e455c4698c7a088"
+      },
+      {
+        "bytes": 49193,
+        "canonicalJsonSha256": "311b2c87d83c20aa2b0a5e21e428e4f6b62403936fa05c3930e6d7655be21ee8",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0003.json",
+        "sha256": "39196d17b2b32494e0f0ac154be12475be8dc74ab167ab8bf26f1ceb8df353db"
+      },
+      {
+        "bytes": 48925,
+        "canonicalJsonSha256": "ae04e325d3358fabd600d08080f131febf497b1d10f373bbe537df34a9592bfb",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0004.json",
+        "sha256": "452fa7e2cc1668c7807f331c0f58ae4e7037e2ec3ad51e74cf66b2b7066de6f6"
+      },
+      {
+        "bytes": 49132,
+        "canonicalJsonSha256": "5da73af1ab1e2a9a5a02333eb144e215d6a058653f0117950f0684f82e1291b0",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0005.json",
+        "sha256": "d22ee7ccf80dd8ca9dc3582892fa1d8306c77a02933e248e9da9fffbcf678b52"
+      },
+      {
+        "bytes": 49040,
+        "canonicalJsonSha256": "a69e9bd3b99cdf7eba2152e595f14ebde00a36a7501daf9f2ab1886089e96eb9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0006.json",
+        "sha256": "8b12502b6f10a033b174adea1bf38ec60070bcf67b1a22991f60f989a679cd6c"
+      },
+      {
+        "bytes": 49037,
+        "canonicalJsonSha256": "27ef98ded51504d140173b6f466f1a9391156d505452f583637438d0a8366e1e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0007.json",
+        "sha256": "93e9eca411ecf52508bfba487368edd0fd717fbe945e2b3caffd0d33a059b774"
+      },
+      {
+        "bytes": 51061,
+        "canonicalJsonSha256": "275b5a43c8e94d14260c78d1a55ae70f8c5f6e0e8d422a70fe81427e6d9d3490",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0008.json",
+        "sha256": "ba76bb53e7a66fda41bb56c0831b84f029bcfee7ca7a0a086ef52f9a05d1f67e"
+      },
+      {
+        "bytes": 51037,
+        "canonicalJsonSha256": "abb59570c5b286d1a1ee0958d3ade5b674fa1bafe0eb5ab84091b89963e20c90",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0009.json",
+        "sha256": "8302498ca31b374eed31e84b57ab154c449f14923fb2c2c4e98bb9cb5c299c9d"
+      },
+      {
+        "bytes": 51000,
+        "canonicalJsonSha256": "fb7cb450b7dce3ea75c28ef579f599e6f2da4d1b89215559e6c4d7b6d20d8c06",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0010.json",
+        "sha256": "ea3c2d2f689e809b67efa47d41c19f3b9918c0975a4066066142338a92ed358a"
+      },
+      {
+        "bytes": 50986,
+        "canonicalJsonSha256": "636b372f984b6d3f71900f118da96e461cbc1ba22e46897c4755414b68b20ed4",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0011.json",
+        "sha256": "13ed7456900d108b97a0f36af07c4784a5e3bd4f2b6a735237a019ad66042a14"
+      },
+      {
+        "bytes": 50989,
+        "canonicalJsonSha256": "1fa4669c0095e7e2191253d861a3f1fc443ece566eefc5097a6e188651d5f4b9",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0012.json",
+        "sha256": "529366341e8e6e91500b0ab2c0389a950c57cc82dbaf778c6ec69f6974a3d37b"
+      },
+      {
+        "bytes": 50494,
+        "canonicalJsonSha256": "aec7896be25eefe8083a995577d2b55a5180d1d76adb29a7968905165bad5948",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0013.json",
+        "sha256": "546497dd7f4040839e336b4e024334e3ec2a3e8e3241cec126eba81117b29949"
+      },
+      {
+        "bytes": 50478,
+        "canonicalJsonSha256": "672d13d5659672b550a9ae1680641ed339cb8ab629146a6dc127bc30d5ed4b71",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0014.json",
+        "sha256": "e08a3aae3f7c70560dbbf66a2e15ffddbc014c94056da8ecd41a651802afd494"
+      },
+      {
+        "bytes": 50478,
+        "canonicalJsonSha256": "5f9ff4e1ef8a79a0c42b59ebf16ec7cb5b82e8676aa7a915cff6a5c8c91db9b5",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0015.json",
+        "sha256": "32f7f82b7cc850b804505c05e1a2cdfd4d6542049abbeb56033f92b2bdb32635"
+      },
+      {
+        "bytes": 50476,
+        "canonicalJsonSha256": "0bb9e189a9f4c5dd536cacab3ebeee2ae2d02083d86e6d1dbcf73dff70db516e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/audit-0016.json",
+        "sha256": "9dd95f5de0b7579b7b4eb899601e77ecffc7ded31a503ad311247df7db97a510"
+      },
+      {
+        "bytes": 13057,
+        "canonicalJsonSha256": "8eb394d5f944bf01fb6eb11e1ff395ffc1d4349343455ae7f6366d67af4b4fef",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/initial-audit.json",
+        "sha256": "92ef1b85a6fc6d34f7bc22416b13d477cc2a7fd44d5a2e5f47511b06de169918"
+      },
+      {
+        "bytes": 12238,
+        "canonicalJsonSha256": "8b878de7975136f3e377cb3c35d283484cdc457fd4a2e41fa386c5d6b7b41719",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/input.json",
+        "sha256": "fa858280f4527f9801e6c3822fc9f353b1bb23900e1f76043d8a66c5d0456b63"
+      },
+      {
+        "bytes": 1740347,
+        "canonicalJsonSha256": "2ea7ad3ff4bf98b15f675059b2f3f7f5bef4052c6e9d35397126da141e9e7a96",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/report.json",
+        "sha256": "37bc655c64c7b9e34d52730466b5ec339b5b9433f141bd5873baaeaac982339d"
+      },
+      {
+        "bytes": 59759,
+        "canonicalJsonSha256": "eeb41f5d5c4f06fa097fd0056af3dc08456da2e429b696753bcefede8eef10da",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0001.json",
+        "sha256": "5ac869bee72a8411ad9fd5bf7a942ca304fcf52e019f74d86ecf703ee684d105"
+      },
+      {
+        "bytes": 56178,
+        "canonicalJsonSha256": "37c48ec379692dede9dc852b504321d6883a368824b2e42b9f17acdbe521c0ce",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0002.json",
+        "sha256": "5a980e4b377aac26df78932b8c5c75932825f7045335240c01d1a60f9ecb6dca"
+      },
+      {
+        "bytes": 54051,
+        "canonicalJsonSha256": "f6e6472ebd380fa4421a0834575a769ab3626e62ac73bb84885d1a4e1fc80665",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0003.json",
+        "sha256": "8addc16b85039ac5fd1b6a6fb403f17755e09de2a6c9c4744bf21b594cb04ebf"
+      },
+      {
+        "bytes": 54032,
+        "canonicalJsonSha256": "8f7e30586b53fe7229e23986fc826dccb46da343823ff73365d4c979a7c3b7d6",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0004.json",
+        "sha256": "9d0ebd063ab28f163c1508ee84e64bf7bfde1d6da10ab8f718ee7d8c4f1aa12e"
+      },
+      {
+        "bytes": 54051,
+        "canonicalJsonSha256": "0798a956ed83cae932765a533fa4cebce91e9f31fbc9998cc8e10239e5530202",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0005.json",
+        "sha256": "bfb2218ac4ce93fa7caefb20dc8f56cc97b2635a4cf6515205b9f29c2d62468a"
+      },
+      {
+        "bytes": 54049,
+        "canonicalJsonSha256": "a027ea394b8c2222bb22b229e2e6152577ade1b0a86269773c3140d6ac742a0e",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0006.json",
+        "sha256": "01dc139056a0c55161b3d540103fa4d19228123b020ba1c2f822c110b4807202"
+      },
+      {
+        "bytes": 54062,
+        "canonicalJsonSha256": "fe072c6969448c6c003af1f67e65c6b7905236b8051e601dbff74accbbaa1a27",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0007.json",
+        "sha256": "8cfe9a1886401bca5766d58dd70fc54089942e17e2f599c40d0add1e156d8b33"
+      },
+      {
+        "bytes": 56154,
+        "canonicalJsonSha256": "3a386a8cb8ae6412e369b5a45b55cd8d69a042e3cbb23c8f119209f1425193f5",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0008.json",
+        "sha256": "304f540c8a6b954fcd2f2da43385cb0e4515b27c90aec1d1ebaa8b4218886a12"
+      },
+      {
+        "bytes": 54061,
+        "canonicalJsonSha256": "1441cc98386aa8d26dbbf259d936bd17844a84630979b298e6b75845f3917f83",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0009.json",
+        "sha256": "5476d3b4766b4ca3c9286c552097705d113b77f464e7b2c3748ea83ebc5d463d"
+      },
+      {
+        "bytes": 54024,
+        "canonicalJsonSha256": "7f2695cb2843ca00a2b5fa56064b0f7ee1594eee87e50c2d8ffe4af9791dba0b",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0010.json",
+        "sha256": "bf6221bc2722d48be9d6065db8809c832c9402931ffd8cd0bc26d202ffe17703"
+      },
+      {
+        "bytes": 52966,
+        "canonicalJsonSha256": "a693ced7f2409fc557aa87fd63483ad8fb60aa941297ae628ce68190ae0a9d68",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0011.json",
+        "sha256": "d8d57a830e4f77ea56e080e5a5ac953ab5cbae707fec4ed4dc9fb503f73b57c9"
+      },
+      {
+        "bytes": 49977,
+        "canonicalJsonSha256": "9ce56a2794fa9e6b722841256c2bb7180c702e31cd3d98e5e91955fac320b52c",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0012.json",
+        "sha256": "6c28bf5522bb77fa0a00a10f5357d89da3c9252301849f9ca499e66f84bc0406"
+      },
+      {
+        "bytes": 49854,
+        "canonicalJsonSha256": "d90df6ae319a3ed46b950f8542eba16c42e69bc437dee20df782fa45e834035a",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0013.json",
+        "sha256": "a55c8b4be8a4ffdbcd5f07977585c21473de836427ba5e15611ecec9cfcbe9c8"
+      },
+      {
+        "bytes": 49840,
+        "canonicalJsonSha256": "031990edc4bb6d2c2d40c101bc2deb23e36269d58dc2312370329418d0e8e785",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0014.json",
+        "sha256": "4392ff2e19a37803c7964130692ef306400096cf865e3df6ce0b9834121c602c"
+      },
+      {
+        "bytes": 49839,
+        "canonicalJsonSha256": "1f0893edf5f219e0af3545369f5244ba7eb30751fd7973c169ad25abd7baf562",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0015.json",
+        "sha256": "8fbb96951db73d9e64c2d16d679460ec607b9939d22ebdc2b310733feb18b156"
+      },
+      {
+        "bytes": 49838,
+        "canonicalJsonSha256": "a50aad440814116747f13be268120eaa08fcd27fb638a629af373cb121411851",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/state-0016.json",
+        "sha256": "66f8e366f7aa4d04e4cd40fb9212766b09e5789964449ec83d2bf8cbdcd115a0"
+      },
+      {
+        "bytes": 12529,
+        "canonicalJsonSha256": "58bd7c4af06439d992da2a2956baca025d4bea05111810b0631301cfcbe4afb7",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/activation-1/summary.json",
+        "sha256": "414a03c2b95fca893d6424c072e88dd4933f1a6f11d09400de21a3deb6f1788f"
+      },
+      {
+        "bytes": 38352,
+        "canonicalJsonSha256": "8b7d50f5baeac4203f37178391108b81990352651ff7f6f8c8e45d1db6067cb7",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/comparison.json",
+        "sha256": "e739872b4fc9dd24efa91eefff8993c38264dc134ace9c096cd1ae10201380bc"
+      },
+      {
+        "bytes": 9279,
+        "canonicalJsonSha256": "cc5fab5febfc667bc4952fdbd03015d418706fc2545fb93a036aa2a44509c239",
+        "path": ".planning/solver/cable-contact-motion-sep24-v2/provenance.json",
+        "sha256": "77ae4485dac73e78e34d0cf94f7d8b2d9b65ae70bca01287fb1a338a41f0c9c6"
+      }
+    ],
+    "retainedReview": {
+      "bytes": 47608,
+      "canonicalJsonSha256": "0ca014d8a36c8498cc62452390f8fb8a18681676b2d2d6ab594e8f768bcc7d45",
+      "path": ".planning/solver/cable-contact-motion-review-sep24-v1.json",
+      "sha256": "9d5ff50bc209761f37466f60eec05759cc9e4bbc826b21003beaad2cdf647cbf"
+    },
+    "reviewGenerator": {
+      "bytes": 6548,
+      "path": ".planning/solver/review-cable-contact-motion-sep24-v1.py",
+      "sha256": "986b4e6ecc40ed33e8162938c3e5262ad7b66af11d1d046bd8eb76fff3093d7e"
+    }
+  },
+  "unchangedCaptureAndReplay": [
+    {
+      "bytes": 32674,
+      "identicalToBaseCommit": true,
+      "path": "scripts/spike-contact-continuation.py",
+      "sha256": "ab9f17fb1dee9a2e43e87fb32795e39382530fdf5de91d3b04966a4ac080a26c"
+    },
+    {
+      "bytes": 31616,
+      "identicalToBaseCommit": true,
+      "path": "scripts/replay-rest-filtered-continuation.py",
+      "sha256": "a323cd47c6d00748e82d5dd023be807e47cfd56a157e5f08b09d1d1fdafd2c24"
+    }
+  ],
+  "unchangedPrimitiveAndKernel": [
+    {
+      "bytes": 26060,
+      "identicalToBaseCommit": true,
+      "path": "scripts/solver_continuous_cable_sewing.py",
+      "sha256": "5d3e384695e547f909efd55fac490e7887870c8ffba5cb879850166f920db6f4"
+    },
+    {
+      "bytes": 12493,
+      "identicalToBaseCommit": true,
+      "path": "scripts/solver_radial_moments.py",
+      "sha256": "571197ec8ba36ae2612046fe509d5c01ef5d5b79cdd6aeac39b60b12e8ea150e"
+    }
+  ],
+  "verification": {
+    "changedJournalFixturesNative": {
+      "bytes": 100,
+      "passed": true,
+      "path": ".planning/solver/cable-integration-journal-fixtures-native-sep24-v1.log",
+      "seconds": 0.108,
+      "sha256": "f6c7556120a6df693f3accdf7acfcede1c908b087adda8a5cacd64abd63927b9",
+      "tests": 2
+    },
+    "countsOverlap": true,
+    "coverage": [
+      "Analytic two-free-particle backward Euler",
+      "Actual cloth/contact and simultaneous point-seam coupling",
+      "Slack without compression, zero activation and identity guards",
+      "Bound-aware convergence/descent/Armijo",
+      "Triangle collapse, layer crossing and explicit hinge barriers",
+      "Work cancellation, exact aggregation and publication forgeries",
+      "Retry rollback, interruption and accepted-prefix retention"
+    ],
+    "focusedNative": {
+      "bytes": 797,
+      "passed": true,
+      "path": ".planning/solver/cable-integration-focused-native-sep24-v1.log",
+      "seconds": 6.889,
+      "sha256": "9ce139bac1c7e8883a369f78d044d14b8301b3f55d5d59a9f42b26c039dbb701",
+      "tests": 54
+    },
+    "focusedPinnedLinux": {
+      "bytes": 852,
+      "passed": true,
+      "path": ".planning/solver/cable-integration-focused-linux-sep24-v1.log",
+      "seconds": 6.036,
+      "sha256": "bac11687715a1fbfa79420527e80d615a375ac0ccf875eeeba40d61dc8d611b0",
+      "tests": 54
+    },
+    "fullPinnedLinux": {
+      "bytes": 6949,
+      "passed": true,
+      "path": ".planning/solver/cable-integration-full-numerical-sep24-v2.log",
+      "seconds": 779.794,
+      "sha256": "3fc56f7f1bc1a5ee8b028974cfd3e120737bb0c1c3b2c13996503204d890a301",
+      "tests": 1179
+    },
+    "journalAndCablePinnedLinux": {
+      "bytes": 1347,
+      "passed": true,
+      "path": ".planning/solver/cable-integration-journal-linux-sep24-v1.log",
+      "seconds": 9.451,
+      "sha256": "616cc1c0128a5b309641db37070e9d4e558ad1e375730a7616ed814f90c6e830",
+      "tests": 78
+    },
+    "newTests": 54,
+    "reproduce": "python -m unittest discover -s scripts -p 'test_solver_*.py'",
+    "scope": "Fifty-four new focused cases overlap the1179 full numerical/supervision tests. No application build, browser, release or deployment verification is claimed.",
+    "testMethods": {
+      "scripts/test_solver_cable_adaptive.py": [
+        "test_actual_generic_cable_contact_and_existing_seam_publish_fixed_work",
+        "test_agreeing_forged_helper_and_step_certificate_still_rejects",
+        "test_complete_work_fields_and_nested_certificate_forgery_reject",
+        "test_control_replacement_and_post_work_diagnostic_mutation_reject",
+        "test_diagnostic_helper_mutation_is_isolated_before_acceptance",
+        "test_fixed_only_work_precedes_every_journal_and_callback",
+        "test_fresh_candidate_energy_definition_and_certificate_forgery_reject",
+        "test_fresh_endpoint_and_work_evaluation_mutations_preserve_prefix",
+        "test_fresh_work_binding_rejects_consistent_energy_shift_and_plausible_work_forgery",
+        "test_interrupted_step_or_work_keeps_only_accepted_prefix",
+        "test_last_fresh_work_cannot_change_journal_core_or_authored_energy",
+        "test_no_cable_keeps_legacy_no_schedule_publication_path",
+        "test_propagated_work_uncertainty_and_exact_aggregation_cannot_be_repaired_partially",
+        "test_raw_duration_rejects_boolean_and_inexact_values_before_subdivision",
+        "test_raw_state_candidate_and_fixed_precision_override_admission",
+        "test_resource_failure_is_fatal_and_preserves_accepted_prefix",
+        "test_retries_do_not_advance_state_or_accumulate_rejected_work",
+        "test_stationarity_includes_error_and_requires_exact_complete_fields",
+        "test_unresolved_precision_rejects_without_work_or_publication",
+        "test_work_input_mutations_and_exceptions_preserve_accepted_prefix"
+      ],
+      "scripts/test_solver_cable_energy.py": [
+        "test_combined_fold_sewing_and_gripper_work_is_not_reclassified_as_cable_work",
+        "test_corrupted_primitive_records_reject_at_energy_boundary",
+        "test_exact_taut_motion_and_fixed_parameter_accounting",
+        "test_final_rounding_bound_is_exact_and_separate_from_cable_error",
+        "test_input_mutation_and_recipe_replacement_are_rejected_without_caller_mutation",
+        "test_legacy_missing_control_and_none_are_identical",
+        "test_rational_and_decimal_energy_oracles_lie_inside_reported_bounds",
+        "test_raw_state_timestep_model_and_control_types_reject",
+        "test_slack_then_taut_crossing_and_pending_geometry",
+        "test_structured_bound_and_identity_tampering_rejects",
+        "test_sum_cancellation_retains_individual_legacy_terms",
+        "test_tiny_work_survives_identical_rounded_endpoint_energies",
+        "test_unresolved_work_does_not_return_partial_accounting"
+      ],
+      "scripts/test_solver_cable_global.py": [
+        "test_actual_taut_cable_and_contact_share_one_guarded_force_balance",
+        "test_control_clone_output_isolation_and_strict_precision_admission",
+        "test_directional_interval_and_exact_gradient_assembly_preserve_cancellation",
+        "test_explicit_fold_barrier_guards_branch_even_with_inactive_cable",
+        "test_inactive_cable_does_not_allow_layer_exchange_through_contact",
+        "test_inactive_cable_preserves_optimizer_and_physical_triangle_guards",
+        "test_interval_search_uses_lower_armijo_slope_and_actual_rounded_displacement",
+        "test_mutating_helper_or_replacing_control_does_not_publish_state",
+        "test_raw_state_configuration_and_free_mass_requirements",
+        "test_response_certificate_and_data_types_are_checked_before_use",
+        "test_slack_cell_retains_its_target_and_has_no_hidden_compressive_response",
+        "test_uncertainty_cannot_publish_false_stationarity_or_nominal_descent",
+        "test_unresolved_active_slack_partition_rejects_without_relaxing_precision",
+        "test_zero_activation_matches_passive_baseline_with_empty_old_rows"
+      ],
+      "scripts/test_solver_cable_integration.py": [
+        "test_closed_form_two_particle_backward_euler_and_internal_impulse",
+        "test_complete_explicit_raw_precision_and_real_positions_required",
+        "test_control_copies_recipe_policy_and_all_returned_state",
+        "test_direction_interval_uses_actual_endpoint_difference_before_rounding",
+        "test_exact_binary_assembly_retains_cancellation_and_rounding_error",
+        "test_response_state_recipe_policy_and_shape_forgeries_reject",
+        "test_work_and_energy_only_diagnostics_still_bind_endpoints_and_bounds"
+      ]
+    }
+  }
+}

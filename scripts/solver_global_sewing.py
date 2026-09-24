@@ -37,11 +37,31 @@ def _positive_definite_direction(matrix, gradient):
 
 def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_hessian=None,
                     inertia_diagonal=None, gradient_function=None, energy_change_function=None,
-                    coupled_hessian=None, step_limiter=None, guard_assembled_metrics=False):
+                    coupled_hessian=None, step_limiter=None, guard_assembled_metrics=False,
+                    gradient_error_function=None, energy_change_interval_function=None):
     if exact_hessian is not None and coupled_hessian is not None:
         raise ValueError("Choose one safeguarded primary search metric")
     if guard_assembled_metrics and inertia_diagonal is None:
         raise ValueError("Guarded assembled search metrics require physical inertia")
+    bounded = gradient_error_function is not None
+    if bounded != (energy_change_interval_function is not None) or bounded and gradient_function is None:
+        raise ValueError("Bounded search requires gradient and fixed-work enclosures together")
+    if bounded:
+        from fractions import Fraction as F
+        from solver_cable_integration import directional_interval, _rat
+
+    def gradient_error(positions):
+        if not bounded:
+            return 0.
+        error = gradient_error_function(positions)
+        if type(error) is not F or error < 0:
+            raise ValueError("Nonnegative exact conditional gradient bound required")
+        return error
+
+    def stationary(gradient, error):
+        norm = float(np.max(np.abs(gradient)))
+        return (np.isfinite(gradient).all() and
+                (F(norm)+error <= F(1e-6) if bounded else norm <= 1e-6))
     positions = start.copy()
     residual = evaluate(positions)
     energy = objective(positions)
@@ -52,7 +72,8 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
     status, message = 0, "Residual evaluation budget exhausted"
     while evaluations < max_evaluations:
         gradient = gradient_function(positions) if gradient_function else evaluate(positions, True).T @ residual
-        if np.max(np.abs(gradient)) <= 1e-6:
+        error = gradient_error(positions)
+        if stationary(gradient, error):
             status, message = 1, "Stationarity tolerance satisfied"
             break
         accepted = False
@@ -79,9 +100,15 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
                 continue
             if direction is None:
                 continue
-            slope = float(np.dot(gradient, direction))
-            if not np.isfinite(direction).all() or not np.isfinite(slope) or slope >= 0:
+            if not np.isfinite(direction).all():
                 continue
+            if bounded:
+                if directional_interval(gradient, error, np.zeros_like(direction), direction)[1] >= 0:
+                    continue
+            else:
+                slope = float(np.dot(gradient, direction))
+                if not np.isfinite(slope) or slope >= 0:
+                    continue
             scale = float(step_limiter(positions, positions + direction)) if step_limiter else 1.0
             if not np.isfinite(scale) or not 0 <= scale <= 1:
                 raise ValueError("Invalid search step bound")
@@ -95,16 +122,34 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
                 candidate_energy = objective(candidate)
                 evaluations += 1
                 finite_candidate = np.isfinite(candidate_residual).all() and np.isfinite(candidate_energy)
-                change = (energy_change_function(positions, candidate) if energy_change_function
-                          and finite_candidate else candidate_energy - energy)
-                if (finite_candidate and np.isfinite(change) and not np.array_equal(candidate, positions)
-                        and change <= 1e-4 * scale * slope):
+                decision = None
+                if bounded:
+                    interval = energy_change_interval_function(positions, candidate) if finite_candidate else None
+                    slope_interval = (directional_interval(gradient, error, positions, candidate)
+                                      if finite_candidate else (F(), F()))
+                    if interval is not None:
+                        if (type(interval) is not tuple or len(interval) != 2
+                                or any(type(value) is not F for value in interval) or interval[0] > interval[1]):
+                            raise ValueError("Ordered exact conditional work interval required")
+                        decision = {'conditionalSlopeLowerJoules': _rat(slope_interval[0]),
+                                    'conditionalSlopeUpperJoules': _rat(slope_interval[1]),
+                                    'conditionalChangeLowerJoules': _rat(interval[0]),
+                                    'conditionalChangeUpperJoules': _rat(interval[1])}
+                    descent = (interval is not None and slope_interval[1] < 0
+                               and interval[1] <= F(1e-4)*slope_interval[0])
+                else:
+                    change = (energy_change_function(positions, candidate) if energy_change_function
+                              and finite_candidate else candidate_energy - energy)
+                    descent = np.isfinite(change) and change <= 1e-4 * scale * slope
+                if finite_candidate and not np.array_equal(candidate, positions) and descent:
                     positions, residual, energy = candidate, candidate_residual, candidate_energy
                     history.append(energy)
                     direction_steps[name] += 1
                     direction_history.append({"method": name, "scale": scale, "shift": shift_report})
                     if guard_assembled_metrics:
                         direction_history[-1]["metric"] = metric_name
+                    if bounded:
+                        direction_history[-1]['cableAwareDecision'] = decision
                     accepted = True
                     break
                 scale *= .5
@@ -114,7 +159,7 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
             status, message = -2, "Line search failed or evaluation budget exhausted"
             break
     gradient = gradient_function(positions) if gradient_function else evaluate(positions, True).T @ residual
-    if np.max(np.abs(gradient)) <= 1e-6:
+    if stationary(gradient, gradient_error(positions)):
         status, message = 1, "Stationarity tolerance satisfied"
     return OptimizeResult(x=positions, cost=energy, nfev=evaluations, success=status == 1,
                           status=status, message=message, energy_history=history,
@@ -127,7 +172,7 @@ class GlobalSewingSolver:
     def __init__(self, model, rows, compliance, *, fold_barrier_joules=None, fold_activation_angle=np.pi / 2,
                  contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None,
                  fold_hinges=None, fold_stiffness_joules=None, material_grippers=None,
-                 controlled_fold_actuation=None):
+                 controlled_fold_actuation=None, continuous_cable=None, cable_precision=None):
         if sewing_mode not in ("vector", "distance", "normal-offset"):
             raise ValueError("Unsupported sewing mode")
         if sewing_mode != "normal-offset" and (sewing_frame_faces is not None or sewing_sides is not None):
@@ -135,6 +180,15 @@ class GlobalSewingSolver:
         self.sewing_mode = sewing_mode
         self.mass = model.particle_mass.numpy().astype(float)
         self.active = (self.mass > 0) & ((model.particle_flags.numpy() & 1) != 0)
+        self.continuous_cable = None
+        if (continuous_cable is None) != (cable_precision is None):
+            raise ValueError("Continuous cable recipe and explicit precision must be supplied together")
+        if continuous_cable is not None:
+            from solver_cable_integration import CableControl
+            control = CableControl(continuous_cable, cable_precision)
+            if control.vertex_count != len(self.mass) or not np.all(self.active):
+                raise ValueError("Continuous cable integration requires matching free positive-mass cloth")
+            self.continuous_cable = control
         self.faces = model.tri_indices.numpy().astype(int) if model.tri_indices is not None else np.empty((0, 3), dtype=int)
         self.material_grippers = material_grippers
         if material_grippers is not None:
@@ -208,7 +262,8 @@ class GlobalSewingSolver:
         if model.spring_count or model.tet_count:
             raise ValueError("Global reference does not implement springs or volumetric elements")
         from solver_embedded_sewing import validate_rows
-        if not ((self.fold_actuation is not None or self.controlled_fold_actuation is not None or self.material_grippers is not None)
+        if not ((self.fold_actuation is not None or self.controlled_fold_actuation is not None
+                 or self.material_grippers is not None or self.continuous_cable is not None)
                 and isinstance(rows, list) and not rows):
             rows = validate_rows(rows, len(self.mass), model.particle_colors.numpy())
         if any(abs(sum(row.values())) > 1e-12 for row in rows):
@@ -243,6 +298,35 @@ class GlobalSewingSolver:
 
     def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct",
              *, fold_targets=None, fold_activation=None, gripper_targets=None, gripper_activation=None, sewing_activation=None):
+        cable = self.continuous_cable
+        if cable is not None:
+            from fractions import Fraction as F
+            from solver_cable_integration import CableControl, assemble_gradient, round_sum, stationarity, _encoded, _rational
+            from solver_controlled_fold import _binary64
+            if type(cable) is not CableControl or linear_solver != 'direct':
+                raise ValueError('Validated continuous cable controls require guarded direct search')
+            previous_positions, previous_velocities = cable.positions(previous_positions), cable.positions(previous_velocities)
+            dt = _binary64(dt)
+            cable_definition = _encoded(cable.description())
+            cable_cached_positions, cable_cached_response = None, None
+            cable_gradient_positions, cable_gradient_error, cable_assembly_error = None, F(), F()
+            cable_failures = {'count': 0, 'lastReason': None}
+
+            def cable_identity():
+                if self.continuous_cable is not cable or _encoded(cable.description()) != cable_definition:
+                    raise ValueError('Continuous cable identity or precision changed during the step')
+
+            def cable_response(positions):
+                nonlocal cable_cached_positions, cable_cached_response
+                cable_identity()
+                if cable_cached_positions is None or positions.tobytes() != cable_cached_positions.tobytes():
+                    snapshot = positions.copy()
+                    response = cable.validate_response(positions, cable.evaluate(positions))
+                    if positions.tobytes() != snapshot.tobytes():
+                        raise ValueError('Cable helper mutated its supplied state')
+                    cable_identity()
+                    cable_cached_positions, cable_cached_response = snapshot, response
+                return cable_cached_response
         controlled_fold = self.controlled_fold_actuation
         if controlled_fold is not None:
             if self.fold_actuation is not None or fold_targets is None or fold_activation is None:
@@ -434,10 +518,19 @@ class GlobalSewingSolver:
                 gripper_energy = grippers.energy(positions) if grippers is not None else 0.
             except ValueError:
                 return float("inf")
-            return float((inertial @ inertial + sewing @ sewing) / 2 + membrane_energy.sum()
-                         + bending_energy + barrier_energy + contact_energy + fold_energy + gripper_energy)
+            baseline = float((inertial @ inertial + sewing @ sewing) / 2 + membrane_energy.sum()
+                             + bending_energy + barrier_energy + contact_energy + fold_energy + gripper_energy)
+            if cable is not None:
+                try:
+                    return round_sum((baseline, cable_response(positions)['energy']))[0]
+                except ValueError as failure:
+                    cable_failures['count'] += 1
+                    cable_failures['lastReason'] = str(failure)
+                    return float('inf')
+            return baseline
 
         def gradient_function(free_positions):
+            nonlocal cable_gradient_positions, cable_gradient_error, cable_assembly_error
             flat = fixed.copy()
             flat[self.free] = free_positions
             positions = flat.reshape((-1, 3))
@@ -466,7 +559,18 @@ class GlobalSewingSolver:
                 gradient += self.fold_barrier.gradient(positions).ravel()
             if self.contact is not None:
                 gradient += self.contact.gradient(positions).ravel()
+            if cable is not None:
+                response = cable_response(positions)
+                gradient, cable_gradient_error, cable_assembly_error = assemble_gradient(
+                    gradient, response['gradient'],
+                    _rational(response['certificate']['gradientMaxAbsoluteErrorBoundNewtons']))
+                cable_gradient_positions = free_positions.copy()
             return gradient[self.free]
+
+        def gradient_error_function(free_positions):
+            if cable_gradient_positions is None or cable_gradient_positions.tobytes() != free_positions.tobytes():
+                gradient_function(free_positions)
+            return cable_gradient_error
 
         def energy_change_function(start_positions, end_positions):
             from solver_energy_change import membrane_energy_change
@@ -476,38 +580,44 @@ class GlobalSewingSolver:
             delta = np.zeros_like(flat)
             delta[self.free] = end_positions - start_positions
             positions, displacement = flat.reshape((-1, 3)), delta.reshape((-1, 3))
-            if (not triangle_sweep_safe(positions, positions + displacement, self.faces)
-                    or not triangle_sweep_safe(previous, positions + displacement, self.faces)):
+            if cable is not None:
+                end_flat = fixed.copy()
+                end_flat[self.free] = end_positions
+                next_positions = end_flat.reshape((-1, 3))
+            else:
+                next_positions = positions + displacement
+            if (not triangle_sweep_safe(positions, next_positions, self.faces)
+                    or not triangle_sweep_safe(previous, next_positions, self.faces)):
                 return float("inf")
             deformation = np.einsum("fvc,fva->fca", coefficients, positions[self.faces])
             delta_deformation = np.einsum("fvc,fva->fca", coefficients, displacement[self.faces])
             try:
-                sewing_change = (distance_sewing.energy_change(positions, positions + displacement)
+                sewing_change = (distance_sewing.energy_change(positions, next_positions)
                                  if distance_sewing is not None else None)
                 membrane_change = membrane_energy_change(deformation, delta_deformation, self.areas, self.materials[:, :3])
-                bending_change = self.bending.energy_change(positions, positions + displacement)
+                bending_change = self.bending.energy_change(positions, next_positions)
                 barrier_change = 0.
                 contact_change = 0.
                 fold_change = 0.
-                gripper_change = grippers.energy_change(positions, positions + displacement) if grippers is not None else 0.
+                gripper_change = grippers.energy_change(positions, next_positions) if grippers is not None else 0.
                 if actuator is not None:
                     from solver_hinge_sweep import hinge_sweep_safe
-                    if (not hinge_sweep_safe(positions, positions + displacement, fold_path_hinges)
-                            or not hinge_sweep_safe(previous, positions + displacement, fold_path_hinges)):
+                    if (not hinge_sweep_safe(positions, next_positions, fold_path_hinges)
+                            or not hinge_sweep_safe(previous, next_positions, fold_path_hinges)):
                         return float("inf")
-                    fold_change = actuator.energy_change(positions, positions + displacement)
+                    fold_change = actuator.energy_change(positions, next_positions)
                 if self.contact is not None:
-                    if (not self.contact.path_safe(positions, positions + displacement)
-                            or not self.contact.path_safe(previous, positions + displacement)):
+                    if (not self.contact.path_safe(positions, next_positions)
+                            or not self.contact.path_safe(previous, next_positions)):
                         return float("inf")
-                    contact_change = self.contact.energy_change(positions, positions + displacement)
+                    contact_change = self.contact.energy_change(positions, next_positions)
                 if self.fold_barrier is not None:
                     from solver_hinge_sweep import hinge_sweep_safe
-                    if not hinge_sweep_safe(positions, positions + displacement, self.fold_barrier.indices):
+                    if not hinge_sweep_safe(positions, next_positions, self.fold_barrier.indices):
                         return float("inf")
-                    if not hinge_sweep_safe(previous, positions + displacement, self.fold_barrier.indices):
+                    if not hinge_sweep_safe(previous, next_positions, self.fold_barrier.indices):
                         return float("inf")
-                    barrier_change = self.fold_barrier.energy_change(positions, positions + displacement)
+                    barrier_change = self.fold_barrier.energy_change(positions, next_positions)
             except ValueError:
                 return float("inf")
             inertial = inertia_weights * (flat - predicted.ravel())
@@ -522,6 +632,28 @@ class GlobalSewingSolver:
             return float((inertial + .5 * delta_inertial) @ delta_inertial
                          + sewing_change + membrane_change
                          + bending_change + barrier_change + contact_change + fold_change + gripper_change)
+
+        def energy_change_interval_function(start_positions, end_positions):
+            baseline = energy_change_function(start_positions, end_positions)
+            if not np.isfinite(baseline):
+                return None
+            first, last = fixed.copy(), fixed.copy()
+            first[self.free], last[self.free] = start_positions, end_positions
+            first, last = first.reshape((-1, 3)), last.reshape((-1, 3))
+            snapshots = first.tobytes(), last.tobytes()
+            try:
+                cable_identity()
+                work = cable.validate_change(first, last, cable.energy_change(first, last))
+                if (first.tobytes(), last.tobytes()) != snapshots:
+                    raise ValueError('Cable work helper mutated its supplied states')
+                cable_identity()
+                value, error = round_sum((baseline, work['changeJoules']),
+                                        _rational(work['certificate']['changeErrorBoundJoules']))
+                return F(value)-error, F(value)+error
+            except ValueError as failure:
+                cable_failures['count'] += 1
+                cable_failures['lastReason'] = str(failure)
+                return None
 
         def step_limiter(start_positions, end_positions):
             start_flat, end_flat = fixed.copy(), fixed.copy()
@@ -566,6 +698,8 @@ class GlobalSewingSolver:
                 bending_hessian += self.fold_barrier.hessian(flat.reshape((-1, 3)))
             if self.contact is not None:
                 bending_hessian += self.contact.hessian(flat.reshape((-1, 3)))
+            if cable is not None:
+                bending_hessian += cable_response(flat.reshape((-1, 3)))['hessian']
             return (linear_hessian + membrane_hessian + bending_hessian)[self.free][:, self.free]
 
         diagonal = diags(self.mass / dt ** 2)
@@ -579,11 +713,12 @@ class GlobalSewingSolver:
         linear_start = spsolve(matrix[active_indices][:, active_indices].tocsc(), rhs).reshape((-1, 3)).ravel()
         predicted_start = predicted.ravel()[self.free]
         guarded = (self.has_bending or self.fold_barrier is not None or self.contact is not None
-                   or distance_sewing is not None or actuator is not None or grippers is not None)
+                   or distance_sewing is not None or actuator is not None or grippers is not None or cable is not None)
         start = (previous.ravel()[self.free].copy() if guarded or len(self.faces) else
                  min((linear_start, predicted_start, previous.ravel()[self.free]), key=objective))
         initial_energy = objective(start)
-        guard_assembled_metrics = bool(getattr(self.contact, "requires_guarded_metric", False))
+        contact_guard_assembled_metrics = bool(getattr(self.contact, "requires_guarded_metric", False))
+        guard_assembled_metrics = contact_guard_assembled_metrics or cable is not None
         result = _direct_descent(evaluate, start, max_evaluations,
                                 lambda positions: assembled_hessian(positions, True), objective,
                                 exact_hessian=None if guarded else lambda positions: assembled_hessian(positions, False),
@@ -592,7 +727,10 @@ class GlobalSewingSolver:
                                 gradient_function=gradient_function,
                                 coupled_hessian=(lambda positions: assembled_hessian(positions, False)) if guarded else None,
                                 energy_change_function=energy_change_function,
-                                step_limiter=step_limiter if self.contact is not None else None) if linear_solver in ("direct", "shifted") else least_squares(evaluate, start, jac=lambda positions: evaluate(positions, True),
+                                step_limiter=step_limiter if self.contact is not None else None,
+                                **({'gradient_error_function': gradient_error_function,
+                                    'energy_change_interval_function': energy_change_interval_function}
+                                   if cable is not None else {})) if linear_solver in ("direct", "shifted") else least_squares(evaluate, start, jac=lambda positions: evaluate(positions, True),
                                method="trf", tr_solver="lsmr", x_scale="jac", ftol=1e-12, xtol=1e-12,
                                gtol=1e-9, max_nfev=max_evaluations,
                                tr_options={"atol": 1e-12, "btol": 1e-12, "maxiter": max(100, 3 * len(self.free))})
@@ -606,6 +744,10 @@ class GlobalSewingSolver:
             from solver_hinge_sweep import hinge_sweep_safe
             if not hinge_sweep_safe(previous, final, fold_path_hinges):
                 raise ValueError("Physical fold step crosses an invalid hinge path")
+        if cable is not None and self.fold_barrier is not None:
+            from solver_hinge_sweep import hinge_sweep_safe
+            if not hinge_sweep_safe(previous, final, self.fold_barrier.indices):
+                raise ValueError('Physical cable step crosses a declared fold-barrier hinge path')
         if self.contact is not None:
             self.contact.validate_state(final)
             if not self.contact.path_safe(previous, final):
@@ -615,6 +757,16 @@ class GlobalSewingSolver:
             raise ValueError("Degenerate membrane state rejected by global reference")
         gradient = gradient_function(result.x)
         gradient_norm = float(np.max(np.abs(gradient)))
+        cable_report = cable_stationarity = None
+        cable_converged = True
+        if cable is not None:
+            response = cable_response(final)
+            cable_report = cable.validate_diagnostics(final, {
+                'definition': cable.description(), 'energyJoules': response['energy'],
+                'certificate': response['certificate']})
+            cable_stationarity = stationarity(gradient, cable_gradient_error,
+                _rational(response['certificate']['gradientMaxAbsoluteErrorBoundNewtons']), cable_assembly_error)
+            cable_converged = _rational(cable_stationarity['stationarityUpperBoundNewtons']) <= F(1e-6)
         row_errors = np.zeros(len(sewing_weights))
         if self.sewing_mode == "distance":
             _, lengths = distance_sewing.geometry(final)
@@ -626,8 +778,8 @@ class GlobalSewingSolver:
         else:
             row_errors = np.max(np.abs(vector_sewing_error(final)), axis=1)
         controlled_diagnostic = actuator.diagnostics(final) if controlled_fold is not None else None
-        return final, (final - previous) / dt, {
-            "profile": "experimental-global-ipc-guarded-contact-reference-v1" if guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
+        report = {
+            "profile": "experimental-global-fixed-cable-reference-v1" if cable is not None else "experimental-global-ipc-guarded-contact-reference-v1" if contact_guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
             "sewingMode": self.sewing_mode,
             "sewingActivationExplicit": sewing_activation is not None,
@@ -661,13 +813,13 @@ class GlobalSewingSolver:
                                   "Scalar anchor distance does not prescribe layer side, seam tangent or turning"
                                   if distance_sewing is not None else "World-space vector registration"),
             "contactJoules": self.contact.energy(final) if self.contact is not None else 0.,
-            "contactSearchMetric": "Signed-weight contact Hessian; both assembled metrics safeguarded: SPD primary or physical-inertia-shifted projected fallback; not exact total Hessian" if guard_assembled_metrics else "PSD-projected contact Hessian; not exact total Hessian" if self.contact is not None else None,
+            "contactSearchMetric": "Signed-weight contact Hessian; both assembled metrics safeguarded: SPD primary or physical-inertia-shifted projected fallback; not exact total Hessian" if contact_guard_assembled_metrics else "PSD-projected contact Hessian; not exact total Hessian" if self.contact is not None else None,
             "contactRestMetricTolerance": float(self.contact_rest_metric_tolerance) if self.contact is not None else None,
             "localFoldBarrier": self.fold_barrier is not None,
             "foldBarrierJoules": self.fold_barrier.energy(final) if self.fold_barrier is not None else 0.,
             "bendingHinges": len(self.bending.indices),
             "bendingSearchMetric": "Exact membrane + Gauss-Newton bending; projected membrane fallback, not exact total Hessian" if self.has_bending else None,
-            "converged": bool(result.success and gradient_norm <= 1e-6),
+            "converged": bool(result.success and gradient_norm <= 1e-6 and cable_converged),
             "optimizerSuccess": bool(result.success), "stationarityToleranceN": 1e-6,
             "linearSolver": linear_solver, "energyHistory": getattr(result, "energy_history", None),
             "exactSteps": getattr(result, "exact_steps", None), "projectedSteps": getattr(result, "projected_steps", None),
@@ -677,10 +829,20 @@ class GlobalSewingSolver:
             "status": int(result.status), "message": result.message,
             "evaluations": int(result.nfev), "initialEnergy": initial_energy, "finalEnergy": objective(result.x),
             "gradientInfinityNorm": gradient_norm,
+            **({'continuousCable': cable_report, 'cableStationarity': cable_stationarity,
+                'cableEvaluationFailures': dict(cable_failures),
+                'cableSearchMetric': 'Additive slack-sided generalized cable curvature; rounded PSD not certified; both assembled metrics guarded with physical-inertia fallback',
+                'cableLineSearchPolicy': 'Conditional interval Armijo on actual binary endpoint displacement: slope upper<0 and change upper<=binary64(1e-4)*slope lower; non-cable terms retain existing numerical scope'}
+               if cable is not None else {}),
             "limitations": [("Experimental frictionless surface contact; no body contact or seam exclusions. " if self.contact is not None else "No contact. ")
                             + ("Prescribed compliant material grippers provide external forces. " if grippers is not None else "No external translational forces. ")
+                            + ("Cable anchor conversion defects remain explicit; the numerical joint does not certify exact translation invariance or force balance. " if cable is not None else "")
                             + "No material damping; diagnostic reference only.",
                             "Optional local angular fold barrier changes the energy model; it is not finite-thickness or nonadjacent cloth contact.",
                             "Elastic bending is uncalibrated; the numerical triangle guard requires independent saved-path verification.",
                             "Stationarity does not certify a local energy minimum or dynamic stability."],
         }
+        if cable is not None:
+            cable_identity()
+            cable.validate_diagnostics(final, report['continuousCable'])
+        return final, (final - previous) / dt, report
