@@ -1,0 +1,691 @@
+{
+  "accepted": false,
+  "allSolverSourceDigestsMatched": 60,
+  "baseCommit": "8e2d9d1",
+  "coefficientPolicy": "rounded-binary64-stiffness-times-activation-v1",
+  "date": "2026-09-23",
+  "figure": {
+    "bytes": 380161,
+    "path": "docs/research/3d-controlled-fold-motion.png",
+    "sha256": "31626246aadb6a46bc506ad72015c286eae330be8107bc4f9b0154f940fea993"
+  },
+  "fixture": {
+    "bendingWeights": [
+      2.000000050291417e-05,
+      2.000000050291417e-05
+    ],
+    "contactActivationMeters": 0.001,
+    "contactCoreMeters": 0.0001,
+    "contactPressurePa": 10000.0,
+    "externalStiffnessJoules": [
+      0.02,
+      0.02
+    ],
+    "faces": 4,
+    "filteredPrimitivePairs": 0,
+    "freeLayers": 2,
+    "gravityMetersPerSecondSquared": [
+      0,
+      0,
+      0
+    ],
+    "initialNominalLayerSeparationMeters": 0.002,
+    "membraneParameters": [
+      [
+        10000.0,
+        10000.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        10000.0,
+        10000.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        10000.0,
+        10000.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        10000.0,
+        10000.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "pins": 0,
+    "restIdentityChecks": [
+      "native particle coordinates",
+      "native edge tuples",
+      "solver inverse rest poses",
+      "material bending rest angles",
+      "contact rest coordinates"
+    ],
+    "restIdentityEvidence": "Generator asserts unchanged values after each accepted callback; input retains original arrays.",
+    "schedule": {
+      "hinges": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "knots": [
+        {
+          "activation": [
+            1.0,
+            0.0
+          ],
+          "fraction": 0.0,
+          "targetsRadians": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            0.0
+          ],
+          "fraction": 0.25,
+          "targetsRadians": [
+            0.3,
+            0.0
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            1.0
+          ],
+          "fraction": 0.5,
+          "targetsRadians": [
+            0.3,
+            -0.3
+          ]
+        },
+        {
+          "activation": [
+            1.0,
+            1.0
+          ],
+          "fraction": 0.625,
+          "targetsRadians": [
+            0.3,
+            -0.3
+          ]
+        },
+        {
+          "activation": [
+            0.0,
+            1.0
+          ],
+          "fraction": 0.75,
+          "targetsRadians": [
+            0.3,
+            -0.3
+          ]
+        },
+        {
+          "activation": [
+            0.0,
+            0.0
+          ],
+          "fraction": 0.875,
+          "targetsRadians": [
+            0.3,
+            -0.3
+          ]
+        },
+        {
+          "activation": [
+            0.0,
+            0.0
+          ],
+          "fraction": 1.0,
+          "targetsRadians": [
+            0.3,
+            -0.3
+          ]
+        }
+      ],
+      "profile": "fold-angle-activation-v1"
+    },
+    "sewingRows": 0,
+    "stationarityToleranceN": 1e-06,
+    "vertices": 8
+  },
+  "generatorIdentity": {
+    "bytes": 10421,
+    "path": ".planning/solver/make-controlled-fold-motion-ledger.py",
+    "sha256": "26a9428e88697360ae2bdb944fcda9aa1e3d2f2e0736177269c8b6cd8f3ae705"
+  },
+  "independentArtifactReview": {
+    "accepted": false,
+    "activationWorkRoundedStepSumJoules": 1.4327305306342348e-05,
+    "contactActiveFractions": [
+      0.34375,
+      0.375,
+      0.40625
+    ],
+    "contactSupportLeaves": 128,
+    "crossLayerCoreCandidates": 0,
+    "exactDeclaredHingePrincipalBranchIntervals": 64,
+    "exactTriangleIntervals": 128,
+    "finalAnglesRadians": [
+      0.020370551748144495,
+      0.12212555159830242
+    ],
+    "finalMaximumSpeedMetersPerSecond": 0.07702603407375906,
+    "inputSha256": "ea7f7fe40cb9a8fe69b56ef135ed4e2f75429c1452fce225e70cb81a61f28445",
+    "limitations": [
+      "Read-only saved-state review; no generator, global solver, adaptive scheduler or energy-balance helper was imported or executed.",
+      "Control sampling, rounded coefficient witnesses and target-first parameter work were reconstructed independently with Fraction from original binary64 inputs; angles use an independently written sampler of the same declared binary64 geometric convention.",
+      "Membrane forces use an independent stress formula; hinge forces use the closed-form opposite-vertex gradient, distinct from the production chain rule. Contact force and energy reuse the pinned native contact adapter.",
+      "Stable fixed-angle motion, elastic-bending work and membrane energy changes reuse recorded mechanical helpers. This is not a wholly independent mechanical or transcendental arithmetic implementation.",
+      "Exact Fraction exhaustive swept-AABB enumeration covers all nonincident FV/EE primitive identities. Each recorded normal-support leaf and its entire time coverage is checked separately; all 128 leaves here are intrapanel EE, and core-radius AABBs exclude all cross-layer pairs.",
+      "Exact triangle Bernstein positivity is independently proven with each start normal over every full saved interval. Every declared hinge also has positive normal-dot-product quartic Bernstein coefficients, proving its angle remains strictly between -pi/2 and pi/2, including inactive hinges. Endpoint intersections are recomputed by native HashGrid and BruteForce plus the shared separate surface oracle.",
+      "Input and repository helper bytes match the retained digests; native topology is checked against all oriented faces. Input records runtime versions, not a portable complete external-wheel fingerprint; this review does not upgrade callback files into supervised crash-safe capture/replay.",
+      "Unchanged input rest coordinates, stored native material/pose/mass data and final adapter rest snapshots are checked. Static artifacts cannot independently prove the historical in-memory model was never transiently mutated.",
+      "Generic eight-vertex synthetic direct-API fixture only: no refined-source execution, sewing, calibrated material damping, settling, continuous actuator work, garment operation or application acceptance."
+    ],
+    "maximumForceResidualDisagreementN": 1.842983561646679e-14,
+    "maximumIndependentForceResidualN": 8.925307184163571e-07,
+    "maximumSourceEdgeRelativeChange": 2.827802116911471e-07,
+    "nonzeroContactClassification": "Interlayer activation-buffer response only: every native stencil in all three nonzero saved contact states uses vertices from both source layers; no intrapanel stencil occurs in those energy sets.",
+    "originalGeneratorSha256": "f6fa54a14732de9fde3cb0c8f30a7d494e8432478eef865323bdec7960b2d1fd",
+    "parameterWorkRoundedStepSumJoules": 0.00017778266517414027,
+    "peakContactEnergyJoules": 5.93790477548619e-11,
+    "peakContactGradientInfinityN": 0.00011589704582291764,
+    "profile": "independent-saved-synthetic-controlled-fold-review-v1",
+    "releaseEnergyRemovedRoundedStepSumJoules": 1.0129019030534e-08,
+    "reportSha256": "e3e11cde6b1e9b27b1322ae4ea3a5031beb53ebf81387bb38e6973556400a0da",
+    "reviewLoadedHelperDigests": {
+      "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+      "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+      "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+      "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+      "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+      "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+      "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+      "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+      "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a"
+    },
+    "runtime": {
+      "packages": {
+        "ipctk": "1.6.0",
+        "newton": "1.6.0",
+        "numpy": "2.5.3",
+        "scipy": "1.17.0",
+        "warp-lang": "1.17.0"
+      },
+      "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+      "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]"
+    },
+    "savedContactActiveStateCount": 3,
+    "savedStates": 32,
+    "scriptSha256": "cf3cf72542d796dade4c6ab3a286bed338dc6fd6dbc08572cea6aa3cf0133254",
+    "targetWorkRoundedStepSumJoules": 0.00016345535986779793,
+    "verified": true
+  },
+  "limitations": [
+    "This two-layer, eight-vertex fixture is synthetic; no refined garment source or construction recipe is executed.",
+    "Final speed is about 77 mm/s; the released state is moving, not settled.",
+    "Contact response is small; this does not demonstrate a strongly loaded layer wrap or completed binding/turning.",
+    "Callback artifacts are private research evidence, not supervised crash-safe capture or existing-main-replay admission.",
+    "Independent audit scope and remaining shared dependencies are stated in independentArtifactReview.",
+    "Discrete fixed-position parameter work is not continuous actuator work or material dissipation.",
+    "All source rest values are preserved; measured edge changes are numerical deformation, not calibrated textile accuracy.",
+    "No material calibration, timestep/refinement convergence, spatial seam coverage, full-shirt/body or application acceptance.",
+    "The refined capture/main-replay entrypoint proposal remains unapplied after automatic approval rejection."
+  ],
+  "loadedHelperSha256": {
+    "solver_adaptive_contact.py": "db9beda8f7695a6ddbdb001d9f9df0441f3b5659f42dba84a982dd89fd224d6e",
+    "solver_assembly_schedule.py": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9",
+    "solver_attempt_journal.py": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c",
+    "solver_bending.py": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b",
+    "solver_controlled_fold.py": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69",
+    "solver_dihedral_increment.py": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464",
+    "solver_embedded_sewing.py": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44",
+    "solver_energy_balance.py": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313",
+    "solver_energy_change.py": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83",
+    "solver_fold_actuation.py": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41",
+    "solver_fold_control_schedule.py": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e",
+    "solver_global_sewing.py": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336",
+    "solver_global_shift.py": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3",
+    "solver_hinge_sweep.py": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35",
+    "solver_ipc_broad_phase.py": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8",
+    "solver_ipc_contact.py": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4",
+    "solver_membrane_hessian.py": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86",
+    "solver_membrane_stability.py": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20",
+    "solver_process_budget.py": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766",
+    "solver_rest_filtered_contact.py": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef",
+    "solver_sewing_activation.py": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561",
+    "solver_spike_geometry.py": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e",
+    "solver_swept_separation.py": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064",
+    "solver_temporal_separation.py": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a",
+    "solver_triangle_sweep.py": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+  },
+  "mainReplayAdmissionExtended": false,
+  "motion": {
+    "acceptedNumericalSteps": 32,
+    "complete": true,
+    "durationSeconds": 0.064,
+    "exactTriangleLeaves": 128,
+    "final": {
+      "anglesRadians": [
+        0.020370551748144495,
+        0.12212555159830242
+      ],
+      "centerOfMassShiftMeters": [
+        2.7249400647933167e-18,
+        -1.4611763202512466e-18,
+        5.056736465892132e-21
+      ],
+      "contactJoules": 0.0,
+      "edgeRatioRange": [
+        1.0000000013580013,
+        1.0000000974853096
+      ],
+      "fraction": 1.0,
+      "maxSpeedMetersPerSecond": 0.07702603407375906,
+      "momentumKgMetersPerSecond": [
+        2.0058066924294565e-20,
+        -3.5971078304035455e-22,
+        1.3236240322829572e-21
+      ],
+      "residualN": 2.049513322762833e-10
+    },
+    "finalActiveAngleDiagnostics": [
+      null,
+      null
+    ],
+    "finalActuatorEnergyJoules": 0.0,
+    "holdEnd": {
+      "anglesRadians": [
+        0.2997003051480532,
+        -0.29970030255018587
+      ],
+      "centerOfMassShiftMeters": [
+        1.0121930704000944e-18,
+        -9.635549595384408e-19,
+        -1.1948295855745809e-19
+      ],
+      "contactJoules": 0.0,
+      "edgeRatioRange": [
+        1.000000012954815,
+        1.0000000574329269
+      ],
+      "fraction": 0.625,
+      "maxSpeedMetersPerSecond": 0.021855745966980315,
+      "momentumKgMetersPerSecond": [
+        -1.3438478303826736e-20,
+        -3.362397785032328e-22,
+        -7.106215339130635e-22
+      ],
+      "residualN": 2.2281621405712546e-09
+    },
+    "initialSubdivisions": 32,
+    "maxRelativeSourceEdgeChange": 2.827802116911471e-07,
+    "maximumReconstructedResidualN": 8.925307184164352e-07,
+    "peakContactJoules": 5.93790477548619e-11,
+    "rejectedSteps": 0,
+    "releasedActuatorEnergyJoules": 1.0129019030534e-08,
+    "retainedContactLeaves": 128,
+    "wallSeconds": 1.639066000000014
+  },
+  "parameterOrder": "target-first-at-old-activation-then-activation-at-new-target",
+  "profile": "generic-controlled-fold-motion-evidence-v1",
+  "rawArtifacts": [
+    {
+      "bytes": 9486,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1.py",
+      "sha256": "f6fa54a14732de9fde3cb0c8f30a7d494e8432478eef865323bdec7960b2d1fd"
+    },
+    {
+      "bytes": 1067,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1.log",
+      "sha256": "19509d3766c9a93bfc3ff56560d4d4a58f9e8516ae493634a76ffc908341da47"
+    },
+    {
+      "bytes": 12671,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/input.json",
+      "sha256": "ea7f7fe40cb9a8fe69b56ef135ed4e2f75429c1452fce225e70cb81a61f28445"
+    },
+    {
+      "bytes": 876441,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/report.json",
+      "sha256": "e3e11cde6b1e9b27b1322ae4ea3a5031beb53ebf81387bb38e6973556400a0da"
+    },
+    {
+      "bytes": 29172,
+      "path": ".planning/solver/review-controlled-fold-layered-motion-sep23-v1.py",
+      "sha256": "cf3cf72542d796dade4c6ab3a286bed338dc6fd6dbc08572cea6aa3cf0133254"
+    },
+    {
+      "bytes": 268059,
+      "path": ".planning/solver/review-controlled-fold-layered-motion-sep23-v1.json",
+      "sha256": "772d2d14731609ffe677753c35a8e77c182422476bf0caae577e16f5b74e9627"
+    },
+    {
+      "bytes": 3724,
+      "path": ".planning/solver/plot-controlled-fold-motion.py",
+      "sha256": "57c3797c9a8cabb9b57171ab2245740452e284f7b15f2be352773d893b16620f"
+    }
+  ],
+  "refinedGarmentExecuted": false,
+  "runtime": {
+    "image": "sew-engine-research:sep23-arm",
+    "imageId": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "packages": {
+      "ipctk": "1.6.0",
+      "newton": "1.6.0",
+      "numpy": "2.5.3",
+      "scipy": "1.17.0",
+      "warp-lang": "1.17.0"
+    },
+    "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+    "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]"
+  },
+  "savedStates": [
+    {
+      "bytes": 16291,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0001.json",
+      "sha256": "56ea298b942bd094854dc4b7f8d84730b1710a4c4b2e2878688d070917b0fe41"
+    },
+    {
+      "bytes": 16419,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0002.json",
+      "sha256": "35fa451ab61cc5eba4a3154a575a5577538f9ff04e0c460b672f1390a11b528e"
+    },
+    {
+      "bytes": 16440,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0003.json",
+      "sha256": "3d2bc8a11e459f0023b2316115b1c0bf93e62eb3b7f9fc168d34dcb2669b38c9"
+    },
+    {
+      "bytes": 16402,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0004.json",
+      "sha256": "3cdf3674cff4c9bf248bf1c9430e12a76de8558c980cf3eea54c11fbad0a8e0a"
+    },
+    {
+      "bytes": 16402,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0005.json",
+      "sha256": "cde1d907596776df07ce8ae208943b3c904792244cfdedcd4f9d29f7229f4990"
+    },
+    {
+      "bytes": 16417,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0006.json",
+      "sha256": "2efd333c15794dc362894e5f2ac9968cdd6c83d55fa4bdded00e2d81ce8457e4"
+    },
+    {
+      "bytes": 16393,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0007.json",
+      "sha256": "932473fe35c491b1fecd362e816b57cf35ef03d7c11bb650a34123641ef5ab03"
+    },
+    {
+      "bytes": 16385,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0008.json",
+      "sha256": "4a0654f408834f0b029612ac972d73a19f060c5e143b84a2eb7f1610ed2932cf"
+    },
+    {
+      "bytes": 16539,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0009.json",
+      "sha256": "98087195d622feb31acbfe55f225a6b0dc25d1b1f4927d4b79abf23ac4d30c08"
+    },
+    {
+      "bytes": 16599,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0010.json",
+      "sha256": "05b6ef4582f6c5cac9bad4ae2d49f88e8d7733ab008bd3255f59d98b14851b9c"
+    },
+    {
+      "bytes": 19759,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0011.json",
+      "sha256": "710d7f47f229c9d3555780eb001c5cd5e7124839a839e211f9bce796ecf36b38"
+    },
+    {
+      "bytes": 16657,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0012.json",
+      "sha256": "8d020a0903025b88d1c76900fec8fb776e8e856c554b3fd745cb3b345ec03a9e"
+    },
+    {
+      "bytes": 16722,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0013.json",
+      "sha256": "cf990af5ffbf0a137aae7efb95a3c085b44e82b89a29854616f2541f7f547c7f"
+    },
+    {
+      "bytes": 16702,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0014.json",
+      "sha256": "39e3f7a0a404281ddbb9aa617a07836b7e13dbea13e9e2fe1cf4d2f48574ee83"
+    },
+    {
+      "bytes": 16634,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0015.json",
+      "sha256": "a741f82c8db1c779327cf9d37616472791562b5acb028f75ca2583275ea0a368"
+    },
+    {
+      "bytes": 16589,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0016.json",
+      "sha256": "8d8ddc8f8f2cf4d0e51940992e4cdc451b1d96ba59b5110058ebf5523e8c734f"
+    },
+    {
+      "bytes": 16300,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0017.json",
+      "sha256": "50ab44e7e32029e637d9ecec471781cfa1c528c0a03bc7992d0066db8a95a6f8"
+    },
+    {
+      "bytes": 16325,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0018.json",
+      "sha256": "79b942aa6deaac00a5da033928f7a98392996d0babaa22ce2b8fb20ed2544d02"
+    },
+    {
+      "bytes": 16312,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0019.json",
+      "sha256": "36efdb8eb140e88850512a6c0321f32e93868933acde7fc031fda1c850f76cac"
+    },
+    {
+      "bytes": 16298,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0020.json",
+      "sha256": "c97fdfca9eba17bf83cf5663e6e47b4e52ce7526e4d010cc9f2f6930ad0cf02e"
+    },
+    {
+      "bytes": 16437,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0021.json",
+      "sha256": "32ad0e38a0208dc16a046709cb43b98476eefde664bd16c3a0d50fce0508cfec"
+    },
+    {
+      "bytes": 16392,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0022.json",
+      "sha256": "4c80e682568537b0cf9673820a8e14c45227a31340f955dde86c51d164951411"
+    },
+    {
+      "bytes": 16403,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0023.json",
+      "sha256": "579e706b67b2135bf280849c888fc53f500f2538f5b6edfadd7b099f817bdecd"
+    },
+    {
+      "bytes": 17297,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0024.json",
+      "sha256": "47bdbe70363c10fce74dd7ec4a3008f15720a7494a3bc2bae43da5b5e122b368"
+    },
+    {
+      "bytes": 17515,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0025.json",
+      "sha256": "321c1d12b11af62ae988c3503929e04eb5b8f6a4312ce3f183ad34fef8922940"
+    },
+    {
+      "bytes": 17468,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0026.json",
+      "sha256": "000dea6cfaad9b2eddfe08e504d0573987ff580206a8910e7a96e2f2e7f3a499"
+    },
+    {
+      "bytes": 16979,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0027.json",
+      "sha256": "c6649386d77ed0c2c57376601c2cb085577771d14cb860227d9bfc7b75feac37"
+    },
+    {
+      "bytes": 16804,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0028.json",
+      "sha256": "b984a163444e5687cae47624338d479e6464b38f2ae24ec741466605be048dc6"
+    },
+    {
+      "bytes": 17171,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0029.json",
+      "sha256": "753bca877951a8c2abd9d1d48a416b17cc53a11a89dcb254fdb38054fcfd4e79"
+    },
+    {
+      "bytes": 17163,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0030.json",
+      "sha256": "7a9c346adda6d99c56e6bb0b34be565ef4b87b4827e9ad43a1daf215fa026604"
+    },
+    {
+      "bytes": 16684,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0031.json",
+      "sha256": "2d6581792c2e999e56bce7c1aed856f173a49d91287e51eb6f330f8360687fb6"
+    },
+    {
+      "bytes": 16680,
+      "path": ".planning/solver/controlled-fold-layered-motion-sep23-v1/state-0032.json",
+      "sha256": "a6bd6a0365e0eac15ec48864d00d20b76223c17cd3e1ad7e89110aee749843d5"
+    }
+  ],
+  "scope": "Generic synthetic direct-API fold ramps, hold, activation/release and passive continuation; offline research only.",
+  "settled": false,
+  "sourceControlsInstalled": false,
+  "sourceIdentity": [
+    {
+      "bytes": 47901,
+      "path": "scripts/solver_global_sewing.py",
+      "sha256": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336"
+    },
+    {
+      "bytes": 27464,
+      "path": "scripts/solver_adaptive_contact.py",
+      "sha256": "db9beda8f7695a6ddbdb001d9f9df0441f3b5659f42dba84a982dd89fd224d6e"
+    },
+    {
+      "bytes": 29784,
+      "path": "scripts/solver_energy_balance.py",
+      "sha256": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313"
+    },
+    {
+      "bytes": 19109,
+      "path": "scripts/solver_controlled_fold.py",
+      "sha256": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69"
+    },
+    {
+      "bytes": 7617,
+      "path": "scripts/solver_fold_control_schedule.py",
+      "sha256": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e"
+    },
+    {
+      "bytes": 11427,
+      "path": "scripts/solver_dihedral_increment.py",
+      "sha256": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464"
+    },
+    {
+      "bytes": 12775,
+      "path": "scripts/test_solver_controlled_fold_integration.py",
+      "sha256": "89baa4e290efc6a78ae67ac74394d04bc20fba5b05a2d4017d4e5a3b3377d5df"
+    },
+    {
+      "bytes": 20481,
+      "path": "scripts/test_solver_controlled_fold_adaptive.py",
+      "sha256": "aed12ecb51469c2ad183c56737d6b74b1b943836dc348735b532c55486c1095a"
+    },
+    {
+      "bytes": 16906,
+      "path": "scripts/test_solver_controlled_fold_energy.py",
+      "sha256": "4184bf40d59fc908934387b763a91687eafe0335ca5b7dc6cde4e794a52f1cb0"
+    },
+    {
+      "bytes": 32056,
+      "path": "scripts/test_solver_journal_adversarial.py",
+      "sha256": "74412fa1b3182418a7dda0db9e794007b52c34b356c0f71fa8ede6b6fdcdc601"
+    }
+  ],
+  "supervisedCapture": false,
+  "unchangedEntrypoints": [
+    {
+      "bytes": 32674,
+      "path": "scripts/spike-contact-continuation.py",
+      "sha256": "ab9f17fb1dee9a2e43e87fb32795e39382530fdf5de91d3b04966a4ac080a26c"
+    },
+    {
+      "bytes": 31616,
+      "path": "scripts/replay-rest-filtered-continuation.py",
+      "sha256": "a323cd47c6d00748e82d5dd023be807e47cfd56a157e5f08b09d1d1fdafd2c24"
+    }
+  ],
+  "verification": {
+    "adaptiveFocused": {
+      "evidence": "Agent tool results; all 11 new cases also covered by the retained full pinned Linux log.",
+      "linuxPassed": 65,
+      "nativeExclusions": "Two Linux-only process-supervision checks failed in the initial broader native selection; portable selection passed.",
+      "nativePortablePassed": 41,
+      "newTests": 11
+    },
+    "countsOverlap": true,
+    "energyLinux": {
+      "bytes": 2167,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-energy-focused-linux-sep23-v1.log",
+      "seconds": 0.056,
+      "sha256": "df2c1fe00c7805d04eaf1adf29597245ced7a907ec7dc0e4034b507d5023bd04",
+      "tests": 10
+    },
+    "energyNative": {
+      "bytes": 8955,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-energy-focused-native-sep23-v1.log",
+      "seconds": 0.112,
+      "sha256": "ffa67910ca05b4887625a73f1980417147613389680ea1d7887ee57b55244030",
+      "tests": 45
+    },
+    "fullPinnedLinux": {
+      "bytes": 6499,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-motion-full-numerical-sep23-v1.log",
+      "seconds": 403.734,
+      "sha256": "b1550e0064c6a01a09e92fa51f7ae0ded8b21d3a06cd5bc2a3f8e71abefde669",
+      "tests": 938
+    },
+    "globalLinux": {
+      "bytes": 587,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-integration-linux-sep23-v1.log",
+      "seconds": 1.038,
+      "sha256": "afcf989b93a243e6c16d099c792ad344f3987e3343de8954acbf86f09999de85",
+      "tests": 7
+    },
+    "globalNative": {
+      "bytes": 459,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-integration-native-sep23-v2.log",
+      "seconds": 0.718,
+      "sha256": "23eb97fcf39ff6d8347b9b386725504571ccaa382e652a8c9d8b806a1fa8e834",
+      "tests": 7
+    },
+    "legacyEnergyReportComparisons": {
+      "cases": 24,
+      "completeDictionariesMatchBase": true,
+      "evidence": "Independent agent tool result comparing vector/distance/normal, weighted/unweighted, grippers and legacy folds."
+    },
+    "newTests": 28,
+    "reproduce": "python -m unittest discover -s scripts -p 'test_solver_*.py'"
+  }
+}

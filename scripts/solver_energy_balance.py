@@ -136,10 +136,33 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                              previous_targets, targets, dt, *, previous_fold_targets=None, fold_targets=None,
                              previous_gripper_targets=None, gripper_targets=None,
                              previous_gripper_activation=None, gripper_activation=None,
-                             previous_sewing_activation=None, sewing_activation=None):
+                             previous_sewing_activation=None, sewing_activation=None,
+                             previous_fold_activation=None, fold_activation=None):
     if (previous_sewing_activation is None) != (sewing_activation is None):
         raise ValueError("Both endpoint sewing activations are required for energy accounting")
     weighted_sewing = previous_sewing_activation is not None
+    fold_recipe = getattr(solver, "fold_actuation", None)
+    controlled_fold_recipe = getattr(solver, "controlled_fold_actuation", None)
+    controlled_old_fold = controlled_new_fold = None
+    if controlled_fold_recipe is not None:
+        from solver_controlled_fold import ControlledFoldActuation, _binary64
+        if not isinstance(controlled_fold_recipe, ControlledFoldActuation) or fold_recipe is not None:
+            raise ValueError("One validated controlled-fold recipe, exclusive of legacy fold actuation, required")
+        if any(value is None for value in (previous_fold_targets, fold_targets,
+                                          previous_fold_activation, fold_activation)):
+            raise ValueError("Both endpoint controlled-fold targets and activations are required for energy accounting")
+        # Preserve raw numeric admission before the legacy global coercion can
+        # hide Boolean or inexact integer coordinates. Targets and activation
+        # likewise enter the primitive without any intermediate conversion.
+        previous = controlled_fold_recipe._positions(previous)
+        positions = controlled_fold_recipe._positions(positions)
+        previous_velocities = controlled_fold_recipe._positions(previous_velocities)
+        velocities = controlled_fold_recipe._positions(velocities)
+        dt = _binary64(dt)
+        controlled_old_fold = controlled_fold_recipe.potential(previous_fold_targets, previous_fold_activation)
+        controlled_new_fold = controlled_fold_recipe.potential(fold_targets, fold_activation)
+    elif previous_fold_activation is not None or fold_activation is not None:
+        raise ValueError("Fold activation energy parameters require a controlled-fold recipe")
     gripper_recipe = getattr(solver, "material_grippers", None)
     gripper_parameters = (previous_gripper_targets, gripper_targets,
                           previous_gripper_activation, gripper_activation)
@@ -216,9 +239,44 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                                     / solver.compliance)
         sewing_before = float(np.sum(previous_residual ** 2) / (2 * solver.compliance))
         sewing_after = float(np.sum((previous_residual + residual_change) ** 2) / (2 * solver.compliance))
-    fold_recipe = getattr(solver, "fold_actuation", None)
     fold_change, fold_work, fold_fixed_change, fold_before, fold_after = 0., 0., 0., 0., 0.
-    if fold_recipe is None:
+    fold_accounting = {}
+    fold_parameter_work = fold_activation_work = 0.
+    if controlled_fold_recipe is not None:
+        work = controlled_fold_recipe.parameter_energy_change(previous, previous_fold_targets,
+            previous_fold_activation, fold_targets, fold_activation)
+        try:
+            if (work["parameterOrder"] != "target-first-at-old-activation-then-activation-at-new-target"
+                    or work["coefficientPolicy"] != "rounded-binary64-stiffness-times-activation-v1"):
+                raise ValueError("Controlled-fold energy accounting requires the declared coefficient and target-first work policies")
+            keys = ("totalParameterWorkJoules", "targetParameterWorkJoules", "activationParameterWorkJoules",
+                    "activationIncreaseWorkJoules", "releaseEnergyRemovedJoules", "roundedComponentSumErrorBoundJoules")
+            if any(type(work[key]) not in (int, float) for key in keys):
+                raise ValueError("Non-Boolean controlled-fold work values required")
+            (fold_parameter_work, fold_work, fold_activation_work, fold_increase, fold_release, fold_rounding_bound) = (
+                float(work[key]) for key in keys)
+        except (KeyError, TypeError, OverflowError) as error:
+            raise ValueError("Complete finite controlled-fold parameter-work accounting required") from error
+        if (not all(math.isfinite(value) for value in (fold_parameter_work, fold_work, fold_activation_work,
+                                                      fold_increase, fold_release, fold_rounding_bound))
+                or min(fold_increase, fold_release, fold_rounding_bound) < 0):
+            raise ValueError("Finite controlled-fold work and nonnegative release/rounding quantities required")
+        fold_before, fold_after = controlled_old_fold.energy(previous), controlled_new_fold.energy(positions)
+        fold_fixed_position_after = controlled_new_fold.energy(previous)
+        fold_fixed_change = controlled_new_fold.energy_change(previous, positions)
+        # The direct primitive total retains cancellation that separately
+        # rounded target/activation components cannot necessarily reproduce.
+        fold_change = math.fsum((fold_parameter_work, fold_fixed_change))
+        fold_accounting = {
+            "foldFixedPositionAfterJoules": fold_fixed_position_after,
+            "foldFixedParameterChangeJoules": fold_fixed_change,
+            "foldParameterWorkJoules": fold_parameter_work,
+            "foldActivationParameterWorkJoules": fold_activation_work,
+            "foldActivationIncreaseWorkJoules": fold_increase,
+            "foldReleaseEnergyRemovedJoules": fold_release,
+            "foldParameterWorkComponentSumErrorBoundJoules": fold_rounding_bound,
+        }
+    elif fold_recipe is None:
         if previous_fold_targets is not None or fold_targets is not None:
             raise ValueError("Fold energy targets require an actuator recipe")
     else:
@@ -256,7 +314,19 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                 or min(gripper_activation_increase, gripper_release, gripper_rounding_bound) < 0):
             raise ValueError("Finite gripper parameter work and nonnegative release/rounding quantities required")
     gripper_change = math.fsum((gripper_work, gripper_fixed_change))
-    if weighted_sewing:
+    if controlled_fold_recipe is not None:
+        sewing_parameter_work = sewing_accounting["sewingParameterWorkJoules"] if weighted_sewing else target_work
+        sewing_motion_plus_activation = sewing_fixed_plus_activation if weighted_sewing else fixed_target_change
+        other_motion = (membrane_change, bending_change, barrier_change, contact_change, kinetic_change,
+                        fold_fixed_change, gripper_fixed_change)
+        mechanical_change = math.fsum((membrane_change, bending_change, barrier_change, contact_change,
+                                      kinetic_change, sewing_change, fold_change, gripper_work, gripper_fixed_change))
+        target_parameter_work = math.fsum((target_work, fold_work, gripper_target_work))
+        external_parameter_work = math.fsum((sewing_parameter_work, fold_parameter_work, gripper_work))
+        minus_parameter_work = math.fsum((*other_motion, fixed_target_change))
+        minus_target_work = math.fsum((*other_motion, sewing_motion_plus_activation,
+                                       fold_activation_work, gripper_activation_work))
+    elif weighted_sewing:
         other_motion = (membrane_change, bending_change, barrier_change, contact_change, kinetic_change,
                         fold_fixed_change, gripper_fixed_change)
         mechanical_change = math.fsum((membrane_change, bending_change, barrier_change, contact_change,
@@ -315,6 +385,7 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         "mechanicalChangeMinusTargetWorkJoules": minus_target_work,
         "mechanicalChangeMinusParameterWorkJoules": minus_parameter_work,
         **sewing_accounting,
+        **fold_accounting,
     }
     if not all(np.isfinite(value) for value in report.values()):
         raise ValueError("Finite energy balance required")
@@ -322,5 +393,6 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
         **report,
         "accepted": False,
         "scope": ("Global membrane/elastic-bending/sewing dynamics with experimental frictionless surface contact. " if contact is not None else "Contact-disabled global membrane/elastic-bending/sewing dynamics. ") + "Includes optional local angular fold barriers, prescribed fold actuation and compliant material grippers. Target work counts target changes only. External parameter work also includes gripper activation/release at the previous positions, with target changes first at old activation and then activation changes at new targets. Release energy removed is a nonnegative discrete potential reduction, not claimed physical dissipation. Fixed-parameter changes use the new parameters during motion. Rounded parameter-work components may differ from the directly evaluated total within the reported component-sum error bound. These are discrete potential changes, not continuous actuator work. The signed remainder includes numerical dissipation or gain, not calibrated material damping or garment acceptance."
-                 + (" Sewing target-first parameter work also includes signed sewing activation and release at the previous positions; pending rows are skipped. Rational work accumulation is conditional on the existing sampled binary64 distance lengths and frame normals, not an exact real-geometry proof. The source construction schedule may forbid release even though this mathematical accounting supports it." if weighted_sewing else ""),
+                 + (" Sewing target-first parameter work also includes signed sewing activation and release at the previous positions; pending rows are skipped. Rational work accumulation is conditional on the existing sampled binary64 distance lengths and frame normals, not an exact real-geometry proof. The source construction schedule may forbid release even though this mathematical accounting supports it." if weighted_sewing else "")
+                 + (" Controlled-fold external parameter work uses the same rounded binary64 stiffness-times-activation coefficient as its potential: target changes first at the old coefficient, then activation changes at the new target. It includes signed engagement/release work; target work alone excludes it. Inactive hinges skip actuator angle evaluation without waiving any independent cloth, triangle, contact or hinge-path guard. Parameter work is exact quadratic arithmetic conditional on sampled binary64 angles; stable fixed-parameter angle increments and endpoint diagnostics have distinct rounding. No continuous work, calibrated damping, phase completion or refined-source execution is certified." if controlled_fold_recipe is not None else ""),
     }

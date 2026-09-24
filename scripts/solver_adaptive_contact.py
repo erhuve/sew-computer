@@ -3,18 +3,74 @@ from fractions import Fraction
 
 import numpy as np
 
-from solver_attempt_journal import diagnostic_json
+from solver_attempt_journal import diagnostic_json, same
 from solver_assembly_schedule import AssemblySchedule
+
+
+CONTROLLED_FOLD_SWEEP_POLICY = "all declared controlled hinges, including inactive; optimizer and physical affine paths"
+
+
+def _same_control_array(actual, expected):
+    return (type(actual) is np.ndarray and actual.dtype == np.dtype(np.float64)
+            and actual.shape == expected.shape and actual.tobytes() == expected.tobytes())
+
+
+def _validate_fold_step(solver, recipe, controls, fraction, options, positions, report):
+    if getattr(solver, "controlled_fold_actuation", None) is not recipe or getattr(solver, "fold_actuation", None) is not None:
+        raise ValueError("Controlled fold recipe identity changed during the adaptive transition")
+    targets, activation = controls.parameters(fraction)
+    if (not _same_control_array(options["fold_targets"], targets)
+            or not _same_control_array(options["fold_activation"], activation)):
+        raise ValueError("Step mutated the original-fraction controlled fold parameters")
+    expected = recipe.potential(targets, activation).diagnostics(positions)
+    for field, value in (("foldActuation", True), ("foldActuationJoules", expected["energyJoules"]),
+                         ("foldTargetsRadians", targets.tolist()),
+                         ("foldAnglesRadians", expected["sampledActiveAnglesRadians"]),
+                         ("foldControls", expected), ("foldHingeSweepPolicy", CONTROLLED_FOLD_SWEEP_POLICY)):
+        if field not in report or not same(report[field], value):
+            raise ValueError("Step controlled fold diagnostics differ from fresh complete control evaluation: " + field)
+
+
+def _validate_fold_energy(energy):
+    fields = ("foldActuationBeforeJoules", "foldActuationAfterJoules", "foldActuationChangeJoules",
+              "foldFixedPositionAfterJoules", "foldFixedParameterChangeJoules", "foldTargetParameterWorkJoules",
+              "foldParameterWorkJoules", "foldActivationParameterWorkJoules", "foldActivationIncreaseWorkJoules",
+              "foldReleaseEnergyRemovedJoules", "foldParameterWorkComponentSumErrorBoundJoules",
+              "mechanicalChangeJoules", "targetParameterWorkJoules", "externalParameterWorkJoules",
+              "mechanicalChangeMinusTargetWorkJoules", "mechanicalChangeMinusParameterWorkJoules")
+    if (type(energy) is not dict or energy.get("accepted") is not False
+            or any(isinstance(energy.get(field), (bool, np.bool_))
+                   or not isinstance(energy.get(field), (int, float, np.integer, np.floating))
+                   or not np.isfinite(energy[field]) for field in fields)
+            or any(energy[field] < 0 for field in ("foldActuationBeforeJoules", "foldActuationAfterJoules",
+                "foldFixedPositionAfterJoules", "foldActivationIncreaseWorkJoules", "foldReleaseEnergyRemovedJoules",
+                "foldParameterWorkComponentSumErrorBoundJoules"))):
+        raise ValueError("Complete finite unaccepted controlled-fold work accounting required")
 
 
 def adaptive_contact_step(solver, positions, velocities, initial_targets, targets, dt, *,
                           max_depth=8, max_attempts=256, initial_subdivisions=1, on_accept=None,
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
-                          assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None, **step_options):
+                          assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None,
+                          fold_control_schedule=None, **step_options):
     if on_accept is not None and not callable(on_accept):
         raise ValueError("Accepted-state callback must be callable")
     if "sewing_activation" in step_options:
         raise ValueError("Adaptive sewing activation requires an explicit captured activation schedule")
+    if "fold_activation" in step_options:
+        raise ValueError("Adaptive fold activation requires an explicit per-hinge control schedule")
+    controlled_fold_recipe = getattr(solver, "controlled_fold_actuation", None)
+    if controlled_fold_recipe is not None:
+        from solver_controlled_fold import ControlledFoldActuation, _binary64
+        if not isinstance(controlled_fold_recipe, ControlledFoldActuation):
+            raise ValueError("An admitted controlled fold recipe is required")
+        # Preserve original scalar admission: an outer float conversion must
+        # not conceal Boolean values or unrepresentable integer state inputs.
+        positions = controlled_fold_recipe._positions(positions)
+        velocities = controlled_fold_recipe._positions(velocities)
+        dt = _binary64(dt)
+        if step_options.get("linear_solver", "direct") != "direct":
+            raise ValueError("Controlled fold activation requires guarded direct search")
     positions = np.asarray(positions, dtype=float)
     velocities = np.asarray(velocities, dtype=float)
     initial_targets = np.asarray(initial_targets, dtype=float)
@@ -40,6 +96,20 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
     current_positions, current_velocities = positions.copy(), velocities.copy()
     initial_targets, targets = initial_targets.copy(), targets.copy()
     fold_recipe = getattr(solver, "fold_actuation", None)
+    if fold_recipe is not None and controlled_fold_recipe is not None:
+        raise ValueError("Legacy and explicit controlled fold actuation cannot be combined")
+    if (controlled_fold_recipe is None) != (fold_control_schedule is None):
+        raise ValueError("Controlled fold recipe and explicit per-hinge schedule must be supplied together")
+    fold_controls = None
+    if controlled_fold_recipe is not None:
+        from solver_controlled_fold import ControlledFoldActuation
+        from solver_fold_control_schedule import FoldControlSchedule
+        if (not isinstance(controlled_fold_recipe, ControlledFoldActuation)
+                or initial_fold_targets is not None or fold_targets is not None or assembly_schedule is not None):
+            raise ValueError("Controlled fold schedule requires its own recipe and cannot mix legacy fold or assembly controls")
+        if int(initial_subdivisions).bit_length()-1 + max_depth > 40:
+            raise ValueError("Controlled fold subdivision fractions must remain within the 2^40 dyadic bound")
+        fold_controls = FoldControlSchedule(fold_control_schedule, int(initial_subdivisions), hinges=controlled_fold_recipe.hinges)
     if fold_recipe is None:
         if initial_fold_targets is not None or fold_targets is not None:
             raise ValueError("Fold schedule requires an actuator recipe")
@@ -109,6 +179,8 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             if fold_recipe is not None:
                 options["fold_targets"] = (fold_targets.copy() if fold_progress == 1 else
                     initial_fold_targets + fold_progress * (fold_targets - initial_fold_targets))
+            if fold_controls is not None:
+                options["fold_targets"], options["fold_activation"] = fold_controls.parameters(end_fraction)
             if gripper_controls is not None:
                 options["gripper_targets"], options["gripper_activation"] = gripper_controls.parameters(end_fraction)
             if sewing_controls is not None:
@@ -119,6 +191,9 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 raise ValueError("Solver diagnostic report must be an object")
             record["step"], nonfinite = diagnostic_json(step_report)
             record["nonfiniteDiagnostics"] = nonfinite
+            if fold_controls is not None:
+                candidate_positions = controlled_fold_recipe._positions(candidate_positions)
+                candidate_velocities = controlled_fold_recipe._positions(candidate_velocities)
             candidate_positions = np.asarray(candidate_positions, dtype=float)
             candidate_velocities = np.asarray(candidate_velocities, dtype=float)
             for label, array in (("candidatePositions", candidate_positions), ("candidateVelocities", candidate_velocities)):
@@ -135,6 +210,13 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                      and not isinstance(residual, (bool, np.bool_))
                      and np.isfinite(residual) and 0 <= residual <= 1e-6
                      and step_report.get("converged") is True)
+            if valid and fold_controls is not None:
+                expected_targets = (targets.copy() if sewing_progress == 1 else
+                                    initial_targets + sewing_progress * (targets-initial_targets))
+                if not _same_control_array(substep_targets, expected_targets):
+                    raise ValueError("Controlled step mutated the original sewing target interpolation")
+                _validate_fold_step(solver, controlled_fold_recipe, fold_controls, end_fraction, options,
+                                    candidate_positions, record["step"])
             if valid and sewing_controls is not None:
                 from solver_sewing_activation import validate_sewing_activation
                 expected_activation = sewing_controls.parameters(end_fraction)
@@ -155,7 +237,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                         or any(type(row) is not int for row in [*reported_active, *reported_pending])
                         or reported_active != active_rows or reported_pending != pending_rows):
                     raise ValueError("Step sewing controls or row diagnostics differ from the captured schedule")
-            if valid and (gripper_controls is not None or sewing_controls is not None):
+            if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None):
                 # Work belongs to the accepted transition and must be checked
                 # before its immutable journal outcome is written. Trial
                 # controls always use original fractions; retries do not
@@ -180,9 +262,27 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                                 initial_fold_targets + old_fold_progress * (fold_targets - initial_fold_targets))
                     energy_options.update(previous_fold_targets=old_fold,
                                           fold_targets=options["fold_targets"])
-                energy = global_energy_transition(solver, current_positions, candidate_positions,
-                    current_velocities, candidate_velocities, old_targets, substep_targets, duration,
-                    **energy_options)
+                if fold_controls is not None:
+                    old_fold, old_activation = fold_controls.parameters(start_fraction)
+                    new_fold, new_activation = fold_controls.parameters(end_fraction)
+                    energy_options.update(previous_fold_targets=old_fold, previous_fold_activation=old_activation,
+                                          fold_targets=new_fold, fold_activation=new_activation)
+                    # Work is computed before publication. Isolated inputs
+                    # preserve the last accepted state even if a helper fails
+                    # after mutation; successful mutation also rejects.
+                    work_states = [array.copy() for array in (current_positions, candidate_positions,
+                        current_velocities, candidate_velocities, old_targets, substep_targets)]
+                    work_options = {key: value.copy() for key, value in energy_options.items()}
+                    observed_arrays = [*work_states, *work_options.values()]
+                    snapshots = [array.copy() for array in observed_arrays]
+                    energy = global_energy_transition(solver, *work_states, duration, **work_options)
+                    if any(not _same_control_array(actual, expected) for actual, expected in zip(observed_arrays, snapshots)):
+                        raise ValueError("Controlled-fold work helper mutated transition inputs")
+                    _validate_fold_energy(energy)
+                else:
+                    energy = global_energy_transition(solver, current_positions, candidate_positions,
+                        current_velocities, candidate_velocities, old_targets, substep_targets, duration,
+                        **energy_options)
                 step_report = dict(step_report, energyBalance=energy)
                 if gripper_controls is not None:
                     potential = gripper_recipe.potential(options["gripper_targets"], options["gripper_activation"])
@@ -209,6 +309,15 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 record["nonfiniteDiagnostics"] = nonfinite
                 if nonfinite:
                     raise ValueError("Controlled transition has nonfinite work or momentum diagnostics")
+                if fold_controls is not None:
+                    _validate_fold_step(solver, controlled_fold_recipe, fold_controls, end_fraction, options,
+                                        candidate_positions, record["step"])
+                    final_residual = record["step"].get("gradientInfinityNorm")
+                    if (record["step"].get("converged") is not True
+                            or isinstance(final_residual, bool)
+                            or not isinstance(final_residual, (int, float))
+                            or not 0 <= final_residual <= 1e-6):
+                        raise ValueError("Controlled-fold final convergence diagnostics changed before publication")
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
@@ -265,4 +374,6 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
            if sewing_controls is not None else {}),
         **({"gripperInterpolation": "captured piecewise-linear material-point targets and activation over the original physical interval"}
            if gripper_controls is not None else {}),
+        **({"foldControlInterpolation": "explicit per-hinge targets and activation sampled by exact interpolation at original dyadic fractions; no captured source or construction admission"}
+           if fold_controls is not None else {}),
     }

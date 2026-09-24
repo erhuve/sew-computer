@@ -126,7 +126,8 @@ def _direct_descent(evaluate, start, max_evaluations, hessian, objective, exact_
 class GlobalSewingSolver:
     def __init__(self, model, rows, compliance, *, fold_barrier_joules=None, fold_activation_angle=np.pi / 2,
                  contact=None, sewing_mode="vector", sewing_frame_faces=None, sewing_sides=None,
-                 fold_hinges=None, fold_stiffness_joules=None, material_grippers=None):
+                 fold_hinges=None, fold_stiffness_joules=None, material_grippers=None,
+                 controlled_fold_actuation=None):
         if sewing_mode not in ("vector", "distance", "normal-offset"):
             raise ValueError("Unsupported sewing mode")
         if sewing_mode != "normal-offset" and (sewing_frame_faces is not None or sewing_sides is not None):
@@ -170,6 +171,18 @@ class GlobalSewingSolver:
         self.bending = ElasticDihedralBending.from_model(model)
         self.has_bending = bool(self.bending.residual(model.particle_q.numpy()).size)
         self.fold_actuation = None
+        self.controlled_fold_actuation = None
+        if controlled_fold_actuation is not None:
+            from solver_controlled_fold import ControlledFoldActuation
+            if (fold_hinges is not None or fold_stiffness_joules is not None
+                    or not isinstance(controlled_fold_actuation, ControlledFoldActuation)
+                    or controlled_fold_actuation.vertex_count != len(self.mass)):
+                raise ValueError("Choose a controlled fold recipe matching this model, without legacy fold parameters")
+            # Rebind the immutable declaration to this actual model's ordered
+            # native hinges. Generic model membership is not source-profile
+            # or captured-input admission; those remain caller obligations.
+            self.controlled_fold_actuation = ControlledFoldActuation(model,
+                controlled_fold_actuation.hinges, controlled_fold_actuation.stiffness)
         if fold_hinges is not None or fold_stiffness_joules is not None:
             from solver_fold_actuation import FoldActuation
             self.fold_actuation = FoldActuation(model, fold_hinges, fold_stiffness_joules)
@@ -195,7 +208,7 @@ class GlobalSewingSolver:
         if model.spring_count or model.tet_count:
             raise ValueError("Global reference does not implement springs or volumetric elements")
         from solver_embedded_sewing import validate_rows
-        if not ((self.fold_actuation is not None or self.material_grippers is not None)
+        if not ((self.fold_actuation is not None or self.controlled_fold_actuation is not None or self.material_grippers is not None)
                 and isinstance(rows, list) and not rows):
             rows = validate_rows(rows, len(self.mass), model.particle_colors.numpy())
         if any(abs(sum(row.values())) > 1e-12 for row in rows):
@@ -229,9 +242,26 @@ class GlobalSewingSolver:
         return DistanceSewing(self.sewing, targets, self.compliance, activation=activation)
 
     def step(self, previous_positions, previous_velocities, targets, dt, max_evaluations=300, linear_solver="direct",
-             *, fold_targets=None, gripper_targets=None, gripper_activation=None, sewing_activation=None):
-        previous = np.asarray(previous_positions, dtype=float)
-        velocities = np.asarray(previous_velocities, dtype=float)
+             *, fold_targets=None, fold_activation=None, gripper_targets=None, gripper_activation=None, sewing_activation=None):
+        controlled_fold = self.controlled_fold_actuation
+        if controlled_fold is not None:
+            if self.fold_actuation is not None or fold_targets is None or fold_activation is None:
+                raise ValueError("Controlled fold targets and activation must be supplied together without legacy actuation")
+            previous = controlled_fold._positions(previous_positions)
+            velocities = controlled_fold._positions(previous_velocities)
+            from solver_controlled_fold import _binary64
+            dt = _binary64(dt)
+            actuator = controlled_fold.potential(fold_targets, fold_activation)
+            fold_path_hinges = controlled_fold.hinges
+        else:
+            if fold_activation is not None:
+                raise ValueError("Explicit fold activation requires a controlled fold recipe")
+            if (self.fold_actuation is None) != (fold_targets is None):
+                raise ValueError("Fold recipe and explicit step targets must be supplied together")
+            previous = np.asarray(previous_positions, dtype=float)
+            velocities = np.asarray(previous_velocities, dtype=float)
+            actuator = self.fold_actuation.potential(fold_targets) if self.fold_actuation is not None else None
+            fold_path_hinges = actuator.indices if actuator is not None else None
         targets = np.asarray(targets, dtype=float)
         from solver_sewing_activation import validate_sewing_activation
         sewing_weights = validate_sewing_activation(sewing_activation, self.sewing.shape[0])
@@ -241,9 +271,6 @@ class GlobalSewingSolver:
         sqrt_sewing_weights = np.sqrt(sewing_weights)
         if sewing_activation is not None and linear_solver != "direct":
             raise ValueError("Explicit sewing activation requires guarded direct search")
-        if (self.fold_actuation is None) != (fold_targets is None):
-            raise ValueError("Fold recipe and explicit step targets must be supplied together")
-        actuator = self.fold_actuation.potential(fold_targets) if self.fold_actuation is not None else None
         if self.material_grippers is None:
             if gripper_targets is not None or gripper_activation is not None:
                 raise ValueError("Explicit gripper parameters require a material-gripper recipe")
@@ -281,6 +308,10 @@ class GlobalSewingSolver:
         self.bending.energy(previous)
         if actuator is not None:
             actuator.energy(previous)
+        if controlled_fold is not None:
+            from solver_hinge_sweep import hinge_sweep_safe
+            if not hinge_sweep_safe(previous, previous, fold_path_hinges):
+                raise ValueError("Initial controlled fold geometry fails the complete declared hinge guard")
         if grippers is not None:
             grippers.energy(previous)
         predicted[~self.active] = previous[~self.active]
@@ -318,7 +349,7 @@ class GlobalSewingSolver:
         if self.fold_barrier is not None:
             residual_count += len(self.fold_barrier.indices)
         if actuator is not None:
-            residual_count += len(actuator.indices)
+            residual_count += (len(actuator.active_hinge_indices) if controlled_fold is not None else len(actuator.indices))
         if grippers is not None:
             residual_count += 3 * len(self.material_grippers.gripper_ids)
 
@@ -461,8 +492,8 @@ class GlobalSewingSolver:
                 gripper_change = grippers.energy_change(positions, positions + displacement) if grippers is not None else 0.
                 if actuator is not None:
                     from solver_hinge_sweep import hinge_sweep_safe
-                    if (not hinge_sweep_safe(positions, positions + displacement, actuator.indices)
-                            or not hinge_sweep_safe(previous, positions + displacement, actuator.indices)):
+                    if (not hinge_sweep_safe(positions, positions + displacement, fold_path_hinges)
+                            or not hinge_sweep_safe(previous, positions + displacement, fold_path_hinges)):
                         return float("inf")
                     fold_change = actuator.energy_change(positions, positions + displacement)
                 if self.contact is not None:
@@ -573,7 +604,7 @@ class GlobalSewingSolver:
             raise ValueError("Physical cloth step crosses a degenerate or unresolved triangle path")
         if actuator is not None:
             from solver_hinge_sweep import hinge_sweep_safe
-            if not hinge_sweep_safe(previous, final, actuator.indices):
+            if not hinge_sweep_safe(previous, final, fold_path_hinges):
                 raise ValueError("Physical fold step crosses an invalid hinge path")
         if self.contact is not None:
             self.contact.validate_state(final)
@@ -594,6 +625,7 @@ class GlobalSewingSolver:
             row_errors[sewing_positive] = np.max(np.abs(errors), axis=1)
         else:
             row_errors = np.max(np.abs(vector_sewing_error(final)), axis=1)
+        controlled_diagnostic = actuator.diagnostics(final) if controlled_fold is not None else None
         return final, (final - previous) / dt, {
             "profile": "experimental-global-ipc-guarded-contact-reference-v1" if guard_assembled_metrics else "experimental-global-ipc-contact-reference-v1" if self.contact is not None else "experimental-global-local-fold-barrier-v1" if self.fold_barrier is not None else "experimental-global-elastic-bending-reference-v2" if self.has_bending else "experimental-global-membrane-sewing-reference-v6", "accepted": False,
             "contact": self.contact.profile() if self.contact is not None else None,
@@ -608,8 +640,13 @@ class GlobalSewingSolver:
             "triangleSweep": "all source faces; numerical Bernstein guard on optimizer and physical affine paths; v1",
             "foldActuation": actuator is not None,
             "foldActuationJoules": actuator.energy(final) if actuator is not None else 0.,
-            "foldTargetsRadians": actuator.rest_angles.tolist() if actuator is not None else None,
-            "foldAnglesRadians": actuator.angles(final).tolist() if actuator is not None else None,
+            "foldTargetsRadians": (controlled_diagnostic["targetsRadians"] if controlled_fold is not None else
+                                   actuator.rest_angles.tolist() if actuator is not None else None),
+            "foldAnglesRadians": (controlled_diagnostic["sampledActiveAnglesRadians"] if controlled_fold is not None else
+                                  actuator.angles(final).tolist() if actuator is not None else None),
+            **({"foldControls": controlled_diagnostic,
+                "foldHingeSweepPolicy": "all declared controlled hinges, including inactive; optimizer and physical affine paths"}
+               if controlled_fold is not None else {}),
             "foldActuationLimitations": "External angle penalty, not a change of cloth rest shape or a turning/binding recipe; Gauss-Newton search" if actuator is not None else None,
             "materialGrippers": grippers is not None,
             "gripperDiagnostics": grippers.diagnostics(final) if grippers is not None else None,
