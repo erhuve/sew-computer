@@ -4,6 +4,31 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Fixed-input mixed-control timestep comparison · 2026-09-23
+
+The same synthetic sewing/fold/contact fixture now completes requested 32-, 64- and 128-interval controls over the same 64 ms. Geometry, materials, contact profile, sewing targets/compliance, fold knots, solver source and 1e-6 N stationarity limit remain fixed. The common attempt cap is 256. The first two runs are uniform at 2 and 1 ms. The third accepts 129 intervals after one 0.5 ms trial fails and is replaced by two 0.25 ms intervals; it is explicitly an adaptive result. The [temporal ledger](3d-mixed-control-temporal-results.json) and [saved-motion figure](3d-mixed-control-temporal.png) retain the actual partitions.
+
+| Measurement | 32 requested intervals | 64 requested intervals | 128 requested intervals |
+| --- | --- | --- | --- |
+| Accepted intervals / rejected trials | 32 / 0 | 64 / 0 | 129 / 1 |
+| Final layer-one angle | 3.679° | 6.362° | 9.131° |
+| Final layer-two angle | 2.980° | 5.650° | 8.398° |
+| Peak saved speed | 614.81 mm/s | 972.89 mm/s | 1,211.98 mm/s |
+| Peak speed over the 56–64 ms released-fold tail, each run’s saved grid | 294.24 mm/s | 352.72 mm/s | 362.12 mm/s |
+| Tail peak speed on the common 2 ms saved grid | 294.24 mm/s | 233.54 mm/s | 231.46 mm/s |
+| Final maximum speed | 14.01 mm/s | 14.71 mm/s | 16.86 mm/s |
+| Discrete external parameter work | 0.300624 mJ | 0.146469 mJ | 0.083775 mJ |
+
+The final layer-one disagreement increases from 2.683° to 2.768° between successive resolutions; maximum final vertex disagreement increases from 0.139 to 0.142 mm. Similar final speeds therefore conceal materially different poses and transient motion. Additional fine samples also reveal larger speed peaks; comparisons at shared physical times and over fixed windows are retained separately from each run's complete sample grid. Saved backward-Euler velocities average different preceding intervals; common-2-ms secant velocities are a separate comparison, not a replacement for the saved values. Comparisons use unaligned coordinates and retain center-of-mass drift.
+
+The first 128-interval attempt used the previous cap of 128 attempts. It rejected the 61.5–62 ms trial at a residual of 1.010766474e-6 N, accepted its two half-step retries, then exhausted the budget at 63 ms with 127 accepted intervals. That failure remains recorded. Repeating all three resolutions with the common cap of 256 preserves every 32/64-run state byte-for-byte and the complete accepted prefix of the failed 128 run. Increasing the resource budget does not alter the force threshold or convert the 128 result into a uniform-grid run.
+
+Independent review verifies all 225 accepted states and the complete retry tree, including absence of rejected-state/work publication. The three runs respectively retain 128/256/516 exact contact-support leaves, 128/256/516 triangle intervals and 64/128/258 declared-hinge intervals. Every saved state has interlayer activation-buffer contact, with no interlayer core candidates. Maximum sampled-seam error along the saved affine paths decreases from 0.381 to 0.165 to 0.096 µm, but this local observation does not establish trajectory agreement or continuous spatial stitching. Shared native contact and stable mechanical helpers remain explicitly disclosed.
+
+All cases include the same initially stored contact energy of 8.492959811e-6 J. Discrete target-first actuator work can differ with the computed trajectory even though the temporal recipe is identical; it is not calibrated material dissipation. Both folds are released from 56 ms onward while sewing remains held. These controls do not establish timestep convergence, a settled pose, a garment operation or physical textile validity. Finer fixed-input controls, spatial sensitivity and material/construction validation remain open; source capture/main replay still requires the pending entry-point authorization.
+
+This follow-up changes research evidence and documentation only. The numerical code and fifteen focused regressions remain identical to the preceding 1,002-test checkpoint; no additional full-suite pass is claimed. Documentation and whitespace checks apply to this increment.
+
 ## Coupled sewing, fold and contact mechanics · 2026-09-23
 
 An actual synthetic cloth solve now combines controlled folds with one held and one pending scalar sewing row. Two layers totaling eight vertices and four faces retain their original rest coordinates, native materials and 2 mm starting gap. The held row joins one pair of hinge endpoints at its initial sampled distance; the other pair retains an unused 3 mm target. Both rows keep 1e-8 m/N compliance. Two 0.02 J fold controls ramp, hold and release over 64 ms with thirty-two 2 ms intervals. The [saved-geometry figure](3d-mixed-control-motion.png) and [evidence ledger](3d-mixed-control-results.json) record both controls and their unresolved motion.
