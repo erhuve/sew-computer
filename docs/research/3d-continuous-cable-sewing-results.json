@@ -1,0 +1,853 @@
+{
+  "accepted": false,
+  "adversarialFindingsAndRepairs": [
+    {
+      "decision": "Keep this theorem and counterexamples explicit. Implement a distinct tension-only separation-limit candidate without reinterpreting old springs or claiming physical calibration.",
+      "finding": "A symmetric continuous distance law at exact zero energy makes affine positive-offset vectors share one constant direction across connected active cells; constant targets force translated paired curves."
+    },
+    {
+      "finding": "Slack-to-taut crossing roots may be irrational; rounding roots and dropping slivers can hide finite curvature.",
+      "repair": "Classify with exact rational quadratic ranges and separately bound unresolved slivers for energy, force and curvature; reject exhausted budgets."
+    },
+    {
+      "failedLog": {
+        "bytes": 1290,
+        "path": ".planning/solver/continuous-cable-source-smoke-native-sep24-v1.log",
+        "sha256": "1034bd15d3ed0cc32d55090a7609e55b285aa279bdba56088fd582e6f9356cf0"
+      },
+      "finding": "A valid actual-source constructed-state response accumulated Fractions exceeding Python's4300-digit integer-string limit during error-certificate serialization.",
+      "repair": "Publish the least binary64 upper bound of each exact nonnegative error as a compact rational, preserving positive subnormal errors and requested tolerance. Do not disable integer-string limits.",
+      "successfulLog": {
+        "bytes": 831,
+        "path": ".planning/solver/continuous-cable-source-smoke-native-sep24-v2.log",
+        "sha256": "bbdf66a35fcfa0dae2a789b9f7ef5fbfe10cd83ce8fd4d683a6cc696d94358a9"
+      }
+    },
+    {
+      "finding": "The initial radial unit-test oracle rounded a square-root identity before comparison.",
+      "repair": "Use the exact Fraction value1/2 for that mathematical identity; the kernel did not change. Retain the failing nativev1 log and passing native/Linuxv2 logs."
+    },
+    {
+      "finding": "The independent radial oracle initially overcomputed rational log terms and then could not serialize its huge exact reference Fraction.",
+      "repair": "Interrupt the overly costly review, retain bracket identities compactly, then complete analytic containment and malformed-budget checks. These were auditor issues, not failed kernel enclosures."
+    }
+  ],
+  "applicationBehaviorChanged": false,
+  "baseCommit": "ece4c8d",
+  "constructionPhaseCompleted": false,
+  "date": "2026-09-24",
+  "deployed": false,
+  "designRecordIdentities": [
+    {
+      "bytes": 16178,
+      "path": ".planning/solver/continuous-distance-sewing-design-review-sep24-v1.md",
+      "sha256": "7977b0ed3872351b68ae79cb8ec61122f0a3eea5d62f626420a34d287b7fbd6e"
+    },
+    {
+      "bytes": 4979,
+      "path": ".planning/solver/continuous-cable-bound-review-sep24-v1.md",
+      "sha256": "f905d350cf051e3917632147007f09e93b9647bda3b0825412e82c3b72cd2764"
+    },
+    {
+      "bytes": 4600,
+      "path": ".planning/solver/continuous-cable-schema-sep24-v1.md",
+      "sha256": "126d022024cbf01b0978292b11c0459b9db966e627268c2a859c188c64438539"
+    }
+  ],
+  "designRecordScope": "Ignored development notes retained by identity only; source and executed evidence define the final API. Early schema notes predate final budgets and error serialization.",
+  "developmentHistory": {
+    "cableFocusedLogs": "Native smoke4 and successive17/19/20/22-test suites all pass. Only final22-test source bytes are used for this checkpoint.",
+    "modelProbeLogs": "v1/v2/v3 all passed; later versions added proof, chord and scope. Earlier report bytes were superseded, and their retained logs bind historical identities.",
+    "radialReviewLogs": "v1 manually interrupted for oracle cost; v2 failed oracle serialization; v3 passed52 moments+3 minima; v4 also passed16 raw/resource-budget rejections."
+  },
+  "independentReviews": {
+    "actualSourceNumericalCrossCheck": {
+      "artifact": {
+        "bytes": 17411,
+        "canonicalJsonSha256": "06b66921c8a374479debb7d816c94599bfed6cb86709b14abf621584cc4daadc",
+        "path": ".planning/solver/review-continuous-cable-source-sep24-v1.json",
+        "sha256": "7b318d307934530278b1a8b8130470b6834d62b3621e9cbfcb2ea5f527615e82"
+      },
+      "limitations": [
+        "Independent numerical cross-check, not a second rigorous integration certificate.",
+        "32/64-node and100/160-digit agreement is evidence, not a proved truncation bound.",
+        "No motion, physical side/contact validity, source admission, calibration or construction completion."
+      ],
+      "reference": "Independent exact-Fraction numerical anchors, exact quadratic classification, cancellation-stable Decimal roots and radial gap, Decimal100/160 Gauss-Legendre32/64 integration and direct radial derivatives; no repository mechanics imports.",
+      "states": {
+        "constructed": {
+          "32vs64PointDiscrepancies": [
+            "2.43368876449360201203258599028201400657571330402128891022691585850545961549129980764E-83",
+            "6.8630086542662142859066238908728343888123871686222432384734884492201264470860704154143673765939638E-73",
+            "9.8074258218539416402273625072165738032410863930708415303185819672980336034251541554808322350383064E-63"
+          ],
+          "absoluteEnergyDifferenceJoules": "1.041578117409898118224768661201339450026280846928630924749404732072732050511637845034599028201400657571330402128891022691585850545961549129980764E-22",
+          "energyBoundJoules": "1.04157879678054825596484589738324615300030528464313781506788195684032327648083082749508321285247802734375E-22",
+          "gradientBoundNewtons": "3.37907274820486795738703188052718700592923951832565799581475918245132561423815786838531494140625E-19",
+          "gradientComponentsChecked": 735,
+          "hessianBoundNewtonsPerMeter": "7.751911546337907689172328930108692157663341504303389228880405426025390625E-11",
+          "hessianEntriesChecked": 1332,
+          "maximumGradientDifferenceNewtons": "3.37907227976534667675077764882836920963823741100415684621814273120070040046624252322552905635607762029474689000108276582993066870642778034115931E-19",
+          "maximumHessianEntryDifferenceNewtonsPerMeter": "3.875955773168941404566810275766082202586351874591472240534690046435975097267130299893896957299034564156224482630530771386467916223908118996179734263391055326222E-11",
+          "publishedEnergyJoules": 9.989772819810377e-07,
+          "referenceEnergyJoules": "9.989772819810376369393332017359044542777444695714626168482336665119075250595267927267949488362154965400971798599342428669597871108977308414149454038450870019236E-7",
+          "seconds": 0.1256635000463575
+        },
+        "initial": {
+          "32vs64PointDiscrepancies": [
+            "1.0511911668355496322773336229191193213107026408602016611997602E-137",
+            "8.485870808471956174826080579064462846708060459374458146453354E-119",
+            "6.582550057886308756349783273536869551538953232505508173774818E-100"
+          ],
+          "absoluteEnergyDifferenceJoules": "7.237664890275431173060775882939898160685891865949209572054683069595842980040241725587652105716799592112747605123999496054963227733362291911932131070264086020166E-31",
+          "energyBoundJoules": "7.23766492265279500067624164035977445698413435828239979239489110075258029138861180958042229605098327738232910633087158203125E-31",
+          "gradientBoundNewtons": "8.0779365244884575872032620770797104373256475756859529401796685083180405047287298003766409237869083881378173828125E-28",
+          "gradientComponentsChecked": 735,
+          "hessianBoundNewtonsPerMeter": "1.004240367127220325704673673447033487027280074244117713533341884613037109375E-10",
+          "hessianEntriesChecked": 1332,
+          "maximumGradientDifferenceNewtons": "6.3973931599091227380300186385633659666242644007449261946123245927241910875899912366020531105485870808471956174826080579064462846708060459374458146453354E-28",
+          "maximumHessianEntryDifferenceNewtonsPerMeter": "5.45747806354173418703213771842578762290738939322866290323836072938102247924498121741956407643677851154576155089566108102690244433001536807424324820090E-11",
+          "publishedEnergyJoules": 7.237664922652794e-31,
+          "referenceEnergyJoules": "3.237736295180392555440920696896725293613560817017649435833437996318069265287334351167130775612071377488088331644503677226663770808806786892973591397983388002398E-39",
+          "seconds": 0.12908312497893348
+        }
+      }
+    },
+    "errorSerialization": {
+      "artifact": {
+        "bytes": 15816,
+        "canonicalJsonSha256": "537bb87f7cfb8d4d167b1a55eee2342a27f941f8a1b5a217dd7d2ea675c3ee44",
+        "path": ".planning/solver/review-cable-error-serialization-sep24-v1.json",
+        "sha256": "1b512993dc86572c8295c05dd48d06c2fb3f442b7f1347d893bb829bec49173f"
+      },
+      "invalidErrorsRejected": 2,
+      "pythonIntMaxStrDigits": 4300,
+      "scope": "Exact independent ordering and least binary64 ceiling checks; no global integer-string-limit change.",
+      "validChecks": 52
+    },
+    "mechanicsBeforeSerializationRepair": {
+      "artifact": {
+        "bytes": 8580,
+        "canonicalJsonSha256": "6087f56f8b5879c17538e9800e0539ecb19cb7f40d2883fd115641377b593aed",
+        "path": ".planning/solver/review-continuous-cable-mechanics-sep24-v1.json",
+        "sha256": "c8ed49eb5db02d2254fa12d58c6a231a2277f2a226978ffcd19c51e77d772f6a"
+      },
+      "checks": "Exact two-active-component energy1/12 and gradient0,-5/48,+5/48, all nine axial curvature entries, exact equal-Q work, and retained1N cancellation beside approximately1e16N forces.",
+      "retainedProducerSnapshot": {
+        "bytes": 24809,
+        "path": ".planning/solver/continuous-cable-before-error-encoding-sep24-v1.py",
+        "sha256": "34842c468409bc180eebb8c2af7f898903d8be09c67d7a46abf12bd69765dc75"
+      },
+      "reviewedProducerSha256": "34842c468409bc180eebb8c2af7f898903d8be09c67d7a46abf12bd69765dc75",
+      "scope": "Static synthetic analytic checks only; no source mapping, physical path proof or motion.",
+      "snapshotScope": "Reconstructed by reversing only the error-encoding patch; resulting bytes exactly match the already-recorded pre-repair producer hash. Mechanical evaluation formulas are unchanged."
+    },
+    "radialMoments": {
+      "artifact": {
+        "bytes": 104763,
+        "canonicalJsonSha256": "322346fd25a39c284c1bddaed177483b1de55a17ac2a85dcb64a1e37bbf886c8",
+        "path": ".planning/solver/review-radial-moments-sep24-v1.json",
+        "sha256": "9d31004490f08e4afcb4c7401c8d955308b614658f0edf6973431f2d0d8b756a"
+      },
+      "containmentChecks": 52,
+      "nonpositiveMinimumRejections": 3,
+      "oracle": "Directed analytic rational brackets: square roots, positive atanh logarithm series, alternating arctan series with Machin pi, and exact translated-square formulas. Complete oracle brackets lie inside returned kernel intervals.",
+      "rawAndBudgetRejections": 16,
+      "scope": "Independent rational analytic static integration references; no dynamics or source admission."
+    }
+  },
+  "integrationAndPrecision": {
+    "activeBoundaryMethod": "Exact dyadic quadratic sign classification, at most two unresolved crossing slivers per affine cell, explicit energy/gradient/Hessian sliver bounds, and exact coalescing of adjacent smooth regions.",
+    "boundAllocation": "Independent cell shares and moment coefficient bounds cover every assembled response entry, omitted sparse zero entries, and final binary64 rounding. Precision and arithmetic-budget failure reject without relaxed acceptance.",
+    "kernelMethod": "Exact quadratic range partition, centered binomial series with geometric remainder, directed rational square-root factors and exact polynomial contraction. Every returned moment interval width is at most its requested absolute tolerance.",
+    "notCertified": [
+      "Derivatives of one rounded numerical energy",
+      "Exact zero from a zero output with a positive bound",
+      "Rounded sparse-matrix PSD",
+      "Pointwise seam error",
+      "Solver convergence",
+      "Temporal contact or construction paths"
+    ],
+    "radialKernel": "Exact Fraction intervals for monomial moments through degree5 and powers -3/2,-1,-1/2,+1/2 of a strictly positive quadratic.",
+    "serializationPolicy": "Upward-rounded binary64 ceiling of the exact error bound, expressed as an exact rational; positive errors never round to zero",
+    "tolerancePolicy": "The caller supplies positive binary64 absolute tolerances separately for energy, gradient and Hessian, or fixed-parameter work. Returned maximum absolute component/entry errors must be included in downstream decisions."
+  },
+  "ledgerGenerator": {
+    "bytes": 19844,
+    "path": ".planning/solver/build-continuous-cable-ledger-sep24-v1.py",
+    "sha256": "2f784ea32a647b3bc4cb060f9ce08fc4663db3ccc78f5168a7e00d3a0b0c60e6"
+  },
+  "mechanicalLaw": {
+    "activeGradient": "beta integral A^T D (1-d/r) du",
+    "activeHessian": "beta integral A^T [(1-d/r) I + d D D^T/r^3] A du",
+    "anchorPolicy": "Exact positive rational unit anchors are independently rounded once to binary64, without renormalization; signed coefficient-sum defects remain visible. Overlapping signed supports combine exactly.",
+    "betaPolicy": "Exact product of binary64 activation/density and rational cell measure; no modal scale roots",
+    "curvatureScope": "The analytic target curvature is positive semidefinite. Entrywise bounded rounded output is not certified PSD. The energy is C1 and generally not C2 on a positive-length identically-taut cell.",
+    "densityUnits": "N/m^2",
+    "energy": "Exact beta/2 integral max(norm(C(u)q)-d(u),0)^2 du on each affine cell",
+    "errorBoundEncoding": "Upward-rounded binary64 ceiling of the exact error bound, expressed as an exact rational; positive errors never round to zero",
+    "hessianPolicy": "slack-sided-generalized-curvature",
+    "outputPolicy": "Independent bounded approximations to one analytic functional; includes final output rounding, not exact derivatives of a single rounded energy",
+    "profile": "continuous-tension-only-separation-v1",
+    "referenceMeasure": "Explicit exact per-cell material length in meters",
+    "slackPolicy": "Q<d^2 contributes exactly zero without normalizing the gap; an identically-taut full cell selects zero generalized curvature. Isolated equality points have zero integration measure.",
+    "workPolicy": "Fixed-parameter energy_change subtracts exact endpoint energy enclosures before one output rounding; exact equal-Q states shortcut to zero. Target/activation work is not installed."
+  },
+  "modelReview": {
+    "artifact": {
+      "bytes": 110236,
+      "canonicalJsonSha256": "d9721f96c827ee8e91cd540ae2de85ae275ed29eab01cd7129bb1b17a53cc91a",
+      "path": ".planning/solver/continuous-distance-model-probe-sep24-v1.json",
+      "sha256": "588952e782a9cf5301eb9e70891ea65c7890ca8ec608bb8a922212dca2cffa5b"
+    },
+    "generator": {
+      "bytes": 20233,
+      "path": ".planning/solver/continuous-distance-model-probe-sep24-v1.py",
+      "sha256": "44a75510483747751e724135408e4499f77d027397b4e9f6af870c039107f092"
+    },
+    "reproduction": {
+      "bytes": 2932,
+      "canonicalJsonSha256": "2a4caf1af264d0d918bb2ac8f4ea4c864fd86212784ede34fd5ae1406335218a",
+      "path": ".planning/solver/continuous-distance-model-reproduction-sep24-v1.json",
+      "sha256": "fb17834766a155744769f6fddc82d03eb7bf3f5920161966ae11b8c6d954ee1b"
+    },
+    "scope": "Energies, gradients and normals in the synthetic fixture are exact algebraic reference values for the declared ideal laws. They are not outputs of the numerical distance or normal-offset primitives and do not certify their finite-precision evaluation.",
+    "sourceScope": "Twenty-one held source cells and all forty original/numerical rows reviewed without installing or moving controls.",
+    "symmetricContinuousZeroSet": {
+      "assumptions": [
+        "Connected active interval with strictly positive density and reference measure",
+        "Continuous piecewise-affine D and strictly positive continuous piecewise-affine d",
+        "Exactly zero continuum distance energy"
+      ],
+      "cellCoefficientIdentities": [
+        "a dot a = d0^2",
+        "a dot b = d0*delta_d",
+        "b dot b = delta_d^2"
+      ],
+      "conclusion": "Cauchy-Schwarz equality implies D(u)=d(u)*e for a constant unit vector e on each cell. Continuity and d>0 propagate the same e across a connected active curve. Constant d therefore makes paired curves translations with matching parameter tangents.",
+      "formalCellArgument": [
+        "A nonnegative continuous integrand with zero integral vanishes everywhere on a positively weighted cell.",
+        "With D(u)=a+u*b and d(u)=d0+u*delta_d, squared-norm equality gives the three coefficient identities.",
+        "Because d0>0, ||b-(delta_d/d0)*a||\u00b2 = delta_d\u00b2-2*delta_d\u00b2+delta_d\u00b2 = 0.",
+        "Thus b=(delta_d/d0)*a and e=a/d0 is unit. At every shared endpoint D=d*e with d>0, so adjacent e are identical."
+      ],
+      "inactiveScope": "No direction propagation is inferred across inactive or disconnected intervals.",
+      "notImplied": [
+        "The direction e is a textile or face normal",
+        "A specific layer side or signed offset",
+        "Panel roll or crease angle",
+        "Fixed normal separation independently of tangential shear",
+        "Collision freedom or a realizable motion"
+      ]
+    },
+    "syntheticScope": "Five exact synthetic states on ten vertices and six triangles, seventy exact edge-preservation checks, and a zero-distance-energy intersection witness. These are geometric model counterexamples, not executed contact paths.",
+    "tensionOnlyAlternative": {
+      "constantCollapsedGapCounterexample": {
+        "D": [
+          {
+            "denominator": "1",
+            "numerator": "0"
+          },
+          {
+            "denominator": "1",
+            "numerator": "0"
+          },
+          {
+            "denominator": "1",
+            "numerator": "0"
+          }
+        ],
+        "energyJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "gradientNewtons": [
+          {
+            "denominator": "1",
+            "numerator": "0"
+          },
+          {
+            "denominator": "1",
+            "numerator": "0"
+          },
+          {
+            "denominator": "1",
+            "numerator": "0"
+          }
+        ],
+        "hessianIsZeroInOpenSlackNeighborhood": true,
+        "positiveTargetMeters": {
+          "denominator": "1024",
+          "numerator": "5"
+        }
+      },
+      "effects": [
+        "Admits contracted chords and provides no compression push.",
+        "Positive d makes r=0 an interior point of a constant-zero slack region; energy, gradient and Hessian there are zero if the implementation branches before radial normalization.",
+        "The r=d transition is generally C1 but not C2; active/slack Hessian selection at equality requires an explicit policy.",
+        "For affine D and d>0, tension/slack intervals are determined by the quadratic |D|\u00b2-d\u00b2; endpoint-only classification is insufficient.",
+        "Active-set crossing fractions can be irrational. A rational-only implementation must enclose and bound unresolved crossing slivers, rather than silently round roots and omit their contribution.",
+        "Within a strictly taut interval r>d, derivatives match the tensile part of the symmetric radial spring. Moving active-set boundaries carry zero energy and first-gradient boundary terms.",
+        "Complete seam collapse, opposite layer side and tangential/normal offset tradeoffs can have zero energy. Independent contact does not by itself supply textile side, material correspondence, attachment completion or thread calibration."
+      ],
+      "energyLaw": "E=beta/2*integral(max(|D(u)|-d(u),0)^2 du), beta=alpha*kappa*reference_cell_length",
+      "explicitlyDifferentFromSymmetricPointAndContinuousSprings": true,
+      "limitations": "A distributed unilateral link field is not automatically a single routed thread or calibrated physical seam. No existing source row or compliance is replaced, no material-side policy is inferred and no source controls are installed.",
+      "parameterMeaning": "The distance acts as a slack/taut threshold or declared link rest length, not a lower separation constraint or automatic cloth thickness."
+    }
+  },
+  "nextIntegrationReview": {
+    "artifact": {
+      "bytes": 12912,
+      "path": ".planning/solver/continuous-cable-integration-review-sep24-v1.md",
+      "sha256": "e9d477b1b97b13e938b022f05efdc7adfb1a9159d33acdfce886d2f6d89364c6"
+    },
+    "requirements": [
+      "Explicit separate immutable fixed-parameter recipe",
+      "Gradient-error-aware stationarity",
+      "Conservative interval Armijo decisions",
+      "Generalized curvature and rounded-PSD disclosure",
+      "Fixed cable work before adaptive journal publication",
+      "Complete existing cloth, contact and hinge path guards, rollback and revalidation"
+    ],
+    "scope": "Read-only implementation review; no integration or dynamics executed."
+  },
+  "preservedExecutionFiles": [
+    {
+      "bytes": 47901,
+      "identicalToBaseCommit": true,
+      "path": "scripts/solver_global_sewing.py",
+      "sha256": "ad8c8d357d860084a581eec6ce1ff06d9f3c83559756d358cc5e6d025c93c336"
+    },
+    {
+      "bytes": 31675,
+      "identicalToBaseCommit": true,
+      "path": "scripts/solver_adaptive_contact.py",
+      "sha256": "f2b17ee6074c4d54ad8e8fc4027523e496e10d765494b727bdfd09902f3a5fec"
+    },
+    {
+      "bytes": 29784,
+      "identicalToBaseCommit": true,
+      "path": "scripts/solver_energy_balance.py",
+      "sha256": "880a15ecefa85daa559e2293ce491b7490b59d263a3752d6bc2b3cd24c75f313"
+    },
+    {
+      "bytes": 32674,
+      "identicalToBaseCommit": true,
+      "path": "scripts/spike-contact-continuation.py",
+      "sha256": "ab9f17fb1dee9a2e43e87fb32795e39382530fdf5de91d3b04966a4ac080a26c"
+    },
+    {
+      "bytes": 31616,
+      "identicalToBaseCommit": true,
+      "path": "scripts/replay-rest-filtered-continuation.py",
+      "sha256": "a323cd47c6d00748e82d5dd023be807e47cfd56a157e5f08b09d1d1fdafd2c24"
+    }
+  ],
+  "profile": "continuous-cable-sewing-results-v1",
+  "remainingLimits": [
+    "A distinct uncalibrated tension-only separation-limit model, not an equivalent replacement of old point springs or a complete thread/seam model.",
+    "Allows slack, coincidence, panel roll and wrong-side or intersecting states; contact, layer side, material correspondence, bending and all cloth guards remain external.",
+    "Source ownership, complete material-path coverage and reference measure are supplied prerequisites; this class installs no source controls or solver integration.",
+    "The energy is C1; identically taut cells select zero slack-sided generalized curvature, not a classical exact Hessian there.",
+    "Reported zero outputs with nonzero error bounds are not proofs of exact zero; error budgets must be included in any caller's numerical acceptance.",
+    "Response entry bounds do not certify positive semidefiniteness of the rounded sparse matrix, temporal paths, contact, solver convergence or garment acceptance.",
+    "Fixed-parameter work uses unrounded endpoint energy enclosures; no target or activation work is installed.",
+    "Candidate joint model needs explicit source controls and calibrated/declared physical parameter interpretation.",
+    "Generic guarded solver/adaptive integration must propagate bounds into force convergence, line search, work and rollback decisions.",
+    "No target/activation work, joint spatial/temporal seam proof or continuous garment motion is installed.",
+    "Actual binding wrap/finish/apex, cuff passage through the reserved opening, stable motion, friction/damping/material/body validation and full-shirt acceptance remain open.",
+    "Refined captured-run/main-replay edits remain unapplied pending specific authorization; remote push remains unauthorized. No alternate path bypasses these restrictions."
+  ],
+  "retainedDevelopmentAndReviewArtifacts": [
+    {
+      "bytes": 24809,
+      "path": ".planning/solver/continuous-cable-before-error-encoding-sep24-v1.py",
+      "sha256": "34842c468409bc180eebb8c2af7f898903d8be09c67d7a46abf12bd69765dc75"
+    },
+    {
+      "bytes": 6668,
+      "path": ".planning/solver/continuous-cable-full-numerical-sep24-v1.log",
+      "sha256": "c81bcbcad4fab872ba60e6628863be2ef3a789cb38a95eabb92652e158b97b34"
+    },
+    {
+      "bytes": 14055,
+      "path": ".planning/solver/continuous-cable-smoke-native-sep24-v1.log",
+      "sha256": "9832f3e3d6799d6c0ffe4e01ca633f8f4d647534549554459f32b92fc5a0759f"
+    },
+    {
+      "bytes": 1802,
+      "path": ".planning/solver/continuous-cable-smoke-sep24-v1.py",
+      "sha256": "4739ac943e9c48b14385aa465db35cefb96e1f39f40d3f383c9d7763d33ff601"
+    },
+    {
+      "bytes": 1290,
+      "path": ".planning/solver/continuous-cable-source-smoke-native-sep24-v1.log",
+      "sha256": "1034bd15d3ed0cc32d55090a7609e55b285aa279bdba56088fd582e6f9356cf0"
+    },
+    {
+      "bytes": 831,
+      "path": ".planning/solver/continuous-cable-source-smoke-native-sep24-v2.log",
+      "sha256": "bbdf66a35fcfa0dae2a789b9f7ef5fbfe10cd83ce8fd4d683a6cc696d94358a9"
+    },
+    {
+      "bytes": 2900,
+      "path": ".planning/solver/continuous-cable-source-smoke-sep24-v1.py",
+      "sha256": "79dea8e9a10680f0dda262a416ffe2a450636ee6c74a4debf815e1475e309c93"
+    },
+    {
+      "bytes": 4498,
+      "path": ".planning/solver/continuous-cable-tests-linux-sep24-v1.log",
+      "sha256": "837e4e54f9a414fd882ef8062d7a6a0f621a55af9f9ec32584f2cc7138ff3cbe"
+    },
+    {
+      "bytes": 3431,
+      "path": ".planning/solver/continuous-cable-tests-native-sep24-v1.log",
+      "sha256": "66b2927457bdfad5720cac043e503730a101c7a244c5cce8381079c2ed60e1cc"
+    },
+    {
+      "bytes": 3856,
+      "path": ".planning/solver/continuous-cable-tests-native-sep24-v2.log",
+      "sha256": "a5f0bb42bc454a16bcdd5212928980b53081427ff19b2d2176351aa2052f65e7"
+    },
+    {
+      "bytes": 4060,
+      "path": ".planning/solver/continuous-cable-tests-native-sep24-v3.log",
+      "sha256": "66c2ed4419044df90fee06a1dc0a04e9992f8e5e251062325025b8409f29ee80"
+    },
+    {
+      "bytes": 4498,
+      "path": ".planning/solver/continuous-cable-tests-native-sep24-v4.log",
+      "sha256": "bd088c5026e163f0aa3fb39fe21dfa6547fcb34dbb29bea0bd0c2a646c9ae12f"
+    },
+    {
+      "bytes": 904,
+      "path": ".planning/solver/continuous-cable-tests-native-smoke-sep24-v1.log",
+      "sha256": "a473f7dd9666bed986608abfed3dfe2b910f444a3233b58d534ebb9606fc1ed4"
+    },
+    {
+      "bytes": 433,
+      "path": ".planning/solver/continuous-distance-model-probe-sep24-v1.log",
+      "sha256": "e21a243039a5049efad53b63d84da5b2e6fa6f733b91f10f9bd0df66f3d42104"
+    },
+    {
+      "bytes": 20233,
+      "path": ".planning/solver/continuous-distance-model-probe-sep24-v1.py",
+      "sha256": "44a75510483747751e724135408e4499f77d027397b4e9f6af870c039107f092"
+    },
+    {
+      "bytes": 433,
+      "path": ".planning/solver/continuous-distance-model-probe-sep24-v2.log",
+      "sha256": "673ac218d4a52186747c1270ee5e051321ab7ca394ae41423463d59ec2042277"
+    },
+    {
+      "bytes": 433,
+      "path": ".planning/solver/continuous-distance-model-probe-sep24-v3.log",
+      "sha256": "35dc16a8568fa31a5474cdbd43748bb4bf38b35d6dbc9ba5e63473357c22c7ba"
+    },
+    {
+      "bytes": 2932,
+      "canonicalJsonSha256": "2a4caf1af264d0d918bb2ac8f4ea4c864fd86212784ede34fd5ae1406335218a",
+      "path": ".planning/solver/continuous-distance-model-reproduction-sep24-v1.json",
+      "sha256": "fb17834766a155744769f6fddc82d03eb7bf3f5920161966ae11b8c6d954ee1b"
+    },
+    {
+      "bytes": 2593,
+      "path": ".planning/solver/radial-moments-linux-sep24-v2.log",
+      "sha256": "64230328852fb947e13624eddff6813a2611b0bf51ab578d1732acf6ee21bf26"
+    },
+    {
+      "bytes": 3796,
+      "path": ".planning/solver/radial-moments-native-sep24-v1.log",
+      "sha256": "9c7b1da7ec377be72b6b10934cafce11b97d9b844f78e68fc302d9d9f313a19b"
+    },
+    {
+      "bytes": 2593,
+      "path": ".planning/solver/radial-moments-native-sep24-v2.log",
+      "sha256": "8b82bf86c971af86381b3e210919e828a6231b4dc4ef9f4807c95839e44b323b"
+    },
+    {
+      "bytes": 15816,
+      "canonicalJsonSha256": "537bb87f7cfb8d4d167b1a55eee2342a27f941f8a1b5a217dd7d2ea675c3ee44",
+      "path": ".planning/solver/review-cable-error-serialization-sep24-v1.json",
+      "sha256": "1b512993dc86572c8295c05dd48d06c2fb3f442b7f1347d893bb829bec49173f"
+    },
+    {
+      "bytes": 159,
+      "path": ".planning/solver/review-cable-error-serialization-sep24-v1.log",
+      "sha256": "b44778fc5f3805d79326ac7621fae289aec2822ef8171556115a497b23c02fb8"
+    },
+    {
+      "bytes": 2048,
+      "path": ".planning/solver/review-cable-error-serialization-sep24-v1.py",
+      "sha256": "725bc2a828e332005cad65c7357f6a97f9e8b159aef16dd5384adff357eecb94"
+    },
+    {
+      "bytes": 8580,
+      "canonicalJsonSha256": "6087f56f8b5879c17538e9800e0539ecb19cb7f40d2883fd115641377b593aed",
+      "path": ".planning/solver/review-continuous-cable-mechanics-sep24-v1.json",
+      "sha256": "c8ed49eb5db02d2254fa12d58c6a231a2277f2a226978ffcd19c51e77d772f6a"
+    },
+    {
+      "bytes": 335,
+      "path": ".planning/solver/review-continuous-cable-mechanics-sep24-v1.log",
+      "sha256": "fef6f9eb1239de487cd597ba6eaf9dd4824b84770bb2d3ed7f789f8f176939ad"
+    },
+    {
+      "bytes": 3656,
+      "path": ".planning/solver/review-continuous-cable-mechanics-sep24-v1.py",
+      "sha256": "ce6c72d4208bc5ad30f242b8cdf91bd3fd51e4b563263e926bf4068146810913"
+    },
+    {
+      "bytes": 17411,
+      "canonicalJsonSha256": "06b66921c8a374479debb7d816c94599bfed6cb86709b14abf621584cc4daadc",
+      "path": ".planning/solver/review-continuous-cable-source-sep24-v1.json",
+      "sha256": "7b318d307934530278b1a8b8130470b6834d62b3621e9cbfcb2ea5f527615e82"
+    },
+    {
+      "bytes": 150,
+      "path": ".planning/solver/review-continuous-cable-source-sep24-v1.log",
+      "sha256": "5b93968ea782cfbe56a4975841d959b8dea731f5cb8bf390aec5baf5456f66b1"
+    },
+    {
+      "bytes": 9668,
+      "path": ".planning/solver/review-continuous-cable-source-sep24-v1.py",
+      "sha256": "73aff217aa477d2d1f224ee50eb1fee4f02f7d50b1b2bf19e1deffdadfa6ff19"
+    },
+    {
+      "bytes": 1621,
+      "path": ".planning/solver/review-radial-moments-sep24-v1.log",
+      "sha256": "e93029b5e1c5068d34c81c23348b563dfe64b7b3d0254e460639e51f0e6421d2"
+    },
+    {
+      "bytes": 6637,
+      "path": ".planning/solver/review-radial-moments-sep24-v1.py",
+      "sha256": "d638eeec82fda936ecd581ea79026e3ec713a689d8d7005c150e30635a366871"
+    },
+    {
+      "bytes": 980,
+      "path": ".planning/solver/review-radial-moments-sep24-v2.log",
+      "sha256": "080a51942bd57f87a453f2e7edd7acb4ff704fc5cb6a38ca748240004e2bab96"
+    },
+    {
+      "bytes": 331,
+      "path": ".planning/solver/review-radial-moments-sep24-v3.log",
+      "sha256": "80b57b0b9b47319669a99c29f7c621a6e2ad177ba3cc6b286441dbda61883f0c"
+    },
+    {
+      "bytes": 332,
+      "path": ".planning/solver/review-radial-moments-sep24-v4.log",
+      "sha256": "653af9d9eaf058241826f1020c20ee9918d750a9f1c5c3b19a758b2a029241a2"
+    }
+  ],
+  "runtime": {
+    "containerImage": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "fullDiscoveryContainerLimits": {
+      "cpus": 1,
+      "memory": "3g",
+      "network": "none",
+      "pids": 256,
+      "platform": "linux/arm64"
+    },
+    "nativeScope": "Focused tests and actual-source static diagnostic on the existing macOS numerical environment; no cross-runtime source-bit or performance equivalence claimed.",
+    "numericalThreads": {
+      "OMP_NUM_THREADS": 1,
+      "OPENBLAS_NUM_THREADS": 1
+    },
+    "performance": "The retained source21-cell derivative evaluation took approximately0.70s initial and8.20s constructed. A separate narrow-positive quadratic kernel check took approximately10.34s for88 panels/83 terms at1e-40 tolerance. These isolated observations do not validate inner-loop or real-time speed."
+  },
+  "scope": "Standalone supplied-cell continuous tension-only connector, directed radial-moment kernel, static actual-source diagnostic and independent numerical review.",
+  "sharedInputHelpers": [
+    {
+      "bytes": 29926,
+      "path": "scripts/solver_continuous_normal_sewing.py",
+      "sha256": "55b58055b15a760f027b99f8d5476a4d58f3b6ac6063d3991236c35311bbd1db"
+    },
+    {
+      "bytes": 2018,
+      "path": "scripts/solver_sewing_activation.py",
+      "sha256": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561"
+    }
+  ],
+  "sourceAdmissionGranted": false,
+  "sourceControlsInstalled": false,
+  "sourceFiles": [
+    {
+      "bytes": 26060,
+      "path": "scripts/solver_continuous_cable_sewing.py",
+      "sha256": "5d3e384695e547f909efd55fac490e7887870c8ffba5cb879850166f920db6f4"
+    },
+    {
+      "bytes": 29443,
+      "path": "scripts/test_solver_continuous_cable_sewing.py",
+      "sha256": "363f66fa25b114ef4b69990ad8be2a05a2315bd81a67daa48408291a9bbdeaba"
+    },
+    {
+      "bytes": 12493,
+      "path": "scripts/solver_radial_moments.py",
+      "sha256": "571197ec8ba36ae2612046fe509d5c01ef5d5b79cdd6aeac39b60b12e8ea150e"
+    },
+    {
+      "bytes": 13457,
+      "path": "scripts/test_solver_radial_moments.py",
+      "sha256": "f9a039e1e180dcd1f58a1986800ca854beb0d28e878af64a864382629e1ba674"
+    }
+  ],
+  "staticSourceDiagnostic": {
+    "accepted": false,
+    "activation": 1.0,
+    "artifact": {
+      "bytes": 284209,
+      "canonicalJsonSha256": "ff1cce206dd92d22e5ebdbca0e2e6e3cca60dcdf406cda0de417e195fc8bdbea",
+      "path": ".planning/solver/continuous-cable-source-smoke-sep24-v1.json",
+      "sha256": "b1582706fa15a9d76d2c74631963a1163043fb635fd70d858d977968a57596c9"
+    },
+    "cellCount": 21,
+    "cellPolicy": "For each of21 held cells, all prior frame/sign alternatives have identical point anchors, target interpolation, activation, density and reference measure. The diagnostic retains those fields and removes director/sign fields only for this explicitly distinct model.",
+    "declaredStiffnessDensityNPerM2": 1000.0,
+    "generator": {
+      "bytes": 2900,
+      "path": ".planning/solver/continuous-cable-source-smoke-sep24-v1.py",
+      "sha256": "79dea8e9a10680f0dda262a416ffe2a450636ee6c74a4debf815e1475e309c93"
+    },
+    "initialEnergyInterpretation": "The initial7.23766492265e-31J midpoint is uncertainty-dominated, with a roughly7.23766492265e-31J absolute bound. Its relative magnitude is unresolved; the independent numerical reference is approximately3.23773629518e-39J.",
+    "inputs": {
+      "constructed": {
+        "bytes": 14766,
+        "path": ".planning/solver/binding-spatial-seams-sep24-v1/constructed-positions.json",
+        "sha256": "57ea94c3069fe11c4d977c18da3b92e1e315042d14811a5ba62cbf7bf0205e99"
+      },
+      "normalDiagnostic": {
+        "bytes": 2068946,
+        "path": ".planning/solver/continuous-normal-source-sep24-v1.json",
+        "sha256": "f350c48b3e16c0ab0b90c4a6800496a720d3d3a5e43e970aaecee410c9a3b6ad"
+      },
+      "placement": {
+        "bytes": 777679,
+        "path": ".planning/solver/binding-placement-sep23-v2/descriptor.json",
+        "sha256": "e75a397a9af408403cd9243957dd19d54cbf7f651d375b366d9fbd0cf0c1871d"
+      }
+    },
+    "motionExecuted": false,
+    "originalRowsPolicy": "All forty historical rows and five target knots remain unchanged; this static diagnostic does not replace their mechanics. New cuts retain the previously disclosed independent binary64 target and anchor conversions.",
+    "privacy": "Full positions, per-vertex forces, sparse curvature and cells remain ignored local artifacts; only identities and aggregate numerical results are tracked.",
+    "referenceMeasureChoice": "Each cell uses the negative member's captured arc interval; this is an explicit diagnostic modeling choice, not calibrated thread stiffness.",
+    "request": {
+      "energy_tolerance_joules": 1e-18,
+      "gradient_tolerance_newtons": 1e-12,
+      "hessian_tolerance_newtons_per_meter": 1e-08
+    },
+    "sourceControlsInstalled": false,
+    "states": {
+      "constructed": {
+        "certificate": {
+          "accepted": false,
+          "budgets": {
+            "max_boundary_depth": 80,
+            "max_boundary_panels": 256,
+            "moment_max_depth": 64,
+            "moment_max_panels": 256,
+            "moment_max_terms": 128
+          },
+          "energyErrorBoundJoules": {
+            "denominator": "85070591730234615865843651857942052864",
+            "numerator": "8860772457578703"
+          },
+          "gradientMaxAbsoluteErrorBoundNewtons": {
+            "denominator": "20769187434139310514121985316880384",
+            "numerator": "7018059526105913"
+          },
+          "hessianMaxEntryErrorBoundNewtonsPerMeter": {
+            "denominator": "9671406556917033397649408",
+            "numerator": "749718881578933"
+          },
+          "hessianPolicy": "slack-sided-generalized-curvature",
+          "inputSha256": "c2875c7c5e64b4c77e3697c2028c7691b4ce4a467cba118eb2c6ca4a1c7bafe5",
+          "law": "continuous-tension-only-separation-v1",
+          "positionsSha256": "3bc5ad38e5aec8eecaee35602dd2bac59c22aa2f08b88ffa7b097881b54b6862",
+          "profile": "continuous-cable-response-enclosure-v1",
+          "requestedTolerances": {
+            "e": {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "1298074214633707"
+            },
+            "g": {
+              "denominator": "4951760157141521099596496896",
+              "numerator": "4951760157141521"
+            },
+            "h": {
+              "denominator": "302231454903657293676544",
+              "numerator": "3022314549036573"
+            }
+          },
+          "scope": "Entrywise bounds on supplied-state analytic cable responses, including output rounding; no physical, contact, path, solver or construction acceptance",
+          "sourceControlsInstalled": false,
+          "stats": {
+            "boundaryLeaves": 4,
+            "boundaryMaxDepth": 38,
+            "identicallyTautCells": 0,
+            "maxMomentTerms": 36,
+            "momentPanels": 10,
+            "pendingCells": 0,
+            "slackLeaves": 126,
+            "smoothPanels": 9,
+            "tautLeaves": 40
+          },
+          "verified": true
+        },
+        "energyJoules": 9.989772819810377e-07,
+        "gradientNormNewtons": 0.006043615588210595,
+        "seconds": 8.203604999987874
+      },
+      "initial": {
+        "certificate": {
+          "accepted": false,
+          "budgets": {
+            "max_boundary_depth": 80,
+            "max_boundary_panels": 256,
+            "moment_max_depth": 64,
+            "moment_max_panels": 256,
+            "moment_max_terms": 128
+          },
+          "energyErrorBoundJoules": {
+            "denominator": "11417981541647679048466287755595961091061972992",
+            "numerator": "8263952449148049"
+          },
+          "gradientMaxAbsoluteErrorBoundNewtons": {
+            "denominator": "1393796574908163946345982392040522594123776",
+            "numerator": "1125900026015757"
+          },
+          "hessianMaxEntryErrorBoundNewtonsPerMeter": {
+            "denominator": "38685626227668133590597632",
+            "numerator": "3884966748541987"
+          },
+          "hessianPolicy": "slack-sided-generalized-curvature",
+          "inputSha256": "c2875c7c5e64b4c77e3697c2028c7691b4ce4a467cba118eb2c6ca4a1c7bafe5",
+          "law": "continuous-tension-only-separation-v1",
+          "positionsSha256": "2b1315b3ae56c7190445ba97c238373f7845f24465032fe07a194a01a90f1ea9",
+          "profile": "continuous-cable-response-enclosure-v1",
+          "requestedTolerances": {
+            "e": {
+              "denominator": "1298074214633706907132624082305024",
+              "numerator": "1298074214633707"
+            },
+            "g": {
+              "denominator": "4951760157141521099596496896",
+              "numerator": "4951760157141521"
+            },
+            "h": {
+              "denominator": "302231454903657293676544",
+              "numerator": "3022314549036573"
+            }
+          },
+          "scope": "Entrywise bounds on supplied-state analytic cable responses, including output rounding; no physical, contact, path, solver or construction acceptance",
+          "sourceControlsInstalled": false,
+          "stats": {
+            "boundaryLeaves": 6,
+            "boundaryMaxDepth": 38,
+            "identicallyTautCells": 0,
+            "maxMomentTerms": 2,
+            "momentPanels": 9,
+            "pendingCells": 0,
+            "slackLeaves": 136,
+            "smoothPanels": 9,
+            "tautLeaves": 100
+          },
+          "verified": true
+        },
+        "energyJoules": 7.237664922652794e-31,
+        "gradientNormNewtons": 8.521689999412932e-20,
+        "seconds": 0.7005634169909172
+      }
+    },
+    "vertexCount": 245
+  },
+  "verification": {
+    "countsOverlap": true,
+    "focusedLinuxCable": {
+      "bytes": 4498,
+      "passed": true,
+      "path": ".planning/solver/continuous-cable-tests-linux-sep24-v1.log",
+      "seconds": 12.546,
+      "sha256": "837e4e54f9a414fd882ef8062d7a6a0f621a55af9f9ec32584f2cc7138ff3cbe",
+      "tests": 22
+    },
+    "focusedLinuxKernel": {
+      "bytes": 2593,
+      "passed": true,
+      "path": ".planning/solver/radial-moments-linux-sep24-v2.log",
+      "seconds": 5.566,
+      "sha256": "64230328852fb947e13624eddff6813a2611b0bf51ab578d1732acf6ee21bf26",
+      "tests": 14
+    },
+    "focusedNativeCable": {
+      "bytes": 4498,
+      "passed": true,
+      "path": ".planning/solver/continuous-cable-tests-native-sep24-v4.log",
+      "seconds": 11.565,
+      "sha256": "bd088c5026e163f0aa3fb39fe21dfa6547fcb34dbb29bea0bd0c2a646c9ae12f",
+      "tests": 22
+    },
+    "focusedNativeKernel": {
+      "bytes": 2593,
+      "passed": true,
+      "path": ".planning/solver/radial-moments-native-sep24-v2.log",
+      "seconds": 5.347,
+      "sha256": "8b82bf86c971af86381b3e210919e828a6231b4dc4ef9f4807c95839e44b323b",
+      "tests": 14
+    },
+    "fullPinnedLinux": {
+      "bytes": 6668,
+      "passed": true,
+      "path": ".planning/solver/continuous-cable-full-numerical-sep24-v1.log",
+      "seconds": 766.085,
+      "sha256": "c81bcbcad4fab872ba60e6628863be2ef3a789cb38a95eabb92652e158b97b34",
+      "tests": 1125
+    },
+    "newTests": 36,
+    "reproduce": "python -m unittest discover -s scripts -p 'test_solver_*.py'",
+    "scope": "Complete focused and full logs retained. Focused36 overlap full1125; no application build, browser, release or deployment checks claimed.",
+    "testMethods": {
+      "scripts/test_solver_continuous_cable_sewing.py": [
+        "test_curved_offset_chord_and_collapsed_interval_are_exactly_slack",
+        "test_declared_anchor_conversion_defect_is_not_silently_normalized",
+        "test_derivatives_match_centered_differences_away_from_thresholds",
+        "test_error_bound_ceiling_handles_huge_rationals_and_exact_tolerance",
+        "test_exact_collinear_active_polynomial_and_beta_not_rounded",
+        "test_exact_constant_extended_curve_rational_energy_gradient_hessian",
+        "test_exact_crease_roll_wrong_side_and_shear_fixtures_remain_taut_zero",
+        "test_exact_slack_coincident_and_fully_taut_generalized_zero",
+        "test_full_active_independent_decimal_energy_gradient_and_hessian",
+        "test_global_assembly_retains_small_force_between_cancelled_large_terms",
+        "test_immutable_capture_and_copied_public_views",
+        "test_isolated_double_root_keeps_active_measure",
+        "test_measure_preserving_subdivision_and_proper_rigid_covariance",
+        "test_mixed_boundary_budget_exhaustion_is_not_a_false_zero_certificate",
+        "test_nonzero_underflow_output_carries_a_nonzero_valid_bound",
+        "test_overlapping_signed_support_cancels_and_pending_cells_keep_definitions",
+        "test_positions_tolerances_and_budget_raw_admission",
+        "test_publication_serializes_large_exact_uncertainty_for_all_responses_and_work",
+        "test_raw_constructor_fields_unit_sums_and_positive_underflow_reject",
+        "test_requested_precision_below_output_rounding_fails_closed",
+        "test_tiny_fixed_parameter_work_survives_large_unchanged_energy",
+        "test_two_irrational_active_crossings_are_integrated_with_bounds"
+      ],
+      "scripts/test_solver_radial_moments.py": [
+        "test_all_moments_match_independent_elementary_antiderivatives",
+        "test_collapsed_closed_interval_rejects_even_off_sample_grid",
+        "test_concave_positive_quadratic_includes_interior_maximum",
+        "test_constant_irrational_scale_has_directed_normalization_error",
+        "test_constant_rational_square_is_exact_for_every_degree_and_power",
+        "test_first_two_series_tail_bounds_are_exact_and_budgeted",
+        "test_global_monomial_moments_obey_reversal_and_leave_inputs_unchanged",
+        "test_large_and_small_power_of_two_scaling_preserves_exact_bounds",
+        "test_narrow_positive_interior_minimum_and_exact_stationary_split",
+        "test_nearly_collinear_quadratic_keeps_small_discriminant",
+        "test_panel_and_depth_budgets_fail_closed_without_tolerance_change",
+        "test_perfect_square_linear_norm_preserves_logarithmic_limits",
+        "test_raw_type_bounds_and_unsupported_requests_reject",
+        "test_tiny_nonconstant_term_below_binary64_range_is_not_discarded"
+      ]
+    }
+  }
+}
