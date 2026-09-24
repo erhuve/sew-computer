@@ -1,0 +1,514 @@
+{
+  "accepted": false,
+  "baseCommit": "bee63d2",
+  "coefficientPolicy": "rounded-binary64-stiffness-times-activation-v1",
+  "date": "2026-09-23",
+  "generatorIdentity": {
+    "bytes": 6234,
+    "path": ".planning/solver/make-controlled-fold-ledger.py",
+    "sha256": "9f5659c40e2372be8e85b242d9d757b8b6f5d1ba2ca05e44b01c67f369bcac8e"
+  },
+  "independentAngleReview": {
+    "admittedComparisons": 354,
+    "admittedRoundedZeroControls": 122,
+    "forcedBinary64Intermediates": true,
+    "geometryCount": 120,
+    "nonzeroUnderflowRejections": 6,
+    "precisionDigits": 500,
+    "scale": 1.03125,
+    "scope": "Numerical high-precision independent endpoint oracle; exact uniform scaling is also an algebraic zero-angle control. This is not a universal forward-error bound or swept-geometry certificate.",
+    "seed": 51119
+  },
+  "independentDerivativeReview": {
+    "cases": [
+      {
+        "exactSampledGradient": [
+          [
+            0.0,
+            0.0,
+            4.940656458412466e-275
+          ],
+          [
+            0.0,
+            0.0,
+            4.940656458412466e-275
+          ],
+          [
+            0.0,
+            0.0,
+            -9.881312916824932e-275
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "gradientExactlyMatches": true,
+        "hinges": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "metricExactlyMatches": true,
+        "metricExactlySymmetric": true,
+        "name": "representable force after subnormal scalar product",
+        "observedGradient": [
+          [
+            0.0,
+            0.0,
+            4.940656458412466e-275
+          ],
+          [
+            0.0,
+            0.0,
+            4.940656458412466e-275
+          ],
+          [
+            0.0,
+            0.0,
+            -9.881312916824932e-275
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "positions": [
+          [
+            0.0,
+            1e-50,
+            0.0
+          ],
+          [
+            0.0,
+            -1e-50,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1e-50,
+            0.0,
+            0.0
+          ]
+        ],
+        "sampledAnglesRadians": [
+          0.0
+        ],
+        "stiffness": [
+          5e-324
+        ],
+        "targets": [
+          0.1
+        ]
+      },
+      {
+        "exactSampledGradient": [
+          [
+            0.0,
+            0.0,
+            4.9406565e-317
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -3.7054923e-317
+          ],
+          [
+            0.0,
+            0.0,
+            -1.235164e-317
+          ]
+        ],
+        "gradientExactlyMatches": true,
+        "hinges": [
+          [
+            0,
+            1,
+            2,
+            3
+          ]
+        ],
+        "metricExactlyMatches": true,
+        "metricExactlySymmetric": true,
+        "name": "symmetric representable cross metric after subnormal product",
+        "observedGradient": [
+          [
+            0.0,
+            0.0,
+            4.9406565e-317
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -3.7054923e-317
+          ],
+          [
+            0.0,
+            0.0,
+            -1.235164e-317
+          ]
+        ],
+        "positions": [
+          [
+            0.25,
+            1e-08,
+            0.0
+          ],
+          [
+            0.75,
+            -10.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "sampledAnglesRadians": [
+          0.0
+        ],
+        "stiffness": [
+          5e-324
+        ],
+        "targets": [
+          0.1
+        ]
+      },
+      {
+        "exactSampledGradient": [
+          [
+            0.0,
+            0.0,
+            -0.0002220446049250313
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.00011102230246251565
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.00011102230246251565
+          ]
+        ],
+        "gradientExactlyMatches": true,
+        "hinges": [
+          [
+            2,
+            4,
+            0,
+            1
+          ],
+          [
+            4,
+            2,
+            0,
+            3
+          ]
+        ],
+        "metricExactlyMatches": true,
+        "metricExactlySymmetric": true,
+        "name": "ordinary scale opposed fan controls",
+        "observedGradient": [
+          [
+            0.0,
+            0.0,
+            -0.0002220446049250313
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.00011102230246251565
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.00011102230246251565
+          ]
+        ],
+        "positions": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        ],
+        "sampledAnglesRadians": [
+          0.0,
+          0.0
+        ],
+        "stiffness": [
+          1000000000000.0,
+          1000000000000.0
+        ],
+        "targets": [
+          1.0,
+          -0.9999999999999999
+        ]
+      }
+    ],
+    "oracle": "Exact Fraction contraction of numerical beta, binary64 sampled angle error and independently inspected binary64 unit Jacobian. Not an exact-real angle/Jacobian oracle.",
+    "passedOnMacOSAndLinux": true,
+    "scope": "Static arithmetic probes using explicit duck model topology. This does not audit native-model construction, execute motion, or admit source/capture profiles."
+  },
+  "independentWorkReview": {
+    "caseCount": 100,
+    "closedLoopExactTotalJoules": {
+      "denominator": "1",
+      "numerator": "0"
+    },
+    "decimalPrecision": 250,
+    "jumpCount": 32,
+    "limitations": [
+      "Work checks are conditional on each reported binary64 signed angle; this is not an independent exact-real angle oracle.",
+      "The numerical law is RN(binary64 stiffness times binary64 activation), with target-first parameter jumps at fixed positions.",
+      "The fixture binds actual native hinge tuples but is synthetic; it proves neither pattern provenance nor garment construction.",
+      "This is read-only static arithmetic evidence, not numerical integration, continuous actuator work, source replay, contact/path safety or material acceptance.",
+      "The 100 chosen cases and one closed loop are bounded regression evidence, not exhaustive validation of all finite inputs."
+    ],
+    "seed": 2817
+  },
+  "integratedSteps": 0,
+  "limitations": [
+    "All three new modules are standalone; global/adaptive integration, source installation and independent captured replay are unfinished.",
+    "Exact contractions are conditional on sampled binary64 angles and Jacobians, not exact-real geometry.",
+    "The 120-digit local increment fallback is numerically checked, not a universal correctly rounded angle theorem.",
+    "Inactive force masking does not certify triangle validity, contact, hinge paths or physical turning.",
+    "Parameter work describes discrete fixed-position jumps; release is not material dissipation.",
+    "No material calibration, settling, timestep/refinement convergence, construction, full-shirt/body or application acceptance.",
+    "The refined capture/main-replay entrypoint proposal remains unapplied after automatic approval rejection.",
+    "Raw review artifacts and runtimes remain ignored; this ledger and committed tests do not contain a captured motion."
+  ],
+  "parameterOrder": "target-first-at-old-activation-then-activation-at-new-target",
+  "profile": "explicit-fold-primitive-evidence-v1",
+  "rawArtifacts": [
+    {
+      "bytes": 6918,
+      "path": ".planning/solver/controlled-fold-independent-probe-sep23-v1.py",
+      "sha256": "53b9e6f1c53033fbf168e40977db5cff50c061520c0f71b5d534797b7e6a5754"
+    },
+    {
+      "bytes": 112572,
+      "path": ".planning/solver/controlled-fold-independent-probe-native-sep23-v1.json",
+      "sha256": "2171aad9b0543450e6845358b7ad91798689c805b3ef0262143ef3c50427eaf1"
+    },
+    {
+      "bytes": 112561,
+      "path": ".planning/solver/controlled-fold-independent-probe-linux-sep23-v1.json",
+      "sha256": "e46b0cbfe9f187d2cbd9bffd1253dc54df63d4aaa46b953af9660f290fff3575"
+    },
+    {
+      "bytes": 7160,
+      "path": ".planning/solver/controlled-fold-work-review-sep23-v1.py",
+      "sha256": "fb416d61c1bcbdefe1d6d67837c3c34e6af821077f648f89fd8cec22beb17142"
+    },
+    {
+      "bytes": 205874,
+      "path": ".planning/solver/controlled-fold-work-review-sep23-v1.json",
+      "sha256": "ad50024fb40dd248a9ff9a9d2caa4cf14d51bbee29a7226539d6d6d70e9c394a"
+    }
+  ],
+  "runtime": {
+    "image": "sew-engine-research:sep23-arm",
+    "imageId": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "linux": {
+      "numpy": "2.5.3",
+      "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+      "python": "3.13.15 (main, Sep 19 2026, 01:13:02) [GCC 14.2.0]",
+      "pythonExecutableSha256": "037790041b8d9793336e9c1884b85cf3252bd3f41e06b040e222f52fedcae65c"
+    },
+    "native": {
+      "numpy": "2.5.3",
+      "platform": "macOS-15.3.1-arm64-arm-64bit-Mach-O",
+      "python": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]",
+      "pythonExecutableSha256": "a1f6d9dc20d4787a84dc2fe782094a7bac5946f49a962aa0af48a02f0e8d5bc5"
+    }
+  },
+  "scope": "Standalone per-hinge schedule, mechanical potential and discrete work; static numerical tests only.",
+  "sourceControlsInstalled": false,
+  "sourceIdentity": [
+    {
+      "bytes": 19109,
+      "path": "scripts/solver_controlled_fold.py",
+      "sha256": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69"
+    },
+    {
+      "bytes": 11427,
+      "path": "scripts/solver_dihedral_increment.py",
+      "sha256": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464"
+    },
+    {
+      "bytes": 7617,
+      "path": "scripts/solver_fold_control_schedule.py",
+      "sha256": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e"
+    },
+    {
+      "bytes": 1631,
+      "path": "scripts/solver_fold_actuation.py",
+      "sha256": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41"
+    },
+    {
+      "bytes": 9847,
+      "path": "scripts/solver_bending.py",
+      "sha256": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b"
+    },
+    {
+      "bytes": 17104,
+      "path": "scripts/test_solver_controlled_fold.py",
+      "sha256": "c324e4d43bbff09346f0a68b5c7c58c9e6bf144a40322e72fbcdb465b07e7280"
+    },
+    {
+      "bytes": 11361,
+      "path": "scripts/test_solver_dihedral_increment.py",
+      "sha256": "599a7bae9ac6e9f8642a9f71217cc5cce8666c4b02786e80ba0f9c3275c956e0"
+    },
+    {
+      "bytes": 15476,
+      "path": "scripts/test_solver_fold_control_schedule.py",
+      "sha256": "ade1c84ec7695ebf036162dc7baed7fece87f95663a6ec66ff89d6c90da36ac5"
+    }
+  ],
+  "uniformScaleControl": {
+    "exactAngleChange": 0.0,
+    "observedAngleChange": -0.0,
+    "positions": [
+      [
+        -2.0,
+        -1.0,
+        0.5
+      ],
+      [
+        1.75,
+        -2.0,
+        1.75
+      ],
+      [
+        1.5,
+        1.5,
+        1.75
+      ],
+      [
+        -1.25,
+        1.5,
+        0.25
+      ]
+    ],
+    "scale": 1.03125
+  },
+  "verification": {
+    "controlledFoldLinux": {
+      "bytes": 600,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-producer-linux-sep23-v1.log",
+      "seconds": 0.582,
+      "sha256": "500c1fa20b44595f2f1f5f65497c04af7fcf4f3f987dbd3817935c9b8ac60c91",
+      "tests": 19
+    },
+    "controlledFoldNative": {
+      "bytes": 473,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-producer-native-sep23-v3.log",
+      "seconds": 0.333,
+      "sha256": "b678ae70840500a89ab753d2b58faccaef38c77da9c72c0ffc48f3db23bf752c",
+      "tests": 19
+    },
+    "fullPinnedLinux": {
+      "bytes": 6186,
+      "passed": true,
+      "path": ".planning/solver/controlled-fold-full-numerical-sep23-v1.log",
+      "seconds": 394.011,
+      "sha256": "c550ebf93616c46e09b906bd70a05503f018d61d5d86de879fd2092a88993c59",
+      "tests": 910
+    },
+    "incrementLinux": {
+      "bytes": 2705,
+      "passed": true,
+      "path": ".planning/solver/dihedral-increment-focused-linux-sep23-v2.log",
+      "seconds": 0.071,
+      "sha256": "d0ab0a78f5dcbd64c0b37f8fb576d7b74d6ce8403b250a46104143d89e54f018",
+      "tests": 14
+    },
+    "incrementNative": {
+      "bytes": 2705,
+      "passed": true,
+      "path": ".planning/solver/dihedral-increment-focused-native-sep23-v2.log",
+      "seconds": 0.062,
+      "sha256": "84bed3336eb2fb23f780677204dbdf6ac0060b555a082ec530ea0e375fb15379",
+      "tests": 14
+    },
+    "newTests": 44,
+    "reproduce": "python -m unittest discover -s scripts -p 'test_solver_*.py'",
+    "scheduleFocused": {
+      "evidence": "Focused tool runs plus the full pinned Linux discovery; overlapping counts are not additive.",
+      "linuxPassed": true,
+      "macOSPassed": true,
+      "tests": 11
+    }
+  }
+}
