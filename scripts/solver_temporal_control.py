@@ -43,7 +43,8 @@ def problem_identity(solver, controls=()):
     Native object identities and exposed contact parameters are included;
     this does not purport to inspect arbitrary hidden native implementation.
     """
-    caches = {"_cached_positions", "_cached_collisions", "_bucket_positions", "_bucket_cache"}
+    caches = {"_cached_positions", "_cached_collisions", "_bucket_positions", "_bucket_cache",
+              "_exact_certificates_json"}
 
     def capture(value):
         if isinstance(value, np.ndarray):

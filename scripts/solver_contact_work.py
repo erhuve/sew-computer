@@ -255,12 +255,8 @@ def _point_edge(p,a,b):
     return features
 
 
-def distance_squared(kind, feature, positions, budget):
-    """Exact selected-feature distance, admitted only if it is an exact minimum.
-
-    No native feature is replaced. Exact ties are admissible; inconsistent
-    native predicates and degenerate primitive geometry explicitly reject.
-    """
+def _distance_choices(kind, positions):
+    """All feasible finite-primitive features, on exact binary input geometry."""
     sizes = {"vv":2,"ev":3,"fv":4,"ee":4}
     if kind not in sizes or type(positions) is not tuple or len(positions) != sizes[kind]:
         raise ValueError("Supported ordered contact stencil required")
@@ -310,9 +306,42 @@ def distance_squared(kind, feature, positions, budget):
             if 0 <= t <= 1 and 0 <= s <= 1:
                 normal = _cross(u,v)
                 choices["EA_EB"] = _dot(w,normal)**2/_dot(normal,normal)
+    return choices
+
+
+def distance_squared(kind, feature, positions, budget):
+    """Exact selected-feature distance, admitted only if it is an exact minimum.
+
+    No native feature is replaced. Exact ties are admissible; inconsistent
+    native predicates and degenerate primitive geometry explicitly reject.
+    """
+    choices = _distance_choices(kind, positions)
     if feature not in choices or choices[feature] != min(choices.values()):
         raise ValueError("Native closest feature is not an exact binary-input minimum")
     return budget.check(choices[feature])
+
+
+def closest_feature(kind, positions, budget):
+    """Classify before construction; this does not replace a captured feature.
+
+    Exact ties prefer a lower-dimensional feature, then the fixed native enum
+    order. No angular cutoff treats a nonparallel edge pair as parallel. All
+    feasible distances are checked against the supplied rational-size budget.
+    The legacy captured-feature validator above retains its original behavior.
+    """
+    orders = {
+        'vv': ('P_P',),
+        'ev': ('P_E0', 'P_E1', 'P_E'),
+        'fv': ('P_T0', 'P_T1', 'P_T2', 'P_E0', 'P_E1', 'P_E2', 'P_T'),
+        'ee': ('EA0_EB0', 'EA0_EB1', 'EA1_EB0', 'EA1_EB1',
+               'EA_EB0', 'EA_EB1', 'EA0_EB', 'EA1_EB', 'EA_EB')}
+    choices = _distance_choices(kind, positions)
+    for value in choices.values():
+        budget.check(value)
+    minimum = min(choices.values())
+    tied = tuple(feature for feature in orders[kind]
+                 if choices.get(feature) == minimum)
+    return tied[0], minimum, tied
 
 
 @_single_initialization

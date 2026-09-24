@@ -18,13 +18,14 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
                 "_potentials", "_max_candidates", "_filtered_pairs_sha256",
                 "_filtered_parameters_sha256", "_local_minimum_range", "_local_activation_range",
                 "_native_barriers", "_native_ccd_parameters", "_energy_profile", "_ccd_profile",
-                "ccd", "_configuration_locked"):
+                "ccd", "_configuration_locked", "_feature_profile",
+                "_exact_feature_definition", "_exact_inflation_radius"):
             raise AttributeError("Rest-filtered contact configuration is fixed")
         super().__setattr__(name, value)
 
     def __init__(self, rest_positions, faces, *, activation_distance_m,
                  minimum_distance_m, stiffness, max_candidates=100000,
-                 ccd_profile="tight-inclusion"):
+                 ccd_profile="tight-inclusion", feature_profile="native"):
         import ipctk
         from scipy.sparse import coo_matrix
         from scipy.sparse.csgraph import connected_components
@@ -33,6 +34,15 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
             raise ValueError("Bounded candidate budget required")
         if ccd_profile not in ("tight-inclusion", "temporal-separation-tight-inclusion"):
             raise ValueError("Unsupported rest-filtered continuous contact profile")
+        from solver_exact_contact import (PROFILE as EXACT_PROFILE, DEFINITION,
+            classify_candidate, clamp_squared, inflation_radius, rest_distance)
+        from solver_contact_work import WorkBudget
+        if type(feature_profile) is not str or feature_profile not in ("native", EXACT_PROFILE):
+            raise ValueError("Unsupported explicit contact feature profile")
+        self._feature_profile = feature_profile
+        exact_features = feature_profile == EXACT_PROFILE
+        self._exact_feature_definition = json.dumps(DEFINITION, sort_keys=True) if exact_features else None
+        geometry_budget = WorkBudget() if exact_features else None
         super().__init__(rest_positions, faces, activation_distance_m=activation_distance_m,
                          minimum_distance_m=minimum_distance_m, stiffness=stiffness,
                          energy_profile="area-improved-max", ccd_profile=ccd_profile)
@@ -45,6 +55,10 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
         filtered_parameters = {}
         candidate_count = 0
         outer = self.minimum_distance_m + self.activation_distance_m
+        exact_outer_squared = (clamp_squared(self.activation_distance_m, self.minimum_distance_m)
+                               if exact_features else None)
+        rest_radius = (inflation_radius(((self.activation_distance_m, self.minimum_distance_m),))
+                       if exact_features else np.nextafter(outer / 2, np.inf))
         for owner in range(component_count):
             global_ids = np.flatnonzero(owners == owner)
             panel = self.rest_positions[global_ids]
@@ -58,7 +72,7 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
             triangles = local_ids[self.faces[owners[self.faces[:, 0]] == owner]]
             mesh = ipctk.CollisionMesh(panel, edges, triangles)
             candidates = ipctk.Candidates()
-            candidates.build(mesh, panel, inflation_radius=np.nextafter(outer / 2, np.inf),
+            candidates.build(mesh, panel, inflation_radius=rest_radius,
                              broad_phase=contact_broad_phase())
             candidate_count += len(candidates)
             if candidate_count > max_candidates:
@@ -66,11 +80,18 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
             for name in _GROUPS:
                 for candidate in getattr(candidates, name):
                     first, second = _primitive_ids(name, candidate, edges, triangles)
-                    distance_squared = candidate.compute_distance(candidate.dof(panel, edges, triangles))
-                    if not np.isfinite(distance_squared) or distance_squared <= 0:
-                        raise ValueError("Positive source primitive separation required")
-                    distance = float(np.sqrt(distance_squared))
-                    if distance < outer:
+                    if exact_features:
+                        _, _, _, exact_distance, _ = classify_candidate(
+                            name[:2], candidate, panel, edges, triangles, geometry_budget)
+                        distance = rest_distance(exact_distance)
+                        inside = exact_distance < exact_outer_squared
+                    else:
+                        distance_squared = candidate.compute_distance(candidate.dof(panel, edges, triangles))
+                        if not np.isfinite(distance_squared) or distance_squared <= 0:
+                            raise ValueError("Positive source primitive separation required")
+                        distance = float(np.sqrt(distance_squared))
+                        inside = distance < outer
+                    if inside:
                         local_scale = distance / 4
                         local_minimum = min(self.minimum_distance_m, local_scale)
                         squared_gap = np.float64(local_scale) * (local_scale + 2 * local_minimum)
@@ -80,6 +101,8 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
                                 local_scale / squared_gap ** 2])
                         if not np.isfinite(derived).all() or np.any(derived <= 0):
                             raise ValueError("Unrepresentable local barrier scale")
+                        if exact_features and exact_distance < clamp_squared(local_scale, local_minimum):
+                            raise ValueError("Derived exact rest contact must be inactive")
                         key = self._ids_key(name, global_ids[first], global_ids[second])
                         filtered_parameters[key] = (local_scale, local_minimum)
         self._filtered = frozenset(filtered_parameters)
@@ -89,6 +112,7 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
         full_parameters = (self.activation_distance_m, self.minimum_distance_m)
         local_parameters = sorted(set(filtered_parameters.values()) - {full_parameters})
         self._contact_parameters = (full_parameters, *local_parameters)
+        self._exact_inflation_radius = inflation_radius(self._contact_parameters) if exact_features else None
         parameter_indices = {parameters: index for index, parameters in enumerate(self._contact_parameters)}
         self._filtered_parameter_indices = MappingProxyType({
             key: parameter_indices[parameters] for key, parameters in filtered_parameters.items()})
@@ -138,8 +162,8 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
 
         start, end = self._positions(start), self._positions(end)
         candidates = ipctk.Candidates()
-        radius = np.nextafter((self.minimum_distance_m + self.activation_distance_m) / 2,
-                              np.inf)
+        radius = (self._exact_inflation_radius if self._exact_inflation_radius is not None else
+                  np.nextafter((self.minimum_distance_m + self.activation_distance_m) / 2, np.inf))
         candidates.build(self.mesh, start, end, inflation_radius=radius,
                          broad_phase=contact_broad_phase())
         if len(candidates) > self._max_candidates:
@@ -175,22 +199,41 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
 
         self._check_native_parameters()
         positions = self._positions(positions)
-        if self._bucket_positions is None or not np.array_equal(positions, self._bucket_positions):
+        changed = (self._bucket_positions is None or
+            (positions.tobytes() != self._bucket_positions.tobytes() if self._exact_feature_definition is not None
+             else not np.array_equal(positions, self._bucket_positions)))
+        if changed:
             groups = self._partition(self._candidates(positions, positions))
             buckets = []
+            exact_certificates = []
             for index, candidates in groups:
                 activation, minimum = self._contact_parameters[index]
-                collisions = ipctk.NormalCollisions()
-                collisions.use_area_weighting = True
-                collisions.collision_set_type = ipctk.NormalCollisions.IPC
-                collisions.build(candidates, self.mesh, positions, activation, minimum)
+                if self._exact_feature_definition is not None:
+                    from solver_exact_contact import build_exact_collisions
+                    collisions, certificate = build_exact_collisions(self.mesh, positions, candidates,
+                        activation=activation, minimum=minimum, max_candidates=self._max_candidates)
+                    exact_certificates.append(dict(certificate, bucket=index))
+                else:
+                    collisions = ipctk.NormalCollisions()
+                    collisions.use_area_weighting = True
+                    collisions.collision_set_type = ipctk.NormalCollisions.IPC
+                    collisions.build(candidates, self.mesh, positions, activation, minimum)
                 distance = collisions.compute_minimum_distance(self.mesh, positions)
                 if np.isnan(distance) or distance <= minimum ** 2:
                     raise ValueError("Contact state violates assigned minimum separation")
                 buckets.append((index, collisions))
             self._bucket_positions = positions.copy()
             self._bucket_cache = buckets
+            if self._exact_feature_definition is not None:
+                self._exact_certificates_json = json.dumps(exact_certificates, sort_keys=True)
         return positions, self._bucket_cache
+
+    def feature_certificate(self, positions):
+        if self._exact_feature_definition is None:
+            raise ValueError("Exact feature policy is not enabled")
+        self._buckets(positions)
+        return {"definition": json.loads(self._exact_feature_definition),
+                "buckets": json.loads(self._exact_certificates_json), "accepted": False}
 
     def validate_state(self, positions):
         import ipctk
@@ -276,7 +319,7 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
 
     def profile(self):
         self._check_native_parameters()
-        return {"adapter": "experimental-rest-filtered-contact-v2", "accepted": False,
+        profile = {"adapter": "experimental-rest-filtered-contact-v2", "accepted": False,
                 "ipctk": "1.6.0", "stiffnessUnits": "Pa", "pressurePa": self.stiffness,
                 "broadPhase": CONTACT_BROAD_PHASE_PROFILE,
                 "fullMinimumM": self.minimum_distance_m,
@@ -299,3 +342,12 @@ class RestFilteredSurfaceContact(IpcSurfaceContact):
                     "Closest-feature transitions are not globally C2; Hessians use the selected piecewise stencil.",
                     "No refinement-convergent quadrature, global thickness guarantee or garment acceptance.",
                     "Native broad-phase allocation and CCD require external process budgets."]}
+        if self._exact_feature_definition is not None:
+            profile["adapter"] = "experimental-rest-filtered-exact-features-v1"
+            profile["featureSelection"] = json.loads(self._exact_feature_definition)
+            profile["inputConversion"] = "Inherited adapter conversion to binary64 precedes exact geometry; no exactness claim for pre-conversion inputs. Bounded work separately requires raw binary64 endpoints."
+            profile["broadPhaseInflationRadiusM"] = self._exact_inflation_radius
+            profile["collisionSet"] = "area-weighted IPC source contributions; exact finite-feature construction"
+            profile["localScaleRule"] = "exact rest d2, RN(sqrt(RN(d2)))/4; minimum=min(full minimum, activation)"
+            profile["limitations"].append("Native areas, primitive derivatives and barrier arithmetic remain numerical inputs.")
+        return profile
