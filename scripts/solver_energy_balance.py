@@ -474,7 +474,9 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                              previous_sewing_activation=None, sewing_activation=None,
                              previous_fold_activation=None, fold_activation=None,
                              previous_cable_targets=None, previous_cable_activation=None,
-                             cable_targets=None, cable_activation=None):
+                             cable_targets=None, cable_activation=None, include_temporal_motion=False):
+    if type(include_temporal_motion) is not bool:
+        raise ValueError("Explicit Boolean temporal motion reporting flag required")
     cable_control = getattr(solver, "continuous_cable", None)
     varying_control = getattr(solver, "cable_parameter_control", None)
     varying_record = None
@@ -881,6 +883,31 @@ def global_energy_transition(solver, previous, positions, previous_velocities, v
                 or getattr(solver, "continuous_cable", None) is not None
                 or _capture(varying_control.description()) != varying_identity):
             raise ValueError("Varying cable control identity changed before energy publication")
+    if include_temporal_motion:
+        from solver_temporal_control import rational
+        # Keep fixed-control motion separate from parameter jumps and kinetic
+        # change. The temporal reducer computes kinetic change exactly from
+        # stored masses/velocities; no subtraction of rounded total work.
+        motion_error = Fraction()
+        if varying_record is not None:
+            from solver_cable_integration import _rational
+            motion_error = _rational(varying_record["motionWork"]["certificate"]["changeErrorBoundJoules"])
+        elif cable_record is not None:
+            from solver_cable_integration import _rational
+            motion_error = _rational(cable_record["work"]["certificate"]["changeErrorBoundJoules"])
+        motion_terms = {
+            "membraneChangeJoules": float(membrane_change), "bendingChangeJoules": float(bending_change),
+            "foldBarrierChangeJoules": float(barrier_change), "contactChangeJoules": float(contact_change),
+            "sewingFixedParameterChangeJoules": float(fixed_target_change),
+            "foldFixedParameterChangeJoules": float(fold_fixed_change),
+            "gripperFixedParameterChangeJoules": float(gripper_fixed_change),
+            "cableFixedParameterChangeJoules": float(cable_accounting.get("cableFixedParameterChangeJoules", 0.)),
+        }
+        # Expose the previously private fixed-motion summands on this opt-in
+        # route, so consumers can reject a contradictory additive payload.
+        report.update(motion_terms)
+        report["temporalMotion"] = {"termsJoules": motion_terms.copy(),
+                                    "knownErrorBoundJoules": rational(motion_error)}
     return {
         **report,
         "accepted": False,

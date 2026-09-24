@@ -1,0 +1,1678 @@
+{
+  "accepted": false,
+  "artifacts": [
+    {
+      "bytes": 1511,
+      "path": ".planning/solver/execute-temporal-controller-tests-sep24-v1.py",
+      "sha256": "233f73ce0bd0cca3ff6039a8ac063492d06673674e722ae5291fed494918dd0e"
+    },
+    {
+      "bytes": 11137,
+      "path": ".planning/solver/package-temporal-controller-sep24-v1.py",
+      "sha256": "82047fc06a5c37a7f78d803c2c5760a907831f95cba512fd3785f7611796a211"
+    },
+    {
+      "bytes": 21353,
+      "path": ".planning/solver/review-temporal-before-complete-energy-admission-sep24-v1.py",
+      "sha256": "7b10c8c683d60436dd6993907eb3e12d40b0b134582b82a0b1dd2cd30946ecc0"
+    },
+    {
+      "bytes": 38311,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-before-count-label.json",
+      "sha256": "e44e862cb11beb6d48ddd77b7a056b34ca2d8b55a402761062991ad913b9b213"
+    },
+    {
+      "bytes": 340,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-reproduction-v1.log",
+      "sha256": "7e96dca538f12db85258d8c758433664208e72de72781ec9efb87857e07a8c02"
+    },
+    {
+      "bytes": 15003,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-v1-before-python-sum-correction.py",
+      "sha256": "df5e88031af3c6896977bfceb7e266ecf876b2e0f55c8742a48c558d330cc0bc"
+    },
+    {
+      "bytes": 39035,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-v1.json",
+      "sha256": "079b28f3dc12cacdf11f833672f683448d84d41fd7dd03580f09a63b5426b48a"
+    },
+    {
+      "bytes": 757,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-v1.log",
+      "sha256": "b41cc94ca932f93eb9d67aeadb9bb1df00870ac5014cf38c920c1601c7b45436"
+    },
+    {
+      "bytes": 15558,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-v1.py",
+      "sha256": "3b8a797ef418e289d473f754384670b8be62f89fccc4d10db638d7bf4f261251"
+    },
+    {
+      "bytes": 311,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-v2.log",
+      "sha256": "e54c0d8df9c0f7df19ad083b1fb1d8fa9cfeb8a431c04e038fbd986af80db880"
+    },
+    {
+      "bytes": 312,
+      "path": ".planning/solver/review-temporal-control-oracles-sep24-v3.log",
+      "sha256": "d3d55d1bbc55ac06ca78531f8f128dd73050b67b6a48cd2ce1cb12807dd03d04"
+    },
+    {
+      "bytes": 16026,
+      "path": ".planning/solver/review-temporal-control-test-matrix-sep24-v1.md",
+      "sha256": "0ab0fe6e8ef4bee6fb0bf931a08b48cb55838b917507def04cbf02bd1b0d59aa"
+    },
+    {
+      "bytes": 990,
+      "path": ".planning/solver/review-temporal-controls-prefix-sep24-v1.log",
+      "sha256": "6bd9e93c252ee20c5774a80e41c7e984c093a13aca1f8d7e79385b439eb33fe8"
+    },
+    {
+      "bytes": 4864,
+      "path": ".planning/solver/review-temporal-controls-prefix-sep24-v1.py",
+      "sha256": "f172fabb8e086814e97daed2c041eea88b1ff1221e23f10dffc2ee223339ac71"
+    },
+    {
+      "bytes": 12960,
+      "path": ".planning/solver/review-temporal-controls-prefix-sep24-v2.json",
+      "sha256": "23b45a3c91fa291884acaa4af63b10e78bc4ca9f16c84c66c2dc3ebf5bc5ae43"
+    },
+    {
+      "bytes": 446,
+      "path": ".planning/solver/review-temporal-controls-prefix-sep24-v2.log",
+      "sha256": "71bfd8064663d609c2ec5367088b58f353758d39d6a601ca51522db7ae6c80c3"
+    },
+    {
+      "bytes": 5773,
+      "path": ".planning/solver/review-temporal-controls-prefix-sep24-v2.py",
+      "sha256": "76a95b71ec9f3a59cd8869858352ac373dcbac3932f73d98d9f1922c7ea22083"
+    },
+    {
+      "bytes": 7129,
+      "path": ".planning/solver/review-temporal-default-compatibility-sep24-v1.json",
+      "sha256": "b61b1672b5ecb1e395eace038edf9972d4cea6a2c6fb87ee51b9a7322be9fdb9"
+    },
+    {
+      "bytes": 225,
+      "path": ".planning/solver/review-temporal-default-compatibility-sep24-v1.log",
+      "sha256": "a0126e49b9028e22524d99fe0ec86c99970210299b93ade471ae005cac7bfc3d"
+    },
+    {
+      "bytes": 2258,
+      "path": ".planning/solver/review-temporal-default-compatibility-sep24-v1.py",
+      "sha256": "4e90a91e0df615b70f22d9ebe8d01d6fcda66622ebd1fb3509d8d3e93500395f"
+    },
+    {
+      "bytes": 7129,
+      "path": ".planning/solver/review-temporal-default-compatibility-sep24-v2.json",
+      "sha256": "782c8ddaefd8589a3de7fdb8a0532537a7ddbb407a6538e58e2d529d1638f2da"
+    },
+    {
+      "bytes": 225,
+      "path": ".planning/solver/review-temporal-default-compatibility-sep24-v2.log",
+      "sha256": "4a7a6cb6a5aa837330232a3182fed0cffc856cfa5e55526b71187e2d565cf870"
+    },
+    {
+      "bytes": 2258,
+      "path": ".planning/solver/review-temporal-default-compatibility-sep24-v2.py",
+      "sha256": "4e90a91e0df615b70f22d9ebe8d01d6fcda66622ebd1fb3509d8d3e93500395f"
+    },
+    {
+      "bytes": 6105,
+      "path": ".planning/solver/review-temporal-implementation-sep24-v1.json",
+      "sha256": "ec785e23398ad7fbece2386523a11eed3d8aed1b4f310315dc30fdfec24193c4"
+    },
+    {
+      "bytes": 8907,
+      "path": ".planning/solver/review-temporal-implementation-sep24-v1.md",
+      "sha256": "41af1f5d2ccf828a7d018f0339b4c354a7b202c090e69404bbebfa6fe7741985"
+    },
+    {
+      "bytes": 14433,
+      "path": ".planning/solver/review-temporal-oracle-conformance-sep24-v1.json",
+      "sha256": "7f520cbf9e7d387d6c4c1429e791551d8034a2630ccbe70ba0582d8165f5ccdf"
+    },
+    {
+      "bytes": 284,
+      "path": ".planning/solver/review-temporal-oracle-conformance-sep24-v1.log",
+      "sha256": "30b81d49dc57e79418647a838ec95352d68a9b06b6d0bb9dcac8b45c962daa50"
+    },
+    {
+      "bytes": 5950,
+      "path": ".planning/solver/review-temporal-oracle-conformance-sep24-v1.py",
+      "sha256": "780c85ef187513a6f682c6e53a1730a380e638a451f9fe0e734820de6ce6d7b8"
+    },
+    {
+      "bytes": 14433,
+      "path": ".planning/solver/review-temporal-oracle-conformance-sep24-v2.json",
+      "sha256": "03aacdbf064af6c15c4fbe4e470d8a1252de0ea10b209861a189b6ea1bef6189"
+    },
+    {
+      "bytes": 284,
+      "path": ".planning/solver/review-temporal-oracle-conformance-sep24-v2.log",
+      "sha256": "470e074974d42871fda3d44eb217c1f6329a4796e7d8552cd5e4eb9a3c571c37"
+    },
+    {
+      "bytes": 6839,
+      "path": ".planning/solver/review-temporal-oracle-conformance-sep24-v2.py",
+      "sha256": "b1c054ab9bf8cf4261475a27d19575c7ecff9509e62095c77b3f08f0f8e2ff11"
+    },
+    {
+      "bytes": 2958,
+      "path": ".planning/solver/review-temporal-payload-attacks-sep24-v1.log",
+      "sha256": "36688ad7fbcc9590d0da0d156c52b862e651aba774ddc1e9de1db36f96c96a6d"
+    },
+    {
+      "bytes": 12787,
+      "path": ".planning/solver/review-temporal-payload-attacks-sep24-v2.json",
+      "sha256": "76e36927c30013ea1f2965f92c97a28b39e7b3c20bed49878165f5daeeb8470b"
+    },
+    {
+      "bytes": 651,
+      "path": ".planning/solver/review-temporal-payload-attacks-sep24-v2.log",
+      "sha256": "4b429b732cd42799854bc8e7324a2e9314e0c74d7435d1ae9abe34a01d472c90"
+    },
+    {
+      "bytes": 5203,
+      "path": ".planning/solver/review-temporal-payload-attacks-sep24-v2.py",
+      "sha256": "147f5bc1892d77cb9afc63ff8bd712a11f19dae3ba4c396b0dea611a198b4374"
+    },
+    {
+      "bytes": 11512,
+      "path": ".planning/solver/review-temporal-payload-attacks-sep24-v3.json",
+      "sha256": "d00b246a916f6d7d91556f3102ffc8296591ad0834ef43a9689537eaf9db09f0"
+    },
+    {
+      "bytes": 6122,
+      "path": ".planning/solver/review-temporal-payload-attacks-sep24-v3.py",
+      "sha256": "4dc728101e95d54a5e588915b948f9459601b610a0914b0421a5161b35d221a7"
+    },
+    {
+      "bytes": 652,
+      "path": ".planning/solver/review-temporal-payload-attacks-sep24-v4.log",
+      "sha256": "90277a59affa6eb6bc9b2dec7dc98fc52efe2e620f3a565525bd9d0d5bea9d52"
+    },
+    {
+      "bytes": 1984,
+      "path": ".planning/solver/review-temporal-step-doubling-design-sep24-v1-reproduction.log",
+      "sha256": "6a9b8c621c2507b1cc4b60a00be42d2436beb0c0579a12632698e53ba67c0fb3"
+    },
+    {
+      "bytes": 14811,
+      "path": ".planning/solver/review-temporal-step-doubling-design-sep24-v1.json",
+      "sha256": "0e9038e55ceeab9b01ab3d4e834203aba85e2565008319f9fa5c9c3ab5157b6f"
+    },
+    {
+      "bytes": 1956,
+      "path": ".planning/solver/review-temporal-step-doubling-design-sep24-v1.log",
+      "sha256": "9f05b2d41b0126891f847fa037f821bad3c1bcf992c263280b6999d5cc27ac1c"
+    },
+    {
+      "bytes": 19802,
+      "path": ".planning/solver/review-temporal-step-doubling-design-sep24-v1.md",
+      "sha256": "0cb3c9b9c4eee58a0bb9a719a254daf3c7df774a2c497135a827e3ba00083a06"
+    },
+    {
+      "bytes": 9863,
+      "path": ".planning/solver/review-temporal-step-doubling-design-sep24-v1.py",
+      "sha256": "7963dd90f7bd802e5eb41fa6647b0fc4490628e31e16b7486caada749a0e836f"
+    },
+    {
+      "bytes": 38831,
+      "path": ".planning/solver/review-temporal-work-completeness-sep24-v1.json",
+      "sha256": "54f83da37629f74d3e4429b884052c15255d40501abc2fb5b23f190d26c1eb9e"
+    },
+    {
+      "bytes": 917,
+      "path": ".planning/solver/review-temporal-work-completeness-sep24-v1.log",
+      "sha256": "1cc5718a5530fc7eb5309cdef95e86fef0be221aab35cdf81efaf0634ba2f99a"
+    },
+    {
+      "bytes": 2559,
+      "path": ".planning/solver/review-temporal-work-completeness-sep24-v1.py",
+      "sha256": "543469e3813005ee33bc0122a7c15e8bbcb465ee0eeea816ceba8c8b896e2864"
+    },
+    {
+      "bytes": 15626,
+      "path": ".planning/solver/review-temporal-work-completeness-sep24-v2.json",
+      "sha256": "9c60b4d038e8bc9a3b675731104958671391621d1e072b18fd2b36a1d9f4b9fa"
+    },
+    {
+      "bytes": 921,
+      "path": ".planning/solver/review-temporal-work-completeness-sep24-v2.log",
+      "sha256": "e9667dd3a810d3d110a22590f14a5a83ed90221b847d60d5709fea6dda24028a"
+    },
+    {
+      "bytes": 2559,
+      "path": ".planning/solver/review-temporal-work-completeness-sep24-v2.py",
+      "sha256": "543469e3813005ee33bc0122a7c15e8bbcb465ee0eeea816ceba8c8b896e2864"
+    },
+    {
+      "bytes": 41243,
+      "path": ".planning/solver/temporal-controller-test-declaration-sep24-v1.json",
+      "sha256": "b3d9b7cf3de317e48c5f6ab71662dc4cf283bd1fc01fed221ddee836b2af91b6"
+    },
+    {
+      "bytes": 2991,
+      "path": ".planning/solver/temporal-development-sep24-v1.log",
+      "sha256": "b374b2d3fd8e07b24d1cd2f4c9591a863e5f063da49a719f0bcebb70a54b1740"
+    },
+    {
+      "bytes": 8164,
+      "path": ".planning/solver/temporal-development-sep24-v2.log",
+      "sha256": "a57872273a4d4e93b0cb74da385433d240137df77025a85424dd478f3a0633e5"
+    },
+    {
+      "bytes": 7311,
+      "path": ".planning/solver/temporal-development-sep24-v3.log",
+      "sha256": "5dabf8cf44f7973d12466b7f2af8f2f3e19184a9e27cb041182d62c5f1f30a6b"
+    },
+    {
+      "bytes": 4033,
+      "path": ".planning/solver/temporal-global-development-sep24-v1.log",
+      "sha256": "55fc5f5a30764ddcb5e1aa09d03bc9c1c37c37aa2ee2fc020dac79ab89e05fd4"
+    },
+    {
+      "bytes": 406,
+      "path": ".planning/solver/temporal-identity-diagnostic-sep24-v1.log",
+      "sha256": "4d3d36ead6b841c386ee5ac85d1f0d509b474213418b2f24a5b3a7cbcb85fdb5"
+    },
+    {
+      "bytes": 537,
+      "path": ".planning/solver/temporal-identity-diagnostic-sep24-v2.log",
+      "sha256": "e63d56d75bbe7759a6a9a936c7a2f9f69f22499b2bd121d3baf35ff1e1065d03"
+    }
+  ],
+  "baseCommit": "e296b0e6ebe0af0a3acd622d87f969fede76aa81",
+  "implementation": {
+    "commitment": "Synchronous in-memory complete fine pair; no coarse, rejected or incomplete work committed. Trial endpoint states/digests and initial state retained. Legacy journals and per-step callbacks reject before solving.",
+    "controls": "Original global fractions and knots; no trial reuse or coarsening. Deep detached states/records; Python model/control snapshots plus exposed native parameters, excluding intended contact caches.",
+    "defaultCompatibility": "Omitted/None policy follows the prior adaptive loop. Default energy reports receive no temporal fields. No protected capture/replay entrypoint changes.",
+    "depthAndTime": "max_depth includes deepest evaluated fine half; initial-grid exponent plus depth <=40. Exact binary64 interval duration must equal the requested physical duration times its original-fraction length; underflow/nonrepresentability rejects.",
+    "energyDecision": "For each fine interval, abs(exact stored kinetic change + exact sum of eight numerical fixed-motion terms) + matching cable motion radius <= B_E times exact original fraction length. No cancellation between halves; exact prefix sum.",
+    "energyTerms": [
+      "membraneChangeJoules",
+      "bendingChangeJoules",
+      "foldBarrierChangeJoules",
+      "contactChangeJoules",
+      "sewingFixedParameterChangeJoules",
+      "foldFixedParameterChangeJoules",
+      "gripperFixedParameterChangeJoules",
+      "cableFixedParameterChangeJoules"
+    ],
+    "entrypoint": "scripts/solver_adaptive_contact.py:adaptive_contact_step",
+    "failureScope": "Handled runtime/resource failures return prior committed prefix. Propagated interrupts carry temporal_result with matching declared context and accepted work totals. Hard process termination/OOM cannot promise allocation of an exception report.",
+    "optInKeyword": "temporal_policy",
+    "order": [
+      "coarse from committed start",
+      "first half from same start",
+      "second half from detached first-half endpoint"
+    ],
+    "policyProfile": "conditional-step-doubling-v1",
+    "preflight": "Existing cable finite-grid preflight covers full depth; knot and nearest finest-grid neighbor checks retain positive sewing activation and fold/gripper activation/effective-coefficient admission.",
+    "requiredPolicyFields": {
+      "maxEvaluationBudget": "Integer in [1,40960000]; every attempted interval reserves its full unchanged per-trial nonlinear allowance.",
+      "numericalEnergyBudgetJ": "Positive finite exactly representable non-Boolean binary64 absolute conditional numerical-energy budget.",
+      "positionToleranceM": "Positive finite exactly representable non-Boolean binary64 maximum-vertex absolute position indicator.",
+      "velocityToleranceMPerS": "Positive finite exactly representable non-Boolean binary64 maximum-vertex native velocity indicator."
+    },
+    "resourceScope": "max_attempts counts all trial attempts. Full unchanged per-trial evaluation allowance charged, reported optimizer counts and interval energy-helper calls retained separately. This does not count every constitutive/Hessian/primitive/guard call; external CPU/wall/memory and per-trial primitive limits remain required.",
+    "stateDecision": "Exact squared norms of exact stored binary64 differences; maximum per vertex, separate q/v; rounded square root diagnostic only."
+  },
+  "limitations": [
+    "State indicators are local discrepancy predicates, not continuous-time or global state-error bounds.",
+    "Non-cable motion work remains trusted numerical input. Cable certificates do not certify those laws.",
+    "Small coarse/fine agreement can hide stiff oscillation; zero energy defect can hide nonconvex/phase errors. Conjunction mitigates examples without proving convergence.",
+    "No continuous actuator-work, calibrated material damping, physical fit, source construction, persistent transaction or resume claim.",
+    "Passing test counts overlap; independent probes are not additional unittest methods. Application/browser/build suites are not rerun for this numerical-only change."
+  ],
+  "localDevelopment": [
+    {
+      "artifact": {
+        "bytes": 2991,
+        "path": ".planning/solver/temporal-development-sep24-v1.log",
+        "sha256": "b374b2d3fd8e07b24d1cd2f4c9591a863e5f063da49a719f0bcebb70a54b1740"
+      },
+      "observation": "16 initial arithmetic/orchestration tests passed."
+    },
+    {
+      "artifact": {
+        "bytes": 4033,
+        "path": ".planning/solver/temporal-global-development-sep24-v1.log",
+        "sha256": "55fc5f5a30764ddcb5e1aa09d03bc9c1c37c37aa2ee2fc020dac79ab89e05fd4"
+      },
+      "observation": "Eight of nine initial real integration tests passed; contact rejected before its first solve because a temporary native barrier wrapper was not retained by the identity snapshot."
+    },
+    {
+      "artifact": {
+        "bytes": 406,
+        "path": ".planning/solver/temporal-identity-diagnostic-sep24-v1.log",
+        "sha256": "4d3d36ead6b841c386ee5ac85d1f0d509b474213418b2f24a5b3a7cbcb85fdb5"
+      },
+      "observation": "Static consecutive identity comparison located temporary native wrapper identity."
+    },
+    {
+      "artifact": {
+        "bytes": 537,
+        "path": ".planning/solver/temporal-identity-diagnostic-sep24-v2.log",
+        "sha256": "e63d56d75bbe7759a6a9a936c7a2f9f69f22499b2bd121d3baf35ff1e1065d03"
+      },
+      "observation": "Static inspection identified the inherited native barrier property."
+    },
+    {
+      "artifact": {
+        "bytes": 8164,
+        "path": ".planning/solver/temporal-development-sep24-v2.log",
+        "sha256": "a57872273a4d4e93b0cb74da385433d240137df77025a85424dd478f3a0633e5"
+      },
+      "observation": "44 temporal-pattern tests passed with one older platform extended-precision test skipped; includes 25 then-new tests and 19 existing tests."
+    },
+    {
+      "artifact": {
+        "bytes": 7311,
+        "path": ".planning/solver/temporal-development-sep24-v3.log",
+        "sha256": "5dabf8cf44f7973d12466b7f2af8f2f3e19184a9e27cb041182d62c5f1f30a6b"
+      },
+      "observation": "Final 38 new tests pass in 3.711 seconds on macOS, no skips; overlaps the pinned suites."
+    }
+  ],
+  "motionScope": "Regression tests exercise actual synthetic particle, cable/contact and fold/contact motion; independent review also executes small generic particle solves. No new research cloth/garment trajectory or capture admission.",
+  "newResearchTrajectoryExecuted": false,
+  "newUnitTestMethods": 38,
+  "profile": "conditional-temporal-controller-evidence-v1",
+  "regression": [
+    {
+      "case": "focused",
+      "execution": {
+        "accepted": false,
+        "case": "focused",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/arm64",
+          "--memory",
+          "3g",
+          "--cpus",
+          "1",
+          "--pids-limit",
+          "256",
+          "--network",
+          "none",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "WARP_CACHE_PATH=/work/.planning/solver/warp-cache",
+          "-e",
+          "PYTHONPATH=/work/scripts",
+          "--mount",
+          "type=bind,src=/private/tmp/sew-computer-3d-engine,dst=/work",
+          "--workdir",
+          "/work",
+          "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+          "timeout",
+          "--signal=TERM",
+          "--kill-after=5s",
+          "240s",
+          "python",
+          "-m",
+          "unittest",
+          "test_solver_stationarity",
+          "test_solver_adaptive_contact",
+          "test_solver_cable_adaptive",
+          "test_solver_cable_varying_adaptive",
+          "test_solver_cable_global",
+          "test_solver_cable_varying_global",
+          "test_solver_controlled_fold_adaptive",
+          "test_solver_sewing_activation_adaptive",
+          "test_solver_journal_adversarial",
+          "test_solver_temporal_control",
+          "test_solver_temporal_global",
+          "test_solver_cable_energy",
+          "test_solver_cable_varying_energy"
+        ],
+        "declaration": {
+          "bytes": 41243,
+          "path": ".planning/solver/temporal-controller-test-declaration-sep24-v1.json",
+          "sha256": "b3d9b7cf3de317e48c5f6ab71662dc4cf283bd1fc01fed221ddee836b2af91b6"
+        },
+        "elapsedSeconds": 34.70780483301496,
+        "log": {
+          "bytes": 2356,
+          "path": ".planning/solver/temporal-controller-focused-linux-sep24-v1.log",
+          "sha256": "bb731c8745b6738202126639412b1f642c0d47c18e06b9def27d8f86e8e19d5a"
+        },
+        "observedExitCode": 0,
+        "sourcesUnchanged": true
+      },
+      "receipt": {
+        "bytes": 1716,
+        "path": ".planning/solver/temporal-controller-focused-linux-execution-sep24-v1.json",
+        "sha256": "f5dd9e35a5c0635d259b0329016d0cc14d75cfcf6cf368b526618b8ab074f7a5"
+      },
+      "status": "passed",
+      "testCount": 199,
+      "testSeconds": 29.351
+    },
+    {
+      "case": "full-numerical",
+      "execution": {
+        "accepted": false,
+        "case": "full-numerical",
+        "command": [
+          "docker",
+          "run",
+          "--rm",
+          "--platform",
+          "linux/arm64",
+          "--memory",
+          "3g",
+          "--cpus",
+          "1",
+          "--pids-limit",
+          "256",
+          "--network",
+          "none",
+          "-e",
+          "OPENBLAS_NUM_THREADS=1",
+          "-e",
+          "OMP_NUM_THREADS=1",
+          "-e",
+          "WARP_CACHE_PATH=/work/.planning/solver/warp-cache",
+          "--mount",
+          "type=bind,src=/private/tmp/sew-computer-3d-engine,dst=/work",
+          "--workdir",
+          "/work",
+          "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+          "timeout",
+          "--signal=TERM",
+          "--kill-after=5s",
+          "1800s",
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "scripts",
+          "-p",
+          "test_solver_*.py"
+        ],
+        "declaration": {
+          "bytes": 41243,
+          "path": ".planning/solver/temporal-controller-test-declaration-sep24-v1.json",
+          "sha256": "b3d9b7cf3de317e48c5f6ab71662dc4cf283bd1fc01fed221ddee836b2af91b6"
+        },
+        "elapsedSeconds": 851.251155291975,
+        "log": {
+          "bytes": 9628,
+          "path": ".planning/solver/temporal-controller-full-numerical-linux-sep24-v1.log",
+          "sha256": "5e6e85ced34848e98db977cf5ffda984f3f4fcee370d7d3bea1b5849a83671f1"
+        },
+        "observedExitCode": 0,
+        "sourcesUnchanged": true
+      },
+      "receipt": {
+        "bytes": 1275,
+        "path": ".planning/solver/temporal-controller-full-numerical-linux-execution-sep24-v1.json",
+        "sha256": "1b44e87f1e425b248d4b92b9de1c55103db041c7d09e76b3124f57a3b9210226"
+      },
+      "status": "passed",
+      "testCount": 1331,
+      "testSeconds": 845.829
+    }
+  ],
+  "remainingGates": [
+    "Same-input temporal-accuracy study on early contact and released motion with independently verified refinement, frozen thresholds and feasible budgets.",
+    "Spatial accuracy and construction-specific joints, frame/side/layer semantics and continuous space/time seam verification.",
+    "Cuff closure/turning/attachment, binding, collar/stand, gathers/junctions, closures and six unresolved interfacing roles across the complete24 fabric instances.",
+    "Material, damping/friction and body-contact evidence; full-shirt closure/settling/deformation/contact/repeatability matrix.",
+    "Accepted assembly integration into private worker/viewer, lifecycle/privacy/export checks and authorized private release."
+  ],
+  "review": {
+    "demonstratedAndRepaired": [
+      "dt=3*minsubnormal formerly committed two rounded2*minsubnormal halves; exact physical-time check now rejects before H1.",
+      "Five separate unconditional public energy-field deletions formerly published complete fine work; final finite complete scalar admission rejects all five."
+    ],
+    "independentChecks": {
+      "boundedTransactionTraces": 15,
+      "defaultCompatibilityTraces": 32,
+      "exactEnergyCases": 7,
+      "exactMetricCases": 5
+    },
+    "index": {
+      "bytes": 6105,
+      "path": ".planning/solver/review-temporal-implementation-sep24-v1.json",
+      "sha256": "ec785e23398ad7fbece2386523a11eed3d8aed1b4f310315dc30fdfec24193c4"
+    },
+    "limits": "Bounded independent arithmetic/orchestration/publication review and small particle fixtures; not the full numerical suite, a new source/garment trajectory or global/physical accuracy proof.",
+    "otherChecks": [
+      "Original p(3/4) one-ULP control sampling despite caller raw-input mutation",
+      "Malformed radius preserves prior half prefix",
+      "Aliased output buffers/earlier reports cannot alter retained fine evidence"
+    ],
+    "reviewIdentifiedAndRepaired": [
+      "Additive temporal payload initially lacked correspondence to validated work/radius. Repaired before the first successful actual reviewer attack; retained attack proves repaired rejection, not historical false acceptance.",
+      "Propagated varying interruption lacked outer declared context/work totals; shared finalizer now enriches both ordinary and exception prefixes."
+    ],
+    "sourceIdentities": [
+      {
+        "bytes": 21783,
+        "path": "scripts/solver_temporal_control.py",
+        "sha256": "b3449de560b5cd3aea1d26baa8d476dbcf2ad1d4b0b023ad753b18020287d776"
+      },
+      {
+        "bytes": 64684,
+        "path": "scripts/solver_adaptive_contact.py",
+        "sha256": "571b73b27d0499a932714ba2b1504fa99a2bfb84e9b2c5cf0e39b2a1711affba"
+      },
+      {
+        "bytes": 64663,
+        "path": "scripts/solver_energy_balance.py",
+        "sha256": "a7bf1d6d5bed5d0f0ff57082a10959c46ef0c01a86b671fe844f9c71c01b9fc2"
+      }
+    ],
+    "unresolvedDemonstratedBlockers": [],
+    "verified": true
+  },
+  "sourceInputs": [
+    {
+      "bytes": 46,
+      "path": "scripts/solver-contact.requirements.txt",
+      "sha256": "395e76c7ebeff960d359d3bd9eb78a049d97e157e949ebe2b058951d1800c54e"
+    },
+    {
+      "bytes": 74,
+      "path": "scripts/solver-spike.requirements.txt",
+      "sha256": "3ecc854efc389cbc529b1f09d632f5aa24fb7faaedf7afac946e247eb48fdeea"
+    },
+    {
+      "bytes": 64684,
+      "path": "scripts/solver_adaptive_contact.py",
+      "sha256": "571b73b27d0499a932714ba2b1504fa99a2bfb84e9b2c5cf0e39b2a1711affba"
+    },
+    {
+      "bytes": 2265,
+      "path": "scripts/solver_assembly_schedule.py",
+      "sha256": "a6f9fc461ec32d2a996cec5e7c0e06979c8fa89211257de59d5a4dbd34c5e2d9"
+    },
+    {
+      "bytes": 22208,
+      "path": "scripts/solver_attempt_journal.py",
+      "sha256": "f3f98350c938545298cc746508944bb25a9510f892af7715bb04e9a18f99724c"
+    },
+    {
+      "bytes": 9847,
+      "path": "scripts/solver_bending.py",
+      "sha256": "e79ae18f38a98c47b9bb6321dc23317d1b38d11be1aee72e23d116f04347398b"
+    },
+    {
+      "bytes": 13235,
+      "path": "scripts/solver_binding_control_schedule.py",
+      "sha256": "8d773fcfffbeb3a12b8682cfc2af78ba0c0738e847439da3777eb07886347dac"
+    },
+    {
+      "bytes": 16859,
+      "path": "scripts/solver_binding_control_schedule_replay.py",
+      "sha256": "3266a2d1d688336b10113d1ff0a488ee8fd4b8ea03244c04bed8a0c0937784b4"
+    },
+    {
+      "bytes": 18919,
+      "path": "scripts/solver_binding_diagnostics.py",
+      "sha256": "0016c0f403ab39419183e9184f3a3f1d0c53e65472afdfd0ae8366c478c3570f"
+    },
+    {
+      "bytes": 18590,
+      "path": "scripts/solver_binding_fold.py",
+      "sha256": "ca440dc52b50962ae2e8f5747ba10bf438b9367546cc6aeef451fa295230a543"
+    },
+    {
+      "bytes": 27892,
+      "path": "scripts/solver_binding_fold_replay.py",
+      "sha256": "b1391bee4eeda899b48ebdff2506bb32d1cdf854e2f541b0cb33f113d7cb11f9"
+    },
+    {
+      "bytes": 16762,
+      "path": "scripts/solver_binding_frames.py",
+      "sha256": "665e8175e8cee040fcfd5f6664be0b91580b1d685cad58c57f299bc3d76fbef4"
+    },
+    {
+      "bytes": 26414,
+      "path": "scripts/solver_binding_frames_replay.py",
+      "sha256": "35b7a59f598b4d0c9d4699c2c99086ca2ed9ffb7a9cef65d3f52732b88c533e3"
+    },
+    {
+      "bytes": 9934,
+      "path": "scripts/solver_binding_gripper_remap.py",
+      "sha256": "27159d748cc26323ba359395324c11427531342075310c10fba3bda1e570aab8"
+    },
+    {
+      "bytes": 31703,
+      "path": "scripts/solver_binding_gripper_remap_replay.py",
+      "sha256": "eb7552dfbbecf50d7976279507e6e1a47482bde7cf00fa9814eaa1ca09abc42e"
+    },
+    {
+      "bytes": 14088,
+      "path": "scripts/solver_binding_placement.py",
+      "sha256": "a8db85ad76d6bf8bcb72c14b6c37c467833f96eb5e5a3a63cc73293af0b47f2a"
+    },
+    {
+      "bytes": 31770,
+      "path": "scripts/solver_binding_placement_replay.py",
+      "sha256": "bf7295b46f20ab48637b9b25ebb5de4f97d78d9f051b98d1e48ea067b885ae05"
+    },
+    {
+      "bytes": 11206,
+      "path": "scripts/solver_binding_refinement.py",
+      "sha256": "0df5d37a7e43eead8b662a9237d54e2a181c159027038321b89ffb10f0779bcb"
+    },
+    {
+      "bytes": 17528,
+      "path": "scripts/solver_binding_remap.py",
+      "sha256": "904894294afb8666115b29d4ef468a53dcaa00f932caa348f6672544ac2413fb"
+    },
+    {
+      "bytes": 28614,
+      "path": "scripts/solver_binding_remap_replay.py",
+      "sha256": "c28ddc0d1da862a0a1e91f7ef93d8a493fcc2b94bb48d69c0f6634e574cd889f"
+    },
+    {
+      "bytes": 11762,
+      "path": "scripts/solver_binding_sewing_schedule.py",
+      "sha256": "3d956fb5984cc9248cfa19273515d3a78ca766de54d76676f609663f2c8e0218"
+    },
+    {
+      "bytes": 16698,
+      "path": "scripts/solver_binding_sewing_schedule_replay.py",
+      "sha256": "ec86d9db2008f719e44659b3476a172e5ee6403a6122ba7b5dd0d862832a1b84"
+    },
+    {
+      "bytes": 14827,
+      "path": "scripts/solver_binding_source.py",
+      "sha256": "51561505f8e490e54444d07873dd9a72386acf837a9ca65eb5d89316bbf64ff8"
+    },
+    {
+      "bytes": 27887,
+      "path": "scripts/solver_binding_spatial_seams.py",
+      "sha256": "48ad418b072de1c2507ae0c07b0799b5b07a4ed94a4d16a48391899871a0e5c1"
+    },
+    {
+      "bytes": 31318,
+      "path": "scripts/solver_binding_spatial_seams_replay.py",
+      "sha256": "629797a4839271bf76b3c5f489bc81caff637ca22b8372007e64e55b2cea5521"
+    },
+    {
+      "bytes": 12242,
+      "path": "scripts/solver_cable_integration.py",
+      "sha256": "57ff2d81babd0e7261db4ca42a31939e9c41e0bfca1a5f7f2d0a044a6fe6426f"
+    },
+    {
+      "bytes": 14383,
+      "path": "scripts/solver_cable_parameter_schedule.py",
+      "sha256": "4c7998809e44a4745df99d53b4d9ba5a62c31445f61cef9dc859a0b46ff42720"
+    },
+    {
+      "bytes": 16454,
+      "path": "scripts/solver_cable_parameters.py",
+      "sha256": "3cf68017988dc30771542e18440e1cee2612b50a0d12f86454bc05470a37d33c"
+    },
+    {
+      "bytes": 11009,
+      "path": "scripts/solver_cable_varying.py",
+      "sha256": "060e7901c34a2ea4392cc21cc72a2b260bc7e08cde3308c7271b397b126708ad"
+    },
+    {
+      "bytes": 9782,
+      "path": "scripts/solver_candidate_coverage.py",
+      "sha256": "5b3ee0aea6846cc03e6c591ead6d99819af5ef576ff288db897ade60775dd947"
+    },
+    {
+      "bytes": 6462,
+      "path": "scripts/solver_contact_filters.py",
+      "sha256": "f3f8c7846c9ec7ad2e7b2b083a2259a01de054bdf8e66d552fc7fcbd984e6dab"
+    },
+    {
+      "bytes": 11318,
+      "path": "scripts/solver_contact_preflight.py",
+      "sha256": "75fb82c143d518eb73837a7ba19fff85bbbabc00ba1977f88c61ee0762235e5a"
+    },
+    {
+      "bytes": 26060,
+      "path": "scripts/solver_continuous_cable_sewing.py",
+      "sha256": "5d3e384695e547f909efd55fac490e7887870c8ffba5cb879850166f920db6f4"
+    },
+    {
+      "bytes": 29926,
+      "path": "scripts/solver_continuous_normal_sewing.py",
+      "sha256": "55b58055b15a760f027b99f8d5476a4d58f3b6ac6063d3991236c35311bbd1db"
+    },
+    {
+      "bytes": 19109,
+      "path": "scripts/solver_controlled_fold.py",
+      "sha256": "9c0f6867406ccb9bcc7c68cbabc90e480eb24fc81f1484120cbcdff24c6d9c69"
+    },
+    {
+      "bytes": 6404,
+      "path": "scripts/solver_crease_mesh.py",
+      "sha256": "e1db85f89057e86aa5cd598383296c89fdf29b1d3a1e82e3411e772a479042e2"
+    },
+    {
+      "bytes": 17444,
+      "path": "scripts/solver_cuff_construction.py",
+      "sha256": "f76e642a3201d4fd9de76cc77b6048334d2cf5046d80c8dffa01c6dee43bef0f"
+    },
+    {
+      "bytes": 12358,
+      "path": "scripts/solver_cuff_sequence.py",
+      "sha256": "fe05409338302a5743351bfe037d0cb4d4eaafe6af3590ee9a1f3ed489084044"
+    },
+    {
+      "bytes": 12672,
+      "path": "scripts/solver_cuff_source_binding.py",
+      "sha256": "880b88d74c0706dbaafb5e35444d7054d371b3b636cc9a419fd1a29f21d5493f"
+    },
+    {
+      "bytes": 11427,
+      "path": "scripts/solver_dihedral_increment.py",
+      "sha256": "db259862100b93e5b259e0768b03bd16e36431c0de94a087373a21a0b6436464"
+    },
+    {
+      "bytes": 5214,
+      "path": "scripts/solver_distance_sewing.py",
+      "sha256": "c380810325805feaf7f5b3c3cba437e2164a05c39b1bb047e0a42447bdf7dde0"
+    },
+    {
+      "bytes": 13556,
+      "path": "scripts/solver_embedded_sewing.py",
+      "sha256": "647ba0e6131e3dfe302b966457e3db9beb697b17d0b0cf2c55b6bb732ff6fa44"
+    },
+    {
+      "bytes": 64663,
+      "path": "scripts/solver_energy_balance.py",
+      "sha256": "a7bf1d6d5bed5d0f0ff57082a10959c46ef0c01a86b671fe844f9c71c01b9fc2"
+    },
+    {
+      "bytes": 2093,
+      "path": "scripts/solver_energy_change.py",
+      "sha256": "12eda1cf1b81725ed3349140ad31b6168a65b82233c12e51c3e12b2d1d5d1a83"
+    },
+    {
+      "bytes": 2779,
+      "path": "scripts/solver_engine_source_namespace.py",
+      "sha256": "2a08d3703380981ad186427482bb9b6c4a5016044e910efea3bd03d01ee51108"
+    },
+    {
+      "bytes": 1631,
+      "path": "scripts/solver_fold_actuation.py",
+      "sha256": "2365ef28b95cdacaee11fbdbb6e6818f6c4cce5d4676eed7a2d569f618fbae41"
+    },
+    {
+      "bytes": 10612,
+      "path": "scripts/solver_fold_barrier.py",
+      "sha256": "c597977de154b07607e6c0823554248fc8b1cdb4b2a4ef6af648899c5cb1512a"
+    },
+    {
+      "bytes": 7617,
+      "path": "scripts/solver_fold_control_schedule.py",
+      "sha256": "2f2e8e9532d381fb7b0acf6436d0c374e00e143c956230af6cb4c76d6772934e"
+    },
+    {
+      "bytes": 62358,
+      "path": "scripts/solver_global_sewing.py",
+      "sha256": "e180cd17b4f10165e8a041d8cbc3c9148baad4c8bca35d3ed5d4b01f3178ae35"
+    },
+    {
+      "bytes": 1574,
+      "path": "scripts/solver_global_shift.py",
+      "sha256": "a77961f199e4a2dcc3684da797969a0113bccdd3f5e58ec067fb795ba66631b3"
+    },
+    {
+      "bytes": 4837,
+      "path": "scripts/solver_gripper_input.py",
+      "sha256": "743e0f822c94a0d14a31e955c7a4368bbef9388b60d4c66510600c4f2ccb7873"
+    },
+    {
+      "bytes": 28246,
+      "path": "scripts/solver_gripper_replay.py",
+      "sha256": "e7d5929adba375d2e8f78f978d380d1b0b905ba5a813cd74f00a0aa6ac16c7a1"
+    },
+    {
+      "bytes": 4914,
+      "path": "scripts/solver_hinge_sweep.py",
+      "sha256": "987eba678a1d393943266ce55b9d67ef6612bae3f7436eed540929f4e99e0b35"
+    },
+    {
+      "bytes": 532,
+      "path": "scripts/solver_ipc_broad_phase.py",
+      "sha256": "030093d48562a461d9091f1a1d68738738bf9da4c586045c194957f034fa3ee8"
+    },
+    {
+      "bytes": 12494,
+      "path": "scripts/solver_ipc_contact.py",
+      "sha256": "3fd7d50db90633a7b2eeb33827d5e44436dccae1e7d0ac729a33412d02ff06c4"
+    },
+    {
+      "bytes": 30552,
+      "path": "scripts/solver_material_grippers.py",
+      "sha256": "c586c9d9198ac941a7dadbda8fc57c9cc33d17aa3676d6851378926e4fb9b0d8"
+    },
+    {
+      "bytes": 3270,
+      "path": "scripts/solver_membrane_hessian.py",
+      "sha256": "75a135e75f72378b9eb6e7f08625c052ce738790064b5a49fe25537548cf1a86"
+    },
+    {
+      "bytes": 5100,
+      "path": "scripts/solver_membrane_stability.py",
+      "sha256": "76bf256076b7cd7b6e38c59d250104ae41bb5be8c5f4b9a6aebadfc487a36a20"
+    },
+    {
+      "bytes": 8652,
+      "path": "scripts/solver_normal_sewing.py",
+      "sha256": "d658cbcd1ab624271a183e98352c78b8731bba09446ebb6a6da850884f38a5d0"
+    },
+    {
+      "bytes": 19620,
+      "path": "scripts/solver_point_contact.py",
+      "sha256": "07647e81b0b91a5a53e722c821214b518c3aef58a88c815be0e773c659b924a8"
+    },
+    {
+      "bytes": 24651,
+      "path": "scripts/solver_process_budget.py",
+      "sha256": "84303877bc7628ddffcdaf7dbdbff91f08db54f4591e2348f8b05d9a67c73766"
+    },
+    {
+      "bytes": 12493,
+      "path": "scripts/solver_radial_moments.py",
+      "sha256": "571197ec8ba36ae2612046fe509d5c01ef5d5b79cdd6aeac39b60b12e8ea150e"
+    },
+    {
+      "bytes": 17400,
+      "path": "scripts/solver_rest_filtered_contact.py",
+      "sha256": "235ea76c46edfd04f27416277adc1f816378a996b7ccf72da2ece8451969bcef"
+    },
+    {
+      "bytes": 6764,
+      "path": "scripts/solver_rigid_staging.py",
+      "sha256": "95067e4666d69d62868842bfeb4474e596f01a4aa4f43303f0c60f1619eda12a"
+    },
+    {
+      "bytes": 12525,
+      "path": "scripts/solver_rigid_velocity_diagnostics.py",
+      "sha256": "067a81b92f64da43ed8296243cb20bbc5645b4f38aa6c913634f7b18c0913805"
+    },
+    {
+      "bytes": 2018,
+      "path": "scripts/solver_sewing_activation.py",
+      "sha256": "9066e13278f85d22f4526e1d3a871cff172e23d397eac21d369e048b940af561"
+    },
+    {
+      "bytes": 6925,
+      "path": "scripts/solver_sewing_activation_schedule.py",
+      "sha256": "5e02185f12ba7666df6b7f3feceb7895435ae8a9626179b7f58b05791bd6df48"
+    },
+    {
+      "bytes": 24087,
+      "path": "scripts/solver_sewing_input.py",
+      "sha256": "cd21a37cc3baf30c00c79d0b83d35b70e1ec562a138d94ea66147d13b7fe433f"
+    },
+    {
+      "bytes": 39313,
+      "path": "scripts/solver_sewing_replay.py",
+      "sha256": "4defdd239b88ca35e3d7de55cdd482b83a9282dd15ee7d2003858ea39e37cdfc"
+    },
+    {
+      "bytes": 12264,
+      "path": "scripts/solver_sewing_sweep.py",
+      "sha256": "fee7aa9fcfbf0a30b365faac9da134b80a866e11d8de6e5bf5004b66f3a53f92"
+    },
+    {
+      "bytes": 12540,
+      "path": "scripts/solver_spatial_sewing.py",
+      "sha256": "9cc86d5082b02a910e04616c57199a141fd9170814e164850b348f01efe5c5e3"
+    },
+    {
+      "bytes": 9306,
+      "path": "scripts/solver_spike_geometry.py",
+      "sha256": "de5e18dc0a30cd49fcadd284e67e6ce2cf8b0db3ea71059c09e0db5cf670506e"
+    },
+    {
+      "bytes": 2528,
+      "path": "scripts/solver_stationarity.py",
+      "sha256": "6f37d173a32adb5e2c2f9c5d0bc9013d282199e5a1db91f1717dd57cc279ab38"
+    },
+    {
+      "bytes": 6306,
+      "path": "scripts/solver_strain_diagnostics.py",
+      "sha256": "4c056466d06c95b3be0cbba92da53f06def678e2476841289760f9e75dd793b3"
+    },
+    {
+      "bytes": 11747,
+      "path": "scripts/solver_surface_distance_diagnostics.py",
+      "sha256": "c41fabaf149fb02c9c2dad08980ffaf1a4b02f7fef70efac15061a10daf286dc"
+    },
+    {
+      "bytes": 4952,
+      "path": "scripts/solver_swept_separation.py",
+      "sha256": "ff3444fc247f6d6e2ba773e16057d2a320f4ca4ad9b99aca38d55745c369d064"
+    },
+    {
+      "bytes": 21783,
+      "path": "scripts/solver_temporal_control.py",
+      "sha256": "b3449de560b5cd3aea1d26baa8d476dbcf2ad1d4b0b023ad753b18020287d776"
+    },
+    {
+      "bytes": 10205,
+      "path": "scripts/solver_temporal_separation.py",
+      "sha256": "9be460c529f1fbaa1f018a4e9b8984a035201c00a1664bc6897903d771edbd8a"
+    },
+    {
+      "bytes": 3588,
+      "path": "scripts/solver_torso_control.py",
+      "sha256": "99f1b2ce0faf780543771e8b333e34aee8920b9d4c630a0d8b85539196b66e80"
+    },
+    {
+      "bytes": 5133,
+      "path": "scripts/solver_triangle_sweep.py",
+      "sha256": "ff410881a761bd9b4b262708feee72ba7f9f81724dd55d2b1e0d73165710dd7e"
+    },
+    {
+      "bytes": 6583,
+      "path": "scripts/test_solver_adaptive_contact.py",
+      "sha256": "6d8b2787cf310ab2169b3e426491e385fec0556f93748b0fff4f0da34500c4a7"
+    },
+    {
+      "bytes": 3339,
+      "path": "scripts/test_solver_assembly_schedule.py",
+      "sha256": "4cdec2e5e3b96dda9de0f4d9e512af09e95f2eac88b782f4ac711354283942a0"
+    },
+    {
+      "bytes": 7601,
+      "path": "scripts/test_solver_bending.py",
+      "sha256": "6795060570d3fcf4f9dfed670d95e62afb7c14f497828c9d0849883577406315"
+    },
+    {
+      "bytes": 5756,
+      "path": "scripts/test_solver_bending_adversarial.py",
+      "sha256": "443c0920c8b89f1b88a472643684c5e06fe845243b0906dda4132319c8c0afae"
+    },
+    {
+      "bytes": 4599,
+      "path": "scripts/test_solver_bending_integration.py",
+      "sha256": "e11b192808a9d7a3366088420ca1f56c1868d0e9b08f3f1430e0eb6514fe5b5a"
+    },
+    {
+      "bytes": 3148,
+      "path": "scripts/test_solver_bending_search.py",
+      "sha256": "532a012b86adc409dcfd44f56e2e2c960c6d77313e1a1d58100d438662a6060f"
+    },
+    {
+      "bytes": 18910,
+      "path": "scripts/test_solver_binding_control_schedule.py",
+      "sha256": "a1917a373cee160e99802ec53db004eb6555714d3814aadac178b324040c35b7"
+    },
+    {
+      "bytes": 18067,
+      "path": "scripts/test_solver_binding_control_schedule_replay.py",
+      "sha256": "0de40286cfbfd4d70fa41092ea48d7628981e59a06ce7d9833cc9057dd12244c"
+    },
+    {
+      "bytes": 12247,
+      "path": "scripts/test_solver_binding_diagnostics.py",
+      "sha256": "9e46c85e21991bcc40d237cb4172fe67192e6a616493305bab05fc041742f278"
+    },
+    {
+      "bytes": 34493,
+      "path": "scripts/test_solver_binding_extended_hold.py",
+      "sha256": "6286d3e0ed6479647bdad835a44b53e4282cb4ad218abbc530bd70d8ff23a87e"
+    },
+    {
+      "bytes": 25155,
+      "path": "scripts/test_solver_binding_first_turn_input.py",
+      "sha256": "08d1010d4e382c0440c319f727835135444232bb12720077298dc74341ab54dc"
+    },
+    {
+      "bytes": 20879,
+      "path": "scripts/test_solver_binding_first_turn_report.py",
+      "sha256": "24b6f4bad9f81f855885ab1b07ef928c75f631c92031951d3dca28d0f02d0153"
+    },
+    {
+      "bytes": 17935,
+      "path": "scripts/test_solver_binding_fold.py",
+      "sha256": "dba2a3fa9dbc5b55fe5c10cf5100c960539f9b7662f73294fa4c8a4941731709"
+    },
+    {
+      "bytes": 22553,
+      "path": "scripts/test_solver_binding_fold_replay.py",
+      "sha256": "b4439d9aa49469a07efbebcdfc8296e90990cf830290d3e072bf822123aa4307"
+    },
+    {
+      "bytes": 26439,
+      "path": "scripts/test_solver_binding_frames.py",
+      "sha256": "9589a3b16ca241197005d1caa5fe0f911646260b94707688dca6d0e4c989e7f9"
+    },
+    {
+      "bytes": 19382,
+      "path": "scripts/test_solver_binding_frames_replay.py",
+      "sha256": "22320ec2fbd52af2cdf1fd70899018b11cb02ad9c2e3b06febb132f52bbc804b"
+    },
+    {
+      "bytes": 13806,
+      "path": "scripts/test_solver_binding_gripper_remap.py",
+      "sha256": "65699c55edb3c328b7b009ad0fd5d24f13a235c9fdfbab2e21582da80cb2f6b1"
+    },
+    {
+      "bytes": 25130,
+      "path": "scripts/test_solver_binding_gripper_remap_replay.py",
+      "sha256": "8833477341c2caf6da4e9b39e4458bc2326831afbf8424eb90fa65ee1eda2551"
+    },
+    {
+      "bytes": 12929,
+      "path": "scripts/test_solver_binding_placement.py",
+      "sha256": "ca07c5cd91667cab624fd736d9628317394ce3188bdf30e04cc8f1f337d474c4"
+    },
+    {
+      "bytes": 21575,
+      "path": "scripts/test_solver_binding_placement_replay.py",
+      "sha256": "ae7479d9b3507c25103a4a3f4a40ef72d7c5ff3cdacf72a6c8b2b413f7e09e82"
+    },
+    {
+      "bytes": 15920,
+      "path": "scripts/test_solver_binding_refinement.py",
+      "sha256": "6bc228a240442c1b369a657cb066441e74fd6df089c721e0b1735753457ec274"
+    },
+    {
+      "bytes": 24583,
+      "path": "scripts/test_solver_binding_remap.py",
+      "sha256": "432e512b952bc784c6c47b3a9574110cdc46d80dcb3b5ca02ac09b1849ed6050"
+    },
+    {
+      "bytes": 17698,
+      "path": "scripts/test_solver_binding_remap_replay.py",
+      "sha256": "2e9c56535e1534c8bf13dfa33118eb1d786791603d25e51d6e6cd863e5b37196"
+    },
+    {
+      "bytes": 19141,
+      "path": "scripts/test_solver_binding_sewing_schedule.py",
+      "sha256": "bdd2c27af6bdcbcab3fd948e377afe0d7d7cdcdd69a9b4386c919d7e521cc5f4"
+    },
+    {
+      "bytes": 18849,
+      "path": "scripts/test_solver_binding_sewing_schedule_replay.py",
+      "sha256": "10e4c18b1a4052a927ba78acda8ceef812b466b1aa1e1200db0258dc253bf1a4"
+    },
+    {
+      "bytes": 12810,
+      "path": "scripts/test_solver_binding_source.py",
+      "sha256": "a2cb4f037997844a9a95fe065fd438144e686a2016330feacbe6e67499ff4b34"
+    },
+    {
+      "bytes": 12152,
+      "path": "scripts/test_solver_binding_source_integration.py",
+      "sha256": "8b5d8c15d7447d2b08f9cd1e823759f328a0d9d1fd3b223662b721d427d15dcc"
+    },
+    {
+      "bytes": 33834,
+      "path": "scripts/test_solver_binding_spatial_seams.py",
+      "sha256": "d477fd2929c785f6c975ed43442c826c24f1c50996f36eca102120d6a1ddafc3"
+    },
+    {
+      "bytes": 17895,
+      "path": "scripts/test_solver_binding_spatial_seams_replay.py",
+      "sha256": "3fdc16a0bd35a4c5e8b86d0658ea3a3085bee8c7706d42bd07abaedd3d3f1502"
+    },
+    {
+      "bytes": 14654,
+      "path": "scripts/test_solver_binding_time_comparison.py",
+      "sha256": "74940da8d85f52e8c6cc86565c1e9b613d0f91fe34b29bc452c1afd4d9780791"
+    },
+    {
+      "bytes": 29784,
+      "path": "scripts/test_solver_cable_adaptive.py",
+      "sha256": "d2c717768f0b75d80f5f914a5c7ea5419c279b1a3fac77585125f5fc5801b631"
+    },
+    {
+      "bytes": 17640,
+      "path": "scripts/test_solver_cable_energy.py",
+      "sha256": "dd61bc9a9110409e83ebe4a00b42c0af29c199d386f03fde9543b8c20f061512"
+    },
+    {
+      "bytes": 23586,
+      "path": "scripts/test_solver_cable_global.py",
+      "sha256": "4a10e6da25d3c15a090a820356e5d67db2ae1b80fccca06ac95dafb58c513d8d"
+    },
+    {
+      "bytes": 9141,
+      "path": "scripts/test_solver_cable_integration.py",
+      "sha256": "8e0a01d4f81d1ce04bde93b5b0e429646341755f363ffa5d6d17d7cdaca9c673"
+    },
+    {
+      "bytes": 25578,
+      "path": "scripts/test_solver_cable_parameter_schedule.py",
+      "sha256": "d2c06a306bb5468a02384a65ee207fdae936636be51c238480ea97b21da72667"
+    },
+    {
+      "bytes": 26694,
+      "path": "scripts/test_solver_cable_parameters.py",
+      "sha256": "3b7204a93e2dfa57982969d40717466f697eaea01a259da3de63a5911881df49"
+    },
+    {
+      "bytes": 34813,
+      "path": "scripts/test_solver_cable_varying_adaptive.py",
+      "sha256": "219d13439225326d571bd1987b04088532e02c082596536f63c367121dd42f49"
+    },
+    {
+      "bytes": 15296,
+      "path": "scripts/test_solver_cable_varying_control.py",
+      "sha256": "98a47abe6ed0e1f40bc3d1eb2ee5d65e9f7d026392c9bc435df9055e168194fb"
+    },
+    {
+      "bytes": 24468,
+      "path": "scripts/test_solver_cable_varying_energy.py",
+      "sha256": "02096b3d413768a9ffcba6bccc69945f84d90c13197484c35991d8c698b42e4c"
+    },
+    {
+      "bytes": 19385,
+      "path": "scripts/test_solver_cable_varying_global.py",
+      "sha256": "5460a3d16dfc19c0c425eb58269d3956ad9d61071ddb0fe9c2bcf70a5e9c3256"
+    },
+    {
+      "bytes": 7939,
+      "path": "scripts/test_solver_candidate_coverage.py",
+      "sha256": "b9567f4552abb22f11a750531f3821a78c56e6699c53490e892f7a38466ad5f5"
+    },
+    {
+      "bytes": 10497,
+      "path": "scripts/test_solver_candidate_coverage_review.py",
+      "sha256": "26156f52118bcbb5fab55d105eebc488bc1286d07232cd1b1260bd9207a39782"
+    },
+    {
+      "bytes": 2129,
+      "path": "scripts/test_solver_constraint_coloring.py",
+      "sha256": "5523903ee5c2b549c52a5949473a0faaa319061d8b5aec384f7beb5457ce30c6"
+    },
+    {
+      "bytes": 12439,
+      "path": "scripts/test_solver_contact_continuation_cli.py",
+      "sha256": "e481d0df197be38029153f12d689ce17e22fa11465b97416f5bc03e343a223bc"
+    },
+    {
+      "bytes": 7241,
+      "path": "scripts/test_solver_contact_filters.py",
+      "sha256": "6b472308fc057cf3f1107c590a9530ae9b07a23b31ca0bd2c1645dcc67c95458"
+    },
+    {
+      "bytes": 5867,
+      "path": "scripts/test_solver_contact_preflight.py",
+      "sha256": "59f3c3e9ba0a54485ae2bad01b9522d91db2ec17caebf10fa81aa3747926c81f"
+    },
+    {
+      "bytes": 6584,
+      "path": "scripts/test_solver_contact_range_adversarial.py",
+      "sha256": "3969c83b5423212a290457135f69e5de945476df269255e56eca86f77d7d23f3"
+    },
+    {
+      "bytes": 29443,
+      "path": "scripts/test_solver_continuous_cable_sewing.py",
+      "sha256": "363f66fa25b114ef4b69990ad8be2a05a2315bd81a67daa48408291a9bbdeaba"
+    },
+    {
+      "bytes": 44956,
+      "path": "scripts/test_solver_continuous_normal_sewing.py",
+      "sha256": "0992569c65f995cb0310a849aa553c360e25884a0d1862531de565c022630ed3"
+    },
+    {
+      "bytes": 17104,
+      "path": "scripts/test_solver_controlled_fold.py",
+      "sha256": "c324e4d43bbff09346f0a68b5c7c58c9e6bf144a40322e72fbcdb465b07e7280"
+    },
+    {
+      "bytes": 20481,
+      "path": "scripts/test_solver_controlled_fold_adaptive.py",
+      "sha256": "aed12ecb51469c2ad183c56737d6b74b1b943836dc348735b532c55486c1095a"
+    },
+    {
+      "bytes": 16906,
+      "path": "scripts/test_solver_controlled_fold_energy.py",
+      "sha256": "4184bf40d59fc908934387b763a91687eafe0335ca5b7dc6cde4e794a52f1cb0"
+    },
+    {
+      "bytes": 12775,
+      "path": "scripts/test_solver_controlled_fold_integration.py",
+      "sha256": "89baa4e290efc6a78ae67ac74394d04bc20fba5b05a2d4017d4e5a3b3377d5df"
+    },
+    {
+      "bytes": 2893,
+      "path": "scripts/test_solver_crease_mesh.py",
+      "sha256": "3b3345b738d6e64f68d23c99a13e4e76216fdda3cc92a2085f7a6c3e0836aa68"
+    },
+    {
+      "bytes": 10029,
+      "path": "scripts/test_solver_cuff_compatibility.py",
+      "sha256": "fe8de3caf186aaaeb06595d37504f2078bef79ca3022677066f1db19035f3d14"
+    },
+    {
+      "bytes": 18076,
+      "path": "scripts/test_solver_cuff_construction.py",
+      "sha256": "4a923d3d6fcddfcc1304f36c69d8177bac74d68299f112d4e2ce4414d24bc873"
+    },
+    {
+      "bytes": 3849,
+      "path": "scripts/test_solver_cuff_crease_cli.py",
+      "sha256": "863e9137cfbeed6ff44aef190bfec104f7e743ecb9e1357ecf4ca734e6182ca3"
+    },
+    {
+      "bytes": 6433,
+      "path": "scripts/test_solver_cuff_frame_semantics.py",
+      "sha256": "55b038088bbf2b9459dfdf2a7af85aa5d6ad7297f5bb4f87fcd1ed5e27d97abb"
+    },
+    {
+      "bytes": 10892,
+      "path": "scripts/test_solver_cuff_sequence.py",
+      "sha256": "ec77452e3b92ab831d6222ddc9772cfbf097ffdee28eda94a11ebf1354c576a5"
+    },
+    {
+      "bytes": 15421,
+      "path": "scripts/test_solver_cuff_sewing_capture.py",
+      "sha256": "1f1316102cf8db42843bcb602ec6ea3746debf8014a5abbd0cdcc74089f7e6f5"
+    },
+    {
+      "bytes": 16758,
+      "path": "scripts/test_solver_cuff_source_binding.py",
+      "sha256": "c8c5469f10f30882e8b0c46aeab689f4acdd7d6af290649a394a5c9c5c679aac"
+    },
+    {
+      "bytes": 11361,
+      "path": "scripts/test_solver_dihedral_increment.py",
+      "sha256": "599a7bae9ac6e9f8642a9f71217cc5cce8666c4b02786e80ba0f9c3275c956e0"
+    },
+    {
+      "bytes": 10123,
+      "path": "scripts/test_solver_distance_sewing.py",
+      "sha256": "25c3240f55fda952c3ec67cf17cb178c65f8dc88e650e17c484992d9b108c835"
+    },
+    {
+      "bytes": 15056,
+      "path": "scripts/test_solver_embedded_sewing.py",
+      "sha256": "812ab951472a797b56e6e6dfaa9b79ade7a2b42e58b90f8556b04b931727bf19"
+    },
+    {
+      "bytes": 9325,
+      "path": "scripts/test_solver_energy_balance_adversarial.py",
+      "sha256": "64d64227e715bfb0ad6055768d1155191d2e07676de9d11e1b10524967d4bbc8"
+    },
+    {
+      "bytes": 4760,
+      "path": "scripts/test_solver_energy_change.py",
+      "sha256": "7aa1312ee49b6a03a2853c45f2d6023e81205306c8585f746ed7d61f588c5ebc"
+    },
+    {
+      "bytes": 5215,
+      "path": "scripts/test_solver_energy_diagnostics.py",
+      "sha256": "d4857054c4ad016519af2fd3648dfdde0475674dda93f1b9f7e890f3bf33d3e0"
+    },
+    {
+      "bytes": 10341,
+      "path": "scripts/test_solver_fold_actuation.py",
+      "sha256": "440bbd3c981394a425141f7d7b70db4d1c6ef70e004695a412fe976dd078d8d7"
+    },
+    {
+      "bytes": 7360,
+      "path": "scripts/test_solver_fold_adversarial.py",
+      "sha256": "fb984c85df30f8401c1e9309e1f5a87f1f142aa658438c874eb3d2f936817747"
+    },
+    {
+      "bytes": 7575,
+      "path": "scripts/test_solver_fold_barrier.py",
+      "sha256": "b55a0ca3bf4a91f59f222859122935573a2c7c6f2b66d699b3555b86b3219456"
+    },
+    {
+      "bytes": 7773,
+      "path": "scripts/test_solver_fold_continuation_cli.py",
+      "sha256": "32a8ca879d18614f5d45d8174138604be5f840209e31867de69d6a9e458fd034"
+    },
+    {
+      "bytes": 15476,
+      "path": "scripts/test_solver_fold_control_schedule.py",
+      "sha256": "ade1c84ec7695ebf036162dc7baed7fece87f95663a6ec66ff89d6c90da36ac5"
+    },
+    {
+      "bytes": 4594,
+      "path": "scripts/test_solver_fold_energy_review.py",
+      "sha256": "e129d471d7ae8fcf540e0651d300ec4a8367c9f74db846a4fb21bd878c5fdda1"
+    },
+    {
+      "bytes": 1700,
+      "path": "scripts/test_solver_fold_input_adversarial.py",
+      "sha256": "e1b5d6a41bea9fc8e27636f2b30181f5616e193e582e56ef0a15f9b8570eb4d2"
+    },
+    {
+      "bytes": 8322,
+      "path": "scripts/test_solver_fold_integration.py",
+      "sha256": "91082869c594b774d99c4ffc8101ee82f4135dc29c7ba218e51b947cfd60f1da"
+    },
+    {
+      "bytes": 5260,
+      "path": "scripts/test_solver_global_adversarial.py",
+      "sha256": "fc917bccd499078558201bd956f91c9ba817d1bb08f41d4ebd8ee8f931956037"
+    },
+    {
+      "bytes": 9817,
+      "path": "scripts/test_solver_global_direction.py",
+      "sha256": "9853022931c8047109c910174864cb1da8cbda3968713a15cd76b8d6621b3d8d"
+    },
+    {
+      "bytes": 5737,
+      "path": "scripts/test_solver_global_sewing.py",
+      "sha256": "616afb1c733b6db5cbe3d5e0ce25715ce92019c4320442eb0d4ca8f962d15a31"
+    },
+    {
+      "bytes": 4171,
+      "path": "scripts/test_solver_global_shift.py",
+      "sha256": "657704cbd0ac5513fd5a051b6e1405ee20262b0570c2c8e1bb97f98a05239de6"
+    },
+    {
+      "bytes": 7638,
+      "path": "scripts/test_solver_global_shift_integration.py",
+      "sha256": "7d875d2932831189f412cd78a67e9afed5a77ebfc4a01192ac2da6a7e92a1118"
+    },
+    {
+      "bytes": 12705,
+      "path": "scripts/test_solver_gripper_continuation.py",
+      "sha256": "cccebc24a97a4a55d50fe36edaad23d9540ecd7743bbf58f65909c9ea6e9a629"
+    },
+    {
+      "bytes": 22112,
+      "path": "scripts/test_solver_gripper_continuation_cli.py",
+      "sha256": "cfc8546e4eabd2916fa51d7f9bb915bc8ceba816f5f39ba5b860e4d0a97f312a"
+    },
+    {
+      "bytes": 17464,
+      "path": "scripts/test_solver_gripper_energy_balance.py",
+      "sha256": "8e9c85e061a0f98385423d4f7abd494bf46a11100ebb0f975c947fbb3320e83a"
+    },
+    {
+      "bytes": 17167,
+      "path": "scripts/test_solver_gripper_integration.py",
+      "sha256": "92ba6c56784b12384f555c694f9452fe5a6fea26b15769ccf9c0672bedb45480"
+    },
+    {
+      "bytes": 6129,
+      "path": "scripts/test_solver_gripper_precision_review.py",
+      "sha256": "eb15ee168b62b68ac1f46cf4247f105bb292ed4888d6643aff3065b306a7517f"
+    },
+    {
+      "bytes": 20548,
+      "path": "scripts/test_solver_gripper_replay.py",
+      "sha256": "83e67a70b74b7603cf9d3aeac905afc439eca83e92f8790178a50c448fa67784"
+    },
+    {
+      "bytes": 4894,
+      "path": "scripts/test_solver_guarded_contact_metric.py",
+      "sha256": "75ab9d3afa4f5370e2d30ecc959193464a7ef21fde27ca86f4d5a3c2099bbcae"
+    },
+    {
+      "bytes": 5356,
+      "path": "scripts/test_solver_hinge_sweep.py",
+      "sha256": "136c324f243493f314816671040ac7e789a77058d5dbbb253de22a13e002e0da"
+    },
+    {
+      "bytes": 5562,
+      "path": "scripts/test_solver_hinge_sweep_adversarial.py",
+      "sha256": "9db863dbba8ab759bfff8e61e089510cefdb114925db7ba6196520f03447791b"
+    },
+    {
+      "bytes": 6435,
+      "path": "scripts/test_solver_ipc_adversarial.py",
+      "sha256": "68ea23ddf866b0c545d731a14d398cb71b06a4ca940d186383c4916329adec17"
+    },
+    {
+      "bytes": 5537,
+      "path": "scripts/test_solver_ipc_area.py",
+      "sha256": "2aef9282034ecb58d56d85cb68b1a0db985ae3346bb4f9b8ee45a0f48f6484cc"
+    },
+    {
+      "bytes": 3612,
+      "path": "scripts/test_solver_ipc_coupling_adversarial.py",
+      "sha256": "f173081204dbcbfb28a21561abc56a93499d8781b3de3d29aaeaef9fe99fc232"
+    },
+    {
+      "bytes": 7452,
+      "path": "scripts/test_solver_ipc_integration.py",
+      "sha256": "44b764e00a6ead15fec4e3f4f8a69f071e500eaaf0f93721c39ae1c35afa33ec"
+    },
+    {
+      "bytes": 32216,
+      "path": "scripts/test_solver_journal_adversarial.py",
+      "sha256": "b42eaeda6cb65c0b345d80cc17ce6a7117300715e61c3261e4bab73c7e0f17cb"
+    },
+    {
+      "bytes": 27641,
+      "path": "scripts/test_solver_material_grippers.py",
+      "sha256": "f19fa66e14d7c4c0185b21ddda9833047e49e6092c3806d05f05f8a919b9708b"
+    },
+    {
+      "bytes": 4443,
+      "path": "scripts/test_solver_membrane_adversarial.py",
+      "sha256": "80afdb8a9d85131b70d37d193a90f2c3d744e9f354dff544a66ce26ecc4747e4"
+    },
+    {
+      "bytes": 3016,
+      "path": "scripts/test_solver_membrane_hessian.py",
+      "sha256": "026850b09778e7d980588c051c62d4725082eafd2eb8da6eba829daa69e308f6"
+    },
+    {
+      "bytes": 11775,
+      "path": "scripts/test_solver_membrane_stability.py",
+      "sha256": "a454e1da36d7bbfea626dc62983bff13e6c7e40890f462af9a570ff6971bed4e"
+    },
+    {
+      "bytes": 17399,
+      "path": "scripts/test_solver_mixed_control_integration.py",
+      "sha256": "a29c84027a51c28bed526acd658988c01d24540130f2a3abc43d84901555895a"
+    },
+    {
+      "bytes": 14789,
+      "path": "scripts/test_solver_mixed_control_publication.py",
+      "sha256": "cfd43c7b54c9e18da49543f7535b2b2214bd1cc9b9e58e25c2471d5ae6982d3e"
+    },
+    {
+      "bytes": 7870,
+      "path": "scripts/test_solver_native_candidate_coverage.py",
+      "sha256": "723d34eb1ce4bfe0de7376b11fbc7215ed43cb29e767b4473a88497e876ef6fd"
+    },
+    {
+      "bytes": 10210,
+      "path": "scripts/test_solver_normal_sewing.py",
+      "sha256": "6516ecb7316d202273bdbc91c97c399fa7ef95c705af1c3e556dc7c2bd501bd7"
+    },
+    {
+      "bytes": 11164,
+      "path": "scripts/test_solver_point_contact.py",
+      "sha256": "7eefa8deb26be1ec46dc4f03a1cde2ee7b90efdcd57bff12939223a7c57bfb7d"
+    },
+    {
+      "bytes": 29544,
+      "path": "scripts/test_solver_process_budget.py",
+      "sha256": "5a4b05f159fac93f93f1fa8fe480ba05102363e0b87761c899ac946f871f5841"
+    },
+    {
+      "bytes": 13457,
+      "path": "scripts/test_solver_radial_moments.py",
+      "sha256": "f9a039e1e180dcd1f58a1986800ca854beb0d28e878af64a864382629e1ba674"
+    },
+    {
+      "bytes": 3443,
+      "path": "scripts/test_solver_replay_budget.py",
+      "sha256": "68d9a8509e5f74ce74579d74725630b11a4d3db751abd9acb3a87593937a3fee"
+    },
+    {
+      "bytes": 14525,
+      "path": "scripts/test_solver_rest_filtered_contact.py",
+      "sha256": "8329a307c38fdfe86739e0e369baaa4596c6b7665e82cc495098421582ec2020"
+    },
+    {
+      "bytes": 6647,
+      "path": "scripts/test_solver_rest_filtered_locality.py",
+      "sha256": "7f9b2039a0165b4c41535a393f775384e20a71631b36afbcfe12a3f588e86ca1"
+    },
+    {
+      "bytes": 7415,
+      "path": "scripts/test_solver_rest_filtered_partition_adversarial.py",
+      "sha256": "dd459f168a83edf654a1602fb97f2a6cd24591a41dba0af2e0bdd02bf582ecee"
+    },
+    {
+      "bytes": 4226,
+      "path": "scripts/test_solver_rigid_staging.py",
+      "sha256": "18df5e8f401d6acaef0a48dd3460db2af0bfc0ec4aad14a53f11e0c131648a19"
+    },
+    {
+      "bytes": 17729,
+      "path": "scripts/test_solver_rigid_velocity_diagnostics.py",
+      "sha256": "143e6b2cfc4231a8df4dfdd8bef74fea373b5773a85f83367a14d7e6c2215442"
+    },
+    {
+      "bytes": 18602,
+      "path": "scripts/test_solver_sewing_activation.py",
+      "sha256": "315d32704e782b75a417e613c697d2aede1ddfaab657e750dcd9c7c71c771eb5"
+    },
+    {
+      "bytes": 20686,
+      "path": "scripts/test_solver_sewing_activation_adaptive.py",
+      "sha256": "4aefb6e8d462ec05df7c6e32b24a9567315dd1e48a9f5c91ec84afbbbb7612d3"
+    },
+    {
+      "bytes": 19750,
+      "path": "scripts/test_solver_sewing_activation_energy.py",
+      "sha256": "e4a50bea1cac083c37f4110715bc7ca7493a50d63e343c4a41845c41ff15b896"
+    },
+    {
+      "bytes": 10524,
+      "path": "scripts/test_solver_sewing_activation_energy_review.py",
+      "sha256": "192171d015d71a1318c4fe8c1861898aa7c15b2c6aefcc153e609ec0a1d3010a"
+    },
+    {
+      "bytes": 18014,
+      "path": "scripts/test_solver_sewing_activation_integration.py",
+      "sha256": "eae6f6c7510c3cf761c6d044015a88bdb9527270de981800d65373cc07f509dd"
+    },
+    {
+      "bytes": 10552,
+      "path": "scripts/test_solver_sewing_activation_schedule.py",
+      "sha256": "ec11c828cad4c838ce4cc0659ed840678fa93ce47a9f8b7d71f606af3cca34d6"
+    },
+    {
+      "bytes": 8860,
+      "path": "scripts/test_solver_sewing_continuation_cli.py",
+      "sha256": "7437759150a016aa42f56b56a8f92d498151e79f306d7586611f8f63d2285fa0"
+    },
+    {
+      "bytes": 16398,
+      "path": "scripts/test_solver_sewing_continuation_review.py",
+      "sha256": "35deae04ebd48ba91ad5430c8abe36e8dc2d3ada21386d68625430f187fbd09d"
+    },
+    {
+      "bytes": 24875,
+      "path": "scripts/test_solver_sewing_input.py",
+      "sha256": "14220fa6a2855d6afacfa4cf1420f220ad0a67695ecdf7deb59c1156f138b9ff"
+    },
+    {
+      "bytes": 5576,
+      "path": "scripts/test_solver_sewing_path_cli.py",
+      "sha256": "e8263082370577993301866c83af58d6b58cf3483b8187f237e2419a374565f8"
+    },
+    {
+      "bytes": 20843,
+      "path": "scripts/test_solver_sewing_replay.py",
+      "sha256": "229e40be45918d062538d0ca93624b8e1d8aa32c8bcf7cbc16597836e97fc85c"
+    },
+    {
+      "bytes": 11085,
+      "path": "scripts/test_solver_sewing_sweep.py",
+      "sha256": "a08a171c539c5edde8b103d02e48ee0f2f5c209a26528bbbfddef40463545ac4"
+    },
+    {
+      "bytes": 9378,
+      "path": "scripts/test_solver_sewing_sweep_review.py",
+      "sha256": "98614f664ac5b271d9fc624182aa141bda5f7413f8e4ab1f197ff76a6039d6e1"
+    },
+    {
+      "bytes": 2829,
+      "path": "scripts/test_solver_source_capture.py",
+      "sha256": "2f1e52428e3b4d696e1ba5dd15d10f50d4c18efc279610593aa4936b7d4a64a4"
+    },
+    {
+      "bytes": 17064,
+      "path": "scripts/test_solver_spatial_sewing.py",
+      "sha256": "44ad02a3de80fcad316622f071be2d9c68ea9321256ef4acc5a5509cd4d91bab"
+    },
+    {
+      "bytes": 6422,
+      "path": "scripts/test_solver_spike_geometry.py",
+      "sha256": "26dcedd6410628d94b12125d09d3c0b7f1b192cb4d7c87406799b5fa0a08aa47"
+    },
+    {
+      "bytes": 15913,
+      "path": "scripts/test_solver_stationarity.py",
+      "sha256": "2524eb563b9af7a7fed668beae849f2131e821142210988b27d4bec7ae98ab2d"
+    },
+    {
+      "bytes": 3708,
+      "path": "scripts/test_solver_strain_diagnostics.py",
+      "sha256": "fce8abe772fa490b155f8f63bc8fdd725e577139fbe1ce0c337d13248432ec1f"
+    },
+    {
+      "bytes": 8492,
+      "path": "scripts/test_solver_surface_distance_diagnostics.py",
+      "sha256": "dd6ab981c48edc4a507a5438394411dd0987d663d932fb5af947012dc1b7bfe2"
+    },
+    {
+      "bytes": 6096,
+      "path": "scripts/test_solver_swept_separation.py",
+      "sha256": "ad2775faa86786d1d613d595693984f5184aeca24ff27c92d762c8564af1b14d"
+    },
+    {
+      "bytes": 15189,
+      "path": "scripts/test_solver_temporal_control.py",
+      "sha256": "ce303620e254d9adc1d7f5b766775fb3a3ec092f96266be5efb99ee219897e03"
+    },
+    {
+      "bytes": 15718,
+      "path": "scripts/test_solver_temporal_global.py",
+      "sha256": "b5c3dea388e4964fbadf99446280b9c8f3dc21063092c291d2b56cbd468efee7"
+    },
+    {
+      "bytes": 3913,
+      "path": "scripts/test_solver_temporal_integration.py",
+      "sha256": "ca7ed6ff96efc72a33545a96330ce742830c87314fe97cd6020524b679e6aee8"
+    },
+    {
+      "bytes": 11915,
+      "path": "scripts/test_solver_temporal_separation.py",
+      "sha256": "c879a18ec8f37537dd843b493f7210a7db1748c55209d4e681b9adb83a60cc83"
+    },
+    {
+      "bytes": 5110,
+      "path": "scripts/test_solver_torso_control.py",
+      "sha256": "c8f82dc18153de6f5fd8930cffc77283fd715e8b2bb3930b33d4015bdd9ce839"
+    },
+    {
+      "bytes": 7889,
+      "path": "scripts/test_solver_triangle_sweep.py",
+      "sha256": "49afbb578fa93c972f51aefcecc9dfbb28c2055f218de302f3470628e7ed7306"
+    },
+    {
+      "bytes": 2793,
+      "path": "scripts/test_solver_triangle_sweep_adversarial.py",
+      "sha256": "543433c0c3b2aed760e5cd893230318e0cdee234665e1bae34f5b6e9d56383f4"
+    }
+  ],
+  "unchangedBoundaries": {
+    "captureReplayExpanded": false,
+    "deployed": false,
+    "productionChanged": false,
+    "pushed": false
+  },
+  "verificationComplete": true
+}

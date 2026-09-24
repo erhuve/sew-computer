@@ -293,7 +293,21 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                           attempt_journal=None, initial_fold_targets=None, fold_targets=None,
                           assembly_schedule=None, gripper_schedule=None, sewing_schedule=None, sewing_row_ids=None,
                           fold_control_schedule=None, cable_parameter_schedule=None,
-                          stationarity_tolerance_newtons=1e-6, **step_options):
+                          stationarity_tolerance_newtons=1e-6, temporal_policy=None, **step_options):
+    if temporal_policy is not None:
+        from solver_temporal_control import policy, strict_array, problem_identity, run_trials
+        from solver_controlled_fold import _binary64
+        temporal_policy = policy(temporal_policy)
+        if attempt_journal is not None or on_accept is not None:
+            raise ValueError("Temporal pair commits are in memory; legacy journals and per-step callbacks are unsupported")
+        if step_options.get("linear_solver", "direct") != "direct":
+            raise ValueError("Temporal control requires guarded direct search")
+        temporal_evaluations = step_options.get("max_evaluations", 300)
+        if type(temporal_evaluations) is not int or not 1 <= temporal_evaluations <= 10000:
+            raise ValueError("Bounded fixed per-trial evaluation allowance required")
+        positions, velocities, initial_targets, targets = map(strict_array,
+            (positions, velocities, initial_targets, targets))
+        dt = _binary64(dt)
     tolerance = stationarity_tolerance(stationarity_tolerance_newtons)
     tightened = tolerance != 1e-6
     if tightened:
@@ -377,6 +391,14 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             or initial_subdivisions & (initial_subdivisions - 1)
             or initial_subdivisions > max_attempts):
         raise ValueError("Bounded depth, positive attempt budget and dyadic initial subdivisions required")
+    if temporal_policy is not None:
+        if max_depth < 1 or int(initial_subdivisions).bit_length()-1 + max_depth > 40:
+            raise ValueError("Temporal depth includes evaluated fine halves and must stay within the 2^40 grid")
+        temporal_mass = strict_array(solver.mass)
+        if (temporal_mass.shape != (len(positions),) or np.any(temporal_mass <= 0)
+                or type(solver.active) is not np.ndarray or solver.active.dtype != np.dtype(bool)
+                or solver.active.shape != temporal_mass.shape or not np.all(solver.active)):
+            raise ValueError("Temporal energy policy requires free positive-mass vertices")
     current_positions, current_velocities = positions.copy(), velocities.copy()
     initial_targets, targets = initial_targets.copy(), targets.copy()
     if varying_control is not None:
@@ -443,6 +465,29 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
     if varying_control is not None:
         varying_sewing_identity = _sewing_model_identity(solver)
         varying_other_controls = (fold_recipe, controlled_fold_recipe, gripper_recipe)
+    if temporal_policy is not None:
+        # Piecewise-linear nonnegative activation reaches its smallest
+        # positive finite-grid sample at a knot or its nearest grid neighbor.
+        # Check that added half-grid, without enumerating up to 2^40 samples.
+        grid = Fraction(1, int(initial_subdivisions) * 2**int(max_depth))
+        temporal_preflight = {}
+        for label, controls, recipe in (("fold", fold_controls, controlled_fold_recipe),
+                                        ("sewing", sewing_controls, None),
+                                        ("gripper", gripper_controls, gripper_recipe)):
+            if controls is None:
+                continue
+            fractions = controls._fractions
+            probes = sorted({value for knot in fractions for value in (knot-grid, knot, knot+grid)
+                             if 0 <= value <= 1})
+            for fraction in probes:
+                parameters = controls.parameters(fraction)
+                if recipe is not None:
+                    recipe.potential(*parameters)
+            temporal_preflight[label] = {"gridDenominator": grid.denominator,
+                                         "knotAndNeighborSamples": len(probes)}
+        temporal_controls = (schedule, gripper_controls, sewing_controls, fold_controls, cable_controls,
+                             initial_targets, targets, initial_fold_targets, fold_targets, step_options)
+        temporal_problem = problem_identity(solver, temporal_controls)
     def validated_interval(current_positions, current_velocities, start_fraction, end_fraction,
                            duration, sewing_progress, fold_progress, substep_targets, record):
         """Evaluate one guarded interval without journaling or publishing state.
@@ -482,7 +527,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 if _sewing_model_identity(solver) != sewing_model_identity:
                     raise ValueError("Sewing model identity changed before the adaptive step")
             step_positions, step_velocities = current_positions.copy(), current_velocities.copy()
-            if varying_control is not None:
+            if varying_control is not None or temporal_policy is not None:
                 # Retain every live state/control passed through publication;
                 # late callbacks in a helper must not defeat an earlier check.
                 varying_arrays = [current_positions, current_velocities, step_positions, step_velocities,
@@ -492,6 +537,11 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                 step_positions, step_velocities, substep_targets, duration, **options)
             if not isinstance(step_report, dict):
                 raise ValueError("Solver diagnostic report must be an object")
+            if temporal_policy is not None:
+                candidate_positions, candidate_velocities = map(strict_array, (candidate_positions, candidate_velocities))
+                temporal_core = copy.deepcopy(_step_core(step_report, grippers=gripper_controls is not None))
+                varying_arrays.extend((candidate_positions, candidate_velocities))
+                varying_snapshots.extend((candidate_positions.copy(), candidate_velocities.copy()))
             record["step"], nonfinite = diagnostic_json(step_report)
             record["nonfiniteDiagnostics"] = nonfinite
             if fold_controls is not None:
@@ -554,7 +604,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                                    tolerance_newtons=tolerance)
                 _validate_varying_identity(solver, varying_control, varying_definition, cable_controls, cable_schedule_definition)
             if valid and (gripper_controls is not None or sewing_controls is not None or fold_controls is not None
-                          or cable_control is not None or varying_control is not None):
+                          or cable_control is not None or varying_control is not None or temporal_policy is not None):
                 # Work belongs to the accepted transition and must be checked
                 # before its immutable journal outcome is written. Trial
                 # controls always use original fractions; retries do not
@@ -591,7 +641,7 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     energy_options.update(previous_fold_targets=old_fold, previous_fold_activation=old_activation,
                                           fold_targets=new_fold, fold_activation=new_activation)
                 if (fold_controls is not None or sewing_controls is not None
-                        or cable_control is not None or varying_control is not None):
+                        or cable_control is not None or varying_control is not None or temporal_policy is not None):
                     # Work is computed before publication. Isolated inputs
                     # preserve the last accepted state even if a helper fails
                     # after mutation; successful mutation also rejects.
@@ -600,10 +650,15 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                     work_options = {key: value.copy() for key, value in energy_options.items()}
                     observed_arrays = [*work_states, *work_options.values()]
                     snapshots = [array.copy() for array in observed_arrays]
-                    if varying_control is not None:
+                    if varying_control is not None or temporal_policy is not None:
                         varying_arrays.extend(observed_arrays)
                         varying_snapshots.extend(snapshots)
-                    energy = global_energy_transition(solver, *work_states, duration, **work_options)
+                    if temporal_policy is not None:
+                        record["energyTransitionCalls"] = 1
+                        energy = global_energy_transition(solver, *work_states, duration,
+                                                         **work_options, include_temporal_motion=True)
+                    else:
+                        energy = global_energy_transition(solver, *work_states, duration, **work_options)
                     if any(not _same_control_array(actual, expected) for actual, expected in zip(observed_arrays, snapshots)):
                         raise ValueError("Controlled work helper mutated transition inputs")
                     if fold_controls is not None:
@@ -688,6 +743,10 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
                         raise ValueError("Varying cable step or accounting changed during final numerical validation")
             if valid:
                 validate_tightened_report(record["step"], tolerance)
+                if temporal_policy is not None:
+                    if (any(not _same_control_array(actual, expected) for actual, expected in zip(varying_arrays, varying_snapshots))
+                            or not same(_step_core(record["step"], grippers=gripper_controls is not None), temporal_core)):
+                        raise ValueError("Temporal trial state, controls or step report changed during validation")
             record["converged"] = bool(valid)
         except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
             record["error"] = {"type": type(error).__name__, "message": str(error)}
@@ -699,6 +758,38 @@ def adaptive_contact_step(solver, positions, velocities, initial_targets, target
             record["error"] = {"type": type(error).__name__, "message": str(error)}
             valid, fatal, propagate = False, True, error
         return candidate_positions, candidate_velocities, valid, fatal, propagate
+
+    if temporal_policy is not None:
+        def temporal_trial(q, v, start, end, duration, record):
+            if problem_identity(solver, temporal_controls) != temporal_problem:
+                raise RuntimeError("Temporal problem identity changed before a trial")
+            sewing_progress, fold_progress = schedule.progress(end) if schedule else (end, end)
+            values = targets.copy() if sewing_progress == 1 else initial_targets + sewing_progress*(targets-initial_targets)
+            result = validated_interval(q, v, start, end, duration, sewing_progress, fold_progress, values, record)
+            if problem_identity(solver, temporal_controls) != temporal_problem:
+                raise RuntimeError("Temporal problem identity changed during a trial")
+            return result
+
+        def finish_temporal(report):
+            report["stationarityToleranceN"] = tolerance
+            report["massKg"] = temporal_mass.tolist()
+            report["temporalSchedulePreflight"] = copy.deepcopy(temporal_preflight)
+            if varying_control is not None:
+                report.update(varyingCableControl=copy.deepcopy(varying_definition),
+                              cableParameterSchedule=copy.deepcopy(cable_schedule_definition),
+                              cableParameterPreflight=copy.deepcopy(cable_preflight),
+                              varyingCableAcceptedWorkTotals=_varying_cable_totals(report["acceptedSteps"]))
+
+        try:
+            q, v, report = run_trials(temporal_trial, current_positions, current_velocities, temporal_mass, dt,
+                declaration=temporal_policy, max_depth=int(max_depth), max_attempts=int(max_attempts),
+                initial_subdivisions=int(initial_subdivisions), evaluation_limit=temporal_evaluations)
+        except BaseException as error:
+            if hasattr(error, "temporal_result"):
+                finish_temporal(error.temporal_result[2])
+            raise
+        finish_temporal(report)
+        return q, v, report
 
     attempts, accepted, rejected = [], [], []
     completed_fraction = 0.
