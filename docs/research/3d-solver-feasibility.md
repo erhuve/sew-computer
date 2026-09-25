@@ -4,6 +4,27 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Failed function-level profiling · 2026-09-25
+
+A separately declared diagnostic adds raw `cProfile` observations with a process-CPU clock to the unchanged 128-call workload. All twelve measurement/execution methods are reviewed and frozen before execution. Thirty-five helper controls cover clocks, recursion, exceptions, label multiplicity, opaque runtime labels and call-graph counts; the same controls pass in each pinned Linux parent before its fresh numerical child starts. Forty-two saved-report cases and eight parent failure-publication cases pass separately on the host. These checks concern the diagnostic, not new solver or garment acceptance.
+
+| Observation | Control | Instrumented |
+| --- | ---: | ---: |
+| Completed solver calls | 128 | 119 |
+| Declared 128-call stop reached | Yes | No |
+| Actual numerical child exit | 86 | 1 |
+| Earlier proposed worker exit | 86 | 86 |
+| Actual outer Docker exit | 0 | 0 |
+| Outer elapsed seconds | 60.197 | 370.349 |
+| Cleanup completed | Yes | Yes |
+| Usable function measurements | Disabled | None published |
+
+The instrumented supervisor sends SIGTERM at **360.003 seconds**, its unchanged wall limit. The worker traceback shows `TemporalStopRequested` inside the profiler clock callback, followed by a reported ignored exception. The later profiling summary raises `ValueError` for incomplete or invalid observations. The helper's error tracking and the execution stop latch explain this behavior by source inspection; their internal state is not separately serialized. A **9,880,380-byte** raw snapshot and an as-of outcome proposing exit 86 were already published. Subsequent profiling failure makes the actual child exit **1**. The missing function report makes launcher verification false even though the parent driver and Docker exit zero. No out-of-memory event or cleanup failure is reported.
+
+This attempt supplies no admitted function-cost table, complete instrumented workload or saved pair comparison. The retained broad timers describe an interrupted 119-call operation; they cannot establish the intended matched 128-call diagnostic or unprofiled performance. Independent failure review verifies all 1,431 inputs per arm, current/frozen source bytes, process observations and retained artifact hashes without decoding or numerically auditing the interrupted snapshot. The earlier zero-count profiler anomaly remains unresolved and is not explained by this separate stop/clock interaction.
+
+The [attempt ledger](3d-function-profile-attempt-results.json) preserves the failure, successful control, review evidence and local artifact identities. Its reproduction command is `python3 .planning/solver/package-function-profile-attempt-v1.py --check`. No numerical/application source, physical input, stationarity criterion or resource limit changed; no new full numerical/application suite or deployment is claimed. Next use lightweight targeted scope timers inside the previously measured solver/energy scopes, requiring the same complete 128-call history and fresh native endpoint validation. Keep the full 64 ms accuracy, preload/released-tail, spatial, construction, material/body/full-shirt and application gates open.
+
 ## Matched worker profiling · 2026-09-25
 
 Two prospectively declared pairs execute three and then 128 original solver calls, with timing disabled in the control and enabled in the second arm. The same observation wrappers, physical inputs, numerical criteria and pinned offline Linux ARM64 runtime apply to both arms. Each numerical child actually exits **86** at its declared fixed stop; every outer launch and both separate saved-history comparisons exit zero with clean cleanup. No resource limit or physical criterion changes during execution.
