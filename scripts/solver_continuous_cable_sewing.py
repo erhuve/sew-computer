@@ -17,6 +17,7 @@ from solver_continuous_normal_sewing import (
 )
 from solver_sewing_activation import _contains_bool
 from solver_radial_moments import radial_moment_bounds
+from solver_cable_contraction import contract as _contract_intervals
 
 PROFILE = "continuous-tension-only-separation-v1"
 FIELDS = frozenset(("id", *ANCHORS, "targetsMeters", "referenceLengthMeters",
@@ -335,6 +336,9 @@ class ContinuousCableSewing:
                 raise ValueError("Verified radial moment enclosures required")
             stats['momentPanels'] += moments['panels']
             stats['maxMomentTerms'] = max(stats['maxMomentTerms'], moments['maxTerms'])
+        result = _contract_intervals(local, moments if powers else None, width)
+        if result is not None:
+            return result
         result = {}
         for key, polynomial, half, three in local:
             value = _integral(polynomial)
