@@ -4,6 +4,36 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Isolated-helper callback profiling · 2026-09-25
+
+The next prospectively declared pair separates the original isolation helper from ten source-bound callback families. Both numerical children intentionally exit **86** after 128 valid trials and the recorded stop at trial 129. Both outer launches exit zero with unchanged inputs and complete cleanup. The separately bounded saved comparator exits zero in a **27.916-second outer wrapper interval** and verifies complete raw histories against each other and the prior reference, normalizing only the unique verified envelope run identity. This remains the incomplete **1.890625 ms** prefix. All 271 numerical source files, original physical inputs, accuracy criteria and resource limits are unchanged.
+
+The adapter binds five exact method definitions and six exact lambda code sites, including the nested contact-validation callback. It preserves the original helper's copies, dispatch and mutation checks, retains no numerical receiver/input/result or ephemeral callback, and restores the original lookup before export. Each pinned parent passes the unchanged **28 helper and 10 phase controls**, plus **14 independently authored adapter controls**. The primary **78 serialized-sidecar cases** and **11 fake parent-gate cases** also match expectations. These are diagnostic controls, not additions to the historical full numerical test count.
+
+All eleven conditional counts match in both arms. The instrumented operation uses **50.319088174 process CPU seconds**, with **15.120255516 seconds** outside the separately timed solver steps and energy transitions. Within that latter interval:
+
+| Isolation component | Calls | Self CPU seconds |
+| --- | ---: | ---: |
+| Fresh cable diagnostics | 384 | 7.829211 |
+| Fresh contact-energy validation | 128 | 2.220855 |
+| Varying-energy record validation | 128 | 0.829583 |
+| Parameter records | 770 | 0.523933 |
+| Parameter work | 128 | 0.400366 |
+| Fixed-parameter motion work | 128 | 0.392907 |
+| Effective-control construction | 512 | 0.309421 |
+| Parameter-work record validation | 128 | 0.176009 |
+| Diagnostic record validation | 384 | 0.107291 |
+| Motion-work record validation | 128 | 0.020990 |
+| Remaining isolation helper | 2,818 | 0.044995 |
+
+The ten callback bodies total **12.810565941 seconds / 99.650%** of the helper's **12.855561316 inclusive seconds**. Their times are disjoint within this call tree; each includes its own lower-level work and is not a global method total. The helper's remaining self time includes classification, copying, mutation checks and instrumentation, not copying alone. The tree accounts for **25.548%** of operation CPU, leaving **2.264694200 seconds** of broad controller/other time outside it. Previous profiling layouts measure different nested boundaries; do not subtract their values from this run.
+
+Fresh cable diagnostics is the largest family: **15.559%** of operation CPU and **60.901%** of isolation CPU. Explicit effective-control and parameter-record calls together use only **0.833354040 seconds**; this does not establish immutable construction as the principal target. Next implement and measure a narrow exact-polynomial optimization inside fresh cable-response evaluation, beginning with identity affine composition, while preserving rational coefficients, response/work records, budgets and every fresh validation. The source observation identifies a candidate, not that helper's measured share or an established speedup. Require independent mathematical and adversarial checks, applicable regressions and unchanged complete histories before returning to the original 64 ms accuracy study.
+
+Independent saved-result review verifies complete histories including the stopped trial, state hashes, committed energy, source/process identities, all counts and CPU/wall partition arithmetic. The missing `Subscript` metadata case found before freezing was repaired and tested. A setup bookkeeping failure and two reviewer-only schema/permission assumptions remain explicitly associated with retained failed sources and receipts; no experimental method or criterion changed to make the runs pass. The first final saved-result review passes with actual exit zero.
+
+The [isolated-helper ledger](3d-isolated-helper-results.json) retains the 311-row frozen source snapshot, actual processes, methods and reviews across **7,974 artifact bindings**. Local reproduction uses `python3 .planning/solver/package-isolated-helper-results-v1.py --check` in the isolated study checkout with its retained ignored artifacts. Numerical/application sources are unchanged; no new full regression suite ran, and the **1,590-test** baseline remains historical evidence. No speedup, full-duration accuracy, construction, material/body/full-shirt or application acceptance follows. Nothing is pushed or deployed.
+
 ## Adaptive-validation scope profiling · 2026-09-25
 
 A prospectively declared pair measures eight adaptive-validation scopes on the unchanged 128-call workload. Both numerical children intentionally exit **86** after 128 valid trials and the recorded stop at trial 129. Both outer launches exit zero with unchanged inputs and complete cleanup. The separately bounded saved comparator exits zero, with an **outer wrapper interval of 26.512 seconds**, and verifies exact complete histories against each other and the prior reference after normalizing only the unique verified envelope run identity. The result remains the incomplete **1.890625 ms** prefix. Original physical inputs, the 1e-8 N stationarity criterion and every numerical/resource limit are unchanged.
