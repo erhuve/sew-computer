@@ -201,6 +201,8 @@ class CuffSewingCaptureTests(unittest.TestCase):
                 self.assertLessEqual(state["recomputedResidualN"], 1e-6)
             self.assertEqual(proof["verifiedSewingWorkSummary"]["sewingParameterWorkJoules"], 0.)
             proof_path.unlink()
+            # Only the temporary attack fixture becomes writable.
+            (output / "report.json").chmod(0o600)
             for label, mutation in (
                     ("false is not integer zero", lambda value: value["sewingBinding"]["cuffSourceBinding"].__setitem__("accepted", 0)),
                     ("member index is not true", lambda value: value["sewingBinding"]["cuffSourceBinding"]["rowGroups"][0].__setitem__("memberIndex", True))):

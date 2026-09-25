@@ -71,6 +71,8 @@ class FoldContinuationCliTests(unittest.TestCase):
             state = output / report["acceptedStateArtifacts"][-1]["path"]
             data = json.loads(state.read_text())
             data["record"]["step"]["foldTargetsRadians"][0] *= -1
+            # Explicitly permit this test-owned corruption before checking replay.
+            state.chmod(0o600)
             state.write_text(json.dumps(data))
             replay = subprocess.run(replay_command, capture_output=True, text=True, timeout=30)
             self.assertNotEqual(replay.returncode, 0)

@@ -125,6 +125,8 @@ class SewingContinuationCliTests(unittest.TestCase):
             source = self.source()
             process, output, report = self.run_control(Path(directory), source)
             self.assert_control(source, process, output, report)
+            # Make only the temporary report writable for the declared attacks.
+            (output / "report.json").chmod(0o600)
             for label, mutation in (
                 ("missing total", lambda value: value.pop("sewingWorkSummary")),
                 ("tiny total", lambda value: value["sewingWorkSummary"].__setitem__("sewingParameterWorkJoules", 1e-30)),

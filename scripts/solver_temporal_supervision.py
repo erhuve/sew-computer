@@ -83,11 +83,19 @@ def observe_job(store, policy):
 
     def inventory(directory, maximum):
         names = []
-        with os.scandir(directory.fd) as entries:
-            for entry in entries:
-                if len(names) == maximum:
-                    raise ValueError("Too many temporal artifact names")
-                names.append(entry.name)
+        # Keep the trusted anchor, but give every inventory its own open file
+        # description. Reusing the anchor's stream can retain a stale directory
+        # entry boundary even when its numeric position is zero.
+        fd = os.open(".", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC,
+                     dir_fd=directory.fd)
+        try:
+            with os.scandir(fd) as entries:
+                for entry in entries:
+                    if len(names) == maximum:
+                        raise ValueError("Too many temporal artifact names")
+                    names.append(entry.name)
+        finally:
+            os.close(fd)
         return names
 
     def observe(directory, name, limit, prefix=""):

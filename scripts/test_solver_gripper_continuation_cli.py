@@ -88,6 +88,7 @@ class GripperContinuationCliTests(unittest.TestCase):
         state_path = output / descriptor["path"]
         state = json.loads(state_path.read_text())
         mutate(state["record"]["step"])
+        state_path.chmod(0o600)
         state_path.write_bytes(json_bytes(state))
         changed_descriptor = {"path": descriptor["path"], "sha256": hashlib.sha256(state_path.read_bytes()).hexdigest()}
         previous = None
@@ -97,6 +98,7 @@ class GripperContinuationCliTests(unittest.TestCase):
             if payload["kind"] == "outcome" and payload["data"]["attemptId"] == state["record"]["attemptId"]:
                 payload["data"] = copy.deepcopy(state["record"]) | {"acceptedState": changed_descriptor}
             envelope = {"payload": payload, "sha256": hashlib.sha256(json_bytes(payload)).hexdigest()}
+            path.chmod(0o600)
             path.write_bytes(json_bytes(envelope))
             previous = hashlib.sha256(path.read_bytes()).hexdigest()
         recovered = recover_attempt_journal(output, report)
@@ -188,6 +190,7 @@ class GripperContinuationCliTests(unittest.TestCase):
                         self.rehash_final_step(attacked, changed, mutate)
                     else:
                         mutate(changed)
+                    (attacked / "report.json").chmod(0o600)
                     (attacked / "report.json").write_bytes(json_bytes(changed))
                     replay = self.replay(attacked)
                     self.assertNotEqual(replay.returncode, 0, replay.stdout + replay.stderr)
@@ -213,6 +216,7 @@ class GripperContinuationCliTests(unittest.TestCase):
             self.assertEqual(report["attemptJournal"]["errors"], [])
             self.assertEqual(len(report["adaptive"]["acceptedSteps"]), 1)
             self.assertEqual(len(report["adaptive"]["interruptedSteps"]), 1)
+            (output / "report.json").chmod(0o600)
             (output / "report.json").write_bytes(json_bytes(report))
             verified = self.verified_replay(output, report)
             self.assertFalse(verified["completed"] or verified["finalStateVerified"])

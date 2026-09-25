@@ -170,6 +170,8 @@ class ContactContinuationCliTests(unittest.TestCase):
                 self.assertEqual(len(verification["states"]), 1)
                 corrupted = json.loads(content)
                 corrupted["positionsMeters"][0][0] += .001
+                # Explicitly make this test-owned captured artifact writable for tampering.
+                (output / artifact["path"]).chmod(0o600)
                 (output / artifact["path"]).write_text(json.dumps(corrupted))
                 replay = subprocess.run(replay_command, capture_output=True, text=True, timeout=30)
                 self.assertNotEqual(replay.returncode, 0)

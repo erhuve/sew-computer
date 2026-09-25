@@ -332,7 +332,10 @@ def _distance_choices(kind, positions):
         raise ValueError("Three-dimensional immutable contact coordinates required")
     for row in positions:
         for value in row:
-            _binary(value)
+            # Admission needs no temporary Fraction; actual rational geometry
+            # is constructed on a cache miss and checked against each budget.
+            if type(value) is not float or not math.isfinite(value):
+                raise ValueError("Finite binary64 input required")
     # Preserve the prior behavior for nonstandard string-like kind objects
     # without allowing their custom equality/hash methods into shared keys.
     if type(kind) is not str:
