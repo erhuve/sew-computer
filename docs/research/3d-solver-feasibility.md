@@ -4,6 +4,28 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Matched worker profiling · 2026-09-25
+
+Two prospectively declared pairs execute three and then 128 original solver calls, with timing disabled in the control and enabled in the second arm. The same observation wrappers, physical inputs, numerical criteria and pinned offline Linux ARM64 runtime apply to both arms. Each numerical child actually exits **86** at its declared fixed stop; every outer launch and both separate saved-history comparisons exit zero with clean cleanup. No resource limit or physical criterion changes during execution.
+
+Within each pair, the complete raw histories match byte-for-byte after replacing only the unique, externally verified top-level run identity. The three-call control commits no intervals. Each 128-call history contains **129 recorded/reserved trials**, **128 valid candidates**, **42 committed fine intervals** in **21 transactions**, **86 uncommitted valid trials**, including **two unassessed valid trials**, and **1.890625 ms** of committed progress. Trial 129 records the deliberate stop; charged evaluation allowance is 38,700. The bounded saved checker also compares every field of the first 128 trial/reservation records and every published assessment, transaction and accepted-step prefix against the original audited A history. The distinct terminal stop is excluded from that original-A comparison. Repeated observations are not additional physical coverage.
+
+The instrumented 128-call operation takes **51.512 process CPU seconds**:
+
+| Measured scope | Process CPU seconds | Share of operation CPU |
+| --- | ---: | ---: |
+| Solver steps | 24.894 | 48.33% |
+| Energy transitions | 12.015 | 23.32% |
+| Other controller/report work, including timer overhead | 14.603 | 28.35% |
+
+Separately measured fixture setup takes 3.315 CPU seconds. The worker scope takes 52.931 CPU seconds, including 0.341 seconds for snapshot construction and 1.078 seconds for publication. Operation time is nested inside worker time; these inclusive totals must not be added. Timer counts and nesting identities pass for CPU and wall clocks. Fixture timing excludes earlier common/timer imports; worker timing excludes outer hook restoration, timing-sidecar writing, final source checks and process exit. Process CPU does not include aggregate descendant CPU.
+
+Independent saved-evidence review rechecks complete pair bytes, state hashes, published controller indicators, the committed state/energy-sum chain and timer identities. The original-A association is authenticated through the frozen comparator's exact inputs and actual execution; the reviewer does not repeat the 196 MB decode or perform a new native/path audit.
+
+This identifies costs in one early workload. It supplies no statistical speedup estimate, whole-worker bottleneck conclusion or complete-trajectory accuracy result. The ordered pair uses natural caches, and its elapsed-time difference is not a speedup measurement. The next performance investigation should separate the work inside solver steps and energy transitions while retaining fresh native validation and exact numerical-history checks; the current evidence does not justify choosing a particular cache or weakening validation. Original preloaded and released-tail controls, temporal/spatial accuracy, source construction and application acceptance remain open.
+
+The [profiling ledger](3d-cached-profile-results.json) retains declarations, source snapshots, actual receipts, timing scopes and original-A associations. Each native snapshot binds 302 source files; the 128-case saved comparison binds 999 inputs and finishes in **12.245 seconds** under its separately declared 6 GiB memory/address-space and 300/330-second CPU limits. All numerical/application source files and protected capture/replay entrypoints remain unchanged. No new full numerical or application suite, garment acceptance or deployment is claimed. Reproduction uses the retained ignored artifacts and `python3 .planning/solver/package-cached-profile-results-v1.py --check`; a Git clone alone does not include the raw histories or local runtime.
+
 ## Cached adaptive prefix study · 2026-09-25
 
 The prospectively frozen cached A case preserves the original separated eight-vertex/four-face/two-cell fixture, seven-knot 64 ms schedule, zero material damping/friction, 1e-8 N conditional stationarity and original local position/native-velocity/energy criteria. Its numerical worker stops at the declared 1,800-second wall limit with **actual exit 86**. It retains a **6.7578125 ms** committed prefix, **2,351 recorded/reserved trials**, **2,318 valid response candidates**, **33 invalid trials**, **808 committed fine intervals** in **404 transactions**, and **1,510 uncommitted valid trials**. There are no unassessed valid trials or unrecorded reservations; charged evaluation allowance is 705,300. This is incomplete numerical execution, not a full 64 ms trajectory or temporal-accuracy result.
