@@ -1,0 +1,2303 @@
+{
+  "accepted": false,
+  "baseCommit": "ec1b4a5d18a2f010d773ebdcf81ba84a8adae0fc",
+  "cases": [
+    {
+      "audit": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 3991,
+            "path": "worker.log",
+            "sha256": "88578e25cb2524791350c94a1d2a09b632edb04a6157ba065927d5a1d8d16778",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.13429,
+        "childLog": {
+          "bytes": 3991,
+          "path": ".planning/solver/resource-runs-v1/n0001/audit-job/worker.log",
+          "sha256": "88578e25cb2524791350c94a1d2a09b632edb04a6157ba065927d5a1d8d16778"
+        },
+        "containerCleanup": {
+          "bytes": 752,
+          "path": ".planning/solver/resource-runs-v1/n0001/audit-container-cleanup.json",
+          "sha256": "bb7cece8427e601e997f78184cb7be0f3eb04a48471c20683580912388fb7201"
+        },
+        "containerLog": {
+          "bytes": 2438,
+          "path": ".planning/solver/resource-runs-v1/n0001/audit-container.log",
+          "sha256": "09679832e526b51cff52ee6237bd061df0fe7122bab32bc19f97f15a1374a283"
+        },
+        "containerMemoryPeakBytes": 29069312,
+        "elapsedSeconds": 0.15737075000000544,
+        "measuredPhases": [
+          {
+            "event": "before-audit",
+            "monotonicSeconds": 33.437045138,
+            "peakRssKiB": 22332,
+            "systemCpuSeconds": 0.017225999999999998,
+            "userCpuSeconds": 0.069629
+          },
+          {
+            "event": "audit-return",
+            "monotonicSeconds": 33.479879596,
+            "peakRssKiB": 23132,
+            "systemCpuSeconds": 0.019192999999999998,
+            "userCpuSeconds": 0.11011
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2301,
+          "path": ".planning/solver/resource-runs-v1/n0001/audit-execution.json",
+          "sha256": "96be5cc2cf5530a3ac80ff4af357aa217bbab63e83f795ae447c54b9f02e353d"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2224,
+          "path": ".planning/solver/resource-runs-v1/n0001/audit-supervision.json",
+          "sha256": "e4cb2c82b93ec1e9e0fb559e6f562ffbbd18d38045f82360d397412073a8b0fa"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "auditInput": {
+        "bytes": 2500,
+        "path": ".planning/solver/resource-runs-v1/n0001/audit-input.json",
+        "sha256": "0fd5615d613eae2b28ac0f8716166600e2e59f6bd4829507de32f92acadb6805"
+      },
+      "auditUnavailableReason": null,
+      "classification": "ordinary-complete-export-and-audit",
+      "declaredResourceCaseSucceeded": true,
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 1,
+          "chargedEvaluationAllowance": 3,
+          "committedFineTrials": 2,
+          "committedTransactions": 1,
+          "diagnosticPayloadInstancesInEnvelope": 5,
+          "recordedTrials": 3,
+          "reservedTrials": 3
+        },
+        "expectedBytes": 320028,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 695,
+        "expectedContextSha256": "d97c368c206c791ca88730e287016e50d6c44a32f24ab13f689414a894c6ff6e",
+        "expectedSha256": "4fb96de7626b07ec534ec4be3662ef0b30db905fb0150244d5907aaed524615a",
+        "n": 1,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "26133956899ffde3e063e3d711b97f834ebcb80c15c6ec583a4891995397c40f",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 21876,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 0.00014800000000000056,
+          "userCpuSeconds": 0.015594999999999998,
+          "wallSeconds": 0.016209250000000175
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1381,
+            "path": "worker.log",
+            "sha256": "a816fc078b93a5d0d8d681da628f2bed4b847eece033f98e0f75f2c20af47f84",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.09479299999999999,
+        "childLog": {
+          "bytes": 1381,
+          "path": ".planning/solver/resource-runs-v1/n0001/expected-job/worker.log",
+          "sha256": "a816fc078b93a5d0d8d681da628f2bed4b847eece033f98e0f75f2c20af47f84"
+        },
+        "containerCleanup": {
+          "bytes": 761,
+          "path": ".planning/solver/resource-runs-v1/n0001/expected-container-cleanup.json",
+          "sha256": "f378384907d44db945ca4c772cd638529ac5a5522ffc247c78e937229f46ed49"
+        },
+        "containerLog": {
+          "bytes": 2489,
+          "path": ".planning/solver/resource-runs-v1/n0001/expected-container.log",
+          "sha256": "946129e6bbf9530f621b289a7045d4683d962bf1cd674ee9e77d55007d6db170"
+        },
+        "containerMemoryPeakBytes": 45543424,
+        "elapsedSeconds": 0.11037554100000024,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2309,
+          "path": ".planning/solver/resource-runs-v1/n0001/expected-execution.json",
+          "sha256": "2c2015abb0f83fc6e9cd6b22917348fcaef889336d31ed067cc6717bb1249e02"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2300,
+          "path": ".planning/solver/resource-runs-v1/n0001/expected-supervision.json",
+          "sha256": "5c6a8707017031f412c7cfa7c933bf4999664148e80a2dd21629cd0cb587178e"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": {
+        "bytes": 320028,
+        "path": "worker/snapshot.json",
+        "sha256": "4fb96de7626b07ec534ec4be3662ef0b30db905fb0150244d5907aaed524615a",
+        "temporary": false,
+        "validation": "bytes-only-structural-and-numerical-audit-deferred"
+      },
+      "matchesIndependentFullEnvelope": true,
+      "mode": "ordinary",
+      "n": 1,
+      "name": "n0001",
+      "numericalPrefix": {
+        "accepted": false,
+        "artifact": {
+          "bytes": 320028,
+          "sha256": "4fb96de7626b07ec534ec4be3662ef0b30db905fb0150244d5907aaed524615a"
+        },
+        "artifactIdentityVerified": true,
+        "available": true,
+        "causalStoppingExplanation": "complete-prefix",
+        "chargedEvaluationAllowance": 3,
+        "committedFineTrials": 2,
+        "committedPrefixIndicatorsReproduced": true,
+        "committedTransactions": 1,
+        "completedFraction": 1.0,
+        "conditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "contextIdentityVerified": true,
+        "contextSha256": "d97c368c206c791ca88730e287016e50d6c44a32f24ab13f689414a894c6ff6e",
+        "envelopeWellFormed": true,
+        "evaluatorProfile": "controller-callback-binary64-le-v1",
+        "notEvaluated": [
+          "source-model-authenticity",
+          "adaptive-response-and-control-interpolation",
+          "primitive-work-enclosures",
+          "constitutive-and-force-accuracy",
+          "contact-and-triangle-paths",
+          "global-temporal-and-spatial-accuracy",
+          "actual-process-outcome",
+          "resume",
+          "garment-acceptance"
+        ],
+        "numericalPrefixComplete": true,
+        "profile": "retained-temporal-prefix-audit-v1",
+        "recordedTrials": 3,
+        "reservedTrials": 3,
+        "runIdentity": "26133956899ffde3e063e3d711b97f834ebcb80c15c6ec583a4891995397c40f",
+        "schedulerPrefixConsistent": true,
+        "scope": "Raw controller observations and conditional exact stored-value pair accounting only.",
+        "stateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e",
+        "tailObservation": "none"
+      },
+      "worker": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1932,
+            "path": "worker.log",
+            "sha256": "f9d5d334d054b02e57d84636109b0f5e4548f23a8a0035abc17bf7675dfdd9e4",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 320028,
+            "path": "worker/snapshot.json",
+            "sha256": "4fb96de7626b07ec534ec4be3662ef0b30db905fb0150244d5907aaed524615a",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 870,
+            "path": "worker/outcome.json",
+            "sha256": "1f85be4579fcb16ea2244152af5c043d7c800aad9be1fc3fb5bb9331e8558fa1",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.5748679999999999,
+        "childLog": {
+          "bytes": 1932,
+          "path": ".planning/solver/resource-runs-v1/n0001/worker-job/worker.log",
+          "sha256": "f9d5d334d054b02e57d84636109b0f5e4548f23a8a0035abc17bf7675dfdd9e4"
+        },
+        "containerCleanup": {
+          "bytes": 754,
+          "path": ".planning/solver/resource-runs-v1/n0001/worker-container-cleanup.json",
+          "sha256": "e1b8eb88e69fa5bbacf36800c7ad22c151c4b5380b41cf0cda24781370b0874c"
+        },
+        "containerLog": {
+          "bytes": 2826,
+          "path": ".planning/solver/resource-runs-v1/n0001/worker-container.log",
+          "sha256": "a09cc55ef7c2c582b02fd2c8aa4c361066ee3278ef49caad940200ae2f62d9cd"
+        },
+        "containerMemoryPeakBytes": 76828672,
+        "elapsedSeconds": 1.3026112510000019,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 15.190637922,
+            "peakRssKiB": 38416,
+            "systemCpuSeconds": 0.033118,
+            "userCpuSeconds": 0.105377
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 15.38935088,
+            "peakRssKiB": 53672,
+            "systemCpuSeconds": 0.053551999999999995,
+            "userCpuSeconds": 0.237896
+          },
+          {
+            "event": "worker-return",
+            "monotonicSeconds": 16.272757797,
+            "peakRssKiB": 53672,
+            "systemCpuSeconds": 0.218495,
+            "userCpuSeconds": 0.338615
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2302,
+          "path": ".planning/solver/resource-runs-v1/n0001/worker-execution.json",
+          "sha256": "36cd9a5e10c2ba26af4902e57f87690c5435f565c9189fac54163ab4b053a00a"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2713,
+          "path": ".planning/solver/resource-runs-v1/n0001/worker-supervision.json",
+          "sha256": "de9b184b6e2069329325b0f3837dfe8164bdbc632c8bd855a42998681d014d04"
+        },
+        "supervisorReason": "worker-exited"
+      }
+    },
+    {
+      "audit": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 4003,
+            "path": "worker.log",
+            "sha256": "fbe2a509e3028d95f5b8600366210cb6c339def8e9144ae79f13fa5029e089b8",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.725345,
+        "childLog": {
+          "bytes": 4003,
+          "path": ".planning/solver/resource-runs-v1/n0016/audit-job/worker.log",
+          "sha256": "fbe2a509e3028d95f5b8600366210cb6c339def8e9144ae79f13fa5029e089b8"
+        },
+        "containerCleanup": {
+          "bytes": 751,
+          "path": ".planning/solver/resource-runs-v1/n0016/audit-container-cleanup.json",
+          "sha256": "026df070c2a3cd8e1cefb77addaca0e45aa838f866b767f1672b75178aa3c165"
+        },
+        "containerLog": {
+          "bytes": 2426,
+          "path": ".planning/solver/resource-runs-v1/n0016/audit-container.log",
+          "sha256": "1986a6ed5fa3a4d7c79c8ecc600011a209e0047c0735eaa5e2f41d15837998d4"
+        },
+        "containerMemoryPeakBytes": 53977088,
+        "elapsedSeconds": 0.7674506249999951,
+        "measuredPhases": [
+          {
+            "event": "before-audit",
+            "monotonicSeconds": 91.255235581,
+            "peakRssKiB": 22448,
+            "systemCpuSeconds": 0.008570999999999999,
+            "userCpuSeconds": 0.06571199999999999
+          },
+          {
+            "event": "audit-return",
+            "monotonicSeconds": 91.922052665,
+            "peakRssKiB": 42488,
+            "systemCpuSeconds": 0.018945,
+            "userCpuSeconds": 0.700965
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2299,
+          "path": ".planning/solver/resource-runs-v1/n0016/audit-execution.json",
+          "sha256": "33135221de10baffc8dbcc398f12ab2ff62c3174c9de56803e622dd6c1232a20"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2200,
+          "path": ".planning/solver/resource-runs-v1/n0016/audit-supervision.json",
+          "sha256": "221ab7a3806098a0cedabaefad45d6b6a508cd47776afba42f518cf518e9e189"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "auditInput": {
+        "bytes": 2506,
+        "path": ".planning/solver/resource-runs-v1/n0016/audit-input.json",
+        "sha256": "ab5d2ca180cc2c7e806b0864f2e2128952415c7cc9a42e2f87319d2f08461848"
+      },
+      "auditUnavailableReason": null,
+      "classification": "ordinary-complete-export-and-audit",
+      "declaredResourceCaseSucceeded": true,
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 16,
+          "chargedEvaluationAllowance": 48,
+          "committedFineTrials": 32,
+          "committedTransactions": 16,
+          "diagnosticPayloadInstancesInEnvelope": 80,
+          "recordedTrials": 48,
+          "reservedTrials": 48
+        },
+        "expectedBytes": 5095832,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 698,
+        "expectedContextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "expectedSha256": "f637cd7d7a65ba523d8e47c880e68005986434d42b4c49d40cfc46c004d9deb2",
+        "n": 16,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "88eb917934d30a72b090961b90169fab65b9b1535b25328238b13205c09f1020",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22460,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 0.000194999999999999,
+          "userCpuSeconds": 0.19775099999999998,
+          "wallSeconds": 0.19948449999999696
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1386,
+            "path": "worker.log",
+            "sha256": "bd0990f0b83cc86e4822e41d9fee167c9c6d1920c81b23e3e36da9a7c7bc0f9a",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.264208,
+        "childLog": {
+          "bytes": 1386,
+          "path": ".planning/solver/resource-runs-v1/n0016/expected-job/worker.log",
+          "sha256": "bd0990f0b83cc86e4822e41d9fee167c9c6d1920c81b23e3e36da9a7c7bc0f9a"
+        },
+        "containerCleanup": {
+          "bytes": 761,
+          "path": ".planning/solver/resource-runs-v1/n0016/expected-container-cleanup.json",
+          "sha256": "27db3c2f4be9b9d58f3fb8fd934f913b15dcd775147cfcdd6fb8e4a50eeaebbe"
+        },
+        "containerLog": {
+          "bytes": 2505,
+          "path": ".planning/solver/resource-runs-v1/n0016/expected-container.log",
+          "sha256": "fa8b39918759e7b99329fd3126efbd42aea559ca7fa8f5be0008a90817ba0a9d"
+        },
+        "containerMemoryPeakBytes": 26865664,
+        "elapsedSeconds": 0.28912224999999125,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2309,
+          "path": ".planning/solver/resource-runs-v1/n0016/expected-execution.json",
+          "sha256": "c16e45c4d74c7a52e6f7dbb5732b25ee5d2f755cd6b04f1c14f06b74a69122b4"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2302,
+          "path": ".planning/solver/resource-runs-v1/n0016/expected-supervision.json",
+          "sha256": "8309d06ac510f1ef12c6db270710bd43ac0ae3c1a6ca9d69fa5329c5d9977325"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": {
+        "bytes": 5095832,
+        "path": "worker/snapshot.json",
+        "sha256": "f637cd7d7a65ba523d8e47c880e68005986434d42b4c49d40cfc46c004d9deb2",
+        "temporary": false,
+        "validation": "bytes-only-structural-and-numerical-audit-deferred"
+      },
+      "matchesIndependentFullEnvelope": true,
+      "mode": "ordinary",
+      "n": 16,
+      "name": "n0016",
+      "numericalPrefix": {
+        "accepted": false,
+        "artifact": {
+          "bytes": 5095832,
+          "sha256": "f637cd7d7a65ba523d8e47c880e68005986434d42b4c49d40cfc46c004d9deb2"
+        },
+        "artifactIdentityVerified": true,
+        "available": true,
+        "causalStoppingExplanation": "complete-prefix",
+        "chargedEvaluationAllowance": 48,
+        "committedFineTrials": 32,
+        "committedPrefixIndicatorsReproduced": true,
+        "committedTransactions": 16,
+        "completedFraction": 1.0,
+        "conditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "contextIdentityVerified": true,
+        "contextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "envelopeWellFormed": true,
+        "evaluatorProfile": "controller-callback-binary64-le-v1",
+        "notEvaluated": [
+          "source-model-authenticity",
+          "adaptive-response-and-control-interpolation",
+          "primitive-work-enclosures",
+          "constitutive-and-force-accuracy",
+          "contact-and-triangle-paths",
+          "global-temporal-and-spatial-accuracy",
+          "actual-process-outcome",
+          "resume",
+          "garment-acceptance"
+        ],
+        "numericalPrefixComplete": true,
+        "profile": "retained-temporal-prefix-audit-v1",
+        "recordedTrials": 48,
+        "reservedTrials": 48,
+        "runIdentity": "88eb917934d30a72b090961b90169fab65b9b1535b25328238b13205c09f1020",
+        "schedulerPrefixConsistent": true,
+        "scope": "Raw controller observations and conditional exact stored-value pair accounting only.",
+        "stateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e",
+        "tailObservation": "none"
+      },
+      "worker": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1937,
+            "path": "worker.log",
+            "sha256": "d541953f882549e0991fac915e63bdab4997c050b512f8dd380ea15713e0bcfd",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 5095832,
+            "path": "worker/snapshot.json",
+            "sha256": "f637cd7d7a65ba523d8e47c880e68005986434d42b4c49d40cfc46c004d9deb2",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 872,
+            "path": "worker/outcome.json",
+            "sha256": "3ebbf3959e048f6d144b4372d1faa5747a10ef80b1e295a900a906ec647ada7b",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 4.966412,
+        "childLog": {
+          "bytes": 1937,
+          "path": ".planning/solver/resource-runs-v1/n0016/worker-job/worker.log",
+          "sha256": "d541953f882549e0991fac915e63bdab4997c050b512f8dd380ea15713e0bcfd"
+        },
+        "containerCleanup": {
+          "bytes": 755,
+          "path": ".planning/solver/resource-runs-v1/n0016/worker-container-cleanup.json",
+          "sha256": "aea044a7f6732552cce2a0db8cef119d7fa4bd6bae7b5d66db17da189eee4afa"
+        },
+        "containerLog": {
+          "bytes": 2840,
+          "path": ".planning/solver/resource-runs-v1/n0016/worker-container.log",
+          "sha256": "5fccca00b0f14031b68587662493158d1b7b44c74b42a9197e60ef3cb0e4790b"
+        },
+        "containerMemoryPeakBytes": 72187904,
+        "elapsedSeconds": 15.170031131000002,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 75.683124241,
+            "peakRssKiB": 38476,
+            "systemCpuSeconds": 0.017353999999999998,
+            "userCpuSeconds": 0.102085
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 76.036956241,
+            "peakRssKiB": 72104,
+            "systemCpuSeconds": 0.036586,
+            "userCpuSeconds": 0.428876
+          },
+          {
+            "event": "worker-return",
+            "monotonicSeconds": 90.631284415,
+            "peakRssKiB": 72104,
+            "systemCpuSeconds": 2.974737,
+            "userCpuSeconds": 1.908452
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2304,
+          "path": ".planning/solver/resource-runs-v1/n0016/worker-execution.json",
+          "sha256": "ffbce7e603305d733960caf866851af3870834c3d26863a754fe9d4ebc30b206"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2715,
+          "path": ".planning/solver/resource-runs-v1/n0016/worker-supervision.json",
+          "sha256": "4690b9ef59b640baee29e85fcdbc6206055cbf61b4ad03f0c72ebac2cefa3d10"
+        },
+        "supervisorReason": "worker-exited"
+      }
+    },
+    {
+      "audit": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 4009,
+            "path": "worker.log",
+            "sha256": "f46ade1ff77085646cafe22cfd9d4eb2b5422c5415072f2e43ff0fca29a47284",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 5.252009,
+        "childLog": {
+          "bytes": 4009,
+          "path": ".planning/solver/resource-runs-v1/n0128/audit-job/worker.log",
+          "sha256": "f46ade1ff77085646cafe22cfd9d4eb2b5422c5415072f2e43ff0fca29a47284"
+        },
+        "containerCleanup": {
+          "bytes": 750,
+          "path": ".planning/solver/resource-runs-v1/n0128/audit-container-cleanup.json",
+          "sha256": "ec8cdf24d16a7b8ded8b7629e474fe5b5651e6e78cd0b713a4039c8947ff355e"
+        },
+        "containerLog": {
+          "bytes": 2394,
+          "path": ".planning/solver/resource-runs-v1/n0128/audit-container.log",
+          "sha256": "dc5da550fff58dd1296a1b42b89da8800fc406d95cf1164b05b29a5b71bf9677"
+        },
+        "containerMemoryPeakBytes": 241623040,
+        "elapsedSeconds": 5.408150502000012,
+        "measuredPhases": [
+          {
+            "event": "before-audit",
+            "monotonicSeconds": 269.312658204,
+            "peakRssKiB": 22464,
+            "systemCpuSeconds": 0.011980999999999999,
+            "userCpuSeconds": 0.071891
+          },
+          {
+            "event": "audit-return",
+            "monotonicSeconds": 274.622756373,
+            "peakRssKiB": 190860,
+            "systemCpuSeconds": 0.15980999999999998,
+            "userCpuSeconds": 5.085432
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2296,
+          "path": ".planning/solver/resource-runs-v1/n0128/audit-execution.json",
+          "sha256": "422cf30f8960d7ead8612fedc1d5c7e877fc0b9513022539c65ee2653188edd3"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2199,
+          "path": ".planning/solver/resource-runs-v1/n0128/audit-supervision.json",
+          "sha256": "03956e1b91774593a0d3eee68c6e5bb4f222635bd3597a8b9efd1a8c466a2ea0"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "auditInput": {
+        "bytes": 2503,
+        "path": ".planning/solver/resource-runs-v1/n0128/audit-input.json",
+        "sha256": "ad2e3ee56064f5bc9b293e00b3d7a81da22347329f553761446c6355690d8714"
+      },
+      "auditUnavailableReason": null,
+      "classification": "ordinary-complete-export-and-audit",
+      "declaredResourceCaseSucceeded": true,
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 128,
+          "chargedEvaluationAllowance": 384,
+          "committedFineTrials": 256,
+          "committedTransactions": 128,
+          "diagnosticPayloadInstancesInEnvelope": 640,
+          "recordedTrials": 384,
+          "reservedTrials": 384
+        },
+        "expectedBytes": 40769215,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 701,
+        "expectedContextSha256": "8401177ad4970015d3a1d47755bdfecdbcf74612c8db6b76fe4ee2a6b32e9ce5",
+        "expectedSha256": "4d45ec0b1d7222fa55eb511f924afcc0ce9f8777e94631635f36283b46d2cea7",
+        "n": 128,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "4bd7f33a3e81c9ef750046fa4e8c3baeced1052b68bae35060788504941f1f92",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22536,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 9.200000000000007e-05,
+          "userCpuSeconds": 1.5598,
+          "wallSeconds": 1.5927246680000167
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1382,
+            "path": "worker.log",
+            "sha256": "28f9d7d3a22d108b40d1607227e1f6a2ea70f3ac4bf7381351b972aa3e6a108c",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 1.633747,
+        "childLog": {
+          "bytes": 1382,
+          "path": ".planning/solver/resource-runs-v1/n0128/expected-job/worker.log",
+          "sha256": "28f9d7d3a22d108b40d1607227e1f6a2ea70f3ac4bf7381351b972aa3e6a108c"
+        },
+        "containerCleanup": {
+          "bytes": 761,
+          "path": ".planning/solver/resource-runs-v1/n0128/expected-container-cleanup.json",
+          "sha256": "eaa1947fb8ee405b49bfa6a6964ea68d647be784c9dfc9a31925c86685191566"
+        },
+        "containerLog": {
+          "bytes": 2494,
+          "path": ".planning/solver/resource-runs-v1/n0128/expected-container.log",
+          "sha256": "7cbd849556531d801d4460f3f4b8990dc2b472f505de6ed7e81ea10ae2628bb8"
+        },
+        "containerMemoryPeakBytes": 26595328,
+        "elapsedSeconds": 1.6717740420000098,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2309,
+          "path": ".planning/solver/resource-runs-v1/n0128/expected-execution.json",
+          "sha256": "bffdfd0df28b0a2a515138e5ac5a94ba1a00994e8f8fa4cb932d49931e9f33ff"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2289,
+          "path": ".planning/solver/resource-runs-v1/n0128/expected-supervision.json",
+          "sha256": "7d8374e19448aae439195fe54125c5d6f4159273aa8c72c22c183559dabff57d"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": {
+        "bytes": 40769215,
+        "path": "worker/snapshot.json",
+        "sha256": "4d45ec0b1d7222fa55eb511f924afcc0ce9f8777e94631635f36283b46d2cea7",
+        "temporary": false,
+        "validation": "bytes-only-structural-and-numerical-audit-deferred"
+      },
+      "matchesIndependentFullEnvelope": true,
+      "mode": "ordinary",
+      "n": 128,
+      "name": "n0128",
+      "numericalPrefix": {
+        "accepted": false,
+        "artifact": {
+          "bytes": 40769215,
+          "sha256": "4d45ec0b1d7222fa55eb511f924afcc0ce9f8777e94631635f36283b46d2cea7"
+        },
+        "artifactIdentityVerified": true,
+        "available": true,
+        "causalStoppingExplanation": "complete-prefix",
+        "chargedEvaluationAllowance": 384,
+        "committedFineTrials": 256,
+        "committedPrefixIndicatorsReproduced": true,
+        "committedTransactions": 128,
+        "completedFraction": 1.0,
+        "conditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "contextIdentityVerified": true,
+        "contextSha256": "8401177ad4970015d3a1d47755bdfecdbcf74612c8db6b76fe4ee2a6b32e9ce5",
+        "envelopeWellFormed": true,
+        "evaluatorProfile": "controller-callback-binary64-le-v1",
+        "notEvaluated": [
+          "source-model-authenticity",
+          "adaptive-response-and-control-interpolation",
+          "primitive-work-enclosures",
+          "constitutive-and-force-accuracy",
+          "contact-and-triangle-paths",
+          "global-temporal-and-spatial-accuracy",
+          "actual-process-outcome",
+          "resume",
+          "garment-acceptance"
+        ],
+        "numericalPrefixComplete": true,
+        "profile": "retained-temporal-prefix-audit-v1",
+        "recordedTrials": 384,
+        "reservedTrials": 384,
+        "runIdentity": "4bd7f33a3e81c9ef750046fa4e8c3baeced1052b68bae35060788504941f1f92",
+        "schedulerPrefixConsistent": true,
+        "scope": "Raw controller observations and conditional exact stored-value pair accounting only.",
+        "stateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e",
+        "tailObservation": "none"
+      },
+      "worker": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1947,
+            "path": "worker.log",
+            "sha256": "37384a27a5a13c147dc55c3f6e990b4804a1984e662c52ca86ac68c50a1b6fcf",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 40769215,
+            "path": "worker/snapshot.json",
+            "sha256": "4d45ec0b1d7222fa55eb511f924afcc0ce9f8777e94631635f36283b46d2cea7",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 874,
+            "path": "worker/outcome.json",
+            "sha256": "26de811a0c80e47e02a7dc11e0514d368d8ed40bab711b38a83838188791d1fe",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 38.876858999999996,
+        "childLog": {
+          "bytes": 1947,
+          "path": ".planning/solver/resource-runs-v1/n0128/worker-job/worker.log",
+          "sha256": "37384a27a5a13c147dc55c3f6e990b4804a1984e662c52ca86ac68c50a1b6fcf"
+        },
+        "containerCleanup": {
+          "bytes": 755,
+          "path": ".planning/solver/resource-runs-v1/n0128/worker-container-cleanup.json",
+          "sha256": "16c908312d3e325a588204a95a00450129a760a86d9fbc2b81f59dc7fb4ffa08"
+        },
+        "containerLog": {
+          "bytes": 2850,
+          "path": ".planning/solver/resource-runs-v1/n0128/worker-container.log",
+          "sha256": "b2e42cf1d439392aa31ed9dd7e06702378cc32a3a51ebcdbdd96e088dd6b9e43"
+        },
+        "containerMemoryPeakBytes": 241733632,
+        "elapsedSeconds": 123.885128514,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 144.920702398,
+            "peakRssKiB": 38480,
+            "systemCpuSeconds": 0.018028,
+            "userCpuSeconds": 0.10216199999999999
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 147.064012024,
+            "peakRssKiB": 226952,
+            "systemCpuSeconds": 0.084951,
+            "userCpuSeconds": 2.143777
+          },
+          {
+            "event": "worker-return",
+            "monotonicSeconds": 268.561238954,
+            "peakRssKiB": 226952,
+            "systemCpuSeconds": 23.773314,
+            "userCpuSeconds": 15.033183
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2304,
+          "path": ".planning/solver/resource-runs-v1/n0128/worker-execution.json",
+          "sha256": "322fd92f0824855b17c4489f962daca2fd7b7d9c28295ac701f243937a8e47ba"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2715,
+          "path": ".planning/solver/resource-runs-v1/n0128/worker-supervision.json",
+          "sha256": "f57fd03ed63b422cc36ddeb5973accf2303c042ea8d76f41a1817431d4e0f359"
+        },
+        "supervisorReason": "worker-exited"
+      }
+    },
+    {
+      "audit": null,
+      "auditUnavailableReason": "no-named-final-snapshot",
+      "classification": "declared-resource-case-failed",
+      "declaredResourceCaseSucceeded": false,
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 1024,
+          "chargedEvaluationAllowance": 3072,
+          "committedFineTrials": 2048,
+          "committedTransactions": 1024,
+          "diagnosticPayloadInstancesInEnvelope": 5120,
+          "recordedTrials": 3072,
+          "reservedTrials": 3072
+        },
+        "expectedBytes": 326262706,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 704,
+        "expectedContextSha256": "0cd18cbfe8ce888ef978abdb0634aa127661e0cd655ec5e069fce2a794943e45",
+        "expectedSha256": "81322d7eca07cbf6fdd93d052ab86a5e12a362fd25edbbbeba891cbeb5e5abaf",
+        "n": 1024,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "50d77327cef802ce6591867691386700503e9b0bce6a008e61ff06f7596af79e",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22456,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 0.011060999999999998,
+          "userCpuSeconds": 13.969277,
+          "wallSeconds": 14.430932506000033
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1393,
+            "path": "worker.log",
+            "sha256": "16a36892e3cb9162acc915b8677297fff403040c9a6e0f6814d8e54b3cd7c874",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 14.054856000000001,
+        "childLog": {
+          "bytes": 1393,
+          "path": ".planning/solver/resource-runs-v1/n1024/expected-job/worker.log",
+          "sha256": "16a36892e3cb9162acc915b8677297fff403040c9a6e0f6814d8e54b3cd7c874"
+        },
+        "containerCleanup": {
+          "bytes": 761,
+          "path": ".planning/solver/resource-runs-v1/n1024/expected-container-cleanup.json",
+          "sha256": "dbfa30df19374e64149a569263b8a027bba3469d4bc2676b197737969295eb00"
+        },
+        "containerLog": {
+          "bytes": 2486,
+          "path": ".planning/solver/resource-runs-v1/n1024/expected-container.log",
+          "sha256": "b19e981d26a3413dd3e2a71490de90736e40ab6023426a266fcd20f0c30b406c"
+        },
+        "containerMemoryPeakBytes": 26701824,
+        "elapsedSeconds": 14.535944382000025,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2309,
+          "path": ".planning/solver/resource-runs-v1/n1024/expected-execution.json",
+          "sha256": "4386e64e1298ccafa3495c7da580eeec4b7bf36d2e8882c493dbd48f4892fd76"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2293,
+          "path": ".planning/solver/resource-runs-v1/n1024/expected-supervision.json",
+          "sha256": "babd76f4577aa63c99ac894e2fe740b593f50e65791f8a15f23802fcb55651d5"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": null,
+      "matchesIndependentFullEnvelope": false,
+      "mode": "ordinary",
+      "n": 1024,
+      "name": "n1024",
+      "numericalPrefix": null,
+      "worker": {
+        "actualChildExit": -9,
+        "artifacts": [
+          {
+            "bytes": 364,
+            "path": "worker.log",
+            "sha256": "47dc2bd1710431f6c20b39083b6192ba139616555ee82c23642312224b60c5db",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 197658025,
+            "path": "worker/.snapshot.json.72e14d62d8d38951.tmp",
+            "sha256": "3de49ab0b85f62838c8e71f7858510af98d4da5e517da686d6d1953c84b41a58",
+            "temporary": true,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 199.064809,
+        "childLog": {
+          "bytes": 364,
+          "path": ".planning/solver/resource-runs-v1/n1024/worker-job/worker.log",
+          "sha256": "47dc2bd1710431f6c20b39083b6192ba139616555ee82c23642312224b60c5db"
+        },
+        "containerCleanup": {
+          "bytes": 755,
+          "path": ".planning/solver/resource-runs-v1/n1024/worker-container-cleanup.json",
+          "sha256": "88ba00d457e4d70d3cbd7a7af8e5e59cd0e78fd78a20d91a945a6f2f5eeea783"
+        },
+        "containerLog": {
+          "bytes": 2736,
+          "path": ".planning/solver/resource-runs-v1/n1024/worker-container.log",
+          "sha256": "121d4e0c5cf89732a8fc6c495489071a83e471f60d83c26b45fefea75608ee22"
+        },
+        "containerMemoryPeakBytes": 1507647488,
+        "elapsedSeconds": 600.452093815,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 313.929588433,
+            "peakRssKiB": 38476,
+            "systemCpuSeconds": 0.019552999999999997,
+            "userCpuSeconds": 0.113204
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 337.41161336,
+            "peakRssKiB": 1472904,
+            "systemCpuSeconds": 0.694496,
+            "userCpuSeconds": 22.256332
+          }
+        ],
+        "processExitSucceeded": false,
+        "rawWaitStatus": 9,
+        "receipt": {
+          "bytes": 2303,
+          "path": ".planning/solver/resource-runs-v1/n1024/worker-execution.json",
+          "sha256": "4655fe3d1fbefda78d351d070047583ea67db193c14b5f4ead7e06101d06fea9"
+        },
+        "signal": 9,
+        "signalsSent": [
+          {
+            "elapsedSeconds": 300.000952053,
+            "signal": 15
+          },
+          {
+            "elapsedSeconds": 600.01986719,
+            "signal": 9
+          }
+        ],
+        "supervision": {
+          "bytes": 2627,
+          "path": ".planning/solver/resource-runs-v1/n1024/worker-supervision.json",
+          "sha256": "39747ce1748b1badbf956db8c28b0de9f95328ece7158c627f206daaccf71f3a"
+        },
+        "supervisorReason": "wall-soft-limit"
+      }
+    },
+    {
+      "audit": null,
+      "auditUnavailableReason": "no-named-final-snapshot",
+      "classification": "byte-cap-refusal-without-final-snapshot",
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 16,
+          "chargedEvaluationAllowance": 48,
+          "committedFineTrials": 32,
+          "committedTransactions": 16,
+          "diagnosticPayloadInstancesInEnvelope": 80,
+          "recordedTrials": 48,
+          "reservedTrials": 48
+        },
+        "expectedBytes": 5095832,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 698,
+        "expectedContextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "expectedSha256": "8d25f05c6798bde65d46431eadffb63ff77d78dc78f0a072395903ae74047fb8",
+        "n": 16,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "431f0c689f9701088f097541a847a07666b46410069e2865647238e43f0453c7",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22456,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 0.00011700000000000078,
+          "userCpuSeconds": 0.199701,
+          "wallSeconds": 0.2050994170000422
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1376,
+            "path": "worker.log",
+            "sha256": "4b507d58f3869a68c9d44cf962aab0fc87f6836aab51c693b9d87157615c6daa",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.26636099999999996,
+        "childLog": {
+          "bytes": 1376,
+          "path": ".planning/solver/resource-runs-v1/cap/expected-job/worker.log",
+          "sha256": "4b507d58f3869a68c9d44cf962aab0fc87f6836aab51c693b9d87157615c6daa"
+        },
+        "containerCleanup": {
+          "bytes": 755,
+          "path": ".planning/solver/resource-runs-v1/cap/expected-container-cleanup.json",
+          "sha256": "45302a5b390a826c6341b9c425a18d9df128a5be9b6c176010c2347db114ffbb"
+        },
+        "containerLog": {
+          "bytes": 2518,
+          "path": ".planning/solver/resource-runs-v1/cap/expected-container.log",
+          "sha256": "91bcf0c4c5d94aefc821bbabb4a705e00a2a4cdf7328f5bd1747d6221d64ae1f"
+        },
+        "containerMemoryPeakBytes": 26595328,
+        "elapsedSeconds": 0.2774683330000016,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2303,
+          "path": ".planning/solver/resource-runs-v1/cap/expected-execution.json",
+          "sha256": "815b6d97e4f0d6adc4969cefcf5692425f2c8a0839c31bb60fbd4ecae6500615"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2289,
+          "path": ".planning/solver/resource-runs-v1/cap/expected-supervision.json",
+          "sha256": "c14e29b8c07d852525da9f1e54fa0474cf474c9d1f468a351c2b1c89263c59d0"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": null,
+      "matchesIndependentFullEnvelope": false,
+      "mode": "over-cap",
+      "n": 16,
+      "name": "cap",
+      "numericalPrefix": null,
+      "worker": {
+        "actualChildExit": 1,
+        "artifacts": [
+          {
+            "bytes": 2091,
+            "path": "worker.log",
+            "sha256": "082b86267009d026fd29976151f104485599dbf14d294ba495885aa48afb79ca",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 968,
+            "path": "worker/outcome.json",
+            "sha256": "45b0732b34f24d5a5d0147c1d5b5568f0ecc63db2e1137f5ea8b5cbf86acca42",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 4.1517859999999995,
+        "childLog": {
+          "bytes": 2091,
+          "path": ".planning/solver/resource-runs-v1/cap/worker-job/worker.log",
+          "sha256": "082b86267009d026fd29976151f104485599dbf14d294ba495885aa48afb79ca"
+        },
+        "containerCleanup": {
+          "bytes": 748,
+          "path": ".planning/solver/resource-runs-v1/cap/worker-container-cleanup.json",
+          "sha256": "d51b4e8355502d80682bfcf110e9f4d6224037c1972261b4ee536a89c9eb9a66"
+        },
+        "containerLog": {
+          "bytes": 2631,
+          "path": ".planning/solver/resource-runs-v1/cap/worker-container.log",
+          "sha256": "ef72350658cd5f853c4756713ee9f46df785451468c4e32167c0a154ec4ddeba"
+        },
+        "containerMemoryPeakBytes": 71442432,
+        "elapsedSeconds": 12.583115131,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 943.379132219,
+            "peakRssKiB": 38480,
+            "systemCpuSeconds": 0.016760999999999998,
+            "userCpuSeconds": 0.101619
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 943.752795886,
+            "peakRssKiB": 72704,
+            "systemCpuSeconds": 0.044317999999999996,
+            "userCpuSeconds": 0.434123
+          },
+          {
+            "event": "worker-return",
+            "monotonicSeconds": 955.75469735,
+            "peakRssKiB": 72704,
+            "systemCpuSeconds": 2.429927,
+            "userCpuSeconds": 1.648225
+          }
+        ],
+        "processExitSucceeded": false,
+        "rawWaitStatus": 256,
+        "receipt": {
+          "bytes": 2295,
+          "path": ".planning/solver/resource-runs-v1/cap/worker-execution.json",
+          "sha256": "ff6e7064f6c4efa63dc241cf84b66b0ad14e09af9dad8e7e5301e1390df08f31"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2477,
+          "path": ".planning/solver/resource-runs-v1/cap/worker-supervision.json",
+          "sha256": "14e21c56872a0311978768762c21ff7ca06b94a49c3167243fb9fce3e3c93d8a"
+        },
+        "supervisorReason": "worker-nonzero-or-unavailable-exit"
+      }
+    },
+    {
+      "audit": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 4032,
+            "path": "worker.log",
+            "sha256": "f2dc01f1cbe167cc4a27c9f5a2b2180a786878ae2607625caf303753739ba41c",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.127719,
+        "childLog": {
+          "bytes": 4032,
+          "path": ".planning/solver/resource-runs-v1/stop/audit-job/worker.log",
+          "sha256": "f2dc01f1cbe167cc4a27c9f5a2b2180a786878ae2607625caf303753739ba41c"
+        },
+        "containerCleanup": {
+          "bytes": 749,
+          "path": ".planning/solver/resource-runs-v1/stop/audit-container-cleanup.json",
+          "sha256": "fb6ead912312982c872f1b92ba8475c3a825dd6ad805fc0e5e14bcd67aabf319"
+        },
+        "containerLog": {
+          "bytes": 2417,
+          "path": ".planning/solver/resource-runs-v1/stop/audit-container.log",
+          "sha256": "a5b609c130376dd289d15b6226fd616484f169d0d01964e7e9ca7dcddde0c048"
+        },
+        "containerMemoryPeakBytes": 29290496,
+        "elapsedSeconds": 0.14859500000000025,
+        "measuredPhases": [
+          {
+            "event": "before-audit",
+            "monotonicSeconds": 958.63675731,
+            "peakRssKiB": 22460,
+            "systemCpuSeconds": 0.010065,
+            "userCpuSeconds": 0.07448099999999999
+          },
+          {
+            "event": "audit-return",
+            "monotonicSeconds": 958.67689031,
+            "peakRssKiB": 23120,
+            "systemCpuSeconds": 0.011073,
+            "userCpuSeconds": 0.111744
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2299,
+          "path": ".planning/solver/resource-runs-v1/stop/audit-execution.json",
+          "sha256": "30691f726a608fbff3ea232eb7ac38b856e5f5341e7103c3d21084694ccd8aff"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2200,
+          "path": ".planning/solver/resource-runs-v1/stop/audit-supervision.json",
+          "sha256": "34cb15c500bfa6c5fdda66dce199fbf9f3f751b9a221be7c35f5dd7f1f53e52b"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "auditInput": {
+        "bytes": 2508,
+        "path": ".planning/solver/resource-runs-v1/stop/audit-input.json",
+        "sha256": "9d5a216bd974fe15db3439105d87c84b63c2b76d6d528d12e88c76ff7050e9fb"
+      },
+      "auditUnavailableReason": null,
+      "classification": "requested-stop-preserves-one-pair",
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 16,
+          "chargedEvaluationAllowance": 48,
+          "committedFineTrials": 32,
+          "committedTransactions": 16,
+          "diagnosticPayloadInstancesInEnvelope": 80,
+          "recordedTrials": 48,
+          "reservedTrials": 48
+        },
+        "expectedBytes": 5095832,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 698,
+        "expectedContextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "expectedSha256": "07dc1746fc36c9fb3cf701deb06cb5bb9a668813f205712545bb9792d3df32ac",
+        "n": 16,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "f92d23e663845fdd60b8c528aed7f29c69cf28b34b95389eadfeb8f640ab0ef2",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22328,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 2.2000000000001185e-05,
+          "userCpuSeconds": 0.19480699999999995,
+          "wallSeconds": 0.19530329099995924
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1388,
+            "path": "worker.log",
+            "sha256": "29674e382f9cc4241979c66975c8a1937ba32aec742251052e37f73aeaf4ae78",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.266741,
+        "childLog": {
+          "bytes": 1388,
+          "path": ".planning/solver/resource-runs-v1/stop/expected-job/worker.log",
+          "sha256": "29674e382f9cc4241979c66975c8a1937ba32aec742251052e37f73aeaf4ae78"
+        },
+        "containerCleanup": {
+          "bytes": 758,
+          "path": ".planning/solver/resource-runs-v1/stop/expected-container-cleanup.json",
+          "sha256": "9d2da5741c75e4c12ef695d07e9559b9b7f47b76898502f98d9d7ab3b1607d20"
+        },
+        "containerLog": {
+          "bytes": 2494,
+          "path": ".planning/solver/resource-runs-v1/stop/expected-container.log",
+          "sha256": "3d2344636e38851e34cbc69454ca764278b6e947e8c886f418279a5e403744b4"
+        },
+        "containerMemoryPeakBytes": 26742784,
+        "elapsedSeconds": 0.2740129999999681,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2307,
+          "path": ".planning/solver/resource-runs-v1/stop/expected-execution.json",
+          "sha256": "96f19e2b3bd0a4359d07afafe61c49ccf2d1acbe6c88b398ade52c97afc82c0b"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2289,
+          "path": ".planning/solver/resource-runs-v1/stop/expected-supervision.json",
+          "sha256": "58c109bd4d41f56b0da1352aed7b38014a4b5e73870d3b57edb9a85449706b1e"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": {
+        "bytes": 321216,
+        "path": "worker/snapshot.json",
+        "sha256": "e2badc57b9aed0fe34966362c860deab5a1f8068cb0cd2105cb47ddab034995c",
+        "temporary": false,
+        "validation": "bytes-only-structural-and-numerical-audit-deferred"
+      },
+      "matchesIndependentFullEnvelope": false,
+      "mode": "stop",
+      "n": 16,
+      "name": "stop",
+      "numericalPrefix": {
+        "accepted": false,
+        "artifact": {
+          "bytes": 321216,
+          "sha256": "e2badc57b9aed0fe34966362c860deab5a1f8068cb0cd2105cb47ddab034995c"
+        },
+        "artifactIdentityVerified": true,
+        "available": true,
+        "causalStoppingExplanation": "not-independently-established",
+        "chargedEvaluationAllowance": 4,
+        "committedFineTrials": 2,
+        "committedPrefixIndicatorsReproduced": true,
+        "committedTransactions": 1,
+        "completedFraction": 0.0625,
+        "conditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "contextIdentityVerified": true,
+        "contextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "envelopeWellFormed": true,
+        "evaluatorProfile": "controller-callback-binary64-le-v1",
+        "notEvaluated": [
+          "source-model-authenticity",
+          "adaptive-response-and-control-interpolation",
+          "primitive-work-enclosures",
+          "constitutive-and-force-accuracy",
+          "contact-and-triangle-paths",
+          "global-temporal-and-spatial-accuracy",
+          "actual-process-outcome",
+          "resume",
+          "garment-acceptance"
+        ],
+        "numericalPrefixComplete": false,
+        "profile": "retained-temporal-prefix-audit-v1",
+        "recordedTrials": 4,
+        "reservedTrials": 4,
+        "runIdentity": "f92d23e663845fdd60b8c528aed7f29c69cf28b34b95389eadfeb8f640ab0ef2",
+        "schedulerPrefixConsistent": true,
+        "scope": "Raw controller observations and conditional exact stored-value pair accounting only.",
+        "stateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e",
+        "tailObservation": "unpublished-assessment-or-trial"
+      },
+      "worker": {
+        "actualChildExit": 86,
+        "artifacts": [
+          {
+            "bytes": 2105,
+            "path": "worker.log",
+            "sha256": "78df53a68a8c5d0602640cbfe3116103c2ed183304cfcc91ac1518ae4668980f",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 321216,
+            "path": "worker/snapshot.json",
+            "sha256": "e2badc57b9aed0fe34966362c860deab5a1f8068cb0cd2105cb47ddab034995c",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 947,
+            "path": "worker/outcome.json",
+            "sha256": "1f512fa3fd67ac0ee6839c54500265503f5b775377aaa8653e0f672f234f2647",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.548045,
+        "childLog": {
+          "bytes": 2105,
+          "path": ".planning/solver/resource-runs-v1/stop/worker-job/worker.log",
+          "sha256": "78df53a68a8c5d0602640cbfe3116103c2ed183304cfcc91ac1518ae4668980f"
+        },
+        "containerCleanup": {
+          "bytes": 751,
+          "path": ".planning/solver/resource-runs-v1/stop/worker-container-cleanup.json",
+          "sha256": "07c9a979d8274f769c467c0865ed8c3b2e15026f2c1cb60040c660995653a2d1"
+        },
+        "containerLog": {
+          "bytes": 2893,
+          "path": ".planning/solver/resource-runs-v1/stop/worker-container.log",
+          "sha256": "b96e299707ef56f2db8be62fcfb8a4ccd6e00c850fd3b2afac6eae0648087dda"
+        },
+        "containerMemoryPeakBytes": 51949568,
+        "elapsedSeconds": 1.1951887089999218,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 957.081227184,
+            "peakRssKiB": 38480,
+            "systemCpuSeconds": 0.012959,
+            "userCpuSeconds": 0.104669
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 957.221759351,
+            "peakRssKiB": 53756,
+            "systemCpuSeconds": 0.02196,
+            "userCpuSeconds": 0.23157899999999998
+          },
+          {
+            "event": "worker-return",
+            "monotonicSeconds": 958.125102643,
+            "peakRssKiB": 54012,
+            "systemCpuSeconds": 0.192938,
+            "userCpuSeconds": 0.33316599999999996
+          }
+        ],
+        "processExitSucceeded": false,
+        "rawWaitStatus": 22016,
+        "receipt": {
+          "bytes": 2298,
+          "path": ".planning/solver/resource-runs-v1/stop/worker-execution.json",
+          "sha256": "13904c0370b96f71a08471a15e188e1a5197ce4c0e709afb96548a46fa65cfdc"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2743,
+          "path": ".planning/solver/resource-runs-v1/stop/worker-supervision.json",
+          "sha256": "c1169bfac1fb1a8d6bfc4c33e1ffe200a8521f3961c425185636a713e698b0c7"
+        },
+        "supervisorReason": "worker-nonzero-or-unavailable-exit"
+      }
+    },
+    {
+      "audit": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 3981,
+            "path": "worker.log",
+            "sha256": "9d12ac2acbbb30c9941e0fbeee56a93bed1d68a5e1b72441f0d3a861afa4ccd6",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.987613,
+        "childLog": {
+          "bytes": 3981,
+          "path": ".planning/solver/resource-runs-v1/post-error/audit-job/worker.log",
+          "sha256": "9d12ac2acbbb30c9941e0fbeee56a93bed1d68a5e1b72441f0d3a861afa4ccd6"
+        },
+        "containerCleanup": {
+          "bytes": 766,
+          "path": ".planning/solver/resource-runs-v1/post-error/audit-container-cleanup.json",
+          "sha256": "9cd7be6c94499787631cdaf1c0827992ac8fa8e459d8442fb6ffbcc50258882e"
+        },
+        "containerLog": {
+          "bytes": 2420,
+          "path": ".planning/solver/resource-runs-v1/post-error/audit-container.log",
+          "sha256": "728a33213673292f0377c0ede84094b4e42320f81436f9555b1269b7fdc6db16"
+        },
+        "containerMemoryPeakBytes": 54132736,
+        "elapsedSeconds": 1.0602704169999697,
+        "measuredPhases": [
+          {
+            "event": "before-audit",
+            "monotonicSeconds": 976.711183609,
+            "peakRssKiB": 22456,
+            "systemCpuSeconds": 0.012954,
+            "userCpuSeconds": 0.074738
+          },
+          {
+            "event": "audit-return",
+            "monotonicSeconds": 977.65020036,
+            "peakRssKiB": 42496,
+            "systemCpuSeconds": 0.048436,
+            "userCpuSeconds": 0.929052
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2314,
+          "path": ".planning/solver/resource-runs-v1/post-error/audit-execution.json",
+          "sha256": "93d499d05f78b4005e0763437440bda14441d979a511cb1c1de1750f34798e96"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2215,
+          "path": ".planning/solver/resource-runs-v1/post-error/audit-supervision.json",
+          "sha256": "882f840b82c027e3938f6c6e5436a8e7b8107acab8aa5055857b1e09d429f7b7"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "auditInput": {
+        "bytes": 2506,
+        "path": ".planning/solver/resource-runs-v1/post-error/audit-input.json",
+        "sha256": "e0164cfc448b5737e12aaa3c5e9ff1729f9bb26920661f2ee6ed00d21afd6ff7"
+      },
+      "auditUnavailableReason": null,
+      "classification": "failed-process-retains-audited-complete-prefix",
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 16,
+          "chargedEvaluationAllowance": 48,
+          "committedFineTrials": 32,
+          "committedTransactions": 16,
+          "diagnosticPayloadInstancesInEnvelope": 80,
+          "recordedTrials": 48,
+          "reservedTrials": 48
+        },
+        "expectedBytes": 5095832,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 698,
+        "expectedContextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "expectedSha256": "2722951a7ccf83be99a5a3cb316d7526a394528ce60680fdff961c08c3063037",
+        "n": 16,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "4ad8924044e4f69b2ab4cf4d4ca741d5be3f9bd303a53c7ff1d205856e5760f6",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22448,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 0.0012439999999999986,
+          "userCpuSeconds": 0.19623600000000002,
+          "wallSeconds": 0.1977550420000398
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1386,
+            "path": "worker.log",
+            "sha256": "4782e1b7cbc276b989a223d3296f6a7dbe6c81255f159580f46e9d5eae5ecaa4",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.267955,
+        "childLog": {
+          "bytes": 1386,
+          "path": ".planning/solver/resource-runs-v1/post-error/expected-job/worker.log",
+          "sha256": "4782e1b7cbc276b989a223d3296f6a7dbe6c81255f159580f46e9d5eae5ecaa4"
+        },
+        "containerCleanup": {
+          "bytes": 776,
+          "path": ".planning/solver/resource-runs-v1/post-error/expected-container-cleanup.json",
+          "sha256": "8c38caacf38a39ccffe393a19435f97bf54ccbe80031e9231fef3d7cd5f1c985"
+        },
+        "containerLog": {
+          "bytes": 2482,
+          "path": ".planning/solver/resource-runs-v1/post-error/expected-container.log",
+          "sha256": "0694df01094430cf3bafe7bf2a9fbeccf1099e3c76ab7be9f98a5eea3236002a"
+        },
+        "containerMemoryPeakBytes": 26935296,
+        "elapsedSeconds": 0.2895184159999644,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2325,
+          "path": ".planning/solver/resource-runs-v1/post-error/expected-execution.json",
+          "sha256": "61d4c2c71622e2a57b78fdc1aa7878fd7a80a7962c46afb1f36632f8cc311979"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2289,
+          "path": ".planning/solver/resource-runs-v1/post-error/expected-supervision.json",
+          "sha256": "75785c1b3f56937c6616a2f654c8c90342ff2465e2458851240e12bd3416b16c"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": {
+        "bytes": 5095832,
+        "path": "worker/snapshot.json",
+        "sha256": "2722951a7ccf83be99a5a3cb316d7526a394528ce60680fdff961c08c3063037",
+        "temporary": false,
+        "validation": "bytes-only-structural-and-numerical-audit-deferred"
+      },
+      "matchesIndependentFullEnvelope": true,
+      "mode": "post-error",
+      "n": 16,
+      "name": "post-error",
+      "numericalPrefix": {
+        "accepted": false,
+        "artifact": {
+          "bytes": 5095832,
+          "sha256": "2722951a7ccf83be99a5a3cb316d7526a394528ce60680fdff961c08c3063037"
+        },
+        "artifactIdentityVerified": true,
+        "available": true,
+        "causalStoppingExplanation": "complete-prefix",
+        "chargedEvaluationAllowance": 48,
+        "committedFineTrials": 32,
+        "committedPrefixIndicatorsReproduced": true,
+        "committedTransactions": 16,
+        "completedFraction": 1.0,
+        "conditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "contextIdentityVerified": true,
+        "contextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "envelopeWellFormed": true,
+        "evaluatorProfile": "controller-callback-binary64-le-v1",
+        "notEvaluated": [
+          "source-model-authenticity",
+          "adaptive-response-and-control-interpolation",
+          "primitive-work-enclosures",
+          "constitutive-and-force-accuracy",
+          "contact-and-triangle-paths",
+          "global-temporal-and-spatial-accuracy",
+          "actual-process-outcome",
+          "resume",
+          "garment-acceptance"
+        ],
+        "numericalPrefixComplete": true,
+        "profile": "retained-temporal-prefix-audit-v1",
+        "recordedTrials": 48,
+        "reservedTrials": 48,
+        "runIdentity": "4ad8924044e4f69b2ab4cf4d4ca741d5be3f9bd303a53c7ff1d205856e5760f6",
+        "schedulerPrefixConsistent": true,
+        "scope": "Raw controller observations and conditional exact stored-value pair accounting only.",
+        "stateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e",
+        "tailObservation": "none"
+      },
+      "worker": {
+        "actualChildExit": 1,
+        "artifacts": [
+          {
+            "bytes": 2201,
+            "path": "worker.log",
+            "sha256": "c7f26beda624b056d2e664289d174d5ffd084ca74a2ddc21b0bdcc45e47d7c4d",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 5095832,
+            "path": "worker/snapshot.json",
+            "sha256": "2722951a7ccf83be99a5a3cb316d7526a394528ce60680fdff961c08c3063037",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 980,
+            "path": "worker/outcome.json",
+            "sha256": "774c218c07c0d674d4cd8453c94321450890465f21199ac92db5688ec91d59f5",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 5.343227,
+        "childLog": {
+          "bytes": 2201,
+          "path": ".planning/solver/resource-runs-v1/post-error/worker-job/worker.log",
+          "sha256": "c7f26beda624b056d2e664289d174d5ffd084ca74a2ddc21b0bdcc45e47d7c4d"
+        },
+        "containerCleanup": {
+          "bytes": 770,
+          "path": ".planning/solver/resource-runs-v1/post-error/worker-container-cleanup.json",
+          "sha256": "ffc39adb2bfa0529ac026d7184a51e6eb2bbdd2dd379893141fda8c38340ba85"
+        },
+        "containerLog": {
+          "bytes": 2861,
+          "path": ".planning/solver/resource-runs-v1/post-error/worker-container.log",
+          "sha256": "3fe4dbd5841c4f5c0779068e8337421a2f0cc2a0f58d4e6038bebe11b1ddc944"
+        },
+        "containerMemoryPeakBytes": 72851456,
+        "elapsedSeconds": 16.359053464999988,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 959.825602144,
+            "peakRssKiB": 38480,
+            "systemCpuSeconds": 0.017082999999999997,
+            "userCpuSeconds": 0.09775299999999999
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 960.207555852,
+            "peakRssKiB": 72776,
+            "systemCpuSeconds": 0.057493999999999996,
+            "userCpuSeconds": 0.42922299999999997
+          },
+          {
+            "event": "worker-return",
+            "monotonicSeconds": 975.963238526,
+            "peakRssKiB": 72776,
+            "systemCpuSeconds": 3.171297,
+            "userCpuSeconds": 2.094253
+          }
+        ],
+        "processExitSucceeded": false,
+        "rawWaitStatus": 256,
+        "receipt": {
+          "bytes": 2319,
+          "path": ".planning/solver/resource-runs-v1/post-error/worker-execution.json",
+          "sha256": "641e4890edac12710984f77c0db93d485e033bac69af6a63329f23b956b4503e"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2746,
+          "path": ".planning/solver/resource-runs-v1/post-error/worker-supervision.json",
+          "sha256": "ca18287641848c14c89993fc3aa8b7adf30dcd5d8c920eda4837d2e254ef9160"
+        },
+        "supervisorReason": "worker-nonzero-or-unavailable-exit"
+      }
+    },
+    {
+      "audit": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 3971,
+            "path": "worker.log",
+            "sha256": "7768c2e202788555ce56ab910d8fe2f4d5e80d6216410b4d9dc23b8e43ee6491",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.6955129999999999,
+        "childLog": {
+          "bytes": 3971,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/audit-job/worker.log",
+          "sha256": "7768c2e202788555ce56ab910d8fe2f4d5e80d6216410b4d9dc23b8e43ee6491"
+        },
+        "containerCleanup": {
+          "bytes": 773,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/audit-container-cleanup.json",
+          "sha256": "4bdd81df1e74a4d07981aeb2291749dda96ee52df14e6333ba19d767941e484a"
+        },
+        "containerLog": {
+          "bytes": 2423,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/audit-container.log",
+          "sha256": "e7b545b5a7ef87bf164f62ddfcf83f77f7bad60cf8fe89059b721538e9753c05"
+        },
+        "containerMemoryPeakBytes": 53866496,
+        "elapsedSeconds": 0.7187741669999923,
+        "measuredPhases": [
+          {
+            "event": "before-audit",
+            "monotonicSeconds": 994.436842992,
+            "peakRssKiB": 22460,
+            "systemCpuSeconds": 0.009035,
+            "userCpuSeconds": 0.076296
+          },
+          {
+            "event": "audit-return",
+            "monotonicSeconds": 995.056105701,
+            "peakRssKiB": 42364,
+            "systemCpuSeconds": 0.014936,
+            "userCpuSeconds": 0.675148
+          }
+        ],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2322,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/audit-execution.json",
+          "sha256": "676e8ba48d93c6f9e2e9a6415e8e1e9747207bb911318e84e804596ef60810c0"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2217,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/audit-supervision.json",
+          "sha256": "005909b6c38d72fa2c58bfd1e3f4c204b700fbdb5b2ed14e17b05b387fa37577"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "auditInput": {
+        "bytes": 2495,
+        "path": ".planning/solver/resource-runs-v1/metadata-cap/audit-input.json",
+        "sha256": "79900e7ed79f69d37b7a8ea355822f4c5da188974498c43c5829e06d6296c85d"
+      },
+      "auditUnavailableReason": null,
+      "classification": "failed-process-retains-audited-complete-prefix",
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 16,
+          "chargedEvaluationAllowance": 48,
+          "committedFineTrials": 32,
+          "committedTransactions": 16,
+          "diagnosticPayloadInstancesInEnvelope": 80,
+          "recordedTrials": 48,
+          "reservedTrials": 48
+        },
+        "expectedBytes": 5095832,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 698,
+        "expectedContextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "expectedSha256": "5e303d0aef205cef8cffa8f69b850a9b4bd53b5200e73e36d70b61918d06b3d2",
+        "n": 16,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "4e583719923cefce78189a4a74a28c83324d7b1257bf6a3d41c84dd2af6db74c",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22456,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 0.0028380000000000002,
+          "userCpuSeconds": 0.19713,
+          "wallSeconds": 0.20477691700000378
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1375,
+            "path": "worker.log",
+            "sha256": "176f7c1c57265f9730e8ca6b354a84c606d2e867b489824676d49ba31181402f",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 0.26180299999999995,
+        "childLog": {
+          "bytes": 1375,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/expected-job/worker.log",
+          "sha256": "176f7c1c57265f9730e8ca6b354a84c606d2e867b489824676d49ba31181402f"
+        },
+        "containerCleanup": {
+          "bytes": 782,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/expected-container-cleanup.json",
+          "sha256": "d5cd044f1030c9ee00dc6851c3b1e897b7a85255dafae1b3765d3c6718031022"
+        },
+        "containerLog": {
+          "bytes": 2529,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/expected-container.log",
+          "sha256": "ece110ecb864b26070a12fc2962ed536b2a115d297895dc5d9cc5a5a1dc7c3cc"
+        },
+        "containerMemoryPeakBytes": 26755072,
+        "elapsedSeconds": 0.2765775410000515,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2329,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/expected-execution.json",
+          "sha256": "41297af6c74e9bc05054dd1338fef0221bf65677006439e72161d22b14b9820b"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2300,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/expected-supervision.json",
+          "sha256": "692ce004d59da3a2ada40cf7d8d652f487617a972d40e8d191fde125a991c18f"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": {
+        "bytes": 5095832,
+        "path": "worker/snapshot.json",
+        "sha256": "5e303d0aef205cef8cffa8f69b850a9b4bd53b5200e73e36d70b61918d06b3d2",
+        "temporary": false,
+        "validation": "bytes-only-structural-and-numerical-audit-deferred"
+      },
+      "matchesIndependentFullEnvelope": true,
+      "mode": "metadata-cap",
+      "n": 16,
+      "name": "metadata-cap",
+      "numericalPrefix": {
+        "accepted": false,
+        "artifact": {
+          "bytes": 5095832,
+          "sha256": "5e303d0aef205cef8cffa8f69b850a9b4bd53b5200e73e36d70b61918d06b3d2"
+        },
+        "artifactIdentityVerified": true,
+        "available": true,
+        "causalStoppingExplanation": "complete-prefix",
+        "chargedEvaluationAllowance": 48,
+        "committedFineTrials": 32,
+        "committedPrefixIndicatorsReproduced": true,
+        "committedTransactions": 16,
+        "completedFraction": 1.0,
+        "conditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "contextIdentityVerified": true,
+        "contextSha256": "8f619b57c1357886f1fa9fcbc7f84c31fed4faace6e31620e062aa26ca365ee1",
+        "envelopeWellFormed": true,
+        "evaluatorProfile": "controller-callback-binary64-le-v1",
+        "notEvaluated": [
+          "source-model-authenticity",
+          "adaptive-response-and-control-interpolation",
+          "primitive-work-enclosures",
+          "constitutive-and-force-accuracy",
+          "contact-and-triangle-paths",
+          "global-temporal-and-spatial-accuracy",
+          "actual-process-outcome",
+          "resume",
+          "garment-acceptance"
+        ],
+        "numericalPrefixComplete": true,
+        "profile": "retained-temporal-prefix-audit-v1",
+        "recordedTrials": 48,
+        "reservedTrials": 48,
+        "runIdentity": "4e583719923cefce78189a4a74a28c83324d7b1257bf6a3d41c84dd2af6db74c",
+        "schedulerPrefixConsistent": true,
+        "scope": "Raw controller observations and conditional exact stored-value pair accounting only.",
+        "stateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e",
+        "tailObservation": "none"
+      },
+      "worker": {
+        "actualChildExit": 1,
+        "artifacts": [
+          {
+            "bytes": 2087,
+            "path": "worker.log",
+            "sha256": "7898e3511433768c92e548a9fe411d560cff17690caf8ca7723904bf949662bd",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 5095832,
+            "path": "worker/snapshot.json",
+            "sha256": "5e303d0aef205cef8cffa8f69b850a9b4bd53b5200e73e36d70b61918d06b3d2",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 4.938943999999999,
+        "childLog": {
+          "bytes": 2087,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/worker-job/worker.log",
+          "sha256": "7898e3511433768c92e548a9fe411d560cff17690caf8ca7723904bf949662bd"
+        },
+        "containerCleanup": {
+          "bytes": 776,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/worker-container-cleanup.json",
+          "sha256": "ba22e0638966f7264590e57f4fbbd455c673332de162a7cdd91b20db7ccba8ec"
+        },
+        "containerLog": {
+          "bytes": 2642,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/worker-container.log",
+          "sha256": "908bbc375b37e2d77a72125c0ca39ec4c9a1c7865e56bd6fe5b8de060130e343"
+        },
+        "containerMemoryPeakBytes": 72916992,
+        "elapsedSeconds": 15.134710548000044,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 978.848382027,
+            "peakRssKiB": 38460,
+            "systemCpuSeconds": 0.02199,
+            "userCpuSeconds": 0.10395299999999999
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 979.19504886,
+            "peakRssKiB": 72716,
+            "systemCpuSeconds": 0.037912,
+            "userCpuSeconds": 0.430012
+          },
+          {
+            "event": "worker-return",
+            "monotonicSeconds": 993.746298158,
+            "peakRssKiB": 72716,
+            "systemCpuSeconds": 2.894182,
+            "userCpuSeconds": 1.9642469999999999
+          }
+        ],
+        "processExitSucceeded": false,
+        "rawWaitStatus": 256,
+        "receipt": {
+          "bytes": 2325,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/worker-execution.json",
+          "sha256": "20fabb23f2b29d2912e2e048bf5912d2a0e394974b97c3d39c5c5026a74512f8"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2488,
+          "path": ".planning/solver/resource-runs-v1/metadata-cap/worker-supervision.json",
+          "sha256": "6119745b3cfe69dd58e7e3531383ac78f0c745f48327ff26c22f0cd66232a312"
+        },
+        "supervisorReason": "worker-nonzero-or-unavailable-exit"
+      }
+    },
+    {
+      "audit": null,
+      "auditUnavailableReason": "no-named-final-snapshot",
+      "classification": "hard-kill-preserves-unadmitted-temporary",
+      "expected": {
+        "accepted": false,
+        "counts": {
+          "assessments": 128,
+          "chargedEvaluationAllowance": 384,
+          "committedFineTrials": 256,
+          "committedTransactions": 128,
+          "diagnosticPayloadInstancesInEnvelope": 640,
+          "recordedTrials": 384,
+          "reservedTrials": 384
+        },
+        "expectedBytes": 40769215,
+        "expectedCompletedFraction": 1.0,
+        "expectedConditionalAbsoluteEnergyBoundJoules": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "expectedContextBytes": 701,
+        "expectedContextSha256": "8401177ad4970015d3a1d47755bdfecdbcf74612c8db6b76fe4ee2a6b32e9ce5",
+        "expectedSha256": "a0dc6900fbd9be7209934daf6748eb09da4fe1eab1051c4333a893ec64ce0e2d",
+        "n": 128,
+        "payload": {
+          "bytes": 87939,
+          "sha256": "ecb61b4c216d1808b54c863063e18bb49bcf655a1a37e511401c1fa2d2b6c759"
+        },
+        "profile": "stationary-resource-envelope-expectation-v1",
+        "runIdentity": "58e1d917a2fc508925bcc1237558047c1949d2ad7627bd392f7fe234a557e8e6",
+        "scope": "Analytical stationary callback wire expectation only. Historical payload diagnostics are unvalidated. No controller, producer validator, native mechanics, path audit or motion executed.",
+        "usage": {
+          "peakResidentSetRaw": 22460,
+          "peakResidentSetUnit": "KiB",
+          "scope": "Expected-envelope generator only, including bounded payload loads and canonical hashing; peak RSS is process lifetime.",
+          "systemCpuSeconds": 0.0012759999999999994,
+          "userCpuSeconds": 1.666825,
+          "wallSeconds": 1.6919740010000623
+        },
+        "zeroStateSha256": "a6e28318ba89d618fc8748a07f6c6b80d015060bb29e47b6d69e777e19c9d87e"
+      },
+      "expectedPhase": {
+        "actualChildExit": 0,
+        "artifacts": [
+          {
+            "bytes": 1384,
+            "path": "worker.log",
+            "sha256": "edb4acc112ed9a5c74707c5b94d6cb0e76846093fafde22cc4de61cc7f47cc2e",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 1.7388099999999997,
+        "childLog": {
+          "bytes": 1384,
+          "path": ".planning/solver/resource-runs-v1/kill-export/expected-job/worker.log",
+          "sha256": "edb4acc112ed9a5c74707c5b94d6cb0e76846093fafde22cc4de61cc7f47cc2e"
+        },
+        "containerCleanup": {
+          "bytes": 779,
+          "path": ".planning/solver/resource-runs-v1/kill-export/expected-container-cleanup.json",
+          "sha256": "c20e950436e001f9256f79a588f2484facf27ef4fd638da7239700da7eba289c"
+        },
+        "containerLog": {
+          "bytes": 2514,
+          "path": ".planning/solver/resource-runs-v1/kill-export/expected-container.log",
+          "sha256": "f816adfde53a769723e37735dc893dc49c6d73741e6755fdf3ec2d314e3e4530"
+        },
+        "containerMemoryPeakBytes": 26501120,
+        "elapsedSeconds": 1.780236543000001,
+        "measuredPhases": [],
+        "processExitSucceeded": true,
+        "rawWaitStatus": 0,
+        "receipt": {
+          "bytes": 2328,
+          "path": ".planning/solver/resource-runs-v1/kill-export/expected-execution.json",
+          "sha256": "c9be300c49d5a34ab2da2a693880b38119c845ff0e451ff16afb039274726f9c"
+        },
+        "signal": null,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2299,
+          "path": ".planning/solver/resource-runs-v1/kill-export/expected-supervision.json",
+          "sha256": "a41b7d84b2bacdb9b7ca7bb9059e99d7df1aad4d2bad66c4803fd1708e3a6ae5"
+        },
+        "supervisorReason": "worker-exited"
+      },
+      "finalSnapshot": null,
+      "killBoundary": {
+        "bytes": 8388610,
+        "event": "kill-boundary-observed",
+        "finalLinkObserved": false,
+        "monotonicSeconds": 1026.394804506,
+        "peakRssKiB": 226752,
+        "pid": 8,
+        "systemCpuSeconds": 5.593119,
+        "temporary": ".snapshot.json.2c123bb3dd594c28.tmp",
+        "thresholdBytes": 8388608,
+        "userCpuSeconds": 6.195004
+      },
+      "matchesIndependentFullEnvelope": false,
+      "mode": "kill-export",
+      "n": 128,
+      "name": "kill-export",
+      "numericalPrefix": null,
+      "worker": {
+        "actualChildExit": -9,
+        "artifacts": [
+          {
+            "bytes": 664,
+            "path": "worker.log",
+            "sha256": "48bc4c1bdb6844a6685e3ced97202e6f01f08eb42345817f4136ee8df067ac10",
+            "temporary": false,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          },
+          {
+            "bytes": 8388617,
+            "path": "worker/.snapshot.json.2c123bb3dd594c28.tmp",
+            "sha256": "91082e04e00ee167744b258f52157c466b439ab8c3f4292c063ada0153e37baf",
+            "temporary": true,
+            "validation": "bytes-only-structural-and-numerical-audit-deferred"
+          }
+        ],
+        "childCpuSeconds": 11.794713,
+        "childLog": {
+          "bytes": 664,
+          "path": ".planning/solver/resource-runs-v1/kill-export/worker-job/worker.log",
+          "sha256": "48bc4c1bdb6844a6685e3ced97202e6f01f08eb42345817f4136ee8df067ac10"
+        },
+        "containerCleanup": {
+          "bytes": 773,
+          "path": ".planning/solver/resource-runs-v1/kill-export/worker-container-cleanup.json",
+          "sha256": "0c4311aa0daa5fb77ad9806e57c1208331465ee201ce21237c926a63a4186f29"
+        },
+        "containerLog": {
+          "bytes": 2685,
+          "path": ".planning/solver/resource-runs-v1/kill-export/worker-container.log",
+          "sha256": "5d91e5b5399a0cbe53d4f842cfcfab208050382db9c593decc640d0c2cddc82c"
+        },
+        "containerMemoryPeakBytes": 228663296,
+        "elapsedSeconds": 28.790033595999944,
+        "measuredPhases": [
+          {
+            "event": "before-controller",
+            "monotonicSeconds": 997.758337285,
+            "peakRssKiB": 38476,
+            "systemCpuSeconds": 0.015217999999999999,
+            "userCpuSeconds": 0.105517
+          },
+          {
+            "event": "controller-return-or-error",
+            "monotonicSeconds": 1000.316469453,
+            "peakRssKiB": 226752,
+            "systemCpuSeconds": 0.18695599999999998,
+            "userCpuSeconds": 2.411028
+          },
+          {
+            "event": "kill-boundary-observed",
+            "monotonicSeconds": 1026.394804506,
+            "peakRssKiB": 226752,
+            "systemCpuSeconds": 5.593119,
+            "userCpuSeconds": 6.195004
+          }
+        ],
+        "processExitSucceeded": false,
+        "rawWaitStatus": 9,
+        "receipt": {
+          "bytes": 2322,
+          "path": ".planning/solver/resource-runs-v1/kill-export/worker-execution.json",
+          "sha256": "c5e170c7fed4bda8bb869a0f12b0c15dbce5aca768f682bd3b6c3b2da51c3694"
+        },
+        "signal": 9,
+        "signalsSent": [],
+        "supervision": {
+          "bytes": 2508,
+          "path": ".planning/solver/resource-runs-v1/kill-export/worker-supervision.json",
+          "sha256": "4f87fffeae6326b839406770f0b7bd1329612a58a09d5c840beaf4d4ff26b361"
+        },
+        "supervisorReason": "worker-nonzero-or-unavailable-exit"
+      }
+    }
+  ],
+  "curator": {
+    "bytes": 12381,
+    "path": ".planning/solver/package-resource-results-v1.py",
+    "sha256": "ddd1dadc1bbad738f8287f906e33fa81eac94410c78348ec331a0b2dc68783d1"
+  },
+  "declaration": {
+    "bytes": 95002,
+    "path": ".planning/solver/resource-declaration-v1.json",
+    "sha256": "8167823cef03b44f1b420b7fc7896d6e7d56a3c399b05bc6dd4308f7f4284543"
+  },
+  "frozenSourceIdentitiesVerified": true,
+  "limitations": [
+    "Static synthetic payload only; no mechanical solve or new accuracy/path result.",
+    "Timing intervals include exactly the labelled process stages; post-controller includes snapshot acquisition/publications/restoration.",
+    "Linux RSS is process lifetime high-water; cgroup peak includes fresh whole-container charge.",
+    "Incomplete temporary files are not audited or promoted to final snapshots.",
+    "Original failed accuracy results and all source/construction/material/body/application gates remain open."
+  ],
+  "profile": "stationary-output-resource-results-v1",
+  "resources": {
+    "VMObservedCpus": 8,
+    "VMObservedMemoryBytes": 8218316800,
+    "containerKillGraceSeconds": 5,
+    "containerWallSeconds": 660,
+    "cpus": 1,
+    "hostControlTimeoutSeconds": 15,
+    "hostLogBytesPerPhase": 2097152,
+    "hostWaitSeconds": 700,
+    "memoryAndSwapBytes": 3221225472,
+    "memoryBytes": 3221225472,
+    "network": "none",
+    "pids": 256,
+    "sequential": true
+  },
+  "scope": "One fresh JSON decode of saved synthetic step128 per callback, opaque resourceWitnessDiagnostics only. All current positions/velocities/energy are zero; duration1s,8vertices,mass1kg. No mechanics or new path/accuracy result.",
+  "sourceCount": 292
+}

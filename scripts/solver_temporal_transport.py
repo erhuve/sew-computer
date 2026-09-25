@@ -174,9 +174,30 @@ class PrivateDirectory:
                         raise OSError("Evidence write made no progress")
                     digest.update(view[:count]); row["bytes"] += count
                     view = view[count:]
+            # Coalesce the encoder's small tokens before touching the file.
+            # The buffer is bounded independently of total snapshot size. The
+            # byte budget includes pending data, while observations and digest
+            # count only bytes actually accepted by the OS, including short
+            # writes before an error. Failed buffered data is never published.
+            pending = bytearray()
+            def flush():
+                if pending:
+                    write(pending)
+                    pending.clear()
+            def queue(content):
+                if row["bytes"]+len(pending)+len(content) > self.policy.file_limit(name):
+                    raise ValueError("Temporal artifact byte budget exhausted")
+                view = memoryview(content)
+                while view:
+                    count = min(65536-len(pending), len(view))
+                    pending.extend(view[:count])
+                    view = view[count:]
+                    if len(pending) == 65536:
+                        flush()
             for chunk in encoder.iterencode(value):
-                write(chunk.encode("utf-8"))
-            write(b"\n")
+                queue(chunk.encode("utf-8"))
+            queue(b"\n")
+            flush()
             row.update(contentComplete=True, sha256=digest.hexdigest())
             os.fchmod(fd, 0o400)
             os.fsync(fd); row["fileSynced"] = True
