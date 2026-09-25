@@ -4,6 +4,30 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Matched targeted scope profiling · 2026-09-25
+
+A lighter observer now completes the unchanged 128-call diagnostic. It wraps seven explicit lookup locations in both arms, records wrapper entries/returns/raises in both, and enables direct process-CPU/wall clocks only in the instrumented arm. The original broad timers remain unchanged in their separate tree. The source-bound observer rejects substituted static, inherited and dynamic method bindings before installation; retained witnesses reproduce the original descriptor defect and repaired rejection. All **28 helper controls** pass on the host and in each pinned Linux parent. Separate host checks pass **52 serialized sidecar cases** and **10 parent-gate cases**; these are diagnostic checks, not a new full numerical suite.
+
+Both numerical children actually exit **86** after 128 completed solver calls and the declared stop before call 129. Both outer launches exit zero with complete cleanup, taking 62.611 and 60.367 seconds respectively. The separately bounded saved comparator exits zero in 13.364 seconds. It verifies the **complete raw histories** against each other and the earlier 128-call reference, including the stopped trial, after normalizing only the externally verified unique envelope run identity. All seven wrapper counts match between arms. The prior reference's original-A response/path evidence remains inherited, not independently recomputed by this timing diagnostic.
+
+The instrumented adaptive operation uses **51.620192226 process CPU seconds**. These values describe the seven selected scopes in that early workload:
+
+| Scope | Wrapper calls per arm | Inclusive CPU seconds | Self CPU seconds | Self share of operation |
+| --- | ---: | ---: | ---: | ---: |
+| Exact contact construction | 5,239 | 9.323776 | 9.323776 | 18.06% |
+| Bounded contact arithmetic | 1,676 | 3.946399 | 3.243323 | 6.28% |
+| Native endpoint capture | 3,352 | 8.123837 | 2.597123 | 5.03% |
+| Complete work evaluation | 1,676 | 13.382440 | 1.312204 | 2.54% |
+| Contact bucket lookup/build | 7,109 | 10.394687 | 1.070911 | 2.07% |
+| Bounded logarithm series | 42,730 | 0.703076 | 0.703076 | 1.36% |
+| Checked change wrapper | 774 | 12.559505 | 0.153932 | 0.30% |
+
+Only the **18.404344972 seconds of self time** can be summed across this targeted tree. Inclusive scopes overlap; neither they nor the separate broad timers may be added together. The remaining **33.215847254 seconds** includes all operation work outside these selected scopes and observer overhead. Exact construction is the largest measured scope here, not a demonstrated whole-worker bottleneck. The single ordered pair establishes neither unprofiled costs nor a speedup; elapsed differences between arms are not an optimization result.
+
+The [scope ledger](3d-scope-profile-results.json) binds the two runs, saved comparison, source/count/timer admission and review evidence. Frozen local methods and inputs use `*-scopes-v1.py` and `cached-profile-scopes128-*` names in ignored `.planning/solver/`. Reproduce the ledger with `python3 .planning/solver/package-cached-scope-profile-results-v1.py --check`. The failed detailed profiler and earlier zero-count anomaly remain retained; this success does not explain that anomaly.
+
+Next review a narrow allocation change in a fresh isolated checkout: pure-geometry cache admission currently constructs exact rational coordinates only to discard them before lookup. Preserve the same strict type/finiteness checks while avoiding those unused allocations, then require measured benefit and complete matched histories. This source observation does not attribute the entire construction cost to those allocations. Keep per-call native parameter checks, fresh endpoint observations and validation, exact feature/contribution multiplicity, arithmetic budgets and existing memory bounds. Broader reuse of mutable native buckets needs separate admission and memory review. No such optimization is implemented by this checkpoint. Numerical/application sources, physical inputs, resource limits and accuracy criteria are unchanged. Full 64 ms temporal accuracy, original preload/released tail, spatial sensitivity, source construction, material/body/full-shirt and application/release gates remain open.
+
 ## Failed function-level profiling · 2026-09-25
 
 A separately declared diagnostic adds raw `cProfile` observations with a process-CPU clock to the unchanged 128-call workload. All twelve measurement/execution methods are reviewed and frozen before execution. Thirty-five helper controls cover clocks, recursion, exceptions, label multiplicity, opaque runtime labels and call-graph counts; the same controls pass in each pinned Linux parent before its fresh numerical child starts. Forty-two saved-report cases and eight parent failure-publication cases pass separately on the host. These checks concern the diagnostic, not new solver or garment acceptance.
