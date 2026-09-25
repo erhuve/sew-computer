@@ -4,6 +4,33 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Adaptive-validation scope profiling · 2026-09-25
+
+A prospectively declared pair measures eight adaptive-validation scopes on the unchanged 128-call workload. Both numerical children intentionally exit **86** after 128 valid trials and the recorded stop at trial 129. Both outer launches exit zero with unchanged inputs and complete cleanup. The separately bounded saved comparator exits zero, with an **outer wrapper interval of 26.512 seconds**, and verifies exact complete histories against each other and the prior reference after normalizing only the unique verified envelope run identity. The result remains the incomplete **1.890625 ms** prefix. Original physical inputs, the 1e-8 N stationarity criterion and every numerical/resource limit are unchanged.
+
+The new adapter loads a private instance of the byte-identical timer core, changing only its labels, source-bound lookup targets and profile. Installation/removal remains outside the broad operation clock; original bindings are restored before snapshot/export. The adaptive module's imported `same` alias and the execution module's locally imported `enrich_result` function are explicitly bound. Each pinned parent passes the unchanged **28 helper and 10 phase controls**, plus **seven independently authored adapter controls**, before numerical imports. The separate **64 serialized-sidecar cases** and **11 fake parent-gate cases** also match their expected outcomes. These are instrumentation checks, not new full numerical regression tests.
+
+All eight source-derived call counts match in both arms. Each selected function returns normally, while the broad operation records the deliberate stop exception. The instrumented operation uses **52.590812467 process CPU seconds**; **15.176035639 seconds** is outside the separately measured solver-step and global-energy-transition scopes. The source review places these eight selected scopes within that latter interval:
+
+| Selected validation scope | Calls | Self CPU seconds | Inclusive CPU seconds |
+| --- | ---: | ---: | ---: |
+| Isolated helper call | 2,818 | 12.977066 | 12.987143 |
+| Varying cable step validation | 256 | 0.039025 | 6.036958 |
+| Varying cable energy validation | 128 | 0.075984 | 4.934767 |
+| Varying control identity | 386 | 0.008175 | 0.044171 |
+| Array equality | 17,668 | 0.028079 | 0.028079 |
+| Adaptive JSON equality | 3,589 | 0.531881 | 0.531881 |
+| Accepted work totals | 1 | 0.001987 | 0.001987 |
+| Result enrichment | 1 | 0.176306 | 0.178293 |
+
+Only self/exclusive times are additive: they total **13.838503648 seconds**, **26.314%** of operation CPU and **91.187%** of its broad controller/other interval, leaving **1.337531991 seconds** unassigned there. Inclusive values overlap because the step/energy/identity/enrichment functions call other selected functions. The isolated helper's self time includes the actual supplied numerical helper, as well as copies and dispatch; it is **not** a measurement of array-copy cost. In particular, it includes fresh cable parameter/control construction, response/work checks and the final contact-energy validation. Timing instrumentation overhead remains included.
+
+This evidence substantially narrows the formerly unassigned interval. Next distinguish immutable effective-control construction from fresh response/work evaluation inside isolation, with contact validation attributed explicitly, then select a measured optimization without skipping any fresh check. The small equality/enrichment costs do not support prioritizing those as the main runtime fix. This pair establishes no speedup, full-worker cost, temporal/spatial accuracy or garment acceptance. Numerical/application sources are unchanged, and no new full suite ran; the source-bound **1,590-test** baseline remains historical evidence. The original 64 ms study, preload/released-tail and refinement criteria, source construction, material/body/full-shirt and private application/release gates remain open.
+
+Independent saved-result review checks source/process identities, complete histories including the stopped record, state hashes, committed energy, counts and timing arithmetic. Its first invocation rejected an unsupported 10 ms agreement requirement between epoch and monotonic elapsed clocks; that reviewer failure and the actual clock differences are retained. Removing that undeclared equality changes no measured artifact, numerical criterion or execution limit. The successful review has its own actual exit-zero receipt.
+
+The [adaptive-validation ledger](3d-adaptive-validation-results.json) retains declarations, 309 frozen source rows, actual processes, methods, review and failure provenance across **7,229 artifact bindings**. The initial independent adapter-test wrapper failed while serializing its receipt after passing test output; its tool exit 1, unavailable child exit and original output remain explicit beside the subsequent successful actual receipt. Local reproduction uses `python3 .planning/solver/package-adaptive-validation-results-v1.py --check` in the isolated study checkout; the ignored raw artifacts and historical inputs remain required. Nothing is pushed or deployed.
+
 ## Targeted controller scope profiling · 2026-09-25
 
 A prospectively declared control/instrumented pair isolates eight operation scopes on the unchanged 128-call workload. The original numerical sources, physical inputs, 1e-8 N stationarity requirement, fixed stop and resource limits remain unchanged. Both children intentionally exit **86** after 128 valid trials and the recorded stop at trial 129. Both outer launches exit zero with clean cleanup. The separately bounded saved comparator exits zero, with an **outer wrapper interval of 23.921 seconds**, verifying complete raw histories against each other and the prior reference after normalizing only the unique verified envelope run identity. This remains the incomplete **1.890625 ms** prefix, not a completed 64 ms trajectory.
