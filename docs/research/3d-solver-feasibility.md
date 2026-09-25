@@ -4,6 +4,31 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Targeted controller scope profiling · 2026-09-25
+
+A prospectively declared control/instrumented pair isolates eight operation scopes on the unchanged 128-call workload. The original numerical sources, physical inputs, 1e-8 N stationarity requirement, fixed stop and resource limits remain unchanged. Both children intentionally exit **86** after 128 valid trials and the recorded stop at trial 129. Both outer launches exit zero with clean cleanup. The separately bounded saved comparator exits zero, with an **outer wrapper interval of 23.921 seconds**, verifying complete raw histories against each other and the prior reference after normalizing only the unique verified envelope run identity. This remains the incomplete **1.890625 ms** prefix, not a completed 64 ms trajectory.
+
+The wrappers are installed only around the adaptive operation, with installation/removal outside its broad timer and original functions restored before snapshot/export. Both arms count calls; only the instrumented arm reads clocks. Every target matches its source-derived conditional count and returns normally. The broad operation raises once at the deliberate stop. The **28 adapted helper controls** and **10 independently authored phase controls** pass on the host and in both pinned Linux parents. Separately, **63 serialized sidecar cases** and **11 fake parent-gate cases** match their expected outcomes. These are diagnostic controls, not added numerical regression tests.
+
+The instrumented operation uses **50.148306528 process CPU seconds**, of which **15.054279944 seconds** lies outside the separately measured solver-step and energy-transition scopes:
+
+| Selected operation scope | Calls | Self CPU seconds |
+| --- | ---: | ---: |
+| Problem identity | 517 | 0.110270 |
+| State records | 259 | 0.008985 |
+| Position/velocity discrepancy | 84 | 0.011014 |
+| Temporal energy defect | 84 | 0.036074 |
+| Diagnostic conversion | 256 | 0.245999 |
+| Reservation publication | 129 | 0.001001 |
+| Trial-record publication | 129 | 0.094709 |
+| Assessment publication | 42 | 0.002999 |
+
+Together these scopes account for **0.511049793 self CPU seconds**, or **1.019% of operation CPU** and **3.395% of the broad remaining interval**. **14.543230151 seconds** of that interval is still unassigned to a named function. The measurements do not support choosing these eight functions as the principal performance target. Numerous validation calls, array comparisons, report copies and enrichment remain outside them. Inclusive timers may overlap; only exclusive values are summed, and observer overhead remains included. The pair supplies no speedup estimate or whole-worker attribution.
+
+The [controller-scope ledger](3d-controller-scope-results.json) retains source/declaration identities, actual process outcomes, counts, timer accounting, complete-history evidence and independent review. The numerical snapshot binds **307 source files**, including **271 unchanged numerical/test scripts**; each native execution binds **6,377 inputs**, and the saved comparison binds **6,404**. The preceding 1,590-test numerical/supervision checkpoint remains historical evidence for unchanged sources; no new full suite or application test run is claimed. Two failed prelaunch reviewer invocations remain explicit: one imposed an undeclared host-file mode requirement; the other compared image metadata to an image-ID string. Only the checker was corrected. Preparation has a retained primary tool observation of exit zero, without an independent subprocess log or elapsed interval.
+
+Next isolate the surrounding response/energy revalidation and report-enrichment calls on the same workload, preserving every fresh native check and exact complete history. Source inspection identifies these as candidates, not measured bottlenecks. Do not cache mutable native results or weaken acceptance based on this diagnostic. Full temporal/spatial accuracy, original preload/released tail, construction-specific joints/folds/turning/binding, material/body/full-shirt validation and private application/release gates remain open. No numerical optimization, assembled garment acceptance, push or deployment follows. Local reproduction uses retained ignored artifacts and `python3 .planning/solver/package-controller-scope-results-v1.py --check`; a Git clone alone does not include the raw histories or runtime.
+
 ## Coordinate admission and artifact inventory · 2026-09-25
 
 Strict coordinate admission now checks built-in binary64 type and finiteness without constructing rational coordinates that were immediately discarded before a cache lookup. Actual exact geometry, closest-feature/tie decisions, per-call arithmetic budgets, fresh native endpoint validation and the 256-entry immutable cache remain unchanged. This removes unused allocations; the measured performance result below is mixed.
