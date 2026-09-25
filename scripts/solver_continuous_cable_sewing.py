@@ -57,6 +57,11 @@ def _at(poly, value):
 
 
 def _compose(poly, start, width):
+    # Identity maps preserve the canonical exact coefficients without products.
+    # Copy the Fraction values so the result retains independent instances.
+    if (type(poly) is tuple and type(start) is F and type(width) is F
+            and not start and width == 1 and all(type(value) is F for value in poly)):
+        return _trim(tuple(F(value) for value in poly))
     result = (F(),)
     for coefficient in reversed(poly):
         result = _add(_mul(result, (start, width)), (coefficient,))

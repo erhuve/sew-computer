@@ -4,6 +4,29 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Exact cable identity composition · 2026-09-25
+
+The exact polynomial helper now recognizes an identity affine map only when the polynomial is an exact tuple of exact Fraction coefficients and its start/width are exact Fraction zero/one. It returns trimmed copies of the coefficients, retaining independent Fraction instances without polynomial products. Other maps, containers and numeric types retain the previous Horner arithmetic. Fresh cable responses, fixed/parameter work and native validation remain in place; no response cache or arithmetic-budget change is introduced.
+
+**1,600 full pinned Linux numerical/supervision tests pass in 972.878 seconds**, including ten independently authored methods. The overlapping **179 focused tests** pass; their runner interval is 34.913648182 seconds. Eight host math methods cover an independent binomial expansion and evaluation oracle, deterministic rational cases, extreme/subnormal values, trimming, type/error fallbacks and alias isolation. Two native methods compare complete energy/gradient/sparse-Hessian/certificate and work records against both binomial and previous-Horner calculations, including the imported parameter-work alias. These counts overlap, and they do not establish physical garment acceptance. The frozen regression inventory contains 413 files; actual outer/container exits are zero, with unchanged inputs and complete cleanup.
+
+Six fresh children run in the declared baseline, candidate, candidate, baseline, baseline, candidate order. Both 307-file source variants differ only in the cable composition helper. The previous driver, broad/seven selected timers, 28 parent controls, physical fixture, force/state criteria and resource limits are preserved. Each child deliberately stops before solver call 129 with actual exit **86**; every outer launch exits zero. The separately bounded saved comparator exits zero in a **33.511-second outer wrapper interval**. All six complete 129-record histories match each other and the prior reference, normalizing only the externally verified unique envelope run identity. This remains the same incomplete **1.890625 ms** prefix, including discarded trials and the stopped record.
+
+| Sequence | Variant | Operation CPU seconds |
+| --- | --- | ---: |
+| 1 | Baseline | 52.157667508 |
+| 2 | Candidate | 52.208029343 |
+| 3 | Candidate | 50.615135385 |
+| 4 | Baseline | 52.985517791 |
+| 5 | Baseline | 51.550863261 |
+| 6 | Candidate | 47.570905192 |
+
+The three adjacent baseline-minus-candidate CPU reductions are **−0.096556916%, +4.473642053% and +7.720448926%**. Median operation CPU is **52.157667508 seconds baseline / 50.615135385 seconds candidate**, a **2.957440769%** reduction. Results are mixed; retain the adverse first pair. Three pairs establish neither a consistent speedup nor population confidence, whole-worker performance or full-duration feasibility. The previous family-level profiling does not measure composition's individual cost, and the selected contact timers are not relabelled as composition timers.
+
+Independent review verifies the mathematical controls, exact test inventories, complete histories including trial 129, state/commit/energy accounting, parent controls, timing algebra and actual process/source associations. Static review repaired missing review-to-result associations and a result-curator pair-count gap before execution; the initial and repaired source snapshots remain retained. No experimental source, criterion or budget was changed to make a numerical run pass.
+
+The [identity-composition ledger](3d-cable-identity-composition-results.json) binds **7,184 artifacts** and preserves actual results and review provenance. Local reproduction uses `python3 .planning/solver/package-cable-compose-results-v1.py --check` with retained ignored artifacts in the isolated checkout. Next investigate repeated exact polynomial products within fresh cable force construction, especially shared row products across Hessian components, as a source-derived candidate requiring its own review and measured evidence. This mixed result alone does not justify another full-budget accuracy attempt. Full 64 ms temporal accuracy, original preload/released tail, spatial convergence, actual cuff/binding construction, material/body/full-shirt and private application/release acceptance remain open. Production and protected entrypoints are unchanged; nothing is pushed or deployed.
+
 ## Isolated-helper callback profiling · 2026-09-25
 
 The next prospectively declared pair separates the original isolation helper from ten source-bound callback families. Both numerical children intentionally exit **86** after 128 valid trials and the recorded stop at trial 129. Both outer launches exit zero with unchanged inputs and complete cleanup. The separately bounded saved comparator exits zero in a **27.916-second outer wrapper interval** and verifies complete raw histories against each other and the prior reference, normalizing only the unique verified envelope run identity. This remains the incomplete **1.890625 ms** prefix. All 271 numerical source files, original physical inputs, accuracy criteria and resource limits are unchanged.
