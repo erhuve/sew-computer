@@ -1,0 +1,229 @@
+{
+  "accepted": false,
+  "baseCommit": "887b6a33ee8418abffe3070a580b574d1adeda2b",
+  "counting": "108 focused tests overlap the 1545 full tests. Full includes 41 new methods and ten preceding process fault methods previously run separately. Do not add these counts.",
+  "curator": {
+    "bytes": 8943,
+    "path": ".planning/solver/package-temporal-admission-results-sep24-v1.py",
+    "sha256": "2bed439ae738f0b2b1d0d22141d0a0d63776bd6b697ce22a0d5729616731625e"
+  },
+  "designAndStaticReview": [
+    {
+      "bytes": 6542,
+      "path": ".planning/solver/temporal-admission-design-sep24-v1.md",
+      "sha256": "550eaff13df554fded19dad6cf58972df6129025d0d256485634c30212b6b525"
+    },
+    {
+      "bytes": 5215,
+      "path": ".planning/solver/temporal-admission-scope-sep24-v1.md",
+      "sha256": "f99b5e89ad3cc2cb963af64f84892dae437460394598b992cfd3ff6dbec3836d"
+    },
+    {
+      "bytes": 22407,
+      "path": ".planning/solver/review-temporal-raw-admission-design-sep24-v1.md",
+      "sha256": "33c62a90da8b756375172c1d18171f38da8a3acd62e45803fa5a7aea501fc30d"
+    },
+    {
+      "bytes": 7427,
+      "path": ".planning/solver/review-temporal-evidence-adversarial-sep24-v1.md",
+      "sha256": "0ee252693265866a4658823ae427f2b8b6bfdf8852b602fc688b8e05d005bf91"
+    },
+    {
+      "bytes": 2911,
+      "path": ".planning/solver/review-temporal-evidence-adversarial-sep24-v2.md",
+      "sha256": "d2b2b7b341b572cf6a302a9fe347c3b61ff0ad0a27c74470346b868db8b3c533"
+    }
+  ],
+  "evaluatorProfile": "controller-callback-binary64-le-v1",
+  "focused": {
+    "actualExitCode": 0,
+    "allSourceAndSnapshotBytesUnchanged": true,
+    "declaration": {
+      "bytes": 44288,
+      "path": ".planning/solver/temporal-admission-focused-declaration-sep24-v2.json",
+      "sha256": "09774685c036a281d8d90e6c1f9193e30be2e3526bb3e2d0e3355de94f939469"
+    },
+    "launcherWallSeconds": 19.180022499989718,
+    "log": {
+      "bytes": 21408,
+      "path": ".planning/solver/temporal-admission-focused-sep24-v2.log",
+      "sha256": "f1dffff03936dea46be6ac95d585d8b16ae6447d730dd04b9d62dd4b9d4a8c4f"
+    },
+    "receipt": {
+      "bytes": 1709,
+      "path": ".planning/solver/temporal-admission-focused-sep24-v2-execution.json",
+      "sha256": "c934ef78f5c5a1b2c782ae0aed2a40c63e16b7db0b9541dd83ef6fb49413c5c4"
+    },
+    "resources": {
+      "cpus": 1,
+      "hardKillGraceSeconds": 5,
+      "memoryGiB": 3,
+      "network": "none",
+      "pids": 256,
+      "runAlone": true,
+      "wallSeconds": 240
+    },
+    "sourceCount": 239,
+    "sourceSnapshot": ".planning/solver/temporal-admission-test-sources-sep24-v1",
+    "testSeconds": 14.521,
+    "tests": 108
+  },
+  "full": {
+    "actualExitCode": 0,
+    "allSourceAndSnapshotBytesUnchanged": true,
+    "declaration": {
+      "bytes": 44123,
+      "path": ".planning/solver/temporal-admission-full-declaration-sep24-v2.json",
+      "sha256": "9fbdf36c58a89e0c119c9f96c7758d4d48b9c9724d64953202b09b1642293140"
+    },
+    "launcherWallSeconds": 888.5908147500013,
+    "log": {
+      "bytes": 296825,
+      "path": ".planning/solver/temporal-admission-full-sep24-v2.log",
+      "sha256": "97da02ff039d19e71f4f8d8b3bce5c39ba7248a2631cd1e776952569e06fde81"
+    },
+    "receipt": {
+      "bytes": 1549,
+      "path": ".planning/solver/temporal-admission-full-sep24-v2-execution.json",
+      "sha256": "3b58f7eaec1c8e4c04f43b43b8cecbd0e2e11894cfca4f4765bda28c031b2093"
+    },
+    "resources": {
+      "cpus": 1,
+      "hardKillGraceSeconds": 5,
+      "memoryGiB": 3,
+      "network": "none",
+      "pids": 256,
+      "runAlone": true,
+      "wallSeconds": 1800
+    },
+    "sourceCount": 239,
+    "sourceSnapshot": ".planning/solver/temporal-admission-test-sources-sep24-v1",
+    "testSeconds": 883.635,
+    "tests": 1545
+  },
+  "implementation": [
+    {
+      "bytes": 44666,
+      "path": "scripts/solver_temporal_evidence.py",
+      "sha256": "8c43427f362f5c5a328881a2262a3d84ad77a911e3c4312b94af40904694b3ba"
+    },
+    {
+      "bytes": 16814,
+      "path": "scripts/test_solver_temporal_evidence.py",
+      "sha256": "1ab166c8b83236206818d065f4acf3ca054136dc99a02526a403a02cd2753357"
+    },
+    {
+      "bytes": 29928,
+      "path": "scripts/test_solver_temporal_evidence_review.py",
+      "sha256": "01b81c08757a06b7ff51fd53b60ab4aa28f82b2e44956b594b449ff768d903f4"
+    }
+  ],
+  "independentExecutionReview": [
+    {
+      "bytes": 12565,
+      "path": ".planning/solver/review-temporal-admission-focused-sep24-v1.json",
+      "sha256": "e1092d80a7a5d2dadf21e0f9f45d8550e4036d3cebaa0613e7dc68c50996c75d"
+    },
+    {
+      "bytes": 1209,
+      "path": ".planning/solver/review-temporal-admission-focused-sep24-v1-execution.json",
+      "sha256": "96ecbd85ccee65316d4839c6b405143f4b05850e7953ae08f372f1f532419ea7"
+    },
+    {
+      "bytes": 15486,
+      "path": ".planning/solver/review-temporal-admission-full-sep24-v1.json",
+      "sha256": "d6790d124572b393852e4e9600d4307c16507dcda471ee35351dc03815793d7e"
+    },
+    {
+      "bytes": 1215,
+      "path": ".planning/solver/review-temporal-admission-full-sep24-v1-execution.json",
+      "sha256": "bf7b950796fd59df20e8bade599d9456d8deac4ff85ba26b30cbdb4c13a287ee"
+    }
+  ],
+  "limitations": [
+    "Whole JSON decoding allocates bytes and object tree; separate process budgets remain mandatory.",
+    "Invalid-temporal-evidence rows are supported only as final unresolved partial-reduction observations; retries after them reject.",
+    "Arbitrary callback trials need not set converged or satisfy backward-Euler velocity; those are separate evaluator claims.",
+    "Unfinished or invalid diagnostic state cannot enlarge the committed prefix.",
+    "A complete prefix does not make a stopped or failed outer process successful."
+  ],
+  "newTestMethods": {
+    "scripts/test_solver_temporal_evidence.py": 16,
+    "scripts/test_solver_temporal_evidence_review.py": 25
+  },
+  "notEstablished": [
+    "source/model authenticity",
+    "adaptive response and schedule interpolation",
+    "primitive enclosure correctness",
+    "force accuracy",
+    "physical contact/triangle paths",
+    "global temporal or spatial accuracy",
+    "large-output resource feasibility",
+    "actual process outcome from snapshot",
+    "durable resume",
+    "source garment operations",
+    "calibrated material/body behavior",
+    "full-shirt or application acceptance"
+  ],
+  "preExecutionSocketFailure": {
+    "actualExitCode": 126,
+    "allSourceAndSnapshotBytesUnchanged": true,
+    "declaration": {
+      "bytes": 43914,
+      "path": ".planning/solver/temporal-admission-focused-declaration-sep24-v1.json",
+      "sha256": "b73b288334fcc52019e7907def131f523126e4a78990db17a20c63bcc46aad19"
+    },
+    "launcherWallSeconds": 0.2255147909745574,
+    "log": {
+      "bytes": 324,
+      "path": ".planning/solver/temporal-admission-focused-sep24-v1.log",
+      "sha256": "1b66f03eb5ee00993072f737bf1035f4abd159bf499bb36d9d32eb69cbc2e346"
+    },
+    "receipt": {
+      "bytes": 1709,
+      "path": ".planning/solver/temporal-admission-focused-sep24-v1-execution.json",
+      "sha256": "59c64d3aa773fecd1d888f983c0215c55f129265b5a3f2a198da7b2d7ffa8e2b"
+    },
+    "resources": {
+      "cpus": 1,
+      "hardKillGraceSeconds": 5,
+      "memoryGiB": 3,
+      "network": "none",
+      "pids": 256,
+      "runAlone": true,
+      "wallSeconds": 240
+    },
+    "sourceCount": 239,
+    "sourceSnapshot": ".planning/solver/temporal-admission-test-sources-sep24-v1",
+    "testSeconds": null,
+    "tests": 0
+  },
+  "preserved": [
+    "existing numerical producers and thresholds",
+    "captured supervisor and 64 MiB cap",
+    "protected capture/replay entrypoints",
+    "application and production checkout",
+    "original failed temporal study evidence"
+  ],
+  "profile": "retained-temporal-prefix-audit-evidence-v1",
+  "reviewRepairs": [
+    "valid trial requires successful return-observed marker",
+    "full prefix cannot claim an unreached budget/depth/resource gate",
+    "budget reason requires the exact replayed missing dispatch gate",
+    "contact/cable stored work endpoints and cable motion scalar bound to fine trial"
+  ],
+  "runtimeImage": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+  "scope": [
+    "external artifact/run/context identity binding",
+    "bounded canonical raw snapshot decoding",
+    "observed controller scheduler prefix",
+    "whole fine-pair commits and reservation accounting",
+    "independent exact stored-value temporal indicators and conditional fixed-motion energy reductions",
+    "bound contact/cable presence, stored endpoint hashes and five contact aggregate sums"
+  ],
+  "unexecutedFullDeclaration": {
+    "bytes": 43752,
+    "path": ".planning/solver/temporal-admission-full-declaration-sep24-v1.json",
+    "sha256": "c0b9ea177e78dab6842efbb7fda946319dd831ddb359d9d040e0a6c6f2249f34"
+  }
+}
