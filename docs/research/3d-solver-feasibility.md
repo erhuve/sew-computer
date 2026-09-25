@@ -4,6 +4,29 @@
 
 Latest contact work, 2026-09-18: the optional global-reference experiment supports a pinned IPC barrier and continuous contact guards. The original full-shirt placement fails contact admission; a separate rigid staging experiment now passes static admission without changing source dimensions. Dynamics and assembly remain rejected; see the contact continuation below and the [independent review](../reviews/3d-cloth-contact.md). The default application and Newton experiments are unchanged.
 
+## Shared cable polynomial products · 2026-09-25
+
+Fresh cable force construction now reuses exact vertex-row products within each call and skips multiplication by a canonical exact-Fraction zero polynomial. Reuse is keyed by row ordinal, preserving ordered duplicate-vertex rows, and returned coefficients remain independent objects. Other numeric types and containers retain the original multiplication path. There is no persistent response cache, omitted native validation or change to the radial kernel's arithmetic budgets. An independent four-row control verifies **368 to 202 multiplication-helper calls**; that count is not itself a runtime measurement.
+
+**1,610 full pinned Linux numerical/supervision tests pass in 872.516 seconds**, including ten new independent methods. The overlapping **189 focused tests** pass in 35.669 seconds. Eight host math methods use separate distributive and analytic energy/gradient/Hessian oracles, retained original implementations, extreme rational inputs, type/error checks, duplicate rows and alias-mutation controls. Two native methods compare complete response/certificate and fixed/parameter-work records, including the imported multiplication alias. The frozen regression inventory contains 414 files. Actual outer/container exits are zero, all declared test IDs succeed, inputs remain unchanged and cleanup completes. These are numerical regressions, not garment or application acceptance.
+
+The declared six-run order is baseline, candidate, candidate, baseline, baseline, candidate. Each variant contains 308 source files with only the cable sewing module differing. The original fixed 128-call driver, broad/seven contact timers, 28 parent controls, physical inputs, force/state criteria and resource limits remain unchanged. Every child deliberately stops before call 129 with actual exit **86**; all outer launches exit zero. The saved comparator exits zero in a **34.610-second outer wrapper interval** and verifies all six complete histories against the prior reference, including stopped trial 129. Only the externally verified unique envelope run identity is normalized. All observations cover the same incomplete **1.890625 ms** prefix.
+
+| Sequence | Variant | Operation CPU seconds |
+| --- | --- | ---: |
+| 1 | Baseline | 45.820163457 |
+| 2 | Candidate | 45.134540905 |
+| 3 | Candidate | 43.668924610 |
+| 4 | Baseline | 45.148525272 |
+| 5 | Baseline | 45.520797326 |
+| 6 | Candidate | 44.017797852 |
+
+The three adjacent baseline-minus-candidate CPU reductions are **1.496333710%, 3.277184920% and 3.301786353%**. Median operation CPU is **45.520797326 seconds baseline / 44.017797852 seconds candidate**, a **3.301786353%** reduction. Each candidate is lower than its paired baseline in these three observations. This is a modest measured improvement on the declared prefix, without population confidence, a whole-worker speedup claim or full-duration feasibility. Existing contact timers are not measurements of the polynomial helper's individual cost.
+
+Independent review authenticates the mathematical controls, complete test inventories, all six process/source associations, complete histories, state/commit/work accounting, parent controls and timing arithmetic. The generated declarations and saved-only comparison retain their existing limits, including the 2 MiB metadata cap. The [shared-product ledger](3d-cable-shared-products-results.json) preserves results and review provenance; local reproduction uses `python3 .planning/solver/package-cable-products-results-v1.py --check` with retained ignored artifacts in the isolated checkout.
+
+This improvement alone does not justify another unchanged full-budget accuracy attempt. Next decompose fresh cable-response integration on the unchanged workload: distinguish radial moments, interval assembly, boundary partitioning and remaining functional construction before selecting another optimization. A higher-order time policy is a separate numerical-method change requiring explicit stage, native-velocity, control-work and contact/path semantics; changing the controller alone would not upgrade the existing backward-Euler step. Full 64 ms temporal accuracy, original preload/released tail, spatial convergence, actual cuff/binding construction, material/body/full-shirt and private application/release acceptance remain open. Production and protected entrypoints are unchanged; nothing is pushed or deployed. Earlier entries retain their then-current next steps.
+
 ## Exact cable identity composition · 2026-09-25
 
 The exact polynomial helper now recognizes an identity affine map only when the polynomial is an exact tuple of exact Fraction coefficients and its start/width are exact Fraction zero/one. It returns trimmed copies of the coefficients, retaining independent Fraction instances without polynomial products. Other maps, containers and numeric types retain the previous Horner arithmetic. Fresh cable responses, fixed/parameter work and native validation remain in place; no response cache or arithmetic-budget change is introduced.

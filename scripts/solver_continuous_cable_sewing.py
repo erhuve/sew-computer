@@ -42,6 +42,14 @@ def _scale(poly, value):
 
 
 def _mul(first, second):
+    # Exact canonical zero annihilates exact coefficients without products.
+    # Keep other numeric/container behavior on the original arithmetic path.
+    if (type(first) is tuple and type(second) is tuple
+            and ((len(first) == 1 and type(first[0]) is F and not first[0]
+                  and first[0].denominator == 1 and all(type(x) is F for x in second))
+                 or (len(second) == 1 and type(second[0]) is F and not second[0]
+                     and second[0].denominator == 1 and all(type(x) is F for x in first)))):
+        return (F(),)
     values = [F()]*(len(first)+len(second)-1)
     for i, a in enumerate(first):
         for j, b in enumerate(second):
@@ -284,16 +292,23 @@ class ContinuousCableSewing:
                    _scale(_mul(d, q), -beta), (F(),))]
         if not derivatives:
             return result
-        dofs = [(3*v+a, row, a) for v, row in self._rows[index] for a in range(3)]
-        for dof, row, axis in dofs:
+        dofs = [(3*v+a, row, a, ordinal)
+                for ordinal, (v, row) in enumerate(self._rows[index]) for a in range(3)]
+        for dof, row, axis, _ in dofs:
             first = _scale(_mul(row, vectors[axis]), beta)
             result.append((('g', dof), first, _scale(_mul(first, d), -1), (F(),)))
-        for offset, (a, left, axis) in enumerate(dofs):
-            for b, right, other in dofs[offset:]:
-                product = _scale(_mul(left, right), beta)
-                polynomial = product if axis == other else (F(),)
-                half = _scale(_mul(product, d), -1) if axis == other else (F(),)
-                three = _mul(_mul(_mul(product, d), vectors[axis]), vectors[other])
+        products = {}
+        for offset, (a, left, axis, left_ordinal) in enumerate(dofs):
+            for b, right, other, right_ordinal in dofs[offset:]:
+                pair = left_ordinal, right_ordinal
+                if pair not in products:
+                    product = _scale(_mul(left, right), beta)
+                    products[pair] = product, _mul(product, d)
+                product, radial_product = products[pair]
+                # Copies keep returned coefficients independent across axes.
+                polynomial = tuple(F(x) for x in product) if axis == other else (F(),)
+                half = _scale(radial_product, -1) if axis == other else (F(),)
+                three = _mul(_mul(radial_product, vectors[axis]), vectors[other])
                 result.append((('h', a, b), polynomial, half, three))
         return result
 
