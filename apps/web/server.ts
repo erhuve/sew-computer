@@ -20,7 +20,7 @@ const allowedOrigins=process.env.SEW_ALLOWED_ORIGINS?.split(',').map(v=>v.trim()
 const globalState=globalThis as typeof globalThis & {__sewApi?:ReturnType<typeof createApi>};
 globalState.__sewApi?.close();
 const interpreter=process.env.SEW_CODEX_AUTH_FILE&&process.env.SEW_AI_MODEL?codexInterpreter(process.env.SEW_CODEX_AUTH_FILE,process.env.SEW_AI_MODEL):configuredInterpreter();
-const api=createApi({dataDir:process.env.SEW_DATA_DIR||resolve(root,'../../.local'),allowedOrigins,authKey:process.env.SEW_ACCESS_KEY,engine:runEngine,inspectionEngine:runInspection,exporter:buildExport,interpreter});
+const api=createApi({dataDir:process.env.SEW_DATA_DIR||resolve(root,'../../.local'),allowedOrigins,authKey:process.env.SEW_ACCESS_KEY,engine:runEngine,inspectionEngine:runInspection,automaticPreviews:true,exporter:buildExport,interpreter});
 globalState.__sewApi=api;
 const app=new Hono();
 app.route('/api',api);

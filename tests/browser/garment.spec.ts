@@ -21,7 +21,7 @@ test('extreme seam allowances stay inside the pattern canvas without overlapping
     return state.jobs.find((item:{id:string})=>item.id===job.id)?.status;
   },{timeout:45000}).toBe('succeeded');
   await studio.page.reload();
-  await studio.page.getByRole('button',{name:/Extreme allowance shirt/}).click();
+  await studio.page.getByRole('button',{name:/Extreme allowance shirt/}).click();await studio.page.getByRole('tab',{name:'Pattern',exact:true}).click();
   const canvas=studio.page.locator('.pattern-stage svg[role="img"]');
   await expect(canvas).toBeVisible();
   const layout=await canvas.evaluate(element=>{
@@ -60,9 +60,10 @@ test('brief to reviewed component design, real pieces and revision-specific expo
   await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
   await expect(page.getByRole('img',{name:'front construction schematic'})).toBeVisible();
-  await page.getByRole('button',{name:'Accept design & set measurements',exact:true}).click();
+  await page.getByLabel('Preview with sample M estimates. Keeps measurements you’ve entered.').uncheck();await page.getByRole('button',{name:'Use design & set size',exact:true}).click();
   await page.getByRole('button',{name:/Apply sample/}).click();
-  await page.getByRole('button',{name:'Save & generate',exact:true}).click();
+  await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
+  await page.getByRole('tab',{name:'Pattern',exact:true}).click();
   await expect(page.locator('.pattern-stage svg[role="img"]')).toBeVisible({timeout:45000});
   await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(18);
   await expect(page.getByText('Selected components drafted; physical fit unverified.')).toBeVisible();
@@ -89,8 +90,9 @@ test('generation waits for in-flight autosave instead of silently dropping the c
   await page.getByLabel('Garment name',{exact:true}).fill('Autosave shirt');
   await page.getByLabel('Your idea',{exact:true}).fill('Simple top');
   await page.getByRole('button',{name:'Create garment',exact:false}).click();
-  await page.getByRole('button',{name:'Shape & body',exact:true}).click();
+  await page.getByRole('button',{name:'Customize',exact:true}).click();
   await page.getByRole('combobox',{name:'Geometry family',exact:true}).selectOption('shirt');
+  await page.getByRole('button',{name:'Add editable shirt construction',exact:true}).click();
   await page.getByRole('button',{name:/Apply sample/}).click();
   let release!:()=>void;
   const gate=new Promise<void>(resolve=>{release=resolve;});
@@ -101,7 +103,8 @@ test('generation waits for in-flight autosave instead of silently dropping the c
     await route.continue();
   });
   await started;
-  await page.getByRole('button',{name:'Save & generate',exact:true}).click();
+  await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
   release();
+  await page.getByRole('tab',{name:'Pattern',exact:true}).click();
   await expect(page.locator('.pattern-stage')).toBeVisible({timeout:45000});
 });

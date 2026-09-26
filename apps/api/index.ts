@@ -13,7 +13,7 @@ import { JobQueue, type Engine } from './jobs';
 import { Store, type ArtifactRow } from './store';
 import { ApiError, document, filenameSchema, hash, id, identitySchema, json, now, objectDigest, readBounded } from './validation';
 
-export type ApiOptions={dataDir:string;allowedOrigins:string[];authKey?:string;engine?:Engine;exporter?:Exporter;interpreter?:Interpreter;inspectionEngine?:InspectionEngine};
+export type ApiOptions={dataDir:string;allowedOrigins:string[];authKey?:string;engine?:Engine;exporter?:Exporter;interpreter?:Interpreter;inspectionEngine?:InspectionEngine;automaticPreviews?:boolean};
 export type Api=Hono & {close:()=>void};
 const sessionName='sew_session';
 const sessionMs=12*60*60*1000;
@@ -39,7 +39,7 @@ export function createApi(options:ApiOptions):Api {
   const queue=new JobQueue(store,options.engine), handoff=new Handoff(store,options.exporter);
   const interpretation=new InterpretationService(store,options.interpreter);
   const interpretations=new InterpretationQueue(store,interpretation);
-  const inspections=new ThreeDQueue(store,options.inspectionEngine);
+  const inspections=new ThreeDQueue(store,options.inspectionEngine,options.automaticPreviews);
   const api=new Hono() as Api;
   let closed=false, decoding=0;
   const tokenHash=(request:Request):string|null=>{
@@ -186,7 +186,7 @@ export function createApi(options:ApiOptions):Api {
   api.get('/projects/:id/three-d/latest',c=>c.json(inspections.latest(Id.parse(c.req.param('id')),c.req.query('revisionId')?Id.parse(c.req.query('revisionId')):undefined)));
   api.get('/projects/:id/three-d/:jobId',c=>c.json(inspections.get(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')))));
   api.post('/projects/:id/three-d/:jobId/cancel',c=>c.json(inspections.cancel(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')))));
-  for(const [route,filename] of [['report','inspection.json'],['mesh','inspection.glb']] as const)api.get(`/projects/:id/three-d/:jobId/${route}`,c=>{
+  for(const [route,filename] of [['report','inspection.json'],['mesh','inspection.glb'],['shape','garment-preview.json']] as const)api.get(`/projects/:id/three-d/:jobId/${route}`,c=>{
     const artifact=inspections.artifact(Id.parse(c.req.param('id')),Id.parse(c.req.param('jobId')),filename);
     return fileResponse(artifact.bytes,artifact.mime);
   });

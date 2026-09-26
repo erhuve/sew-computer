@@ -18,6 +18,6 @@ export type Inspection = z.infer<typeof InspectionSchema>;
 export type ThreeDJob = {
   id:string; projectId:string; revisionId:string; requestId:string; patternDigest:string; inputDigest:string;
   status:'queued'|'running'|'succeeded'|'failed'|'cancelled'|'stale'; error:string|null; createdAt:string; updatedAt:string;
-  result?:{classification:'placement-inspection';fabricInstances:number;unresolvedPhysicalRoles:number;capabilityGaps:string[]};
+  result?:{classification:'placement-inspection';fabricInstances:number;unresolvedPhysicalRoles:number;capabilityGaps:string[];shape?:{sha256:string;classification:'guided-shape-approximation'}};
   sourceCurrent?:boolean;
 };

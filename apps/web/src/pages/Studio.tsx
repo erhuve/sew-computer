@@ -33,11 +33,13 @@ import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
 import PrivateImage from "../components/PrivateImage";
 import DesignAssistant from "../components/DesignAssistant";
 import { rebaseAcceptedDesign, type DesignProposal, type InterpretationStatus, type InterpretationJob } from "../../../../packages/contracts/interpretation";
+import { applySample, sizingIssue } from "../../../../packages/contracts/sizing";
 import "../studio.css";
+import "../simple-studio.css";
 
 const sections = [
   ["idea", "Idea"],
-  ["shape", "Shape & body"],
+  ["shape", "Customize"],
   ["materials", "Materials"],
   ["measurements", "Measurements"],
   ["construction", "Construction"],
@@ -47,6 +49,8 @@ const sections = [
 const same = (a: unknown, b: unknown) => canonical(a) === canonical(b);
 export default function Studio() {
   const [showDetails, setShowDetails] = useState(false);
+  const [previewAfterAcceptance,setPreviewAfterAcceptance]=useState(false);
+  const [creationConsent,setCreationConsent]=useState(false);
   const [aiStatus,setAiStatus]=useState<InterpretationStatus|null>(null),[proposal,setProposal]=useState<DesignProposal|null>(null);
   const [interpretationJob,setInterpretationJob]=useState<InterpretationJob|null>(null);
   const interpretationSubmission=useRef<{key:string;requestId:string}|null>(null);
@@ -104,7 +108,6 @@ export default function Studio() {
     (j) => j.status === "queued" || j.status === "running",
   );
   const currentJob = state?.jobs.find(job => job.revisionId === state.project.headRevisionId);
-  const measurementStep = section === 'shape' && view === 'design' && !pending;
   useEffect(() => {
     document.querySelector('.editor-sidebar')?.scrollTo(0, 0);
     if (section === 'shape') document.querySelector<HTMLElement>('.body-heading')?.focus();
@@ -157,6 +160,9 @@ export default function Studio() {
   useEffect(() => {
     if (authenticated) {
       list().catch(fail);
+      const linkedProject=new URL(window.location.href).searchParams.get('project');
+      const epoch=sessionEpoch.current;
+      if(linkedProject)api<ProjectState>(`/projects/${encodeURIComponent(linkedProject)}`).then(next=>{if(epoch===sessionEpoch.current)adopt(next);}).catch(fail);
       api<InterpretationStatus>("/interpretation/status").then(setAiStatus).catch(fail);
     }
   }, [authenticated]);
@@ -172,7 +178,7 @@ export default function Studio() {
     setProposal(null);
     setInterpretationJob(null);
     setSection(next.draft.document.garment.family === 'none' ? 'idea' : 'shape');
-    setView(next.artifacts.some(artifact=>artifact.kind==='pattern-json' && artifact.revisionId === next.project.headRevisionId)?'pattern':'design');
+    setView(next.artifacts.some(artifact=>artifact.kind==='pattern-json' && artifact.revisionId === next.project.headRevisionId)?(next.draft.document.garment.design?'3d':'pattern'):'design');
   };
   useEffect(()=>{
     if(!authenticated||!state)return;
@@ -343,7 +349,7 @@ export default function Studio() {
     );
     if (epoch !== sessionEpoch.current || current.current.state?.project.id !== currentState.project.id) return;
     setState((s) => (s ? { ...s, jobs: [job, ...s.jobs] } : s));
-    setView("pattern");
+    setView(currentState.draft.document.garment.design?"3d":"pattern");
   }
   async function propose(includeReferences:boolean) {
     const epoch=sessionEpoch.current,projectId=current.current.state?.project.id;
@@ -355,19 +361,26 @@ export default function Studio() {
     interpretationSubmission.current=null;
     if(epoch===sessionEpoch.current&&current.current.state?.project.id===projectId){setInterpretationJob(result);setProposal(null);}
   }
-  async function acceptProposal() {
+  async function acceptProposal(samplePreview=false) {
     if(!proposal||!state||dirty)return;
     const epoch=sessionEpoch.current,submitted=structuredClone(current.current.doc!);
     const next=await api<ProjectState>(`/projects/${state.project.id}/proposals/${proposal.id}/accept`,json('POST',{expectedVersion:state.draft.version,expectedRevisionId:state.draft.baseRevisionId}));
     if(epoch!==sessionEpoch.current)return;
     setState(next);
-    setDoc(latest=>latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document));
+    setDoc(latest=>{const accepted=latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document);return samplePreview?applySample(accepted,2):accepted;});
     const hasPatternShape = next.draft.document.garment.family !== 'none';
+    if(samplePreview&&hasPatternShape)setPreviewAfterAcceptance(true);
     setProposal(null);setGeometry(null);setSection(hasPatternShape ? 'shape' : 'idea');setView('design');setNotice(hasPatternShape ? 'Design accepted. Confirm your measurements, then generate.' : 'Design notes saved. Pattern support is still needed.');
   }
+  useEffect(()=>{
+    if(!previewAfterAcceptance||busy||!doc||!state)return;
+    setPreviewAfterAcceptance(false);
+    if(!sizingIssue(doc))void task(generate);
+  },[previewAfterAcceptance,busy,doc,state]);
   const goHome = () => {
     if (dirty && !confirm("Leave unsaved changes?")) return;
     sessionEpoch.current++;
+    const url=new URL(window.location.href);url.searchParams.delete('project');window.history.replaceState(null,'',url);
     setState(null);
     setDoc(null);
     setConflict(null);
@@ -444,8 +457,7 @@ export default function Studio() {
             to make something.
           </h1>
           <p>
-            Enter this studio’s owner access key. Your projects and images are
-            protected independently of the preview page.
+            Enter your access key to open your private workspace.
           </p>
           <form
             onSubmit={(e) => {
@@ -471,10 +483,7 @@ export default function Studio() {
               Open studio <ArrowUpRight size={16} />
             </button>
           </form>
-          <p className="fineprint">
-            The key is stored privately on your Zo in this project’s local data
-            directory. It is never bundled into this page.
-          </p>
+
         </section>
       ) : !state || !doc ? (
         <section className="project-home">
@@ -491,6 +500,7 @@ export default function Studio() {
               onClick={() => {
                 setTitle("");
                 setBrief("");
+                setCreationConsent(false);
                 openModal("create");
               }}
             >
@@ -522,6 +532,7 @@ export default function Studio() {
               onClick={() => {
                 setTitle("");
                 setBrief("");
+                setCreationConsent(false);
                 openModal("create");
               }}
             >
@@ -543,29 +554,19 @@ export default function Studio() {
             </button>
             <div>
               <button
-                disabled={busy || !dirty || !!conflict}
-                onClick={() =>
-                  task(async () => {
-                    await save();
-                  })
-                }
-              >
-                <Save size={15} />
-                Save draft
-              </button>
-              <button
                 className="primary"
                 disabled={busy || !!conflict || !!pending || (!!doc.interpretation && doc.garment.family === 'none')}
                 onClick={() => task(generate)}
               >
                 <Layers3 size={15} />
-                {pending ? "Generating…" : "Save & generate"}
+                {pending ? "Generating…" : geometry ? "Update garment" : "Generate garment"}
               </button>
+              {geometry&&<button onClick={()=>{setIncludePatterns(true);openModal("export");}}><Download size={15}/>Download</button>}
               <button
                 onClick={() => openModal("revisions")}
               >
                 <Download size={15} />
-                Revisions & export
+                History & files
               </button>
             </div>
           </div>
@@ -596,19 +597,19 @@ export default function Studio() {
               </button>
             </div>
           )}
-          <div className={`worktable${measurementStep ? ' measurement-step' : ''}`}>
+          <div className="worktable">
             <aside className="editor-sidebar">
               <nav className="section-nav" aria-label="Garment details">
-                {sections.filter(([id]) => !measurementStep || showDetails || ['idea','shape','references'].includes(id!)).map(([id, label]) => (
+                {sections.filter(([id]) => showDetails || ['idea','shape'].includes(id!)).map(([id, label]) => (
                   <button
                     key={id}
                     aria-current={section === id ? "page" : undefined}
-                    onClick={() => { setSection(id!); if(id === 'shape' || id === 'idea') setView('design'); }}
+                    onClick={() => { setSection(id!); if(id === 'idea') setView('design'); }}
                   >
                     {label}
                   </button>
                 ))}
-                {measurementStep && <button aria-expanded={showDetails} onClick={() => setShowDetails(!showDetails)}>{showDetails ? 'Fewer details' : 'More details'}</button>}
+                <button aria-expanded={showDetails} onClick={() => setShowDetails(!showDetails)}>{showDetails ? 'Less' : 'More'}</button>
               </nav>
               <Authoring
                 key={state.project.id + section}
@@ -644,6 +645,7 @@ export default function Studio() {
                 role="tablist"
                 aria-label="Visual view"
               >
+                <button role="tab" aria-label="Garment preview" aria-selected={view==='3d'} onClick={()=>setView('3d')}><Layers3 size={16}/>Garment</button>
                 <button role="tab" aria-selected={view==='design'} onClick={()=>setView('design')}><FileText size={16}/>Design</button>
                 <button
                   role="tab"
@@ -661,7 +663,7 @@ export default function Studio() {
                   <Image size={16} />
                   Idea & references
                 </button>
-                <button role="tab" aria-label="3D inspection" aria-selected={view === '3d'} onClick={() => setView('3d')}><Layers3 size={16}/>3D</button>
+
               </div>
               {pending && (
                 <div className="job-progress" role="status">
@@ -714,12 +716,12 @@ export default function Studio() {
                         (r) => r.id === state.project.headRevisionId,
                       )?.number
                     }
-                    . Save & generate to update them.
+                    . Update garment to see your edits.
                   </div>
                 )}
-              {view === 'design' ? <><GarmentDesign doc={doc} onChange={busy||conflict ? undefined : change}/><DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict} job={interpretationJob} onCancel={()=>task(async()=>{if(interpretationJob)setInterpretationJob(await api<InterpretationJob>(`/projects/${state.project.id}/interpretations/${interpretationJob.id}/cancel`,json('POST',{})));})}
+              {view === 'design' ? <>{!proposal&&!interpretationJob&&<GarmentDesign doc={doc}/>}<DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict} job={interpretationJob} onCancel={()=>task(async()=>{if(interpretationJob)setInterpretationJob(await api<InterpretationJob>(`/projects/${state.project.id}/interpretations/${interpretationJob.id}/cancel`,json('POST',{})));})}
                 stale={!!proposal&&(dirty||proposal.baseVersion!==state.draft.version||proposal.baseRevisionId!==state.draft.baseRevisionId)}
-                onPropose={images=>task(()=>propose(images))} onAccept={()=>task(acceptProposal)} onMeasurements={()=>setSection('shape')}/></> : view === "pattern" ? (
+                onPropose={images=>task(()=>propose(images))} onAccept={sample=>task(()=>acceptProposal(sample))} onMeasurements={()=>setSection('shape')}/></> : view === "pattern" ? (
                 <PatternCanvas
                   geometry={geometry}
                   selected={selected}
@@ -759,10 +761,10 @@ export default function Studio() {
                   )}
                 </div>
               )}
-              {geometry && (
+              {geometry && view==='pattern' && (
                 <GarmentDesign doc={state.revisions.find(revision=>revision.digest===geometry.inputDigest)?.document ?? doc} geometry={geometry}/>
               )}
-              {geometry && (
+              {geometry && view==='pattern' && (
                 <details className="geometry-notes">
                   <summary>
                     Engine scope & open questions · {geometry.warnings.length}
@@ -822,11 +824,15 @@ export default function Studio() {
               task(async () => {
                 const next = await api<ProjectState>(
                   "/projects",
-                  json("POST", { title: title.trim(), brief }),
+                  json("POST", { title: title.trim() || brief.trim().slice(0,60) || "Untitled garment", brief }),
                 );
                 adopt(next);
                 setSection("idea");
                 closeModal();
+                if(creationConsent&&aiStatus?.available&&brief.trim()) {
+                  const job=await api<InterpretationJob>(`/projects/${next.project.id}/proposals`,json('POST',{requestId:crypto.randomUUID(),expectedVersion:next.draft.version,expectedRevisionId:next.draft.baseRevisionId,includeReferences:false,consent:true}));
+                  setInterpretationJob(job);
+                }
               });
             }}
           >
@@ -839,8 +845,7 @@ export default function Studio() {
                 maxLength={160}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                required
-                placeholder="The everyday overshirt"
+                placeholder="Optional — you can name it later"
               />
             </label>
             <label className="field">
@@ -853,10 +858,11 @@ export default function Studio() {
               />
             </label>
             <p className="fineprint">
-              Next, interpret your idea into an editable design. You review
-              suggestions before they become a saved revision.
+              Describe any garment. Shirt previews are supported today; other ideas stay saved for further development.
             </p>
-            <button className="primary" disabled={busy || !title.trim()}>
+            {aiStatus?.available&&<label className="check-field"><input type="checkbox" checked={creationConsent} onChange={event=>setCreationConsent(event.target.checked)}/>Use AI to turn my description into a design.</label>}
+            {creationConsent&&<p className="fineprint">Sends your description to {aiStatus?.provider}. Uses your connected model allowance. You’ll review the design before generating.</p>}
+            <button className="primary" disabled={busy || (!title.trim()&&!brief.trim())}>
               Create garment <ArrowUpRight size={16} />
             </button>
           </form>

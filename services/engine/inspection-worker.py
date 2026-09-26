@@ -20,6 +20,7 @@ def main():
     inputs = json.loads(payload)
     from assembly import build_inspection
     from inspection_gltf import inspection_glb
+    from garment_preview import build_preview
     pattern = inputs["pattern"].encode("utf-8")
     inspection = build_inspection(pattern, inputs["construction"])
     artifact = inspection_glb(inspection)
@@ -30,6 +31,9 @@ def main():
         raise ValueError("Inspection artifact exceeds budget")
     Path("inspection.glb").write_bytes(artifact)
     Path("inspection.json").write_bytes(encoded)
+    preview=build_preview(pattern, inputs["construction"])
+    preview["executionControls"]=controls
+    Path("garment-preview.json").write_text(json.dumps(preview,separators=(",",":"),allow_nan=False))
 
 
 if __name__ == "__main__":

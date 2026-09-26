@@ -8,6 +8,7 @@
     "test:engine": "bun test services/engine",
     "typecheck": "tsc --noEmit",
     "build": "cd apps/web && bun run build",
+    "studio": "bun run build && bun scripts/serve-studio.ts",
     "demo": "bun run build && bun scripts/serve-visual-demo.ts",
     "test:browser": "playwright test",
     "check:docs": "python3 scripts/check_docs.py"

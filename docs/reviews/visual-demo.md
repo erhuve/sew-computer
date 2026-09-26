@@ -2,6 +2,8 @@
 
 **2026-09-26 · Local visual revision · Not deployed**
 
+The normal studio now has a separate [end-to-end implementation](studio-e2e.md) that generates from saved project inputs. This page documents the earlier pre-generated examples and their historical verification.
+
 The owner rejected the first rigid-panel arrangement as visually insufficient: an MVP still needs a realistic-looking garment, even when physics is approximate. The default **Garment preview** now shows a posed shirt with curved sleeves, collar, cuffs, gathered front detail, fabric shading and a back tail. **Design preview** retains the construction drawing; **3D pieces** retains the original flat/rigid inspection. Automated passes do not substitute for the owner's visual assessment.
 
 ## Start and show it

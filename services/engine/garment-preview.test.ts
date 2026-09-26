@@ -1,0 +1,60 @@
+import { expect,test } from 'bun:test';
+import { mkdtemp,rm } from 'node:fs/promises';
+import { join } from 'node:path';
+import { createApi } from '../../apps/api';
+import { validateGarmentPreview } from '../../apps/api/garment-preview-validation';
+import { hash,objectDigest } from '../../apps/api/validation';
+import { shirtDocument } from '../../packages/test-fixtures/shirt';
+import { assumed } from '../../packages/contracts';
+import { buildExport } from '../../packages/tech-pack';
+import { runEngine } from './runner';
+import { runInspection } from './inspection-runner';
+
+test('new dimensions and edited construction generate private revision-bound garment previews automatically',async()=>{
+  const root=await mkdtemp(join(import.meta.dir,'.test-preview-')),origin='https://preview.test';
+  const options={dataDir:root,allowedOrigins:[origin],authKey:'test-key',engine:runEngine,inspectionEngine:runInspection,automaticPreviews:true,exporter:buildExport};
+  const server={api:createApi(options)};let cookie='';
+  const request=(method:string,path:string,body?:unknown,headers:Record<string,string>={})=>server.api.request(path,{method,headers:{Origin:origin,Cookie:cookie,'Content-Type':'application/json',...headers},...(body===undefined?{}:{body:JSON.stringify(body)})});
+  const call=async(method:string,path:string,body?:unknown)=>{const response=await request(method,path,body);const value=await response.json();if(!response.ok)throw new Error(`${method} ${path}: ${JSON.stringify(value)}`);return value;};
+  const wait=async(path:string)=>{for(let i=0;i<900;i++){const value=await call('GET',path);if(value&&!['queued','running'].includes(value.status))return value;await new Promise(resolve=>setTimeout(resolve,100));}throw new Error('Preview timed out');};
+  try {
+    const login=await request('POST','/auth/login',{key:'test-key'});cookie=login.headers.get('set-cookie')!.split(';')[0]!;
+    let doc=shirtDocument();doc.title='A new proportion';doc.body.bust=assumed(1083);doc.body.hip=assumed(1127);doc.garment.length=assumed(713);doc.garment.ease=assumed(123);doc.garment.flare=1.12;
+    doc.garment.design={...doc.garment.design!,sleeveLengthMm:587,cuffCircumferenceMm:247,collarStandMm:36,frillWidthMm:43,placketWidthMm:34};
+    let state=await call('POST','/projects',{title:doc.title}),path=`/projects/${state.project.id}`;
+    const generate=async()=>{
+      const draft=await call('PUT',`${path}/draft`,{expectedVersion:state.draft.version,expectedRevisionId:state.draft.baseRevisionId,document:doc});
+      state=await call('POST',`${path}/revisions`,{expectedVersion:draft.version,expectedRevisionId:draft.baseRevisionId});
+      const revisionId=state.project.headRevisionId;
+      const job=await call('POST',`${path}/jobs`,{revisionId,requestId:crypto.randomUUID()});
+      expect((await wait(`${path}/jobs/${job.id}`)).status).toBe('succeeded');
+      const preview=await wait(`${path}/three-d/latest?revisionId=${revisionId}`);expect(preview.status).toBe('succeeded');
+      const geometry=await call('GET',`${path}/geometry/${revisionId}`),shapeResponse=await request('GET',`${path}/three-d/${preview.id}/shape`);
+      expect(shapeResponse.headers.get('Cache-Control')).toBe('no-store');
+      const bytes=new Uint8Array(await shapeResponse.arrayBuffer());expect(hash(bytes)).toBe(preview.result.shape.sha256);
+      const shape=validateGarmentPreview(bytes,geometry,preview.patternDigest,objectDigest(doc.garment.design));
+      return {preview,shape,bytes,geometry,revisionId};
+    };
+    const first=await generate();
+    expect(first.shape.pieces.some(piece=>piece.templateId==='frill_left')).toBe(true);
+    const broken=structuredClone(first.shape);broken.pieces[0]!.restXY[0]![0]+=.01;
+    expect(()=>validateGarmentPreview(Buffer.from(JSON.stringify(broken)),first.geometry,first.preview.patternDigest,objectDigest(doc.garment.design))).toThrow();
+    expect((await request('GET',`${path}/three-d/${first.preview.id}/shape`,undefined,{Cookie:''})).status).toBe(401);
+    const other=await call('POST','/projects',{title:'Other'});
+    expect((await request('GET',`/projects/${other.project.id}/three-d/${first.preview.id}/shape`)).status).toBe(404);
+    doc={...doc,garment:{...doc.garment,length:assumed(547),flare:1.03,design:{...doc.garment.design!,sleeves:'short',sleeveLengthMm:263,cuff:'none',collar:'none',opening:'none',frill:'none',hem:'straight'}}};
+    const second=await generate();
+    expect(second.preview.patternDigest).not.toBe(first.preview.patternDigest);expect(second.preview.result.shape.sha256).not.toBe(first.preview.result.shape.sha256);
+    expect(second.shape.pieces.some(piece=>piece.templateId.startsWith('frill_')||piece.templateId.startsWith('collar_'))).toBe(false);
+    expect(second.shape.buttons).toHaveLength(0);
+    expect(second.geometry.panels.find((panel:any)=>panel.id==='sleeve_left').heightMm).toBe(263);
+    server.api.close();server.api=createApi(options);
+    const persisted=await call('GET',`${path}/three-d/latest?revisionId=${second.revisionId}`);expect(persisted.id).toBe(second.preview.id);expect(persisted.sourceCurrent).toBe(true);
+    expect((await call('GET',`${path}/three-d/latest?revisionId=${first.revisionId}`)).sourceCurrent).toBe(false);
+    const historical=await request('GET',`${path}/three-d/${first.preview.id}/shape`);expect(hash(new Uint8Array(await historical.arrayBuffer()))).toBe(first.preview.result.shape.sha256);
+    const exported=await call('POST',`${path}/exports`,{revisionId:second.revisionId,disclosure:{includeBody:false,includeReferences:false,includePatterns:true}});
+    const pattern=exported.files.find((file:any)=>/^pattern-.+\.json$/.test(file.filename));const exportedPattern=await call('GET',pattern.url.replace(/^\/api/,''));expect(exportedPattern.inputDigest).toBe(second.geometry.inputDigest);
+    expect(exported.files.some((file:any)=>file.filename==='garment-preview.json')).toBe(false);
+    await request('DELETE',path);expect((await request('GET',`${path}/three-d/${second.preview.id}/shape`)).status).toBe(404);
+  } finally {server.api.close();await rm(root,{recursive:true,force:true});}
+},180000);

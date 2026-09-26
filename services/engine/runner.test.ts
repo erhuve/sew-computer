@@ -171,7 +171,7 @@ test('actual worker is non-root with measured resource limits and truthful netwo
   await chmod(directory, 0o700);
   if (process.getuid?.() === 0) await chown(directory, 65534, 65534);
   try {
-    const code = `import sys,json;sys.path.insert(0,${JSON.stringify(root)});from guard import constrain;s=constrain();open('probe.json','w').write(json.dumps(s))`;
+    const code = `import sys,json;sys.path.insert(0,${JSON.stringify(process.env.SEW_ENGINE_CONTAINER?'/engine':root)});from guard import constrain;s=constrain();open('probe.json','w').write(json.dumps(s))`;
     await executeTrusted(join(root, '.venv/bin/python'), ['-c', code], directory, '', new AbortController().signal);
     const probe = JSON.parse(await readFile(join(directory, 'probe.json'), 'utf8'));
     expect(probe.uid).not.toBe(0);

@@ -42,6 +42,7 @@ function BodyDiagram({ body, active }: { body: Body; active: BodyKey }) {
 }
 
 export default function BodySizing({ doc, onChange }: { doc: GarmentDocument; onChange: (doc: GarmentDocument) => void }) {
+  const [editing,setEditing]=useState(()=>bodyFields.some(field=>mm(doc.body[field.key])===null));
   const [unit, setUnit] = useState<Unit>('cm');
   const [active, setActive] = useState<BodyKey>('bust');
   const [sample, setSample] = useState(2);
@@ -78,7 +79,7 @@ export default function BodySizing({ doc, onChange }: { doc: GarmentDocument; on
       <div><strong>Bust {display(sampleValues.values[1], unit)} · Waist {display(sampleValues.values[2], unit)} · Hip {display(sampleValues.values[3], unit)} {unit}</strong><p>Replaces estimates; keeps entered measurements.</p><details><summary>About sample sizes</summary><p>Synthetic starting sizes, not a standard size chart. Fills blanks, including missing garment length and ease. N/A stays unchanged.</p><p>Height {display(sampleValues.values[0], unit)} · Shoulder {display(sampleValues.values[4], unit)} {unit}</p></details></div>
       <button onClick={() => onChange(applySample(doc, sample))}>Apply sample {sampleValues.label}</button>
     </div>
-    <div className="sizing-workbench">
+    <details className="body-adjustments" open={editing} onToggle={event=>setEditing(event.currentTarget.open)}><summary>Enter or adjust my measurements</summary><div className="sizing-workbench">
       <BodyDiagram body={doc.body} active={active} />
       <div className="sizing-controls">{bodyFields.map(field => {
         const measurement = doc.body[field.key];
@@ -98,7 +99,7 @@ export default function BodySizing({ doc, onChange }: { doc: GarmentDocument; on
         </fieldset>;
       })}</div>
     </div>
-    {issue && <p className="sizing-warning" role="status">{issue}</p>}
+    </details>{issue && <p className="sizing-warning" role="status">{issue}</p>}
     {warning && <p className="sizing-warning" role="status">{warning}</p>}
     <details className="profile-settings"><summary>My saved measurements</summary><p>One private reusable profile, stored on your server. Applying it replaces all five body fields after review; it never changes garment settings.</p>
       <div className="profile-actions"><button disabled={!profile || profileBusy || !bodyFields.some(field => mm(doc.body[field.key]) !== null)} onClick={() => void saveProfile(structuredClone(doc.body))}>{profile?.body ? 'Replace saved measurements with current values' : 'Save current measurements'}</button><button disabled={!profile?.body || profileBusy} onClick={() => setPendingProfile(structuredClone(profile!.body!))}>Review saved measurements</button><button disabled={profileBusy} onClick={() => void loadProfile()}>Reload profile</button><button disabled={!profile?.body || profileBusy} onClick={() => void saveProfile(null)}>Delete saved measurements</button></div>

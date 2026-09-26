@@ -45,6 +45,10 @@ export function cleanEnvironment(cacheDir = '.'): NodeJS.ProcessEnv {
 
 export async function executeTrusted(python: string, args: string[], cwd: string, payload: string, signal: AbortSignal, timeoutMs = 90_000, cacheDir = cwd): Promise<void> {
   signal.throwIfAborted();
+  if (process.env.SEW_ENGINE_CONTAINER) {
+    const { executeContainer } = await import('./container-runtime');
+    return executeContainer(args, cwd, payload, signal, timeoutMs, cacheDir);
+  }
   await new Promise<void>((resolveJob, reject) => {
     const child = spawn(python, ['-I', '-B', ...args], { cwd, env: cleanEnvironment(cacheDir), detached: true, stdio: ['pipe', 'pipe', 'pipe'] });
     let failure: Error | undefined;
@@ -120,23 +124,25 @@ export async function runEngine(input: { document: GarmentDocument; inputDigest:
   input.signal.throwIfAborted();
   const payload = validateInput(input.document, input.inputDigest);
   if (!isAbsolute(input.outputDir)) throw new Error('Engine outputDir must be a trusted absolute staging path');
-  const upstream = await realpath(process.env.SEW_ENGINE_SOURCE || defaultUpstream);
+  const upstream = payload.design ? root : await realpath(process.env.SEW_ENGINE_SOURCE || defaultUpstream);
   let python = process.env.SEW_ENGINE_PYTHON;
   if (!python) {
     const ownPython = join(root, '.venv/bin/python');
-    python = await access(ownPython, constants.X_OK).then(() => ownPython, () => join(upstream, '.venv/bin/python'));
+    python = process.env.SEW_ENGINE_CONTAINER ? ownPython : await access(ownPython, constants.X_OK).then(() => ownPython, () => join(upstream, '.venv/bin/python'));
   }
   if (!isAbsolute(python)) throw new Error('Engine Python override must be an absolute trusted executable');
   await mkdir(input.outputDir, { recursive: true, mode: 0o700 });
   const outputStat = await lstat(input.outputDir);
   if (!outputStat.isDirectory() || outputStat.isSymbolicLink()) throw new Error('Engine staging directory must not be a symlink');
   const attempt = await mkdtemp(join(resolve(input.outputDir), '.engine-'));
-  let cacheDir: string | undefined;
+  let cacheDir: string | undefined, cacheParent: string | undefined;
   try {
     await chmod(attempt, 0o700);
     await mkdir(join(root, '.runtime'), { recursive: true, mode: 0o711 });
-    cacheDir = await mkdtemp(join(root, '.runtime/cache-'));
-    await chmod(cacheDir, 0o700);
+    cacheParent = await mkdtemp(join(root, '.runtime/cache-'));
+    await chmod(cacheParent, 0o700);
+    cacheDir = process.env.SEW_ENGINE_CONTAINER ? join(cacheParent,'worker') : cacheParent;
+    await mkdir(cacheDir,{recursive:true,mode:0o700});
     if (process.getuid?.() === 0) {
       await chown(attempt, 65534, 65534);
       await chown(cacheDir, 65534, 65534);
@@ -163,6 +169,6 @@ export async function runEngine(input: { document: GarmentDocument; inputDigest:
     input.signal.throwIfAborted();
     return { geometry, files: results };
   } finally {
-    await Promise.all([rm(attempt, { recursive: true, force: true }), ...(cacheDir ? [rm(cacheDir, { recursive: true, force: true })] : [])]);
+    await Promise.all([rm(attempt, { recursive: true, force: true }), ...(cacheParent ? [rm(cacheParent, { recursive: true, force: true })] : [])]);
   }
 }

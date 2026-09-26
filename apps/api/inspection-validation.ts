@@ -56,6 +56,48 @@ export function validateInspection(report:Uint8Array,mesh:Uint8Array,pattern:Pat
   if(!(report instanceof Uint8Array)||!(mesh instanceof Uint8Array)||report.length>16*1024*1024||mesh.length>16*1024*1024||mesh.length<32)throw new ApiError(422,'3D artifact budget exceeded');
   const value=InspectionSchema.parse(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(report)));
   if(value.patternDigest!==patternDigest||value.constructionDigest!==constructionDigest||value.displayArtifact.sha256!==hash(mesh)||value.displayArtifact.bytes!==mesh.length)throw new ApiError(422,'3D source or artifact digest mismatch');
+  validateInspectionRest(value,pattern);
+  const templates=new Map(value.templates.map(template=>[template.templateId,template]));
+  const bytes=Buffer.from(mesh);
+  const metadataSize=bytes.readUInt32LE(12),binaryHeader=20+metadataSize;
+  if(bytes.readUInt32LE(0)!==0x46546c67||bytes.readUInt32LE(4)!==2||bytes.readUInt32LE(8)!==mesh.length||bytes.readUInt32LE(16)!==0x4e4f534a||metadataSize%4||binaryHeader+8>mesh.length)throw new ApiError(422,'Invalid GLB envelope');
+  const binarySize=bytes.readUInt32LE(binaryHeader);
+  if(bytes.readUInt32LE(binaryHeader+4)!==0x004e4942||binarySize%4||binaryHeader+8+binarySize!==mesh.length)throw new ApiError(422,'Invalid GLB binary');
+  const model=gltfSchema.parse(JSON.parse(bytes.subarray(20,binaryHeader).toString('utf8')));
+  if(model.extras.patternDigest!==patternDigest||model.extras.constructionDigest!==constructionDigest||model.extras.mesher!==value.mesher||model.extras.maxEdgeMm!==value.maxEdgeMm||canonical(model.extras.capabilityGaps)!==canonical(value.capabilityGaps)||canonical(model.extras.unresolvedPhysicalRoles)!==canonical(value.unresolvedPhysicalRoles)||model.nodes.length!==value.instances.length||model.meshes.length!==value.instances.length||model.scenes[0]!.nodes.length!==model.nodes.length||model.buffers[0]!.byteLength!==binarySize||model.accessors.length!==value.instances.length*2||model.bufferViews.length!==value.instances.length*2)throw new ApiError(422,'GLB source inventory mismatch');
+  const binary=bytes.subarray(binaryHeader+8);
+  let binaryCursor=0;
+  value.instances.forEach((instance,index)=>{
+    const node=model.nodes[index]!,display=model.meshes[index]!,template=templates.get(instance.templateId)!;
+    if(model.scenes[0]!.nodes[index]!==index||node.mesh!==index||node.name!==instance.id||display.name!==instance.id||display.extras.instanceId!==instance.id||display.extras.templateId!==instance.templateId||display.extras.role!==instance.role||node.translation.some(number=>Math.abs(number)>100))throw new ApiError(422,'GLB instance mapping mismatch');
+    const primitive=display.primitives[0]!;
+    if(primitive.attributes.POSITION!==index*2||primitive.indices!==index*2+1)throw new ApiError(422,'GLB accessor inventory mismatch');
+    const positions=model.accessors[primitive.attributes.POSITION],indices=model.accessors[primitive.indices];
+    if(!positions||!indices||positions.componentType!==5126||positions.type!=='VEC3'||positions.count!==template.restPositions.length||indices.componentType!==5125||indices.type!=='SCALAR'||indices.count!==template.triangles.length*3)throw new ApiError(422,'GLB accessor mismatch');
+    const positionView=model.bufferViews[positions.bufferView],indexView=model.bufferViews[indices.bufferView];
+    if(!positionView||!indexView||positions.bufferView!==index*2||indices.bufferView!==index*2+1||positionView.byteOffset!==binaryCursor||indexView.byteOffset!==binaryCursor+positionView.byteLength||positionView.target!==34962||indexView.target!==34963||positionView.byteOffset%4||indexView.byteOffset%4||positionView.byteLength!==positions.count*12||indexView.byteLength!==indices.count*4||positionView.byteOffset+positionView.byteLength>binary.length||indexView.byteOffset+indexView.byteLength>binary.length)throw new ApiError(422,'GLB buffer bounds invalid');
+    binaryCursor=indexView.byteOffset+indexView.byteLength;
+    const minimum=[Infinity,Infinity,Infinity],maximum=[-Infinity,-Infinity,-Infinity];
+    template.restPositions.forEach((point,vertexIndex)=>{
+      const expected=[(instance.mirrorX?-point[0]:point[0])/1000,-point[1]/1000,0];
+      expected.forEach((coordinate,axis)=>{
+        const actual=binary.readFloatLE(positionView.byteOffset+vertexIndex*12+axis*4);
+        if(!Number.isFinite(actual)||Math.abs(actual-coordinate)>1e-6)throw new ApiError(422,'GLB geometry differs from source mesh');
+        minimum[axis]=Math.min(minimum[axis]!,actual);maximum[axis]=Math.max(maximum[axis]!,actual);
+      });
+    });
+    if(canonical(positions.min)!==canonical(minimum)||canonical(positions.max)!==canonical(maximum))throw new ApiError(422,'GLB display bounds mismatch');
+    template.triangles.forEach((face,faceIndex)=>{
+      const expected=instance.mirrorX?face:[...face].reverse();
+      expected.forEach((vertex,offset)=>{if(binary.readUInt32LE(indexView.byteOffset+(faceIndex*3+offset)*4)!==vertex)throw new ApiError(422,'GLB topology differs from source mesh');});
+    });
+  });
+  if(binaryCursor!==binary.length)throw new ApiError(422,'GLB contains unreferenced binary data');
+  return value;
+}
+
+/** Validate source correspondence independently of any display pose. */
+export function validateInspectionRest(value:Pick<Inspection,'instances'|'templates'>,pattern:PatternGeometry):void {
   const panels=new Map(pattern.panels.map(panel=>[panel.id,panel]));
   const templates=new Map(value.templates.map(template=>[template.templateId,template]));
   if(templates.size!==value.templates.length||templates.size!==panels.size||new Set(value.instances.map(instance=>instance.id)).size!==value.instances.length)throw new ApiError(422,'3D physical inventory mismatch');
@@ -133,40 +175,4 @@ export function validateInspection(report:Uint8Array,mesh:Uint8Array,pattern:Pat
     vertices+=template.restPositions.length*instances.length;triangles+=template.triangles.length*instances.length;
   }
   if(vertices>150000||triangles>250000||value.instances.some(instance=>!panels.has(instance.templateId)))throw new ApiError(422,'3D mesh budget exceeded');
-  const bytes=Buffer.from(mesh);
-  const metadataSize=bytes.readUInt32LE(12),binaryHeader=20+metadataSize;
-  if(bytes.readUInt32LE(0)!==0x46546c67||bytes.readUInt32LE(4)!==2||bytes.readUInt32LE(8)!==mesh.length||bytes.readUInt32LE(16)!==0x4e4f534a||metadataSize%4||binaryHeader+8>mesh.length)throw new ApiError(422,'Invalid GLB envelope');
-  const binarySize=bytes.readUInt32LE(binaryHeader);
-  if(bytes.readUInt32LE(binaryHeader+4)!==0x004e4942||binarySize%4||binaryHeader+8+binarySize!==mesh.length)throw new ApiError(422,'Invalid GLB binary');
-  const model=gltfSchema.parse(JSON.parse(bytes.subarray(20,binaryHeader).toString('utf8')));
-  if(model.extras.patternDigest!==patternDigest||model.extras.constructionDigest!==constructionDigest||model.extras.mesher!==value.mesher||model.extras.maxEdgeMm!==value.maxEdgeMm||canonical(model.extras.capabilityGaps)!==canonical(value.capabilityGaps)||canonical(model.extras.unresolvedPhysicalRoles)!==canonical(value.unresolvedPhysicalRoles)||model.nodes.length!==value.instances.length||model.meshes.length!==value.instances.length||model.scenes[0]!.nodes.length!==model.nodes.length||model.buffers[0]!.byteLength!==binarySize||model.accessors.length!==value.instances.length*2||model.bufferViews.length!==value.instances.length*2)throw new ApiError(422,'GLB source inventory mismatch');
-  const binary=bytes.subarray(binaryHeader+8);
-  let binaryCursor=0;
-  value.instances.forEach((instance,index)=>{
-    const node=model.nodes[index]!,display=model.meshes[index]!,template=templates.get(instance.templateId)!;
-    if(model.scenes[0]!.nodes[index]!==index||node.mesh!==index||node.name!==instance.id||display.name!==instance.id||display.extras.instanceId!==instance.id||display.extras.templateId!==instance.templateId||display.extras.role!==instance.role||node.translation.some(number=>Math.abs(number)>100))throw new ApiError(422,'GLB instance mapping mismatch');
-    const primitive=display.primitives[0]!;
-    if(primitive.attributes.POSITION!==index*2||primitive.indices!==index*2+1)throw new ApiError(422,'GLB accessor inventory mismatch');
-    const positions=model.accessors[primitive.attributes.POSITION],indices=model.accessors[primitive.indices];
-    if(!positions||!indices||positions.componentType!==5126||positions.type!=='VEC3'||positions.count!==template.restPositions.length||indices.componentType!==5125||indices.type!=='SCALAR'||indices.count!==template.triangles.length*3)throw new ApiError(422,'GLB accessor mismatch');
-    const positionView=model.bufferViews[positions.bufferView],indexView=model.bufferViews[indices.bufferView];
-    if(!positionView||!indexView||positions.bufferView!==index*2||indices.bufferView!==index*2+1||positionView.byteOffset!==binaryCursor||indexView.byteOffset!==binaryCursor+positionView.byteLength||positionView.target!==34962||indexView.target!==34963||positionView.byteOffset%4||indexView.byteOffset%4||positionView.byteLength!==positions.count*12||indexView.byteLength!==indices.count*4||positionView.byteOffset+positionView.byteLength>binary.length||indexView.byteOffset+indexView.byteLength>binary.length)throw new ApiError(422,'GLB buffer bounds invalid');
-    binaryCursor=indexView.byteOffset+indexView.byteLength;
-    const minimum=[Infinity,Infinity,Infinity],maximum=[-Infinity,-Infinity,-Infinity];
-    template.restPositions.forEach((point,vertexIndex)=>{
-      const expected=[(instance.mirrorX?-point[0]:point[0])/1000,-point[1]/1000,0];
-      expected.forEach((coordinate,axis)=>{
-        const actual=binary.readFloatLE(positionView.byteOffset+vertexIndex*12+axis*4);
-        if(!Number.isFinite(actual)||Math.abs(actual-coordinate)>1e-6)throw new ApiError(422,'GLB geometry differs from source mesh');
-        minimum[axis]=Math.min(minimum[axis]!,actual);maximum[axis]=Math.max(maximum[axis]!,actual);
-      });
-    });
-    if(canonical(positions.min)!==canonical(minimum)||canonical(positions.max)!==canonical(maximum))throw new ApiError(422,'GLB display bounds mismatch');
-    template.triangles.forEach((face,faceIndex)=>{
-      const expected=instance.mirrorX?face:[...face].reverse();
-      expected.forEach((vertex,offset)=>{if(binary.readUInt32LE(indexView.byteOffset+(faceIndex*3+offset)*4)!==vertex)throw new ApiError(422,'GLB topology differs from source mesh');});
-    });
-  });
-  if(binaryCursor!==binary.length)throw new ApiError(422,'GLB contains unreferenced binary data');
-  return value;
 }

@@ -3,11 +3,12 @@ import { join } from 'node:path';
 import type { GarmentDocument } from '../../packages/contracts';
 import type { ThreeDJob } from '../../packages/contracts/assembly';
 import { committedPatterns } from './exports';
+import { validateGarmentPreview } from './garment-preview-validation';
 import { validateInspection } from './inspection-validation';
 import { Store, type ArtifactRow, type ProjectRow } from './store';
-import { ApiError, id, now, objectDigest } from './validation';
+import { ApiError, hash, id, now, objectDigest } from './validation';
 
-export type InspectionEngine = ((input:{pattern:Uint8Array;construction:NonNullable<GarmentDocument['garment']['design']>;outputDir:string;signal:AbortSignal})=>Promise<{report:Uint8Array;mesh:Uint8Array}>) & {version?:string};
+export type InspectionEngine = ((input:{pattern:Uint8Array;construction:NonNullable<GarmentDocument['garment']['design']>;outputDir:string;signal:AbortSignal})=>Promise<{report:Uint8Array;mesh:Uint8Array;shape?:Uint8Array}>) & {version?:string};
 type Input={revisionDigest:string;patternId:string;patternDigest:string;patternJobId:string;construction:NonNullable<GarmentDocument['garment']['design']>;constructionDigest:string;projectGeneration:number;engineVersion:string};
 type Row={id:string;project_id:string;revision_id:string;request_id:string;input:string;input_digest:string;json:string;status:ThreeDJob['status'];lease:string|null;deadline:number|null;attempts:number;generation:number;cancel_requested:number};
 const attemptMs=95000;
@@ -17,10 +18,10 @@ export class ThreeDQueue {
   private active:{row:Row;controller:AbortController}|null=null;
   private timer:ReturnType<typeof setInterval>;
   private closed=false;
-  constructor(private store:Store,private engine?:InspectionEngine) {
+  constructor(private store:Store,private engine?:InspectionEngine,private automaticPreviews=false) {
     this.timer=setInterval(()=>this.poke(),1000);this.timer.unref();this.poke();
   }
-  submit(projectId:string,revisionId:string,requestId:string):ThreeDJob {
+  submit(projectId:string,revisionId:string,requestId:string,poke=true):ThreeDJob {
     const job=this.store.transaction(()=>{
       const project=this.store.project(projectId);
       const previous=this.store.db.query('SELECT * FROM three_d_jobs WHERE project_id=? AND request_id=?').get(projectId,requestId) as Row|null;
@@ -44,7 +45,7 @@ export class ThreeDQueue {
       this.store.db.query('INSERT INTO three_d_jobs(id,project_id,revision_id,request_id,input_digest,input,json,status) VALUES(?,?,?,?,?,?,?,?)').run(value.id,projectId,revisionId,requestId,value.inputDigest,JSON.stringify(input),JSON.stringify(value),'queued');
       return value;
     });
-    this.poke();return job;
+    if(poke)this.poke();return job;
   }
   get(projectId:string,jobId:string):ThreeDJob {
     this.store.project(projectId);
@@ -58,7 +59,7 @@ export class ThreeDQueue {
     const row=(revisionId?this.store.db.query('SELECT * FROM three_d_jobs WHERE project_id=? AND revision_id=? ORDER BY rowid DESC LIMIT 1').get(projectId,revisionId):this.store.db.query('SELECT * FROM three_d_jobs WHERE project_id=? ORDER BY rowid DESC LIMIT 1').get(projectId)) as Row|null;
     return row?{...JSON.parse(row.json),sourceCurrent:this.inputsCurrent(row)}:null;
   }
-  artifact(projectId:string,jobId:string,filename:'inspection.json'|'inspection.glb') {
+  artifact(projectId:string,jobId:string,filename:'inspection.json'|'inspection.glb'|'garment-preview.json') {
     const job=this.get(projectId,jobId);
     if(job.status!=='succeeded')throw new ApiError(409,'3D inspection has no committed result');
     const row=this.store.db.query('SELECT * FROM three_d_artifacts WHERE job_id=? AND project_id=? AND filename=?').get(jobId,projectId,filename) as {storage_key:string;digest:string;bytes:number;mime:string}|null;
@@ -103,6 +104,20 @@ export class ThreeDQueue {
       }
       if(this.active&&!this.valid(this.active.row))this.active.controller.abort();
       if(this.active||!this.engine||this.store.db.query("SELECT 1 FROM three_d_jobs WHERE status='running'").get())return null;
+      if(this.automaticPreviews) {
+        // A stable source-job key prevents automatic retries after cancellation or failure.
+        // Scanning committed heads also resumes the chain after an API restart.
+        const heads=this.store.db.query(`SELECT g.revision_id,g.job_id,j.project_id FROM geometry_heads g JOIN jobs j ON j.id=g.job_id JOIN projects p ON p.id=j.project_id JOIN revisions r ON r.id=g.revision_id WHERE p.deleted=0 AND json_extract(p.json,'$.headRevisionId')=g.revision_id AND json_extract(r.json,'$.document.garment.design') IS NOT NULL AND NOT EXISTS(SELECT 1 FROM three_d_jobs t WHERE t.project_id=j.project_id AND t.request_id='preview-'||g.job_id) ORDER BY j.rowid LIMIT 32`).all() as {revision_id:string;job_id:string;project_id:string}[];
+        for(const head of heads) {
+          const requestId=`preview-${head.job_id}`;
+          if(this.store.db.query('SELECT 1 FROM three_d_jobs WHERE project_id=? AND request_id=?').get(head.project_id,requestId))continue;
+          if(this.store.db.query("SELECT 1 FROM three_d_jobs WHERE project_id=? AND (status IN ('queued','running') OR (revision_id=? AND status='succeeded'))").get(head.project_id,head.revision_id)) {
+            const latest=this.latest(head.project_id,head.revision_id);
+            if(!latest||pending(latest.status)||latest.sourceCurrent)continue;
+          }
+          try {this.submit(head.project_id,head.revision_id,requestId,false);} catch { /* Unsupported or temporarily full: retain the completed 2D result. */ }
+        }
+      }
       const candidate=this.store.db.query("SELECT * FROM three_d_jobs WHERE status='queued' ORDER BY rowid LIMIT 1").get() as Row|null;
       if(!candidate)return null;
       const job:ThreeDJob={...JSON.parse(candidate.json),status:'running',error:null,updatedAt:now()};
@@ -131,10 +146,12 @@ export class ThreeDQueue {
       if(!(output.report instanceof Uint8Array)||!(output.mesh instanceof Uint8Array)||output.report.length>16*1024*1024||output.mesh.length>16*1024*1024)throw new ApiError(422,'3D artifact budget exceeded');
       const report=Uint8Array.from(output.report),mesh=Uint8Array.from(output.mesh);
       const inspection=validateInspection(report,mesh,JSON.parse(new TextDecoder().decode(pattern)),input.patternDigest,input.constructionDigest);
-      this.store.install([{filename:'inspection.json',mime:'application/json',bytes:report},{filename:'inspection.glb',mime:'model/gltf-binary',bytes:mesh}],records=>{
+      const shape=output.shape===undefined?undefined:Uint8Array.from(output.shape);
+      if(shape)validateGarmentPreview(shape,JSON.parse(new TextDecoder().decode(pattern)),input.patternDigest,input.constructionDigest);
+      this.store.install([{filename:'inspection.json',mime:'application/json',bytes:report},{filename:'inspection.glb',mime:'model/gltf-binary',bytes:mesh},...(shape?[{filename:'garment-preview.json',mime:'application/json',bytes:shape}]:[])],records=>{
         if(!this.valid(row)||controller.signal.aborted)throw new ApiError(409,'3D attempt was fenced');
         for(const record of records)this.store.db.query('INSERT INTO three_d_artifacts(job_id,project_id,filename,storage_key,digest,bytes,mime) VALUES(?,?,?,?,?,?,?)').run(row.id,row.project_id,record.filename,record.storageKey,record.digest,record.bytes,record.mime);
-        this.finish(row,'succeeded',null,{classification:'placement-inspection',fabricInstances:inspection.instances.length,unresolvedPhysicalRoles:inspection.unresolvedPhysicalRoles.length,capabilityGaps:inspection.capabilityGaps});
+        this.finish(row,'succeeded',null,{classification:'placement-inspection',fabricInstances:inspection.instances.length,unresolvedPhysicalRoles:inspection.unresolvedPhysicalRoles.length,capabilityGaps:inspection.capabilityGaps,...(shape?{shape:{sha256:hash(shape),classification:'guided-shape-approximation' as const}}:{})});
       });
     } catch(error) {
       if(this.valid(row))this.finish(row,'failed',error instanceof ApiError?error.message:'3D inspection failed validation or exceeded its resource budget; 2D patterns remain available');

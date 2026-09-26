@@ -12,6 +12,13 @@ ROOT = Path(__file__).resolve().parent
 COMMIT = "7065b3ef01ff61f4462e871d4cb439a0b97c48db"
 
 
+def verify_dependencies():
+    for line in (ROOT / "requirements.lock").read_text().splitlines():
+        name, version = line.split("==")
+        if importlib.metadata.version(name) != version:
+            raise RuntimeError("Pinned dependency mismatch: " + name)
+
+
 def verify_runtime(upstream):
     lock = json.loads((ROOT / "source-lock.json").read_text())
     head = (upstream / ".git/HEAD").read_text().strip()
@@ -29,10 +36,7 @@ def verify_runtime(upstream):
         path = upstream / relative
         if not path.is_file() or path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
             raise RuntimeError("Upstream source/config integrity failed: " + relative)
-    for line in (ROOT / "requirements.lock").read_text().splitlines():
-        name, version = line.split("==")
-        if importlib.metadata.version(name) != version:
-            raise RuntimeError("Pinned dependency mismatch: " + name)
+    verify_dependencies()
 
 
 def deny_network():

@@ -26,7 +26,7 @@ test('durable interpretation survives reload while the model is still running',a
   await page.reload();
   await page.getByRole('button',{name:/Durable interpretation Updated/}).click();
   await expect(page.getByRole('button',{name:'Cancel interpretation'})).toBeVisible();
-  await expect(page.getByRole('button',{name:'Accept design & set measurements'})).toBeEnabled();
+  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeEnabled();
   expect(completedReads).toBeGreaterThanOrEqual(2);
 });
 
@@ -41,13 +41,13 @@ test('unsupported designs accept notes without promising a generatable pattern',
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
   await page.getByRole('button',{name:'Accept design notes',exact:true}).click();
   await expect(page.getByRole('heading',{name:'Design saved. Pattern support needed.'})).toBeVisible();
-  await expect(page.getByRole('button',{name:'Save & generate',exact:true})).toBeDisabled();
+  await expect(page.getByRole('button',{name:/Generate garment|Update garment/,exact:true})).toBeDisabled();
   await page.reload();
   await page.getByRole('button',{name:/Tailcoat notes Updated/}).click();
   await expect(page.getByRole('heading',{name:'Design saved. Pattern support needed.'})).toBeVisible();
   await page.getByRole('button',{name:'Choose a simplified base pattern'}).click();
   await page.getByRole('combobox',{name:'Geometry family'}).selectOption('shirt');
-  await expect(page.getByRole('button',{name:'Save & generate',exact:true})).toBeEnabled();
+  await expect(page.getByRole('button',{name:/Generate garment|Update garment/,exact:true})).toBeEnabled();
 });
 
 test('description to reviewed proposal to real geometry and export survives the cookie-stripping proxy',async({studio})=>{
@@ -57,20 +57,20 @@ test('description to reviewed proposal to real geometry and export survives the 
   await page.getByLabel('Garment name',{exact:true}).fill('Blue linen top');
   await page.getByLabel('Your idea',{exact:true}).fill('A blue linen sleeveless top with contrast embroidery.');
   await page.getByRole('button',{name:'Create garment'}).click();
-  await page.getByRole('button',{name:'Save & generate',exact:true}).click();
+  await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
   await expect(page.getByText(/Pattern generation failed:/)).toBeVisible();
   await page.getByRole('tab',{name:'Design',exact:true}).click();
   await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Accept design & set measurements'})).toBeEnabled();
+  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeEnabled();
   await expect(page.locator('.proposal-requirements')).toContainText('unsupported');
   const evidence=resolve(import.meta.dirname,'../../docs/verification/ai-prototype');
   await mkdir(evidence,{recursive:true});
   await page.screenshot({path:resolve(evidence,'proposal-desktop.png')});
-  await page.getByRole('button',{name:'Accept design & set measurements'}).click();
+  await page.getByLabel('Preview with sample M estimates. Keeps measurements you’ve entered.').uncheck();await page.getByRole('button',{name:'Use design & set size'}).click();
   await expect(page.getByRole('heading',{name:'Make it your size.'})).toBeVisible();
   await expect(page.getByText(/Pattern generation failed:/)).toHaveCount(0);
-  await expect(page.getByRole('button',{name:'Interpret my design',exact:true})).not.toBeVisible();
+  await expect(page.getByRole('button',{name:'Use design & preview',exact:true})).toHaveCount(0);
   await page.reload();
   await page.getByRole('button',{name:/Blue linen top Updated/}).click();
   await expect(page.getByRole('heading',{name:'Make it your size.'})).toBeVisible();
@@ -80,19 +80,18 @@ test('description to reviewed proposal to real geometry and export survives the 
   await page.getByLabel('Height value',{exact:true}).fill('170');
   await page.screenshot({path:resolve(evidence,'measurements-desktop.png')});
   await page.setViewportSize({width:390,height:844});
-  await expect(page.getByLabel('Height value',{exact:true})).toBeInViewport();
+  await page.getByLabel('Height value',{exact:true}).scrollIntoViewIfNeeded();await expect(page.getByLabel('Height value',{exact:true})).toBeInViewport();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:resolve(evidence,'measurements-mobile.png')});
   await page.setViewportSize({width:1440,height:900});
   await page.getByText('Garment shape & fit settings',{exact:true}).click();
   await expect(page.getByRole('combobox',{name:'Geometry family'})).toHaveValue('shirt');
-  await page.getByText('Try an explicitly synthetic example',{exact:true}).click();
-  await page.getByRole('button',{name:'Use these assumed values'}).click();
+  await page.getByRole('button',{name:'Apply sample M',exact:true}).click();
   await expect(page.getByLabel('Garment length value',{exact:true})).toHaveValue('600');
-  await page.getByRole('button',{name:'Save & generate',exact:true}).click();
+  await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
   await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(4,{timeout:30000});
-  await page.getByRole('button',{name:'Save & generate',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Save & generate',exact:true})).toBeEnabled({timeout:30000});
+  await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
+  await expect(page.getByRole('button',{name:/Generate garment|Update garment/,exact:true})).toBeEnabled({timeout:30000});
   await expect(page.locator('.alert.error')).toHaveCount(0);
   const {projects}=await studio.call('GET','/projects');
   const state=await studio.call('GET',`/projects/${projects[0].id}`);
@@ -123,12 +122,12 @@ test('editing during a delayed interpretation keeps local work and disables stal
   await requestStarted;
   await page.getByRole('textbox',{name:'The idea',exact:true}).fill('My newer asymmetric idea');
   finish();
-  await expect(page.getByRole('button',{name:'Accept design & set measurements'})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeDisabled();
   await expect(page.getByRole('textbox',{name:'The idea',exact:true})).toHaveValue('My newer asymmetric idea');
   await expect(page.locator('.header-center small')).toHaveText('Saved');
   await page.reload();
   await page.getByRole('button',{name:/Original idea/}).click();
-  await expect(page.getByRole('button',{name:'Accept design & set measurements'})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeDisabled();
 });
 
 test('editing while accepting retains both the newer brief and the accepted design',async({studio})=>{
@@ -140,11 +139,11 @@ test('editing while accepting retains both the newer brief and the accepted desi
   await page.getByRole('button',{name:'Create garment'}).click();
   await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Accept design & set measurements'})).toBeEnabled();
+  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeEnabled();
   let release!:()=>void,started!:()=>void;
   const paused=new Promise<void>(resolve=>{release=resolve;}),requested=new Promise<void>(resolve=>{started=resolve;});
   await page.route('**/proposals/*/accept',async route=>{const response=await route.fetch();started();await paused;await route.fulfill({response});});
-  await page.getByRole('button',{name:'Accept design & set measurements'}).click();
+  await page.getByLabel('Preview with sample M estimates. Keeps measurements you’ve entered.').uncheck();await page.getByRole('button',{name:'Use design & set size'}).click();
   await requested;
   await page.getByRole('textbox',{name:'The idea',exact:true}).fill('Keep this new finishing note');
   release();

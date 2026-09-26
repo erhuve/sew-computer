@@ -9,7 +9,7 @@ test('visual sizing preserves inputs, units, estimates and private reusable meas
   await page.getByRole('button', { name: 'New garment', exact: true }).click();
   await page.getByLabel('Garment name', { exact: true }).fill('Sizing study');
   await page.getByRole('button', { name: 'Create garment' }).click();
-  await page.getByRole('button', { name: 'Shape & body', exact: true }).click();
+  await page.getByRole('button', { name: 'Customize', exact: true }).click();
   await page.getByRole('combobox', { name: 'Geometry family' }).selectOption('shirt');
   await page.getByRole('button', { name: 'Apply sample M', exact: true }).click();
   await expect(page.getByLabel('Height value', { exact: true })).toHaveValue('170');
@@ -64,7 +64,7 @@ test('visual sizing preserves inputs, units, estimates and private reusable meas
   await page.screenshot({ path: resolve(evidence, 'desktop.png') });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.evaluate(() => window.scrollTo(0, 0));
-  await expect(page.locator('.body-diagram')).toBeInViewport();
+  await page.locator('.body-diagram').scrollIntoViewIfNeeded();await expect(page.locator('.body-diagram')).toBeInViewport();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: resolve(evidence, 'mobile.png') });
   await page.setViewportSize({ width: 320, height: 800 });

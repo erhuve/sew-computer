@@ -56,3 +56,7 @@ This checkout backs a live service whose startup builds the web app. Use an isol
 Fetch and integrate concurrent remote changes before pushing. Update the live checkout to the verified release and use Zo `publish_site` with `site_path="Code/sew-computer/apps/web"`, `public="false"`. Do not start a parallel daemon or register a separate service for this Site. Run `service_doctor` for `sew-computer`, check that unauthenticated tunnel requests require sign-in and direct API requests require the studio session, then verify login, generation and export against the running production service.
 
 Restarting the service retains the production database, artifacts and credential. Full backup restoration is unsupported; the deletion journal and watermark must never be bypassed.
+
+## Local end-to-end preview development
+
+Use `bun run studio` from an isolated checkout for the dynamic garment workflow and persistent local development data. The optional container worker accepts an immutable image digest and does not receive model credentials. See [local launch and tested limits](reviews/studio-e2e.md#local-launch). This does not deploy the changes to Zo or modify `.local-production/`.

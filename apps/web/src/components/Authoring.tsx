@@ -11,6 +11,7 @@ import {
 import { api } from "../lib/api";
 import PrivateImage from "./PrivateImage";
 import BodySizing from "./BodySizing";
+import { sizingIssue } from '../../../../packages/contracts/sizing';
 import { defaultShirtDesign } from '../../../../packages/contracts/design';
 import GarmentDesign from './GarmentDesign';
 
@@ -126,6 +127,7 @@ export default function Authoring({
   anchor,
 }: Props) {
   const [uploading, setUploading] = useState(false);
+  const [sizeOpen,setSizeOpen]=useState(()=>!!sizingIssue(doc));
   const replace = <K extends keyof GarmentDocument>(
     key: K,
     value: GarmentDocument[K],
@@ -215,7 +217,7 @@ export default function Authoring({
           {field("Size / intended wearer", doc.sizeLabel, (v) =>
             replace("sizeLabel", v),
           )}
-          <h3>Design requirements</h3>
+          <details><summary>Design requirements</summary>
           {doc.requirements.map((r, i) => (
             <div className="entry" key={r.id}>
               {drop(`Remove requirement ${i + 1}`, () =>
@@ -256,7 +258,7 @@ export default function Authoring({
               { id: uid(), text: "", status: "unresolved", note: "" },
             ]),
           )}
-          <p className="fineprint">
+          </details><p className="fineprint">
             Use “Interpret my design” to propose parameters and technical notes.
             Nothing changes until you accept the proposal.
           </p>
@@ -264,9 +266,9 @@ export default function Authoring({
       )}
       {section === "shape" && (
         <>
-          <BodySizing doc={doc} onChange={onChange} />
           {doc.garment.family==='shirt' && !doc.garment.design && <button onClick={()=>replace('garment',{...doc.garment,design:structuredClone(defaultShirtDesign)})}>Add editable shirt construction</button>}
-          {doc.garment.design && <GarmentDesign doc={doc} onChange={onChange}/>}
+          {doc.garment.design && <GarmentDesign doc={doc} onChange={onChange} compact/>}
+          <details className="size-disclosure" open={sizeOpen} onToggle={event=>setSizeOpen(event.currentTarget.open)}><summary>Size & measurements</summary><BodySizing doc={doc} onChange={onChange}/><details className="profile-settings"><summary>Body measurement status & sources</summary>{Object.entries(doc.body).map(([name, value]) => <Measure key={name} label={`${name[0].toUpperCase() + name.slice(1)} detail`} value={value} onChange={measurement => replace('body', { ...doc.body, [name]: measurement })} />)}</details></details>
           <details className="shape-settings" open={doc.garment.family === 'none'}>
           <summary>Garment shape & fit settings</summary>
           <label className="field">
@@ -290,13 +292,13 @@ export default function Authoring({
             </select>
           </label>
           <Measure
-            label="Garment length"
+            label="Garment length" compact
             range={[doc.garment.family === 'shirt' ? 400 : Math.ceil((mm(doc.body.height) ?? 1700) * 0.12 + 150), doc.garment.family === 'shirt' ? 1100 : 1300]}
             value={doc.garment.length}
             onChange={(v) => replace("garment", { ...doc.garment, length: v })}
           />
           <Measure
-            label="Ease"
+            label="Ease" compact
             range={[0, 200]}
             value={doc.garment.ease}
             onChange={(v) => replace("garment", { ...doc.garment, ease: v })}
@@ -320,43 +322,7 @@ export default function Authoring({
             />
           </label>
           </details>
-          <details className="profile-settings"><summary>Body measurement status & sources</summary>{Object.entries(doc.body).map(([name, value]) => <Measure key={name} label={`${name[0].toUpperCase() + name.slice(1)} detail`} value={value} onChange={measurement => replace('body', { ...doc.body, [name]: measurement })} />)}</details>
-          <details className="example-disclosure">
-            <summary>Try an explicitly synthetic example</summary>
-            <p>
-              Use a 170 cm height, 92 cm bust, 76 cm waist, 98 cm hip and 40 cm
-              shoulder fixture. These are not your measurements or a validated
-              size chart. Unspecified dimensions will be reported as adapter
-              assumptions.
-            </p>
-            <button
-              onClick={() => {
-                onChange({
-                  ...doc,
-                  garment: {
-                    ...doc.garment,
-                    length: 'value' in doc.garment.length ? doc.garment.length : assumed(
-                      doc.garment.family === "shirt"
-                        ? 600
-                        : doc.garment.family === "skirt"
-                          ? 650
-                          : 1000,
-                    ),
-                    ease: 'value' in doc.garment.ease ? doc.garment.ease : assumed(80),
-                  },
-                  body: {
-                    height: 'value' in doc.body.height ? doc.body.height : assumed(1700),
-                    bust: 'value' in doc.body.bust ? doc.body.bust : assumed(920),
-                    waist: 'value' in doc.body.waist ? doc.body.waist : assumed(760),
-                    hip: 'value' in doc.body.hip ? doc.body.hip : assumed(980),
-                    shoulder: 'value' in doc.body.shoulder ? doc.body.shoulder : assumed(400),
-                  },
-                });
-              }}
-            >
-              Use these assumed values
-            </button>
-          </details>
+
         </>
       )}
       {section === "materials" && (

@@ -1,0 +1,7 @@
+# Build with an explicitly chosen Python 3.13 Linux base image digest.
+# Only the resulting immutable sha256 image ID is accepted at execution time.
+ARG PYTHON_IMAGE
+FROM ${PYTHON_IMAGE}
+RUN apt-get update && apt-get install -y --no-install-recommends libseccomp2 libcairo2 && rm -rf /var/lib/apt/lists/*
+COPY requirements.lock /tmp/sew-requirements.lock
+RUN python -m pip install --no-cache-dir -r /tmp/sew-requirements.lock && rm /tmp/sew-requirements.lock

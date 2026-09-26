@@ -6,7 +6,7 @@ import re
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from guard import COMMIT, ROOT, constrain, verify_runtime
+from guard import COMMIT, ROOT, constrain, verify_runtime, verify_dependencies
 
 
 def build_body(inputs):
@@ -218,18 +218,19 @@ def main():
         print(json.dumps(security))
         return
     upstream = Path(sys.argv[1]).resolve()
-    verify_runtime(upstream)
     data = sys.stdin.buffer.read(512 * 1024 + 1)
     if len(data) > 512 * 1024:
         raise ValueError("Input budget exceeded")
     inputs = json.loads(data)
     if inputs["family"] not in ("shirt", "skirt", "trousers") or not re.fullmatch("[a-f0-9]{64}", inputs["inputDigest"]):
         raise ValueError("Invalid engine input")
-    sys.path.insert(0, str(upstream))
     if inputs.get("design"):
+        verify_dependencies()
         from shirt import compile_shirt
         geometry = compile_shirt(inputs, COMMIT)
     else:
+        verify_runtime(upstream)
+        sys.path.insert(0, str(upstream))
         body, warnings = build_body(inputs)
         piece, lowering = compile_piece(inputs, upstream, body)
         geometry = normalize(piece, inputs["inputDigest"], warnings + lowering + inputs["provenance"], inputs["family"])

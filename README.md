@@ -8,6 +8,8 @@ Consumer garment-design software: turn descriptions, references and sketches int
 
 ## Start here
 
+**Local end-to-end studio:** `bun run studio` from an isolated checkout connects reviewed descriptions, actual shirt patterns, dynamically generated garment previews, construction edits and revision-matched exports. The simplified interface puts the garment first and keeps detailed sizing and technical controls expandable. Requires the configured model and locked native or container worker. This local checkpoint is not deployed; previews are approximate, not fit simulation. See [setup, verification and limits](docs/reviews/studio-e2e.md).
+
 **Local visual demo:** run `bun run demo` from an isolated checkout, then open `http://127.0.0.1:5175/demo`. Four synthetic shirt examples connect a posed cloth preview, front/back drawings, source-piece inspection and matching pattern downloads. The garment shape uses approximate elastic constraints and synthetic posing guides; it does not establish physical drape/fit or generate arbitrary designs. See the [walkthrough and verified scope](docs/reviews/visual-demo.md).
 
 The component pipeline adds an explicit relaxed shirt compiler with sleeves, cuffs, collars, plackets, curved back tails and gathered front frills, plus derived specifications and construction schematics. New patterns include A4 and Letter tiled PDFs with calibration guides. See [scope, review and remaining gates](docs/reviews/garment-pipeline.md). This work does not make arbitrary garments or physically validated cutting patterns available.

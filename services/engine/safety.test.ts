@@ -16,7 +16,7 @@ async function attempt(run: (directory: string) => Promise<void>) {
 test('kernel rejects oversized memory allocation, files and descriptor exhaustion under the real guard', async () => {
   await attempt(async directory => {
     const code = `import sys,os,json,errno
-sys.path.insert(0,${JSON.stringify(root)})
+sys.path.insert(0,${JSON.stringify(process.env.SEW_ENGINE_CONTAINER?'/engine':root)})
 from guard import constrain
 constrain()
 r={}
@@ -51,7 +51,7 @@ open('result.json','w').write(json.dumps(r))`;
 test('the CPU limit is enforced by the kernel, not just reported', async () => {
   await attempt(async directory => {
     const code = `import sys,resource
-sys.path.insert(0,${JSON.stringify(root)})
+sys.path.insert(0,${JSON.stringify(process.env.SEW_ENGINE_CONTAINER?'/engine':root)})
 from guard import constrain
 constrain()
 resource.setrlimit(resource.RLIMIT_CPU,(1,1))

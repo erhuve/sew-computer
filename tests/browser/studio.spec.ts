@@ -19,20 +19,19 @@ async function create(studio:any,title='The everyday overshirt'){
  await page.getByLabel('Garment name',{exact:true}).fill(title);
  await page.getByLabel('Your idea',{exact:true}).fill('A boxy top with an asymmetric collar. Preserve the unsupported detail.');
  await page.getByRole('button',{name:'Create garment',exact:false}).click();
- await expect(page.getByRole('button',{name:'Save & generate',exact:true})).toBeVisible();
+ await expect(page.getByRole('button',{name:/Generate garment|Update garment/,exact:true})).toBeVisible();
 }
 async function generate(studio:any){const page=studio.page;
- await page.getByRole('button',{name:'Shape & body',exact:true}).click();
+ await page.getByRole('button',{name:'Customize',exact:true}).click();
  await page.getByRole('combobox',{name:'Geometry family',exact:true}).selectOption('shirt');
- await page.getByText('Try an explicitly synthetic example',{exact:true}).click();
- await page.getByRole('button',{name:'Use these assumed values'}).click();
- await page.getByRole('button',{name:'Save & generate',exact:true}).click();
+ await page.getByRole('button',{name:'Apply sample M',exact:true}).click();
+ await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
  await expect(page.locator('.pattern-stage svg[role="img"]')).toBeVisible({timeout:30000});
  await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(4);
 }
 test('unfinished design explains missing inputs and recovers to real generation',async({studio})=>{
  await create(studio);
- await studio.page.getByRole('button',{name:'Save & generate',exact:true}).click();
+ await studio.page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
  await expect(studio.page.getByText(/Pattern generation failed: No garment family selected/)).toBeVisible();
  await expect(studio.page.getByText(/Open Design and interpret your brief/)).toBeVisible();
  await generate(studio);
@@ -59,8 +58,8 @@ test('mobile puts the actual pattern above long authoring fields without horizon
 });
 test('manual tech pack exports before geometry exists, preserves privacy and downloads a real seven-section PDF',async({studio})=>{
  await create(studio,'Original garment — no preset required');const page=studio.page;
- await page.getByRole('button',{name:'Materials',exact:true}).click();await page.getByRole('button',{name:'Add material or trim',exact:true}).click();await page.getByLabel('Material 1',{exact:true}).fill('Cotton twill — sourcing undecided');
- await page.getByRole('button',{name:'Revisions & export',exact:true}).click();await page.getByRole('button',{name:'Save new revision',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'Materials',exact:true}).click();await page.getByRole('button',{name:'Add material or trim',exact:true}).click();await page.getByLabel('Material 1',{exact:true}).fill('Cotton twill — sourcing undecided');
+ await page.getByRole('button',{name:'History & files',exact:true}).click();await page.getByRole('button',{name:'Save new revision',exact:true}).click();
  await page.getByRole('button',{name:'Export draft',exact:true}).first().click();
  await expect(page.getByLabel('Include private body inputs',{exact:true})).not.toBeChecked();
  await page.getByRole('button',{name:'Build review package',exact:true}).click();
@@ -73,7 +72,7 @@ test('manual tech pack exports before geometry exists, preserves privacy and dow
 });
 test('authenticated sanitized reference upload remains private and is not a simulated garment',async({studio})=>{
  await create(studio);const page=studio.page;
- await page.getByRole('button',{name:'References',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'References',exact:true}).click();
  const image=await sharp({create:{width:400,height:400,channels:3,background:'#f0eadf'}}).png().toBuffer();
  const uploaded=page.waitForResponse(response=>response.url().endsWith('/references')&&response.request().method()==='POST'&&response.status()===201);
  await page.locator('input[type=file]').first().setInputFiles({name:'original-sketch.png',mimeType:'image/png',buffer:image});
@@ -106,7 +105,7 @@ test('slow revision saves retain subsequent local edits and reload them after au
  let started!:()=>void;
  const requested=new Promise<void>(resolve=>{started=resolve;});
  await page.route('**/api/projects/*/revisions',async route=>{started();await paused;await route.continue();});
- await page.getByRole('button',{name:'Save & generate',exact:true}).click();
+ await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
  await requested;
  await page.getByRole('textbox',{name:'The idea',exact:true}).fill('Retain the new collar edit made while saving.');
  release();
@@ -121,7 +120,7 @@ test('slow image uploads retain edits made in another authoring section',async({
  let started!:()=>void;
  const requested=new Promise<void>(resolve=>{started=resolve;});
  await page.route('**/api/projects/*/references',async route=>{started();await paused;await route.continue();});
- await page.getByRole('button',{name:'References',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'References',exact:true}).click();
  const buffer=await sharp({create:{width:32,height:32,channels:3,background:'#eee'}}).png().toBuffer();
  await page.locator('input[type=file]').first().setInputFiles({name:'sketch.png',mimeType:'image/png',buffer});
  await requested;
@@ -134,7 +133,7 @@ test('slow image uploads retain edits made in another authoring section',async({
 
 test('disclosure changes invalidate both pending and completed download links',async({studio})=>{
  await create(studio);const {page}=studio;
- await page.getByRole('button',{name:'Revisions & export',exact:true}).click();
+ await page.getByRole('button',{name:'History & files',exact:true}).click();
  await page.getByRole('button',{name:'Save new revision',exact:true}).click();
  await page.getByRole('button',{name:'Export draft',exact:true}).first().click();
  let release!:()=>void;
@@ -161,13 +160,13 @@ test('populated garment exports real patterns and incorporates a bounded maker c
  await page.getByRole('button',{name:'Add a requirement',exact:true}).click();
  await page.getByRole('textbox',{name:'Requirement 1',exact:true}).fill('Preserve asymmetric collar intent; current adapter cannot realize it.');
  await page.getByRole('combobox',{name:'Engine coverage (owner assessment)',exact:true}).selectOption('unsupported');
- await page.getByRole('button',{name:'Materials',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'Materials',exact:true}).click();
  for(const name of ['Cotton twill','Corozo buttons']){
    await page.getByRole('button',{name:'Add material or trim',exact:true}).click();
    await page.getByRole('textbox',{name:/^Material \d+$/}).last().fill(name);
  }
  await page.getByRole('combobox',{name:'Category',exact:true}).last().selectOption('trim');
- await page.getByRole('button',{name:'Measurements',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'Measurements',exact:true}).click();
  for(const [index,name] of ['Flat chest','Back length'].entries()){
    await page.getByRole('button',{name:'Add point of measure',exact:true}).click();
    await page.getByRole('textbox',{name:`Point of measure ${index+1}`,exact:true}).fill(name);
@@ -175,13 +174,13 @@ test('populated garment exports real patterns and incorporates a bounded maker c
  }
  await page.getByRole('combobox',{name:'POM 1 target status',exact:true}).selectOption('known');
  await page.getByRole('spinbutton',{name:'POM 1 target value',exact:true}).fill('540');
- await page.getByRole('button',{name:'Construction',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'Construction',exact:true}).click();
  await page.getByRole('button',{name:'Add construction step',exact:true}).click();
  await page.getByRole('textbox',{name:'Construction step 1',exact:true}).fill('Collar attachment');
  await page.getByRole('textbox',{name:'Construction questions / details',exact:true}).fill('Confirm facing and edge finish with maker.');
  await page.getByRole('button',{name:'Add a callout',exact:true}).click();
  await page.getByRole('textbox',{name:'Callout 1',exact:true}).fill('Resolve collar construction before cutting.');
- await page.getByRole('button',{name:'References',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'References',exact:true}).click();
  const buffer=await sharp({create:{width:100,height:100,channels:3,background:'#e6dfd3'}}).png().toBuffer();
  for(const role of ['front','back']){
    await page.locator('input[type=file]').first().setInputFiles({name:`${role}-fixture.png`,mimeType:'image/png',buffer});
@@ -191,7 +190,7 @@ test('populated garment exports real patterns and incorporates a bounded maker c
    await page.getByRole('textbox',{name:'Caption / source',exact:true}).last().fill('Synthetic color swatch used to exercise the upload flow; not a garment flat.');
  }
  await generate(studio);
- await page.getByRole('button',{name:'Revisions & export',exact:true}).click();
+ await page.getByRole('button',{name:'History & files',exact:true}).click();
  await page.getByRole('textbox',{name:'Reported reviewer (optional)',exact:true}).fill('Test maker');
  await page.getByRole('textbox',{name:'Feedback',exact:true}).fill('Change main fabric to lightweight linen.');
  await page.getByRole('button',{name:'Record note',exact:true}).click();
@@ -209,14 +208,14 @@ test('populated garment exports real patterns and incorporates a bounded maker c
  const download=page.waitForEvent('download');await page.getByRole('link',{name:/tech-pack.pdf/}).click();
  await (await download).saveAs(resolve(evidence,'populated-tech-pack.pdf'));
  manifest.sections.bom[0].name='Lightweight linen';manifest.sections.materials[0].name='Lightweight linen';
- await page.keyboard.press('Escape');await page.getByRole('button',{name:'Revisions & export',exact:true}).click();
+ await page.keyboard.press('Escape');await page.getByRole('button',{name:'History & files',exact:true}).click();
  await page.locator('dialog input[type=file]').setInputFiles({name:'maker-feedback.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(manifest))});
  await expect(page.locator('.import-change')).toHaveCount(1);
  await page.getByRole('button',{name:'Apply reviewed changes',exact:true}).click();
  await expect(page.locator('dialog')).not.toBeVisible();
- await page.getByRole('button',{name:'Materials',exact:true}).click();
+ if(await page.getByRole('button',{name:'More',exact:true}).isVisible())await page.getByRole('button',{name:'More',exact:true}).click();await page.getByRole('button',{name:'Materials',exact:true}).click();
  await expect(page.getByRole('textbox',{name:'Material 1',exact:true})).toHaveValue('Lightweight linen');
- await page.getByRole('button',{name:'Revisions & export',exact:true}).click();
+ await page.getByRole('button',{name:'History & files',exact:true}).click();
  await page.getByRole('button',{name:'Save new revision',exact:true}).click();
  await expect(page.locator('.revision-list article')).toHaveCount(2);
  const {projects}=await studio.call('GET','/projects');const state=await studio.call('GET',`/projects/${projects[0].id}`);

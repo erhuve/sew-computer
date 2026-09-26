@@ -1,5 +1,7 @@
 # Private 3D inspection: adversarial implementation review
 
+Current extension: the [end-to-end studio](studio-e2e.md) adds a private, revision-bound posed garment alongside this original flat-piece inspection. The evidence below describes the earlier inspection checkpoint; it does not certify physical drape.
+
 **2026-09-17 · Independent review · Placement inspection only · Not deployment approval**
 
 ## Scope and evidence boundary
