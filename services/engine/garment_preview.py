@@ -12,6 +12,7 @@ from scipy.sparse.linalg import factorized
 from scipy.spatial import cKDTree
 ROOT=Path(__file__).resolve().parent
 from assembly import compile_inventory, compile_assembly
+from custom_pattern import custom_guide
 from meshing import mesh_panel
 from simulation_validation import validate_rest_mesh
 
@@ -150,7 +151,7 @@ def build_preview(source,construction):
     for inst in inventory['instances']:
         name=inst['templateId'];m=templates[name];uv=np.array(m['restPositions']); n=len(uv)
         offsets[inst['id']]=start
-        rest.extend(np.c_[uv,np.zeros(n)]); guides.extend(skirt_guide(panels[name],uv,panels,pattern,inst['role']) if pattern['family']=='skirt' else guide(panels[name],uv,panels,inst['role']))
+        rest.extend(np.c_[uv,np.zeros(n)]); guides.extend(custom_guide(panels[name],uv,construction) if pattern['family']=='custom' else skirt_guide(panels[name],uv,panels,pattern,inst['role']) if pattern['family']=='skirt' else guide(panels[name],uv,panels,inst['role']))
         pieces.append({**inst,'offset':start,'count':n,'mesh':m});start+=n
         if start>60000: raise ValueError('Preview vertex budget exceeded')
     rest=np.array(rest);targets=np.array(guides); n=len(rest)
@@ -204,7 +205,7 @@ def build_preview(source,construction):
         pos=nextpos
         if iteration%20==0 or iteration==MATERIAL['iterations']-1:
             strain=np.abs(np.linalg.norm(E@pos,axis=1)/lengths-1);gap=np.linalg.norm(S@pos,axis=1)
-            history.append({'iteration':iteration+1,'edgeStrainP95':float(np.percentile(strain[weights==1],95)),'edgeStrainMax':float(strain[weights==1].max()),'seamGapMaxMm':float(gap.max())})
+            history.append({'iteration':iteration+1,'edgeStrainP95':float(np.percentile(strain[weights==1],95)),'edgeStrainMax':float(strain[weights==1].max()),'seamGapMaxMm':float(gap.max()) if len(gap) else 0.0})
     output=[];buttons=[]
     for p in pieces:
         sl=slice(p['offset'],p['offset']+p['count']);m=p['mesh'];xy=np.array(m['restPositions']);pp=pos[sl]
@@ -231,6 +232,6 @@ def build_preview(source,construction):
         'generatorSha256':digest(Path(__file__).read_bytes()),
         'constructionDigest':inventory['constructionDigest'],'assemblyDigest':digest(enc(seams)),
         'materialDigest':digest(enc(MATERIAL)),'pose':{'recipe':f'source-derived-{pattern["family"]}-guides/1','calibrated':False,'source':'pattern dimensions and explicit guide equations in the pinned generator'},
-        'sourceHashes':{name:digest((ROOT/name).read_bytes()) for name in ('assembly.py','skirt.py','skirt_assembly.py','meshing.py','quality_meshing.py','simulation_validation.py')}}
+        'sourceHashes':{name:digest((ROOT/name).read_bytes()) for name in ('assembly.py','custom_pattern.py','skirt.py','skirt_assembly.py','meshing.py','quality_meshing.py','simulation_validation.py')}}
     if len(enc(report))>16*1024*1024: raise ValueError('Preview artifact budget exceeded')
     return report

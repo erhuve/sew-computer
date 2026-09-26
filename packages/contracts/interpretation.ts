@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { BomSchema, canonical, ConstructionSchema, DocumentSchema, MeasurementSchema, PomSchema, RequirementSchema, type GarmentDocument } from './index';
 import { FeatureSchema, GarmentDesignSchema } from './design';
+import { FabricAppearanceSchema, FabricPrintSchema } from './appearance';
 
 const SuggestedMeasurement=z.union([MeasurementSchema.options[1],MeasurementSchema.options[2],MeasurementSchema.options[3]]);
 
@@ -15,9 +16,21 @@ export const InterpretationSchema = z.object({
 }).strict();
 export type Interpretation = z.infer<typeof InterpretationSchema>;
 export function interpretationJsonSchema():Record<string,unknown> {
-  const schema=z.toJSONSchema(InterpretationSchema);
+  const schema=z.toJSONSchema(InterpretationSchema.extend({garment:InterpretationSchema.shape.garment.extend({appearance:FabricAppearanceSchema.extend({print:FabricPrintSchema.nullable()}).nullable()})}));
   delete schema.$schema;
-  const convert=(value:unknown):unknown=>Array.isArray(value)?value.map(convert):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,child])=>[key==='oneOf'?'anyOf':key,convert(child)])):value;
+  const convert=(value:unknown):unknown=>{
+    if(Array.isArray(value))return value.map(convert);
+    if(!value||typeof value!=='object')return value;
+    const source=value as Record<string,unknown>,result=Object.fromEntries(Object.entries(source).map(([key,child])=>[key==='oneOf'?'anyOf':key,convert(child)]));
+    // The provider supports homogeneous bounded arrays; Zod retains tuple
+    // validation when the response is parsed locally.
+    if(Array.isArray(source.prefixItems)){
+      const tuple=source.prefixItems;
+      if(!tuple.length||tuple.some(item=>canonical(item)!==canonical(tuple[0])))throw new Error('Provider schema requires homogeneous coordinate tuples');
+      result.items=convert(tuple[0]);delete result.prefixItems;
+    }
+    return result;
+  };
   return convert(schema) as Record<string,unknown>;
 }
 export type DesignProposal = {

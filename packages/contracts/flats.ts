@@ -4,6 +4,7 @@ export type Flat = {view:'front'|'back';lines:{points:[number,number][];detail:b
 export function garmentFlats(doc:Pick<GarmentDocument,'garment'> & Partial<Pick<GarmentDocument,'body'>>, geometry:PatternGeometry|null = null):Flat[] {
   const design=doc.garment.design;
   if(!design)return [];
+  if(design.block==='custom-pattern')return [];
   if(design.block==='elastic-waist-skirt') {
     const length=mm(doc.garment.length)??650,depth=design.waistbandDepthMm;
     const waist=geometry?.drafting?.measurements.find(row=>row.name==='Assumed relaxed elastic circumference')?.valueMm??((doc.body?mm(doc.body.waist):null)??760)+design.elasticEaseMm;

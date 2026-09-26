@@ -4,13 +4,15 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { apiResponse, ApiError } from '../lib/api';
 import { GarmentPreviewSchema } from '../../../../packages/contracts/garment-preview';
 import './garment-shape.css';
+import type {FabricPrint} from '../../../../packages/contracts/appearance';
+import {fabricTexture} from '../lib/fabric-texture';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 type Piece = { instanceId: string; templateId: string; role: string; restXY: number[][]; positions: number[][]; triangles: number[][]; boundaryLoops: number[][] };
 type Shape = { profile: string; patternDigest: string; acceptedSimulation: boolean; pieces: Piece[]; iterations: {edgeStrainP95: number; edgeStrainMax: number; seamGapMaxMm: number}[]; buttons: {position: number[]; normal: number[]; templateId: string}[] };
 
 /** The viewer displays saved worker positions; source rest coordinates remain separate. */
-export default function GarmentShapePreview({ id, path, sha256, patternDigest, color, onSelect, onUnavailable }: {id?: string; path?: string; sha256?: string; patternDigest: string; color: string; onSelect: (id: string) => void; onUnavailable?: (error: ApiError) => void}) {
+export default function GarmentShapePreview({ id, path, sha256, patternDigest, color, fabricPrint, projectId, onSelect, onUnavailable }: {id?: string; path?: string; sha256?: string; patternDigest: string; color: string; fabricPrint?:FabricPrint|null; projectId?:string; onSelect: (id: string) => void; onUnavailable?: (error: ApiError) => void}) {
   const host = useRef<HTMLDivElement>(null);
   const appearance = useRef(color); appearance.current = color;
   const materials = useRef<THREE.MeshPhysicalMaterial[]>([]);
@@ -20,6 +22,7 @@ export default function GarmentShapePreview({ id, path, sha256, patternDigest, c
   const [retry,setRetry]=useState(0);
   const [pieces,setPieces]=useState<Piece[]>([]);
   const [error, setError] = useState('');
+  const [printError,setPrintError]=useState('');
   const [loading, setLoading] = useState(true);
   const [diagnostic, setDiagnostic] = useState<Shape['iterations'][number] | null>(null);
   useEffect(() => {
@@ -99,6 +102,15 @@ export default function GarmentShapePreview({ id, path, sha256, patternDigest, c
     void load().catch(reason=>{cleanup();cleanup=()=>{};if(!disposed){setError(String(reason.message||reason));setLoading(false);if(reason instanceof ApiError&&[401,403,404].includes(reason.status))unavailable.current?.(reason);}});
     return ()=>{disposed=true;abort.abort();cleanup();};
   },[id,path,sha256,patternDigest,retry]);
-  useEffect(()=>{materials.current.forEach(m=>m.color.set(color));controlsRef.current?.render();},[color]);
-  return <div className="demo-shape"><div className="demo-drawing-controls"><button disabled={loading || !!error} onClick={()=>controlsRef.current?.reset()}>Front</button><button disabled={loading || !!error} onClick={()=>controlsRef.current?.back()}>Back</button><span>Drag to rotate · scroll to zoom</span></div><div className="demo-shape-stage" ref={host}/>{loading&&<p role="status">Preparing garment preview…</p>}{error&&<p role="alert">{error} <button onClick={()=>setRetry(value=>value+1)}>Reload display</button></p>}<p className="demo-drawing-note">Pattern-derived preview · assumed cotton · fit unverified</p><details className="shape-source"><summary>Find a pattern piece</summary><select aria-label="Source pattern piece" defaultValue="" onChange={event=>onSelect(event.target.value)}><option value="" disabled>Choose a piece</option>{pieces.filter(piece=>piece.role==='shell').map(piece=><option key={piece.instanceId} value={piece.templateId}>{piece.templateId.replaceAll('_',' ')}</option>)}</select></details>{diagnostic && <details className="demo-shape-details"><summary>About this approximation</summary><p>Shape guides and elastic constraints bend and stretch the display mesh; the original pattern dimensions are unchanged. This is a posed preview, not a prediction of how fabric will fit.</p><p>95th-percentile edge deformation: {(diagnostic.edgeStrainP95*100).toFixed(1)}%. Maximum: {(diagnostic.edgeStrainMax*100).toFixed(1)}%. Maximum sampled seam gap: {diagnostic.seamGapMaxMm.toFixed(1)} mm. Body and self-contact are unchecked; allowances and interfacing are omitted.</p></details>}</div>;
+  useEffect(()=>{
+    if(loading)return;
+    const abort=new AbortController();let texture:THREE.Texture|null=null;setPrintError('');
+    for(const material of materials.current){material.map=null;material.color.set(color);material.needsUpdate=true;}controlsRef.current?.render();
+    if(fabricPrint)void fabricTexture(color,fabricPrint,projectId,abort.signal).then(value=>{
+      if(abort.signal.aborted){value?.dispose();return;}texture=value;
+      for(const material of materials.current){material.map=texture;material.color.set(texture?'#ffffff':color);material.needsUpdate=true;}controlsRef.current?.render();
+    }).catch(reason=>{if(!abort.signal.aborted)setPrintError(`Fabric artwork could not be loaded: ${reason.message}`);});
+    return ()=>{abort.abort();for(const material of materials.current)if(material.map===texture){material.map=null;material.needsUpdate=true;}texture?.dispose();};
+  },[color,JSON.stringify(fabricPrint),projectId,loading]);
+  return <div className="demo-shape"><div className="demo-drawing-controls"><button disabled={loading || !!error} onClick={()=>controlsRef.current?.reset()}>Front</button><button disabled={loading || !!error} onClick={()=>controlsRef.current?.back()}>Back</button><span>Drag to rotate · scroll to zoom</span></div><div className="demo-shape-stage" ref={host}/>{printError&&<p role="alert">{printError}</p>}{loading&&<p role="status">Preparing garment preview…</p>}{error&&<p role="alert">{error} <button onClick={()=>setRetry(value=>value+1)}>Reload display</button></p>}<p className="demo-drawing-note">Pattern-derived preview · assumed cotton · fit unverified</p><details className="shape-source"><summary>Find a pattern piece</summary><select aria-label="Source pattern piece" defaultValue="" onChange={event=>onSelect(event.target.value)}><option value="" disabled>Choose a piece</option>{pieces.filter(piece=>piece.role==='shell').map(piece=><option key={piece.instanceId} value={piece.templateId}>{piece.templateId.replaceAll('_',' ')}</option>)}</select></details>{diagnostic && <details className="demo-shape-details"><summary>About this approximation</summary><p>Shape guides and elastic constraints bend and stretch the display mesh; the original pattern dimensions are unchanged. This is a posed preview, not a prediction of how fabric will fit.</p><p>95th-percentile edge deformation: {(diagnostic.edgeStrainP95*100).toFixed(1)}%. Maximum: {(diagnostic.edgeStrainMax*100).toFixed(1)}%. Maximum sampled seam gap: {diagnostic.seamGapMaxMm.toFixed(1)} mm. Body and self-contact are unchecked; allowances and interfacing are omitted.</p></details>}</div>;
 }

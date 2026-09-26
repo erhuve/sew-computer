@@ -55,3 +55,5 @@ bun test packages/tech-pack/tests/export.test.ts
 Tests use pdf-lib plus `pdftotext` from Poppler for real extracted-text/page assertions, and sharp for actual PNG fixtures. They do not import API or engine workers. Synthetic polygon fixtures test **export semantics only**, not the garment generator or physical fit. Temporary files are created/removed under this package's test directory.
 
 The original worker-contract mismatch is resolved. No contract preload or mocked shared schema is needed. Browser tests additionally exercise real exports through API validation and authenticated downloads.
+
+Custom-pattern source outlines, explicit seams and posing controls in the garment design are withheld unless `includePatterns` is true. Fabric artwork bytes and asset handles are withheld unless `includeReferences` is true. Screen colors and procedural-print settings remain design specifications, not color-calibrated production output. See [the authoring review](../../docs/reviews/custom-patterns-and-prints.md).

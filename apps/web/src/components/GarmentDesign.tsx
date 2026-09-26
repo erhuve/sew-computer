@@ -1,9 +1,11 @@
+import CustomPatternEditor from './CustomPatternEditor';
 import {mm,type GarmentDocument,type PatternGeometry} from '../../../../packages/contracts';
 import {designCoverage,designIssues,GarmentDesignSchema,type ShirtDesign,type SkirtDesign} from '../../../../packages/contracts/design';
 import {editMeasurement} from '../../../../packages/contracts/sizing';
 import {garmentFlats} from '../../../../packages/contracts/flats';
 
 export function ConstructionDrawing({doc,geometry=null,single=false}:{doc:GarmentDocument;geometry?:PatternGeometry|null;single?:boolean}) {
+  if(doc.garment.design?.block==='custom-pattern'){const p=doc.garment.design.pieces[0]!;const xs=p.points.map(p=>p[0]),ys=p.points.map(p=>p[1]);return <div className="garment-flats"><figure><svg viewBox={`${Math.min(...xs)-30} ${Math.min(...ys)-30} ${Math.max(...xs)-Math.min(...xs)+60} ${Math.max(...ys)-Math.min(...ys)+60}`} role="img" aria-label="Custom source outline"><polygon points={p.points.map(p=>p.join(',')).join(' ')} fill="none" stroke="currentColor" strokeWidth="6"/></svg>{!single&&<figcaption>{p.name} · source outline</figcaption>}</figure></div>;}
   return <div className="garment-flats">{garmentFlats(doc,geometry).slice(0,single?1:2).map(flat=>{
     const all=flat.lines.flatMap(line=>line.points),extent=Math.max(...all.map(point=>Math.abs(point[0])))+20;
     const ymin=Math.min(...all.map(point=>point[1]))-15,ymax=Math.max(...all.map(point=>point[1]))+15;
@@ -17,6 +19,7 @@ export function ConstructionDrawing({doc,geometry=null,single=false}:{doc:Garmen
 export default function GarmentDesign({doc,geometry=null,onChange,compact=false}:{doc:GarmentDocument;geometry?:PatternGeometry|null;onChange?:(doc:GarmentDocument)=>void;compact?:boolean}) {
   const design=doc.garment.design;
   if(!design)return null;
+  if(design.block==='custom-pattern')return onChange?<CustomPatternEditor design={design} onChange={design=>onChange({...doc,garment:{...doc.garment,design}})}/>:<p>Custom sewing pieces · {design.pieces.length} outlines, {design.seams.length} seams</p>;
   const change=(key:string,value:unknown)=>{
     const next=GarmentDesignSchema.safeParse({...design,[key]:value,...(key==='opening'&&value==='none'?{collar:'none',frill:'none'}:{}),...(key==='sleeves'&&value==='short'?{sleeveLengthMm:220,cuff:'none'}:key==='sleeves'&&value==='long'?{sleeveLengthMm:550}:key==='sleeves'&&value==='none'?{cuff:'none'}:{})});
     if(next.success)onChange?.({...doc,garment:{...doc.garment,design:next.data}});

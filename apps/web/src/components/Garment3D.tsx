@@ -1,13 +1,14 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { ThreeDJob } from '../../../../packages/contracts/assembly';
+import { defaultFabricColor, type FabricAppearance } from '../../../../packages/contracts/appearance';
 import { api, ApiError, json } from '../lib/api';
 
 const GarmentShapePreview=lazy(()=>import('./GarmentShapePreview'));
 const GarmentViewport = lazy(() => import('./GarmentViewport'));
 const activeJob = (job: ThreeDJob | null) => !!job && ['queued', 'running'].includes(job.status);
 
-export default function Garment3D({ projectId, revisionId, supported, selected, onSelect, onAuthFailure }: {
-  projectId: string; revisionId: string | null; supported: boolean; selected: string | null; onSelect: (templateId: string) => void; onAuthFailure: (error: ApiError) => void;
+export default function Garment3D({ projectId, revisionId, supported, selected, appearance, onSelect, onAuthFailure }: {
+  projectId: string; revisionId: string | null; supported: boolean; selected: string | null; appearance?: FabricAppearance|null; onSelect: (templateId: string) => void; onAuthFailure: (error: ApiError) => void;
 }) {
   const [display,setDisplay]=useState<'garment'|'pieces'>('garment');
   const [job, setJob] = useState<ThreeDJob | null>(null);
@@ -82,7 +83,7 @@ export default function Garment3D({ projectId, revisionId, supported, selected, 
         {job.sourceCurrent === false && <div className="geometry-stale">A newer pattern or engine is available. <button disabled={busy} onClick={() => void create()}>Update preview</button></div>}
         <div className="garment-display-toggle"><button aria-pressed={display==='garment'} onClick={()=>setDisplay('garment')}>Garment</button><button aria-pressed={display==='pieces'} onClick={()=>setDisplay('pieces')}>Flat pieces</button></div>
         <Suspense fallback={<p role="status">Opening your garment…</p>}>
-          {display==='garment'&&job.result.shape?<GarmentShapePreview key={job.id} path={`${path}/${job.id}/shape`} sha256={job.result.shape.sha256} patternDigest={job.patternDigest} color="#eeeae1" onSelect={onSelect} onUnavailable={fail}/>:<>
+          {display==='garment'&&job.result.shape?<GarmentShapePreview key={job.id} path={`${path}/${job.id}/shape`} sha256={job.result.shape.sha256} patternDigest={job.patternDigest} color={appearance?.color??defaultFabricColor} fabricPrint={appearance?.print} projectId={projectId} onSelect={onSelect} onUnavailable={fail}/>:<>
             {!job.result.shape&&<p>This older result contains flat pieces. <button disabled={busy} onClick={()=>void create()}>Build garment preview</button></p>}
             <GarmentViewport key={job.id} path={`${path}/${job.id}/mesh`} patternDigest={job.patternDigest} selected={selected} onSelect={onSelect} onUnavailable={fail}/>
           </>}

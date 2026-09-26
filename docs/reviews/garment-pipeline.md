@@ -1,5 +1,8 @@
 # Component garment pipeline review
 
+The [custom-pattern and fabric-print extension](custom-patterns-and-prints.md) adds a separate trusted polygon compiler and source-preserving preview path; it does not expand the automatic shirt recipe or certify arbitrary garments.
+
+
 2026-09-16. Component shirt pipeline privately deployed at application commit `284a261` after isolated verification and independent adversarial review. The active scope remains in [the software plan](../plans/software-prototype.md).
 
 ## Delivered implementation

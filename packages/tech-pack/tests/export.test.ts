@@ -1,3 +1,4 @@
+import {defaultCustomPattern} from '../../contracts/custom-pattern';
 import { afterAll, describe, expect, test } from 'bun:test';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -36,6 +37,21 @@ function fixture(): ExportSnapshot {
 }
 
 function seal(snapshot: ExportSnapshot): void { snapshot.revision.digest = digest(canonical(snapshot.revision.document)); }
+test('default disclosure hides custom source coordinates and private artwork handles',async()=>{
+  const snapshot=fixture();snapshot.document.garment.family='custom';snapshot.document.garment.design=structuredClone(defaultCustomPattern);snapshot.document.garment.appearance={color:'#ffffff',print:{kind:'image',inkColor:'#233953',tileMm:80,rotationDeg:15,assetId:'private_artwork'}};seal(snapshot);
+  const result=await buildExport(snapshot,null,[]);
+  expect(manifest(result).sections.overview.garment.design).toBeNull();
+  expect(manifest(result).sections.overview.garment.appearance?.print?.assetId).toBeNull();
+  expect(JSON.stringify(result.manifest)).not.toContain('private_artwork');
+  expect(snapshot.document.garment.design).toEqual(defaultCustomPattern);
+});
+
+test('chosen fabric color survives the manifest and human-readable PDF',async()=>{
+  const snapshot=fixture();snapshot.document.garment.appearance={color:'#315dd4'};seal(snapshot);
+  const result=await buildExport(snapshot,null,[]);
+  expect(manifest(result).sections.overview.garment.appearance).toEqual({color:'#315dd4'});
+  expect(await extracted(result)).toContain('#315DD4');
+});
 function file(result: ExportResult, filename: string) { const found = result.files.find(f => f.filename === filename); if (!found) throw new Error(`Missing ${filename}`); return found; }
 function manifest(result: ExportResult): HandoffManifest { return result.manifest as HandoffManifest; }
 async function extracted(result: ExportResult): Promise<string> {

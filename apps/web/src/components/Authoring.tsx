@@ -14,6 +14,8 @@ import BodySizing from "./BodySizing";
 import { sizingIssue } from '../../../../packages/contracts/sizing';
 import { defaultShirtDesign, defaultDressDesign, defaultSkirtDesign } from '../../../../packages/contracts/design';
 import GarmentDesign from './GarmentDesign';
+import {defaultCustomPattern} from '../../../../packages/contracts/custom-pattern';
+import FabricAppearance from './FabricAppearance';
 
 const uid = () => crypto.randomUUID();
 type Props = {
@@ -178,7 +180,12 @@ export default function Authoring({
       | "views"
       | "callouts",
     id: string,
-  ) => onChange({ ...doc, [key]: doc[key].filter((row) => row.id !== id) });
+  ) => {
+    const next={...doc,[key]:doc[key].filter(row=>row.id!==id)};
+    const asset=key==='views'?doc.views.find(row=>row.id===id)?.assetId:null;
+    if(asset&&doc.garment.appearance?.print?.assetId===asset&&!next.views.some(row=>row.assetId===asset))next.garment={...doc.garment,appearance:{...doc.garment.appearance,print:null}};
+    onChange(next);
+  };
   const field = (
     label: string,
     value: string,
@@ -270,7 +277,8 @@ export default function Authoring({
         <>
           {(['shirt','dress','skirt'].includes(doc.garment.family)) && !doc.garment.design && <button onClick={()=>replace('garment',{...doc.garment,design:structuredClone(doc.garment.family==='dress'?defaultDressDesign:doc.garment.family==='skirt'?defaultSkirtDesign:defaultShirtDesign)})}>Add editable {doc.garment.family} construction</button>}
           {doc.garment.design && <GarmentDesign doc={doc} onChange={onChange} compact/>}
-          <details className="size-disclosure" open={sizeOpen} onToggle={event=>setSizeOpen(event.currentTarget.open)}><summary>Size & measurements</summary><BodySizing doc={doc} onChange={onChange}/><details className="profile-settings"><summary>Body measurement status & sources</summary>{Object.entries(doc.body).map(([name, value]) => <Measure key={name} label={`${name[0].toUpperCase() + name.slice(1)} detail`} value={value} onChange={measurement => replace('body', { ...doc.body, [name]: measurement })} />)}</details></details>
+          <FabricAppearance key={projectId} projectId={projectId} doc={doc} onChange={onChange} onError={onError}/>
+          {doc.garment.family!=='custom'&&<details className="size-disclosure" open={sizeOpen} onToggle={event=>setSizeOpen(event.currentTarget.open)}><summary>Size & measurements</summary><BodySizing doc={doc} onChange={onChange}/><details className="profile-settings"><summary>Body measurement status & sources</summary>{Object.entries(doc.body).map(([name, value]) => <Measure key={name} label={`${name[0].toUpperCase() + name.slice(1)} detail`} value={value} onChange={measurement => replace('body', { ...doc.body, [name]: measurement })} />)}</details></details>}
           <details className="shape-settings" open={doc.garment.family === 'none'}>
           <summary>Garment shape & fit settings</summary>
           <label className="field">
@@ -279,17 +287,17 @@ export default function Authoring({
               value={doc.garment.family}
               onChange={(e) => {
                 const family=e.target.value as GarmentDocument['garment']['family'];
-                replace('garment',{...doc.garment,family,design:family==='shirt'?structuredClone(defaultShirtDesign):family==='dress'?structuredClone(defaultDressDesign):family==='skirt'?structuredClone(defaultSkirtDesign):null});
+                replace('garment',{...doc.garment,family,design:family==='custom'?structuredClone(defaultCustomPattern):family==='shirt'?structuredClone(defaultShirtDesign):family==='dress'?structuredClone(defaultDressDesign):family==='skirt'?structuredClone(defaultSkirtDesign):null});
               }}
             >
-              <option value="none">No geometry selected</option>
+              <option value="none">No geometry selected</option><option value="custom">Custom pattern</option>
               <option value="shirt">Shirt</option>
               <option value="dress">Dress</option>
               <option value="skirt">Skirt</option>
               <option value="trousers">Trousers</option>
             </select>
           </label>
-          <Measure
+          {doc.garment.family!=='custom'&&<><Measure
             label="Garment length" compact
             range={[doc.garment.family === 'shirt' ? 400 : doc.garment.family==='dress'?700:componentSkirt?450:Math.ceil((mm(doc.body.height) ?? 1700) * 0.12 + 150), doc.garment.family === 'shirt' ? 1100 : doc.garment.family==='dress'?1450:1300]}
             value={doc.garment.length}
@@ -318,7 +326,7 @@ export default function Authoring({
                   });
               }}
             />
-          </label>
+          </label></>}
           </details>
 
         </>

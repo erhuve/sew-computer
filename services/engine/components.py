@@ -5,6 +5,9 @@ from skirt import compile_skirt
 
 def compile_garment(inputs, commit):
     block = inputs['design']['block']
+    if block == 'custom-pattern':
+        from custom_pattern import compile_custom
+        return compile_custom(inputs, commit)
     expected = {'relaxed-drop-shoulder': 'shirt', 'relaxed-dress': 'dress', 'elastic-waist-skirt': 'skirt'}
     if expected.get(block) != inputs['family']:
         raise ValueError('DESIGN_INPUT: Construction and garment family differ.')

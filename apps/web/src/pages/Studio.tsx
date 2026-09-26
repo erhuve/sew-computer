@@ -541,7 +541,7 @@ export default function Studio() {
               <div><p>Sends your description to {aiStatus.provider}. You’ll review the design before generating.</p><button className="primary" disabled={busy||!brief.trim()}>Design with AI <ArrowUpRight size={16}/></button></div>
             </form>}
             <div className="starting-heading"><h2>Start with a shape</h2><p>Sample M estimates · editable anytime</p></div>
-            <div className="starting-shapes">{(['shirt','dress','skirt'] as const).map(family=><button className={`starting-shape starting-${family}`} key={family} disabled={busy} onClick={()=>void task(()=>startFromShape(family))} aria-label={`Start a ${family}`}><ConstructionDrawing doc={startingDocument(family)} single/><span>{family==='shirt'?'Relaxed shirt':family==='dress'?'Easy dress':'Elastic-waist skirt'}<ArrowUpRight size={18}/></span></button>)}</div>
+            <div className="starting-shapes">{(['shirt','dress','skirt','custom'] as const).map(family=><button className={`starting-shape starting-${family}`} key={family} disabled={busy} onClick={()=>void task(()=>startFromShape(family))} aria-label={`Start a ${family}`}><ConstructionDrawing doc={startingDocument(family)} single/><span>{family==='custom'?'Custom pattern':family==='shirt'?'Relaxed shirt':family==='dress'?'Easy dress':'Elastic-waist skirt'}<ArrowUpRight size={18}/></span></button>)}</div>
             <p className="starting-note">Starting-shape illustrations. Your pattern and 3D garment are generated after you choose.</p>
           </section>
           {projects.length>0&&<h2 className="saved-heading">Your garments</h2>}
@@ -750,7 +750,7 @@ export default function Studio() {
                   onSelect={setSelected}
                 />
               ) : view === '3d' ? (
-                <Garment3D key={`${state.project.id}:${state.project.headRevisionId}`} projectId={state.project.id} revisionId={state.project.headRevisionId} supported={!!geometry?.drafting} selected={selected} onSelect={setSelected} onAuthFailure={fail}/>
+                <Garment3D key={`${state.project.id}:${state.project.headRevisionId}`} projectId={state.project.id} revisionId={state.project.headRevisionId} supported={!!geometry?.drafting} selected={selected} appearance={doc.garment.appearance} onSelect={setSelected} onAuthFailure={fail}/>
               ) : (
                 <div className="reference-board">
                   {references.length ? (

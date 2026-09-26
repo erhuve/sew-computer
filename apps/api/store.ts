@@ -156,7 +156,7 @@ export class Store {
     if (!row) throw new ApiError(422,'Unknown reference asset');
     return row;
   }
-  checkReferences(projectId:string, doc: {views:{assetId:string}[]}) { for (const view of doc.views) this.reference(projectId,view.assetId); }
+  checkReferences(projectId:string, doc: {views:{assetId:string}[];garment?:{appearance?:{print?:{kind:string;assetId:string|null}|null}|null}}) { for (const view of doc.views) this.reference(projectId,view.assetId); const print=doc.garment?.appearance?.print;if(print?.kind==='image'&&print.assetId){this.reference(projectId,print.assetId);if(!doc.views.some(view=>view.assetId===print.assetId))throw new ApiError(422,'The fabric artwork must remain in this design’s references while in use.');} }
   snapshot(projectId:string,snapshotId:string): SnapshotRow {
     this.project(projectId);
     const row = this.db.query('SELECT * FROM snapshots WHERE id=? AND project_id=?').get(snapshotId,projectId) as SnapshotRow|null;

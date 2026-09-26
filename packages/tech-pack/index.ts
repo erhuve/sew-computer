@@ -1,3 +1,4 @@
+import {disclosedGarment} from './disclosure';
 import { PDFDocument, type PDFImage } from 'pdf-lib';
 import sharp from 'sharp';
 import { canonical, type Artifact, type ExportFile, type ExportResult, type ExportSnapshot, type GarmentDocument, type PatternGeometry, type ReviewComment } from '../contracts';
@@ -82,8 +83,8 @@ export async function buildExport(snapshot: ExportSnapshot, geometry: PatternGeo
   }
   const omissions: string[] = [];
   if (!saved.disclosure.includeBody) omissions.push('Body input fields and their provenance are omitted.');
-  if (!saved.disclosure.includeReferences) omissions.push('Source reference images, sketches, technical-flat images, labels and source captions are omitted.');
-  if (!saved.disclosure.includePatterns) omissions.push('Pattern files, panel geometry, engine warnings and engine assembly links are omitted.');
+  if (!saved.disclosure.includeReferences) omissions.push('Source reference images, fabric artwork and asset handles, sketches, technical-flat images, labels and source captions are omitted.');
+  if (!saved.disclosure.includePatterns) omissions.push('Pattern files, custom outline coordinates and placement, panel geometry, engine warnings and engine assembly links are omitted.');
   omissions.push('No simulation, cutting-candidate classification, print calibration, physical-fit approval or independently authenticated maker review is included. AI suggestions, when present, remain unverified.');
   omissions.push('Contact records and raw model exchanges are not part of this export schema. Owner-entered free text is not automatically scrubbed of personal information.');
   const manifest: HandoffManifest = {
@@ -91,7 +92,7 @@ export async function buildExport(snapshot: ExportSnapshot, geometry: PatternGeo
     revisionNumber: saved.revision.number, parentRevisionId: saved.revision.parentRevisionId, revisionCreatedAt: saved.revision.createdAt,
     snapshotCreatedAt: saved.createdAt, inputDigest: saved.revision.digest, renderer: 'sew-computer-tech-pack/1', manifestDigest: '',
     sections: {
-      overview: { title: doc.title, brief: doc.brief, sizeLabel: doc.sizeLabel, garment: structuredClone(doc.garment),...(doc.interpretation?{interpretation:structuredClone(doc.interpretation)}:{}) },
+      overview: { title: doc.title, brief: doc.brief, sizeLabel: doc.sizeLabel, garment: disclosedGarment(doc.garment,saved.disclosure),...(doc.interpretation?{interpretation:structuredClone(doc.interpretation)}:{}) },
       requirements: structuredClone(doc.requirements), materials: structuredClone(doc.bom.filter(item => item.category === 'fabric' || item.category === 'lining')),
       bom: structuredClone(doc.bom), ...(saved.disclosure.includeBody ? { bodyInputs: structuredClone(doc.body) } : {}),
       finishedMeasurements: structuredClone(doc.poms), construction: structuredClone(doc.construction),

@@ -1,5 +1,8 @@
 # Pattern-derived 3D engine implementation plan
 
+Owner-directed authoring expansion, 2026-09-26: add both fabric prints/colors and manually authored sewing pieces to the connected MVP. The [custom-pattern and print review](../reviews/custom-patterns-and-prints.md) records bounded polygon/edge authoring, source-preserving compilation, explicit posing guides, private image textures and matching revisioned exports. This supersedes the three-family-only next actions; it does not establish unrestricted automatic drafting, physical fit or simulated drape.
+
+
 **2026-09-17 · Active dedicated workstream plan · Implementation in progress, not deployed**
 
 ## Current priority — MVP feedback, 2026-09-25

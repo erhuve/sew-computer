@@ -1,3 +1,4 @@
+import {disclosedGarment} from '../../packages/tech-pack/disclosure';
 import type { Artifact, ExportResult, ExportSnapshot } from '../../packages/contracts';
 import { ApiError, checkFile, cleanObject, hash, objectDigest } from './validation';
 import { designCoverage } from '../../packages/contracts/design';
@@ -19,7 +20,7 @@ export async function validateExport(snapshot:ExportSnapshot,result:ExportResult
   const geometry = pattern ? JSON.parse(new TextDecoder().decode(pattern.bytes)) : null;
   require(objectDigest(sections.derivedConstruction ?? null) === objectDigest(geometry?.drafting ?? null), 'Renderer altered or disclosed derived construction');
   require(objectDigest(sections.designCoverage ?? null) === objectDigest(geometry?.drafting ? designCoverage(doc, geometry) : null), 'Renderer altered design coverage');
-  const projection:Record<string,unknown>={overview:{title:doc.title,brief:doc.brief,sizeLabel:doc.sizeLabel,garment:doc.garment,...(doc.interpretation?{interpretation:doc.interpretation}:{})},requirements:doc.requirements,materials:doc.bom.filter(r=>r.category==='fabric'||r.category==='lining'),bom:doc.bom,finishedMeasurements:doc.poms,construction:doc.construction,review:{callouts:doc.callouts,comments:snapshot.comments}};
+  const projection:Record<string,unknown>={overview:{title:doc.title,brief:doc.brief,sizeLabel:doc.sizeLabel,garment:disclosedGarment(doc.garment,snapshot.disclosure),...(doc.interpretation?{interpretation:doc.interpretation}:{})},requirements:doc.requirements,materials:doc.bom.filter(r=>r.category==='fabric'||r.category==='lining'),bom:doc.bom,finishedMeasurements:doc.poms,construction:doc.construction,review:{callouts:doc.callouts,comments:snapshot.comments}};
   for(const [key,value] of Object.entries(projection))require(objectDigest(sections[key]??null)===objectDigest(value),'Renderer altered the saved editable projection');
   if(snapshot.disclosure.includeBody)require(objectDigest(sections.bodyInputs??null)===objectDigest(doc.body),'Renderer omitted disclosed body fields');
   else require(!Object.hasOwn(sections,'bodyInputs'),'Renderer disclosed omitted body inputs');

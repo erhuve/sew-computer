@@ -1,3 +1,5 @@
+import {defaultCustomPattern} from '../../packages/contracts/custom-pattern';
+import {buildExport} from '../../packages/tech-pack';
 import { afterEach, describe, expect, test } from 'bun:test';
 import { Database } from 'bun:sqlite';
 import { chmodSync, copyFileSync, existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
@@ -204,6 +206,7 @@ describe('references',()=>{
     expect((await h.request('GET',`/projects/${other.project.id}/references/${asset.assetId}`)).status).toBe(404);
     const doc=structuredClone(other.draft.document);doc.views=[{id:'front',assetId:asset.assetId,role:'front',kind:'reference',caption:'Owner-entered'}];
     expect((await h.request('PUT',`/projects/${other.project.id}/draft`,{expectedVersion:other.draft.version,expectedRevisionId:null,document:doc})).status).toBe(422);
+    const stolen=structuredClone(other.draft.document);stolen.garment.appearance={color:'#ffffff',print:{kind:'image',inkColor:'#233953',tileMm:100,rotationDeg:0,assetId:asset.assetId}};expect((await h.request('PUT',`/projects/${other.project.id}/draft`,{expectedVersion:other.draft.version,expectedRevisionId:null,document:stolen})).status).toBe(422);
     project=await h.publish(await h.save(project,d=>{d.views=doc.views;}));await h.save(project,d=>{d.views=[];});expect((await h.state(project.project.id)).revisions[0]!.document.views).toHaveLength(1);
     const svg=await h.app.request(`/api/projects/${project.project.id}/references`,{method:'POST',headers:{Origin:origin,Cookie:h.cookie,'Content-Type':'image/png'},body:'<svg onload="alert(1)"></svg>'});expect(svg.status).toBe(415);
   });
@@ -262,6 +265,19 @@ describe('job leases and fencing',()=>{
 });
 
 describe('immutable export and three-way import',()=>{
+  test('redacted custom-pattern feedback retains undisclosed outlines and fabric artwork',async()=>{
+    const h=make({exporter:buildExport});await h.login();let project=await h.create();
+    const png=await sharp({create:{width:16,height:12,channels:3,background:'#385b45'}}).png().toBuffer();
+    const uploaded=await h.app.request(`/api/projects/${project.project.id}/references`,{method:'POST',headers:{Origin:origin,Cookie:h.cookie,'Content-Type':'image/png'},body:png as BodyInit});expect(uploaded.status).toBe(201);const asset=await uploaded.json();
+    project=await h.publish(await h.save(project,doc=>{doc.garment.family='custom';doc.garment.design=structuredClone(defaultCustomPattern);doc.garment.appearance={color:'#ffffff',print:{kind:'image',inkColor:'#385b45',tileMm:80,rotationDeg:0,assetId:asset.assetId}};doc.views=[{id:'artwork',assetId:asset.assetId,role:'detail',kind:'sketch',caption:'Private artwork'}];}));
+    const {manifest}=await h.exported(project);expect(manifest.sections.overview.garment.design).toBeNull();expect(manifest.sections.overview.garment.appearance.print.assetId).toBeNull();
+    project=await h.save(project,doc=>{if(doc.garment.design?.block==='custom-pattern')doc.garment.design.pieces[0]!.name='Newer owner name';});
+    manifest.sections.construction=[{id:'feedback',operation:'Review the seam finish',note:'Owner-entered feedback'}];
+    const response=await h.request('POST',`/projects/${project.project.id}/imports/preview`,{manifest});expect(response.status).toBe(201);const preview=await response.json();expect(preview.changes.map((change:any)=>change.path)).toEqual(['/construction/feedback']);
+    const accepted=await h.request('POST',`/projects/${project.project.id}/imports/${preview.id}/accept`,{expectedVersion:project.draft.version,expectedRevisionId:project.draft.baseRevisionId});expect(accepted.status).toBe(200);const next=await accepted.json();
+    expect(next.draft.document.garment.design).toEqual(project.draft.document.garment.design);expect(next.draft.document.garment.appearance).toEqual(project.draft.document.garment.appearance);expect(next.draft.document.views).toEqual(project.draft.document.views);
+  });
+
   test('redacted export imports only edited fields without erasing private body, references or unsupported intent',async()=>{
     const h=make({exporter:fakeExporter});await h.login();let project=await h.saved();project=await h.publish(await h.save(project,doc=>{doc.body.waist=assumed(850);doc.bom=[{id:'fabric',name:'Linen',category:'fabric',specification:'Unknown weight',placement:'Main',quantity:'Unknown',source:'Owner'}];}));
     const {manifest}=await h.exported(project);expect(manifest.sections.bodyInputs).toBeUndefined();expect(JSON.stringify(manifest)).not.toContain('"waist"');

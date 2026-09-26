@@ -177,6 +177,8 @@ export async function renderPdf(context: PdfContext, manifest: HandoffManifest, 
   out.field('Garment length parameter', measurement(s.overview.garment.length));
   out.field('Ease parameter', measurement(s.overview.garment.ease));
   out.field('Flare ratio', String(s.overview.garment.flare));
+  if(s.overview.garment.appearance?.print){const print=s.overview.garment.appearance.print;out.field('Fabric print',`${print.kind}; ${print.tileMm} mm repeat; ${print.rotationDeg} degrees; ink ${print.inkColor}. Artwork files follow reference-image disclosure. Seam motif alignment and color calibration are unverified.`);}
+  if(s.overview.garment.appearance)out.field('Fabric display color', `${s.overview.garment.appearance.color.toUpperCase()} · screen reference, not a calibrated dye specification`);
   out.field('Geometry scope', 'Limited CPU pattern adapter; no physical-fit approval or full design realization claim.');
   if(s.overview.interpretation)out.field('AI design provenance', `${s.overview.interpretation.provider} / ${s.overview.interpretation.model} / ${s.overview.interpretation.adapter}. Proposal ${s.overview.interpretation.proposalId}; unverified suggestions accepted by the owner, with subsequent edits possible.`);
   const unresolved = s.requirements.filter(r => r.status !== 'supported').length;

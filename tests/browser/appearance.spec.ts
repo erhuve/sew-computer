@@ -1,0 +1,42 @@
+import {test,expect} from './fixture';
+import {mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import sharp from 'sharp';
+
+test('custom fabric colors render immediately, persist and export with the matching design',async({studio})=>{
+  test.setTimeout(180000);const page=studio.page;
+  await studio.login();await page.getByRole('button',{name:'Start a dress',exact:true}).click();
+  const canvas=page.locator('.demo-shape-stage canvas');await expect(canvas).toBeVisible({timeout:90000});
+  await expect(page.getByRole('button',{name:'Back',exact:true})).toBeEnabled();
+  const project=(await studio.call('GET','/projects')).projects[0],path=`/projects/${project.id}`;
+  const before=await studio.call('GET',path),first=await studio.call('GET',`${path}/geometry/${before.project.headRevisionId}`);
+  const bluePixels=async()=>{
+    const {data,info}=await sharp(await canvas.screenshot()).removeAlpha().raw().toBuffer({resolveWithObject:true});let count=0;
+    for(let i=0;i<data.length;i+=info.channels)if(data[i+2]!>data[i]!*1.3&&data[i+2]!>data[i+1]!*1.12&&data[i+2]!>40)count++;
+    return count;
+  };
+  const initial=await bluePixels();
+  await page.getByRole('button',{name:'Cobalt fabric',exact:true}).click();
+  await expect.poll(bluePixels).toBeGreaterThan(initial+5000);
+  await page.getByLabel('Custom fabric color',{exact:true}).fill('#345aca');
+  await expect.poll(async()=>(await studio.call('GET',path)).draft.document.garment.appearance?.color).toBe('#345aca');
+  expect((await studio.call('GET',path)).jobs.length).toBe(before.jobs.length);
+  await page.reload();await page.getByRole('button',{name:new RegExp(project.title)}).click();
+  await expect(canvas).toBeVisible();await expect(page.getByLabel('Custom fabric color',{exact:true})).toHaveValue('#345aca');
+  await expect.poll(bluePixels).toBeGreaterThan(initial+5000);
+  await page.getByRole('button',{name:'Update garment',exact:true}).click();
+  await expect.poll(async()=>(await studio.call('GET',path)).project.headRevisionId).not.toBe(before.project.headRevisionId);
+  const state=await studio.call('GET',path);
+  await expect.poll(async()=>(await studio.call('GET',`${path}/three-d/latest?revisionId=${state.project.headRevisionId}`))?.status,{timeout:90000}).toBe('succeeded');
+  const current=await studio.call('GET',`${path}/geometry/${state.project.headRevisionId}`);
+  expect(current.panels).toEqual(first.panels);expect(current.inputDigest).not.toBe(first.inputDigest);
+  await page.getByRole('button',{name:'Download',exact:true}).click();
+  const manifest=page.getByRole('link',{name:'manifest.json',exact:true});await expect(manifest).toBeVisible();
+  const exported=await studio.call('GET',(await manifest.getAttribute('href'))!.replace(/^\/api/,''));
+  expect(exported.sections.overview.garment.appearance.color).toBe('#345aca');
+  await page.getByRole('button',{name:'Close dialog',exact:true}).click();
+  const directory=resolve(import.meta.dirname,'../../docs/verification/fabric-appearance');await mkdir(directory,{recursive:true});
+  await page.screenshot({path:resolve(directory,'color-desktop.png'),fullPage:true});
+  await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(391);
+  await page.screenshot({path:resolve(directory,'color-mobile.png'),fullPage:true});
+});

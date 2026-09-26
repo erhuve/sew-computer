@@ -13,7 +13,7 @@ export const bodyFields: { key: BodyKey; label: string; min: number; max: number
 ];
 export function requiredBodyFields(doc:GarmentDocument) {
   const block=doc.garment.design?.block;
-  const keys:BodyKey[]=block==='elastic-waist-skirt'?['waist','hip']:block?['bust','hip','shoulder']:bodyFields.map(field=>field.key);
+  const keys:BodyKey[]=block==='custom-pattern'?[]:block==='elastic-waist-skirt'?['waist','hip']:block?['bust','hip','shoulder']:bodyFields.map(field=>field.key);
   return bodyFields.filter(field=>keys.includes(field.key));
 }
 export const sampleSizes = [
@@ -45,6 +45,7 @@ export function editMeasurement(previous: Measurement, value: number, unit: 'mm'
 }
 
 export function sizingInput(doc: GarmentDocument) {
+  if(doc.garment.family==='custom'){const design=doc.garment.design;if(design?.block!=='custom-pattern')throw new Error('Choose custom pattern construction.');const issues=designIssues(design);if(issues.length)throw new Error(issues.join(' '));return {family:'custom' as const,bodyMm:{} as Partial<Record<BodyKey,number>>,lengthMm:0,easeMm:0,flare:1};}
   if (doc.garment.family === 'none') throw new Error('No garment family selected. Open Design and interpret your brief, then accept a supported proposal; or choose a shape in Shape & body. Your original intent remains unchanged.');
   const value = (name: string, measurement: Measurement, min: number, max: number) => {
     const amount = mm(measurement);
@@ -63,6 +64,7 @@ export function sizingInput(doc: GarmentDocument) {
   const design = doc.garment.design;
   if(family==='dress'&&!design)throw new Error('Choose an editable dress construction before generating.');
   if (design) {
+    if(design.block==='custom-pattern')throw new Error('Custom outlines require the custom garment family.');
     if (family !== designFamily(design)) throw new Error('The selected construction does not match the garment family.');
     const issues = designIssues(design);
     if (issues.length) throw new Error(issues.join(' '));

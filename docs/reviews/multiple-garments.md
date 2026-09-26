@@ -4,6 +4,8 @@
 
 The owner asked for more than one garment type and a simpler overall route to a result. This increment targets three editable families: relaxed woven shirts, relaxed woven dresses and elastic-waist skirts. These are starting capabilities, not a permanent preset catalog or a claim of arbitrary garment support. The earlier [shirt-only studio checkpoint](studio-e2e.md) remains historical evidence.
 
+The later [custom-pattern and fabric-print extension](custom-patterns-and-prints.md) adds bounded manual outline/seam authoring and saved appearance. The three-family recipe limits below remain unchanged.
+
 ## Connected behavior
 
 The home screen accepts a description directly. **Design with AI** explicitly sends that description, with provider disclosure next to the action; references remain excluded unless separately selected. The resulting proposal still requires review and acceptance. Optional illustrated starting shapes create an editable project using explicitly labeled synthetic M estimates and immediately generate its actual pattern and garment preview. No generated project reads the static demo fixtures.

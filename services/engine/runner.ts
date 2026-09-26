@@ -96,7 +96,7 @@ async function readArtifact(path: string): Promise<Uint8Array> {
 
 export function validateGeometry(value: unknown, inputDigest: string): PatternGeometry {
   const geometry = value as PatternGeometry;
-  if (!geometry || geometry.schemaVersion !== 1 || geometry.units !== 'mm' || typeof geometry.engineVersion !== 'string' || !geometry.engineVersion.includes(ENGINE_COMMIT) || geometry.inputDigest !== inputDigest || geometry.classification !== 'printable-reference' || !['shirt', 'dress', 'skirt', 'trousers'].includes(geometry.family)) throw new Error('Invalid engine provenance');
+  if (!geometry || geometry.schemaVersion !== 1 || geometry.units !== 'mm' || typeof geometry.engineVersion !== 'string' || !geometry.engineVersion.includes(ENGINE_COMMIT) || geometry.inputDigest !== inputDigest || geometry.classification !== 'printable-reference' || !['shirt', 'dress', 'skirt', 'trousers', 'custom'].includes(geometry.family)) throw new Error('Invalid engine provenance');
   if (!Array.isArray(geometry.panels) || geometry.panels.length < 1 || geometry.panels.length > 32 || !Array.isArray(geometry.stitches) || !Array.isArray(geometry.warnings) || !geometry.warnings.every(w => typeof w === 'string') || !Array.isArray(geometry.assumptions) || !geometry.assumptions.every(w => typeof w === 'string')) throw new Error('Invalid engine geometry');
   const ids = new Set<string>();
   for (const panel of geometry.panels) {
@@ -105,7 +105,7 @@ export function validateGeometry(value: unknown, inputDigest: string): PatternGe
     if (!Array.isArray(panel.points) || panel.points.length < 4 || panel.points.length > 20001 || typeof panel.name !== 'string') throw new Error('Invalid panel points');
     if (![panel.widthMm, panel.heightMm].every(n => Number.isFinite(n) && n > 1 && n <= 5000)) throw new Error('Invalid panel dimensions');
     for (const point of panel.points) {
-      if (!Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite) || point[0] < -0.001 || point[1] < -0.001 || point[0] > panel.widthMm + 0.001 || point[1] > panel.heightMm + 0.001) throw new Error('Invalid panel coordinates');
+      if (!Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite) || (geometry.family==='custom'?point.some(value=>Math.abs(value)>2000):(point[0] < -0.001 || point[1] < -0.001 || point[0] > panel.widthMm + 0.001 || point[1] > panel.heightMm + 0.001))) throw new Error('Invalid panel coordinates');
     }
     if (canonical(panel.points[0]) !== canonical(panel.points.at(-1))) throw new Error('Panel is not closed');
     let area = 0;
@@ -115,7 +115,7 @@ export function validateGeometry(value: unknown, inputDigest: string): PatternGe
     }
     if (Math.abs(area) < 0.000001) throw new Error('Degenerate zero-area panel');
   }
-  if (!geometry.stitches.length || geometry.stitches.length > 1000 || geometry.stitches.some(s => !ids.has(s.panelA) || !ids.has(s.panelB) || !Number.isInteger(s.edgeA) || s.edgeA < 0 || !Number.isInteger(s.edgeB) || s.edgeB < 0)) throw new Error('Invalid stitch graph');
+  if ((!geometry.stitches.length&&geometry.family!=='custom') || geometry.stitches.length > 1000 || geometry.stitches.some(s => !ids.has(s.panelA) || !ids.has(s.panelB) || !Number.isInteger(s.edgeA) || s.edgeA < 0 || !Number.isInteger(s.edgeB) || s.edgeB < 0)) throw new Error('Invalid stitch graph');
   validateDrafting(geometry);
   return geometry;
 }

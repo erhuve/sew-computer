@@ -8,6 +8,8 @@ Consumer garment-design software: turn descriptions, references and sketches int
 
 ## Start here
 
+**Current authoring expansion:** editable custom sewing outlines and seam connections, arbitrary fabric-image uploads, procedural prints and custom colors now extend the connected MVP. See the [scope, privacy and verification review](docs/reviews/custom-patterns-and-prints.md). Custom placement is an approximate preview; unrestricted automatic drafting and physical fit remain outside this checkpoint.
+
 **Current MVP expansion:** shirts, relaxed dresses and elastic-waist skirts now have original component drafting and source-derived garment preview paths. The home screen offers a description field and optional one-click starting shapes; common edits stay beside the garment and Download prepares its saved files directly. The isolated implementation passes its application, applicable engine and complete browser checks; see [the multiple-garment checkpoint](docs/reviews/multiple-garments.md). This is not arbitrary garment support or a deployment.
 
 **Local end-to-end studio:** `bun run studio` from an isolated checkout connects reviewed descriptions, actual shirt/dress/skirt component patterns, dynamically generated garment previews, construction edits and revision-matched exports. The simplified interface puts the garment first and keeps detailed sizing and technical controls expandable. Requires the configured model and locked native or container worker. This local checkpoint is not deployed; previews are approximate, not fit simulation. See [setup, verification and limits](docs/reviews/studio-e2e.md).

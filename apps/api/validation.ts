@@ -66,7 +66,7 @@ export async function json(request: Request): Promise<unknown> {
 const numeric = z.number().finite().min(-100000).max(100000);
 const geometrySchema = z.object({
   schemaVersion:z.literal(1),units:z.literal('mm'),inputDigest:z.string().regex(/^[a-f0-9]{64}$/),
-  engineVersion:z.string().min(1).max(500),family:z.enum(['shirt','dress','skirt','trousers']),
+  engineVersion:z.string().min(1).max(500),family:z.enum(['shirt','dress','skirt','trousers','custom']),
   panels:z.array(z.object({id:z.string().min(1).max(160),name:z.string().min(1).max(300),points:z.array(z.tuple([numeric,numeric])).min(3).max(20000),widthMm:z.number().finite().positive().max(100000),heightMm:z.number().finite().positive().max(100000),cutQuantity:z.number().int().positive().max(100).optional(),draft:PanelDraftSchema.optional()}).strict()).min(1).max(100),
   stitches:z.array(z.object({panelA:z.string(),edgeA:z.number().int().nonnegative(),panelB:z.string(),edgeB:z.number().int().nonnegative()}).strict()).max(10000),
   warnings:z.array(z.string().max(8000)).max(200),assumptions:z.array(z.string().max(8000)).max(200),classification:z.literal('printable-reference'),

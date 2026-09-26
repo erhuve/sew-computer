@@ -37,7 +37,7 @@ function write(value:unknown,keys:string[],after:unknown,remove:boolean) {
 }
 const topSchema=z.object({schemaVersion:z.literal(1),snapshotId:Id,revisionId:Id,projectId:Id,manifestDigest:z.string().regex(/^[a-f0-9]{64}$/),sections:z.record(z.string(),z.unknown())}).passthrough();
 const allowedSections=new Set(['overview','requirements','materials','bom','bodyInputs','finishedMeasurements','construction','patternInventory','review','exportDisclosure','derivedConstruction','designCoverage']);
-const fields:Record<string,string[]>={overview:['title','brief','sizeLabel','garment'],garment:['family','length','ease','flare','design'],body:['height','bust','waist','hip','shoulder']};
+const fields:Record<string,string[]>={overview:['title','brief','sizeLabel','garment'],garment:['family','length','ease','flare','design','appearance'],body:['height','bust','waist','hip','shoulder']};
 
 export function previewImport(store:Store,projectId:string,raw:unknown):ImportPreview {
   cleanObject(raw);
@@ -105,7 +105,19 @@ export function previewImport(store:Store,projectId:string,raw:unknown):ImportPr
       for(const key of Object.keys(sections.overview)) {
         if(key==='interpretation')continue;
         if(!fields.overview!.includes(key)) throw new ApiError(422,'Unknown overview field');
-        if(key==='garment') compareObject(['garment'],sections.overview[key],fields.garment);
+        if(key==='garment') {
+          const incoming=structuredClone(sections.overview[key]);
+          if(!isObject(incoming))throw new ApiError(422,'Expected an editable garment');
+          // Redaction markers are not owner-requested deletions. Match the
+          // existing policy for private body fields: withheld data stay local.
+          if(!snapshot.disclosure.includePatterns&&baseline.garment.design?.block==='custom-pattern'&&own(incoming,'design')){
+            delete incoming.design;warnings.push('Custom pattern geometry was withheld; incoming custom construction was ignored.');
+          }
+          if(!snapshot.disclosure.includeReferences&&baseline.garment.appearance?.print?.assetId&&isObject(incoming.appearance)&&isObject(incoming.appearance.print)){
+            delete incoming.appearance.print.assetId;warnings.push('Fabric artwork was withheld; its private asset handle was retained.');
+          }
+          compareObject(['garment'],incoming,fields.garment);
+        }
         else propose([key],sections.overview[key]);
       }
     }

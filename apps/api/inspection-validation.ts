@@ -106,7 +106,7 @@ export function validateInspectionRest(value:Pick<Inspection,'instances'|'templa
     const template=templates.get(templateId);
     const instances=value.instances.filter(instance=>instance.templateId===templateId);
     if(!template||instances.length!==panel.cutQuantity||instances.filter(instance=>instance.role==='shell').length!==1||instances.some(instance=>instance.id!==`${templateId}:${instance.role}`))throw new ApiError(422,'3D physical inventory mismatch');
-    const mirror=templateId.startsWith('opening_binding_')?templateId.startsWith('opening_binding_right_'):templateId.endsWith('_right');
+    const mirror=pattern.family==='custom'?false:templateId.startsWith('opening_binding_')?templateId.startsWith('opening_binding_right_'):templateId.endsWith('_right');
     if(new Set(instances.map(instance=>instance.role)).size!==instances.length||instances.some(instance=>instance.mirrorX!==mirror||canonical(instance.sourceGrainline)!==canonical(panel.draft?.grainline)))throw new ApiError(422,'3D handedness or grain mismatch');
     if(template.sourceWeights.length!==template.restPositions.length)throw new ApiError(422,'3D source mapping missing');
     const checkedSupport=new Set<string>();

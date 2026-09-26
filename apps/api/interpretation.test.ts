@@ -43,6 +43,7 @@ test('proposal minimizes private inputs and atomically publishes a revision with
   expect(result.draft.document.requirements[0]).toEqual(fixture.draft.document.requirements[0]);
   expect(result.draft.document.bom[0]).toEqual(fixture.draft.document.bom[0]);
   expect(result.draft.document.interpretation?.model).toBe('fixture');
+  expect(result.draft.document.garment.appearance).toEqual({color:'#315dd4'});
   expect(()=>fixture.service.accept(fixture.project.id,proposal.id,{expectedVersion:2,expectedRevisionId:result.draft.baseRevisionId})).toThrow('stale');
 });
 test('a newer client version cannot launder a stale proposal',async()=>{
