@@ -6,6 +6,7 @@ import { inspectPrivateGlb } from '../../../../packages/contracts/inspection-dis
 import { buildGarmentLayout, type GarmentLayout } from '../lib/garment-layout';
 import GarmentViewport from '../components/GarmentViewport';
 import DemoGarmentDrawing from '../components/DemoGarmentDrawing';
+import GarmentShapePreview from '../components/GarmentShapePreview';
 import { downloadJson } from '../lib/api';
 import './visual-demo.css';
 
@@ -23,7 +24,7 @@ export default function VisualDemo() {
   const [loaded, setLoaded] = useState<{ variant: Variant; pattern: PatternGeometry; layout: GarmentLayout } | null>(null);
   const [error, setError] = useState('');
   const [feedback, setFeedback] = useState('');
-  const [previewMode, setPreviewMode] = useState<'design' | 'pieces'>('design');
+  const [previewMode, setPreviewMode] = useState<'shape' | 'design' | 'pieces'>('shape');
   const id = `${sleeves}-${frill ? 'frill' : 'clean'}`;
   const ready = loaded?.variant.id === id ? loaded : null;
   useEffect(() => {
@@ -72,11 +73,11 @@ export default function VisualDemo() {
           <div className="demo-pattern-action"><p className="demo-kicker">02 / TAKE IT FURTHER</p><h3>Actual pattern pieces.</h3><p>These examples were drafted from the selected construction choices. Each download matches the preview.</p>{ready ? <><a className="demo-download" href={`/demo-fixtures/${id}.svg`} download={`${id}-draft-pattern.svg`}><ArrowDownToLine size={17} />Download draft pattern</a><a className="demo-json" href={`/demo-fixtures/${id}.json`} download={`${id}-pattern.json`}>Pattern data · JSON</a></> : <span role="status">Preparing your selection…</span>}<small>Draft reference. Check fit and print scale before making.</small></div>
         </aside>
         <section className="demo-preview" aria-label="Garment preview">
-          <div className="demo-preview-heading"><div><p className="demo-kicker">YOUR DESIGN, CONNECTED TO ITS PATTERN</p><h2>See your choices take shape.</h2></div><span className="demo-status">{previewMode === 'design' ? 'Construction preview' : 'Approximate arrangement'}</span></div>
-          <div className="demo-view-tabs" role="tablist" aria-label="Preview type"><button role="tab" aria-selected={previewMode === 'design'} onClick={() => setPreviewMode('design')}>Design preview</button><button role="tab" aria-selected={previewMode === 'pieces'} onClick={() => setPreviewMode('pieces')}>3D pieces</button></div>
+          <div className="demo-preview-heading"><div><p className="demo-kicker">YOUR DESIGN, CONNECTED TO ITS PATTERN</p><h2>See your choices take shape.</h2></div><span className="demo-status">{previewMode === 'shape' ? 'Approximate garment shape' : previewMode === 'design' ? 'Construction preview' : 'Pattern arrangement'}</span></div>
+          <div className="demo-view-tabs" role="tablist" aria-label="Preview type"><button role="tab" aria-selected={previewMode === 'shape'} onClick={() => setPreviewMode('shape')}>Garment preview</button><button role="tab" aria-selected={previewMode === 'design'} onClick={() => setPreviewMode('design')}>Design preview</button><button role="tab" aria-selected={previewMode === 'pieces'} onClick={() => setPreviewMode('pieces')}>3D pieces</button></div>
           {previewMode === 'pieces' && <p className="demo-scope">Real pattern pieces in a rough garment arrangement. Drape, gathering and stitched assembly are still in progress.</p>}
-          {error ? <div role="alert" className="demo-error">{error}<button onClick={() => location.reload()}>Reload demo</button></div> : ready ? previewMode === 'design' ? <DemoGarmentDrawing pattern={ready.pattern} design={ready.variant.design} color={fabric.color} /> : <GarmentViewport key={id} path={`/demo-fixtures/${id}.glb`} demoAsset patternDigest={ready.variant.patternDigest} layout={ready.layout} fabricColor={fabric.color} selected={selected} onSelect={setSelected} onUnavailable={reason => setError(reason.message)} /> : <div className="demo-loading" role="status">Opening the matching pattern pieces…</div>}
-          <div className="demo-preview-footer"><span>{ready ? `${ready.variant.pieces} fabric pieces · ${ready.variant.templates} source templates` : 'Loading example'}</span><span>{previewMode === 'design' ? 'Switch between front and back' : 'Drag to rotate · click a piece to inspect'}</span></div>
+          {error ? <div role="alert" className="demo-error">{error}<button onClick={() => location.reload()}>Reload demo</button></div> : ready ? previewMode === 'shape' ? <GarmentShapePreview id={id} patternDigest={ready.variant.patternDigest} color={fabric.color} onSelect={setSelected} /> : previewMode === 'design' ? <DemoGarmentDrawing pattern={ready.pattern} design={ready.variant.design} color={fabric.color} /> : <GarmentViewport key={id} path={`/demo-fixtures/${id}.glb`} demoAsset patternDigest={ready.variant.patternDigest} layout={ready.layout} fabricColor={fabric.color} selected={selected} onSelect={setSelected} onUnavailable={reason => setError(reason.message)} /> : <div className="demo-loading" role="status">Opening the matching pattern pieces…</div>}
+          <div className="demo-preview-footer"><span>{ready ? `${ready.variant.pieces} fabric pieces · ${ready.variant.templates} source templates` : 'Loading example'}</span><span>{previewMode !== 'pieces' ? 'Switch between front and back' : 'Drag to rotate · click a piece to inspect'}</span></div>
         </section>
       </div>
       <section className="demo-source-row" aria-label="Selected source pattern"><div><p className="demo-kicker">03 / UNDERSTAND THE PATTERN</p><h2>{panel ? panel.name : 'Every piece has a source.'}</h2><p>{panel ? `${panel.widthMm.toFixed(0)} × ${panel.heightMm.toFixed(0)} mm · cut ${panel.cutQuantity} · ${panel.draft?.component}` : 'Choose a piece in the 3D view to see its original 2D outline. Switching to Flat pieces shows the full inventory.'}</p>{panel && <p className="demo-scope">Solid line: cutting outline. Dashed line: stitching boundary.</p>}</div><div className="demo-source-canvas">{panel ? <svg viewBox={`-18 -18 ${panel.widthMm + 36} ${panel.heightMm + 36}`} role="img" aria-label={`${panel.name} original pattern`}><polygon points={(panel.draft?.cutLine ?? panel.points).map(point => point.join(',')).join(' ')} fill="#e5ebe1" stroke="#344c40" strokeWidth="1.4" /><polyline points={panel.points.map(point => point.join(',')).join(' ')} fill="none" stroke="#344c40" strokeWidth=".9" strokeDasharray="5 4" /></svg> : <span>Select a physical piece above</span>}</div></section>

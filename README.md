@@ -8,7 +8,7 @@ Consumer garment-design software: turn descriptions, references and sketches int
 
 ## Start here
 
-**Local visual demo:** run `bun run demo` from an isolated checkout, then open `http://127.0.0.1:5175/demo`. Four synthetic shirt examples connect front/back construction previews, optional 3D piece inspection and matching pattern downloads. This is ready for an owner-led product demonstration; it does not simulate drape or generate arbitrary designs. See the [walkthrough and verified scope](docs/reviews/visual-demo.md).
+**Local visual demo:** run `bun run demo` from an isolated checkout, then open `http://127.0.0.1:5175/demo`. Four synthetic shirt examples connect a posed cloth preview, front/back drawings, source-piece inspection and matching pattern downloads. The garment shape uses approximate elastic constraints and synthetic posing guides; it does not establish physical drape/fit or generate arbitrary designs. See the [walkthrough and verified scope](docs/reviews/visual-demo.md).
 
 The component pipeline adds an explicit relaxed shirt compiler with sleeves, cuffs, collars, plackets, curved back tails and gathered front frills, plus derived specifications and construction schematics. New patterns include A4 and Letter tiled PDFs with calibration guides. See [scope, review and remaining gates](docs/reviews/garment-pipeline.md). This work does not make arbitrary garments or physically validated cutting patterns available.
 
