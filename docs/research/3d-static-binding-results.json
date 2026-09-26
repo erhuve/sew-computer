@@ -1,0 +1,694 @@
+{
+  "acceptedGarment": false,
+  "completedConstructionPhases": [],
+  "independentSavedEvidenceReviews": [
+    {
+      "bytes": 26525,
+      "path": ".planning/solver/review-static-binding-assembly-v3.json",
+      "sha256": "c487cd16f3ee4db76cb5a51161c84f83ce6fac0896b33024570c1d954dae5143"
+    },
+    {
+      "bytes": 9675,
+      "path": ".planning/solver/review-static-binding-matched-v1.json",
+      "sha256": "14079d044f5109b2eb392b68c5811d4259012761f343ee8cea61fb14c027c9cc"
+    },
+    {
+      "bytes": 53989,
+      "path": ".planning/solver/review-static-binding-assembly-v4.json",
+      "sha256": "791431570f5d5237aefa111e940d7b07ada615e29976c4b9e4976dccb4480733"
+    }
+  ],
+  "limits": [
+    "Force stationarity is conditional on the existing binary64 response model; stability is not established.",
+    "Geometry follows guarded affine optimizer paths, with no physical time, drape, work or dissipation certification.",
+    "All returned fold states have zero contact energy; they do not establish behavior with an active contact barrier.",
+    "The75degree stage remains rejected; subsequent declared attachment and finish targets were not executed.",
+    "Only five distance samples are held. Continuous stitching, seam engagement, wrap, stitch-down and apex completion remain unproved.",
+    "Other cuff phases, complete24fabric/sixinterfacing shirt, body/material/refinement and private application integration remain open.",
+    "Original timed-control failures, protected entrypoints, production and deployment are unchanged."
+  ],
+  "next": "Recompute component forces at the retained75degree state and inspect its search metrics before another controlled continuation; preserve the unchanged1e-8N criterion and original failure.",
+  "physicalInputs": {
+    "actuatorStiffnessJoulesPerMeter": 0.1,
+    "contact": {
+      "activation_distance_m": 0.0001,
+      "minimum_distance_m": 0.0001,
+      "stiffness": 10000.0
+    },
+    "material": {
+      "density": 0.2,
+      "edge_kd": 0.0,
+      "edge_ke": 0.01,
+      "tri_ka": 10000.0,
+      "tri_kd": 0.0,
+      "tri_ke": 10000.0
+    },
+    "seamTargetMeters": 0.001,
+    "solverBudget": {
+      "force_tolerance_newtons": 1e-08,
+      "max_backtracks": 24,
+      "max_iterations": 100,
+      "max_responses": 300
+    }
+  },
+  "profile": "static-source-binding-results-v1",
+  "runs": [
+    {
+      "actualContainerExit": 0,
+      "actualOuterExit": 0,
+      "artifactInventory": {
+        "bytes": 13527,
+        "path": ".planning/solver/static-binding-assembly-v3-artifact-inventory.json",
+        "sha256": "a06f8f623c741972a98b29b3ba70a9271185b155f42aa034da2db0ce88652902"
+      },
+      "declaration": {
+        "bytes": 60875,
+        "path": ".planning/solver/static-binding-assembly-v3-declaration.json",
+        "sha256": "906ca08b4fed81e7a82602f3dad67fd2c62c890e6066977a65174f17c59cf93d"
+      },
+      "executionSpec": {
+        "bytes": 185295,
+        "path": ".planning/solver/static-binding-assembly-v3-execution.json",
+        "sha256": "1c080f422320f79358bbac2c7a5c46adf45234a79214830058a0cf3ef39d708c"
+      },
+      "inputsUnchanged": true,
+      "name": "static-binding-assembly-v3",
+      "outcome": "equilibrium-rejected",
+      "outerElapsedSeconds": 53.316785541013815,
+      "ownedCleanupComplete": true,
+      "receipt": {
+        "bytes": 13431,
+        "path": ".planning/solver/static-binding-assembly-v3/execution.json",
+        "sha256": "8e7f591e6008a3c655b30766fa5c4e26a10e291e4db15bd0c9f80c1ed2896150"
+      },
+      "result": {
+        "bytes": 14120,
+        "path": ".planning/solver/static-binding-assembly-v3/result.json",
+        "sha256": "c378b3af618baca8273c37a180d90d77260d50465ef11fc28612d20440aa1955"
+      },
+      "stages": [
+        {
+          "attachmentAngleRangeDegrees": [
+            3.5222164626706115e-13,
+            2.8848628488014685e-12
+          ],
+          "contactEnergyJoules": 0.0,
+          "convergedForce": true,
+          "costs": {
+            "candidateAttempts": 2,
+            "componentCalls": {
+              "bending.energy": 4,
+              "bending.gradient": 4,
+              "bending.hessian": 4,
+              "contact.energy": 4,
+              "contact.gradient": 4,
+              "contact.hessian": 4,
+              "contact.validate_state": 4,
+              "foldActuation.energy": 4,
+              "foldActuation.gradient": 4,
+              "foldActuation.hessian": 4,
+              "membrane.derivatives": 4,
+              "sewing.exact_hessian": 4,
+              "sewing.gradient": 4,
+              "sewing.residual": 4
+            },
+            "factorizationAttempts": 6,
+            "freshValidationAttempts": 1,
+            "guardCalls": {
+              "bending": 4,
+              "contact": 4,
+              "legacyFold": 4,
+              "triangles": 4
+            },
+            "iterations": 2,
+            "rejectedCandidates": 0,
+            "responseAttempts": 4,
+            "responseSuccesses": 4
+          },
+          "edgeStretchRange": [
+            0.9999999609631331,
+            1.0000000590664788
+          ],
+          "elapsedSeconds": 0.8560651670000006,
+          "endpointIntersectionCount": 0,
+          "forceUpperNewtons": 2.4733907984519023e-11,
+          "index": 0,
+          "maximumHeldGapErrorMeters": 4.336808689942018e-19,
+          "sourceAngleDegrees": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "convergedForce": false,
+          "costs": {
+            "candidateAttempts": 103,
+            "componentCalls": {
+              "bending.energy": 104,
+              "bending.gradient": 104,
+              "bending.hessian": 104,
+              "contact.energy": 104,
+              "contact.gradient": 104,
+              "contact.hessian": 104,
+              "contact.validate_state": 104,
+              "foldActuation.energy": 104,
+              "foldActuation.gradient": 104,
+              "foldActuation.hessian": 104,
+              "membrane.derivatives": 104,
+              "sewing.exact_hessian": 104,
+              "sewing.gradient": 104,
+              "sewing.residual": 104
+            },
+            "factorizationAttempts": 259,
+            "freshValidationAttempts": 0,
+            "guardCalls": {
+              "bending": 104,
+              "contact": 104,
+              "legacyFold": 104,
+              "triangles": 104
+            },
+            "iterations": 100,
+            "rejectedCandidates": 3,
+            "responseAttempts": 104,
+            "responseSuccesses": 104
+          },
+          "elapsedSeconds": 38.91598481,
+          "failure": "Equilibrium iteration budget exhausted",
+          "index": 1,
+          "lastObservedForceMaxNewtons": 5.983276731523069e-06,
+          "minimumObservedForceMaxNewtons": 5.371975465413737e-06,
+          "sourceAngleDegrees": [
+            15.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "actualContainerExit": 0,
+      "actualOuterExit": 0,
+      "artifactInventory": {
+        "bytes": 730,
+        "path": ".planning/solver/static-equilibrium-tests-v3-artifact-inventory.json",
+        "sha256": "e2e244ca5057b7a6bea3f42bbf805d80e5d6cdb5e3203f31e35a2c62a7b5f11b"
+      },
+      "declaration": {
+        "bytes": 68586,
+        "path": ".planning/solver/static-equilibrium-tests-v3-declaration.json",
+        "sha256": "d1a90a8f1bd4d3487d5d0a78fb98ffff12192f567864439778718bede9399197"
+      },
+      "executionSpec": {
+        "bytes": 185734,
+        "path": ".planning/solver/static-equilibrium-tests-v3-execution.json",
+        "sha256": "a767e665a21d5d12989bab44504e482b43216bf468a8069ddca4feb0ad818af2"
+      },
+      "inputsUnchanged": true,
+      "name": "static-equilibrium-tests-v3",
+      "outcome": "regression-suite",
+      "outerElapsedSeconds": 9.039194332901388,
+      "ownedCleanupComplete": true,
+      "receipt": {
+        "bytes": 13455,
+        "path": ".planning/solver/static-equilibrium-tests-v3/execution.json",
+        "sha256": "2b642da952e02d728b4eaa2b5af92548317b543662595b1eb14300a4ad3677be"
+      },
+      "result": {
+        "bytes": 18203,
+        "path": ".planning/solver/static-equilibrium-tests-v3/result.json",
+        "sha256": "b02583362a9eafa6da59a25966416d9843ffbf36c1a1a065c33f0acdc40add11"
+      },
+      "stages": []
+    },
+    {
+      "actualContainerExit": 0,
+      "actualOuterExit": 0,
+      "artifactInventory": {
+        "bytes": 2806,
+        "path": ".planning/solver/static-binding-matched-v1-artifact-inventory.json",
+        "sha256": "ba6b024837ddc2df07305bcc407879ddf4d2e890f579ea686f2a5c6fa3636bc0"
+      },
+      "declaration": {
+        "bytes": 61350,
+        "path": ".planning/solver/static-binding-matched-v1-declaration.json",
+        "sha256": "2d26b474280af39caec08d03e85c67a6117330d2f70c4e8e843c449bedfd99ea"
+      },
+      "executionSpec": {
+        "bytes": 187281,
+        "path": ".planning/solver/static-binding-matched-v1-execution.json",
+        "sha256": "49dfadddfef06abd08557d377bb11cdab42bc3f80c7ae892a0a5a64a0d804707"
+      },
+      "inputsUnchanged": true,
+      "name": "static-binding-matched-v1",
+      "outcome": "all-declared-equilibria-returned-not-construction-acceptance",
+      "outerElapsedSeconds": 22.977322333958,
+      "ownedCleanupComplete": true,
+      "receipt": {
+        "bytes": 14115,
+        "path": ".planning/solver/static-binding-matched-v1/execution.json",
+        "sha256": "74c3970118bc5636877c6c1632586d1e1d7720ee21ab9cad5c2870ef01b1b323"
+      },
+      "result": {
+        "bytes": 11215,
+        "path": ".planning/solver/static-binding-matched-v1/result.json",
+        "sha256": "7deaf2bb7b44488b3d224e397a86aa647f9ab38117968fc45ac51480586e7ad8"
+      },
+      "stages": [
+        {
+          "attachmentAngleRangeDegrees": [
+            13.636360944667079,
+            13.636365724993796
+          ],
+          "contactEnergyJoules": 0.0,
+          "convergedForce": true,
+          "costs": {
+            "candidateAttempts": 34,
+            "componentCalls": {
+              "bending.energy": 36,
+              "bending.gradient": 36,
+              "bending.hessian": 36,
+              "contact.energy": 36,
+              "contact.gradient": 36,
+              "contact.hessian": 36,
+              "contact.validate_state": 36,
+              "foldActuation.energy": 36,
+              "foldActuation.gradient": 36,
+              "foldActuation.hessian": 36,
+              "membrane.derivatives": 36,
+              "sewing.exact_hessian": 36,
+              "sewing.gradient": 36,
+              "sewing.residual": 36
+            },
+            "factorizationAttempts": 126,
+            "freshValidationAttempts": 1,
+            "guardCalls": {
+              "bending": 36,
+              "contact": 36,
+              "legacyFold": 36,
+              "triangles": 36
+            },
+            "iterations": 28,
+            "rejectedCandidates": 6,
+            "responseAttempts": 36,
+            "responseSuccesses": 36
+          },
+          "edgeStretchRange": [
+            0.999999961009932,
+            1.0000000590664777
+          ],
+          "elapsedSeconds": 14.766012756999999,
+          "endpointIntersectionCount": 0,
+          "forceUpperNewtons": 7.2142649447555585e-09,
+          "index": 0,
+          "maximumHeldGapErrorMeters": 1.1074040989766942e-15,
+          "sourceAngleDegrees": [
+            15.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "actualContainerExit": 0,
+      "actualOuterExit": 0,
+      "artifactInventory": {
+        "bytes": 19086,
+        "path": ".planning/solver/static-binding-assembly-v4-artifact-inventory.json",
+        "sha256": "a2be3ec728b88366c87850366f879d337a973565df3677c27b7aeccb11ac9e21"
+      },
+      "declaration": {
+        "bytes": 61018,
+        "path": ".planning/solver/static-binding-assembly-v4-declaration.json",
+        "sha256": "41a75303262d718f3c947068c68a855962b7c184eb728d2813169af39e6a576f"
+      },
+      "executionSpec": {
+        "bytes": 185718,
+        "path": ".planning/solver/static-binding-assembly-v4-execution.json",
+        "sha256": "221a4bfc97382e4f0d8cc94104fdd34a5d788d2449919429bafb7c5239caffd2"
+      },
+      "inputsUnchanged": true,
+      "name": "static-binding-assembly-v4",
+      "outcome": "equilibrium-rejected",
+      "outerElapsedSeconds": 107.68180470902007,
+      "ownedCleanupComplete": true,
+      "receipt": {
+        "bytes": 13583,
+        "path": ".planning/solver/static-binding-assembly-v4/execution.json",
+        "sha256": "b7694c25e6dba9d21d5a683b07f636b5ef52ac1fff7fece7072e3c6234488b20"
+      },
+      "result": {
+        "bytes": 38163,
+        "path": ".planning/solver/static-binding-assembly-v4/result.json",
+        "sha256": "82e5224d967b71b5cdbbf96bf1da1febad3b833e1b29c2c9d94e0ea3d075d32e"
+      },
+      "stages": [
+        {
+          "attachmentAngleRangeDegrees": [
+            -9.367721112376643e-13,
+            7.541398273672546e-13
+          ],
+          "contactEnergyJoules": 0.0,
+          "convergedForce": true,
+          "costs": {
+            "candidateAttempts": 2,
+            "componentCalls": {
+              "bending.energy": 4,
+              "bending.gradient": 4,
+              "bending.hessian": 4,
+              "contact.energy": 4,
+              "contact.gradient": 4,
+              "contact.hessian": 4,
+              "contact.validate_state": 4,
+              "foldActuation.energy": 4,
+              "foldActuation.gradient": 4,
+              "foldActuation.hessian": 4,
+              "membrane.derivatives": 4,
+              "sewing.exact_hessian": 4,
+              "sewing.gradient": 4,
+              "sewing.residual": 4
+            },
+            "factorizationAttempts": 13,
+            "freshValidationAttempts": 1,
+            "guardCalls": {
+              "bending": 4,
+              "contact": 4,
+              "legacyFold": 4,
+              "triangles": 4
+            },
+            "iterations": 2,
+            "rejectedCandidates": 0,
+            "responseAttempts": 4,
+            "responseSuccesses": 4
+          },
+          "edgeStretchRange": [
+            0.9999999609631314,
+            1.000000059066465
+          ],
+          "elapsedSeconds": 1.0377533340000014,
+          "endpointIntersectionCount": 0,
+          "forceUpperNewtons": 5.155335256288004e-09,
+          "index": 0,
+          "maximumHeldGapErrorMeters": 5.551115123125783e-17,
+          "sourceAngleDegrees": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "attachmentAngleRangeDegrees": [
+            13.636360944889844,
+            13.636365722904186
+          ],
+          "contactEnergyJoules": 0.0,
+          "convergedForce": true,
+          "costs": {
+            "candidateAttempts": 34,
+            "componentCalls": {
+              "bending.energy": 36,
+              "bending.gradient": 36,
+              "bending.hessian": 36,
+              "contact.energy": 36,
+              "contact.gradient": 36,
+              "contact.hessian": 36,
+              "contact.validate_state": 36,
+              "foldActuation.energy": 36,
+              "foldActuation.gradient": 36,
+              "foldActuation.hessian": 36,
+              "membrane.derivatives": 36,
+              "sewing.exact_hessian": 36,
+              "sewing.gradient": 36,
+              "sewing.residual": 36
+            },
+            "factorizationAttempts": 127,
+            "freshValidationAttempts": 1,
+            "guardCalls": {
+              "bending": 36,
+              "contact": 36,
+              "legacyFold": 36,
+              "triangles": 36
+            },
+            "iterations": 28,
+            "rejectedCandidates": 6,
+            "responseAttempts": 36,
+            "responseSuccesses": 36
+          },
+          "edgeStretchRange": [
+            0.9999999610034523,
+            1.0000000590664848
+          ],
+          "elapsedSeconds": 14.798813840000008,
+          "endpointIntersectionCount": 0,
+          "forceUpperNewtons": 7.936477705390351e-09,
+          "index": 1,
+          "maximumHeldGapErrorMeters": 1.1568437180420332e-15,
+          "sourceAngleDegrees": [
+            15.0,
+            0.0
+          ]
+        },
+        {
+          "attachmentAngleRangeDegrees": [
+            27.272725930548123,
+            27.272728401095225
+          ],
+          "contactEnergyJoules": 0.0,
+          "convergedForce": true,
+          "costs": {
+            "candidateAttempts": 22,
+            "componentCalls": {
+              "bending.energy": 24,
+              "bending.gradient": 24,
+              "bending.hessian": 24,
+              "contact.energy": 24,
+              "contact.gradient": 24,
+              "contact.hessian": 24,
+              "contact.validate_state": 24,
+              "foldActuation.energy": 24,
+              "foldActuation.gradient": 24,
+              "foldActuation.hessian": 24,
+              "membrane.derivatives": 24,
+              "sewing.exact_hessian": 24,
+              "sewing.gradient": 24,
+              "sewing.residual": 24
+            },
+            "factorizationAttempts": 73,
+            "freshValidationAttempts": 1,
+            "guardCalls": {
+              "bending": 24,
+              "contact": 24,
+              "legacyFold": 24,
+              "triangles": 24
+            },
+            "iterations": 16,
+            "rejectedCandidates": 6,
+            "responseAttempts": 24,
+            "responseSuccesses": 24
+          },
+          "edgeStretchRange": [
+            0.9999999610107588,
+            1.0000000590665
+          ],
+          "elapsedSeconds": 10.339341504999993,
+          "endpointIntersectionCount": 0,
+          "forceUpperNewtons": 9.745212118031034e-09,
+          "index": 2,
+          "maximumHeldGapErrorMeters": 9.71661986981509e-16,
+          "sourceAngleDegrees": [
+            30.0,
+            0.0
+          ]
+        },
+        {
+          "attachmentAngleRangeDegrees": [
+            40.909090046152414,
+            40.90909172887995
+          ],
+          "contactEnergyJoules": 0.0,
+          "convergedForce": true,
+          "costs": {
+            "candidateAttempts": 23,
+            "componentCalls": {
+              "bending.energy": 25,
+              "bending.gradient": 25,
+              "bending.hessian": 25,
+              "contact.energy": 25,
+              "contact.gradient": 25,
+              "contact.hessian": 25,
+              "contact.validate_state": 25,
+              "foldActuation.energy": 25,
+              "foldActuation.gradient": 25,
+              "foldActuation.hessian": 25,
+              "membrane.derivatives": 25,
+              "sewing.exact_hessian": 25,
+              "sewing.gradient": 25,
+              "sewing.residual": 25
+            },
+            "factorizationAttempts": 78,
+            "freshValidationAttempts": 1,
+            "guardCalls": {
+              "bending": 25,
+              "contact": 25,
+              "legacyFold": 25,
+              "triangles": 25
+            },
+            "iterations": 17,
+            "rejectedCandidates": 6,
+            "responseAttempts": 25,
+            "responseSuccesses": 25
+          },
+          "edgeStretchRange": [
+            0.9999999609638416,
+            1.0000000590665206
+          ],
+          "elapsedSeconds": 10.370867671000013,
+          "endpointIntersectionCount": 0,
+          "forceUpperNewtons": 6.9613758276337246e-09,
+          "index": 3,
+          "maximumHeldGapErrorMeters": 8.051285332877356e-16,
+          "sourceAngleDegrees": [
+            45.0,
+            0.0
+          ]
+        },
+        {
+          "attachmentAngleRangeDegrees": [
+            54.54545392780956,
+            54.54545522929979
+          ],
+          "contactEnergyJoules": 0.0,
+          "convergedForce": true,
+          "costs": {
+            "candidateAttempts": 33,
+            "componentCalls": {
+              "bending.energy": 35,
+              "bending.gradient": 35,
+              "bending.hessian": 35,
+              "contact.energy": 35,
+              "contact.gradient": 35,
+              "contact.hessian": 35,
+              "contact.validate_state": 35,
+              "foldActuation.energy": 35,
+              "foldActuation.gradient": 35,
+              "foldActuation.hessian": 35,
+              "membrane.derivatives": 35,
+              "sewing.exact_hessian": 35,
+              "sewing.gradient": 35,
+              "sewing.residual": 35
+            },
+            "factorizationAttempts": 127,
+            "freshValidationAttempts": 1,
+            "guardCalls": {
+              "bending": 35,
+              "contact": 35,
+              "legacyFold": 35,
+              "triangles": 35
+            },
+            "iterations": 27,
+            "rejectedCandidates": 6,
+            "responseAttempts": 35,
+            "responseSuccesses": 35
+          },
+          "edgeStretchRange": [
+            0.9999999609848637,
+            1.0000000590665332
+          ],
+          "elapsedSeconds": 14.526039131999994,
+          "endpointIntersectionCount": 0,
+          "forceUpperNewtons": 1.7875133749204755e-09,
+          "index": 4,
+          "maximumHeldGapErrorMeters": 1.547590181005809e-15,
+          "sourceAngleDegrees": [
+            60.0,
+            0.0
+          ]
+        },
+        {
+          "convergedForce": false,
+          "costs": {
+            "candidateAttempts": 105,
+            "componentCalls": {
+              "bending.energy": 106,
+              "bending.gradient": 106,
+              "bending.hessian": 106,
+              "contact.energy": 106,
+              "contact.gradient": 106,
+              "contact.hessian": 106,
+              "contact.validate_state": 106,
+              "foldActuation.energy": 106,
+              "foldActuation.gradient": 106,
+              "foldActuation.hessian": 106,
+              "membrane.derivatives": 106,
+              "sewing.exact_hessian": 106,
+              "sewing.gradient": 106,
+              "sewing.residual": 106
+            },
+            "factorizationAttempts": 460,
+            "freshValidationAttempts": 0,
+            "guardCalls": {
+              "bending": 106,
+              "contact": 106,
+              "legacyFold": 106,
+              "triangles": 106
+            },
+            "iterations": 100,
+            "rejectedCandidates": 5,
+            "responseAttempts": 106,
+            "responseSuccesses": 106
+          },
+          "elapsedSeconds": 43.46283814400002,
+          "failure": "Equilibrium iteration budget exhausted",
+          "index": 5,
+          "lastObservedForceMaxNewtons": 2.1174844989476284e-08,
+          "minimumObservedForceMaxNewtons": 2.1113487795137338e-08,
+          "sourceAngleDegrees": [
+            75.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceScope": {
+    "fabricInstances": 5,
+    "heldDistanceRows": 5,
+    "pendingRows": 35,
+    "sourceRows": 40,
+    "triangles": 398,
+    "vertices": 245
+  },
+  "sources": [
+    {
+      "bytes": 20350,
+      "path": "scripts/solver_static_equilibrium.py",
+      "sha256": "43d19ae0d5aa2b68168c6a2e4c355e6c7666877eb651252a257ee6fe8dfc5aca"
+    },
+    {
+      "bytes": 23564,
+      "path": "scripts/test_solver_static_equilibrium.py",
+      "sha256": "1db52182adea6449cae94c6878447b5334223b5c413bb9a67dd97ebdbfe38c00"
+    },
+    {
+      "bytes": 10847,
+      "path": "scripts/test_solver_static_metric.py",
+      "sha256": "e428bcc86a9b6b5437d68ca5ca36afa8416a74a8e2f023c9c8e3bf6602965c1d"
+    }
+  ],
+  "tests": {
+    "focusedPassed": 77,
+    "historicalFullSuiteRerun": false,
+    "newIndependentMetricMethods": 7,
+    "overlappingExistingMethods": 70,
+    "runnerSeconds": 4.139546210000001
+  },
+  "unexecutedDeclarations": [
+    {
+      "bytes": 60498,
+      "path": ".planning/solver/static-binding-assembly-v1-declaration.json",
+      "sha256": "ef1b438b8389c239d63585b755712135e82a6cb41afe25e5b75e20f4dd751723"
+    },
+    {
+      "bytes": 60801,
+      "path": ".planning/solver/static-binding-assembly-v2-declaration.json",
+      "sha256": "48c80e836b859e0c075e2238344aa46cfeb285965231558ae4072e0de74e8b4a"
+    }
+  ]
+}

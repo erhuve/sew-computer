@@ -8,7 +8,7 @@ from copy import deepcopy
 from fractions import Fraction as F
 
 import numpy as np
-from scipy.sparse import diags, issparse
+from scipy.sparse import coo_matrix, diags, issparse
 
 from solver_cable_integration import positions_sha256
 from solver_continuous_normal_sewing import _rat, _rational
@@ -20,7 +20,8 @@ from solver_triangle_sweep import triangle_sweep_safe
 from solver_hinge_sweep import hinge_sweep_safe
 
 
-PROFILE = 'fixed-control-static-equilibrium-v1'
+PROFILE = 'fixed-control-static-equilibrium-v2'
+METRIC_POLICY = 'row-maximum-diagonal-congruence-v1'
 
 
 class StaticEquilibriumFailure(ValueError):
@@ -36,6 +37,46 @@ class _InvariantError(ValueError):
 
 def _snapshot(array):
     return array.dtype.str, array.shape, array.strides, array.tobytes()
+
+
+def _scale_metric(matrix, gradient):
+    """Equilibrate a search system, without changing physical force or energy.
+
+    The positive numerical reference for an identically zero row is 1 N/m.
+    No degree of freedom is removed. A dimensionless shift in this system
+    corresponds to a physical diagonal shift proportional to row magnitudes.
+    Binary64 rescaling is not an exact-arithmetic certificate.
+    """
+    if (not issparse(matrix) or matrix.dtype != np.dtype(np.float64)
+            or matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1]
+            or type(gradient) is not np.ndarray or gradient.dtype != np.dtype(np.float64)
+            or gradient.shape != (matrix.shape[0],) or not len(gradient)
+            or not np.isfinite(gradient).all()):
+        raise ValueError('Finite binary64 square metric and matching gradient required')
+    # Some sparse operations canonicalize their operand in place. Own a copy
+    # before canonicalization, including when callers supply LIL/DOK/COO.
+    matrix = matrix.tocsr(copy=True)
+    matrix.sum_duplicates()
+    if not np.isfinite(matrix.data).all():
+        raise ValueError('Finite canonical search metric required')
+    magnitude = max(1., float(np.max(np.abs(matrix.data), initial=0.)))
+    asymmetry = matrix - matrix.T
+    if np.max(np.abs(asymmetry.data), initial=0.) > 1e-12 * magnitude:
+        raise ValueError('Original physical search metric is asymmetric')
+    stiffness = np.asarray(abs(matrix).max(axis=1).toarray()).ravel()
+    stiffness[stiffness == 0.] = 1.
+    inverse = 1. / np.sqrt(stiffness)
+    original = matrix.tocoo(copy=True)
+    with np.errstate(over='ignore', under='ignore', invalid='ignore'):
+        data = (original.data * inverse[original.row]) * inverse[original.col]
+        scaled_gradient = gradient * inverse
+    if (not np.isfinite(data).all() or not np.isfinite(scaled_gradient).all()
+            or not np.isfinite(inverse).all() or np.any(inverse <= 0.)
+            or np.any((original.data != 0.) & (data == 0.))
+            or np.any((gradient != 0.) & (scaled_gradient == 0.))):
+        raise ValueError('Search equilibration overflowed or lost a nonzero value')
+    scaled = coo_matrix((data, (original.row, original.col)), shape=matrix.shape).tocsc()
+    return scaled, scaled_gradient, inverse, stiffness
 
 
 def solve_static_equilibrium(solver, potential, positions, *,
@@ -236,6 +277,7 @@ def _solve(solver, potential, positions, tolerance, max_responses,
                 convergedForce=True, forceResidualUpperNewtons=_rat(upper),
                 forceToleranceNewtons=float(tolerance), includesInertia=False, accepted=False,
                 stabilityEstablished=False, costs=deepcopy(costs), trace=deepcopy(trace),
+                searchMetricPolicy=METRIC_POLICY,
                 errorScope=ERROR_SCOPE,
                 pathScope='Piecewise affine optimizer path; triangle, hinge and configured contact guards. No physical-time or curved-path claim.',
                 scope='Fixed-control force-stationary candidate only. No stable-equilibrium, source-construction, strain, resolution, full-garment or drape acceptance.')
@@ -244,16 +286,17 @@ def _solve(solver, potential, positions, tolerance, max_responses,
         costs['iterations'] += 1
         matrix = current['searchMatrixNewtonsPerMetre'][free][:, free].tocsc()
         gradient = current['gradientNewtons'][free].copy()
-        scale = max(1., float(np.max(np.abs(matrix.data), initial=0.)))
+        scaled_matrix, scaled_gradient, inverse_scale, stiffness_scale = _scale_metric(matrix, gradient)
         found = False
-        # Absolute shifts have units N/m and affect only the search direction.
-        # This deliberately avoids mass or a fictitious large time increment.
+        # Congruence changes numerical coordinates only. Regularization in the
+        # scaled system maps to a physical diagonal, not a scalar N/m shift.
+        # All acceptance checks below still use unscaled physical quantities.
         for relative_shift in (0., *(10.**power for power in range(-9, 4))):
-            shift = relative_shift * scale
-            candidate_matrix = matrix if shift == 0 else matrix + diags(np.full(len(free), shift))
+            candidate_matrix = (scaled_matrix if relative_shift == 0 else
+                                scaled_matrix + diags(np.full(len(free), relative_shift)))
             context()
             costs['factorizationAttempts'] += 1
-            supplied_gradient = gradient.copy()
+            supplied_gradient = scaled_gradient.copy()
             inputs = [(value, _snapshot(value)) for value in
                       (supplied_gradient, candidate_matrix.data,
                        candidate_matrix.indices, candidate_matrix.indptr)]
@@ -268,7 +311,12 @@ def _solve(solver, potential, positions, tolerance, max_responses,
             if (type(direction) is not np.ndarray or direction.shape != (len(free),)
                     or direction.dtype != np.dtype(np.float64) or not np.isfinite(direction).all()):
                 raise _InvariantError('Invalid equilibrium search direction')
-            direction = direction.copy()
+            with np.errstate(over='ignore', under='ignore', invalid='ignore'):
+                mapped_direction = direction * inverse_scale
+            if (not np.isfinite(mapped_direction).all()
+                    or np.any((direction != 0.) & (mapped_direction == 0.))):
+                raise _InvariantError('Equilibrated search direction cannot map to physical coordinates')
+            direction = mapped_direction
             for backtrack in range(max_backtracks):
                 if costs['responseAttempts'] >= max_responses - 1:
                     raise ValueError('Equilibrium response budget exhausted')
@@ -278,7 +326,12 @@ def _solve(solver, potential, positions, tolerance, max_responses,
                 costs['candidateAttempts'] += 1
                 finite = np.isfinite(candidate).all()
                 record = dict(kind='candidate', positionsSha256=positions_sha256(candidate) if finite else None,
-                              shiftNewtonsPerMetre=shift, scale=2.**-backtrack, admitted=False)
+                              searchMetricPolicy=METRIC_POLICY,
+                              dimensionlessDiagonalShift=relative_shift,
+                              physicalDiagonalShiftRangeNewtonsPerMetre=[
+                                  _rat(F(relative_shift) / F(float(np.max(inverse_scale)))**2),
+                                  _rat(F(relative_shift) / F(float(np.min(inverse_scale)))**2)],
+                              scale=2.**-backtrack, admitted=False)
                 trace.append(record)
                 if (not finite or np.array_equal(candidate, q)
                         or not path(q, candidate)):
