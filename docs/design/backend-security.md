@@ -77,6 +77,8 @@ Export creation selects authorized, revision-compatible artifacts and scoped evi
 
 Proposal jobs capture base revision, draft version, immutable source-draft digest and deletion generation server-side. Acceptance compares the captured values in one transaction, applies every accepted operation, publishes the revision and rebases/increments the draft. Client-provided current identities cannot replace the captured source identities.
 
+Design interpretation additionally records a digest excluding only body inputs and the size label. If that design digest, revision and generation match, current sizing survives acceptance even after sizing-only saves. The request's current draft version remains mandatory. Legacy proposals need a stored job input verified against the original full digest to use this exception; imports retain strict source checks. See contract §3.
+
 ## 4. Worker leases and IPC
 
 Use a permission-restricted Unix socket or inherited pipes with length-prefixed, schema-validated messages. Reject oversized messages, unknown protocol versions and unsolicited results.

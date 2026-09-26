@@ -18,7 +18,7 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
   const interpreting=job?.status==='queued'||job?.status==='running';
   return <section className="design-assistant" aria-label="Design assistant">
     <div className="assistant-heading"><Sparkles size={18}/><strong>From idea to pattern</strong></div>
-    {interpreting&&<div role="status"><p>{job.status==='queued'?'Design interpretation queued.':'Interpreting your design…'} You can continue editing or reopen this project later. Changed drafts require a fresh proposal before acceptance.</p><button disabled={busy} onClick={onCancel}>Cancel interpretation</button></div>}
+    {interpreting&&<div role="status"><p>{job.status==='queued'?'Design interpretation queued.':'Interpreting your design…'} You can continue editing or reopen this project later. Changes to the design require a fresh proposal; your size label and body measurements carry through.</p><button disabled={busy} onClick={onCancel}>Cancel interpretation</button></div>}
     {job?.status==='failed'&&<p role="alert">{job.error}</p>}
     {job?.status==='cancelled'&&<p role="status">Interpretation cancelled. Your draft is unchanged.</p>}
     {proposal?<>
@@ -41,7 +41,7 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
         {proposal.document.construction.filter(row=>!doc.construction.some(prior=>prior.id===row.id)).map(row=><p key={row.id}><strong>{row.operation}</strong> — {row.note}</p>)}
       </details>
       <p className="fineprint">AI design suggestion · fit and sewing unverified.</p>
-      {stale&&<p role="status">You’ve edited the draft since this proposal. Request a new one to keep those edits.</p>}
+      {stale&&<p role="status">The design changed since this proposal. Open “Request another proposal” below to include your latest edits.</p>}
       {proposal.document.garment.family === 'none' && <p role="status">This proposal saves design notes only. No pattern shape is available for this design; accepting it will not enable pattern generation.</p>}
       {proposal.document.garment.family!=='none'&&<label className="check-field"><input type="checkbox" checked={useSample} onChange={event=>setUseSample(event.target.checked)}/>Preview with sample M estimates. Keeps measurements you’ve entered.</label>}
       <button className="primary" disabled={busy||stale} onClick={()=>onAccept(useSample&&proposal.document.garment.family!=='none')}>{proposal.document.garment.family==='none'?'Accept design notes':useSample?'Use design & preview':'Use design & set size'}</button>

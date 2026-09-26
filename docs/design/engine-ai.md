@@ -81,6 +81,8 @@ Proposals contain bounded, allowlisted operations against a specific revision. V
 
 Show assumptions and semantic differences before acceptance. An unsupported asymmetric closure cannot silently become a symmetric opening. Acceptance checks the server-captured base revision, baseDraftVersion, sourceDraftDigest and deletion generation transactionally. A matching revision alone is insufficient. Apply all accepted operations, publish the revision and rebase/increment the editable draft atomically; a conflict preserves the draft and proposal. The normative transaction is [project contract §3](project-contract.md#3-revision-and-export-transactions).
 
+Sizing-only changes use contract §3's design-digest exception: body inputs and size label never enter inference and are taken from the current checked draft on acceptance. Every other document field remains part of the proposal's design digest; garment length/ease and material colors are design inputs, not excluded sizing metadata.
+
 Reference text, embedded instructions and OCR content are design evidence, not authority. The model receives no tools, credentials or application-database access. Schema-valid output still needs capability and geometry checks; it is not proof of faithful interpretation.
 
 ## 6. Deterministic checks and their limits

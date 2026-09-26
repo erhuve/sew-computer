@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 import { type Draft, type GarmentDocument, type Project, type Revision, type ProjectState } from '../../packages/contracts';
-import { InterpretationSchema, interpretationJsonSchema, type DesignProposal, type InterpretationStatus } from '../../packages/contracts/interpretation';
+import { InterpretationSchema, interpretationJsonSchema, proposalDesignSource, type DesignProposal, type InterpretationStatus } from '../../packages/contracts/interpretation';
 import { Store } from './store';
 import { ApiError, cleanObject, document, id, now, objectDigest, readBounded } from './validation';
 import { designFamily, designIssues } from '../../packages/contracts/design';
@@ -114,6 +114,7 @@ export class InterpretationService {
       for(const field of ['length','ease'] as const)if(doc.garment[field].state==='known')next.garment[field]=structuredClone(doc.garment[field]);
       this.store.checkReferences(projectId,next);
       const proposal:DesignProposal={id:captured.requestId,projectId,baseVersion:captured.draft.version,baseRevisionId:captured.draft.baseRevisionId,
+        baseDesignDigest:objectDigest(proposalDesignSource(doc)),
         summary:parsed.summary,questions:parsed.questions,document:document(next),provider:interpreter.status.provider,model:interpreter.status.model,createdAt:now(),inputTokens:result.inputTokens,outputTokens:result.outputTokens};
       this.store.transaction(()=>{
         const project=this.store.project(projectId);
@@ -130,17 +131,28 @@ export class InterpretationService {
   }
   latest(projectId:string):DesignProposal|null {
     this.store.project(projectId);
-    const row=this.store.db.query('SELECT json FROM ai_proposals WHERE project_id=? AND accepted=0 ORDER BY rowid DESC LIMIT 1').get(projectId) as {json:string}|null;
-    return row?JSON.parse(row.json):null;
+    const row=this.store.db.query('SELECT json,source_digest FROM ai_proposals WHERE project_id=? AND accepted=0 ORDER BY rowid DESC LIMIT 1').get(projectId) as {json:string;source_digest:string}|null;
+    return row?this.withDesignDigest(JSON.parse(row.json),row.source_digest):null;
+  }
+  private withDesignDigest(proposal:DesignProposal,sourceDigest:string):DesignProposal {
+    if(proposal.baseDesignDigest)return proposal;
+    // Recover the baseline for proposals already waiting for review before this update.
+    const job=this.store.db.query('SELECT input FROM interpretation_jobs WHERE id=? AND project_id=?').get(proposal.id,proposal.projectId) as {input:string}|null;
+    if(!job)return proposal;
+    const source=JSON.parse(job.input).captured.draft.document as GarmentDocument;
+    return objectDigest(source)===sourceDigest?{...proposal,baseDesignDigest:objectDigest(proposalDesignSource(source))}:proposal;
   }
   accept(projectId:string,proposalId:string,identity:{expectedVersion:number;expectedRevisionId:string|null}):ProjectState {
     return this.store.transaction(()=>{
       const row=this.store.project(projectId),current=this.store.checkIdentity(row,identity.expectedVersion,identity.expectedRevisionId);
       const stored=this.store.db.query('SELECT * FROM ai_proposals WHERE id=? AND project_id=?').get(proposalId,projectId) as {json:string;source_digest:string;generation:number;accepted:number}|null;
       if(!stored)throw new ApiError(404,'Design proposal not found');
-      const proposal:DesignProposal=JSON.parse(stored.json);
-      if(stored.accepted||current.version!==proposal.baseVersion||current.baseRevisionId!==proposal.baseRevisionId||objectDigest(current.document)!==stored.source_digest||row.generation!==stored.generation)throw new ApiError(409,'Design proposal is stale; request a new proposal. Your edits are preserved.');
-      const doc=document(proposal.document);this.store.checkReferences(projectId,doc);
+      const proposal=this.withDesignDigest(JSON.parse(stored.json),stored.source_digest);
+      const unchangedDesign=proposal.baseDesignDigest
+        ?objectDigest(proposalDesignSource(current.document))===proposal.baseDesignDigest
+        :current.version===proposal.baseVersion&&objectDigest(current.document)===stored.source_digest;
+      if(stored.accepted||!unchangedDesign||current.baseRevisionId!==proposal.baseRevisionId||row.generation!==stored.generation)throw new ApiError(409,'Design proposal is stale; request a new proposal. Your edits are preserved.');
+      const doc=document({...proposal.document,body:current.document.body,sizeLabel:current.document.sizeLabel});this.store.checkReferences(projectId,doc);
       const project:Project=JSON.parse(row.json),prior=project.headRevisionId?this.store.revision(projectId,project.headRevisionId):null,date=now();
       const revision:Revision={id:id(),projectId,number:(prior?.number??0)+1,parentRevisionId:prior?.id??null,document:doc,digest:objectDigest(doc),createdAt:date};
       const draft:Draft={...current,document:doc,baseRevisionId:revision.id,version:current.version+1,updatedAt:date};

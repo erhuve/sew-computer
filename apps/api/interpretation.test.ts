@@ -3,12 +3,12 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { assumed, emptyDocument, type Draft, type Project } from '../../packages/contracts';
 import { interpretationFixture } from '../../packages/test-fixtures/interpretation';
-import { rebaseAcceptedDesign } from '../../packages/contracts/interpretation';
+import { proposalDesignSource, rebaseAcceptedDesign } from '../../packages/contracts/interpretation';
 import { buildExport } from '../../packages/tech-pack';
 import { Handoff } from './exports';
 import { InterpretationService, type Interpreter } from './interpretation';
 import { Store } from './store';
-import { id, now } from './validation';
+import { id, now, objectDigest } from './validation';
 import { previewImport } from './imports';
 
 const stores:Store[]=[],paths:string[]=[];
@@ -53,6 +53,41 @@ test('a newer client version cannot launder a stale proposal',async()=>{
   expect(()=>fixture.service.accept(fixture.project.id,proposal.id,{...fixture.identity,expectedVersion:2})).toThrow('stale');
   expect(fixture.store.draft(fixture.project.id)).toEqual(newer);
   expect(fixture.service.latest(fixture.project.id)?.id).toBe(proposal.id);
+});
+test('sizing-only edits survive acceptance, including proposals saved before design digests existed',async()=>{
+  for(const legacy of [false,true]) {
+    const fixture=setup(),proposal=await fixture.propose();
+    if(legacy) {
+      delete proposal.baseDesignDigest;
+      fixture.store.db.query('UPDATE ai_proposals SET json=? WHERE id=?').run(JSON.stringify(proposal),proposal.id);
+      fixture.store.db.query('INSERT INTO interpretation_jobs(id,project_id,request_id,input_digest,input,json,status) VALUES(?,?,?,?,?,?,?)').run(proposal.id,fixture.project.id,id(),'unused',JSON.stringify({captured:{draft:fixture.draft}}),'{}','succeeded');
+    }
+    const newer=structuredClone(fixture.draft);newer.version=4;
+    newer.document.sizeLabel='My size';
+    newer.document.body.height={state:'known',value:1720,unit:'mm',source:'Entered by owner'};
+    fixture.store.db.query('UPDATE projects SET draft=? WHERE id=?').run(JSON.stringify(newer),fixture.project.id);
+    expect(fixture.service.latest(fixture.project.id)?.baseDesignDigest).toBe(objectDigest(proposalDesignSource(newer.document)));
+    expect(()=>fixture.service.accept(fixture.project.id,proposal.id,fixture.identity)).toThrow('Draft changed');
+    const result=fixture.service.accept(fixture.project.id,proposal.id,{...fixture.identity,expectedVersion:4});
+    expect(result.draft.document.sizeLabel).toBe('My size');
+    expect(result.draft.document.body).toEqual(newer.document.body);
+    expect(result.revisions[0]!.document).toEqual(result.draft.document);
+    expect(result.draft.document.garment).toEqual(proposal.document.garment);
+    expect(result.draft.version).toBe(5);
+  }
+});
+test('design edits still invalidate proposals even when sizing also changed',async()=>{
+  for(const field of ['brief','color','length','notes'] as const) {
+    const fixture=setup(),proposal=await fixture.propose(),newer=structuredClone(fixture.draft);
+    newer.version=2;newer.document.sizeLabel='New size';
+    if(field==='brief')newer.document.brief='A different design';
+    if(field==='color')newer.document.garment.appearance={color:'#aabbcc'};
+    if(field==='length')newer.document.garment.length=assumed(720);
+    if(field==='notes')newer.document.requirements[0]!.note='Keep this newer note';
+    fixture.store.db.query('UPDATE projects SET draft=? WHERE id=?').run(JSON.stringify(newer),fixture.project.id);
+    expect(()=>fixture.service.accept(fixture.project.id,proposal.id,{...fixture.identity,expectedVersion:2})).toThrow('stale');
+    expect(fixture.store.draft(fixture.project.id)).toEqual(newer);
+  }
 });
 test('malformed, authority-forging and executable output never changes the draft',async()=>{
   for(const value of [{...interpretationFixture,body:{height:assumed(1800)}},{...interpretationFixture,execute:'rm -rf /'}, {...interpretationFixture,garment:{...interpretationFixture.garment,length:{state:'known',value:600,unit:'mm',source:'measured from photo'}}}]) {

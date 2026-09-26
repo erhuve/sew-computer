@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import {
   canonical,
+  digest,
   type Draft,
   type GarmentDocument,
   type ProjectState,
@@ -33,7 +34,7 @@ import {startingDocument,type StartingFamily} from "../../../../packages/contrac
 import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
 import PrivateImage from "../components/PrivateImage";
 import DesignAssistant from "../components/DesignAssistant";
-import { rebaseAcceptedDesign, type DesignProposal, type InterpretationStatus, type InterpretationJob } from "../../../../packages/contracts/interpretation";
+import { proposalDesignSource, rebaseAcceptedDesign, type DesignProposal, type InterpretationStatus, type InterpretationJob } from "../../../../packages/contracts/interpretation";
 import { applySample, sizingIssue } from "../../../../packages/contracts/sizing";
 import "../studio.css";
 import "../simple-studio.css";
@@ -105,6 +106,17 @@ export default function Studio() {
     );
   };
   const dirty = !!state && !!doc && !same(doc, state.draft.document);
+  const designSource=doc?canonical(proposalDesignSource(doc)):'';
+  const [checkedDesign,setCheckedDesign]=useState<{source:string;digest:string}|null>(null);
+  useEffect(()=>{
+    if(!designSource||!proposal?.baseDesignDigest)return;
+    let active=true;
+    void digest(proposalDesignSource(doc!)).then(value=>{if(active)setCheckedDesign({source:designSource,digest:value});}).catch(()=>{if(active)setCheckedDesign(null);});
+    return ()=>{active=false;};
+  },[designSource,proposal?.baseDesignDigest]);
+  const proposalStale=!!proposal&&(!state||proposal.baseRevisionId!==state.draft.baseRevisionId||(proposal.baseDesignDigest
+    ?checkedDesign?.source!==designSource||checkedDesign?.digest!==proposal.baseDesignDigest
+    :dirty||proposal.baseVersion!==state.draft.version));
   const pending = state?.jobs.find(
     (j) => j.status === "queued" || j.status === "running",
   );
@@ -364,9 +376,12 @@ export default function Studio() {
     if(epoch===sessionEpoch.current&&current.current.state?.project.id===projectId){setInterpretationJob(result);setProposal(null);}
   }
   async function acceptProposal(samplePreview=false) {
-    if(!proposal||!state||dirty)return;
-    const epoch=sessionEpoch.current,submitted=structuredClone(current.current.doc!);
-    const next=await api<ProjectState>(`/projects/${state.project.id}/proposals/${proposal.id}/accept`,json('POST',{expectedVersion:state.draft.version,expectedRevisionId:state.draft.baseRevisionId}));
+    if(!proposal||!state||proposalStale)return;
+    const epoch=sessionEpoch.current,projectId=state.project.id;
+    const draft=await save();
+    if(!draft||epoch!==sessionEpoch.current)return;
+    const submitted=structuredClone(draft.document);
+    const next=await api<ProjectState>(`/projects/${projectId}/proposals/${proposal.id}/accept`,json('POST',{expectedVersion:draft.version,expectedRevisionId:draft.baseRevisionId}));
     if(epoch!==sessionEpoch.current)return;
     setState(next);
     setDoc(latest=>{const accepted=latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document);return samplePreview?applySample(accepted,2):accepted;});
@@ -742,7 +757,7 @@ export default function Studio() {
                   </div>
                 )}
               {view === 'design' ? <>{!proposal&&!interpretationJob&&<GarmentDesign doc={doc}/>}<DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict} job={interpretationJob} onCancel={()=>task(async()=>{if(interpretationJob)setInterpretationJob(await api<InterpretationJob>(`/projects/${state.project.id}/interpretations/${interpretationJob.id}/cancel`,json('POST',{})));})}
-                stale={!!proposal&&(dirty||proposal.baseVersion!==state.draft.version||proposal.baseRevisionId!==state.draft.baseRevisionId)}
+                stale={proposalStale}
                 onPropose={images=>task(()=>propose(images))} onAccept={sample=>task(()=>acceptProposal(sample))} onMeasurements={()=>setSection('shape')}/></> : view === "pattern" ? (
                 <PatternCanvas
                   geometry={geometry}

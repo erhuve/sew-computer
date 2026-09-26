@@ -63,11 +63,11 @@ Every geometry-affecting edit produces a bounded, typed proposal before commitme
 
 Highlight the affected visual region when mappings permit. A speculative overlay says **Proposed**, not “new pattern.” Geometry comparison appears only after actual generation succeeds.
 
-**Accept** commits only against the proposal’s matching revision and draft version. **Reject** leaves the design unchanged. Editing the brief while a proposal is pending makes that proposal stale; offer reconciliation or regeneration, never automatic application.
+**Accept** commits only against the proposal’s matching revision and checked design source, using the exact current draft version. **Reject** leaves the design unchanged. Editing the brief while a proposal is pending makes that proposal stale; offer reconciliation or regeneration, never automatic application. Size label and body-input changes carry through under project contract §3's design-interpretation exception.
 
 **Undo** restores draft content or creates a new revision representing the reversal. Viewing history never overwrites it. Do not silently partially accept a proposal: if only some operations are possible, present a newly scoped proposal with the exclusions retained.
 
-A proposal card carries the server-captured source draft version/digest as well as revision. New typing after proposal generation creates a conflict even if no revision was published; preserve both states. Accepting a valid proposal also atomically rebases the editable draft and increments its version, as required by the project contract.
+A proposal card carries the server-captured source draft version/digest as well as revision. Design edits after proposal generation create a conflict even if no revision was published; preserve both states. For interpretation, compare the design digest excluding only body inputs and size label, save pending sizing before acceptance, and retain the latest sizing in the accepted revision. Accepting a valid proposal also atomically rebases the editable draft and increments its version, as required by the project contract.
 
 ## 4. Layout and accessibility acceptance
 

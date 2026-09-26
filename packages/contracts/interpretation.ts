@@ -35,9 +35,15 @@ export function interpretationJsonSchema():Record<string,unknown> {
 }
 export type DesignProposal = {
   id:string; projectId:string; baseVersion:number; baseRevisionId:string|null;
+  baseDesignDigest?:string;
   summary:string; questions:string[]; document:GarmentDocument;
   provider:string; model:string; createdAt:string; inputTokens:number|null; outputTokens:number|null;
 };
+// Sizing is private owner input, excluded from inference and preserved on acceptance.
+export function proposalDesignSource(document:GarmentDocument) {
+  const {body,sizeLabel,...design}=document;
+  return design;
+}
 export type InterpretationStatus = {available:boolean;provider:string;model:string;maxOutputTokens:number|null;timeoutSeconds:number;referenceLimit:number};
 export type InterpretationJob = {id:string;projectId:string;requestId:string;status:'queued'|'running'|'succeeded'|'failed'|'cancelled';error:string|null;proposalId:string|null;createdAt:string;updatedAt:string};
 
