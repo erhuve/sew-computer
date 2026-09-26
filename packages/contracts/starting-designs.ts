@@ -1,9 +1,17 @@
 import {defaultCustomPattern} from './custom-pattern';
 import {emptyDocument,assumed} from './index';
-import {applySample} from './sizing';
+import {applySample,withPreviewSizing} from './sizing';
 import {defaultShirtDesign,defaultDressDesign,defaultSkirtDesign} from './design';
 
 export type StartingFamily='shirt'|'dress'|'skirt'|'custom';
+/** A deliberate owner-selected approximation; original intent and unsupported details survive. */
+export function simplifiedPreviewDocument(doc:ReturnType<typeof emptyDocument>,family:'shirt'|'dress'|'skirt') {
+  const base=startingDocument(family);
+  const result=withPreviewSizing({...doc,garment:{...base.garment,...(doc.garment.appearance===undefined?{}:{appearance:doc.garment.appearance})}});
+  result.requirements=doc.requirements.map(row=>row.status==='supported'&&row.feature!=='material'?{...row,status:'unresolved' as const}:row);
+  result.requirements.push({id:`simplified-preview-${crypto.randomUUID()}`,text:`Preview as ${base.brief}`,feature:'body',status:'supported',note:'Owner explicitly chose this simplified construction for a preview. Original design requests remain above; this does not implement unsupported details.'});
+  return result;
+}
 /** Explicitly chosen synthetic starting sizes; never silently applied to existing projects. */
 export function startingDocument(family:StartingFamily) {
   if(family==='custom'){const doc=emptyDocument('Your custom pattern','Original garment with owner-authored sewing pieces.');doc.garment={family:'custom',length:{state:'not-applicable'},ease:{state:'not-applicable'},flare:1,design:structuredClone(defaultCustomPattern)};return doc;}

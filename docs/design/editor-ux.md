@@ -4,9 +4,13 @@
 
 This document expands [project-contract.md](./project-contract.md), which owns record identities, states, transactions, evidence and export policy. [Product intent](../product/vision.md) governs creative freedom and access.
 
-Every interaction and acceptance test below is proposed and untested. The only demonstrated execution is the fixed-parameter CPU geometry smoke test described in [the evidence record](../research/design2garmentcode-evidence.md). It validates neither this editor nor interpretation, printable scale, sewing feasibility or physical fit.
+The sections below retain the original interaction design. Current implementation and verification are recorded in the [AI review](../reviews/ai-prototype.md) and [prompt-first checkpoint](../reviews/prompt-preview.md); those software checks do not establish printable scale, sewing feasibility or physical fit.
 
 ## 1. First useful creative experience
+
+The demonstration path is one prompt → reviewed design → **See garment**. The request button itself explicitly sends the described inputs to the named model; a second consent checkbox is not required. Uploaded references remain separately opt-in. Missing preview measurements use labeled sample assumptions; existing values, including owner-adjusted estimates, survive. No garment name, measurement entry, POM, BOM or construction form is required before this preview. The owner may open **Edit details** for the complete editor; that choice persists within the browser tab.
+
+The proposal's visual, summary, unsupported omissions and primary preview action precede expandable technical details. Unsupported silhouettes may offer clearly labeled simplified shirt/dress/skirt choices. Choosing one retains the original brief and requirements, records the owner's explicit simplification and labels the resulting preview. It cannot silently substitute a garment or imply arbitrary automatic drafting.
 
 The first slice must support creating an idea, correcting its interpretation, inspecting available geometry, saving revisions and exporting an honest review package. A pattern viewer alone cannot communicate whether the intended garment survived translation.
 

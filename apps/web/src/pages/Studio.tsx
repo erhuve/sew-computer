@@ -30,12 +30,12 @@ import Authoring from "../components/Authoring";
 import PatternCanvas from "../components/PatternCanvas";
 import Garment3D from "../components/Garment3D";
 import GarmentDesign, {ConstructionDrawing} from "../components/GarmentDesign";
-import {startingDocument,type StartingFamily} from "../../../../packages/contracts/starting-designs";
+import {simplifiedPreviewDocument,startingDocument,type StartingFamily} from "../../../../packages/contracts/starting-designs";
 import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
 import PrivateImage from "../components/PrivateImage";
 import DesignAssistant from "../components/DesignAssistant";
 import { proposalDesignSource, rebaseAcceptedDesign, type DesignProposal, type InterpretationStatus, type InterpretationJob } from "../../../../packages/contracts/interpretation";
-import { applySample, sizingIssue } from "../../../../packages/contracts/sizing";
+import { withPreviewSizing, sizingIssue } from "../../../../packages/contracts/sizing";
 import "../studio.css";
 import "../simple-studio.css";
 
@@ -51,6 +51,8 @@ const sections = [
 const same = (a: unknown, b: unknown) => canonical(a) === canonical(b);
 export default function Studio() {
   const [showDetails, setShowDetails] = useState(false);
+  const [editorOpen,setEditorOpen]=useState(()=>sessionStorage.getItem('sew-editor-expanded')==='true');
+  useEffect(()=>{sessionStorage.setItem('sew-editor-expanded',String(editorOpen));},[editorOpen]);
   const [previewAfterAcceptance,setPreviewAfterAcceptance]=useState(false);
   const [creationConsent,setCreationConsent]=useState(false);
   const [aiStatus,setAiStatus]=useState<InterpretationStatus|null>(null),[proposal,setProposal]=useState<DesignProposal|null>(null);
@@ -375,7 +377,7 @@ export default function Studio() {
     interpretationSubmission.current=null;
     if(epoch===sessionEpoch.current&&current.current.state?.project.id===projectId){setInterpretationJob(result);setProposal(null);}
   }
-  async function acceptProposal(samplePreview=false) {
+  async function acceptProposal(samplePreview=false,simplifiedFamily?:'shirt'|'dress'|'skirt') {
     if(!proposal||!state||proposalStale)return;
     const epoch=sessionEpoch.current,projectId=state.project.id;
     const draft=await save();
@@ -384,29 +386,39 @@ export default function Studio() {
     const next=await api<ProjectState>(`/projects/${projectId}/proposals/${proposal.id}/accept`,json('POST',{expectedVersion:draft.version,expectedRevisionId:draft.baseRevisionId}));
     if(epoch!==sessionEpoch.current)return;
     setState(next);
-    setDoc(latest=>{const accepted=latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document);return samplePreview?applySample(accepted,2):accepted;});
-    const hasPatternShape = next.draft.document.garment.family !== 'none';
+    const proposed=simplifiedFamily?simplifiedPreviewDocument(next.draft.document,simplifiedFamily):next.draft.document;
+    setDoc(latest=>{const accepted=latest?rebaseAcceptedDesign(proposed,submitted,latest):structuredClone(proposed);return samplePreview?withPreviewSizing(accepted):accepted;});
+    const hasPatternShape = !!simplifiedFamily||next.draft.document.garment.family !== 'none';
     if(samplePreview&&hasPatternShape)setPreviewAfterAcceptance(true);
+    if(samplePreview&&hasPatternShape)setEditorOpen(false);
+    if(!samplePreview&&hasPatternShape)setEditorOpen(true);
     setProposal(null);setGeometry(null);setSection(hasPatternShape ? 'shape' : 'idea');setView('design');setNotice(hasPatternShape ? 'Design accepted. Your preview uses the sizing shown in Customize.' : 'Design notes saved. Pattern support is still needed.');
+  }
+  async function previewSimplified(family:'shirt'|'dress'|'skirt') {
+    if(proposal){await acceptProposal(true,family);return;}
+    if(!doc||doc.garment.family!=='none')return;
+    change(simplifiedPreviewDocument(doc,family));setEditorOpen(false);setPreviewAfterAcceptance(true);
   }
   useEffect(()=>{
     if(!previewAfterAcceptance||busy||!doc||!state)return;
     setPreviewAfterAcceptance(false);
-    if(!sizingIssue(doc))void task(generate);
+    const issue=sizingIssue(doc);
+    if(issue){setError(issue);setEditorOpen(true);setSection('shape');}
+    else void task(generate);
   },[previewAfterAcceptance,busy,doc,state]);
   async function startFromShape(family:StartingFamily) {
     const epoch=sessionEpoch.current,document=startingDocument(family);
     const next=await api<ProjectState>('/projects',json('POST',{title:document.title,brief:document.brief}));
     const draft=await api<Draft>(`/projects/${next.project.id}/draft`,json('PUT',{expectedVersion:next.draft.version,expectedRevisionId:next.draft.baseRevisionId,document}));
     if(epoch!==sessionEpoch.current)return;
-    adopt({...next,draft});setPreviewAfterAcceptance(true);
+    adopt({...next,draft});setEditorOpen(family==='custom');setPreviewAfterAcceptance(true);
   }
   async function startFromIdea() {
     if(!brief.trim()||!aiStatus?.available)return;
     const epoch=sessionEpoch.current;
     const next=await api<ProjectState>('/projects',json('POST',{title:brief.trim().slice(0,60),brief}));
     if(epoch!==sessionEpoch.current)return;
-    adopt(next);setSection('idea');
+    adopt(next);setSection('idea');setEditorOpen(false);
     const job=await api<InterpretationJob>(`/projects/${next.project.id}/proposals`,json('POST',{requestId:crypto.randomUUID(),expectedVersion:next.draft.version,expectedRevisionId:next.draft.baseRevisionId,includeReferences:false,consent:true}));
     if(current.current.state?.project.id===next.project.id)setInterpretationJob(job);
   }
@@ -533,11 +545,11 @@ export default function Studio() {
               <span className="eyebrow">YOUR WORKTABLE</span>
               <h1>What will you make?</h1>
               <p>
-                Describe it, or start with a shape and make it yours.
+                One idea. A couple of clicks. Your garment in view.
               </p>
             </div>
             <button
-              className="primary"
+              className="text-button"
               onClick={() => {
                 setTitle("");
                 setBrief("");
@@ -553,11 +565,13 @@ export default function Studio() {
             {aiStatus?.available&&<form className="idea-launcher" onSubmit={event=>{event.preventDefault();void task(startFromIdea);}}>
               <label htmlFor="new-garment-idea">What are you imagining?</label>
               <textarea id="new-garment-idea" value={brief} maxLength={8000} onChange={event=>setBrief(event.target.value)} placeholder="A loose linen dress with short sleeves…"/>
-              <div><p>Sends your description to {aiStatus.provider}. You’ll review the design before generating.</p><button className="primary" disabled={busy||!brief.trim()}>Design with AI <ArrowUpRight size={16}/></button></div>
+              <div><p>Sends your idea to {aiStatus.provider} using your connected model allowance. Review once, then see a preview with sample sizing. No measurements needed.</p><button className="primary" disabled={busy||!brief.trim()}>Design with AI <ArrowUpRight size={16}/></button></div>
             </form>}
+            <details className="optional-starts" open={!aiStatus?.available}><summary>Or start with a shape</summary>
             <div className="starting-heading"><h2>Start with a shape</h2><p>Sample M estimates · editable anytime</p></div>
             <div className="starting-shapes">{(['shirt','dress','skirt','custom'] as const).map(family=><button className={`starting-shape starting-${family}`} key={family} disabled={busy} onClick={()=>void task(()=>startFromShape(family))} aria-label={`Start a ${family}`}><ConstructionDrawing doc={startingDocument(family)} single/><span>{family==='custom'?'Custom pattern':family==='shirt'?'Relaxed shirt':family==='dress'?'Easy dress':'Elastic-waist skirt'}<ArrowUpRight size={18}/></span></button>)}</div>
             <p className="starting-note">Starting-shape illustrations. Your pattern and 3D garment are generated after you choose.</p>
+            </details>
           </section>
           {projects.length>0&&<h2 className="saved-heading">Your garments</h2>}
           <div className="project-grid">
@@ -590,6 +604,8 @@ export default function Studio() {
               All garments
             </button>
             <div>
+              <button aria-expanded={editorOpen} aria-controls={editorOpen?'garment-editor':undefined} onClick={()=>setEditorOpen(!editorOpen)}>{editorOpen?'Hide details':'Edit details'}</button>
+              {(editorOpen||(!proposal&&!interpretationJob&&doc.garment.family!=='none'))&&<>
               <button
                 className="primary"
                 disabled={busy || !!conflict || !!pending || (!!doc.interpretation && doc.garment.family === 'none')}
@@ -598,13 +614,8 @@ export default function Studio() {
                 <Layers3 size={15} />
                 {pending ? "Generating…" : geometry ? "Update garment" : "Generate garment"}
               </button>
+              </>}
               {geometry&&<button disabled={busy} onClick={()=>void task(downloadCurrent)}><Download size={15}/>Download</button>}
-              <button
-                onClick={() => openModal("revisions")}
-              >
-                <Download size={15} />
-                History & files
-              </button>
             </div>
           </div>
           {conflict && (
@@ -634,8 +645,8 @@ export default function Studio() {
               </button>
             </div>
           )}
-          <div className="worktable">
-            <aside className="editor-sidebar">
+          <div className={`worktable ${editorOpen?'editing':'preview-first'}`}>
+            {editorOpen&&<aside className="editor-sidebar" id="garment-editor">
               <nav className="section-nav" aria-label="Garment details">
                 {sections.filter(([id]) => showDetails || ['idea','shape'].includes(id!)).map(([id, label]) => (
                   <button
@@ -647,6 +658,7 @@ export default function Studio() {
                   </button>
                 ))}
                 <button aria-expanded={showDetails} onClick={() => setShowDetails(!showDetails)}>{showDetails ? 'Less' : 'More'}</button>
+                <button onClick={()=>openModal('revisions')}>History & files</button>
               </nav>
               <Authoring
                 key={state.project.id + section}
@@ -675,9 +687,9 @@ export default function Studio() {
                 </button>
                 <small>Private · revisioned</small>
               </div>
-            </aside>
+            </aside>}
             <section className="visual-workspace">
-              <div
+              {(editorOpen||geometry)&&<div
                 className="view-tabs"
                 role="tablist"
                 aria-label="Visual view"
@@ -692,16 +704,16 @@ export default function Studio() {
                   <Layers3 size={16} />
                   Pattern
                 </button>
-                <button
+                {editorOpen&&<button
                   role="tab"
                   aria-selected={view === "references"}
                   onClick={() => setView("references")}
                 >
                   <Image size={16} />
                   Idea & references
-                </button>
+                </button>}
 
-              </div>
+              </div>}
               {pending && (
                 <div className="job-progress" role="status">
                   <LoaderCircle className="spin" size={16} />
@@ -756,16 +768,17 @@ export default function Studio() {
                     . Update garment to see your edits.
                   </div>
                 )}
-              {view === 'design' ? <>{!proposal&&!interpretationJob&&<GarmentDesign doc={doc}/>}<DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict} job={interpretationJob} onCancel={()=>task(async()=>{if(interpretationJob)setInterpretationJob(await api<InterpretationJob>(`/projects/${state.project.id}/interpretations/${interpretationJob.id}/cancel`,json('POST',{})));})}
+              {view==='3d'&&doc.requirements.some(row=>row.id.startsWith('simplified-preview-'))&&<details className="simplified-preview-note"><summary>Simplified preview · some original details are not shown</summary><p>{doc.brief}</p><ul>{doc.requirements.filter(row=>row.status==='unsupported'||row.status==='unresolved').map(row=><li key={row.id}>{row.text}</li>)}</ul></details>}
+              {view === 'design' ? <>{!proposal&&!interpretationJob&&editorOpen&&<GarmentDesign doc={doc}/>}<DesignAssistant key={state.project.id} doc={doc} status={aiStatus} proposal={proposal} busy={busy||!!conflict} job={interpretationJob} editing={editorOpen} onChange={change} onSimplify={family=>void task(()=>previewSimplified(family))} onCancel={()=>task(async()=>{if(interpretationJob)setInterpretationJob(await api<InterpretationJob>(`/projects/${state.project.id}/interpretations/${interpretationJob.id}/cancel`,json('POST',{})));})}
                 stale={proposalStale}
-                onPropose={images=>task(()=>propose(images))} onAccept={sample=>task(()=>acceptProposal(sample))} onMeasurements={()=>setSection('shape')}/></> : view === "pattern" ? (
+                onPropose={images=>task(()=>propose(images))} onAccept={sample=>task(()=>acceptProposal(sample))} onMeasurements={()=>{setEditorOpen(true);setSection('shape');}}/></> : view === "pattern" ? (
                 <PatternCanvas
                   geometry={geometry}
                   selected={selected}
                   onSelect={setSelected}
                 />
               ) : view === '3d' ? (
-                <Garment3D key={`${state.project.id}:${state.project.headRevisionId}`} projectId={state.project.id} revisionId={state.project.headRevisionId} supported={!!geometry?.drafting} selected={selected} appearance={doc.garment.appearance} onSelect={setSelected} onAuthFailure={fail}/>
+                pending&&!geometry?<div className="preview-progress" role="status"><LoaderCircle size={32} className="spin"/><h2>Making your garment…</h2><p>Drafting the sewing pieces, then building your 3D preview. No more setup needed.</p></div>:<Garment3D key={`${state.project.id}:${state.project.headRevisionId}`} projectId={state.project.id} revisionId={state.project.headRevisionId} supported={!!geometry?.drafting} selected={selected} appearance={doc.garment.appearance} onSelect={setSelected} onAuthFailure={fail}/>
               ) : (
                 <div className="reference-board">
                   {references.length ? (
@@ -791,7 +804,7 @@ export default function Studio() {
                         Add photos, sketches or your own technical flats. They
                         won’t be presented as a simulation.
                       </p>
-                      <button onClick={() => setSection("references")}>
+                      <button onClick={() => {setEditorOpen(true);setSection("references");}}>
                         Add a reference
                       </button>
                     </div>
@@ -827,6 +840,7 @@ export default function Studio() {
                   <button
                     onClick={() => {
                       setAnchor(`panel:${selected}`);
+                      setEditorOpen(true);
                       setSection("construction");
                     }}
                   >
@@ -864,6 +878,7 @@ export default function Studio() {
                   json("POST", { title: title.trim() || brief.trim().slice(0,60) || "Untitled garment", brief }),
                 );
                 adopt(next);
+                setEditorOpen(true);
                 setSection("idea");
                 closeModal();
                 if(creationConsent&&aiStatus?.available&&brief.trim()) {

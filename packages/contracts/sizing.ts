@@ -39,6 +39,13 @@ export function applySample(doc: GarmentDocument, index: number): GarmentDocumen
   } };
 }
 
+/** Preview defaults fill gaps without replacing owner-entered or adjusted sizing. */
+export function withPreviewSizing(doc:GarmentDocument):GarmentDocument {
+  const next=applySample(doc,2);
+  for(const field of bodyFields)if(doc.body[field.key].state!=='unknown')next.body[field.key]=structuredClone(doc.body[field.key]);
+  return next;
+}
+
 export function editMeasurement(previous: Measurement, value: number, unit: 'mm' | 'cm' | 'in'): Measurement {
   return { state: previous.state === 'assumed' ? 'assumed' : 'known', value, unit,
     source: previous.state === 'assumed' ? 'Owner-adjusted estimate; not confirmed as measured' : 'Entered by owner' };

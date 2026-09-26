@@ -57,7 +57,6 @@ test('brief to reviewed component design, real pieces and revision-specific expo
   await page.getByLabel('Garment name',{exact:true}).fill('Component shirt');
   await page.getByLabel('Your idea',{exact:true}).fill('complete-shirt-fixture: White button-up with practical tails and tasteful frills.');
   await page.getByRole('button',{name:'Create garment',exact:false}).click();
-  await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
   await expect(page.getByRole('img',{name:'front construction schematic'})).toBeVisible();
   await page.getByLabel('Preview with sample M estimates. Keeps measurements you’ve entered.').uncheck();await page.getByRole('button',{name:'Use design & set size',exact:true}).click();

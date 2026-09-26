@@ -13,7 +13,7 @@ test('description to garment, edit, source selection, reload and revision-matche
   await page.getByLabel('Your idea',{exact:true}).fill('complete-shirt-fixture — a relaxed woven shirt with a curved hem and front frills.');
   await page.getByLabel('Use AI to turn my description into a design.').check();
   await page.getByRole('button',{name:'Create garment'}).click();
-  await page.getByRole('button',{name:'Use design & preview',exact:true}).click();
+  await page.getByRole('button',{name:'See garment',exact:true}).click();
   await expect(page.locator('.demo-shape-stage canvas')).toBeVisible({timeout:90000});
   const projects=await studio.call('GET','/projects'),path=`/projects/${projects.projects[0].id}`;
   const initial=await studio.call('GET',path),first=await studio.call('GET',`${path}/three-d/latest?revisionId=${initial.project.headRevisionId}`);
@@ -25,6 +25,7 @@ test('description to garment, edit, source selection, reload and revision-matche
   const panel=original.panels.find((panel:any)=>panel.id==='sleeve_left');
   await expect(page.getByRole('button',{name:`Select panel ${panel.name}`,exact:true})).toHaveClass(/selected/);
   await page.getByRole('tab',{name:'Garment preview',exact:true}).click();
+  await page.getByRole('button',{name:'Edit details',exact:true}).click();
   await page.getByLabel('Sleeves',{exact:true}).selectOption('short');
   await page.getByLabel('Frills',{exact:true}).selectOption('none');
   await expect(page.locator('.geometry-stale')).toContainText('Update garment');

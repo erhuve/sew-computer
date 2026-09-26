@@ -1,0 +1,50 @@
+import {test,expect} from './fixture';
+import {mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+const evidence=resolve(import.meta.dirname,'../../docs/verification/prompt-preview');
+
+test('one prompt and two clicks reach a real garment without opening a technical form',async({studio})=>{
+  test.setTimeout(150000);const {page}=studio;
+  await studio.login();await mkdir(evidence,{recursive:true});
+  await page.getByLabel('What are you imagining?',{exact:true}).fill('complete-dress-fixture — a relaxed woven dress.');
+  await page.screenshot({path:resolve(evidence,'home-desktop.png')});
+  await page.getByRole('button',{name:'Design with AI',exact:true}).click();
+  await expect(page.getByRole('button',{name:'See garment',exact:true})).toBeEnabled();
+  await expect(page.locator('.editor-sidebar')).toHaveCount(0);
+  await expect(page.getByRole('textbox')).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'Generate garment',exact:true})).toHaveCount(0);
+  await page.screenshot({path:resolve(evidence,'proposal-desktop.png')});
+  await page.setViewportSize({width:390,height:844});
+  await expect(page.getByRole('button',{name:'See garment',exact:true})).toBeInViewport();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:resolve(evidence,'proposal-mobile.png')});
+  await page.getByRole('button',{name:'See garment',exact:true}).click();
+  await expect(page.locator('.demo-shape-stage canvas')).toBeVisible({timeout:90000});
+  await expect(page.locator('.editor-sidebar')).toHaveCount(0);
+  await page.screenshot({path:resolve(evidence,'garment-mobile.png')});
+  await page.setViewportSize({width:1440,height:900});await page.screenshot({path:resolve(evidence,'garment-desktop.png')});
+  const project=(await studio.call('GET','/projects')).projects[0],path=`/projects/${project.id}`,state=await studio.call('GET',path);
+  expect(state.draft.document.garment.family).toBe('dress');expect(state.draft.document.body.bust.state).toBe('assumed');
+  expect((await studio.call('GET',`${path}/geometry/${state.project.headRevisionId}`)).inputDigest).toBe(state.revisions.find((revision:any)=>revision.id===state.project.headRevisionId).digest);
+  await page.reload();await page.getByRole('button',{name:new RegExp(project.title)}).click();
+  await expect(page.locator('.demo-shape-stage canvas')).toBeVisible();await expect(page.locator('.editor-sidebar')).toHaveCount(0);
+  await page.getByRole('button',{name:'Edit details',exact:true}).click();await expect(page.getByLabel('Custom fabric color',{exact:true})).toBeVisible();
+});
+
+test('an unsupported idea can explicitly choose a simpler preview without losing its original intent',async({studio})=>{
+  test.setTimeout(150000);const {page}=studio;await studio.login();
+  const brief='unsupported-tailcoat-fixture — my original asymmetric garment with embroidery';
+  await page.getByLabel('What are you imagining?',{exact:true}).fill(brief);
+  await page.getByRole('button',{name:'Design with AI',exact:true}).click();
+  const choice=page.getByRole('button',{name:'Preview as a relaxed dress',exact:true});await expect(choice).toBeEnabled();
+  await expect(page.getByText('This shape isn’t available yet.',{exact:false})).toBeVisible();
+  await expect(page.getByRole('button',{name:'See garment',exact:true})).toHaveCount(0);
+  await choice.click();await expect(page.locator('.demo-shape-stage canvas')).toBeVisible({timeout:90000});
+  await expect(page.getByText('Simplified preview · some original details are not shown',{exact:true})).toBeVisible();
+  await mkdir(evidence,{recursive:true});await page.screenshot({path:resolve(evidence,'simplified-preview-desktop.png')});
+  const project=(await studio.call('GET','/projects')).projects[0],state=await studio.call('GET',`/projects/${project.id}`);
+  expect(state.draft.document.brief).toBe(brief);expect(state.draft.document.garment.family).toBe('dress');
+  expect(state.draft.document.requirements.some((row:any)=>row.status==='unsupported')).toBe(true);
+  expect(state.draft.document.requirements.some((row:any)=>row.note.includes('Owner explicitly chose'))).toBe(true);
+  expect(state.revisions.some((revision:any)=>revision.document.garment.family==='none')).toBe(true);
+});

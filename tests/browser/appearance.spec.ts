@@ -5,7 +5,7 @@ import sharp from 'sharp';
 
 test('custom fabric colors render immediately, persist and export with the matching design',async({studio})=>{
   test.setTimeout(180000);const page=studio.page;
-  await studio.login();await page.getByRole('button',{name:'Start a dress',exact:true}).click();
+  await studio.login();await page.getByText('Or start with a shape',{exact:true}).click();await page.getByRole('button',{name:'Start a dress',exact:true}).click();
   const canvas=page.locator('.demo-shape-stage canvas');await expect(canvas).toBeVisible({timeout:90000});
   await expect(page.getByRole('button',{name:'Back',exact:true})).toBeEnabled();
   const project=(await studio.call('GET','/projects')).projects[0],path=`/projects/${project.id}`;
@@ -16,6 +16,7 @@ test('custom fabric colors render immediately, persist and export with the match
     return count;
   };
   const initial=await bluePixels();
+  await page.getByRole('button',{name:'Edit details',exact:true}).click();
   await page.getByRole('button',{name:'Cobalt fabric',exact:true}).click();
   await expect.poll(bluePixels).toBeGreaterThan(initial+5000);
   await page.getByLabel('Custom fabric color',{exact:true}).fill('#345aca');

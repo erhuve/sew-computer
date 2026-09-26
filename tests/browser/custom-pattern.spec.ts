@@ -5,7 +5,7 @@ import sharp from 'sharp';
 
 test('custom sewing outlines, connections and uploaded prints save, regenerate and export',async({studio})=>{
   test.setTimeout(240000);const page=studio.page;
-  await studio.login();await page.getByRole('button',{name:'Start a custom',exact:true}).click();
+  await studio.login();await page.getByText('Or start with a shape',{exact:true}).click();await page.getByRole('button',{name:'Start a custom',exact:true}).click();
   const canvas=page.locator('.demo-shape-stage canvas');await expect(canvas).toBeVisible({timeout:90000});
   const project=(await studio.call('GET','/projects')).projects[0],path=`/projects/${project.id}`;
   const before=await studio.call('GET',path);expect(before.draft.document.garment.family).toBe('custom');

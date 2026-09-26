@@ -2,11 +2,13 @@
 
 Consumer garment-design software: turn descriptions, references and sketches into editable garment designs, connected sewing patterns and a revisioned tech pack.
 
-**Status: private AI-assisted design prototype.** Describe a garment, optionally include reference images, review an AI proposal, enter measurements, generate actual 2D shirt/skirt/trouser geometry, and export a revisioned PDF/JSON tech pack. AI also drafts materials, measurement definitions and construction notes. Unsupported details remain explicit. Patterns are printable references, not sewing-ready or fit-validated outputs. Public hosting is not enabled by this repository.
+**Status: private AI-assisted design prototype.** Describe a garment, optionally include reference images, review an AI proposal, use preview sizing or enter your measurements, generate actual 2D geometry, and export a revisioned PDF/JSON tech pack. AI also drafts materials, measurement definitions and construction notes. Unsupported details remain explicit. Patterns are printable references, not sewing-ready or fit-validated outputs. Public hosting is not enabled by this repository.
 
 **Try it:** [Private Sew Computer studio](https://sew-computer-hatsunemiku.zo.computer). Requires owner Zo sign-in and the studio access key. See [deployment and first-use instructions](docs/deployment.md). This checkout now backs the live service; use an isolated checkout for future development and test builds.
 
 ## Start here
+
+**Prompt-first demonstration:** enter one description, review the proposed design, then choose **See garment**. Missing sizing uses labeled sample estimates; the full editor stays behind **Edit details**. Unsupported ideas can explicitly choose a simpler shirt, dress or skirt preview while retaining their original notes. See the [prompt-to-preview checkpoint](docs/reviews/prompt-preview.md).
 
 **Current authoring expansion:** editable custom sewing outlines and seam connections, arbitrary fabric-image uploads, procedural prints and custom colors now extend the connected MVP. See the [scope, privacy and verification review](docs/reviews/custom-patterns-and-prints.md). Custom placement is an approximate preview; unrestricted automatic drafting and physical fit remain outside this checkpoint.
 

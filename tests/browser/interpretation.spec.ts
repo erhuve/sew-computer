@@ -18,7 +18,6 @@ test('durable interpretation survives reload while the model is still running',a
   await page.getByLabel('Garment name',{exact:true}).fill('Durable interpretation');
   await page.getByLabel('Your idea',{exact:true}).fill('slow-interpretation-fixture blue linen top');
   await page.getByRole('button',{name:'Create garment'}).click();
-  await page.getByLabel('Send these inputs to the design model').check();
   const response=page.waitForResponse(response=>response.url().endsWith('/proposals')&&response.request().method()==='POST');
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
   expect((await response).status()).toBe(202);
@@ -26,7 +25,7 @@ test('durable interpretation survives reload while the model is still running',a
   await page.reload();
   await page.getByRole('button',{name:/Durable interpretation Updated/}).click();
   await expect(page.getByRole('button',{name:'Cancel interpretation'})).toBeVisible();
-  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeEnabled();
+  await expect(page.getByRole('button',{name:'See garment'})).toBeEnabled();
   expect(completedReads).toBeGreaterThanOrEqual(2);
 });
 
@@ -37,7 +36,6 @@ test('unsupported designs accept notes without promising a generatable pattern',
   await page.getByLabel('Garment name',{exact:true}).fill('Tailcoat notes');
   await page.getByLabel('Your idea',{exact:true}).fill('unsupported-tailcoat-fixture');
   await page.getByRole('button',{name:'Create garment'}).click();
-  await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
   await expect(page.getByRole('button',{name:'Accept design notes',exact:true})).toBeEnabled();
   await page.getByLabel('Size / intended wearer',{exact:true}).fill('Owner size label');
@@ -68,9 +66,8 @@ test('description to reviewed proposal to real geometry and export survives the 
   await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
   await expect(page.getByText(/Pattern generation failed:/)).toBeVisible();
   await page.getByRole('tab',{name:'Design',exact:true}).click();
-  await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeEnabled();
+  await expect(page.getByRole('button',{name:'See garment'})).toBeEnabled();
   await expect(page.locator('.proposal-requirements')).toContainText('unsupported');
   const evidence=resolve(import.meta.dirname,'../../docs/verification/ai-prototype');
   await mkdir(evidence,{recursive:true});
@@ -78,7 +75,7 @@ test('description to reviewed proposal to real geometry and export survives the 
   await page.getByLabel('Preview with sample M estimates. Keeps measurements you’ve entered.').uncheck();await page.getByRole('button',{name:'Use design & set size'}).click();
   await expect(page.getByRole('heading',{name:'Make it your size.'})).toBeVisible();
   await expect(page.getByText(/Pattern generation failed:/)).toHaveCount(0);
-  await expect(page.getByRole('button',{name:'Use design & preview',exact:true})).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'See garment',exact:true})).toHaveCount(0);
   await page.reload();
   await page.getByRole('button',{name:/Blue linen top Updated/}).click();
   await expect(page.getByRole('heading',{name:'Make it your size.'})).toBeVisible();
@@ -126,17 +123,16 @@ test('editing during a delayed interpretation keeps local work and disables stal
   let started!:()=>void;
   const requestStarted=new Promise<void>(resolve=>{started=resolve;});
   await page.route('**/proposals',async route=>{const response=await route.fetch();started();await hold;await route.fulfill({response});});
-  await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
   await requestStarted;
   await page.getByRole('textbox',{name:'The idea',exact:true}).fill('My newer asymmetric idea');
   finish();
-  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'See garment'})).toBeDisabled();
   await expect(page.getByRole('textbox',{name:'The idea',exact:true})).toHaveValue('My newer asymmetric idea');
   await expect(page.locator('.header-center small')).toHaveText('Saved');
   await page.reload();
   await page.getByRole('button',{name:/Original idea/}).click();
-  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeDisabled();
+  await expect(page.getByRole('button',{name:'See garment'})).toBeDisabled();
 });
 
 test('editing while accepting retains both the newer brief and the accepted design',async({studio})=>{
@@ -146,9 +142,8 @@ test('editing while accepting retains both the newer brief and the accepted desi
   await page.getByLabel('Garment name',{exact:true}).fill('Acceptance race');
   await page.getByLabel('Your idea',{exact:true}).fill('A blue linen top');
   await page.getByRole('button',{name:'Create garment'}).click();
-  await page.getByLabel('Send these inputs to the design model').check();
   await page.getByRole('button',{name:'Interpret my design',exact:true}).click();
-  await expect(page.getByRole('button',{name:'Use design & preview'})).toBeEnabled();
+  await expect(page.getByRole('button',{name:'See garment'})).toBeEnabled();
   let release!:()=>void,started!:()=>void;
   const paused=new Promise<void>(resolve=>{release=resolve;}),requested=new Promise<void>(resolve=>{started=resolve;});
   await page.route('**/proposals/*/accept',async route=>{const response=await route.fetch();started();await paused;await route.fulfill({response});});

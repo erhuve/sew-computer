@@ -19,3 +19,61 @@
 .fabric-appearance input[type=range] {width:100%;}
 .starting-shapes {grid-template-columns:repeat(4,minmax(0,1fr));}
 @media(max-width:760px){.starting-shapes {grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+/* Prompt-first preview. The full editor opens only when requested. */
+.worktable.preview-first{grid-template-columns:minmax(0,1fr)}
+.preview-first>.visual-workspace{width:100%;max-width:1120px;margin:0 auto;padding:24px 32px 40px}
+.preview-first .design-assistant{width:min(100%,740px);margin:0 auto;padding:28px 36px;background:var(--card)}
+.design-assistant .assistant-heading{font-size:12px;color:var(--muted-foreground);gap:8px}
+.design-assistant h2{margin:8px 0 12px}
+.design-assistant .proposal-summary{font-size:15px;line-height:1.65;max-width:64ch}
+.design-assistant>.garment-flats{margin:12px 0;gap:24px}
+.design-assistant>.garment-flats svg{min-height:160px;max-height:210px}
+.design-assistant .preview-action{width:100%;min-height:48px;font-size:16px;margin:14px 0 8px}
+.design-assistant .preview-assumption{font-size:12px;line-height:1.6;color:var(--muted-foreground);text-align:center}
+.design-assistant .proposal-limit{font-size:13px;padding:10px 14px;background:#f4f0e7;border-radius:6px;line-height:1.6}
+.design-assistant .proposal-details,.design-assistant .refine-design{border-top:1px solid var(--border);padding-top:14px;margin-top:18px}
+.design-assistant details>summary{min-height:32px;font-size:13px}
+.design-assistant .prompt-field textarea{min-height:110px;font-size:16px;line-height:1.6}
+.design-assistant .prompt-field{margin:16px 0}
+.design-assistant details .primary{min-height:44px}
+.preview-progress,.idea-progress{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:380px;padding:24px;gap:12px}
+.preview-progress h2,.idea-progress h2{font-size:30px;margin:12px 0 0}
+.preview-progress p,.idea-progress p{max-width:460px;font-size:15px;line-height:1.7}
+.idea-progress blockquote{max-width:500px;font-size:14px;color:var(--muted-foreground);margin:8px 0 22px;white-space:pre-wrap}
+.simplified-choices{margin:20px 0;background:#f6f4ee;border-radius:10px;padding:18px}
+.simplified-choices p{font-size:14px;line-height:1.6}
+.simplified-choices>div{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.simplified-choices button{flex:1;min-width:150px;font-size:13px;min-height:48px}
+.optional-starts>summary{cursor:pointer;font-size:15px;padding:14px 0;color:var(--muted-foreground)}
+.optional-starts[open]>summary{margin-bottom:10px}
+.project-home .idea-launcher{max-width:860px;margin:0 auto 16px;border-radius:16px;padding:26px}
+.project-home .home-heading{max-width:860px;margin:0 auto 26px}
+.project-home .home-heading h1{font-size:44px}
+.project-home .home-heading .eyebrow{display:none}
+.project-home .home-heading p{font-size:15px;color:var(--muted-foreground)}
+.project-home .home-heading>.text-button{font-size:12px;white-space:nowrap}
+.project-home .idea-launcher>label{font-size:16px;margin-bottom:12px}
+.project-home .idea-launcher textarea{min-height:140px;font-size:18px;line-height:1.6}
+.project-home .idea-launcher p{font-size:12px;line-height:1.6}
+.project-home .optional-starts{max-width:860px;margin:auto}
+.preview-first .demo-shape-stage{height:min(62vh,650px);min-height:360px}
+.preview-first .job-progress{font-size:13px}
+@media(max-width:700px){
+  .preview-first>.visual-workspace{padding:16px 12px 28px}
+  .preview-first .design-assistant{padding:22px 18px}
+  .design-assistant>.garment-flats svg{min-height:140px;max-height:170px}
+  .design-assistant .proposal-summary{font-size:14px}
+  .preview-progress,.idea-progress{min-height:320px;padding:18px 4px}
+  .preview-progress h2,.idea-progress h2{font-size:25px}
+  .project-home .home-heading h1{font-size:34px}
+  .project-home .home-heading>.text-button{font-size:11px;padding:8px}
+  .project-home .idea-launcher{padding:18px}
+  .project-home .idea-launcher textarea{min-height:130px;font-size:16px}
+  .project-home .idea-launcher>div{flex-direction:column-reverse}
+  .project-home .home-heading{display:block;position:relative;padding-top:18px}
+  .project-home .home-heading>.text-button{position:absolute;right:0;top:-15px}
+  .preview-first .demo-shape-stage{height:430px;min-height:320px}
+  .simplified-choices>div{flex-direction:column}
+}
+.simplified-preview-note{font-size:13px;line-height:1.6;background:#f2efe5;border-radius:6px;padding:12px 16px;margin-bottom:12px}.simplified-preview-note summary{cursor:pointer;font-weight:500}

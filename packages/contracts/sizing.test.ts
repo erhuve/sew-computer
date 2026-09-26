@@ -1,7 +1,24 @@
 import { expect, test } from 'bun:test';
 import { assumed, emptyDocument, mm } from './index';
-import { applySample, bodyFields, editMeasurement, sampleSizes, sizingInput, sizingIssue, sizingWarning } from './sizing';
+import { applySample, withPreviewSizing, bodyFields, editMeasurement, sampleSizes, sizingInput, sizingIssue, sizingWarning } from './sizing';
+import {simplifiedPreviewDocument} from './starting-designs';
 import { shirtDocument } from '../test-fixtures/shirt';
+
+test('quick previews fill missing sizes and keep owner-adjusted estimates and original design intent',()=>{
+  const doc=emptyDocument('Original','An asymmetric garment with embroidery');
+  doc.body.bust=assumed(1010);doc.body.shoulder={state:'known',value:420,unit:'mm',source:'Owner'};
+  doc.garment.appearance={color:'#415eb2',print:{kind:'stripes',inkColor:'#eeeeee',tileMm:80,rotationDeg:20,assetId:null}};
+  doc.requirements=[{id:'embroidery',text:'Embroidery',feature:'other',status:'unsupported',note:'Original request'}];
+  const sized=withPreviewSizing(doc);
+  expect(sized.body.bust).toEqual(doc.body.bust);expect(sized.body.shoulder).toEqual(doc.body.shoulder);
+  expect(sized.body.hip.state).toBe('assumed');expect(doc.body.hip.state).toBe('unknown');
+  for(const family of ['shirt','dress','skirt'] as const) {
+    const preview=simplifiedPreviewDocument(doc,family);
+    expect(preview.brief).toBe(doc.brief);expect(preview.requirements[0]).toEqual(doc.requirements[0]);
+    expect(preview.garment.appearance).toEqual(doc.garment.appearance);expect(preview.body.bust).toEqual(doc.body.bust);
+    expect(preview.garment.family).toBe(family);expect(sizingIssue(preview)).toBeNull();
+  }
+});
 
 test('samples preserve entered and N/A values and garment choices; assumptions stay explicit', () => {
   const doc = emptyDocument();

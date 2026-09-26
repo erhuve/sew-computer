@@ -7,8 +7,10 @@ for(const family of ['shirt','dress','skirt'] as const)test(`${family}: one-clic
   test.setTimeout(180000);const page=studio.page;
   await studio.login();await mkdir(evidence,{recursive:true});
   if(family==='shirt')await page.screenshot({path:resolve(evidence,'home-desktop.png'),fullPage:true});
+  await page.getByText('Or start with a shape',{exact:true}).click();
   await page.getByRole('button',{name:`Start a ${family}`,exact:true}).click();
   await expect(page.locator('.demo-shape-stage canvas')).toBeVisible({timeout:90000});
+  await page.getByRole('button',{name:'Edit details',exact:true}).click();
   await page.getByText('Size & measurements',{exact:true}).click();
   await page.getByText('Enter or adjust my measurements',{exact:true}).click();
   await expect(page.getByLabel('Hip value',{exact:true})).toBeVisible();
@@ -54,7 +56,7 @@ for(const family of ['dress','skirt'] as const)test(`${family}: home description
   test.setTimeout(150000);await studio.login();const page=studio.page;
   await page.getByLabel('What are you imagining?',{exact:true}).fill(`complete-${family}-fixture — a relaxed woven ${family}.`);
   await page.getByRole('button',{name:'Design with AI',exact:true}).click();
-  await page.getByRole('button',{name:'Use design & preview',exact:true}).click();
+  await page.getByRole('button',{name:'See garment',exact:true}).click();
   await expect(page.locator('.demo-shape-stage canvas')).toBeVisible({timeout:90000});
   const project=(await studio.call('GET','/projects')).projects[0],state=await studio.call('GET',`/projects/${project.id}`);
   const pattern=await studio.call('GET',`/projects/${project.id}/geometry/${state.project.headRevisionId}`);
