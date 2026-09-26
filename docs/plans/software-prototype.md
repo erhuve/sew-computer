@@ -10,6 +10,8 @@ This is the overall product execution roadmap. The [dedicated 3D engine plan](pa
 
 ## MVP feedback milestone — 2026-09-25
 
+The isolated checkout now includes a [local visual demonstration](../reviews/visual-demo.md): four synthetic examples, front/back drawings, changeable construction choices, source-linked 3D pieces and matching downloads. Its selected browser checks pass on desktop and mobile. Use it immediately for an owner-led first reaction session; live interpretation, arbitrary generation and the complete studio flow are separate demonstrations, not capabilities inferred from these examples. No participant feedback has yet been recorded in this checkpoint.
+
 The owner clarified that the immediate objective is an MVP to show people and learn whether they are interested and find real value. Prioritize a usable demonstration of the connected creation loop. Completing the entire research engine is not a prerequisite to testing the value already present. Pattern-derived assembled 3D remains a product goal and an explicit gap; feedback must not be described as validating that missing capability.
 
 The first demonstration can be owner-led in the private studio, using synthetic measurements and non-private references. Public accounts, a marketplace and manufacturing services are not dependencies. This changes sequencing, not the project contract's geometry, privacy or evidence requirements, and does not authorize deployment.
