@@ -77,7 +77,7 @@ export default function Garment3D({ projectId, revisionId, supported, selected, 
   };
 
   return <section className="garment-three-d" aria-label="Pattern-derived garment preview">
-    {!supported || !revisionId ? <div className="canvas-empty"><h3>Your garment will appear here.</h3><p>Generate a supported shirt to see its pattern-derived shape.</p></div> : <>
+    {!supported || !revisionId ? <div className="canvas-empty"><h3>Your garment will appear here.</h3><p>Generate a shirt, relaxed dress or elastic-waist skirt to see its pattern-derived shape.</p></div> : <>
       {job?.status === 'succeeded' && job.result ? <>
         {job.sourceCurrent === false && <div className="geometry-stale">A newer pattern or engine is available. <button disabled={busy} onClick={() => void create()}>Update preview</button></div>}
         <div className="garment-display-toggle"><button aria-pressed={display==='garment'} onClick={()=>setDisplay('garment')}>Garment</button><button aria-pressed={display==='pieces'} onClick={()=>setDisplay('pieces')}>Flat pieces</button></div>

@@ -34,7 +34,7 @@ export class ThreeDQueue {
       if(JSON.parse(project.json).headRevisionId!==revisionId)throw new ApiError(409,'Inspect only the current saved revision');
       if(objectDigest(revision.document)!==revision.digest)throw new ApiError(409,'Revision digest mismatch');
       const construction=revision.document.garment.design;
-      if(!construction||revision.document.garment.family!=='shirt')throw new ApiError(422,'3D inspection requires generated component-shirt patterns');
+      if(!construction)throw new ApiError(422,'Garment preview requires generated component patterns');
       const source=committedPatterns(this.store,projectId,revisionId).assets.find(asset=>asset.artifact.kind==='pattern-json')!;
       if(source.bytes.length>4*1024*1024)throw new ApiError(422,'3D source exceeds input budget');
       const count=this.store.db.query("SELECT COUNT(*) AS count FROM three_d_jobs WHERE status IN ('queued','running')").get() as {count:number};

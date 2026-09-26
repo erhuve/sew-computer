@@ -222,12 +222,12 @@ def main():
     if len(data) > 512 * 1024:
         raise ValueError("Input budget exceeded")
     inputs = json.loads(data)
-    if inputs["family"] not in ("shirt", "skirt", "trousers") or not re.fullmatch("[a-f0-9]{64}", inputs["inputDigest"]):
+    if inputs["family"] not in ("shirt", "dress", "skirt", "trousers") or not re.fullmatch("[a-f0-9]{64}", inputs["inputDigest"]):
         raise ValueError("Invalid engine input")
     if inputs.get("design"):
         verify_dependencies()
-        from shirt import compile_shirt
-        geometry = compile_shirt(inputs, COMMIT)
+        from components import compile_garment
+        geometry = compile_garment(inputs, COMMIT)
     else:
         verify_runtime(upstream)
         sys.path.insert(0, str(upstream))

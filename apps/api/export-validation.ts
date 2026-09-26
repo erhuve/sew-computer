@@ -3,7 +3,7 @@ import { ApiError, checkFile, cleanObject, hash, objectDigest } from './validati
 import { designCoverage } from '../../packages/contracts/design';
 
 function require(condition:unknown,message:string):asserts condition {if(!condition)throw new ApiError(422,message);}
-export function validateExport(snapshot:ExportSnapshot,result:ExportResult,assets:{artifact:Artifact;bytes:Uint8Array}[]):void {
+export async function validateExport(snapshot:ExportSnapshot,result:ExportResult,assets:{artifact:Artifact;bytes:Uint8Array}[]):Promise<void> {
   cleanObject(result.manifest);
   const manifest=result.manifest;
   const topKeys=new Set(['schemaVersion','snapshotId','revisionId','projectId','manifestDigest','sections','revisionNumber','parentRevisionId','revisionCreatedAt','snapshotCreatedAt','inputDigest','renderer']);
@@ -37,7 +37,7 @@ export function validateExport(snapshot:ExportSnapshot,result:ExportResult,asset
   require(Array.isArray(result.files)&&result.files.length>=3&&result.files.length<=100,'Invalid delivery inventory');
   const names=new Set<string>();let total=0;
   for(const file of result.files){
-    checkFile(file.filename,file.bytes,file.mime);
+    await checkFile(file.filename,file.bytes,file.mime);
     require(!names.has(file.filename),'Duplicate delivery filename');names.add(file.filename);
     total+=file.bytes.length;require(total<=128*1024*1024,'Export exceeds its byte limit');
   }

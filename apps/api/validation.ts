@@ -1,5 +1,6 @@
 import { createHash, randomBytes } from 'node:crypto';
 import { z } from 'zod';
+import { PDFArray, PDFDict, PDFDocument, PDFName, PDFObject, PDFStream } from 'pdf-lib';
 import { canonical, DocumentSchema, type GarmentDocument, type PatternGeometry } from '../../packages/contracts';
 import { DraftingSchema, PanelDraftSchema, validateDrafting } from '../../packages/contracts/design';
 
@@ -65,7 +66,7 @@ export async function json(request: Request): Promise<unknown> {
 const numeric = z.number().finite().min(-100000).max(100000);
 const geometrySchema = z.object({
   schemaVersion:z.literal(1),units:z.literal('mm'),inputDigest:z.string().regex(/^[a-f0-9]{64}$/),
-  engineVersion:z.string().min(1).max(500),family:z.enum(['shirt','skirt','trousers']),
+  engineVersion:z.string().min(1).max(500),family:z.enum(['shirt','dress','skirt','trousers']),
   panels:z.array(z.object({id:z.string().min(1).max(160),name:z.string().min(1).max(300),points:z.array(z.tuple([numeric,numeric])).min(3).max(20000),widthMm:z.number().finite().positive().max(100000),heightMm:z.number().finite().positive().max(100000),cutQuantity:z.number().int().positive().max(100).optional(),draft:PanelDraftSchema.optional()}).strict()).min(1).max(100),
   stitches:z.array(z.object({panelA:z.string(),edgeA:z.number().int().nonnegative(),panelB:z.string(),edgeB:z.number().int().nonnegative()}).strict()).max(10000),
   warnings:z.array(z.string().max(8000)).max(200),assumptions:z.array(z.string().max(8000)).max(200),classification:z.literal('printable-reference'),
@@ -90,7 +91,33 @@ export function geometry(value: unknown, digest: string): PatternGeometry {
   }
   return parsed;
 }
-export function checkFile(filename: string, bytes: Uint8Array, mime: string): void {
+async function checkPdf(bytes: Uint8Array): Promise<void> {
+  if (Buffer.from(bytes.subarray(0,5)).toString() !== '%PDF-') throw new ApiError(422, 'Invalid PDF');
+  try {
+    const pdf = await PDFDocument.load(bytes, { updateMetadata: false, throwOnInvalidObject: true });
+    if (!pdf.getPageCount() || pdf.getPageCount() > 500) throw new ApiError(422, 'Invalid PDF page count');
+    const forbidden = new Set(['JavaScript','JS','Launch','URI','GoToR','EmbeddedFile','OpenAction','AA','RichMedia']);
+    const seen = new Set<PDFObject>();
+    const inspect = (value: PDFObject, depth = 0): void => {
+      if (depth > 40 || seen.size > 100000) throw new ApiError(422, 'PDF is too complex');
+      if (seen.has(value)) return;
+      seen.add(value);
+      // This parser leaves lower-case hex escapes in some names. Treat their
+      // decoded spelling conservatively, too, before allowing the original bytes.
+      if (value instanceof PDFName && forbidden.has(value.decodeText().replace(/#([0-9a-f]{2})/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16))))) throw new ApiError(422, 'Active PDF content is not allowed');
+      if (value instanceof PDFDict) for (const [key, child] of value.entries()) { inspect(key, depth + 1); inspect(child, depth + 1); }
+      else if (value instanceof PDFArray) for (const child of value.asArray()) inspect(child, depth + 1);
+      // Content/font/image bytes are not PDF object syntax. Parsed object streams
+      // are inspected through the document context, including escaped names.
+      else if (value instanceof PDFStream) inspect(value.dict, depth + 1);
+    };
+    for (const [, object] of pdf.context.enumerateIndirectObjects()) inspect(object);
+  } catch (error) {
+    if (error instanceof ApiError) throw error;
+    throw new ApiError(422, 'Invalid PDF');
+  }
+}
+export async function checkFile(filename: string, bytes: Uint8Array, mime: string): Promise<void> {
   filenameSchema.parse(filename);
   if (!(bytes instanceof Uint8Array) || bytes.byteLength < 1 || bytes.byteLength > maxFileBytes) throw new ApiError(422, 'Invalid artifact size');
   const text = () => new TextDecoder('utf-8',{fatal:true}).decode(bytes);
@@ -102,7 +129,6 @@ export function checkFile(filename: string, bytes: Uint8Array, mime: string): vo
     const allowed = new Set(['svg','g','path','rect','circle','ellipse','line','polyline','polygon','text','tspan','defs','style','clippath','use','symbol','title','desc']);
     if (tags.some(t=>!allowed.has(t)) || /(?:href|src)\s*=\s*[^\s"']/i.test(svg)) throw new ApiError(422, 'Unsafe SVG element');
   } else if (mime === 'application/pdf') {
-    if (Buffer.from(bytes.subarray(0,5)).toString() !== '%PDF-') throw new ApiError(422, 'Invalid PDF');
-    if (/\/(?:JavaScript|JS|Launch|URI|GoToR|EmbeddedFile|OpenAction|AA|RichMedia)\b/.test(Buffer.from(bytes).toString('latin1'))) throw new ApiError(422, 'Active PDF content is not allowed');
+    await checkPdf(bytes);
   } else if (mime !== 'image/png') throw new ApiError(422, 'Unsupported artifact MIME');
 }

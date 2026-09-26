@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { GarmentDocument, PatternGeometry } from './index';
 
-export const FeatureSchema = z.enum(['body', 'sleeves', 'cuffs', 'collar', 'front-opening', 'tails', 'frills', 'material', 'other']);
+export const FeatureSchema = z.enum(['body', 'sleeves', 'cuffs', 'collar', 'front-opening', 'tails', 'frills', 'waistband', 'material', 'other']);
 export const ShirtDesignSchema = z.object({
   block: z.literal('relaxed-drop-shoulder'),
   sleeves: z.enum(['none', 'short', 'long']),
@@ -24,13 +24,29 @@ export const ShirtDesignSchema = z.object({
   rationale: z.string().min(1).max(2000),
 }).strict();
 export type ShirtDesign = z.infer<typeof ShirtDesignSchema>;
+export const DressDesignSchema = ShirtDesignSchema.extend({block:z.literal('relaxed-dress')});
+export const SkirtDesignSchema = z.object({
+  block:z.literal('elastic-waist-skirt'),
+  waistbandDepthMm:z.number().finite().min(25).max(60),
+  fullness:z.number().finite().min(1).max(1.8),
+  elasticEaseMm:z.number().finite().min(-60).max(40),
+  seamAllowanceMm:z.number().finite().min(6).max(20),
+  rationale:z.string().min(1).max(2000),
+}).strict();
+export const GarmentDesignSchema=z.discriminatedUnion('block',[ShirtDesignSchema,DressDesignSchema,SkirtDesignSchema]);
+export type GarmentDesign=z.infer<typeof GarmentDesignSchema>;
+export type SkirtDesign=z.infer<typeof SkirtDesignSchema>;
+export function designFamily(design:GarmentDesign) {return design.block==='elastic-waist-skirt'?'skirt':design.block==='relaxed-dress'?'dress':'shirt';}
 export const defaultShirtDesign:ShirtDesign={
   block:'relaxed-drop-shoulder',sleeves:'long',sleeveLengthMm:550,cuff:'button',cuffCircumferenceMm:220,cuffDepthMm:55,
   collar:'stand-and-fall',collarStandMm:30,collarFallMm:60,opening:'buttons',placketWidthMm:30,buttonSpacingMm:80,
   hem:'straight',tailExtensionMm:100,frill:'none',frillWidthMm:35,frillFullness:1.8,seamAllowanceMm:10,
   rationale:'Editable relaxed shirt construction. These starting dimensions are design assumptions, not measured neck, arm or wrist sizes; review them and make a toile.',
 };
-export function designIssues(design: ShirtDesign): string[] {
+export const defaultDressDesign:z.infer<typeof DressDesignSchema>={...defaultShirtDesign,block:'relaxed-dress',sleeves:'short',sleeveLengthMm:220,cuff:'none',collar:'none',opening:'none',rationale:'Relaxed woven dress with an unshaped torso and optional dropped-shoulder sleeves. Dimensions are editable assumptions; no fitted waist or darts are implied.'};
+export const defaultSkirtDesign:SkirtDesign={block:'elastic-waist-skirt',waistbandDepthMm:35,fullness:1.25,elasticEaseMm:-20,seamAllowanceMm:10,rationale:'Four-panel woven skirt with a separate elastic casing. Elastic length is an editable assumption; test stretch, hip passage and comfort before sewing.'};
+export function designIssues(design: GarmentDesign): string[] {
+  if(design.block==='elastic-waist-skirt')return [];
   return [
     ...(design.sleeves === 'short' && design.sleeveLengthMm > 350 ? ['Short sleeves require a construction length of at most 350 mm.'] : []),
     ...(design.sleeves === 'long' && design.sleeveLengthMm < 350 ? ['Long sleeves require a construction length of at least 350 mm.'] : []),
@@ -58,7 +74,7 @@ export const AssemblySchema = z.object({
   instruction:z.string().min(1).max(2000),
 }).strict();
 export const DraftingSchema = z.object({
-  compiler:z.literal('sew-relaxed-shirt/1'),
+  compiler:z.enum(['sew-relaxed-shirt/1','sew-relaxed-dress/1','sew-elastic-skirt/1']),
   seamAllowanceMm:z.number().finite().min(6).max(20),
   components:z.array(FeatureSchema).min(1),
   assembly:z.array(AssemblySchema).max(100),
@@ -134,7 +150,7 @@ export function validateDrafting(geometry: PatternGeometry): void {
   if (reached.size !== panels.size) throw new Error('Disconnected assembly graph');
   const evidenced = new Set(geometry.panels.map(panel => panel.draft!.component));
   const back = panels.get('back_left'), front = panels.get('front_left');
-  if (back && front) {
+  if (back && front && back.draft!.edges.some(edge=>edge.name==='hem')) {
     const backHem = back.draft!.edges.find(edge => edge.name === 'hem')!;
     const start = back.points[backHem.start]!, end = back.points[backHem.end]!;
     if (start[1] > end[1] + 20) evidenced.add('tails');
@@ -178,7 +194,9 @@ export function validateDesignGeometry(doc:GarmentDocument,geometry:PatternGeome
   const design=doc.garment.design;
   if(!design) { if(geometry.drafting)throw new Error('Unexpected component drafting'); return; }
   validateDrafting(geometry);
-  if(!geometry.drafting || geometry.family!=='shirt')throw new Error('Selected construction was not generated');
+  if(!geometry.drafting || geometry.family!==doc.garment.family || geometry.family!==designFamily(design))throw new Error('Selected construction was not generated');
+  if(design.block==='elastic-waist-skirt') {validateSkirtGeometry(doc,geometry,design);return;}
+  if(geometry.drafting.compiler!==(design.block==='relaxed-dress'?'sew-relaxed-dress/1':'sew-relaxed-shirt/1'))throw new Error('Selected compiler mismatch');
   const expected=new Map<string,number>([['front_left',1],['front_right',1],['back_left',1],['back_right',1]]);
   const seams=['shoulder_left','shoulder_right','side_left','side_right','center_back'];
   for(const side of ['left','right']) {
@@ -244,8 +262,45 @@ export function designCoverage(doc: GarmentDocument, geometry: PatternGeometry |
   if(geometry&&doc.garment.design)validateDesignGeometry(doc,geometry);
   const components = new Set(geometry?.drafting?.components ?? []);
   const design = doc.garment.design;
-  const expected = design ? ['body', ...(design.sleeves !== 'none' ? ['sleeves'] : []), ...(design.cuff !== 'none' ? ['cuffs'] : []), ...(design.collar !== 'none' ? ['collar'] : []), ...(design.opening !== 'none' ? ['front-opening'] : []), ...(design.hem !== 'straight' ? ['tails'] : []), ...(design.frill !== 'none' ? ['frills'] : [])] : [];
+  const expected = design?.block==='elastic-waist-skirt'?['body','waistband']:design ? ['body', ...(design.sleeves !== 'none' ? ['sleeves'] : []), ...(design.cuff !== 'none' ? ['cuffs'] : []), ...(design.collar !== 'none' ? ['collar'] : []), ...(design.opening !== 'none' ? ['front-opening'] : []), ...(design.hem !== 'straight' ? ['tails'] : []), ...(design.frill !== 'none' ? ['frills'] : [])] : [];
   const missing = expected.filter(feature => !components.has(feature as z.infer<typeof FeatureSchema>));
   const unresolved = doc.requirements.filter(row => row.status !== 'supported' || !row.feature || row.feature === 'other' || (row.feature !== 'material' && !components.has(row.feature)));
   return {status: !geometry ? 'not-generated' : !design || missing.length || unresolved.length ? 'partial' : 'drafted', missing, unresolved: unresolved.map(row => row.text), notice: 'Digital feature coverage only. Interpretation may omit or misunderstand a request; review against the original brief. No physical fit or sewing validation.'} as const;
+}
+
+function validateSkirtGeometry(doc:GarmentDocument,geometry:PatternGeometry,design:SkirtDesign) {
+  const drafting=geometry.drafting!;
+  if(drafting.compiler!=='sew-elastic-skirt/1'||drafting.seamAllowanceMm!==design.seamAllowanceMm)throw new Error('Skirt compiler or allowance mismatch');
+  const value=(measurement:GarmentDocument['garment']['length'])=>'value' in measurement?measurement.value*({mm:1,cm:10,in:25.4}[measurement.unit]):NaN;
+  const width=Math.max(value(doc.body.hip)+value(doc.garment.ease),value(doc.body.waist)+80)*design.fullness/4;
+  const depth=design.waistbandDepthMm,length=value(doc.garment.length)-depth,hem=width*doc.garment.flare,inset=(hem-width)/2;
+  const quarters=['front_left','back_left','back_right','front_right'];
+  const close=(a:number,b:number)=>{if(!Number.isFinite(a)||!Number.isFinite(b)||Math.abs(a-b)>0.0001)throw new Error('Selected skirt dimension mismatch');};
+  const expectedSeams=new Map<string,{panel:string;edge:number}[]>();
+  if(geometry.panels.length!==8)throw new Error('Selected skirt inventory mismatch');
+  for(const [index,quarter] of quarters.entries()) {
+    const next=quarters[(index+1)%4];
+    for(const band of [false,true]) {
+      const panel=geometry.panels.find(p=>p.id===`${band?'waistband':'skirt'}_${quarter}`);
+      if(!panel||panel.cutQuantity!==(band?2:1)||panel.draft?.component!==(band?'waistband':'body'))throw new Error('Selected skirt inventory mismatch');
+      const points=band?[[0,0],[width,0],[width,depth],[0,depth],[0,0]]:[[inset,0],[inset+width,0],[hem,length],[0,length],[inset,0]];
+      if(panel.points.length!==points.length)throw new Error('Skirt source topology mismatch');
+      panel.points.forEach((point,i)=>{close(point[0],points[i]![0]!);close(point[1],points[i]![1]!);});
+      const names=band?['top','right','bottom','left']:['waist','right','hem','left'];
+      if(panel.draft.edges.length!==4||panel.draft.edges.some((edge,i)=>edge.name!==names[i]||edge.start!==i||edge.end!==i+1))throw new Error('Skirt source edge mismatch');
+      if(panel.draft.marks.some(mark=>mark.kind!=='notch'))throw new Error('Unexpected skirt closure');
+      close(panel.widthMm,band?width:hem);close(panel.heightMm,band?depth:length);
+    }
+    expectedSeams.set(`side_${quarter}`,[{panel:`skirt_${quarter}`,edge:1},{panel:`skirt_${next}`,edge:3}]);
+    expectedSeams.set(`band_side_${quarter}`,[{panel:`waistband_${quarter}`,edge:1},{panel:`waistband_${next}`,edge:3}]);
+    expectedSeams.set(`waist_${quarter}`,[{panel:`skirt_${quarter}`,edge:0},{panel:`waistband_${quarter}`,edge:2}]);
+  }
+  if(drafting.assembly.length!==expectedSeams.size)throw new Error('Selected skirt assembly mismatch');
+  for(const seam of drafting.assembly) {
+    const sides=expectedSeams.get(seam.id);
+    if(!sides||seam.sides.length!==sides.length||seam.sides.some((side,index)=>side.panel!==sides[index]!.panel||side.edge!==sides[index]!.edge)||seam.treatment!=='plain'||seam.ratio!==1)throw new Error('Selected skirt attachment mismatch');
+  }
+  const measures=new Map<string,number>([['Fabric waist circumference',width*4],['Hem circumference',hem*4],['Skirt length including waistband',length+depth],['Finished waistband depth',depth],['Assumed relaxed elastic circumference',value(doc.body.waist)+design.elasticEaseMm]]);
+  if(drafting.measurements.length!==measures.size||new Set(drafting.measurements.map(row=>row.name)).size!==measures.size)throw new Error('Skirt measurement inventory mismatch');
+  for(const row of drafting.measurements)close(row.valueMm,measures.get(row.name)??NaN);
 }

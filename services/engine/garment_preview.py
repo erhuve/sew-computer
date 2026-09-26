@@ -21,6 +21,32 @@ MATERIAL={'name':'Assumed soft woven cotton, visual approximation','calibrated':
  'iterations':110,'contact':'not solved','gravity':'represented by posing guides, not dynamic simulation'}
 def digest(b): return hashlib.sha256(b).hexdigest()
 def enc(v): return json.dumps(v,separators=(',',':'),sort_keys=True,allow_nan=False).encode()
+def skirt_guide(panel, xy, panels, pattern, role):
+    from skirt import QUARTERS
+    name = panel['id']; x, y = np.asarray(xy).T
+    band = name.startswith('waistband_')
+    quarter = name.removeprefix('waistband_' if band else 'skirt_')
+    index = QUARTERS.index(quarter)
+    source = panels['skirt_' + quarter]
+    waistband = panels['waistband_' + quarter]
+    length, depth, width = source['heightMm'], waistband['heightMm'], waistband['widthMm']
+    elastic = next(row['valueMm'] for row in pattern['drafting']['measurements'] if row['name'] == 'Assumed relaxed elastic circumference')
+    # Elastic is an explicit, uncalibrated posing assumption. Rest dimensions stay unchanged.
+    hem = source['widthMm']; inset = (hem - width) / 2
+    t = np.zeros_like(y) if band else np.clip(y / length, 0, 1)
+    local_width = width + (hem - width) * t
+    u = x / width if band else (x - inset * (1 - t)) / local_width
+    angle = (index + u) * math.pi / 2
+    r0 = elastic / (2 * math.pi)
+    # Smoothly release waist gathering into a hanging skirt, then flare toward the hem.
+    release = 1 - np.exp(-t * 5)
+    circumference = elastic * (1 - release) + 4 * local_width * release
+    radius = circumference / (2 * math.pi)
+    fold = np.sin(angle * 24) * (2 if band else 4 + 9 * np.sin(t * math.pi / 2))
+    radius += fold - (.7 if role == 'facing' else 0)
+    yy = -y if band else -depth - y + 3 * np.cos(angle * 24) * t
+    return np.c_[radius * np.sin(angle), yy, radius * np.cos(angle)]
+
 def guide(panel,xy,panels,role='shell'):
     name=panel['id']; x,y=np.asarray(xy).T
     sign=-1 if (name.startswith('opening_binding_right_') or (not name.startswith('opening_binding_') and name.endswith('_right'))) else 1
@@ -124,7 +150,7 @@ def build_preview(source,construction):
     for inst in inventory['instances']:
         name=inst['templateId'];m=templates[name];uv=np.array(m['restPositions']); n=len(uv)
         offsets[inst['id']]=start
-        rest.extend(np.c_[uv,np.zeros(n)]); guides.extend(guide(panels[name],uv,panels,inst['role']))
+        rest.extend(np.c_[uv,np.zeros(n)]); guides.extend(skirt_guide(panels[name],uv,panels,pattern,inst['role']) if pattern['family']=='skirt' else guide(panels[name],uv,panels,inst['role']))
         pieces.append({**inst,'offset':start,'count':n,'mesh':m});start+=n
         if start>60000: raise ValueError('Preview vertex budget exceeded')
     rest=np.array(rest);targets=np.array(guides); n=len(rest)
@@ -204,7 +230,7 @@ def build_preview(source,construction):
         'wallSeconds':time.monotonic()-started,'sourceVertices':n,'pieces':output,'buttons':buttons,
         'generatorSha256':digest(Path(__file__).read_bytes()),
         'constructionDigest':inventory['constructionDigest'],'assemblyDigest':digest(enc(seams)),
-        'materialDigest':digest(enc(MATERIAL)),'pose':{'recipe':'synthetic-body-free-shirt-guides/1','calibrated':False,'source':'pattern dimensions and explicit guide equations in the pinned generator'},
-        'sourceHashes':{name:digest((ROOT/name).read_bytes()) for name in ('assembly.py','meshing.py','quality_meshing.py','simulation_validation.py')}}
+        'materialDigest':digest(enc(MATERIAL)),'pose':{'recipe':f'source-derived-{pattern["family"]}-guides/1','calibrated':False,'source':'pattern dimensions and explicit guide equations in the pinned generator'},
+        'sourceHashes':{name:digest((ROOT/name).read_bytes()) for name in ('assembly.py','skirt.py','skirt_assembly.py','meshing.py','quality_meshing.py','simulation_validation.py')}}
     if len(enc(report))>16*1024*1024: raise ValueError('Preview artifact budget exceeded')
     return report

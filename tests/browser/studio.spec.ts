@@ -26,8 +26,9 @@ async function generate(studio:any){const page=studio.page;
  await page.getByRole('combobox',{name:'Geometry family',exact:true}).selectOption('shirt');
  await page.getByRole('button',{name:'Apply sample M',exact:true}).click();
  await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
- await expect(page.locator('.pattern-stage svg[role="img"]')).toBeVisible({timeout:30000});
- await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(4);
+ await page.getByRole('tab',{name:'Pattern',exact:true}).click();
+ await expect(page.locator('.pattern-stage svg[role="img"]')).toBeVisible({timeout:45000});
+ await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(16);
 }
 test('unfinished design explains missing inputs and recovers to real generation',async({studio})=>{
  await create(studio);
@@ -37,6 +38,7 @@ test('unfinished design explains missing inputs and recovers to real generation'
  await generate(studio);
  await studio.page.reload();
  await studio.page.getByRole('button',{name:/The everyday overshirt Updated/}).click();
+ await studio.page.getByRole('tab',{name:'Pattern',exact:true}).click();
  await expect(studio.page.locator('.pattern-stage svg[role="img"]')).toBeVisible();
  await expect(studio.page.getByText(/Pattern generation failed:/)).toHaveCount(0);
 });
@@ -141,6 +143,7 @@ test('disclosure changes invalidate both pending and completed download links',a
  let started!:()=>void;
  const requested=new Promise<void>(resolve=>{started=resolve;});
  await page.route('**/api/projects/*/exports',async route=>{started();await paused;await route.continue();});
+ if(!await page.getByLabel('Include private body inputs',{exact:true}).isVisible())await page.getByText('Choose what to include',{exact:true}).click();
  await page.getByLabel('Include private body inputs',{exact:true}).check();
  await page.getByRole('button',{name:'Build review package',exact:true}).click();
  await requested;
@@ -151,12 +154,14 @@ test('disclosure changes invalidate both pending and completed download links',a
  await page.unroute('**/api/projects/*/exports');
  await page.getByRole('button',{name:'Build review package',exact:true}).click();
  await expect(page.getByRole('link',{name:/tech-pack.pdf/})).toBeVisible();
+ if(!await page.getByLabel('Include private body inputs',{exact:true}).isVisible())await page.getByText('Choose what to include',{exact:true}).click();
  await page.getByLabel('Include private body inputs',{exact:true}).check();
  await expect(page.getByRole('link',{name:/tech-pack.pdf/})).toHaveCount(0);
 });
 
 test('populated garment exports real patterns and incorporates a bounded maker correction',async({studio})=>{
  await create(studio,'Cotton overshirt handoff');const {page}=studio;
+ await page.getByText('Design requirements',{exact:true}).click();
  await page.getByRole('button',{name:'Add a requirement',exact:true}).click();
  await page.getByRole('textbox',{name:'Requirement 1',exact:true}).fill('Preserve asymmetric collar intent; current adapter cannot realize it.');
  await page.getByRole('combobox',{name:'Engine coverage (owner assessment)',exact:true}).selectOption('unsupported');
@@ -196,6 +201,7 @@ test('populated garment exports real patterns and incorporates a bounded maker c
  await page.getByRole('button',{name:'Record note',exact:true}).click();
  await expect(page.getByRole('textbox',{name:'Feedback',exact:true})).toHaveValue('');
  await page.getByRole('button',{name:'Export draft',exact:true}).first().click();
+ await page.getByText('Choose what to include',{exact:true}).click();
  await page.getByLabel('Include generated pattern references',{exact:true}).check();
  await page.getByLabel('Include private photos, sketches and technical views',{exact:true}).check();
  await page.getByRole('button',{name:'Build review package',exact:true}).click();

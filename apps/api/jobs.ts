@@ -149,7 +149,7 @@ export class JobQueue {
       let jsonCount=0;
       for (const file of result.files) {
         if (file.kind==='reference' || file.mime!==({'pattern-json':'application/json','pattern-svg':'image/svg+xml','pattern-pdf':'application/pdf'} as Record<string,string>)[file.kind]) throw new ApiError(422,'Invalid engine artifact kind');
-        checkFile(file.filename,file.bytes,file.mime);
+        await checkFile(file.filename,file.bytes,file.mime);
         if (file.kind==='pattern-json') {
           jsonCount++;
           if (canonical(geometry(JSON.parse(new TextDecoder().decode(file.bytes)),revision.digest))!==canonical(normalized)) throw new ApiError(422,'Pattern JSON disagrees with geometry');

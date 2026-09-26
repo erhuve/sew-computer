@@ -6,7 +6,7 @@ import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { canonical, DocumentSchema as documentSchema, type Artifact, type GarmentDocument, type PatternGeometry } from '../../packages/contracts/index';
 import { sizingInput } from '../../packages/contracts/sizing';
-import { designIssues, validateDrafting, validateDesignGeometry } from '../../packages/contracts/design';
+import { designIssues, designFamily, validateDrafting, validateDesignGeometry } from '../../packages/contracts/design';
 import { renderTiledPattern, type PrintPaper } from './printing';
 
 export const ENGINE_COMMIT = '7065b3ef01ff61f4462e871d4cb439a0b97c48db';
@@ -33,7 +33,7 @@ export function validateInput(document: GarmentDocument, inputDigest: string) {
     ...doc.requirements.map(r => `Requirement ${r.id} remains ${r.status}, unverified by engine: ${r.text}`),
   ];
   const design = doc.garment.design;
-  if (design && (dimensions.family !== 'shirt' || designIssues(design).length)) throw new EngineInputError(dimensions.family !== 'shirt' ? 'The relaxed shirt construction requires shirt family.' : designIssues(design).join(' '));
+  if (design && (dimensions.family !== designFamily(design) || designIssues(design).length)) throw new EngineInputError(dimensions.family !== designFamily(design) ? 'The selected construction does not match the garment family.' : designIssues(design).join(' '));
   const input = { ...dimensions, ...(design ? {design} : {}), provenance, inputDigest };
   if (Buffer.byteLength(JSON.stringify(input)) > 512 * 1024) throw new Error('Engine input exceeds budget');
   return input;
@@ -96,7 +96,7 @@ async function readArtifact(path: string): Promise<Uint8Array> {
 
 export function validateGeometry(value: unknown, inputDigest: string): PatternGeometry {
   const geometry = value as PatternGeometry;
-  if (!geometry || geometry.schemaVersion !== 1 || geometry.units !== 'mm' || typeof geometry.engineVersion !== 'string' || !geometry.engineVersion.includes(ENGINE_COMMIT) || geometry.inputDigest !== inputDigest || geometry.classification !== 'printable-reference' || !['shirt', 'skirt', 'trousers'].includes(geometry.family)) throw new Error('Invalid engine provenance');
+  if (!geometry || geometry.schemaVersion !== 1 || geometry.units !== 'mm' || typeof geometry.engineVersion !== 'string' || !geometry.engineVersion.includes(ENGINE_COMMIT) || geometry.inputDigest !== inputDigest || geometry.classification !== 'printable-reference' || !['shirt', 'dress', 'skirt', 'trousers'].includes(geometry.family)) throw new Error('Invalid engine provenance');
   if (!Array.isArray(geometry.panels) || geometry.panels.length < 1 || geometry.panels.length > 32 || !Array.isArray(geometry.stitches) || !Array.isArray(geometry.warnings) || !geometry.warnings.every(w => typeof w === 'string') || !Array.isArray(geometry.assumptions) || !geometry.assumptions.every(w => typeof w === 'string')) throw new Error('Invalid engine geometry');
   const ids = new Set<string>();
   for (const panel of geometry.panels) {

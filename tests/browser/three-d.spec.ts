@@ -37,7 +37,6 @@ test('description to garment, edit, source selection, reload and revision-matche
   await expect(page.locator('.demo-shape-stage canvas')).toBeVisible();
   await mkdir(evidence,{recursive:true});await page.screenshot({path:resolve(evidence,'desktop.png')});
   await page.getByRole('button',{name:'Download',exact:true}).click();
-  await page.getByRole('button',{name:'Build review package',exact:true}).click();
   const patternLink=page.getByRole('link',{name:/^pattern-.+\.json$/,exact:true});await expect(patternLink).toBeVisible();
   const url=(await patternLink.getAttribute('href'))!.replace(/^\/api/,'');const exported=await studio.call('GET',url);
   expect(exported.inputDigest).toBe(edited.revisions.find((r:any)=>r.id===edited.project.headRevisionId).digest);

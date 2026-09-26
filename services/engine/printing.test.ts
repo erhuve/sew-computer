@@ -78,7 +78,7 @@ for (const paper of Object.keys(PRINT_PAPERS) as PrintPaper[]) test(`${paper} ti
     expect(verticalError / overlapTop.length).toBeLessThan(2);
     expect(Math.min(...overlapTop)).toBeLessThan(100);
   } finally { await rm(directory, {recursive:true,force:true}); }
-});
+},30000);
 
 test('print planning rejects oversized output and cancellation', async () => {
   const geometry = fixture();

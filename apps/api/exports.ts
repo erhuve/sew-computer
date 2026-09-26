@@ -53,7 +53,7 @@ export class Handoff {
       try {result=await this.exporter(structuredClone(captured.snapshot),structuredClone(captured.geometry),captured.assets.map(a=>({artifact:structuredClone(a.artifact),bytes:Uint8Array.from(a.bytes)})));}
       catch {throw new ApiError(422,'Export failed; no delivery was installed');}
       this.store.assertReady();
-      validateExport(captured.snapshot,result,captured.assets);
+      await validateExport(captured.snapshot,result,captured.assets);
       const manifest=structuredClone(result.manifest);
       const files=result.files.map(file=>({...file,bytes:Uint8Array.from(file.bytes)}));
       this.store.install(files,records=>{

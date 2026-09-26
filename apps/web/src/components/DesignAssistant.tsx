@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {requiredBodyFields} from '../../../../packages/contracts/sizing';
 import { LoaderCircle, Sparkles } from 'lucide-react';
 import { canonical, type GarmentDocument, type Measurement } from '../../../../packages/contracts';
 import type { DesignProposal, InterpretationStatus, InterpretationJob } from '../../../../packages/contracts/interpretation';
@@ -12,7 +13,7 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
 }) {
   const [useSample,setUseSample]=useState(true);
   const [consent,setConsent]=useState(false),[images,setImages]=useState(false);
-  const missing=Object.entries(doc.body).filter(([,value])=>!('value' in value)).map(([name])=>name);
+  const missing=requiredBodyFields(doc).filter(field=>!('value' in doc.body[field.key])).map(field=>field.label);
   const needsPatternSupport = !proposal && !!doc.interpretation && doc.garment.family === 'none';
   const interpreting=job?.status==='queued'||job?.status==='running';
   return <section className="design-assistant" aria-label="Design assistant">
@@ -48,7 +49,7 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
       <h2>Design saved. Pattern support needed.</h2>
       <p>Your idea and technical notes are saved, but no pattern shape was selected. Adding measurements alone won’t make this design generate.</p>
       <details><summary>Details the engine cannot make</summary><ul>{doc.requirements.filter(row=>row.status==='unsupported').map(row=><li key={row.id}>{row.text}</li>)}</ul></details>
-      <p>You can revise the idea, export the design notes for a maker, or explicitly choose a simplified base. Available bases are a sleeveless top, circular skirt and basic trousers; they won’t include your unsupported details.</p>
+      <p>You can revise the idea, export the design notes for a maker, or explicitly choose a simplified base. Editable starting shapes include shirts, relaxed dresses and elastic-waist skirts; they won’t include your unsupported details.</p>
       <button onClick={onMeasurements} disabled={busy}>Choose a simplified base pattern</button>
     </>:!interpreting&&<p>Describe your garment, then turn it into an editable design.</p>}
     <details open={!proposal && !needsPatternSupport && !interpreting}>
@@ -59,6 +60,6 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
       <label className="check-field"><input type="checkbox" checked={consent} disabled={busy} onChange={event=>setConsent(event.target.checked)}/>Send these inputs to the design model</label>
       <button className="primary" disabled={busy||interpreting||!consent||!status?.available||!doc.brief.trim()} onClick={()=>onPropose(images)}>{busy||interpreting?<LoaderCircle size={16} className="spin"/>:<Sparkles size={16}/>} {busy||interpreting?'Working…':'Interpret my design'}</button>
     </details>
-    {!proposal&&doc.garment.family!=='none'&&<button disabled={busy} onClick={onMeasurements}>{missing.length?`Add ${missing.length} body measurements`:'Review measurements & generate'}</button>}
+    {!proposal&&doc.garment.family!=='none'&&<button disabled={busy} onClick={onMeasurements}>{missing.length?`Add ${missing.length} body measurements`:'Customize this design'}</button>}
   </section>;
 }

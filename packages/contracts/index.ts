@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { FeatureSchema, ShirtDesignSchema, type PanelDraftSchema, type DraftingSchema } from './design';
+import { FeatureSchema, GarmentDesignSchema, type PanelDraftSchema, type DraftingSchema } from './design';
 
 export const text = z.string().max(8000);
 export const Id = z.string().regex(/^[a-zA-Z0-9_-]{1,100}$/);
@@ -22,7 +22,7 @@ export const CalloutSchema = z.object({id:Id,anchor:z.string().max(300),text}).s
 export const ViewSchema = z.object({id:Id,assetId:Id,role:z.enum(['front','back','detail']),kind:z.enum(['reference','technical-flat','sketch']),caption:text}).strict();
 export const DocumentSchema = z.object({
   schemaVersion:z.literal(1), title:z.string().min(1).max(160), brief:text, sizeLabel:z.string().max(100),
-  garment:z.object({family:z.enum(['none','shirt','skirt','trousers']),length:MeasurementSchema,ease:MeasurementSchema,flare:z.number().finite().min(0).max(3),design:ShirtDesignSchema.nullable().optional()}).strict(),
+  garment:z.object({family:z.enum(['none','shirt','dress','skirt','trousers']),length:MeasurementSchema,ease:MeasurementSchema,flare:z.number().finite().min(0).max(3),design:GarmentDesignSchema.nullable().optional()}).strict(),
   body:z.object({height:MeasurementSchema,bust:MeasurementSchema,waist:MeasurementSchema,hip:MeasurementSchema,shoulder:MeasurementSchema}).strict(),
   requirements:z.array(RequirementSchema).max(80), bom:z.array(BomSchema).max(80), poms:z.array(PomSchema).max(80),
   construction:z.array(ConstructionSchema).max(80),callouts:z.array(CalloutSchema).max(80),views:z.array(ViewSchema).max(20),

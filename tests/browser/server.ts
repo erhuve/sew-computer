@@ -1,16 +1,25 @@
 export {};
 import { interpretationFixture } from '../../packages/test-fixtures/interpretation';
+import {defaultShirtDesign} from '../../packages/contracts/design';
+import {startingDocument} from '../../packages/contracts/starting-designs';
 import { shirtDocument } from '../../packages/test-fixtures/shirt';
 const model=Bun.serve({hostname:'127.0.0.1',port:0,fetch:async request=>{
   const body = await request.text();
   if(body.includes('slow-interpretation-fixture'))await new Promise(resolve=>setTimeout(resolve,6000));
   const result = structuredClone(interpretationFixture);
+  result.garment.design={...defaultShirtDesign,sleeves:'none',cuff:'none',collar:'none',opening:'none',frill:'none'};
   if (body.includes('complete-shirt-fixture')) {
     const shirt=shirtDocument();
     result.garment={...result.garment,design:shirt.garment.design!};
     result.requirements=shirt.requirements.map(({id,...row})=>({...row,feature:row.feature!}));
     result.summary='Relaxed white button-up with curved back tails and gathered front frills.';
     result.questions=[];
+  }
+  for(const family of ['dress','skirt'] as const)if(body.includes(`complete-${family}-fixture`)) {
+    const doc=startingDocument(family);
+    result.garment=doc.garment as typeof result.garment;
+    result.requirements=doc.requirements.map(({id,...row})=>({...row,feature:row.feature!}));
+    result.summary=`Relaxed woven ${family} with editable construction.`;result.questions=[];
   }
   if (body.includes('unsupported-tailcoat-fixture')) result.garment = {family:'none',length:{state:'unknown'},ease:{state:'unknown'},flare:1,design:null};
   return Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(result)}}],usage:{prompt_tokens:100,completion_tokens:200}});

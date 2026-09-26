@@ -1,5 +1,5 @@
 import { assumed, mm, type GarmentDocument, type Measurement } from './index';
-import { designIssues } from './design';
+import { designIssues, designFamily } from './design';
 
 export type Body = GarmentDocument['body'];
 export type BodyKey = keyof Body;
@@ -11,6 +11,11 @@ export const bodyFields: { key: BodyKey; label: string; min: number; max: number
   { key: 'hip', label: 'Hip', min: 650, max: 1700, method: 'Measure around the fullest part of your hips and seat.' },
   { key: 'shoulder', label: 'Shoulder', min: 250, max: 600, method: 'Measure across your back from one shoulder tip to the other. This is a width, not a circumference.' },
 ];
+export function requiredBodyFields(doc:GarmentDocument) {
+  const block=doc.garment.design?.block;
+  const keys:BodyKey[]=block==='elastic-waist-skirt'?['waist','hip']:block?['bust','hip','shoulder']:bodyFields.map(field=>field.key);
+  return bodyFields.filter(field=>keys.includes(field.key));
+}
 export const sampleSizes = [
   { label: 'XS', values: [1600, 800, 640, 880, 360] },
   { label: 'S', values: [1650, 860, 700, 940, 380] },
@@ -47,22 +52,27 @@ export function sizingInput(doc: GarmentDocument) {
     if (!Number.isFinite(amount) || amount < min || amount > max) throw new Error(`Unsupported ${name}: requires ${min}–${max} mm in this engine. Your value is preserved; this is an engine limit, not a judgment about your body.`);
     return amount;
   };
-  const bodyMm = Object.fromEntries(bodyFields.map(field => [field.key, value(`body ${field.key === 'bust' ? 'bust circumference' : field.key === 'waist' ? 'waist circumference' : field.key === 'hip' ? 'hip circumference' : field.key === 'shoulder' ? 'shoulder width' : 'height'}`, doc.body[field.key], field.min, field.max)])) as Record<BodyKey, number>;
+  const bodyMm = Object.fromEntries(requiredBodyFields(doc).map(field => [field.key, value(`body ${field.key === 'bust' ? 'bust circumference' : field.key === 'waist' ? 'waist circumference' : field.key === 'hip' ? 'hip circumference' : field.key === 'shoulder' ? 'shoulder width' : 'height'}`, doc.body[field.key], field.min, field.max)])) as Partial<Record<BodyKey, number>>;
   const family = doc.garment.family;
-  const lengthMm = value('garment construction length', doc.garment.length, family === 'shirt' ? 400 : bodyMm.height * 0.12 + 150, family === 'shirt' ? 1100 : 1300);
-  const easeMm = value('circumference ease', doc.garment.ease, 0, family === 'shirt' ? Math.min(200, bodyMm.bust * 0.3) : 200);
-  const ranges = { shirt: [0.7, 1.5], skirt: [0.5, 2], trousers: [0.7, 1.2] } as const;
+  const lengthMm = value('garment construction length', doc.garment.length, family === 'shirt' ? 400 : family==='dress'?700:doc.garment.design?450:bodyMm.height! * 0.12 + 150, family === 'shirt' ? 1100 : family==='dress'?1450:1300);
+  const easeMm = value('circumference ease', doc.garment.ease, 0, family === 'shirt' ? Math.min(200, bodyMm.bust! * 0.3) : 200);
+  const ranges = { shirt: [0.7, 1.5], dress:[1,2], skirt:doc.garment.design?.block==='elastic-waist-skirt'?[1,1.8]:[0.5, 2], trousers: [0.7, 1.2] } as const;
   const [minimum, maximum] = ranges[family];
   if (doc.garment.flare < minimum || doc.garment.flare > maximum) throw new Error(`Unsupported ${family} flare: requires ${minimum}–${maximum}. Review it in Shape & body.`);
-  if (family !== 'shirt' && bodyMm.hip - bodyMm.waist < 40) throw new Error('Unsupported lower-garment body combination: this adapter requires hip to exceed waist by at least 40 mm. Check your measurements in Shape & body; if accurate, this body combination is not supported yet.');
+  if (!doc.garment.design && family !== 'shirt' && bodyMm.hip! - bodyMm.waist! < 40) throw new Error('Unsupported lower-garment body combination: this adapter requires hip to exceed waist by at least 40 mm. Check your measurements in Shape & body; if accurate, this body combination is not supported yet.');
   const design = doc.garment.design;
+  if(family==='dress'&&!design)throw new Error('Choose an editable dress construction before generating.');
   if (design) {
-    if (family !== 'shirt') throw new Error('The relaxed shirt construction requires shirt family.');
+    if (family !== designFamily(design)) throw new Error('The selected construction does not match the garment family.');
     const issues = designIssues(design);
     if (issues.length) throw new Error(issues.join(' '));
-    const width = (Math.max(bodyMm.bust, bodyMm.hip) + easeMm) / 4;
-    const armDepth = bodyMm.bust / 10 + 110;
-    if (width * 2 < bodyMm.shoulder + 20) throw new Error('This relaxed drop-shoulder block needs finished upper-body width at least 20 mm wider than shoulder width. Increase garment ease or choose another construction; do not alter accurate body measurements.');
+    if(design.block==='elastic-waist-skirt') {
+      if(lengthMm-design.waistbandDepthMm<200)throw new Error('The skirt must leave at least 200 mm below the waistband.');
+      return {family,bodyMm,lengthMm,easeMm,flare:doc.garment.flare};
+    }
+    const width = (Math.max(bodyMm.bust!, bodyMm.hip!) + easeMm) / 4;
+    const armDepth = bodyMm.bust! / 10 + 110;
+    if (width * 2 < bodyMm.shoulder! + 20) throw new Error('This relaxed drop-shoulder block needs finished upper-body width at least 20 mm wider than shoulder width. Increase garment ease or choose another construction; do not alter accurate body measurements.');
     if (lengthMm < armDepth + 150 || doc.garment.flare < 0.9) throw new Error('This relaxed shirt requires at least 150 mm below the armhole and flare of at least 0.9.');
     if (design.sleeves !== 'none') {
       const cuffDepth = design.cuff === 'button' ? design.cuffDepthMm : 0;

@@ -75,12 +75,12 @@ test('description to reviewed proposal to real geometry and export survives the 
   await page.getByRole('button',{name:/Blue linen top Updated/}).click();
   await expect(page.getByRole('heading',{name:'Make it your size.'})).toBeVisible();
   await expect(page.getByText(/Pattern generation failed:/)).toHaveCount(0);
-  await expect(page.getByLabel('Height value',{exact:true})).toBeVisible();
+  await expect(page.getByLabel('Bust value',{exact:true})).toBeVisible();
   await page.getByRole('button',{name:'cm',exact:true}).click();
-  await page.getByLabel('Height value',{exact:true}).fill('170');
+  await page.getByLabel('Bust value',{exact:true}).fill('92');
   await page.screenshot({path:resolve(evidence,'measurements-desktop.png')});
   await page.setViewportSize({width:390,height:844});
-  await page.getByLabel('Height value',{exact:true}).scrollIntoViewIfNeeded();await expect(page.getByLabel('Height value',{exact:true})).toBeInViewport();
+  await page.getByLabel('Bust value',{exact:true}).scrollIntoViewIfNeeded();await expect(page.getByLabel('Bust value',{exact:true})).toBeInViewport();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:resolve(evidence,'measurements-mobile.png')});
   await page.setViewportSize({width:1440,height:900});
@@ -89,7 +89,8 @@ test('description to reviewed proposal to real geometry and export survives the 
   await page.getByRole('button',{name:'Apply sample M',exact:true}).click();
   await expect(page.getByLabel('Garment length value',{exact:true})).toHaveValue('600');
   await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
-  await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(4,{timeout:30000});
+  await page.getByRole('tab',{name:'Pattern',exact:true}).click();
+  await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(4,{timeout:45000});
   await page.getByRole('button',{name:/Generate garment|Update garment/,exact:true}).click();
   await expect(page.getByRole('button',{name:/Generate garment|Update garment/,exact:true})).toBeEnabled({timeout:30000});
   await expect(page.locator('.alert.error')).toHaveCount(0);

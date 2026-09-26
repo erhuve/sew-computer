@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { mm, type GarmentDocument } from '../../../../packages/contracts';
-import { applySample, bodyFields, editMeasurement, sampleBody, sampleSizes, sizingIssue, sizingWarning, type Body, type BodyKey, type BodyProfile } from '../../../../packages/contracts/sizing';
+import { applySample, bodyFields, requiredBodyFields, editMeasurement, sampleBody, sampleSizes, sizingIssue, sizingWarning, type Body, type BodyKey, type BodyProfile } from '../../../../packages/contracts/sizing';
 import { api, json } from '../lib/api';
 
 type Unit = 'cm' | 'in';
@@ -42,9 +42,11 @@ function BodyDiagram({ body, active }: { body: Body; active: BodyKey }) {
 }
 
 export default function BodySizing({ doc, onChange }: { doc: GarmentDocument; onChange: (doc: GarmentDocument) => void }) {
-  const [editing,setEditing]=useState(()=>bodyFields.some(field=>mm(doc.body[field.key])===null));
+  const fields=requiredBodyFields(doc);
+  const [editing,setEditing]=useState(()=>fields.some(field=>mm(doc.body[field.key])===null));
   const [unit, setUnit] = useState<Unit>('cm');
-  const [active, setActive] = useState<BodyKey>('bust');
+  const [active, setActive] = useState<BodyKey>(fields[0]!.key);
+  useEffect(()=>{if(!fields.some(field=>field.key===active))setActive(fields[0]!.key);},[doc.garment.design?.block,active]);
   const [sample, setSample] = useState(2);
   const [profile, setProfile] = useState<BodyProfile | null>(null);
   const [pendingProfile, setPendingProfile] = useState<Body | null>(null);
@@ -81,7 +83,7 @@ export default function BodySizing({ doc, onChange }: { doc: GarmentDocument; on
     </div>
     <details className="body-adjustments" open={editing} onToggle={event=>setEditing(event.currentTarget.open)}><summary>Enter or adjust my measurements</summary><div className="sizing-workbench">
       <BodyDiagram body={doc.body} active={active} />
-      <div className="sizing-controls">{bodyFields.map(field => {
+      <div className="sizing-controls">{fields.map(field => {
         const measurement = doc.body[field.key];
         const amount = mm(measurement);
         const shown = amount === null ? '' : 'value' in measurement && measurement.unit === unit ? measurement.value : display(amount, unit);

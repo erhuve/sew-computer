@@ -87,7 +87,7 @@ export default function GarmentShapePreview({ id, path, sha256, patternDigest, c
       const camera=new THREE.PerspectiveCamera(33,1,.01,30);const controls=new OrbitControls(camera,canvas);controls.target.copy(center);controls.enablePan=false;controls.minDistance=.5;controls.maxDistance=4;
       let frame=0;
       const render=()=>{if(!frame&&!disposed)frame=requestAnimationFrame(()=>{frame=0;if(!disposed)renderer.render(scene,camera);});};
-      const reset=(back=false)=>{const distance=Math.max(size.y,size.x/camera.aspect)/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)))*1.17;camera.position.copy(center).add(new THREE.Vector3(back?-.15:.20,.06,back?-1:1).normalize().multiplyScalar(distance));controls.target.copy(center);controls.update();render();};
+      const reset=(back=false)=>{const distance=Math.max(size.y,size.x/camera.aspect)/(2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)))*1.17+size.z*.6;camera.position.copy(center).add(new THREE.Vector3(back?-.15:.20,.06,back?-1:1).normalize().multiplyScalar(distance));controls.target.copy(center);controls.update();render();};
       const resize=()=>{const el=host.current!;renderer.setSize(el.clientWidth,el.clientHeight,false);camera.aspect=el.clientWidth/el.clientHeight;camera.updateProjectionMatrix();reset();};
       controls.addEventListener('change',render);const observer=new ResizeObserver(resize);observer.observe(host.current!);
       const ray=new THREE.Raycaster();let pointer=[0,0];const down=(event:PointerEvent)=>{pointer=[event.clientX,event.clientY];};

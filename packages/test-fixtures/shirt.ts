@@ -16,5 +16,5 @@ export function shirtDocument() {
   doc.body={height:assumed(1700),bust:assumed(960),waist:assumed(760),hip:assumed(1000),shoulder:assumed(400)};
   doc.garment={family:'shirt',length:assumed(650),ease:assumed(100),flare:1,design:structuredClone(shirtDesign)};
   doc.requirements = (['body','sleeves','cuffs','collar','front-opening','tails','frills'] as const).map(feature => ({id:feature,text:feature,status:'supported' as const,note:'Synthetic fixture',feature}));
-  return doc;
+  return {...doc,garment:{...doc.garment,design:structuredClone(shirtDesign)}};
 }

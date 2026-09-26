@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import { BomSchema, canonical, ConstructionSchema, DocumentSchema, MeasurementSchema, PomSchema, RequirementSchema, type GarmentDocument } from './index';
-import { FeatureSchema, ShirtDesignSchema } from './design';
+import { FeatureSchema, GarmentDesignSchema } from './design';
 
 const SuggestedMeasurement=z.union([MeasurementSchema.options[1],MeasurementSchema.options[2],MeasurementSchema.options[3]]);
 
 export const InterpretationSchema = z.object({
   summary: z.string().min(1).max(2000),
-  garment: DocumentSchema.shape.garment.extend({length:SuggestedMeasurement,ease:SuggestedMeasurement,design:ShirtDesignSchema.nullable()}),
+  garment: DocumentSchema.shape.garment.extend({length:SuggestedMeasurement,ease:SuggestedMeasurement,design:GarmentDesignSchema.nullable()}),
   requirements: z.array(RequirementSchema.omit({id:true}).extend({feature:FeatureSchema})).min(1).max(30),
   bom: z.array(BomSchema.omit({id:true})).max(20),
   poms: z.array(PomSchema.omit({id:true}).extend({target:SuggestedMeasurement,tolerance:SuggestedMeasurement})).max(20),

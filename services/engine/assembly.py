@@ -15,41 +15,53 @@ def compile_inventory(pattern_bytes, construction):
     if not isinstance(pattern_bytes, bytes) or len(pattern_bytes) > 4 * 1024 * 1024:
         raise ValueError("Pattern input budget exceeded")
     pattern = json.loads(pattern_bytes)
-    if type(pattern.get("schemaVersion")) is not int or pattern["schemaVersion"] != 1 or pattern.get("units") != "mm" or pattern.get("family") != "shirt" or pattern.get("drafting", {}).get("compiler") != "sew-relaxed-shirt/1":
-        raise ValueError("Only explicit relaxed-shirt component patterns are supported")
+    if type(pattern.get("schemaVersion")) is not int or pattern["schemaVersion"] != 1 or pattern.get("units") != "mm" or (pattern.get("family"), pattern.get("drafting", {}).get("compiler")) not in (("shirt", "sew-relaxed-shirt/1"), ("dress", "sew-relaxed-dress/1"), ("skirt", "sew-elastic-skirt/1")):
+        raise ValueError("Only explicit supported component patterns are supported")
     panels = pattern.get("panels")
     if not isinstance(panels, list) or not 4 <= len(panels) <= 18:
         raise ValueError("Invalid template inventory")
     by_id = {panel["id"]: panel for panel in panels}
     if len(by_id) != len(panels):
         raise ValueError("Duplicate template identity")
-    expected = {f"{face}_{side}": 1 for face in ("front", "back") for side in ("left", "right")}
-    components = pattern["drafting"].get("components", [])
-    if not isinstance(construction, dict) or construction.get("collar") not in ("none", "stand", "stand-and-fall"):
-        raise ValueError("Explicit captured construction is required")
-    selected = {"body"}
-    for key, values, component in [("sleeves", ("none", "short", "long"), "sleeves"), ("cuff", ("none", "button"), "cuffs"), ("collar", ("none", "stand", "stand-and-fall"), "collar"), ("opening", ("none", "buttons"), "front-opening"), ("frill", ("none", "front-opening"), "frills"), ("hem", ("straight", "curved-back-tail"), "tails")]:
-        if construction.get(key) not in values:
-            raise ValueError("Unsupported captured construction")
-        if construction[key] != values[0]:
-            selected.add(component)
-    if set(components) != selected:
-        raise ValueError("Source components differ from captured construction")
-    if len(set(components)) != len(components) or "body" not in components or set(components) - {"body", "sleeves", "cuffs", "collar", "front-opening", "tails", "frills"}:
-        raise ValueError("Invalid component declaration")
-    for component, prefix, quantity in [("sleeves", "sleeve", 1), ("cuffs", "cuff", 2), ("front-opening", "placket", 2), ("frills", "frill", 1)]:
-        if component in components:
-            expected.update({f"{prefix}_{side}": quantity for side in ("left", "right")})
-    if "cuffs" in components:
-        if "sleeves" not in components or construction["sleeves"] != "long":
-            raise ValueError("Cuffs require sleeves")
-        expected.update({f"opening_binding_{side}_{edge}": 1 for side in ("left", "right") for edge in ("left", "right")})
-    if "collar" in components:
-        expected["collar_stand"] = 2
-        if construction["collar"] == "stand-and-fall":
-            expected["collar_fall"] = 2
-    if ("collar" in components or "frills" in components) and "front-opening" not in components:
-        raise ValueError("Selected component requires front opening")
+    skirt = pattern['family'] == 'skirt'
+    block = {'shirt': 'relaxed-drop-shoulder', 'dress': 'relaxed-dress', 'skirt': 'elastic-waist-skirt'}[pattern['family']]
+    if not isinstance(construction, dict) or construction.get('block') != block:
+        raise ValueError('Construction does not match the source garment family')
+    if skirt:
+        from skirt import QUARTERS
+        expected = {f'{prefix}_{quarter}': quantity for quarter in QUARTERS for prefix, quantity in (('skirt', 1), ('waistband', 2))}
+        if pattern['drafting'].get('components') != ['body', 'waistband']:
+            raise ValueError('Skirt components differ from captured construction')
+        if any(abs(by_id.get(f'waistband_{quarter}', {}).get('heightMm', -1) - construction['waistbandDepthMm']) > 1e-6 for quarter in QUARTERS):
+            raise ValueError('Skirt waistband depth differs from construction')
+    else:
+        expected = {f"{face}_{side}": 1 for face in ("front", "back") for side in ("left", "right")}
+        components = pattern["drafting"].get("components", [])
+        if not isinstance(construction, dict) or construction.get("collar") not in ("none", "stand", "stand-and-fall"):
+            raise ValueError("Explicit captured construction is required")
+        selected = {"body"}
+        for key, values, component in [("sleeves", ("none", "short", "long"), "sleeves"), ("cuff", ("none", "button"), "cuffs"), ("collar", ("none", "stand", "stand-and-fall"), "collar"), ("opening", ("none", "buttons"), "front-opening"), ("frill", ("none", "front-opening"), "frills"), ("hem", ("straight", "curved-back-tail"), "tails")]:
+            if construction.get(key) not in values:
+                raise ValueError("Unsupported captured construction")
+            if construction[key] != values[0]:
+                selected.add(component)
+        if set(components) != selected:
+            raise ValueError("Source components differ from captured construction")
+        if len(set(components)) != len(components) or "body" not in components or set(components) - {"body", "sleeves", "cuffs", "collar", "front-opening", "tails", "frills"}:
+            raise ValueError("Invalid component declaration")
+        for component, prefix, quantity in [("sleeves", "sleeve", 1), ("cuffs", "cuff", 2), ("front-opening", "placket", 2), ("frills", "frill", 1)]:
+            if component in components:
+                expected.update({f"{prefix}_{side}": quantity for side in ("left", "right")})
+        if "cuffs" in components:
+            if "sleeves" not in components or construction["sleeves"] != "long":
+                raise ValueError("Cuffs require sleeves")
+            expected.update({f"opening_binding_{side}_{edge}": 1 for side in ("left", "right") for edge in ("left", "right")})
+        if "collar" in components:
+            expected["collar_stand"] = 2
+            if construction["collar"] == "stand-and-fall":
+                expected["collar_fall"] = 2
+        if ("collar" in components or "frills" in components) and "front-opening" not in components:
+            raise ValueError("Selected component requires front opening")
     if set(expected) != set(by_id):
         raise ValueError("Selected components do not reconcile with template inventory")
     instances = []
@@ -60,7 +72,7 @@ def compile_inventory(pattern_bytes, construction):
         draft = panel.get("draft", {})
         if isinstance(panel.get("cutQuantity"), bool) or isinstance(draft.get("cutQuantity"), bool) or panel.get("cutQuantity") != quantity or draft.get("cutQuantity") != quantity or draft.get("material") != "shell":
             raise ValueError("Physical cut count or material mismatch")
-        component = "body" if template.startswith(("front_", "back_")) else "cuffs" if template.startswith(("cuff_", "opening_binding_")) else "collar" if template.startswith("collar_") else "sleeves" if template.startswith("sleeve_") else "frills" if template.startswith("frill_") else "front-opening"
+        component = "waistband" if template.startswith("waistband_") else "body" if template.startswith(("skirt_", "front_", "back_")) else "cuffs" if template.startswith(("cuff_", "opening_binding_")) else "collar" if template.startswith("collar_") else "sleeves" if template.startswith("sleeve_") else "frills" if template.startswith("frill_") else "front-opening"
         if draft.get("component") != component:
             raise ValueError("Source component does not match template role")
         edges = draft.get("edges")
@@ -85,10 +97,10 @@ def compile_inventory(pattern_bytes, construction):
         mirror = template.endswith("_right") if not template.startswith("opening_binding_") else template.startswith("opening_binding_right_")
         for role in (["shell", "facing"] if quantity == 2 else ["shell"]):
             instances.append({"id": f"{template}:{role}", "templateId": template, "role": role, "mirrorX": mirror, "sourceGrainline": grain})
-        if quantity == 2:
+        if quantity == 2 and not skirt:
             unresolved.append({"templateId": template, "role": "interfacing", "reason": "Trimming and material properties are not machine-defined; no physical mesh claimed."})
     return pattern, {
-        "schemaVersion": 1, "compiler": "sew-shirt-inventory/1", "patternDigest": hashlib.sha256(pattern_bytes).hexdigest(),
+        "schemaVersion": 1, "compiler": f"sew-{pattern['family']}-inventory/1", "patternDigest": hashlib.sha256(pattern_bytes).hexdigest(),
         "constructionDigest": hashlib.sha256(json.dumps(construction, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest(),
         "units": "mm", "classification": "placement-inspection", "instances": instances,
         "unresolvedPhysicalRoles": unresolved,
@@ -114,6 +126,9 @@ def build_inspection(pattern_bytes, construction, max_edge_mm=40):
 
 
 def compile_assembly(pattern, inventory):
+    if pattern["family"] == "skirt":
+        from skirt_assembly import compile_skirt_assembly
+        return compile_skirt_assembly(pattern, inventory)
     panels = {panel["id"]: panel for panel in pattern["panels"]}
     instances = {instance["id"]: instance for instance in inventory["instances"]}
     expected = {}

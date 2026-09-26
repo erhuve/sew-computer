@@ -66,10 +66,10 @@ test('brief to reviewed component design, real pieces and revision-specific expo
   await page.getByRole('tab',{name:'Pattern',exact:true}).click();
   await expect(page.locator('.pattern-stage svg[role="img"]')).toBeVisible({timeout:45000});
   await expect(page.locator('.pattern-stage g[role="button"]')).toHaveCount(18);
-  await expect(page.getByText('Selected components drafted; physical fit unverified.')).toBeVisible();
   const projects=await studio.call('GET','/projects');
   const project=projects.projects[0];
   const state=await studio.call('GET',`/projects/${project.id}`);
+  const generated=await studio.call('GET',`/projects/${project.id}/geometry/${state.project.headRevisionId}`);expect(generated.drafting.components).toContain('frills');
   const exported=await studio.call('POST',`/projects/${project.id}/exports`,{revisionId:state.project.headRevisionId,disclosure:{includeBody:false,includeReferences:false,includePatterns:true}});
   expect(exported.files.length).toBe(8);
   expect(exported.files.some((file:{filename:string})=>file.filename.startsWith('pattern-a4-tiled-'))).toBe(true);
@@ -92,7 +92,6 @@ test('generation waits for in-flight autosave instead of silently dropping the c
   await page.getByRole('button',{name:'Create garment',exact:false}).click();
   await page.getByRole('button',{name:'Customize',exact:true}).click();
   await page.getByRole('combobox',{name:'Geometry family',exact:true}).selectOption('shirt');
-  await page.getByRole('button',{name:'Add editable shirt construction',exact:true}).click();
   await page.getByRole('button',{name:/Apply sample/}).click();
   let release!:()=>void;
   const gate=new Promise<void>(resolve=>{release=resolve;});

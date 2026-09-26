@@ -28,7 +28,8 @@ import {
 import Authoring from "../components/Authoring";
 import PatternCanvas from "../components/PatternCanvas";
 import Garment3D from "../components/Garment3D";
-import GarmentDesign from "../components/GarmentDesign";
+import GarmentDesign, {ConstructionDrawing} from "../components/GarmentDesign";
+import {startingDocument,type StartingFamily} from "../../../../packages/contracts/starting-designs";
 import { api, ApiError, json, downloadJson, downloadFile } from "../lib/api";
 import PrivateImage from "../components/PrivateImage";
 import DesignAssistant from "../components/DesignAssistant";
@@ -336,6 +337,8 @@ export default function Studio() {
   }
   async function generate() {
     const epoch = sessionEpoch.current;
+    // Select the default before asynchronous saving so a later tab choice wins.
+    setView(current.current.doc?.garment.design?"3d":"pattern");
     const existing=current.current.state;
     const head=existing?.revisions.find(revision=>revision.id===existing.project.headRevisionId);
     const currentState = head&&same(current.current.doc,head.document)?existing:await publish();
@@ -349,7 +352,6 @@ export default function Studio() {
     );
     if (epoch !== sessionEpoch.current || current.current.state?.project.id !== currentState.project.id) return;
     setState((s) => (s ? { ...s, jobs: [job, ...s.jobs] } : s));
-    setView(currentState.draft.document.garment.design?"3d":"pattern");
   }
   async function propose(includeReferences:boolean) {
     const epoch=sessionEpoch.current,projectId=current.current.state?.project.id;
@@ -370,13 +372,37 @@ export default function Studio() {
     setDoc(latest=>{const accepted=latest?rebaseAcceptedDesign(next.draft.document,submitted,latest):structuredClone(next.draft.document);return samplePreview?applySample(accepted,2):accepted;});
     const hasPatternShape = next.draft.document.garment.family !== 'none';
     if(samplePreview&&hasPatternShape)setPreviewAfterAcceptance(true);
-    setProposal(null);setGeometry(null);setSection(hasPatternShape ? 'shape' : 'idea');setView('design');setNotice(hasPatternShape ? 'Design accepted. Confirm your measurements, then generate.' : 'Design notes saved. Pattern support is still needed.');
+    setProposal(null);setGeometry(null);setSection(hasPatternShape ? 'shape' : 'idea');setView('design');setNotice(hasPatternShape ? 'Design accepted. Your preview uses the sizing shown in Customize.' : 'Design notes saved. Pattern support is still needed.');
   }
   useEffect(()=>{
     if(!previewAfterAcceptance||busy||!doc||!state)return;
     setPreviewAfterAcceptance(false);
     if(!sizingIssue(doc))void task(generate);
   },[previewAfterAcceptance,busy,doc,state]);
+  async function startFromShape(family:StartingFamily) {
+    const epoch=sessionEpoch.current,document=startingDocument(family);
+    const next=await api<ProjectState>('/projects',json('POST',{title:document.title,brief:document.brief}));
+    const draft=await api<Draft>(`/projects/${next.project.id}/draft`,json('PUT',{expectedVersion:next.draft.version,expectedRevisionId:next.draft.baseRevisionId,document}));
+    if(epoch!==sessionEpoch.current)return;
+    adopt({...next,draft});setPreviewAfterAcceptance(true);
+  }
+  async function startFromIdea() {
+    if(!brief.trim()||!aiStatus?.available)return;
+    const epoch=sessionEpoch.current;
+    const next=await api<ProjectState>('/projects',json('POST',{title:brief.trim().slice(0,60),brief}));
+    if(epoch!==sessionEpoch.current)return;
+    adopt(next);setSection('idea');
+    const job=await api<InterpretationJob>(`/projects/${next.project.id}/proposals`,json('POST',{requestId:crypto.randomUUID(),expectedVersion:next.draft.version,expectedRevisionId:next.draft.baseRevisionId,includeReferences:false,consent:true}));
+    if(current.current.state?.project.id===next.project.id)setInterpretationJob(job);
+  }
+  async function downloadCurrent() {
+    if(!state?.project.headRevisionId)return;
+    const selectedRevision=state.project.headRevisionId;
+    setIncludePatterns(true);setIncludeBody(false);setIncludeReferences(false);openModal('export');
+    const requestedExportEpoch=exportEpoch.current,requestedSessionEpoch=sessionEpoch.current;
+    const result=await api<{files:{filename:string;mime:string;url:string}[]}>(`/projects/${state.project.id}/exports`,json('POST',{revisionId:selectedRevision,disclosure:{includeBody:false,includeReferences:false,includePatterns:true}}));
+    if(requestedExportEpoch===exportEpoch.current&&requestedSessionEpoch===sessionEpoch.current)setFiles(result.files);
+  }
   const goHome = () => {
     if (dirty && !confirm("Leave unsaved changes?")) return;
     sessionEpoch.current++;
@@ -492,7 +518,7 @@ export default function Studio() {
               <span className="eyebrow">YOUR WORKTABLE</span>
               <h1>What will you make?</h1>
               <p>
-                Start with an idea. Shape a pattern. Keep the details together.
+                Describe it, or start with a shape and make it yours.
               </p>
             </div>
             <button
@@ -508,6 +534,17 @@ export default function Studio() {
               New garment
             </button>
           </div>
+          <section className="create-workspace" aria-label="Create a garment">
+            {aiStatus?.available&&<form className="idea-launcher" onSubmit={event=>{event.preventDefault();void task(startFromIdea);}}>
+              <label htmlFor="new-garment-idea">What are you imagining?</label>
+              <textarea id="new-garment-idea" value={brief} maxLength={8000} onChange={event=>setBrief(event.target.value)} placeholder="A loose linen dress with short sleeves…"/>
+              <div><p>Sends your description to {aiStatus.provider}. You’ll review the design before generating.</p><button className="primary" disabled={busy||!brief.trim()}>Design with AI <ArrowUpRight size={16}/></button></div>
+            </form>}
+            <div className="starting-heading"><h2>Start with a shape</h2><p>Sample M estimates · editable anytime</p></div>
+            <div className="starting-shapes">{(['shirt','dress','skirt'] as const).map(family=><button className={`starting-shape starting-${family}`} key={family} disabled={busy} onClick={()=>void task(()=>startFromShape(family))} aria-label={`Start a ${family}`}><ConstructionDrawing doc={startingDocument(family)} single/><span>{family==='shirt'?'Relaxed shirt':family==='dress'?'Easy dress':'Elastic-waist skirt'}<ArrowUpRight size={18}/></span></button>)}</div>
+            <p className="starting-note">Starting-shape illustrations. Your pattern and 3D garment are generated after you choose.</p>
+          </section>
+          {projects.length>0&&<h2 className="saved-heading">Your garments</h2>}
           <div className="project-grid">
             {projects.map((p) => (
               <button
@@ -527,23 +564,8 @@ export default function Studio() {
                 <ArrowUpRight size={18} />
               </button>
             ))}
-            <button
-              className="project-card new-project"
-              onClick={() => {
-                setTitle("");
-                setBrief("");
-                setCreationConsent(false);
-                openModal("create");
-              }}
-            >
-              <Plus size={30} />
-              <span>A new possibility</span>
-            </button>
           </div>
-          <p className="home-note">
-            Describe a garment, review the design, add measurements and generate
-            actual patterns with a draft tech pack. Physical fit is not simulated.
-          </p>
+
         </section>
       ) : (
         <>
@@ -561,7 +583,7 @@ export default function Studio() {
                 <Layers3 size={15} />
                 {pending ? "Generating…" : geometry ? "Update garment" : "Generate garment"}
               </button>
-              {geometry&&<button onClick={()=>{setIncludePatterns(true);openModal("export");}}><Download size={15}/>Download</button>}
+              {geometry&&<button disabled={busy} onClick={()=>void task(downloadCurrent)}><Download size={15}/>Download</button>}
               <button
                 onClick={() => openModal("revisions")}
               >
@@ -858,7 +880,7 @@ export default function Studio() {
               />
             </label>
             <p className="fineprint">
-              Describe any garment. Shirt previews are supported today; other ideas stay saved for further development.
+              Shirts, relaxed dresses and elastic-waist skirts have garment previews. Other ideas stay saved with any unsupported details.
             </p>
             {aiStatus?.available&&<label className="check-field"><input type="checkbox" checked={creationConsent} onChange={event=>setCreationConsent(event.target.checked)}/>Use AI to turn my description into a design.</label>}
             {creationConsent&&<p className="fineprint">Sends your description to {aiStatus?.provider}. Uses your connected model allowance. You’ll review the design before generating.</p>}
@@ -1032,12 +1054,14 @@ export default function Studio() {
         {modal === "export" && state && (
           <>
             <span className="eyebrow">A DOCUMENT TO DISCUSS</span>
-            <h2>Export a draft tech pack.</h2>
+            <h2>Your pattern & design files</h2>
+            {!same(doc,state.revisions.find(revision=>revision.id===revisionId)?.document)&&<p role="status">These files use the selected saved version. Update the garment to include your latest edits.</p>}
             <p>
               Revision{" "}
               {state.revisions.find((r) => r.id === revisionId)?.number} ·{" "}
               {revisionId.slice(0, 8)}. Not manufacturing approval.
             </p>
+            <details className="export-options"><summary>Choose what to include</summary>
             <label className="check-field">
               <input
                 type="checkbox"
@@ -1067,6 +1091,7 @@ export default function Studio() {
               when the body-input fields are omitted. Review the files before
               sharing. Patterns are not cutting-ready.
             </p>
+            </details>
             {includePatterns && <p className="fineprint">New generations include A4 and Letter tiled PDFs. Choose the matching paper, print the guide at 100% first, and measure its 100 mm square before printing the pattern. Older generations may contain only custom-size sheets.</p>}
             <button
               className="primary"
@@ -1099,7 +1124,7 @@ export default function Studio() {
               ) : (
                 <Download size={16} />
               )}
-              Build review package
+              {files.length?"Rebuild files":"Build review package"}
             </button>
             <div className="download-list">
               {files.map((f) => (

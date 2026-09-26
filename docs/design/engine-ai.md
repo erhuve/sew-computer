@@ -2,6 +2,8 @@
 
 **2026-09-14 · Proposed · Implementation and validation pending**
 
+Component extension, 2026-09-26: the bounded proposal schema and trusted component registry now distinguish relaxed shirts, relaxed dresses and elastic-waist skirts. Compilers use only their required body fields, independently validate source geometry and preserve unsupported intent. The [multi-family review](../reviews/multiple-garments.md) records current implementation and verification; older base-only descriptions below are historical design context.
+
 Implementation update, 2026-09-15: the general-model adapter now returns schema-constrained, owner-reviewed proposals using a tool-free Codex Responses connection or a configured compatible API. This replaces the proposed GPT-4o-only provider choice below. Provider, privacy, budgets and transport limitations are specified in [deployment](../deployment.md#design-model-connection); verification is recorded in the [AI review](../reviews/ai-prototype.md). Full MMUA/projector reproduction and physical validation remain unimplemented.
 
 This specialty design follows the normative [project contract](project-contract.md) and [product intent](../product/vision.md). It defines the geometry boundary, interpretation options and release evidence. It does not establish manufacturing readiness or depend on marketplace, factory-bidding or crowdfunding features.

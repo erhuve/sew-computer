@@ -4,6 +4,13 @@ export type Flat = {view:'front'|'back';lines:{points:[number,number][];detail:b
 export function garmentFlats(doc:Pick<GarmentDocument,'garment'> & Partial<Pick<GarmentDocument,'body'>>, geometry:PatternGeometry|null = null):Flat[] {
   const design=doc.garment.design;
   if(!design)return [];
+  if(design.block==='elastic-waist-skirt') {
+    const length=mm(doc.garment.length)??650,depth=design.waistbandDepthMm;
+    const waist=geometry?.drafting?.measurements.find(row=>row.name==='Assumed relaxed elastic circumference')?.valueMm??((doc.body?mm(doc.body.waist):null)??760)+design.elasticEaseMm;
+    const hem=geometry?.drafting?.measurements.find(row=>row.name==='Hem circumference')?.valueMm??Math.max(((doc.body?mm(doc.body.hip):null)??980)+(mm(doc.garment.ease)??80),waist+80)*design.fullness*doc.garment.flare;
+    const scale=220/length,w=waist/4*scale,h=hem/4*scale,d=depth*scale;
+    return (['front','back'] as const).map(view=>({view,buttons:[],lines:[{points:[[-w,0],[w,0],[w,d],[h,220],[-h,220],[-w,d],[-w,0]],detail:false},{points:[[-w,d],[w,d]],detail:true},{points:[[0,d],[0,220]],detail:true}]}));
+  }
   const length=geometry?.drafting?.measurements.find(row=>row.name==='Side length from shoulder baseline')?.valueMm ?? mm(doc.garment.length) ?? 650;
   const panel=(name:string)=>geometry?.panels.find(piece=>piece.id===name);
   const edge=(name:string,boundary:string)=>{

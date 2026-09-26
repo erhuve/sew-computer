@@ -7,7 +7,7 @@ import type { InspectionEngine } from '../../apps/api/three-d-jobs';
 import { executeTrusted } from './runner';
 
 const root=dirname(fileURLToPath(import.meta.url));
-const version=()=>createHash('sha256').update(process.env.SEW_ENGINE_CONTAINER||process.env.SEW_ENGINE_PYTHON||join(root,'.venv/bin/python')).update(['inspection-worker.py','garment_preview.py','quality_meshing.py','container-runtime.ts','assembly.py','meshing.py','simulation_validation.py','inspection_gltf.py','guard.py','requirements.lock','inspection-runner.ts','runner.ts'].map(name=>readFileSync(join(root,name))).reduce((all,bytes)=>Buffer.concat([all,bytes]),Buffer.alloc(0))).digest('hex');
+const version=()=>createHash('sha256').update(process.env.SEW_ENGINE_CONTAINER||process.env.SEW_ENGINE_PYTHON||join(root,'.venv/bin/python')).update(['inspection-worker.py','garment_preview.py','skirt.py','skirt_assembly.py','components.py','shirt.py','quality_meshing.py','container-runtime.ts','assembly.py','meshing.py','simulation_validation.py','inspection_gltf.py','guard.py','requirements.lock','inspection-runner.ts','runner.ts'].map(name=>readFileSync(join(root,name))).reduce((all,bytes)=>Buffer.concat([all,bytes]),Buffer.alloc(0))).digest('hex');
 export const runInspection:InspectionEngine=async input=>{
   const capturedVersion=version();
   if(capturedVersion!==runInspection.version)throw new Error('Inspection engine changed; restart the API');

@@ -12,7 +12,7 @@ import { api } from "../lib/api";
 import PrivateImage from "./PrivateImage";
 import BodySizing from "./BodySizing";
 import { sizingIssue } from '../../../../packages/contracts/sizing';
-import { defaultShirtDesign } from '../../../../packages/contracts/design';
+import { defaultShirtDesign, defaultDressDesign, defaultSkirtDesign } from '../../../../packages/contracts/design';
 import GarmentDesign from './GarmentDesign';
 
 const uid = () => crypto.randomUUID();
@@ -128,6 +128,8 @@ export default function Authoring({
 }: Props) {
   const [uploading, setUploading] = useState(false);
   const [sizeOpen,setSizeOpen]=useState(()=>!!sizingIssue(doc));
+  const componentSkirt = doc.garment.design?.block === 'elastic-waist-skirt';
+  const flareRange = doc.garment.family === 'dress' ? [1, 2] : componentSkirt ? [1, 1.8] : doc.garment.family === 'skirt' ? [0.5, 2] : [doc.garment.design ? 0.9 : 0.7, doc.garment.family === 'trousers' ? 1.2 : 1.5];
   const replace = <K extends keyof GarmentDocument>(
     key: K,
     value: GarmentDocument[K],
@@ -266,7 +268,7 @@ export default function Authoring({
       )}
       {section === "shape" && (
         <>
-          {doc.garment.family==='shirt' && !doc.garment.design && <button onClick={()=>replace('garment',{...doc.garment,design:structuredClone(defaultShirtDesign)})}>Add editable shirt construction</button>}
+          {(['shirt','dress','skirt'].includes(doc.garment.family)) && !doc.garment.design && <button onClick={()=>replace('garment',{...doc.garment,design:structuredClone(doc.garment.family==='dress'?defaultDressDesign:doc.garment.family==='skirt'?defaultSkirtDesign:defaultShirtDesign)})}>Add editable {doc.garment.family} construction</button>}
           {doc.garment.design && <GarmentDesign doc={doc} onChange={onChange} compact/>}
           <details className="size-disclosure" open={sizeOpen} onToggle={event=>setSizeOpen(event.currentTarget.open)}><summary>Size & measurements</summary><BodySizing doc={doc} onChange={onChange}/><details className="profile-settings"><summary>Body measurement status & sources</summary>{Object.entries(doc.body).map(([name, value]) => <Measure key={name} label={`${name[0].toUpperCase() + name.slice(1)} detail`} value={value} onChange={measurement => replace('body', { ...doc.body, [name]: measurement })} />)}</details></details>
           <details className="shape-settings" open={doc.garment.family === 'none'}>
@@ -276,24 +278,20 @@ export default function Authoring({
             <select
               value={doc.garment.family}
               onChange={(e) => {
-                if(doc.garment.design && !confirm('Changing the family removes its component construction. Your original requirements remain saved. Continue?'))return;
-                replace("garment", {
-                  ...doc.garment,
-                  ...(doc.garment.design?{design:null}:{}),
-                  family: e.target
-                    .value as GarmentDocument["garment"]["family"],
-                });
+                const family=e.target.value as GarmentDocument['garment']['family'];
+                replace('garment',{...doc.garment,family,design:family==='shirt'?structuredClone(defaultShirtDesign):family==='dress'?structuredClone(defaultDressDesign):family==='skirt'?structuredClone(defaultSkirtDesign):null});
               }}
             >
               <option value="none">No geometry selected</option>
               <option value="shirt">Shirt</option>
+              <option value="dress">Dress</option>
               <option value="skirt">Skirt</option>
               <option value="trousers">Trousers</option>
             </select>
           </label>
           <Measure
             label="Garment length" compact
-            range={[doc.garment.family === 'shirt' ? 400 : Math.ceil((mm(doc.body.height) ?? 1700) * 0.12 + 150), doc.garment.family === 'shirt' ? 1100 : 1300]}
+            range={[doc.garment.family === 'shirt' ? 400 : doc.garment.family==='dress'?700:componentSkirt?450:Math.ceil((mm(doc.body.height) ?? 1700) * 0.12 + 150), doc.garment.family === 'shirt' ? 1100 : doc.garment.family==='dress'?1450:1300]}
             value={doc.garment.length}
             onChange={(v) => replace("garment", { ...doc.garment, length: v })}
           />
@@ -305,11 +303,11 @@ export default function Authoring({
           />
           <label className="field">
             <span>Flare multiplier · supported range varies by family</span>
-            <input type="range" aria-label="Flare slider" min={doc.garment.family === 'skirt' ? 0.5 : 0.7} max={doc.garment.family === 'skirt' ? 2 : doc.garment.family === 'trousers' ? 1.2 : 1.5} step="0.01" value={doc.garment.flare} onChange={event => replace('garment', { ...doc.garment, flare: Number(event.target.value) })} />
+            <input type="range" aria-label="Flare slider" min={flareRange[0]} max={flareRange[1]} step="0.01" value={doc.garment.flare} onChange={event => replace('garment', { ...doc.garment, flare: Number(event.target.value) })} />
             <input
               type="number"
-              min={doc.garment.family === "skirt" ? 0.5 : 0.7}
-              max={doc.garment.family === "skirt" ? 2 : doc.garment.family === "trousers" ? 1.2 : 1.5}
+              min={flareRange[0]}
+              max={flareRange[1]}
               step=".1"
               value={doc.garment.flare}
               onChange={(e) => {

@@ -145,13 +145,13 @@ test('complete shirt produces connected components, matched seams, offsets and d
     const assets=result.files.map((file,index)=>({bytes:file.bytes,artifact:{id:`artifact-${index}`,projectId:'project',revisionId:'revision',jobId:'job',kind:file.kind,filename:file.filename,mime:file.mime,digest:hash(file.bytes),bytes:file.bytes.length,classification:'printable-reference' as const,createdAt}}));
     const snapshot:ExportSnapshot={id:'snapshot',projectId:'project',revision:{id:'revision',projectId:'project',number:1,parentRevisionId:null,document:doc,digest:objectDigest(doc),createdAt},document:doc,artifacts:assets.map(asset=>asset.artifact),comments:[],disclosure:{includeBody:false,includeReferences:false,includePatterns:true},createdAt};
     const exported=await buildExport(snapshot,result.geometry,assets);
-    validateExport(snapshot,exported,assets);
+    await validateExport(snapshot,exported,assets);
     expect(exported.files).toHaveLength(8);
     for (const paper of ['a4','letter']) expect(exported.files.some(file=>file.filename.startsWith(`pattern-${paper}-tiled-`))).toBe(true);
     expect((exported.manifest.sections as any).derivedConstruction.measurements).toEqual(result.geometry.drafting!.measurements);
     const privateExport=await buildExport({...snapshot,disclosure:{includeBody:false,includeReferences:false,includePatterns:false}},null,[]);
     expect((privateExport.manifest.sections as any).derivedConstruction).toBeUndefined();
-    validateExport({...snapshot,disclosure:{includeBody:false,includeReferences:false,includePatterns:false}},privateExport,[]);
+    await validateExport({...snapshot,disclosure:{includeBody:false,includeReferences:false,includePatterns:false}},privateExport,[]);
     expect(privateExport.files).toHaveLength(3);
     expect(JSON.stringify(privateExport.manifest)).not.toContain('Closed chest at underarm');
   } finally { await rm(directory,{recursive:true,force:true}); }

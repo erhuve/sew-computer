@@ -10,7 +10,8 @@ test('visual sizing preserves inputs, units, estimates and private reusable meas
   await page.getByLabel('Garment name', { exact: true }).fill('Sizing study');
   await page.getByRole('button', { name: 'Create garment' }).click();
   await page.getByRole('button', { name: 'Customize', exact: true }).click();
-  await page.getByRole('combobox', { name: 'Geometry family' }).selectOption('shirt');
+  // The legacy base needs all five fields; component garments show only their inputs.
+  await page.getByRole('combobox', { name: 'Geometry family' }).selectOption('trousers');
   await page.getByRole('button', { name: 'Apply sample M', exact: true }).click();
   await expect(page.getByLabel('Height value', { exact: true })).toHaveValue('170');
   const originalShape = await page.locator('.body-outline path').getAttribute('d');
