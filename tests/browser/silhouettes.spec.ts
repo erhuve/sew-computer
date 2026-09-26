@@ -1,0 +1,62 @@
+import {test,expect} from './fixture';
+import {mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+const evidence=resolve(import.meta.dirname,'../../docs/verification/silhouettes');
+for(const style of ['flared','gathered','tiered'] as const)test(`${style}: prompt to independent dress, matching source and editable silhouette`,async({studio})=>{
+ test.setTimeout(180000);const {page}=studio;await studio.login();await mkdir(evidence,{recursive:true});
+ await page.getByLabel('What are you imagining?',{exact:true}).fill(`silhouette-${style}-fixture — a colored ${style} dress with a waist seam.`);
+ await page.getByRole('button',{name:'Design with AI',exact:true}).click();
+ await page.getByRole('button',{name:'See garment',exact:true}).click();
+ await expect(page.locator('.demo-shape-stage canvas')).toBeVisible({timeout:90000});
+ await expect(page.getByRole('button',{name:'Back',exact:true})).toBeEnabled();
+ const project=(await studio.call('GET','/projects')).projects[0],path=`/projects/${project.id}`,state=await studio.call('GET',path);
+ expect(state.draft.document.garment.design.block).toBe('panel-dress');expect(state.draft.document.garment.design.skirtStyle).toBe(style);
+ const pattern=await studio.call('GET',`${path}/geometry/${state.project.headRevisionId}`);
+ expect(pattern.drafting.compiler).toBe('sew-panel-dress/1');expect(pattern.panels.some((p:any)=>p.id.startsWith('bodice_'))).toBe(true);
+ expect(pattern.panels.some((p:any)=>/collar|placket|frill|cuff/.test(p.id))).toBe(false);
+ await page.screenshot({path:resolve(evidence,`${style}-desktop.png`)});
+ if(style==='gathered') {
+   await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+   await page.screenshot({path:resolve(evidence,'gathered-mobile.png')});await page.setViewportSize({width:1440,height:900});
+   await page.getByRole('button',{name:'Edit details',exact:true}).click();
+   await page.getByLabel('Skirt silhouette',{exact:true}).selectOption('tiered');
+   await page.getByLabel('Neckline',{exact:true}).selectOption('v');
+   await page.getByRole('button',{name:'Update garment',exact:true}).click();
+   await expect.poll(async()=>(await studio.call('GET',path)).project.headRevisionId).not.toBe(state.project.headRevisionId);
+   const changed=await studio.call('GET',path);
+   await expect.poll(async()=>(await studio.call('GET',`${path}/three-d/latest?revisionId=${changed.project.headRevisionId}`))?.status,{timeout:90000}).toBe('succeeded');
+   const second=await studio.call('GET',`${path}/geometry/${changed.project.headRevisionId}`);expect(second.panels).toHaveLength(14);
+   expect(second.inputDigest).not.toBe(pattern.inputDigest);
+   await page.getByRole('button',{name:'Download',exact:true}).click();
+   const link=page.getByRole('link',{name:/^pattern-.+\.json$/,exact:true});await expect(link).toBeVisible();
+   expect((await studio.call('GET',(await link.getAttribute('href'))!.replace(/^\/api/,''))).inputDigest).toBe(second.inputDigest);
+   await page.getByRole('button',{name:'Close dialog',exact:true}).click();await page.getByRole('button',{name:'Hide details',exact:true}).click();await page.reload();
+   await page.getByRole('button',{name:new RegExp(project.title)}).click();
+   await page.getByRole('button',{name:'Edit details',exact:true}).click();
+   await expect(page.getByLabel('Skirt silhouette',{exact:true})).toHaveValue('tiered');
+ }
+});
+
+test('existing shirt dress can explicitly switch construction while preserving original intent',async({studio})=>{
+ test.setTimeout(180000);const {page}=studio;await studio.login();
+ const {startingDocument}=await import('../../packages/contracts/starting-designs');
+ const {defaultDressDesign}=await import('../../packages/contracts/design');
+ const doc=startingDocument('dress');doc.title='Legacy dress migration';doc.brief='Keep my original lace idea';doc.garment.design={...defaultDressDesign,collar:'stand-and-fall',opening:'buttons',frill:'front-opening'};
+ doc.garment.appearance={color:'#274956',print:null};
+ const created=await studio.call('POST','/projects',{title:doc.title,brief:doc.brief}),path=`/projects/${created.project.id}`;
+ const saved=await studio.call('PUT',path+'/draft',{expectedVersion:created.draft.version,expectedRevisionId:null,document:doc});
+ await studio.call('POST',path+'/revisions',{expectedVersion:saved.version,expectedRevisionId:saved.baseRevisionId});
+ await page.reload();await page.getByRole('button',{name:new RegExp(doc.title)}).click();
+ await page.getByRole('button',{name:'Edit details',exact:true}).click();
+ await page.getByRole('button',{name:'Customize',exact:true}).click();
+ await page.getByRole('button',{name:'Try a separate bodice & skirt',exact:true}).click();
+ await expect(page.getByLabel('Skirt silhouette',{exact:true})).toHaveValue('flared');
+ await page.getByRole('button',{name:'Generate garment',exact:true}).click();
+ await expect(page.locator('.demo-shape-stage canvas')).toBeVisible({timeout:90000});
+ const state=await studio.call('GET',path);
+ expect(state.revisions.some((r:any)=>r.document.garment.design.block==='relaxed-dress')).toBe(true);
+ expect(state.draft.document.garment.design.block).toBe('panel-dress');expect(state.draft.document.brief).toBe(doc.brief);
+ expect(state.draft.document.body).toEqual(doc.body);expect(state.draft.document.garment.appearance).toEqual(doc.garment.appearance);
+ expect(state.draft.document.requirements[0].status).toBe('unresolved');
+ const pattern=await studio.call('GET',`${path}/geometry/${state.project.headRevisionId}`);expect(pattern.drafting.compiler).toBe('sew-panel-dress/1');
+});

@@ -1,7 +1,8 @@
+import {defaultPanelDress} from './dress';
 import {defaultCustomPattern} from './custom-pattern';
 import {emptyDocument,assumed} from './index';
 import {applySample,withPreviewSizing} from './sizing';
-import {defaultShirtDesign,defaultDressDesign,defaultSkirtDesign} from './design';
+import {defaultShirtDesign,defaultSkirtDesign} from './design';
 
 export type StartingFamily='shirt'|'dress'|'skirt'|'custom';
 /** A deliberate owner-selected approximation; original intent and unsupported details survive. */
@@ -15,10 +16,10 @@ export function simplifiedPreviewDocument(doc:ReturnType<typeof emptyDocument>,f
 /** Explicitly chosen synthetic starting sizes; never silently applied to existing projects. */
 export function startingDocument(family:StartingFamily) {
   if(family==='custom'){const doc=emptyDocument('Your custom pattern','Original garment with owner-authored sewing pieces.');doc.garment={family:'custom',length:{state:'not-applicable'},ease:{state:'not-applicable'},flare:1,design:structuredClone(defaultCustomPattern)};return doc;}
-  const description={custom:'Original garment with editable sewing pieces and explicit edge connections.',shirt:'Relaxed woven button shirt.',dress:'Relaxed woven dress with short sleeves and a gently flared hem.',skirt:'Woven skirt with an elastic waist and a gently flared hem.'}[family];
+  const description={custom:'Original garment with editable sewing pieces and explicit edge connections.',shirt:'Relaxed woven button shirt.',dress:'Woven dress with a separate bodice, waist seam and flared skirt.',skirt:'Woven skirt with an elastic waist and a gently flared hem.'}[family];
   const doc=applySample(emptyDocument(`Your ${family}`,description),2);
   doc.sizeLabel='Sample M · estimates';
-  doc.garment={family,length:assumed(family==='shirt'?650:family==='dress'?1000:650),ease:assumed(80),flare:family==='shirt'?1:1.35,design:structuredClone({shirt:defaultShirtDesign,dress:defaultDressDesign,skirt:defaultSkirtDesign,custom:defaultCustomPattern}[family])};
+  doc.garment={family,length:assumed(family==='shirt'?650:family==='dress'?1000:650),ease:assumed(80),flare:family==='shirt'?1:1.35,design:structuredClone({shirt:defaultShirtDesign,dress:defaultPanelDress,skirt:defaultSkirtDesign,custom:defaultCustomPattern}[family])};
   doc.requirements=[{id:'starting-shape',text:description,status:'supported',feature:'body',note:'Chosen editable starting shape. Synthetic sizing; fit is unverified.'}];
   return doc;
 }

@@ -10,6 +10,8 @@ This is the overall product execution roadmap. The [dedicated 3D engine plan](pa
 
 ## MVP feedback milestone — 2026-09-25
 
+Owner priority, 2026-09-26: the elongated shirt result did not satisfy the requested dress. Prioritize silhouette variety before further physics work. The [dress silhouette checkpoint](../reviews/dress-silhouettes.md) adds a separate bodice/skirt compiler, flared/gathered/tiered construction, waist placement and neckline choices through the existing prompt-first flow. Assess rendered differences and fidelity to the brief; arbitrary automatic drafting and sewing completion remain outside this bounded step.
+
 Interaction priority, 2026-09-26: the owner wants a demonstration from one prompt and a couple of clicks. The main flow now requests no name, measurements or technical rows: describe → review → **See garment**. Optional authoring remains available through **Edit details**. The [prompt-first checkpoint](../reviews/prompt-preview.md) documents sample-sizing preservation, explicit simplified previews for unsupported ideas and connected verification. This changes the interface, not the engine's garment coverage or physical-readiness claims.
 
 Latest scope, 2026-09-26: the owner clarified that arbitrary patterns means both fabric prints and sewing pieces. The [custom-pattern and print checkpoint](../reviews/custom-patterns-and-prints.md) adds saved colors, private artwork uploads, repeat controls, editable polygon outlines and explicit seam connections. These inputs drive the existing revision, source geometry, approximate preview and export flow. Keep broader automatic construction requests explicit; manual custom authoring does not certify every garment or physical fit.

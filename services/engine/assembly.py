@@ -15,6 +15,9 @@ def compile_inventory(pattern_bytes, construction):
     if not isinstance(pattern_bytes, bytes) or len(pattern_bytes) > 4 * 1024 * 1024:
         raise ValueError("Pattern input budget exceeded")
     pattern = json.loads(pattern_bytes)
+    if pattern.get("drafting", {}).get("compiler") == "sew-panel-dress/1":
+        from panel_dress import dress_inventory
+        return dress_inventory(pattern_bytes, construction)
     if pattern.get("drafting", {}).get("compiler") == "sew-custom-pattern/1":
         from custom_pattern import custom_inventory
         return custom_inventory(pattern_bytes, construction)
@@ -112,7 +115,7 @@ def compile_inventory(pattern_bytes, construction):
 
 
 def build_inspection(pattern_bytes, construction, max_edge_mm=40):
-    module_hashes = {name: hashlib.sha256((Path(__file__).parent / name).read_bytes()).hexdigest() for name in ("assembly.py", "custom_pattern.py", "meshing.py", "simulation_validation.py", "inspection_gltf.py", "guard.py")}
+    module_hashes = {name: hashlib.sha256((Path(__file__).parent / name).read_bytes()).hexdigest() for name in ("assembly.py", "panel_dress.py", "custom_pattern.py", "meshing.py", "simulation_validation.py", "inspection_gltf.py", "guard.py")}
     pattern, inventory = compile_inventory(pattern_bytes, construction)
     assembly = compile_assembly(pattern, inventory)
     meshes = []
@@ -129,6 +132,9 @@ def build_inspection(pattern_bytes, construction, max_edge_mm=40):
 
 
 def compile_assembly(pattern, inventory):
+    if pattern.get("drafting", {}).get("compiler") == "sew-panel-dress/1":
+        from panel_dress import dress_assembly
+        return dress_assembly(pattern, inventory)
     if pattern["family"] == "custom":
         from custom_pattern import custom_assembly
         return custom_assembly(pattern, inventory)

@@ -5,6 +5,9 @@ from skirt import compile_skirt
 
 def compile_garment(inputs, commit):
     block = inputs['design']['block']
+    if block == 'panel-dress':
+        from panel_dress import compile_dress
+        return compile_dress(inputs, commit)
     if block == 'custom-pattern':
         from custom_pattern import compile_custom
         return compile_custom(inputs, commit)

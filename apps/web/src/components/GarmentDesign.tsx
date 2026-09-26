@@ -1,3 +1,4 @@
+import {defaultPanelDress,PanelDressSchema,panelDressSizingIssues,type PanelDress} from '../../../../packages/contracts/dress';
 import CustomPatternEditor from './CustomPatternEditor';
 import {mm,type GarmentDocument,type PatternGeometry} from '../../../../packages/contracts';
 import {designCoverage,designIssues,GarmentDesignSchema,type ShirtDesign,type SkirtDesign} from '../../../../packages/contracts/design';
@@ -20,6 +21,7 @@ export default function GarmentDesign({doc,geometry=null,onChange,compact=false}
   const design=doc.garment.design;
   if(!design)return null;
   if(design.block==='custom-pattern')return onChange?<CustomPatternEditor design={design} onChange={design=>onChange({...doc,garment:{...doc.garment,design}})}/>:<p>Custom sewing pieces · {design.pieces.length} outlines, {design.seams.length} seams</p>;
+  if(design.block==='panel-dress')return <PanelDressEditor doc={doc} design={design} geometry={geometry} onChange={onChange} compact={compact}/>;
   const change=(key:string,value:unknown)=>{
     const next=GarmentDesignSchema.safeParse({...design,[key]:value,...(key==='opening'&&value==='none'?{collar:'none',frill:'none'}:{}),...(key==='sleeves'&&value==='short'?{sleeveLengthMm:220,cuff:'none'}:key==='sleeves'&&value==='long'?{sleeveLengthMm:550}:key==='sleeves'&&value==='none'?{cuff:'none'}:{})});
     if(next.success)onChange?.({...doc,garment:{...doc.garment,design:next.data}});
@@ -31,6 +33,7 @@ export default function GarmentDesign({doc,geometry=null,onChange,compact=false}
   const coverage=designCoverage(doc,geometry);
   const isSkirt=design.block==='elastic-waist-skirt';
   return <section className="garment-design" aria-label="Garment construction">
+    {onChange&&design.block==='relaxed-dress'&&<button onClick={()=>onChange({...doc,garment:{...doc.garment,design:structuredClone(defaultPanelDress)},requirements:doc.requirements.map(row=>row.status==='supported'&&row.feature!=='material'?{...row,status:'unresolved'}:row)})}>Try a separate bodice & skirt</button>}
     {!compact&&<ConstructionDrawing doc={doc} geometry={geometry}/>}
     {!compact&&<details><summary>Design notes</summary><p>{design.rationale}</p></details>}
     {geometry&&coverage.status!=='drafted'&&<p role="status">Some requested details are not in this pattern yet.</p>}
@@ -43,5 +46,38 @@ export default function GarmentDesign({doc,geometry=null,onChange,compact=false}
     </div></details></div>}
     {designIssues(design).map(issue=><p role="alert" key={issue}>{issue}</p>)}
     {geometry?.drafting&&<details><summary>Derived specifications & assembly</summary><dl>{geometry.drafting.measurements.map(row=><div key={row.name}><dt>{row.name}</dt><dd>{row.valueMm.toFixed(1)} mm — {row.method}</dd></div>)}</dl><ul>{geometry.drafting.materials.map(row=><li key={row}>{row}</li>)}</ul><ol>{geometry.drafting.operations.map((row,index)=><li key={index}>{row}</li>)}</ol></details>}
+  </section>;
+}
+
+function PanelDressEditor({doc,design,geometry,onChange,compact}:{doc:GarmentDocument;design:PanelDress;geometry:PatternGeometry|null;onChange?: (doc:GarmentDocument)=>void;compact:boolean}) {
+  const update=(key:keyof PanelDress,value:unknown)=>{
+    const next=PanelDressSchema.safeParse({...design,[key]:value,...(key==='sleeves'?{sleeveLengthMm:value==='long'?550:220}:{})});
+    if(next.success)onChange?.({...doc,garment:{...doc.garment,design:next.data}});
+  };
+  const coverage=designCoverage(doc,geometry);
+  const choice=(key:keyof PanelDress,label:string,values:[string,string][])=> <label key={key}>{label}<select aria-label={label} value={String(design[key])} onChange={e=>update(key,e.target.value)}>{values.map(([v,n])=><option key={v} value={v}>{n}</option>)}</select></label>;
+  const range=(key:keyof PanelDress,label:string,min:number,max:number,step:number)=> <label key={key}>{label}<input type="range" aria-label={label} min={min} max={max} step={step} value={Number(design[key])} onChange={e=>update(key,Number(e.target.value))}/><output>{String(design[key])}</output></label>;
+  return <section className="garment-design" aria-label="Garment construction">
+    {!compact&&<ConstructionDrawing doc={doc} geometry={geometry}/>}
+    {!compact&&<details><summary>Design notes</summary><p>{design.rationale}</p></details>}
+    {onChange&&<><h3>Make it yours</h3><div className="construction-controls">
+      {choice('skirtStyle','Skirt silhouette',[['flared','Flared panels'],['gathered','Gathered waist'],['tiered','Two gathered tiers']])}
+      {choice('neckline','Neckline',[['round','Round'],['v','V neck'],['square','Square']])}
+      {choice('sleeves','Sleeves',[['none','Sleeveless'],['short','Short'],['long','Long']])}
+      <label>Length <output>{((mm(doc.garment.length)??1000)/10).toFixed(0)} cm</output><input aria-label="Length (cm)" type="range" min="70" max="145" step="1" value={(mm(doc.garment.length)??1000)/10} onChange={e=>onChange({...doc,garment:{...doc.garment,length:editMeasurement(doc.garment.length,Number(e.target.value)*10,'mm')}})}/></label>
+      {range('bodiceLengthMm','Waist seam from shoulder (mm)',320,650,5)}
+      {range('waistRatio','Waist shape',.75,1.2,.01)}
+      <label>Hem sweep <output>{doc.garment.flare.toFixed(2)}×</output><input aria-label="Hem sweep" type="range" min="1" max="2" step=".01" value={doc.garment.flare} onChange={e=>onChange({...doc,garment:{...doc.garment,flare:Number(e.target.value)}})}/></label>
+      {design.skirtStyle!=='flared'&&range('skirtFullness','Waist gathering',1.1,2,.05)}
+      {design.skirtStyle==='tiered'&&range('tierFullness','Second tier gathering',1.1,1.8,.05)}
+    </div><details><summary>Fine-tune dimensions</summary><div className="construction-controls">
+      {range('neckWidthMm','Neck width (mm)',70,160,5)}{range('neckDepthMm','Neck depth (mm)',70,200,5)}
+      {design.sleeves!=='none'&&range('sleeveLengthMm','Sleeve length (mm)',design.sleeves==='long'?350:100,design.sleeves==='long'?700:350,5)}
+      {range('seamAllowanceMm','Seam allowance (mm)',6,20,1)}
+    </div></details></>}
+    {geometry&&!!coverage.unresolved.length&&<details><summary>Details still needing review ({coverage.unresolved.length})</summary><ul>{coverage.unresolved.map((text,i)=><li key={i}>{text}</li>)}</ul></details>}
+    <p className="muted">Silhouette prototype · back closure, neckline finishing and fit need development.</p>
+    {[...designIssues(design),...panelDressSizingIssues(doc,design)].map(issue=><p role="alert" key={issue}>{issue}</p>)}
+    {geometry?.drafting&&<details><summary>Pattern & assembly notes</summary><ol>{geometry.drafting.operations.map((row,i)=><li key={i}>{row}</li>)}</ol></details>}
   </section>;
 }

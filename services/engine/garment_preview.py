@@ -13,6 +13,7 @@ from scipy.spatial import cKDTree
 ROOT=Path(__file__).resolve().parent
 from assembly import compile_inventory, compile_assembly
 from custom_pattern import custom_guide
+from panel_dress import dress_guide
 from meshing import mesh_panel
 from simulation_validation import validate_rest_mesh
 
@@ -144,14 +145,31 @@ def guide(panel,xy,panels,role='shell'):
 def build_preview(source,construction):
     started=time.monotonic(); pattern,inventory=compile_inventory(source,construction)
     panels={p['id']:p for p in pattern['panels']}; assembly=compile_assembly(pattern,inventory)
-    templates={}
+    templates={}; mesh_choices=[]
     for p in pattern['panels']:
-        m=mesh_panel(p,18 if not p['id'].startswith('frill_') else 9,quality_refinement=True);validate_rest_mesh(p,m);templates[p['id']]=m
+        resolution=18 if not p['id'].startswith('frill_') else 9
+        attempts=[(resolution,True),(19,True),(resolution,False)] if construction['block']=='panel-dress' else [(resolution,True)]
+        first_error=None
+        for attempt,(edge_size,quality) in enumerate(attempts):
+            m=mesh_panel(p,edge_size,quality_refinement=quality)
+            try:
+                validate_rest_mesh(p,m)
+                break
+            except ValueError as error:
+                # Collinear refinement points can yield a numerical zero-area
+                # triangle. Retriangulate the same immutable polygon at a second
+                # bounded resolution, then constrained refinement if needed. Every
+                # candidate faces identical source/topology validation.
+                if str(error)!='Degenerate or inverted triangle' or attempt==len(attempts)-1:
+                    raise ValueError(f"Preview mesh {p['id']}: {error}") from error
+                first_error=str(error)
+        templates[p['id']]=m
+        mesh_choices.append({'templateId':p['id'],'maxEdgeMm':edge_size,'qualityRefinement':quality,'retryReason':first_error})
     pieces=[];rest=[];guides=[];offsets={}; start=0
     for inst in inventory['instances']:
         name=inst['templateId'];m=templates[name];uv=np.array(m['restPositions']); n=len(uv)
         offsets[inst['id']]=start
-        rest.extend(np.c_[uv,np.zeros(n)]); guides.extend(custom_guide(panels[name],uv,construction) if pattern['family']=='custom' else skirt_guide(panels[name],uv,panels,pattern,inst['role']) if pattern['family']=='skirt' else guide(panels[name],uv,panels,inst['role']))
+        rest.extend(np.c_[uv,np.zeros(n)]); guides.extend(dress_guide(panels[name],uv,panels,construction) if construction['block']=='panel-dress' else custom_guide(panels[name],uv,construction) if pattern['family']=='custom' else skirt_guide(panels[name],uv,panels,pattern,inst['role']) if pattern['family']=='skirt' else guide(panels[name],uv,panels,inst['role']))
         pieces.append({**inst,'offset':start,'count':n,'mesh':m});start+=n
         if start>60000: raise ValueError('Preview vertex budget exceeded')
     rest=np.array(rest);targets=np.array(guides); n=len(rest)
@@ -232,6 +250,7 @@ def build_preview(source,construction):
         'generatorSha256':digest(Path(__file__).read_bytes()),
         'constructionDigest':inventory['constructionDigest'],'assemblyDigest':digest(enc(seams)),
         'materialDigest':digest(enc(MATERIAL)),'pose':{'recipe':f'source-derived-{pattern["family"]}-guides/1','calibrated':False,'source':'pattern dimensions and explicit guide equations in the pinned generator'},
-        'sourceHashes':{name:digest((ROOT/name).read_bytes()) for name in ('assembly.py','custom_pattern.py','skirt.py','skirt_assembly.py','meshing.py','quality_meshing.py','simulation_validation.py')}}
+        'meshing':mesh_choices,
+        'sourceHashes':{name:digest((ROOT/name).read_bytes()) for name in ('assembly.py','panel_dress.py','custom_pattern.py','skirt.py','skirt_assembly.py','meshing.py','quality_meshing.py','simulation_validation.py')}}
     if len(enc(report))>16*1024*1024: raise ValueError('Preview artifact budget exceeded')
     return report

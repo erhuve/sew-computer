@@ -1,5 +1,6 @@
 import { assumed, mm, type GarmentDocument, type Measurement } from './index';
 import { designIssues, designFamily } from './design';
+import {panelDressSizingIssues} from './dress';
 
 export type Body = GarmentDocument['body'];
 export type BodyKey = keyof Body;
@@ -75,6 +76,7 @@ export function sizingInput(doc: GarmentDocument) {
     if (family !== designFamily(design)) throw new Error('The selected construction does not match the garment family.');
     const issues = designIssues(design);
     if (issues.length) throw new Error(issues.join(' '));
+    if(design.block==='panel-dress'){const issues=panelDressSizingIssues(doc,design);if(issues.length)throw new Error(issues.join(' '));return {family,bodyMm,lengthMm,easeMm,flare:doc.garment.flare};}
     if(design.block==='elastic-waist-skirt') {
       if(lengthMm-design.waistbandDepthMm<200)throw new Error('The skirt must leave at least 200 mm below the waistband.');
       return {family,bodyMm,lengthMm,easeMm,flare:doc.garment.flare};

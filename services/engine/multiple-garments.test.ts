@@ -54,7 +54,7 @@ for(const family of ['dress','skirt'] as const)test(`${family}: all six sample s
       validateDesignGeometry(doc,result.geometry);
       expect(result.geometry.panels[0]!.widthMm).toBeGreaterThan(previousWidth);
       previousWidth=result.geometry.panels[0]!.widthMm;
-      expect(result.geometry.drafting!.compiler).toBe(family==='dress'?'sew-relaxed-dress/1':'sew-elastic-skirt/1');
+      expect(result.geometry.drafting!.compiler).toBe(family==='dress'?'sew-panel-dress/1':'sew-elastic-skirt/1');
     }
   } finally {await rm(outputDir,{recursive:true,force:true});}
 },180000);

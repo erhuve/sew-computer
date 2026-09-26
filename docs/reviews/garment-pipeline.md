@@ -1,5 +1,7 @@
 # Component garment pipeline review
 
+The [dress silhouette extension](dress-silhouettes.md) adds an independent bodice/skirt recipe with flared, gathered and tiered skirts; it preserves the old continuous shirt-dress recipe for historical designs.
+
 The [custom-pattern and fabric-print extension](custom-patterns-and-prints.md) adds a separate trusted polygon compiler and source-preserving preview path; it does not expand the automatic shirt recipe or certify arbitrary garments.
 
 

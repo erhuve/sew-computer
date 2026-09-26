@@ -39,7 +39,7 @@ for(const family of ['shirt','dress','skirt'] as const)test(`${family}: one-clic
   await expect.poll(async()=>(await studio.call('GET',`${path}/three-d/latest?revisionId=${edited.project.headRevisionId}`))?.status,{timeout:90000}).toBe('succeeded');
   await expect(page.getByRole('button',{name:'Back',exact:true})).toBeEnabled();
   const second=await studio.call('GET',`${path}/geometry/${edited.project.headRevisionId}`);
-  expect(second.inputDigest).not.toBe(first.inputDigest);expect(second.panels[0].heightMm).not.toBe(first.panels[0].heightMm);
+  expect(second.inputDigest).not.toBe(first.inputDigest);const changedPiece=family==='dress'?'skirt0_front_left':first.panels[0].id;expect(second.panels.find((p:any)=>p.id===changedPiece).heightMm).not.toBe(first.panels.find((p:any)=>p.id===changedPiece).heightMm);
   await page.getByRole('button',{name:'Download',exact:true}).click();
   const link=page.getByRole('link',{name:/^pattern-.+\.json$/,exact:true});await expect(link).toBeVisible();
   const download=await studio.call('GET',(await link.getAttribute('href'))!.replace(/^\/api/,''));expect(download.inputDigest).toBe(second.inputDigest);expect(download.family).toBe(family);

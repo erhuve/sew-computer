@@ -2,6 +2,8 @@
 
 2026-09-26 · Local MVP interface checkpoint; no public deployment or new physics claim.
 
+The [dress silhouette follow-up](dress-silhouettes.md) adds independently drafted flared, gathered and tiered dresses to this same two-action flow; existing shirt-dress revisions remain unchanged.
+
 The main path accepts one description and two actions: **Design with AI**, then **See garment** after reviewing the proposal. The model request button states the destination and allowance usage. No separate consent checkbox, name, measurement entry, material table or sewing form is required. Reference images remain separately opt-in.
 
 The proposal shows its summary, construction illustration and unsupported omissions before the preview action. Dimensions, open questions, materials and construction notes are expandable. Preview sizing fills only missing body inputs; known measurements, owner-adjusted estimates and explicit not-applicable values survive. Invalid preserved inputs remain errors with access to the editor, rather than silently changing the inputs to force success.

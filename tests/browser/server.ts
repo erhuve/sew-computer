@@ -1,5 +1,7 @@
 export {};
 import { interpretationFixture } from '../../packages/test-fixtures/interpretation';
+import {defaultPanelDress} from '../../packages/contracts/dress';
+import {assumed} from '../../packages/contracts';
 import {defaultShirtDesign} from '../../packages/contracts/design';
 import {startingDocument} from '../../packages/contracts/starting-designs';
 import { shirtDocument } from '../../packages/test-fixtures/shirt';
@@ -22,6 +24,14 @@ const model=Bun.serve({hostname:'127.0.0.1',port:0,fetch:async request=>{
     result.garment=doc.garment as typeof result.garment;
     result.requirements=doc.requirements.map(({id,...row})=>({...row,feature:row.feature!}));
     result.summary=`Relaxed woven ${family} with editable construction.`;result.questions=[];
+  }
+  for(const style of ['flared','gathered','tiered'] as const)if(body.includes(`silhouette-${style}-fixture`)) {
+    const doc=startingDocument('dress');
+    doc.garment.design={...defaultPanelDress,skirtStyle:style,neckline:style==='flared'?'v':style==='gathered'?'square':'round',bodiceLengthMm:style==='flared'?430:style==='gathered'?365:510,sleeves:style==='flared'?'none':style==='gathered'?'short':'long',sleeveLengthMm:style==='tiered'?550:220,skirtFullness:style==='gathered'?1.8:1.4};
+    doc.garment.length=assumed(style==='flared'?1250:style==='gathered'?940:1300);doc.garment.flare=style==='flared'?1.7:style==='gathered'?1.1:1.05;
+    doc.garment.appearance={color:style==='flared'?'#345f69':style==='gathered'?'#a35359':'#796a99',print:null};
+    result.garment=doc.garment as typeof result.garment;result.requirements=doc.requirements.map(({id,...row})=>({...row,feature:row.feature!}));
+    result.summary=`${style} dress with separate bodice and skirt. Back closure and neckline finishing need development.`;result.questions=[];
   }
   if (body.includes('unsupported-tailcoat-fixture')) result.garment = {family:'none',length:{state:'unknown'},ease:{state:'unknown'},flare:1,design:null};
   return Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(result)}}],usage:{prompt_tokens:100,completion_tokens:200}});

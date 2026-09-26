@@ -12,6 +12,35 @@ export function garmentFlats(doc:Pick<GarmentDocument,'garment'> & Partial<Pick<
     const scale=220/length,w=waist/4*scale,h=hem/4*scale,d=depth*scale;
     return (['front','back'] as const).map(view=>({view,buttons:[],lines:[{points:[[-w,0],[w,0],[w,d],[h,220],[-h,220],[-w,d],[-w,0]],detail:false},{points:[[-w,d],[w,d]],detail:true},{points:[[0,d],[0,220]],detail:true}]}));
   }
+  if(design.block==='panel-dress') {
+    const length=mm(doc.garment.length)??1000,scale=220/length;
+    const chest=(Math.max(doc.body?mm(doc.body.bust)??920:920,doc.body?mm(doc.body.hip)??980:980)+(mm(doc.garment.ease)??80))/4;
+    const waist=chest*design.waistRatio,arm=(doc.body?mm(doc.body.bust)??920:920)/10+110,levels=design.skirtStyle==='tiered'?2:1;
+    return (['front','back'] as const).map(view=>{
+      const lines:Flat['lines']=[];
+      const line=(points:[number,number][],detail=false)=>lines.push({points:points.map(([x,y])=>[x*scale,y*scale]),detail});
+      for(const sign of [-1,1]) {
+        const depth=view==='front'?design.neckDepthMm:25,w=design.neckWidthMm;
+        const source=geometry?.panels.find(p=>p.id===`bodice_${view}_left`),edge=source?.draft?.edges.find(e=>e.name==='neck');
+        const neck:[number,number][]=source&&edge?source.points.slice(edge.start,edge.end+1):view==='front'&&design.neckline==='v'?[[w,0],[0,depth]]:view==='front'&&design.neckline==='square'?[[w,0],[w,depth],[0,depth]]:Array.from({length:25},(_,i)=>[w*Math.cos(Math.PI*i/48),depth*Math.sin(Math.PI*i/48)]);
+        line(neck.map(([x,y])=>[sign*x,y]));
+        line([[sign*w,0],[sign*chest,0],[sign*chest,arm],[sign*waist,design.bodiceLengthMm]]);
+        if(design.sleeves!=='none')line([[sign*chest,0],[sign*(chest+design.sleeveLengthMm),40],[sign*(chest+design.sleeveLengthMm),40+arm*.72],[sign*chest,arm]]);
+      }
+      let previous=waist;
+      line([[-waist,design.bodiceLengthMm],[waist,design.bodiceLengthMm]],true);
+      for(let tier=0;tier<levels;tier++) {
+        const top=previous*(tier?design.tierFullness:design.skirtStyle==='flared'?1:design.skirtFullness),hem=top*doc.garment.flare;
+        const y=design.bodiceLengthMm+tier*(length-design.bodiceLengthMm)/levels,end=design.bodiceLengthMm+(tier+1)*(length-design.bodiceLengthMm)/levels;
+        for(const sign of [-1,1])line([[sign*previous,y],[sign*hem,end]]);
+        line([[-hem,end],[hem,end]],tier<levels-1);
+        if(top>previous)for(const f of [-.75,-.4,.4,.75])line([[previous*f,y],[hem*f,end]],true);
+        previous=hem;
+      }
+      if(view==='back')line([[0,25],[0,design.bodiceLengthMm]],true);
+      return {view,lines,buttons:[]};
+    });
+  }
   const length=geometry?.drafting?.measurements.find(row=>row.name==='Side length from shoulder baseline')?.valueMm ?? mm(doc.garment.length) ?? 650;
   const panel=(name:string)=>geometry?.panels.find(piece=>piece.id===name);
   const edge=(name:string,boundary:string)=>{
