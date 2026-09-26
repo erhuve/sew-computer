@@ -8,6 +8,23 @@ The owner's latest priority is an immediately usable describe-to-garment softwar
 
 This is the overall product execution roadmap. The [dedicated 3D engine plan](pattern-derived-3d-engine.md) owns that workstream's execution details. This roadmap supersedes the earlier workspace-only software-prototype proposal for sequencing and integration decisions, while preserving the [product intent](../product/vision.md). Specialist designs below are supporting specifications, not competing roadmaps. The [implementation review](../reviews/manual-prototype.md) records delivered behavior and deviations; the acceptance requirements below remain the target.
 
+## MVP feedback milestone — 2026-09-25
+
+The owner clarified that the immediate objective is an MVP to show people and learn whether they are interested and find real value. Prioritize a usable demonstration of the connected creation loop. Completing the entire research engine is not a prerequisite to testing the value already present. Pattern-derived assembled 3D remains a product goal and an explicit gap; feedback must not be described as validating that missing capability.
+
+The first demonstration can be owner-led in the private studio, using synthetic measurements and non-private references. Public accounts, a marketplace and manufacturing services are not dependencies. This changes sequencing, not the project contract's geometry, privacy or evidence requirements, and does not authorize deployment.
+
+Current implementation supports reviewed design proposals, editable supported construction, real 2D patterns, synthetic sizing, saved revisions and draft PDF/JSON exports. The isolated 3D implementation adds source-linked placement inspection only; it is not deployed and cannot demonstrate an assembled garment, drape or fit. These are implementation/review findings, not a newly executed demo acceptance run.
+
+Next priorities, in order:
+
+1. Rehearse one complete supported design in an isolated app with synthetic inputs: brief → reviewed proposal → edit a construction choice → size → generate and inspect the actual pattern → save/reopen → export the matching revision. Use the relaxed component shirt as the initial test fixture, not a permanent creative restriction. Verify the manual path separately from the connected model path, and label fixture-backed model responses when used.
+2. Fix observed obstacles to that flow: unclear next actions, confusing sizing, misleading visual labels, generation failures, stale results or unusable downloads. Check desktop and mobile presentation. Preserve unsupported intent and existing privacy/revision safeguards.
+3. Prepare a short repeatable demonstration and feedback record. Let participants attempt an edit and explain what they would use the result for. Record where help was required, which output matters, what would stop them using it again, and whether assembled 3D is necessary for the value they expect. Interest and usefulness are observations to collect, not claims established by tests or a polished presentation.
+4. Continue assembled 3D toward a bounded, source-derived demonstration for a supported garment, with explicit acceptance criteria. Identify which unfinished engine work directly enables that visible result before resuming numerical experiments. Use feedback to refine priorities; do not assume that placement inspection satisfies the intended 3D experience. Do not substitute an unrelated mesh or relabel placement inspection. Broader solver work should serve this concrete product need.
+
+The existing-flow feedback milestone is ready when the rehearsed flow reliably produces a visible result, an editable change and a matching downloadable draft, with limitations understood and observed failures recoverable. It is complete only after actual feedback is recorded; it does not complete the 3D engine goal. Existing browser coverage is useful regression evidence, but neither it nor numerical test counts establish user value. Full simulation, calibrated cutting and public multi-user release retain their separate gates.
+
 ## Outcome
 
 Garment pipeline follow-up (2026-09-16, in implementation): the owner's current scope is brief → editable construction design → matching component patterns → derived specifications and front/back schematics. The LLM should resolve ordinary design ambiguity itself and explain editable choices; the owner is building the software, not commissioning a bespoke shirt in chat. The white button-up with practical tails and frills is a regression case, not a permanent product restriction. Preserve all existing private revision/export behavior. This supersedes the base-pattern-only interpretation boundary for supported component designs.

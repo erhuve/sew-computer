@@ -2,6 +2,12 @@
 
 **2026-09-17 · Active dedicated workstream plan · Implementation in progress, not deployed**
 
+## Current priority — MVP feedback, 2026-09-25
+
+The owner clarified that this work serves an MVP to show people and assess interest and value. The [overall roadmap's MVP feedback milestone](software-prototype.md#mvp-feedback-milestone--2026-09-25) now governs immediate sequencing: rehearse the existing creation/edit/pattern/export loop, fix observed demo obstacles, and collect feedback. The numerical entries below preserve evidence and their then-current next steps; they are not instructions to resume open-ended solver work ahead of that milestone.
+
+Full assembled 3D remains unfinished and remains a goal. The isolated application currently provides source-linked placement inspection, not garment assembly, drape or fit. Preserve all research, rejected cases and acceptance thresholds. Define a bounded supported-garment demonstration target and identify which unfinished engine work directly enables it before resuming time-integrator experiments. Work toward that target without changing rest geometry or substituting an unrelated mesh. Feedback on the existing flow must not be treated as completion of the 3D goal. This priority change does not complete a research gate or authorize deployment.
+
 ## Execution status
 
 Original-schedule cable power, 2026-09-25: the [continuous parameter-power evaluator](../research/3d-solver-feasibility.md#original-schedule-cable-parameter-power--2026-09-25) passes **301 focused pinned Linux tests**: 20 new independent power methods, 34 prior physical/stage methods and 247 historical full-suite methods. The historical 1,626-test full checkpoint is not rerun or added. Exact original-knot interpolation and physical-time rates now drive bounded signed target/activation power, with explicit knot sides and separate outward energy/gradient bounds for rounded native controls. Exact polynomial and Decimal radial oracles cover cancellation, slack transitions, rounding, mutation and failed work. Actual outer/container exits are zero; frozen inputs and owned cleanup pass. The [ledger](../research/3d-cable-power-results.json) records the evidence.
