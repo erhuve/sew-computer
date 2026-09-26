@@ -1,0 +1,404 @@
+{
+  "acceptedGarment": false,
+  "actualSourceAdaptiveReplayExecuted": false,
+  "completedConstructionPhases": [],
+  "diagnostic": {
+    "diagnosticAttemptCounts": {
+      "directFactorizations": 7,
+      "helperCalls": 7,
+      "probeResponses": 3,
+      "publicResponses": 1
+    },
+    "extendedPrecisionMembraneDiagnostic": {
+      "mantissaBits": 112,
+      "maxGradientDifferenceNewtons": 2.205053529476618e-12,
+      "scope": "Same real algebra at extended precision from stored binary64 tensors; not an exact oracle or replacement response."
+    },
+    "perPiece": [
+      {
+        "componentMaxForceNewtons": {
+          "bending": 1.0769941127399129e-17,
+          "contact": 0.0,
+          "foldActuation": 0.0,
+          "membrane": 1.013053703763562e-12,
+          "sewing": 0.0
+        },
+        "instanceId": "cuff_left:shell",
+        "totalMaxForceNewtons": 1.013053703763562e-12,
+        "vertices": 20
+      },
+      {
+        "componentMaxForceNewtons": {
+          "bending": 2.1539882254798258e-17,
+          "contact": 0.0,
+          "foldActuation": 0.0,
+          "membrane": 1.013053703763562e-12,
+          "sewing": 0.0
+        },
+        "instanceId": "cuff_left:facing",
+        "totalMaxForceNewtons": 1.013053703763562e-12,
+        "vertices": 20
+      },
+      {
+        "componentMaxForceNewtons": {
+          "bending": 0.06907266724163073,
+          "contact": 0.0,
+          "foldActuation": 0.0690726661484931,
+          "membrane": 5.014510453075123e-07,
+          "sewing": 4.923232852421317e-07
+        },
+        "instanceId": "opening_binding_left_left:shell",
+        "totalMaxForceNewtons": 1.8611512055735917e-08,
+        "vertices": 29
+      },
+      {
+        "componentMaxForceNewtons": {
+          "bending": 1.6709494642713448e-17,
+          "contact": 0.0,
+          "foldActuation": 0.0,
+          "membrane": 3.8896550686782085e-13,
+          "sewing": 0.0
+        },
+        "instanceId": "opening_binding_left_right:shell",
+        "totalMaxForceNewtons": 3.8896550686782085e-13,
+        "vertices": 11
+      },
+      {
+        "componentMaxForceNewtons": {
+          "bending": 1.086033548645313e-07,
+          "contact": 0.0,
+          "foldActuation": 0.0,
+          "membrane": 1.0532856983423793e-09,
+          "sewing": 1.0786323320326634e-07
+        },
+        "instanceId": "sleeve_left:shell",
+        "totalMaxForceNewtons": 2.1174844989476284e-08,
+        "vertices": 165
+      }
+    ],
+    "searchShiftDiagnostics": [
+      {
+        "asymmetryMax": 2.220446049250313e-16,
+        "dimensionlessShift": 0.0,
+        "directDirectionFinite": true,
+        "directLinearResidualMax": 5.594490710316891e-17,
+        "factorScale": 188678.47417416936,
+        "helperReturnedDirection": false,
+        "matrixMagnitude": 1.0000000000000002,
+        "maximumFactorSymmetryError": 116.5867280528615,
+        "minimumPivot": -7.447112120571523e-08,
+        "pivotFloor": 1.0000000000000002e-12,
+        "samePermutation": true
+      },
+      {
+        "asymmetryMax": 2.220446049250313e-16,
+        "dimensionlessShift": 1e-09,
+        "directDirectionFinite": true,
+        "directLinearResidualMax": 7.203019289468296e-20,
+        "factorScale": 2213.823588064504,
+        "helperReturnedDirection": false,
+        "matrixMagnitude": 1.0000000010000003,
+        "maximumFactorSymmetryError": 6.320464080999955e-06,
+        "minimumPivot": 3.1553194828051775e-09,
+        "pivotFloor": 1.0000000010000004e-12,
+        "samePermutation": true
+      },
+      {
+        "asymmetryMax": 2.220446049250313e-16,
+        "dimensionlessShift": 1e-08,
+        "directDirectionFinite": true,
+        "directLinearResidualMax": 8.290214756422574e-21,
+        "factorScale": 1160.9436445189742,
+        "helperReturnedDirection": false,
+        "matrixMagnitude": 1.0000000100000002,
+        "maximumFactorSymmetryError": 2.6234056349494494e-06,
+        "minimumPivot": 3.155318872180771e-08,
+        "pivotFloor": 1.00000001e-12,
+        "samePermutation": true
+      },
+      {
+        "asymmetryMax": 2.220446049250313e-16,
+        "dimensionlessShift": 1e-07,
+        "directDirectionFinite": true,
+        "directLinearResidualMax": 7.457848273252819e-22,
+        "factorScale": 735.5778739884005,
+        "helperReturnedDirection": false,
+        "matrixMagnitude": 1.0000001000000003,
+        "maximumFactorSymmetryError": 1.0736454214566038e-07,
+        "minimumPivot": 2.5826782447353397e-07,
+        "pivotFloor": 1.0000001000000002e-12,
+        "samePermutation": true
+      },
+      {
+        "asymmetryMax": 2.220446049250313e-16,
+        "dimensionlessShift": 1e-06,
+        "directDirectionFinite": true,
+        "directLinearResidualMax": 1.1849983266126711e-22,
+        "factorScale": 174.13560388619024,
+        "helperReturnedDirection": true,
+        "linearResidualMax": 1.1849983266126711e-22,
+        "matrixMagnitude": 1.0000010000000001,
+        "maxDisplacementMeters": 8.526369818517843e-10,
+        "maximumFactorSymmetryError": 1.4630243683200206e-09,
+        "minimumPivot": 1.7294743627744237e-06,
+        "pivotFloor": 1.0000010000000002e-12,
+        "probeEnergyDeltaJoules": -9.75781955236954e-19,
+        "probeEnergyJoules": 0.0009398587194017339,
+        "probeForceMaxNewtons": 2.1182446019315055e-08,
+        "samePermutation": true,
+        "slopeJoules": -9.893506485317675e-19
+      },
+      {
+        "asymmetryMax": 2.220446049250313e-16,
+        "dimensionlessShift": 1e-05,
+        "directDirectionFinite": true,
+        "directLinearResidualMax": 9.744298624381249e-24,
+        "factorScale": 44.00026603290063,
+        "helperReturnedDirection": true,
+        "linearResidualMax": 9.744298624381249e-24,
+        "matrixMagnitude": 1.0000100000000003,
+        "maxDisplacementMeters": 8.528073386360191e-11,
+        "maximumFactorSymmetryError": 6.588596335177499e-11,
+        "minimumPivot": 1.2054683800485312e-05,
+        "pivotFloor": 1.0000100000000003e-12,
+        "probeEnergyDeltaJoules": 0.0,
+        "probeEnergyJoules": 0.0009398587194017349,
+        "probeForceMaxNewtons": 3.6492904389840727e-10,
+        "samePermutation": true,
+        "slopeJoules": -9.896283118461103e-20
+      },
+      {
+        "asymmetryMax": 2.220446049250313e-16,
+        "dimensionlessShift": 0.0001,
+        "directDirectionFinite": true,
+        "directLinearResidualMax": 9.3683858926599e-25,
+        "factorScale": 9.731087543910638,
+        "helperReturnedDirection": true,
+        "linearResidualMax": 9.3683858926599e-25,
+        "matrixMagnitude": 1.0001000000000002,
+        "maxDisplacementMeters": 8.52830306374841e-12,
+        "maximumFactorSymmetryError": 1.0470235789483695e-12,
+        "minimumPivot": 0.00010477072915585287,
+        "pivotFloor": 1.0001000000000002e-12,
+        "probeEnergyDeltaJoules": -1.0842021724855044e-19,
+        "probeEnergyJoules": 0.0009398587194017348,
+        "probeForceMaxNewtons": 3.7932338720122167e-10,
+        "samePermutation": true,
+        "slopeJoules": -9.905544533872426e-21
+      }
+    ],
+    "selectedObservation": {
+      "bytes": 5880,
+      "energyJoules": 0.0009398587194017349,
+      "forceMaxNewtons": 2.1174844989476284e-08,
+      "kind": "response-input",
+      "offset": 1863960,
+      "positionsSha256": "761b3d3a6b072ce178e7283df3d0b3d0ad793401901353332aa2e1056ddbbca1",
+      "sha256": "0ea3b6d87ceb056df6f3d2c54f1411b7ee4710293c9547c1889bf9b7b235a610"
+    },
+    "spectrum": {
+      "belowMinus1e12": 0,
+      "eigensystemResidualMax": 6.481327248497782e-15,
+      "gradientScaledNorm": 5.614203357924928e-12,
+      "largest": [
+        2.7020160457047715,
+        2.702016045704772,
+        2.865727488811156,
+        2.870526303474212,
+        2.8705263034742163,
+        2.8843211042170984,
+        3.0069592316257006,
+        3.0109503694618915,
+        3.1824433625782067,
+        3.6177179540108346
+      ],
+      "rowScaleRange": [
+        0.5803933092479726,
+        99770054.55659324
+      ],
+      "smallest": [
+        -8.530633774514367e-13,
+        -3.739067949023356e-13,
+        -7.073151934621174e-16,
+        -6.068194745224619e-16,
+        -5.385202529879339e-16,
+        -4.05012043070895e-16,
+        -3.947973330055233e-16,
+        -3.879045189152199e-16,
+        -3.151264735124795e-16,
+        -2.9799363769196e-16,
+        -2.52465542189461e-16,
+        -1.602789363813895e-16,
+        -2.743347859411499e-17,
+        1.9872902447819857e-16,
+        2.5381036317804124e-16,
+        2.797014039909388e-16,
+        4.754512310134426e-16,
+        5.293763807039483e-16,
+        7.983560437607375e-16,
+        1.1880255483348753e-15,
+        6.096678057093358e-15,
+        1.8431073741126718e-13,
+        1.8498330976988953e-13,
+        1.871965813192057e-12,
+        1.872439332871081e-12,
+        1.4173318762581166e-11,
+        2.868962029799819e-11,
+        2.1065980624952072e-10,
+        7.274662333330844e-08,
+        6.362556169991309e-07
+      ]
+    }
+  },
+  "independentDiagnosticReview": {
+    "bytes": 107119,
+    "path": ".planning/solver/review-static-binding-diagnostic-v3.json",
+    "sha256": "cbc3b5a81bd540e04b74921c647652da099811d71db88aebd633030e5e4f5a07"
+  },
+  "limits": [
+    "Diagnostic probes alone have no path or fresh acceptance checks.",
+    "Numerical shift ordering changes no physical input, acceptance threshold or per-solve budget.",
+    "Force-stationary candidates do not establish stability, active contact, construction completion or garment acceptance.",
+    "Full binding/cuff construction, selected full shirt, refinement/material/body and private app integration remain open."
+  ],
+  "priority": "User redirected work to a visual MVP; further numerical continuation is deferred.",
+  "profile": "static-adaptive-search-results-v1",
+  "runs": [
+    {
+      "actualContainerExit": 1,
+      "actualOuterExit": 1,
+      "artifactInventory": {
+        "bytes": 2048,
+        "path": ".planning/solver/static-binding-diagnostic-v1-artifact-inventory.json",
+        "sha256": "df35e58002743850478dbe00cafea224a2638157987a69066ae39b213a9510b5"
+      },
+      "declaration": {
+        "bytes": 61589,
+        "path": ".planning/solver/static-binding-diagnostic-v1-declaration.json",
+        "sha256": "b02e42d6ba92d7f8c87a0d6b71796c4f48d776a7e1e53bc47abce922a3b752f2"
+      },
+      "elapsedSeconds": 12.036200041999109,
+      "execution": {
+        "bytes": 187541,
+        "path": ".planning/solver/static-binding-diagnostic-v1-execution.json",
+        "sha256": "43adc5f3f4c5a860dbee9dfff196fefecf67e152a8303f1f19cd2443121ab398"
+      },
+      "inputsUnchanged": true,
+      "outcome": "experiment-error",
+      "ownedCleanupComplete": true,
+      "receipt": {
+        "bytes": 14015,
+        "path": ".planning/solver/static-binding-diagnostic-v1/execution.json",
+        "sha256": "01f2713d00c1324e84a46658d54e008919c88f2fe53431a1085205bc0a3ea504"
+      },
+      "result": {
+        "bytes": 6848,
+        "path": ".planning/solver/static-binding-diagnostic-v1/result.json",
+        "sha256": "53e181db0673eff189cc5ea4bbd42e2455f7c4b6169ebee28ca538fa285eaaa5"
+      },
+      "stages": [],
+      "study": "static-binding-diagnostic-v1"
+    },
+    {
+      "actualContainerExit": 0,
+      "actualOuterExit": 0,
+      "artifactInventory": {
+        "bytes": 3851,
+        "path": ".planning/solver/static-binding-diagnostic-v3-artifact-inventory.json",
+        "sha256": "1cb4df4eed34026c24080e39c02167d01a13f983d74d9d13ef3942fee1a577f6"
+      },
+      "declaration": {
+        "bytes": 61982,
+        "path": ".planning/solver/static-binding-diagnostic-v3-declaration.json",
+        "sha256": "f5a014e5424185d6fe6bda18c73a9efc07c88f5e1684fef1d35e631b033c0710"
+      },
+      "elapsedSeconds": 9.055821957997978,
+      "execution": {
+        "bytes": 187541,
+        "path": ".planning/solver/static-binding-diagnostic-v3-execution.json",
+        "sha256": "c6c50729ae48c92383f7cb9bf41dd4931a30b79f37bfa431ba81bfbb7a58b15c"
+      },
+      "inputsUnchanged": true,
+      "outcome": "retained-state-diagnosed-no-continuation",
+      "ownedCleanupComplete": true,
+      "receipt": {
+        "bytes": 14165,
+        "path": ".planning/solver/static-binding-diagnostic-v3/execution.json",
+        "sha256": "9260cba24be178c689f8076fc0c467596f881c72ff1436e1b3afa4d3047294b5"
+      },
+      "result": {
+        "bytes": 39553,
+        "path": ".planning/solver/static-binding-diagnostic-v3/result.json",
+        "sha256": "acf071f5dac609c5f49189b9769c7b5a2d623523069d105de155e57383bc49bb"
+      },
+      "stages": [],
+      "study": "static-binding-diagnostic-v3"
+    },
+    {
+      "actualContainerExit": 0,
+      "actualOuterExit": 0,
+      "artifactInventory": {
+        "bytes": 726,
+        "path": ".planning/solver/static-adaptation-tests-v1-artifact-inventory.json",
+        "sha256": "f2d63272f90b42125e408ef296477fe5c003ca22b5467e165ff9ef5482baf691"
+      },
+      "declaration": {
+        "bytes": 69381,
+        "path": ".planning/solver/static-adaptation-tests-v1-declaration.json",
+        "sha256": "c7e29873f5f1196accf4708e346724203b5951ff14c8fd4338224db4c7be42ac"
+      },
+      "elapsedSeconds": 9.4668372500455,
+      "execution": {
+        "bytes": 185725,
+        "path": ".planning/solver/static-adaptation-tests-v1-execution.json",
+        "sha256": "dfc75c738ad4fd58d4d7ef1598a9a2f8129bc60515958e31c08b2dd4e9475dda"
+      },
+      "inputsUnchanged": true,
+      "outcome": "focused-tests",
+      "ownedCleanupComplete": true,
+      "receipt": {
+        "bytes": 13436,
+        "path": ".planning/solver/static-adaptation-tests-v1/execution.json",
+        "sha256": "b6f55af3fbe6f064409774c489cf8d70cf7ed699e6a265e692278818602ad968"
+      },
+      "result": {
+        "bytes": 19401,
+        "path": ".planning/solver/static-adaptation-tests-v1/result.json",
+        "sha256": "385b089a6a7936f354d5bdc923c7edb386a092f04b4d48cc60636243e8c7f8f4"
+      },
+      "stages": [],
+      "study": "static-adaptation-tests-v1"
+    }
+  ],
+  "sources": [
+    {
+      "bytes": 22078,
+      "path": "scripts/solver_static_equilibrium.py",
+      "sha256": "84ae798106c614cd1045a397b498abb9cc2e36699263c0267e2d3b0de98fb939"
+    },
+    {
+      "bytes": 23663,
+      "path": "scripts/test_solver_static_equilibrium.py",
+      "sha256": "24336dd1cac105fd4e706e295e01c9ed7e294abb5ecbc6c548f0be8ff4daba7e"
+    },
+    {
+      "bytes": 10847,
+      "path": "scripts/test_solver_static_metric.py",
+      "sha256": "e428bcc86a9b6b5437d68ca5ca36afa8416a74a8e2f023c9c8e3bf6602965c1d"
+    },
+    {
+      "bytes": 11432,
+      "path": "scripts/test_solver_static_adaptation.py",
+      "sha256": "63fda19ae7644b30a75ed1f7407966a215f82c0b33fc5b12e5c5e8c7b3279538"
+    }
+  ],
+  "tests": {
+    "focusedPassed": 82,
+    "historicalFullSuiteRerun": false
+  },
+  "unexecutedDiagnosticDeclaration": {
+    "bytes": 61829,
+    "path": ".planning/solver/static-binding-diagnostic-v2-declaration.json",
+    "sha256": "8b007a4ada065eac8f75510910b4833167ef55f06f95dd34600e6f5ac81e88f1"
+  }
+}

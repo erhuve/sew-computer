@@ -20,8 +20,10 @@ from solver_triangle_sweep import triangle_sweep_safe
 from solver_hinge_sweep import hinge_sweep_safe
 
 
-PROFILE = 'fixed-control-static-equilibrium-v2'
+PROFILE = 'fixed-control-static-equilibrium-v3'
 METRIC_POLICY = 'row-maximum-diagonal-congruence-v1'
+REGULARIZATION_POLICY = 'best-force-guided-shift-order-v1'
+SEARCH_SHIFTS = (0., *(10.**power for power in range(-9, 4)))
 
 
 class StaticEquilibriumFailure(ValueError):
@@ -249,6 +251,8 @@ def _solve(solver, potential, positions, tolerance, max_responses,
     current = response(q, 'initial')
     states = [q.copy()]
     predecessor = None
+    best_force_upper = force_upper(current)
+    preferred_shift_index = 0
     while True:
         if force_upper(current) <= threshold:
             costs['freshValidationAttempts'] += 1
@@ -278,6 +282,7 @@ def _solve(solver, potential, positions, tolerance, max_responses,
                 forceToleranceNewtons=float(tolerance), includesInertia=False, accepted=False,
                 stabilityEstablished=False, costs=deepcopy(costs), trace=deepcopy(trace),
                 searchMetricPolicy=METRIC_POLICY,
+                searchRegularizationPolicy=REGULARIZATION_POLICY,
                 errorScope=ERROR_SCOPE,
                 pathScope='Piecewise affine optimizer path; triangle, hinge and configured contact guards. No physical-time or curved-path claim.',
                 scope='Fixed-control force-stationary candidate only. No stable-equilibrium, source-construction, strain, resolution, full-garment or drape acceptance.')
@@ -291,7 +296,15 @@ def _solve(solver, potential, positions, tolerance, max_responses,
         # Congruence changes numerical coordinates only. Regularization in the
         # scaled system maps to a physical diagonal, not a scalar N/m shift.
         # All acceptance checks below still use unscaled physical quantities.
-        for relative_shift in (0., *(10.**power for power in range(-9, 4))):
+        # Energy decrease alone can repeatedly select a direction that makes
+        # little progress toward force stationarity. Change only search order:
+        # try stronger regularization after failing to improve the best admitted
+        # force bound, and a weaker level after a new best. Retain lower shifts
+        # as fallbacks; no physical term, gate or work budget is changed.
+        shift_order = (*range(preferred_shift_index, len(SEARCH_SHIFTS)),
+                       *range(preferred_shift_index))
+        for shift_index in shift_order:
+            relative_shift = SEARCH_SHIFTS[shift_index]
             candidate_matrix = (scaled_matrix if relative_shift == 0 else
                                 scaled_matrix + diags(np.full(len(free), relative_shift)))
             context()
@@ -327,6 +340,8 @@ def _solve(solver, potential, positions, tolerance, max_responses,
                 finite = np.isfinite(candidate).all()
                 record = dict(kind='candidate', positionsSha256=positions_sha256(candidate) if finite else None,
                               searchMetricPolicy=METRIC_POLICY,
+                              searchRegularizationPolicy=REGULARIZATION_POLICY,
+                              preferredDimensionlessShift=SEARCH_SHIFTS[preferred_shift_index],
                               dimensionlessDiagonalShift=relative_shift,
                               physicalDiagonalShiftRangeNewtonsPerMetre=[
                                   _rat(F(relative_shift) / F(float(np.max(inverse_scale)))**2),
@@ -356,6 +371,17 @@ def _solve(solver, potential, positions, tolerance, max_responses,
                               conditionalSlopeLowerJoules=_rat(slope_low))
                 if change + radius <= F(1, 10000) * slope_low:
                     record['admitted'] = True
+                    trial_force_upper = force_upper(trial)
+                    improved = trial_force_upper < best_force_upper
+                    record.update(forceResidualUpperNewtons=_rat(trial_force_upper),
+                                  priorBestForceResidualUpperNewtons=_rat(best_force_upper),
+                                  improvedBestForce=improved)
+                    if improved:
+                        best_force_upper = trial_force_upper
+                        preferred_shift_index = max(0, shift_index - 1)
+                    else:
+                        preferred_shift_index = min(len(SEARCH_SHIFTS) - 1, shift_index + 1)
+                    record['nextPreferredDimensionlessShift'] = SEARCH_SHIFTS[preferred_shift_index]
                     predecessor = current
                     q, current = candidate, trial
                     states.append(q.copy())

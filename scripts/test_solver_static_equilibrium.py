@@ -85,8 +85,9 @@ class StaticEquilibriumTests(unittest.TestCase):
         ipctk.set_num_threads(1)
 
     def assert_candidate(self, solver, potential, initial, result, tolerance=1e-8):
-        self.assertEqual(result['profile'], 'fixed-control-static-equilibrium-v2')
+        self.assertEqual(result['profile'], 'fixed-control-static-equilibrium-v3')
         self.assertEqual(result['searchMetricPolicy'], 'row-maximum-diagonal-congruence-v1')
+        self.assertEqual(result['searchRegularizationPolicy'], 'best-force-guided-shift-order-v1')
         self.assertIs(result['accepted'], False)
         self.assertIs(result['includesInertia'], False)
         self.assertIs(result['convergedForce'], True)
