@@ -5,7 +5,7 @@ import { interpretationPrompt, type Interpreter } from './interpretation';
 
 export function codexInterpreter(authFile:string,model:string):Interpreter {
   return {
-    status:{available:true,provider:'OpenAI · existing Codex login',model,maxOutputTokens:null,timeoutSeconds:120,referenceLimit:3},
+    status:{available:true,provider:'OpenAI · existing Codex login',model,maxOutputTokens:null,timeoutSeconds:240,referenceLimit:3},
     async run(input) {
       let auth:{tokens?:{access_token?:string;account_id?:string}};
       try {auth=JSON.parse(await readFile(authFile,'utf8'));}catch{throw new ApiError(503,'Codex login is unavailable; reconnect Codex in Zo settings');}
@@ -24,8 +24,9 @@ export function codexInterpreter(authFile:string,model:string):Interpreter {
         throw new ApiError(502,response.status===401?'Codex login expired; reconnect Codex in Zo settings':`Codex design request failed (HTTP ${response.status}); your draft is unchanged`);
       }
       if(!response.body)throw new ApiError(502,'Codex returned no proposal stream');
+      input.onProgress?.('thinking');
       const reader=response.body.getReader(),decoder=new TextDecoder();
-      let buffer='',bytes=0,outputBytes=0;
+      let buffer='',bytes=0,outputBytes=0,writing=false;
       const completedItems:any[]=[];
       try {
         for(;;) {
@@ -42,10 +43,12 @@ export function codexInterpreter(authFile:string,model:string):Interpreter {
             if(event.type==='response.output_item.added'&&!['message','reasoning'].includes(event.item?.type))throw new ApiError(502,'Unexpected model operation rejected');
             if(event.type==='response.output_item.done')completedItems.push(event.item);
             if(event.type==='response.output_text.delta') {
+              if(!writing){writing=true;input.onProgress?.('writing');}
               outputBytes+=Buffer.byteLength(event.delta??'');
               if(outputBytes>32000)throw new ApiError(502,'Design proposal exceeded its 32 KB output budget');
             }
             if(event.type==='response.failed'||event.type==='error')throw new ApiError(502,'Codex could not complete this design proposal');
+            if(event.type==='response.incomplete')throw new ApiError(502,'The model stopped before finishing the design. Your prompt is saved. Try again.');
             if(event.type==='response.completed') {
               const result=event.response;
               if(result.status!=='completed')throw new ApiError(502,'Codex returned an incomplete proposal');

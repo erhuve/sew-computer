@@ -41,6 +41,11 @@
 .preview-progress h2,.idea-progress h2{font-size:30px;margin:12px 0 0}
 .preview-progress p,.idea-progress p{max-width:460px;font-size:15px;line-height:1.7}
 .idea-progress blockquote{max-width:500px;font-size:14px;color:var(--muted-foreground);margin:8px 0 22px;white-space:pre-wrap}
+.interpretation-elapsed{font-size:13px;font-variant-numeric:tabular-nums;color:var(--muted-foreground)}
+.interpretation-error{display:flex;align-items:flex-start;gap:12px;padding:16px;margin-bottom:22px;border:1px solid #d7a187;border-radius:8px;background:#fff5ef;color:#793b26}
+.interpretation-error>svg{flex-shrink:0;margin-top:2px}
+.interpretation-error strong{font-size:15px}
+.design-assistant .interpretation-error p{color:inherit;font-size:13px;line-height:1.6;margin:6px 0 0}
 .simplified-choices{margin:20px 0;background:#f6f4ee;border-radius:10px;padding:18px}
 .simplified-choices p{font-size:14px;line-height:1.6}
 .simplified-choices>div{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}

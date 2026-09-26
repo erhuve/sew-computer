@@ -3,8 +3,10 @@ import { interpretationFixture } from '../../packages/test-fixtures/interpretati
 import {defaultShirtDesign} from '../../packages/contracts/design';
 import {startingDocument} from '../../packages/contracts/starting-designs';
 import { shirtDocument } from '../../packages/test-fixtures/shirt';
+let failedRetryFixture=false;
 const model=Bun.serve({hostname:'127.0.0.1',port:0,fetch:async request=>{
   const body = await request.text();
+  if(body.includes('retry-interpretation-fixture')&&!failedRetryFixture){failedRetryFixture=true;return new Response('Synthetic provider outage',{status:503});}
   if(body.includes('slow-interpretation-fixture'))await new Promise(resolve=>setTimeout(resolve,6000));
   const result = structuredClone(interpretationFixture);
   result.garment.design={...defaultShirtDesign,sleeves:'none',cuff:'none',collar:'none',opening:'none',frill:'none'};

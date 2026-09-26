@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { LoaderCircle, Sparkles } from 'lucide-react';
+import { useEffect, useId, useState } from 'react';
+import { CircleAlert, LoaderCircle, RotateCcw, Sparkles } from 'lucide-react';
 import { canonical, type GarmentDocument, type Measurement } from '../../../../packages/contracts';
 import type { DesignProposal, InterpretationStatus, InterpretationJob } from '../../../../packages/contracts/interpretation';
 import GarmentDesign, {ConstructionDrawing} from './GarmentDesign';
@@ -12,26 +12,37 @@ export default function DesignAssistant({doc,status,proposal,busy,stale,onPropos
   onSimplify:(family:'shirt'|'dress'|'skirt')=>void;
 }) {
   const [useSample,setUseSample]=useState(true),[images,setImages]=useState(false);
-  const needsPatternSupport = !proposal && !!doc.interpretation && doc.garment.family === 'none';
+  const promptLabelId=useId();
+  const needsPatternSupport = !proposal && job?.status!=='failed' && !!doc.interpretation && doc.garment.family === 'none';
   const interpreting=job?.status==='queued'||job?.status==='running';
+  const [clock,setClock]=useState(Date.now);
+  useEffect(()=>{
+    if(!interpreting)return;
+    setClock(Date.now());
+    const timer=setInterval(()=>setClock(Date.now()),1000);
+    return()=>clearInterval(timer);
+  },[interpreting,job?.id]);
+  const elapsed=Math.max(0,Math.floor((clock-Date.parse(job?.startedAt??job?.createdAt??new Date(clock).toISOString()))/1000));
+  const phaseLabel=job?.status==='queued'?'Your idea is next.':job?.phase==='writing'?'Writing your design…':job?.phase==='validating'?'Checking your design…':job?.phase==='thinking'?'Interpreting your idea…':'Connecting to the design model…';
+  const failed=job?.status==='failed';
   const shapeAvailable=proposal?proposal.document.garment.family!=='none':doc.garment.family!=='none';
   const simplifiedChoices=<div className="simplified-choices">
     <p>This shape isn’t available yet. You can preview a simpler version; the original details stay saved.</p>
     <div>{(['shirt','dress','skirt'] as const).map(family=><button key={family} disabled={busy||!!proposal&&stale} onClick={()=>onSimplify(family)}>Preview as {family==='shirt'?'a relaxed shirt':family==='dress'?'a relaxed dress':'an elastic-waist skirt'}</button>)}</div>
   </div>;
   const requestForm=<>
-    {!editing&&<label className="field prompt-field"><span>Describe your garment</span><textarea value={doc.brief} maxLength={8000} onChange={event=>onChange({...doc,brief:event.target.value})} placeholder="A loose linen dress in deep blue, with short sleeves…"/></label>}
-    <button className="primary" disabled={busy||interpreting||!status?.available||!doc.brief.trim()} onClick={()=>onPropose(images)}>{busy||interpreting?<LoaderCircle size={16} className="spin"/>:<Sparkles size={16}/>} {busy||interpreting?'Working…':'Interpret my design'}</button>
+    {!editing&&<label className="field prompt-field"><span id={promptLabelId}>Describe your garment</span><textarea aria-labelledby={promptLabelId} value={doc.brief} maxLength={8000} onChange={event=>onChange({...doc,brief:event.target.value})} placeholder="A loose linen dress in deep blue, with short sleeves…"/></label>}
+    <button className="primary" disabled={busy||interpreting||!status?.available||!doc.brief.trim()} onClick={()=>onPropose(images)}>{busy||interpreting?<LoaderCircle size={16} className="spin"/>:failed?<RotateCcw size={16}/>:<Sparkles size={16}/>} {busy||interpreting?'Working…':failed?'Try again':'Interpret my design'}</button>
     <p className="fineprint">Sends your description and design notes to {status?.provider??'your connected model'}. Uses your connected model allowance. You review the result before it is applied.</p>
     <details><summary>References & AI privacy</summary>
       <label className="check-field"><input type="checkbox" checked={images} disabled={busy||doc.views.length===0||doc.views.length>3} onChange={event=>setImages(event.target.checked)}/>Include my reference images ({doc.views.length}/3 maximum)</label>
-      <p>{status?.available?`${status.provider} · ${status.model}`:'The design model is not connected yet.'} Body fields and size label are excluded; personal information typed into your brief is sent. One request, two-minute timeout, 12 requests/hour. {status?.maxOutputTokens?'Up to 6,000 output tokens; provider charges may apply.':'32 KB answer limit. No provider-side token or cost cap is available on this connection.'}</p>
+      <p>{status?.available?`${status.provider} · ${status.model}`:'The design model is not connected yet.'} Body fields and size label are excluded; personal information typed into your brief is sent. One request, up to {status?.timeoutSeconds??120} seconds, 12 requests/hour. {status?.maxOutputTokens?'Up to 6,000 output tokens; provider charges may apply.':'32 KB answer limit. No provider-side token or cost cap is available on this connection.'}</p>
       <p>If the server restarts during a request, it may retry once. Up to two model attempts may count toward usage.</p>
     </details>
   </>;
   return <section className={`design-assistant ${interpreting?'is-interpreting':''}`} aria-label="Design assistant">
-    {interpreting?<div className="idea-progress" role="status"><LoaderCircle size={32} className="spin"/><h2>{job.status==='queued'?'Your idea is next.':'Designing your garment…'}</h2><p>We’ll choose the construction details. You can review the design before seeing it in 3D.</p><blockquote>{doc.brief}</blockquote><button disabled={busy} onClick={onCancel}>Cancel interpretation</button></div>:<>
-      {job?.status==='failed'&&<p role="alert">{job.error}</p>}
+    {interpreting?<div className="idea-progress"><LoaderCircle size={32} className="spin"/><div role="status"><h2>{phaseLabel}</h2></div><span className="interpretation-elapsed" aria-label="Time spent on this attempt">{Math.floor(elapsed/60)}:{String(elapsed%60).padStart(2,'0')} elapsed</span><p>{elapsed>=45?'Still working. Your prompt is saved, and you can leave this page and come back.':'We’ll choose the construction details. You can review the design before seeing it in 3D.'}</p><blockquote>{doc.brief}</blockquote><button disabled={busy} onClick={onCancel}>Cancel interpretation</button></div>:<>
+      {failed&&<div className="interpretation-error" role="alert"><CircleAlert size={20}/><div><strong>Your design didn’t finish</strong><p>{job.error}</p><p>Your prompt is saved. Try again when you’re ready.</p></div></div>}
       {job?.status==='cancelled'&&<p role="status">Interpretation cancelled. Your draft is unchanged.</p>}
       {proposal?<>
         <div className="assistant-heading"><Sparkles size={16}/><span>Your proposed design</span></div>

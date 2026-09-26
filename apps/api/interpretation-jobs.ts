@@ -1,5 +1,5 @@
 import type { Draft } from '../../packages/contracts';
-import type { InterpretationJob } from '../../packages/contracts/interpretation';
+import type { InterpretationJob, InterpretationPhase } from '../../packages/contracts/interpretation';
 import { InterpretationService } from './interpretation';
 import { Store } from './store';
 import { ApiError, id, now, objectDigest } from './validation';
@@ -81,8 +81,8 @@ export class InterpretationQueue {
       if(this.store.db.query("SELECT id FROM interpretation_jobs WHERE status='running'").get())return null;
       const candidate=this.store.db.query("SELECT * FROM interpretation_jobs WHERE status='queued' ORDER BY rowid LIMIT 1").get() as Row|null;
       if(!candidate)return null;
-      const job:InterpretationJob={...JSON.parse(candidate.json),status:'running',error:null,updatedAt:now()};
-      this.store.db.query('UPDATE interpretation_jobs SET status=?,json=?,lease=?,deadline=?,attempts=attempts+1 WHERE id=?').run('running',JSON.stringify(job),id(),Date.now()+125000,candidate.id);
+      const date=now(),job:InterpretationJob={...JSON.parse(candidate.json),status:'running',error:null,phase:'connecting',startedAt:date,updatedAt:date};
+      this.store.db.query('UPDATE interpretation_jobs SET status=?,json=?,lease=?,deadline=?,attempts=attempts+1 WHERE id=?').run('running',JSON.stringify(job),id(),Date.now()+this.service.status().timeoutSeconds*1000+5000,candidate.id);
       return this.store.db.query('SELECT * FROM interpretation_jobs WHERE id=?').get(candidate.id) as Row;
     });
     if(row) {
@@ -95,11 +95,18 @@ export class InterpretationQueue {
     const current=this.store.db.query('SELECT * FROM interpretation_jobs WHERE id=?').get(row.id) as Row|null;
     return !!current&&current.status==='running'&&current.lease===row.lease&&current.deadline!>Date.now();
   }
+  private progress(row:Row,phase:InterpretationPhase) {
+    if(!this.valid(row))return;
+    const job:InterpretationJob=JSON.parse(row.json);
+    if(job.phase===phase)return;
+    row.json=JSON.stringify({...job,phase,updatedAt:now()});
+    this.store.db.query('UPDATE interpretation_jobs SET json=? WHERE id=? AND lease=?').run(row.json,row.id,row.lease);
+  }
   private async execute(row:Row,controller:AbortController) {
     try {
       const input=JSON.parse(row.input) as Input;
       if(objectDigest(input)!==row.input_digest||input.providerDigest!==objectDigest(this.service.status()))throw new ApiError(409,'Interpretation configuration changed; submit a new request');
-      await this.service.propose(row.project_id,input.identity,{captured:input.captured,signal:controller.signal,publish:()=>{
+      await this.service.propose(row.project_id,input.identity,{captured:input.captured,signal:controller.signal,onProgress:phase=>this.progress(row,phase),publish:()=>{
         if(!this.valid(row))throw new ApiError(409,'Interpretation attempt was fenced');
         this.finish(row,'succeeded',null);
       }});

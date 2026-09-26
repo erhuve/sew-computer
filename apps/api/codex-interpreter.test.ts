@@ -18,12 +18,19 @@ async function withStream(events:unknown[],check:(interpreter:ReturnType<typeof 
 }
 test('Codex completion uses streamed items when the final output array is empty and sends no tools',async()=>{
   const item={type:'message',content:[{type:'output_text',text:JSON.stringify(interpretationFixture)}]};
-  await withStream([{type:'response.output_item.done',item},{type:'response.completed',response:{status:'completed',output:[],usage:{input_tokens:100,output_tokens:200}}}],async(interpreter,captured)=>{
-    const result=await interpreter.run({document:{brief:'A top'},images:[],signal:new AbortController().signal});
+  await withStream([{type:'response.output_text.delta',delta:'{'},{type:'response.output_text.delta',delta:'"summary"'},{type:'response.output_item.done',item},{type:'response.completed',response:{status:'completed',output:[],usage:{input_tokens:100,output_tokens:200}}}],async(interpreter,captured)=>{
+    const phases:string[]=[];
+    const result=await interpreter.run({document:{brief:'A top'},images:[],signal:new AbortController().signal,onProgress:phase=>phases.push(phase)});
     expect(result.value).toEqual(interpretationFixture);expect(result.outputTokens).toBe(200);
+    expect(phases).toEqual(['thinking','writing']);expect(interpreter.status.timeoutSeconds).toBe(240);
     expect(captured().tools).toEqual([]);expect(captured().tool_choice).toBe('none');expect(captured().store).toBe(false);
     expect(JSON.stringify(captured())).not.toContain('synthetic-auth-token');
     expect(JSON.stringify(captured().text.format.schema)).not.toContain('oneOf');
+  });
+});
+test('an explicit incomplete response fails promptly instead of waiting for the deadline',async()=>{
+  await withStream([{type:'response.incomplete',response:{status:'incomplete'}}],async interpreter=>{
+    await expect(interpreter.run({document:{brief:'A top'},images:[],signal:new AbortController().signal})).rejects.toThrow('stopped before finishing');
   });
 });
 test('Codex adapter rejects tool attempts, incomplete streams, oversized answers and invalid JSON',async()=>{

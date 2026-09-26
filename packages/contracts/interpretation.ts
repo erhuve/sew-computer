@@ -45,7 +45,8 @@ export function proposalDesignSource(document:GarmentDocument) {
   return design;
 }
 export type InterpretationStatus = {available:boolean;provider:string;model:string;maxOutputTokens:number|null;timeoutSeconds:number;referenceLimit:number};
-export type InterpretationJob = {id:string;projectId:string;requestId:string;status:'queued'|'running'|'succeeded'|'failed'|'cancelled';error:string|null;proposalId:string|null;createdAt:string;updatedAt:string};
+export type InterpretationPhase = 'connecting'|'thinking'|'writing'|'validating';
+export type InterpretationJob = {id:string;projectId:string;requestId:string;status:'queued'|'running'|'succeeded'|'failed'|'cancelled';error:string|null;proposalId:string|null;createdAt:string;updatedAt:string;startedAt?:string;phase?:InterpretationPhase};
 
 export function rebaseAcceptedDesign(accepted:GarmentDocument,submitted:GarmentDocument,latest:GarmentDocument):GarmentDocument {
   const next=structuredClone(accepted);

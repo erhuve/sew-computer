@@ -94,6 +94,41 @@ test('submission acknowledges before slow inference and duplicate identity retur
   expect(fixture.queue.cancel(fixture.project.id,job.id).status).toBe('succeeded');
 });
 
+test('the lease follows the configured model deadline and progress survives polling without changing the draft',async()=>{
+  let release!:(value:ReturnType<typeof result>)=>void,progress!:NonNullable<Parameters<Interpreter['run']>[0]['onProgress']>;
+  const fixture=setup(input=>{progress=input.onProgress!;return new Promise(resolve=>{release=resolve;});});
+  fixture.interpreter.status.timeoutSeconds=240;
+  const started=Date.now(),job=fixture.queue.submit(fixture.project.id,fixture.identity);
+  const row=fixture.store.db.query('SELECT deadline FROM interpretation_jobs WHERE id=?').get(job.id) as {deadline:number};
+  expect(row.deadline-started).toBeGreaterThanOrEqual(245000);
+  expect(row.deadline-started).toBeLessThan(246000);
+  progress('thinking');progress('writing');
+  expect(fixture.queue.latest(fixture.project.id)?.phase).toBe('writing');
+  expect(fixture.queue.latest(fixture.project.id)?.startedAt).toBeTruthy();
+  expect(fixture.store.draft(fixture.project.id)).toEqual(fixture.draft);
+  release(result());await settle();
+  expect(fixture.queue.latest(fixture.project.id)?.status).toBe('succeeded');
+  expect(fixture.queue.latest(fixture.project.id)?.phase).toBe('validating');
+});
+
+test('configured deadline fails durably, rejects late progress and output, and a fresh retry succeeds',async()=>{
+  let release!:(value:ReturnType<typeof result>)=>void,progress!:NonNullable<Parameters<Interpreter['run']>[0]['onProgress']>;
+  const fixture=setup(input=>{progress=input.onProgress!;return new Promise(resolve=>{release=resolve;});});
+  fixture.interpreter.status.timeoutSeconds=0.03;
+  const job=fixture.queue.submit(fixture.project.id,fixture.identity);
+  await new Promise(resolve=>setTimeout(resolve,70));
+  const failed=fixture.queue.get(fixture.project.id,job.id);
+  expect(failed.status).toBe('failed');expect(failed.error).toContain('took too long');
+  progress('writing');release(result());await settle();
+  expect(fixture.queue.get(fixture.project.id,job.id)).toEqual(failed);
+  expect(fixture.service.latest(fixture.project.id)).toBeNull();
+  expect(fixture.store.draft(fixture.project.id)).toEqual(fixture.draft);
+  fixture.interpreter.run=async()=>result();
+  const retry=fixture.queue.submit(fixture.project.id,{...fixture.identity,requestId:id()});await settle();
+  expect(fixture.queue.get(fixture.project.id,retry.id).status).toBe('succeeded');
+  expect(fixture.store.draft(fixture.project.id)).toEqual(fixture.draft);
+});
+
 test('cancellation rejects late uncooperative provider writes and preserves 2D generation fences',async()=>{
   let release!:(value:ReturnType<typeof result>)=>void;
   const fixture=setup(()=>new Promise(resolve=>{release=resolve;}));
