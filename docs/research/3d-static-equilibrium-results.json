@@ -1,0 +1,179 @@
+{
+  "acceptedGarment": false,
+  "baseCommit": "6d04e8bc9421f81c67c9df2fc9adebc3008c9dc6",
+  "focusedTestCount": 70,
+  "historicalFullSuiteRerun": false,
+  "limits": [
+    "Known numerical errors remain conditional on binary64 non-cable physical evaluations; no global physical-error certificate.",
+    "Force stationarity can include unstable stationary points; stabilityEstablished remains false.",
+    "Only the configured contact law and affine optimizer segments are guarded. No garment source or construction is admitted by this primitive.",
+    "Full source-derived cuff/binding/turning, all24fabric/sixinterfacing roles, material/size/refinement and application gates remain open.",
+    "Original timed integration studies, failures and full64ms accuracy targets are unchanged.",
+    "Local MVP checks used synthetic data and deterministic model responses. Full engine generation, full browser suite, connected real model and deployment were not verified."
+  ],
+  "mvpChecks": {
+    "applicationTests": {
+      "elapsedSeconds": 47.62,
+      "exitCode": 0,
+      "failed": 0,
+      "log": "application-tests.log",
+      "passed": 104
+    },
+    "browserTests": {
+      "cases": [
+        "durable interpretation survives reload while the model is still running",
+        "unsupported designs accept notes without promising a generatable pattern",
+        "cookie-stripping proxy retains login on reload and revokes it on logout",
+        "manual tech pack exports before geometry exists, preserves privacy and downloads a real seven-section PDF",
+        "native dialog traps focus and returns it on Escape"
+      ],
+      "elapsedSeconds": 21.8,
+      "exitCode": 0,
+      "failed": 0,
+      "passed": 5
+    },
+    "buildExitCode": 0,
+    "evidence": {
+      "bytes": 2035,
+      "path": ".planning/mvp-demo-checks-2026-09-25/summary.json",
+      "sha256": "95446fb9d7e07676f22f36ee24c615b262d7b2f8226650fa9d971733102996a8"
+    },
+    "scope": "Local private MVP checks; no full CPU generation, live model, assembled garment or deployment verification",
+    "typecheckExitCode": 0
+  },
+  "newTestCount": 17,
+  "newTestNames": [
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_all_free_singular_translation_mode_has_valid_force_equilibrium",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_bounded_metric_failure_mutation_and_nondescent_preserve_attempts",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_closed_form_pinned_equilibrium_retains_nonzero_fixed_reactions",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_forged_physical_response_identity_and_shape_reject_with_work_counted",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_fresh_energy_or_energy_radius_change_cannot_erase_admission_check",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_fresh_force_radius_cannot_be_ignored_at_stationary_center",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_model_caller_and_potential_mutations_reject_after_counting_native_work",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_native_membrane_and_swept_triangle_reach_known_rest_equilibrium",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_path_guard_mutation_or_nonboolean_result_cannot_publish",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_physical_failure_costs_survive_post_call_mutation_guard",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_positive_mass_magnitude_cannot_change_static_solution",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_response_budget_reserves_final_validation_without_partial_publication",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_result_arrays_and_failure_records_are_detached",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_stationary_and_inactive_inputs_still_require_fresh_response",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_triangle_hinge_and_contact_path_rejections_are_hard_boundaries",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_unknown_or_rounded_away_energy_drop_cannot_admit_a_moved_candidate",
+    "test_solver_static_equilibrium.StaticEquilibriumTests.test_wrong_potential_owner_raw_states_and_work_limits_reject"
+  ],
+  "overlappingExistingTestCount": 53,
+  "profile": "fixed-control-static-equilibrium-evidence-v1",
+  "repair": "Only the independent test call counter changed to Mock(side_effect=...). Producer, all four test modes and their semantic assertions remained unchanged.",
+  "review": {
+    "sourceReview": "Separate reviewer found final-force validation did not retain the final energy admission. Producer now requires coherent same-state fresh energy/gradient/bounds and rechecks final energy decrease. A separate test author supplied energy-only and energy-radius counterexamples. Source reinspection found no remaining material issue in the candidate scope.",
+    "testAuthorReview": "Exact-ownership mutation and malformed mask admission were repaired before both frozen native runs; tests independently cover algebraic equilibrium, mass independence, fixed reactions, real membrane geometry with exact swept-triangle checks, guards, mutation and bounded failure costs."
+  },
+  "runs": [
+    {
+      "cleanupComplete": true,
+      "containerExitCode": 1,
+      "errors": [
+        [
+          "test_solver_static_equilibrium.StaticEquilibriumTests.test_bounded_metric_failure_mutation_and_nondescent_preserve_attempts",
+          "Traceback (most recent call last):\n  File \"/work/scripts/test_solver_static_equilibrium.py\", line 310, in test_bounded_metric_failure_mutation_and_nondescent_preserve_attempts\n    self.assertEqual(costs['factorizationAttempts'], dispatch.call_count)\n                                                     ^^^^^^^^^^^^^^^^^^^\nAttributeError: 'function' object has no attribute 'call_count'\n"
+        ]
+      ],
+      "evidence": [
+        {
+          "bytes": 185316,
+          "path": ".planning/solver/static-equilibrium-tests-v1-execution.json",
+          "sha256": "295e239e104bb911a53c388318af1332f84ed1c33331594ef750427fb025665e"
+        },
+        {
+          "bytes": 67648,
+          "path": ".planning/solver/static-equilibrium-tests-v1-declaration.json",
+          "sha256": "44044ba0e55219990db7a338683f5091ef074d542c14cd21100b4638a82f5f56"
+        },
+        {
+          "bytes": 17052,
+          "path": ".planning/solver/static-equilibrium-tests-v1/result.json",
+          "sha256": "d332c435f4425f032f968359bef134f6aee8b23e309d7fd245d13da47e9609cf"
+        },
+        {
+          "bytes": 13457,
+          "path": ".planning/solver/static-equilibrium-tests-v1/execution.json",
+          "sha256": "2337c58690523d0e25d451745bf1b29e00695b8cf40204a10a64b04cec9332c0"
+        },
+        {
+          "bytes": 14087,
+          "path": ".planning/solver/static-equilibrium-tests-v1/phase.log",
+          "sha256": "2d12600f80473d2de13628cedc3427ca9a681953c1ab1c78f548df76cbef8dbe"
+        }
+      ],
+      "inputsUnchanged": true,
+      "outerExitCode": 1,
+      "outerSeconds": 9.442587625002488,
+      "runnerSeconds": 3.910588002,
+      "sourceRows": 428,
+      "successes": 69,
+      "successful": false,
+      "testsRun": 70,
+      "version": "v1"
+    },
+    {
+      "cleanupComplete": true,
+      "containerExitCode": 0,
+      "errors": [],
+      "evidence": [
+        {
+          "bytes": 185316,
+          "path": ".planning/solver/static-equilibrium-tests-v2-execution.json",
+          "sha256": "521c51729e1eb915a9cc6da538ab64cfc70e757f66b1d45557d83e77e5c52b89"
+        },
+        {
+          "bytes": 67648,
+          "path": ".planning/solver/static-equilibrium-tests-v2-declaration.json",
+          "sha256": "eabdb860ae4bcfa07ec732a2bc5d4dc58d3da72822ccf8da1a8fa8173af92d76"
+        },
+        {
+          "bytes": 16660,
+          "path": ".planning/solver/static-equilibrium-tests-v2/result.json",
+          "sha256": "e82493e25dd7eeebe61b6ba419fef4623d389d9d5a41b68ed3e1d06c8f5aa23c"
+        },
+        {
+          "bytes": 13605,
+          "path": ".planning/solver/static-equilibrium-tests-v2/execution.json",
+          "sha256": "cd5127417e1775f9cf76b5cc3318e3173210b01e411a26473b84b863336d7802"
+        },
+        {
+          "bytes": 13335,
+          "path": ".planning/solver/static-equilibrium-tests-v2/phase.log",
+          "sha256": "95fc2be9c76c27e7c09cb1a20c1c98372cdcd4c5441285933ce8515e8dcd53a6"
+        }
+      ],
+      "inputsUnchanged": true,
+      "outerExitCode": 0,
+      "outerSeconds": 6.4790779169416055,
+      "runnerSeconds": 3.4102649179999958,
+      "sourceRows": 428,
+      "successes": 70,
+      "successful": true,
+      "testsRun": 70,
+      "version": "v2"
+    }
+  ],
+  "runtime": {
+    "architecture": "arm64",
+    "id": "sha256:3c661e0655af49f6fe9639c6569b45ee6625920f1cd0a4af39a4959f5a489234",
+    "os": "linux"
+  },
+  "schemaVersion": 1,
+  "scope": "Bounded fixed-control force-stationary candidates for a prospective assembled-approximation route. No physical time, velocity, stable-equilibrium, source-construction, complete-shirt, drape or release acceptance.",
+  "sources": [
+    {
+      "bytes": 17021,
+      "path": "scripts/solver_static_equilibrium.py",
+      "sha256": "491ad2694f2a162da4dcf3a9da34c3d6f8ff353dde7bd352ccf5269b41ef3741"
+    },
+    {
+      "bytes": 23471,
+      "path": "scripts/test_solver_static_equilibrium.py",
+      "sha256": "1120402eef77a646c90eb556785e1297cd68b6fb83e7e7cfb9078c68ee1a1633"
+    }
+  ]
+}
